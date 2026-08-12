@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blue & Yellow · Business Home</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ---------- RESET ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: #0b2a4a;
+    }
+
+    /* ---------- ANIMATED BACKGROUND (BLUE & YELLOW) ---------- */
+    .bg-animated {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: linear-gradient(145deg, #0b2a4a 0%, #1c4b7a 60%, #e8b12c 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 18s ease-in-out infinite alternate;
+      overflow: hidden;
+    }
+
+    /* floating geometric shapes */
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.5;
+      animation: floatShape 14s infinite alternate ease-in-out;
+    }
+
+    .shape--yellow {
+      background: radial-gradient(circle, #ffd966, #f0b400);
+      box-shadow: 0 0 80px #f5c542;
+    }
+
+    .shape--blue {
+      background: radial-gradient(circle, #6da5e0, #1d4b77);
+      box-shadow: 0 0 90px #2e6a9e;
+    }
+
+    .shape-1 {
+      width: 500px;
+      height: 500px;
+      top: -100px;
+      left: -100px;
+      animation-duration: 22s;
+    }
+
+    .shape-2 {
+      width: 650px;
+      height: 650px;
+      bottom: -200px;
+      right: -150px;
+      animation-duration: 26s;
+      animation-delay: -4s;
+    }
+
+    .shape-3 {
+      width: 350px;
+      height: 350px;
+      top: 40%;
+      right: 10%;
+      animation-duration: 18s;
+      animation-delay: -8s;
+      filter: blur(90px);
+    }
+
+    .shape-4 {
+      width: 400px;
+      height: 400px;
+      bottom: 10%;
+      left: 5%;
+      animation-duration: 20s;
+      animation-delay: -2s;
+      filter: blur(100px);
+    }
+
+    .ring {
+      position: absolute;
+      border: 2px solid rgba(255, 215, 0, 0.2);
+      border-radius: 50%;
+      width: 700px;
+      height: 700px;
+      top: -200px;
+      right: -200px;
+      animation: spinRing 40s linear infinite;
+      pointer-events: none;
+    }
+
+    .ring::after {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      right: 30px;
+      bottom: 30px;
+      border: 2px solid rgba(30, 100, 200, 0.15);
+      border-radius: 50%;
+      animation: spinRing 30s linear infinite reverse;
+    }
+
+    /* ---------- HERO CONTENT ---------- */
+    .hero {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: white;
+      padding: 2rem;
+      backdrop-filter: blur(2px);
+      text-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero__card {
+      background: rgba(11, 42, 74, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 3rem 5rem;
+      border-radius: 60px 20px 60px 20px;
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+      max-width: 800px;
+      transition: 0.3s;
+    }
+
+    .hero__card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(255, 215, 0, 0.3) inset;
+    }
+
+    .hero h1 {
+      font-size: 4.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #f9e05d, #ffb800);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(255, 200, 0, 0.2);
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: #eef5ff;
+      margin-bottom: 2rem;
+      letter-spacing: 0.5px;
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+      padding-top: 1.2rem;
+    }
+
+    .hero .tagline {
+      display: inline-block;
+      background: rgba(255, 215, 0, 0.15);
+      padding: 0.6rem 1.8rem;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      backdrop-filter: blur(4px);
+      color: #fff3cf;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .hero .tagline i {
+      margin-right: 10px;
+      color: #f5c542;
+    }
+
+    .tech-badge {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tech-badge span {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: #dbeafe;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .tech-badge i {
+      margin-right: 6px;
+      color: #ffd966;
+    }
+
+    .js-tip {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 99;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(6px);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      color: #b3d9ff;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .js-tip i {
+      color: #f5c542;
+      margin-right: 6px;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes gradientShift {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    @keyframes floatShape {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      33% { transform: translate(40px, -30px) scale(1.1) rotate(10deg); }
+      66% { transform: translate(-20px, 40px) scale(0.9) rotate(-8deg); }
+      100% { transform: translate(20px, -20px) scale(1.05) rotate(5deg); }
+    }
+
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 680px) {
+      .hero__card { padding: 2rem 1.5rem; border-radius: 40px 10px 40px 10px; }
+      .hero h1 { font-size: 2.8rem; }
+      .hero p { font-size: 1.1rem; }
+      .shape-1, .shape-2 { width: 300px; height: 300px; }
+      .shape-3, .shape-4 { width: 200px; height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== ANIMATED BACKGROUND ===== -->
+  <div class="bg-animated">
+    <div class="shape shape--yellow shape-1"></div>
+    <div class="shape shape--blue shape-2"></div>
+    <div class="shape shape--yellow shape-3"></div>
+    <div class="shape shape--blue shape-4"></div>
+    <div class="ring"></div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero__card">
+      <h1>Nexus<span style="color: #f5c542; background: none;">.</span></h1>
+      <p>Business · Innovation · Growth</p>
+      <div class="tagline" id="tagline">
+        <i class="fas fa-bolt"></i> Blue & Yellow · Dynamic Edge
+      </div>
+      <div class="tech-badge">
+        <span><i class="fab fa-php"></i> PHP</span>
+        <span><i class="fab fa-html5"></i> HTML5</span>
+        <span><i class="fab fa-css3-alt"></i> CSS3</span>
+        <span><i class="fab fa-java"></i> Java</span>
+        <span><i class="fas fa-code"></i> & more</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="js-tip">
+    <i class="fas fa-cog fa-spin"></i> JS active · ready
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      "use strict";
+      console.log('🚀 Business homepage · Blue & Yellow dynamic background');
+
+      // Click to change tagline
+      const tagline = document.getElementById('tagline');
+      if (tagline) {
+        const messages = [
+          '⚡ Blue & Yellow · Dynamic Edge',
+          '✨ Built with PHP · HTML · CSS · Java',
+          '🔥 GitHub Pages ready',
+          '🚀 Let’s grow your business'
+        ];
+        tagline.addEventListener('click', function() {
+          let current = this.innerText.trim();
+          let nextMsg = messages[Math.floor(Math.random() * messages.length)];
+          while (nextMsg === current && messages.length > 1) {
+            nextMsg = messages[Math.floor(Math.random() * messages.length)];
+          }
+          this.innerHTML = `<i class="fas fa-bolt"></i> ${nextMsg}`;
+          this.style.background = 'rgba(255, 215, 0, 0.3)';
+          this.style.borderColor = '#ffd966';
+          setTimeout(() => {
+            this.style.background = 'rgba(255, 215, 0, 0.15)';
+            this.style.borderColor = 'rgba(255, 215, 0, 0.3)';
+          }, 300);
+        });
+      }
+
+      // Mouse move effect on shapes
+      document.addEventListener('mousemove', function(e) {
+        const shapes = document.querySelectorAll('.shape');
+        const x = (e.clientX / window.innerWidth) * 20 - 10;
+        const y = (e.clientY / window.innerHeight) * 20 - 10;
+        shapes.forEach((shape, index) => {
+          const speed = 0.02 + (index * 0.01);
+          shape.style.transform = `translate(${x * speed}px, ${y * speed}px) scale(1.02)`;
+        });
+      });
+
+      console.log('✅ Home page ready');
+    })();
+  </script>
+
+</body>
+  </html>
