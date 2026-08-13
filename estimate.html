@@ -19,49 +19,51 @@
     }
 
     body {
-      background: #121212;
+      background: #f0f2f5;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
-      padding: 16px 12px 100px 12px;
+      padding: 0 12px;
+      padding-top: 80px;
+      padding-bottom: 100px;
     }
 
-    /* ---- APP CONTAINER (DARK) ---- */
+    /* ---- APP CONTAINER (WHITE) ---- */
     .app-container {
       max-width: 460px;
       width: 100%;
-      background: #1e1e1e;
+      background: #ffffff;
       border-radius: 36px 36px 28px 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 8px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08), 0 4px 20px rgba(0,0,0,0.04);
       overflow: hidden;
       padding: 20px 18px 20px 18px;
-      border: 1px solid #2c2c2c;
+      border: 1px solid #e8ecf0;
     }
 
-    /* --- HEADER --- */
-    .estimate-header {
+    /* ---- FIXED HEADER (WHITE) ---- */
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      max-width: 484px;
+      margin: 0 auto;
+      width: 100%;
+      background: #ffffff;
+      padding: 14px 20px 10px 20px;
+      border-bottom: 1px solid #e8ecf0;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      flex-wrap: wrap;
     }
-    .estimate-header .left {
+    .fixed-header .logo-area {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
-    .estimate-header .left i {
-      font-size: 22px;
-      color: #d0d0d0;
-      background: #2a2a2a;
-      padding: 8px 10px;
-      border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-    }
-    .estimate-header .left .logo-icon {
+    .fixed-header .logo-icon {
       width: 40px;
       height: 40px;
       background: linear-gradient(145deg, #38bdf8, #0ea5e9);
@@ -71,51 +73,106 @@
       justify-content: center;
       color: #fff;
       font-size: 20px;
-      box-shadow: 0 6px 14px rgba(56,189,248,0.3);
+      box-shadow: 0 4px 12px rgba(56,189,248,0.25);
     }
-    .estimate-id {
-      font-weight: 600;
-      font-size: 13px;
-      color: #aaa;
-      background: #2a2a2a;
-      padding: 4px 14px;
-      border-radius: 40px;
-      border: 1px solid #333;
+    .fixed-header .logo-text {
+      font-weight: 700;
+      font-size: 16px;
+      color: #1a1a1a;
+      line-height: 1.2;
     }
-    .header-actions {
+    .fixed-header .logo-text span {
+      display: block;
+      font-weight: 400;
+      font-size: 9px;
+      color: #6b6b6b;
+      letter-spacing: 0.3px;
+    }
+    .fixed-header .header-actions {
       display: flex;
-      gap: 10px;
+      gap: 12px;
+      align-items: center;
     }
-    .header-actions i {
+    .fixed-header .header-actions i {
       font-size: 20px;
-      color: #d0d0d0;
-      background: #2a2a2a;
+      color: #2d2d2d;
+      background: #f0f2f5;
       padding: 8px;
       border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
-    .date-time {
-      font-size: 11px;
-      color: #888;
-      margin-top: 8px;
-      width: 100%;
-      display: flex;
-      gap: 16px;
+    .fixed-header .header-actions .back-btn {
+      font-size: 22px;
+      color: #2d2d2d;
+      background: #f0f2f5;
+      padding: 8px 12px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* --- cards --- */
+    /* ---- FIXED FOOTER (WHITE) ---- */
+    .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      max-width: 484px;
+      margin: 0 auto;
+      width: 100%;
+      background: #ffffff;
+      padding: 8px 12px 12px 12px;
+      border-top: 1px solid #e8ecf0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-radius: 30px 30px 0 0;
+    }
+    .fixed-footer .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 9px;
+      color: #8a8a8a;
+      font-weight: 500;
+      gap: 2px;
+      padding: 4px 12px;
+      border-radius: 30px;
+      transition: 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .fixed-footer .nav-item i {
+      font-size: 20px;
+      color: #8a8a8a;
+    }
+    .fixed-footer .nav-item.active i {
+      color: #38bdf8;
+    }
+    .fixed-footer .nav-item.active {
+      color: #38bdf8;
+      background: rgba(56,189,248,0.08);
+    }
+
+    /* ---- CARDS (WHITE) ---- */
     .card {
-      background: #252525;
+      background: #ffffff;
       border-radius: 24px;
       padding: 18px 16px;
-      margin: 16px 0;
-      border: 1px solid #333;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.6);
+      margin: 14px 0;
+      border: 1px solid #e8ecf0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
     }
     .card-title {
       font-weight: 700;
       font-size: 15px;
-      color: #f0f0f0;
+      color: #1a1a1a;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
@@ -125,7 +182,44 @@
       color: #38bdf8;
     }
 
-    /* --- form fields --- */
+    /* ---- ESTIMATE HEADER ---- */
+    .estimate-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #e8ecf0;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .estimate-header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .estimate-id {
+      font-weight: 600;
+      font-size: 13px;
+      color: #1a1a1a;
+      background: #f0f2f5;
+      padding: 4px 14px;
+      border-radius: 40px;
+      border: 1px solid #e8ecf0;
+    }
+    .date-time {
+      font-size: 11px;
+      color: #6b6b6b;
+      margin-top: 6px;
+      width: 100%;
+      display: flex;
+      gap: 16px;
+    }
+    .date-time i {
+      color: #38bdf8;
+      margin-right: 4px;
+    }
+
+    /* ---- FORM FIELDS ---- */
     .field-group {
       display: flex;
       flex-direction: column;
@@ -135,16 +229,16 @@
     .field-group label {
       font-size: 12px;
       font-weight: 600;
-      color: #bbb;
+      color: #4a4a4a;
       letter-spacing: 0.3px;
     }
     .field-group input, .field-group select {
-      background: #1e1e1e;
-      border: 1px solid #3a3a3a;
+      background: #f8fafc;
+      border: 1px solid #e8ecf0;
       border-radius: 14px;
       padding: 12px 14px;
       font-size: 14px;
-      color: #e8e8e8;
+      color: #1a1a1a;
       outline: none;
       transition: 0.2s;
       width: 100%;
@@ -152,10 +246,10 @@
     }
     .field-group input:focus, .field-group select:focus {
       border-color: #38bdf8;
-      box-shadow: 0 0 0 3px rgba(56,189,248,0.15);
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
     }
     .field-group input::placeholder {
-      color: #666;
+      color: #a0a0a0;
     }
     .row-2 {
       display: grid;
@@ -163,8 +257,8 @@
       gap: 12px;
     }
     .btn-sm {
-      background: rgba(56,189,248,0.15);
-      border: none;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid #e8ecf0;
       color: #38bdf8;
       font-weight: 600;
       padding: 8px 16px;
@@ -173,11 +267,47 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      cursor: default;
+      cursor: pointer;
       margin-top: 4px;
+      transition: 0.2s;
+    }
+    .btn-sm:hover {
+      background: rgba(56,189,248,0.15);
+      border-color: #38bdf8;
     }
 
-    /* --- product selector --- */
+    /* ---- BUSINESS DETAILS CARD ---- */
+    .business-card {
+      background: linear-gradient(135deg, #f8fafc, #f0f2f5);
+      border-radius: 24px;
+      padding: 16px 18px;
+      border: 1px solid #e8ecf0;
+      margin: 14px 0;
+    }
+    .business-card .business-name {
+      font-weight: 800;
+      font-size: 16px;
+      color: #1a1a1a;
+    }
+    .business-card .business-tag {
+      font-size: 12px;
+      color: #6b6b6b;
+      font-weight: 400;
+    }
+    .business-card .business-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: #4a4a4a;
+    }
+    .business-card .business-details i {
+      color: #38bdf8;
+      width: 18px;
+    }
+
+    /* ---- PRODUCT SELECTOR ---- */
     .product-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -185,22 +315,22 @@
       margin: 6px 0 4px 0;
     }
     .product-option {
-      background: #1e1e1e;
-      border: 2px solid #333;
+      background: #f8fafc;
+      border: 2px solid #e8ecf0;
       border-radius: 18px;
       padding: 12px 6px;
       text-align: center;
       font-weight: 600;
       font-size: 13px;
-      color: #ccc;
+      color: #4a4a4a;
       transition: 0.2s;
-      cursor: default;
+      cursor: pointer;
     }
     .product-option.active {
       border-color: #38bdf8;
-      background: rgba(56,189,248,0.08);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(56,189,248,0.1);
+      background: rgba(56,189,248,0.06);
+      color: #1a1a1a;
+      box-shadow: 0 4px 12px rgba(56,189,248,0.08);
     }
     .product-option i {
       display: block;
@@ -209,70 +339,125 @@
       margin-bottom: 4px;
     }
 
-    /* --- measurement table --- */
+    /* ---- MEASUREMENT TABLE (Improved scrolling) ---- */
+    .measure-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 8px 0 4px 0;
+      padding-bottom: 4px;
+    }
+    .measure-wrapper::-webkit-scrollbar {
+      height: 4px;
+    }
+    .measure-wrapper::-webkit-scrollbar-thumb {
+      background: #38bdf8;
+      border-radius: 20px;
+    }
+    .measure-wrapper::-webkit-scrollbar-track {
+      background: #f0f2f5;
+      border-radius: 20px;
+    }
+
     .measure-table {
       width: 100%;
+      min-width: 600px;
       border-collapse: collapse;
       font-size: 12px;
-      margin: 8px 0;
     }
     .measure-table th {
       text-align: left;
-      color: #aaa;
+      color: #6b6b6b;
       font-weight: 600;
-      padding: 6px 4px;
-      border-bottom: 1px solid #333;
+      padding: 8px 6px;
+      border-bottom: 2px solid #e8ecf0;
+      white-space: nowrap;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
     .measure-table td {
       padding: 6px 4px;
-      border-bottom: 1px solid #2a2a2a;
-      color: #ddd;
+      border-bottom: 1px solid #f0f2f5;
+      color: #1a1a1a;
     }
     .measure-table input {
-      background: #1a1a1a;
-      border: 1px solid #333;
+      background: #f8fafc;
+      border: 1px solid #e8ecf0;
       border-radius: 10px;
       padding: 6px 8px;
       width: 100%;
-      color: #fff;
+      min-width: 50px;
+      color: #1a1a1a;
       font-size: 12px;
       font-family: 'Poppins', sans-serif;
       outline: none;
+      transition: 0.2s;
     }
     .measure-table input:focus {
       border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.08);
     }
+    .measure-table .sqft-cell, .measure-table .rate-cell, .measure-table .total-cell {
+      font-weight: 600;
+      color: #1a1a1a;
+      white-space: nowrap;
+    }
+    .measure-table .total-cell {
+      color: #0ea5e9;
+    }
+
     .add-row-btn {
       background: transparent;
       border: 1px dashed #38bdf8;
       color: #38bdf8;
-      padding: 8px;
+      padding: 10px;
       border-radius: 40px;
       width: 100%;
       font-weight: 600;
       font-size: 13px;
-      margin-top: 8px;
-      cursor: default;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .add-row-btn:hover {
+      background: rgba(56,189,248,0.04);
+      border-color: #0ea5e9;
     }
 
-    /* --- summary --- */
+    .measure-note {
+      font-size: 11px;
+      color: #6b6b6b;
+      margin-top: 8px;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e8ecf0;
+    }
+    .measure-note i {
+      color: #38bdf8;
+      margin-right: 6px;
+    }
+
+    /* ---- PRICE SUMMARY ---- */
     .summary-row {
       display: flex;
       justify-content: space-between;
       padding: 6px 0;
       font-size: 13px;
-      color: #ccc;
-      border-bottom: 1px solid #2a2a2a;
+      color: #4a4a4a;
+      border-bottom: 1px solid #f0f2f5;
     }
     .summary-row.total {
       font-weight: 800;
       font-size: 18px;
-      color: #fff;
+      color: #1a1a1a;
       border-bottom: none;
       padding-top: 12px;
+      border-top: 2px solid #e8ecf0;
+      margin-top: 4px;
     }
     .summary-row .label {
-      color: #999;
+      color: #6b6b6b;
     }
     .summary-row .value {
       font-weight: 600;
@@ -280,50 +465,58 @@
     .grand-total {
       font-size: 24px;
       font-weight: 900;
-      color: #38bdf8;
+      color: #0ea5e9;
       text-align: right;
     }
-
-    /* --- bottom actions --- */
-    .bottom-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid #2a2a2a;
-    }
-    .bottom-actions .btn {
-      flex: 1;
-      min-width: 80px;
-      padding: 12px 10px;
-      border-radius: 40px;
-      font-weight: 700;
+    .amount-words {
       font-size: 13px;
-      text-align: center;
-      border: none;
-      cursor: default;
-      background: #2a2a2a;
-      color: #ccc;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+      color: #6b6b6b;
+      font-weight: 500;
+      margin-top: 6px;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e8ecf0;
     }
-    .bottom-actions .btn-primary {
-      background: linear-gradient(145deg, #38bdf8, #0ea5e9);
-      color: #fff;
-      box-shadow: 0 6px 20px rgba(56,189,248,0.3);
-    }
-    .bottom-actions .btn-outline {
-      background: transparent;
-      border: 1px solid #38bdf8;
+    .amount-words i {
       color: #38bdf8;
+      margin-right: 8px;
     }
 
-    /* --- preview modal (simulated) --- */
+    /* ---- SHORT SUMMARY ---- */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 12px;
+      font-size: 13px;
+      color: #4a4a4a;
+    }
+    .summary-grid .item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid #f0f2f5;
+    }
+    .summary-grid .item strong {
+      color: #1a1a1a;
+    }
+    .summary-grid .final {
+      grid-column: span 2;
+      font-weight: 800;
+      font-size: 16px;
+      color: #0ea5e9;
+      text-align: center;
+      padding-top: 8px;
+      border-top: 2px solid #e8ecf0;
+      margin-top: 4px;
+    }
+
+    /* ---- PREVIEW BOX ---- */
     .preview-box {
-      background: #1a1a1a;
+      background: #f8fafc;
       border-radius: 24px;
       padding: 20px 16px;
-      border: 1px solid #333;
+      border: 1px solid #e8ecf0;
       margin-top: 12px;
       display: none;
     }
@@ -331,46 +524,144 @@
       display: block;
     }
     .preview-box h4 {
-      color: #f0f0f0;
+      color: #1a1a1a;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .preview-box .preview-row {
+    .preview-box h4 i {
+      color: #38bdf8;
+    }
+    .preview-box .preview-header {
+      text-align: center;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e8ecf0;
+      margin-bottom: 10px;
+    }
+    .preview-box .preview-header h2 {
+      font-weight: 800;
+      font-size: 18px;
+      color: #1a1a1a;
+    }
+    .preview-box .preview-header p {
+      font-size: 12px;
+      color: #6b6b6b;
+    }
+    .preview-row {
       display: flex;
       justify-content: space-between;
       font-size: 12px;
-      color: #bbb;
+      color: #4a4a4a;
       padding: 4px 0;
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid #f0f2f5;
+    }
+    .preview-row.total-row {
+      font-weight: 800;
+      font-size: 16px;
+      color: #0ea5e9;
+      border-bottom: none;
+      padding-top: 8px;
+      border-top: 2px solid #e8ecf0;
+      margin-top: 6px;
     }
 
-    /* responsive */
+    /* ---- BOTTOM ACTIONS ---- */
+    .bottom-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #e8ecf0;
+    }
+    .bottom-actions .btn {
+      flex: 1;
+      min-width: 70px;
+      padding: 12px 10px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      background: #f0f2f5;
+      color: #4a4a4a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .bottom-actions .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    }
+    .bottom-actions .btn-primary {
+      background: linear-gradient(145deg, #38bdf8, #0ea5e9);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(56,189,248,0.25);
+    }
+    .bottom-actions .btn-primary:hover {
+      box-shadow: 0 6px 24px rgba(56,189,248,0.35);
+    }
+    .bottom-actions .btn-outline {
+      background: transparent;
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+    }
+    .bottom-actions .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.25);
+    }
+    .bottom-actions .btn-whatsapp:hover {
+      box-shadow: 0 6px 24px rgba(37,211,102,0.35);
+    }
+
     @media (max-width: 400px) {
       .row-2 { grid-template-columns: 1fr; }
       .product-grid { grid-template-columns: 1fr 1fr; }
       .bottom-actions .btn { font-size: 11px; padding: 10px 6px; }
+      .business-card .business-details { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
+<!-- FIXED HEADER -->
+<header class="fixed-header">
+  <div class="logo-area">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+    <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+    <div class="logo-text">
+      Raj Marketing Mysore
+      <span>Mosquito Nets · Window Screens</span>
+    </div>
+  </div>
+  <div class="header-actions">
+    <i class="fas fa-save"></i>
+    <i class="fas fa-share-alt"></i>
+  </div>
+</header>
+
+<!-- APP CONTAINER -->
 <div class="app-container">
 
-  <!-- HEADER -->
+  <!-- ESTIMATE HEADER -->
   <div class="estimate-header">
     <div class="left">
-      <i class="fas fa-arrow-left"></i>
-      <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
       <span class="estimate-id" id="estimateId">RM-EST-2026-0001</span>
     </div>
-    <div class="header-actions">
-      <i class="fas fa-save"></i>
-      <i class="fas fa-share-alt"></i>
+    <div style="font-weight:600; font-size:14px; color:#1a1a1a;">
+      <i class="fas fa-file-invoice" style="color:#38bdf8;"></i> Estimate
     </div>
     <div class="date-time">
       <span><i class="far fa-calendar-alt"></i> 12-Aug-2026</span>
       <span><i class="far fa-clock"></i> 10:30 AM</span>
-      <span style="color:#38bdf8;">Valid: 7 days</span>
+      <span style="color:#0ea5e9; font-weight:600;">Valid: 7 days</span>
     </div>
   </div>
 
@@ -395,26 +686,29 @@
       <label>Address</label>
       <input type="text" placeholder="Street, area" value="123, MG Road" />
     </div>
-    <div class="field-group">
-      <label>City</label>
-      <input type="text" placeholder="City" value="Mysore" />
-    </div>
-    <div style="display:flex; gap:10px; margin-top:4px;">
-      <span class="btn-sm"><i class="fas fa-save"></i> Save Customer</span>
-      <span class="btn-sm"><i class="fas fa-users"></i> Select Existing</span>
+    <div class="row-2">
+      <div class="field-group">
+        <label>City</label>
+        <input type="text" placeholder="City" value="Mysore" />
+      </div>
+      <div style="display:flex; align-items:flex-end; gap:8px;">
+        <span class="btn-sm"><i class="fas fa-save"></i> Save</span>
+        <span class="btn-sm"><i class="fas fa-users"></i> Select</span>
+      </div>
     </div>
   </div>
 
-  <!-- BUSINESS DETAILS (static) -->
-  <div class="card" style="background:#1a2a3a; border-color:#2a4a6a;">
-    <div class="card-title" style="color:#38bdf8;"><i class="fas fa-store"></i> RAJ MARKETING MYSORE</div>
-    <div style="font-size:13px; color:#ccc; line-height:1.6;">
-      <div><i class="fas fa-phone" style="color:#38bdf8; width:20px;"></i> +91 98765 43210</div>
-      <div><i class="fab fa-whatsapp" style="color:#25D366; width:20px;"></i> +91 98765 43210</div>
-      <div><i class="fas fa-map-marker-alt" style="color:#38bdf8; width:20px;"></i> #45, Devraj Urs Rd, Mysore</div>
-      <div><i class="fas fa-envelope" style="color:#38bdf8; width:20px;"></i> info@rajmarketing.in</div>
-      <div><i class="fas fa-globe" style="color:#38bdf8; width:20px;"></i> www.rajmarketing.in</div>
-      <div style="margin-top:6px; font-weight:300; font-size:12px; color:#888;">Est. 2016 · Mosquito Nets & Window Screens</div>
+  <!-- BUSINESS DETAILS -->
+  <div class="business-card">
+    <div class="business-name">RAJ MARKETING MYSORE</div>
+    <div class="business-tag">Mosquito Nets & Window Screens · Est. 2016</div>
+    <div class="business-details">
+      <div><i class="fas fa-phone"></i> 9483037385</div>
+      <div><i class="fab fa-whatsapp" style="color:#25D366;"></i> 9483037385</div>
+      <div><i class="fas fa-map-marker-alt"></i> #45, Devraj Urs Rd</div>
+      <div><i class="fas fa-city"></i> Mysore</div>
+      <div><i class="fas fa-envelope"></i> info@rajmarketing.in</div>
+      <div><i class="fas fa-globe"></i> www.rajmarketing.in</div>
     </div>
   </div>
 
@@ -427,42 +721,52 @@
       <div class="product-option" data-product="Pleated"><i class="fas fa-wind"></i> Pleated Net</div>
       <div class="product-option" data-product="MeshDoor"><i class="fas fa-door-open"></i> Mesh Door</div>
     </div>
-    <div style="margin-top:8px; font-size:12px; color:#38bdf8; background:#1a2a3a; padding:6px 12px; border-radius:40px; display:inline-block;">
-      <i class="fas fa-tag"></i> Rate: ₹1,250 / sq.ft
+    <div style="margin-top:10px; font-size:12px; color:#0ea5e9; background:#f0f7ff; padding:6px 14px; border-radius:40px; display:inline-block; border:1px solid #dbeafe;">
+      <i class="fas fa-tag"></i> Current Rate: ₹1,250 / sq.ft
     </div>
   </div>
 
-  <!-- MEASUREMENT TABLE -->
+  <!-- MEASUREMENT TABLE (with horizontal scroll) -->
   <div class="card">
     <div class="card-title"><i class="fas fa-ruler-combined"></i> Measurements</div>
-    <table class="measure-table" id="measureTable">
-      <thead>
-        <tr><th>Type</th><th>Width (in)</th><th>Height (in)</th><th>Qty</th><th>Sq.ft</th><th>Rate</th><th>Total</th></tr>
-      </thead>
-      <tbody id="measureBody">
-        <tr>
-          <td><input type="text" value="Window 1" style="width:60px;" /></td>
-          <td><input type="number" value="36" class="w-input" /></td>
-          <td><input type="number" value="48" class="h-input" /></td>
-          <td><input type="number" value="2" class="q-input" /></td>
-          <td class="sqft-cell">4.50</td>
-          <td class="rate-cell">1250</td>
-          <td class="total-cell">₹5,625</td>
-        </tr>
-        <tr>
-          <td><input type="text" value="Window 2" style="width:60px;" /></td>
-          <td><input type="number" value="42" class="w-input" /></td>
-          <td><input type="number" value="48" class="h-input" /></td>
-          <td><input type="number" value="1" class="q-input" /></td>
-          <td class="sqft-cell">5.25</td>
-          <td class="rate-cell">1250</td>
-          <td class="total-cell">₹6,562</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="add-row-btn"><i class="fas fa-plus"></i> Add Item</div>
-    <div style="font-size:11px; color:#666; margin-top:8px;">
-      <i class="fas fa-info-circle"></i> Frame adj: Width−1.5″ · Height−1.5″ (Aluminium)
+    <div class="measure-wrapper">
+      <table class="measure-table" id="measureTable">
+        <thead>
+          <tr>
+            <th style="min-width:80px;">Type</th>
+            <th style="min-width:70px;">Width (in)</th>
+            <th style="min-width:70px;">Height (in)</th>
+            <th style="min-width:60px;">Qty</th>
+            <th style="min-width:65px;">Sq.ft</th>
+            <th style="min-width:65px;">Rate</th>
+            <th style="min-width:80px;">Total</th>
+          </tr>
+        </thead>
+        <tbody id="measureBody">
+          <tr>
+            <td><input type="text" value="Window 1" style="min-width:60px;" /></td>
+            <td><input type="number" value="36" class="w-input" /></td>
+            <td><input type="number" value="48" class="h-input" /></td>
+            <td><input type="number" value="2" class="q-input" /></td>
+            <td class="sqft-cell">4.50</td>
+            <td class="rate-cell">1,250</td>
+            <td class="total-cell">₹5,625</td>
+          </tr>
+          <tr>
+            <td><input type="text" value="Window 2" style="min-width:60px;" /></td>
+            <td><input type="number" value="42" class="w-input" /></td>
+            <td><input type="number" value="48" class="h-input" /></td>
+            <td><input type="number" value="1" class="q-input" /></td>
+            <td class="sqft-cell">5.25</td>
+            <td class="rate-cell">1,250</td>
+            <td class="total-cell">₹6,562</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="add-row-btn" id="addRowBtn"><i class="fas fa-plus"></i> Add Measurement Item</div>
+    <div class="measure-note">
+      <i class="fas fa-info-circle"></i> Frame adjustment: Width−1.5″ · Height−1.5″ (for Aluminium frames)
     </div>
   </div>
 
@@ -474,114 +778,129 @@
     <div class="summary-row"><span class="label">Taxable Amount</span><span class="value">₹11,687</span></div>
     <div class="summary-row"><span class="label">GST (18%)</span><span class="value">₹2,104</span></div>
     <div class="summary-row total"><span class="label">Grand Total</span><span class="grand-total">₹13,791</span></div>
-    <div style="font-size:13px; color:#aaa; margin-top:6px; font-weight:500;">
+    <div class="amount-words">
       <i class="fas fa-credit-card"></i> Amount in Words: Rupees Thirteen Thousand Seven Hundred Ninety One Only
     </div>
   </div>
 
   <!-- SHORT SUMMARY -->
-  <div class="card" style="background:#1a2a3a; border-color:#2a4a6a;">
-    <div class="card-title" style="color:#38bdf8;"><i class="fas fa-file-alt"></i> Estimate Summary</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:13px; color:#ccc;">
-      <div>Total Items: <strong style="color:#fff;">2</strong></div>
-      <div>Total Qty: <strong style="color:#fff;">3</strong></div>
-      <div>Net Types: <strong style="color:#fff;">1</strong></div>
-      <div>Total Sq.ft: <strong style="color:#fff;">9.75</strong></div>
-      <div>Discount: <strong style="color:#fff;">₹500</strong></div>
-      <div>GST: <strong style="color:#fff;">₹2,104</strong></div>
-      <div style="grid-column:span 2; font-weight:700; font-size:16px; color:#38bdf8;">Final: ₹13,791</div>
+  <div class="card" style="background:#f8fafc; border-color:#dbeafe;">
+    <div class="card-title" style="color:#0ea5e9;"><i class="fas fa-file-alt"></i> Estimate Summary</div>
+    <div class="summary-grid">
+      <div class="item"><span>Total Items</span><strong>2</strong></div>
+      <div class="item"><span>Total Qty</span><strong>3</strong></div>
+      <div class="item"><span>Net Types</span><strong>1</strong></div>
+      <div class="item"><span>Total Sq.ft</span><strong>9.75</strong></div>
+      <div class="item"><span>Discount</span><strong>₹500</strong></div>
+      <div class="item"><span>GST</span><strong>₹2,104</strong></div>
+      <div class="final">Final Price: ₹13,791</div>
     </div>
   </div>
 
-  <!-- PREVIEW (simulated) -->
+  <!-- PREVIEW BOX -->
   <div class="preview-box" id="previewBox">
     <h4><i class="fas fa-file-pdf"></i> Estimate Preview</h4>
-    <div style="background:#111; padding:12px; border-radius:16px; margin-top:6px;">
-      <div style="text-align:center; color:#fff; font-weight:700; font-size:16px;">RAJ MARKETING MYSORE</div>
-      <div style="text-align:center; color:#aaa; font-size:12px;">Mosquito Nets & Window Screens</div>
-      <hr style="border-color:#333; margin:8px 0;" />
-      <div class="preview-row"><span>Estimate ID</span><span>RM-EST-2026-0001</span></div>
-      <div class="preview-row"><span>Date</span><span>12-Aug-2026</span></div>
-      <div class="preview-row"><span>Customer</span><span>Ravi Kumar</span></div>
-      <div class="preview-row"><span>Mobile</span><span>9876543210</span></div>
-      <hr style="border-color:#333; margin:8px 0;" />
-      <div style="font-size:11px; color:#aaa;">Product Details</div>
-      <div class="preview-row"><span>Velcro Net x 2</span><span>₹5,625</span></div>
-      <div class="preview-row"><span>Velcro Net x 1</span><span>₹6,562</span></div>
-      <hr style="border-color:#333; margin:8px 0;" />
-      <div class="preview-row"><span>Subtotal</span><span>₹12,187</span></div>
-      <div class="preview-row"><span>Discount</span><span>-₹500</span></div>
-      <div class="preview-row"><span>GST 18%</span><span>₹2,104</span></div>
-      <div class="preview-row" style="font-weight:800; font-size:18px; color:#38bdf8;"><span>TOTAL</span><span>₹13,791</span></div>
-      <div style="font-size:11px; color:#888; margin-top:6px;">Rupees Thirteen Thousand Seven Hundred Ninety One Only</div>
+    <div class="preview-header">
+      <h2>RAJ MARKETING MYSORE</h2>
+      <p>Mosquito Nets & Window Screens · Est. 2016</p>
+      <p style="font-size:11px; color:#6b6b6b;">RM-EST-2026-0001 · 12-Aug-2026</p>
+    </div>
+    <div style="font-weight:600; font-size:13px; color:#1a1a1a; margin-bottom:6px;">Customer Details</div>
+    <div class="preview-row"><span>Name</span><span>Ravi Kumar</span></div>
+    <div class="preview-row"><span>Mobile</span><span>9876543210</span></div>
+    <div class="preview-row"><span>Address</span><span>123, MG Road, Mysore</span></div>
+    <div style="font-weight:600; font-size:13px; color:#1a1a1a; margin:8px 0 4px 0;">Product Details</div>
+    <div class="preview-row"><span>Velcro Net x 2</span><span>₹5,625</span></div>
+    <div class="preview-row"><span>Velcro Net x 1</span><span>₹6,562</span></div>
+    <div class="preview-row"><span>Subtotal</span><span>₹12,187</span></div>
+    <div class="preview-row"><span>Discount</span><span>-₹500</span></div>
+    <div class="preview-row"><span>GST (18%)</span><span>₹2,104</span></div>
+    <div class="preview-row total-row"><span>TOTAL</span><span>₹13,791</span></div>
+    <div style="font-size:12px; color:#6b6b6b; margin-top:8px; text-align:center; border-top:1px solid #e8ecf0; padding-top:8px;">
+      Rupees Thirteen Thousand Seven Hundred Ninety One Only
     </div>
   </div>
 
   <!-- BOTTOM ACTIONS -->
   <div class="bottom-actions">
-    <div class="btn btn-primary"><i class="fas fa-save"></i> Save</div>
-    <div class="btn btn-outline" id="previewToggle"><i class="fas fa-eye"></i> Preview</div>
-    <div class="btn btn-outline"><i class="fas fa-file-pdf"></i> PDF</div>
-    <div class="btn" style="background:#25D366; color:#fff;"><i class="fab fa-whatsapp"></i> Share</div>
+    <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+    <button class="btn btn-outline" id="previewToggle"><i class="fas fa-eye"></i> Preview</button>
+    <button class="btn btn-outline"><i class="fas fa-file-pdf"></i> PDF</button>
+    <button class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Share</button>
   </div>
 
-  <!-- info -->
-  <div style="font-size:9px; color:#444; text-align:center; margin-top:14px;">
+  <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
     Raj Marketing Mysore · Est. 2016 · All calculations are automatic
   </div>
 </div>
 
+<!-- FIXED FOOTER -->
+<footer class="fixed-footer">
+  <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+  <a href="estimate.html" class="nav-item active"><i class="fas fa-th-large"></i> Products</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-ruler"></i> Measure</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Orders</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+</footer>
+
 <script>
-  // toggle preview
+  // Preview toggle
   document.getElementById('previewToggle').addEventListener('click', function() {
     document.getElementById('previewBox').classList.toggle('show');
   });
 
-  // product selector active state
+  // Product selector
   document.querySelectorAll('.product-option').forEach(el => {
     el.addEventListener('click', function() {
       document.querySelectorAll('.product-option').forEach(p => p.classList.remove('active'));
       this.classList.add('active');
-      // update rate display (mock)
-      const rates = {'Velcro':'1250','Aluminium':'1450','Pleated':'1350','MeshDoor':'1550'};
+      const rates = {'Velcro':'1,250','Aluminium':'1,450','Pleated':'1,350','MeshDoor':'1,550'};
       const prod = this.dataset.product;
-      const rateSpan = this.closest('.card').querySelector('div[style*="color:#38bdf8;"]');
-      if (rateSpan) rateSpan.innerHTML = `<i class="fas fa-tag"></i> Rate: ₹${rates[prod] || '1250'} / sq.ft`;
+      const rateSpan = this.closest('.card').querySelector('div[style*="color:#0ea5e9;"]');
+      if (rateSpan) rateSpan.innerHTML = `<i class="fas fa-tag"></i> Current Rate: ₹${rates[prod] || '1,250'} / sq.ft`;
     });
   });
 
-  // add row (simulate)
-  document.querySelector('.add-row-btn').addEventListener('click', function() {
+  // Add row
+  document.getElementById('addRowBtn').addEventListener('click', function() {
     const tbody = document.getElementById('measureBody');
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td><input type="text" value="Window" style="width:60px;" /></td>
+      <td><input type="text" value="Window" style="min-width:60px;" /></td>
       <td><input type="number" value="30" class="w-input" /></td>
       <td><input type="number" value="40" class="h-input" /></td>
       <td><input type="number" value="1" class="q-input" /></td>
       <td class="sqft-cell">3.33</td>
-      <td class="rate-cell">1250</td>
+      <td class="rate-cell">1,250</td>
       <td class="total-cell">₹4,162</td>
     `;
     tbody.appendChild(row);
-  });
-
-  // mock calculation update (for demo)
-  document.querySelectorAll('.w-input, .h-input, .q-input').forEach(inp => {
-    inp.addEventListener('input', function() {
-      const row = this.closest('tr');
-      if (!row) return;
-      const w = parseFloat(row.querySelector('.w-input').value) || 0;
-      const h = parseFloat(row.querySelector('.h-input').value) || 0;
-      const q = parseFloat(row.querySelector('.q-input').value) || 1;
-      const sqft = ((w - 1.5) * (h - 1.5) / 144 * q);
-      const rate = 1250; // fixed for demo
-      const total = sqft * rate;
-      row.querySelector('.sqft-cell').textContent = sqft.toFixed(2);
-      row.querySelector('.rate-cell').textContent = rate;
-      row.querySelector('.total-cell').textContent = '₹' + total.toFixed(0);
+    // Attach events to new inputs
+    row.querySelectorAll('.w-input, .h-input, .q-input').forEach(inp => {
+      inp.addEventListener('input', function() { updateRow(this); });
     });
   });
+
+  // Update row calculation
+  function updateRow(input) {
+    const row = input.closest('tr');
+    if (!row) return;
+    const w = parseFloat(row.querySelector('.w-input').value) || 0;
+    const h = parseFloat(row.querySelector('.h-input').value) || 0;
+    const q = parseFloat(row.querySelector('.q-input').value) || 1;
+    const sqft = ((w - 1.5) * (h - 1.5) / 144 * q);
+    const rate = 1250;
+    const total = sqft * rate;
+    row.querySelector('.sqft-cell').textContent = sqft.toFixed(2);
+    row.querySelector('.rate-cell').textContent = rate.toLocaleString();
+    row.querySelector('.total-cell').textContent = '₹' + total.toFixed(0);
+  }
+
+  // Attach events to existing inputs
+  document.querySelectorAll('.w-input, .h-input, .q-input').forEach(inp => {
+    inp.addEventListener('input', function() { updateRow(this); });
+  });
 </script>
+
 </body>
-  </html>
+</html>
