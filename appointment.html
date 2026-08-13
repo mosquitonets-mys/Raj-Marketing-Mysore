@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Raj Marketing · AI Appointment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      background: #f5f0eb;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 0 12px;
+      padding-top: 80px;
+      padding-bottom: 100px;
+    }
+    .app-container {
+      max-width: 480px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 36px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      padding: 20px 18px;
+      border: 1px solid #e8e0d8;
+    }
+
+    /* Fixed Header */
+    .fixed-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      max-width: 504px; margin: 0 auto; width: 100%;
+      background: #ffffff; padding: 14px 20px 10px 20px;
+      border-bottom: 1px solid #e8e0d8;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .fixed-header .logo-area { display: flex; align-items: center; gap: 10px; }
+    .fixed-header .logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(145deg, #f97316, #ea580c);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 20px; box-shadow: 0 4px 12px rgba(249,115,22,0.25);
+    }
+    .fixed-header .logo-text { font-weight: 700; font-size: 16px; color: #1a1a1a; line-height: 1.2; }
+    .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 9px; color: #6b6b6b; }
+    .fixed-header .header-actions { display: flex; gap: 8px; align-items: center; }
+    .fixed-header .header-actions i {
+      font-size: 18px; color: #2d2d2d; background: #f5f0eb;
+      padding: 8px; border-radius: 50%; cursor: pointer;
+    }
+    .fixed-header .back-btn { font-size: 20px; color: #2d2d2d; background: #f5f0eb; padding: 8px 12px; border-radius: 50%; cursor: pointer; text-decoration: none; }
+
+    /* Fixed Footer */
+    .fixed-footer {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+      max-width: 504px; margin: 0 auto; width: 100%;
+      background: #ffffff; padding: 8px 12px 12px 12px;
+      border-top: 1px solid #e8e0d8;
+      display: flex; justify-content: space-around; align-items: center;
+      border-radius: 30px 30px 0 0;
+    }
+    .fixed-footer .nav-item {
+      display: flex; flex-direction: column; align-items: center;
+      font-size: 9px; color: #8a8a8a; font-weight: 500; gap: 2px;
+      padding: 4px 12px; border-radius: 30px; text-decoration: none;
+    }
+    .fixed-footer .nav-item i { font-size: 20px; color: #8a8a8a; }
+    .fixed-footer .nav-item.active i { color: #f97316; }
+    .fixed-footer .nav-item.active { color: #f97316; background: rgba(249,115,22,0.08); }
+
+    /* Mode Switch */
+    .mode-switch {
+      display: flex; background: #f5f0eb; border-radius: 40px; padding: 4px; border: 1px solid #e8e0d8;
+    }
+    .mode-switch button {
+      border: none; background: transparent; padding: 6px 14px; border-radius: 30px;
+      font-weight: 600; font-size: 12px; color: #6b6b6b; cursor: pointer; transition: 0.2s;
+    }
+    .mode-switch button.active { background: #f97316; color: #fff; box-shadow: 0 2px 8px rgba(249,115,22,0.2); }
+
+    /* Cards */
+    .card { background: #ffffff; border-radius: 24px; padding: 18px 16px; margin: 14px 0; border: 1px solid #e8e0d8; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
+    .card-title { font-weight: 700; font-size: 15px; color: #1a1a1a; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .card-title i { color: #f97316; }
+
+    /* AI Chat */
+    .chat-container { padding: 4px 0; }
+    .chat-bubble {
+      max-width: 90%; padding: 14px 16px; border-radius: 20px; margin-bottom: 12px;
+      font-size: 14px; line-height: 1.5; animation: fadeIn 0.3s ease;
+    }
+    .chat-bubble.ai {
+      background: #f5f0eb; color: #1a1a1a; border-bottom-left-radius: 4px;
+      align-self: flex-start;
+    }
+    .chat-bubble.user {
+      background: #f97316; color: #fff; margin-left: auto; border-bottom-right-radius: 4px;
+      align-self: flex-end;
+    }
+    .chat-bubble .time { font-size: 10px; opacity: 0.6; margin-top: 4px; display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .chat-options { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px 0; }
+    .chat-options button {
+      background: #f5f0eb; border: 1px solid #e8e0d8; border-radius: 30px;
+      padding: 10px 18px; font-size: 13px; font-weight: 500; color: #1a1a1a;
+      cursor: pointer; transition: 0.2s;
+    }
+    .chat-options button:hover { background: #f97316; color: #fff; border-color: #f97316; }
+    .chat-options button.selected { background: #f97316; color: #fff; border-color: #f97316; }
+
+    .chat-input {
+      display: flex; gap: 10px; margin-top: 8px;
+    }
+    .chat-input input {
+      flex: 1; background: #faf8f6; border: 1px solid #e8e0d8; border-radius: 30px;
+      padding: 12px 18px; font-size: 14px; outline: none; font-family: 'Poppins', sans-serif;
+    }
+    .chat-input input:focus { border-color: #f97316; }
+    .chat-input button {
+      background: #f97316; border: none; border-radius: 30px;
+      padding: 12px 20px; color: #fff; font-weight: 600; cursor: pointer;
+    }
+
+    /* Summary Card */
+    .summary-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0ece6; font-size: 14px; }
+    .summary-item .label { color: #6b6b6b; }
+    .summary-item .value { font-weight: 600; color: #1a1a1a; }
+
+    /* Form (Manual mode) */
+    .form-group { margin-bottom: 14px; }
+    .form-group label { font-size: 12px; font-weight: 600; color: #4a4a4a; display: block; margin-bottom: 4px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; background: #faf8f6; border: 1px solid #e8e0d8; border-radius: 14px;
+      padding: 12px 14px; font-size: 14px; outline: none; font-family: 'Poppins', sans-serif;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #f97316; }
+    .form-group textarea { resize: vertical; min-height: 60px; }
+
+    .btn-primary {
+      background: linear-gradient(145deg, #f97316, #ea580c); color: #fff;
+      border: none; padding: 14px 24px; border-radius: 40px; font-weight: 700;
+      font-size: 16px; width: 100%; cursor: pointer; box-shadow: 0 4px 16px rgba(249,115,22,0.25);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 24px rgba(249,115,22,0.35); }
+    .btn-secondary {
+      background: #f5f0eb; color: #1a1a1a; border: 1px solid #e8e0d8;
+      padding: 12px 20px; border-radius: 40px; font-weight: 600; font-size: 14px;
+      cursor: pointer; text-align: center; width: 100%;
+    }
+
+    .hidden { display: none !important; }
+    .mt-8 { margin-top: 8px; }
+    .mb-8 { margin-bottom: 8px; }
+    .flex { display: flex; gap: 10px; }
+    .flex-center { display: flex; justify-content: center; align-items: center; gap: 8px; }
+
+    /* Success */
+    .success-card {
+      text-align: center; padding: 30px 20px;
+    }
+    .success-card i { font-size: 64px; color: #22c55e; margin-bottom: 16px; }
+    .success-card h2 { font-size: 24px; color: #1a1a1a; }
+    .success-card p { color: #6b6b6b; margin: 8px 0 16px 0; }
+
+    @media (max-width: 400px) {
+      .mode-switch button { font-size: 10px; padding: 4px 10px; }
+      .chat-options button { font-size: 12px; padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Fixed Header -->
+<header class="fixed-header">
+  <div class="logo-area">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+    <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+    <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+  </div>
+  <div class="header-actions">
+    <i class="fas fa-headset" title="Support"></i>
+    <i class="fab fa-whatsapp" style="color:#25D366;" title="WhatsApp"></i>
+    <div class="mode-switch">
+      <button class="active" onclick="setMode('ai')" id="aiModeBtn">AI</button>
+      <button onclick="setMode('manual')" id="manualModeBtn">Manual</button>
+    </div>
+  </div>
+</header>
+
+<!-- App Container -->
+<div class="app-container">
+
+  <!-- Page Header -->
+  <div style="text-align:center; padding:6px 0 4px 0;">
+    <h2 style="font-weight:800; color:#1a1a1a; font-size:22px;">📅 Book Appointment</h2>
+    <p style="color:#6b6b6b; font-size:13px;">Tell us what you need — our team will contact you.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- AI MODE -->
+  <!-- ============================================================ -->
+  <div id="aiMode">
+    <div class="card" style="border-color:#fde4d0; background:#fefaf7;">
+      <div class="card-title" style="color:#ea580c;"><i class="fas fa-robot"></i> Raj Marketing AI Assistant</div>
+      <div class="chat-container" id="chatContainer">
+        <!-- Chat bubbles will be inserted here -->
+        <div class="chat-bubble ai">
+          Hi! 👋 Welcome to Raj Marketing Mysore.<br />
+          I can help you book an appointment and get your mosquito-net requirement.
+          <span class="time">Just now</span>
+        </div>
+      </div>
+
+      <!-- Current question area -->
+      <div id="questionArea">
+        <div style="font-weight:600; color:#1a1a1a; margin:8px 0 4px 0;" id="questionText">What type of mosquito net are you looking for?</div>
+        <div class="chat-options" id="optionsContainer">
+          <button onclick="selectOption(this, 'Velcro System')">🪟 Velcro Net</button>
+          <button onclick="selectOption(this, 'Aluminium Frame System')">🖼️ Aluminium Frame</button>
+          <button onclick="selectOption(this, 'Pleated Net')">🌀 Pleated Net</button>
+          <button onclick="selectOption(this, 'Mesh Door')">🚪 Mesh Door</button>
+          <button onclick="selectOption(this, 'Not Sure')">🤔 Not Sure</button>
+        </div>
+        <div id="inputContainer" class="hidden">
+          <div class="chat-input">
+            <input type="text" id="textInput" placeholder="Type your answer..." />
+            <button onclick="submitTextAnswer()"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Summary -->
+    <div class="card" id="aiSummary" style="display:none;">
+      <div class="card-title"><i class="fas fa-clipboard-check"></i> Your Appointment Request</div>
+      <div id="summaryContent"></div>
+      <div class="flex" style="margin-top:12px;">
+        <button class="btn-secondary" onclick="editSummary()" style="flex:1;">✏️ Edit</button>
+        <button class="btn-primary" onclick="confirmAppointment()" style="flex:1;">✅ Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MANUAL MODE -->
+  <!-- ============================================================ -->
+  <div id="manualMode" class="hidden">
+    <div class="card">
+      <div class="card-title"><i class="fas fa-user"></i> Customer Details</div>
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" id="manualName" placeholder="Enter your name" />
+      </div>
+      <div class="form-group">
+        <label>WhatsApp / Mobile *</label>
+        <input type="text" id="manualMobile" placeholder="9483037385" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="manualEmail" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Address *</label>
+        <input type="text" id="manualAddress" placeholder="Street, area, city" />
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fas fa-th-large"></i> Requirement</div>
+      <div class="form-group">
+        <label>Net Type *</label>
+        <select id="manualProduct">
+          <option value="Velcro System">Velcro System</option>
+          <option value="Aluminium Frame System">Aluminium Frame System</option>
+          <option value="Pleated Net">Pleated Net</option>
+          <option value="Mesh Door">Mesh Door</option>
+          <option value="Not Sure">Not Sure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Quantity (approx. windows/doors)</label>
+        <input type="number" id="manualQty" placeholder="5" />
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <select id="manualLocation">
+          <option value="Windows">Windows</option>
+          <option value="Main Door">Main Door</option>
+          <option value="Balcony">Balcony</option>
+          <option value="Kitchen">Kitchen</option>
+          <option value="Bedroom">Bedroom</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fas fa-calendar-alt"></i> Appointment</div>
+      <div class="form-group">
+        <label>Preferred Date</label>
+        <input type="date" id="manualDate" />
+      </div>
+      <div class="form-group">
+        <label>Preferred Time</label>
+        <select id="manualTime">
+          <option value="Morning">Morning</option>
+          <option value="Afternoon">Afternoon</option>
+          <option value="Evening">Evening</option>
+          <option value="Specific Time">Specific Time</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Additional Requirement</label>
+        <textarea id="manualNotes" placeholder="Any special requests..."></textarea>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="submitManual()"><i class="fas fa-paper-plane"></i> Submit Appointment</button>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SUCCESS STATE -->
+  <!-- ============================================================ -->
+  <div id="successState" class="hidden">
+    <div class="card success-card">
+      <i class="fas fa-check-circle"></i>
+      <h2>🎉 Appointment Request Received!</h2>
+      <p id="successMessage">Thank you! Your enquiry has been registered.</p>
+      <div style="background:#f5f0eb; border-radius:16px; padding:16px; margin:12px 0; text-align:left;">
+        <div class="summary-item"><span class="label">Enquiry ID</span><span class="value" id="successEnquiryId">RM-ENQ-2026-0001</span></div>
+        <div class="summary-item"><span class="label">Appointment</span><span class="value" id="successAppointment">15-Aug-2026, Morning</span></div>
+      </div>
+      <div class="flex" style="flex-wrap:wrap;">
+        <button class="btn-secondary" style="flex:1; min-width:100px;" onclick="alert('View Enquiry')"><i class="fas fa-file-alt"></i> View</button>
+        <button class="btn-secondary" style="flex:1; min-width:100px;" onclick="alert('View Appointment')"><i class="fas fa-calendar"></i> Appointment</button>
+        <button class="btn-secondary" style="flex:1; min-width:100px;" onclick="window.open('https://wa.me/9483037385','_blank')"><i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp</button>
+        <button class="btn-secondary" style="flex:1; min-width:100px;" onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Home</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+    Raj Marketing Mysore · Est. 2016 · AI Powered
+  </div>
+</div>
+
+<!-- Fixed Footer -->
+<footer class="fixed-footer">
+  <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+  <a href="appointment.html" class="nav-item active"><i class="fas fa-calendar-check"></i> Appointment</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Orders</a>
+  <a href="#" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+</footer>
+
+<script>
+  // ============================================================
+  // AI CONVERSATION ENGINE
+  // ============================================================
+  const QUESTIONS = [
+    {
+      id: 'name',
+      question: 'May I know your name?',
+      type: 'text',
+      required: true,
+      field: 'customerName',
+      next: 'requirement'
+    },
+    {
+      id: 'requirement',
+      question: 'What type of mosquito net are you looking for?',
+      type: 'choice',
+      options: ['Velcro System', 'Aluminium Frame System', 'Pleated Net', 'Mesh Door', 'Not Sure'],
+      field: 'netType',
+      next: 'quantity'
+    },
+    {
+      id: 'quantity',
+      question: 'Approximately how many windows/doors do you need?',
+      type: 'number',
+      field: 'quantity',
+      next: 'location'
+    },
+    {
+      id: 'location',
+      question: 'Where do you need the mosquito nets?',
+      type: 'multichoice',
+      options: ['Windows', 'Main Door', 'Balcony', 'Kitchen', 'Bedroom', 'Other'],
+      field: 'location',
+      next: 'measurements'
+    },
+    {
+      id: 'measurements',
+      question: 'Do you already have measurements?',
+      type: 'choice',
+      options: ['Yes', 'No', 'Need help measuring'],
+      field: 'measurements',
+      next: 'address'
+    },
+    {
+      id: 'address',
+      question: 'Please enter your installation address.',
+      type: 'text',
+      required: true,
+      field: 'address',
+      next: 'mobile'
+    },
+    {
+      id: 'mobile',
+      question: 'Please enter your WhatsApp number so our team can contact you.',
+      type: 'text',
+      required: true,
+      field: 'mobile',
+      next: 'date'
+    },
+    {
+      id: 'date',
+      question: 'Which date would be convenient for a measurement/installation visit?',
+      type: 'date',
+      field: 'date',
+      next: 'time'
+    },
+    {
+      id: 'time',
+      question: 'What time is convenient for you?',
+      type: 'choice',
+      options: ['Morning', 'Afternoon', 'Evening', 'Specific Time'],
+      field: 'time',
+      next: 'additional'
+    },
+    {
+      id: 'additional',
+      question: 'Anything else you\'d like us to know? (Optional)',
+      type: 'text',
+      required: false,
+      field: 'notes',
+      next: null
+    }
+  ];
+
+  let currentQuestionIndex = 0;
+  let answers = {};
+  let conversation = [];
+  let enquiryId = 'RM-ENQ-2026-0001';
+  let leadId = 'RM-LEAD-2026-0001';
+
+  function startAI() {
+    currentQuestionIndex = 0;
+    answers = {};
+    conversation = [];
+    document.getElementById('aiSummary').style.display = 'none';
+    document.getElementById('successState').classList.add('hidden');
+    document.getElementById('aiMode').classList.remove('hidden');
+    document.getElementById('manualMode').classList.add('hidden');
+    showQuestion(0);
+  }
+
+  function showQuestion(index) {
+    if (index >= QUESTIONS.length) {
+      showSummary();
+      return;
+    }
+    const q = QUESTIONS[index];
+    const questionText = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const inputContainer = document.getElementById('inputContainer');
+
+    questionText.textContent = q.question;
+    optionsContainer.innerHTML = '';
+    inputContainer.classList.add('hidden');
+
+    // Add AI message to chat
+    addChatMessage('ai', q.question);
+
+    if (q.type === 'choice' || q.type === 'multichoice') {
+      optionsContainer.classList.remove('hidden');
+      const opts = q.options || [];
+      opts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = function() { selectOption(this, opt, q.id); };
+        optionsContainer.appendChild(btn);
+      });
+    } else {
+      optionsContainer.classList.add('hidden');
+      inputContainer.classList.remove('hidden');
+      const input = document.getElementById('textInput');
+      input.value = '';
+      input.placeholder = q.type === 'number' ? 'Enter a number...' : 'Type your answer...';
+      input.type = q.type === 'number' ? 'number' : q.type === 'date' ? 'date' : 'text';
+      input.focus();
+      // Store current question id for submit
+      input.dataset.qid = q.id;
+    }
+  }
+
+  function selectOption(btn, value, qid) {
+    // Highlight selected
+    const parent = btn.parentElement;
+    parent.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+
+    // Find current question
+    const q = QUESTIONS.find(q => q.id === (qid || getCurrentQuestionId()));
+    if (q) {
+      answers[q.field] = value;
+      addChatMessage('user', value);
+      // Handle conditional logic
+      if (q.id === 'requirement' && value === 'Not Sure') {
+        // Add extra question
+        setTimeout(() => {
+          addChatMessage('ai', 'No problem 😊. Is this mainly for windows, doors, or both?');
+          const parent = document.getElementById('optionsContainer');
+          parent.innerHTML = '';
+          ['Windows', 'Doors', 'Both'].forEach(opt => {
+            const btn = document.createElement('button');
+            btn.textContent = opt;
+            btn.onclick = function() {
+              answers['requirementDetail'] = opt;
+              addChatMessage('user', opt);
+              moveToNext(q.id);
+            };
+            parent.appendChild(btn);
+          });
+        }, 500);
+        return;
+      }
+      if (q.id === 'measurements' && value === 'Yes') {
+        // Ask for measurements details
+        setTimeout(() => {
+          addChatMessage('ai', 'Great! Please share the measurements (Width, Height, Quantity).');
+          const parent = document.getElementById('optionsContainer');
+          parent.innerHTML = '';
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.placeholder = 'e.g. 36x48x2, 42x48x1';
+          input.style.cssText = 'flex:1; background:#faf8f6; border:1px solid #e8e0d8; border-radius:30px; padding:10px 16px; font-size:14px; outline:none;';
+          const btn = document.createElement('button');
+          btn.textContent = 'Submit';
+          btn.style.cssText = 'background:#f97316; border:none; border-radius:30px; padding:10px 20px; color:#fff; font-weight:600; cursor:pointer;';
+          btn.onclick = function() {
+            const val = input.value || 'Not provided';
+            answers['measurementDetails'] = val;
+            addChatMessage('user', val);
+            moveToNext(q.id);
+          };
+          const wrapper = document.createElement('div');
+          wrapper.style.cssText = 'display:flex; gap:8px; width:100%;';
+          wrapper.appendChild(input);
+          wrapper.appendChild(btn);
+          parent.appendChild(wrapper);
+        }, 500);
+        return;
+      }
+      if (q.id === 'measurements' && value === 'No') {
+        setTimeout(() => {
+          addChatMessage('ai', "That's okay. Our team can help with measurements during the appointment.");
+        }, 400);
+      }
+      if (q.id === 'measurements' && value === 'Need help measuring') {
+        setTimeout(() => {
+          addChatMessage('ai', 'No problem! Our team will measure during the visit.');
+        }, 400);
+      }
+      moveToNext(q.id);
+    }
+  }
+
+  function submitTextAnswer() {
+    const input = document.getElementById('textInput');
+    const value = input.value.trim();
+    if (!value) {
+      alert('Please enter an answer.');
+      return;
+    }
+    const qid = input.dataset.qid || getCurrentQuestionId();
+    const q = QUESTIONS.find(q => q.id === qid);
+    if (q) {
+      if (q.required && !value) {
+        alert('This field is required.');
+        return;
+      }
+      answers[q.field] = value;
+      addChatMessage('user', value);
+      moveToNext(qid);
+    }
+  }
+
+  function getCurrentQuestionId() {
+    const q = QUESTIONS[currentQuestionIndex];
+    return q ? q.id : null;
+  }
+
+  function moveToNext(currentId) {
+    const idx = QUESTIONS.findIndex(q => q.id === currentId);
+    if (idx !== -1 && idx + 1 < QUESTIONS.length) {
+      currentQuestionIndex = idx + 1;
+      setTimeout(() => showQuestion(currentQuestionIndex), 600);
+    } else {
+      setTimeout(() => showSummary(), 600);
+    }
+  }
+
+  function addChatMessage(type, text) {
+    const container = document.getElementById('chatContainer');
+    const div = document.createElement('div');
+    div.className = `chat-bubble ${type}`;
+    div.innerHTML = text + `<span class="time">${new Date().toLocaleTimeString()}</span>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    conversation.push({ type, text, time: new Date().toISOString() });
+  }
+
+  // ============================================================
+  // SUMMARY
+  // ============================================================
+  function showSummary() {
+    document.getElementById('questionArea').style.display = 'none';
+    document.getElementById('aiSummary').style.display = 'block';
+    const content = document.getElementById('summaryContent');
+    const fields = [
+      { label: 'Customer', key: 'customerName' },
+      { label: 'Mobile', key: 'mobile' },
+      { label: 'Net Type', key: 'netType' },
+      { label: 'Quantity', key: 'quantity' },
+      { label: 'Location', key: 'location' },
+      { label: 'Address', key: 'address' },
+      { label: 'Preferred Date', key: 'date' },
+      { label: 'Preferred Time', key: 'time' },
+      { label: 'Additional', key: 'notes' }
+    ];
+    let html = '';
+    fields.forEach(f => {
+      const val = answers[f.key] || '—';
+      html += `<div class="summary-item"><span class="label">${f.label}</span><span class="value">${val}</span></div>`;
+    });
+    content.innerHTML = html;
+  }
+
+  function editSummary() {
+    document.getElementById('aiSummary').style.display = 'none';
+    document.getElementById('questionArea').style.display = 'block';
+    currentQuestionIndex = 0;
+    showQuestion(0);
+  }
+
+  // ============================================================
+  // CONFIRM APPOINTMENT
+  // ============================================================
+  function confirmAppointment() {
+    const name = answers.customerName || 'Customer';
+    const mobile = answers.mobile || '9483037385';
+    if (!name || !mobile) {
+      alert('Please provide at least name and mobile number.');
+      return;
+    }
+    // Generate IDs
+    const now = new Date();
+    const dateStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+    enquiryId = 'RM-ENQ-' + dateStr + '-' + String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+    leadId = 'RM-LEAD-' + dateStr + '-' + String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+
+    // Build WhatsApp message
+    const msg = `🔔 NEW CUSTOMER ENQUIRY
+
+Enquiry ID: ${enquiryId}
+
+👤 Customer: ${name}
+📱 WhatsApp: ${mobile}
+🪟 Net Type: ${answers.netType || 'Not specified'}
+🔢 Quantity: ${answers.quantity || 'N/A'}
+📍 Address: ${answers.address || 'N/A'}
+📅 Appointment: ${answers.date || 'N/A'}
+⏰ Time: ${answers.time || 'N/A'}
+📝 Requirement: ${answers.notes || 'None'}
+
+Lead Status: NEW
+Source: WhatsApp AI
+Action: Contact Customer`;
+
+    // Show success
+    document.getElementById('aiMode').classList.add('hidden');
+    document.getElementById('successState').classList.remove('hidden');
+    document.getElementById('successEnquiryId').textContent = enquiryId;
+    document.getElementById('successAppointment').textContent = `${answers.date || 'N/A'}, ${answers.time || 'N/A'}`;
+    document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered.`;
+
+    // Send WhatsApp (simulated)
+    console.log('WhatsApp notification to 9483037385:', msg);
+    alert('✅ Appointment confirmed!\n\n' + msg);
+  }
+
+  // ============================================================
+  // MODE SWITCH
+  // ============================================================
+  function setMode(mode) {
+    document.getElementById('aiModeBtn').classList.toggle('active', mode === 'ai');
+    document.getElementById('manualModeBtn').classList.toggle('active', mode === 'manual');
+    if (mode === 'ai') {
+      document.getElementById('aiMode').classList.remove('hidden');
+      document.getElementById('manualMode').classList.add('hidden');
+      document.getElementById('successState').classList.add('hidden');
+      startAI();
+    } else {
+      document.getElementById('aiMode').classList.add('hidden');
+      document.getElementById('manualMode').classList.remove('hidden');
+      document.getElementById('successState').classList.add('hidden');
+      // Set default date
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('manualDate').value = today;
+    }
+  }
+
+  // ============================================================
+  // MANUAL SUBMIT
+  // ============================================================
+  function submitManual() {
+    const name = document.getElementById('manualName').value.trim();
+    const mobile = document.getElementById('manualMobile').value.trim();
+    const address = document.getElementById('manualAddress').value.trim();
+    if (!name || !mobile || !address) {
+      alert('Please fill in all required fields (Name, Mobile, Address).');
+      return;
+    }
+    const now = new Date();
+    const dateStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+    const enqId = 'RM-ENQ-' + dateStr + '-' + String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+    const product = document.getElementById('manualProduct').value;
+    const qty = document.getElementById('manualQty').value || 'N/A';
+    const location = document.getElementById('manualLocation').value;
+    const date = document.getElementById('manualDate').value || 'N/A';
+    const time = document.getElementById('manualTime').value;
+    const notes = document.getElementById('manualNotes').value || 'None';
+
+    const msg = `🔔 NEW CUSTOMER ENQUIRY (Manual)
+
+Enquiry ID: ${enqId}
+
+👤 Customer: ${name}
+📱 WhatsApp: ${mobile}
+🪟 Net Type: ${product}
+🔢 Quantity: ${qty}
+📍 Location: ${location}
+📅 Appointment: ${date}
+⏰ Time: ${time}
+📝 Requirement: ${notes}
+
+Lead Status: NEW
+Source: Manual Form
+Action: Contact Customer`;
+
+    document.getElementById('successState').classList.remove('hidden');
+    document.getElementById('manualMode').classList.add('hidden');
+    document.getElementById('successEnquiryId').textContent = enqId;
+    document.getElementById('successAppointment').textContent = `${date}, ${time}`;
+    document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered.`;
+
+    console.log('Manual enquiry:', msg);
+    alert('✅ Appointment submitted!\n\n' + msg);
+  }
+
+  // ============================================================
+  // INIT
+  // ============================================================
+  // Enter key for text input
+  document.getElementById('textInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') submitTextAnswer();
+  });
+
+  // Start AI mode by default
+  startAI();
+
+  // Set default date for manual
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('manualDate').value = today;
+</script>
+
+</body>
+</html>
