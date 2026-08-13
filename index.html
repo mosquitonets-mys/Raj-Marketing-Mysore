@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>Raj Marketing · Mosquito Nets</title>
-  <!-- Google Fonts: Poppins (only) -->
+  <title>Raj Marketing · Home</title>
+  <!-- Google Fonts: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* ----- DARK MODE (default) + LIGHT MODE via class ----- */
     * {
       margin: 0;
       padding: 0;
@@ -23,288 +22,193 @@
       background: #121212;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
-      padding: 16px 12px 80px 12px;
-      transition: background 0.3s;
+      padding: 0 12px;
+      padding-top: 80px;
+      padding-bottom: 85px;
     }
 
-    /* light mode body (will be toggled via JS) */
-    body.light-mode {
-      background: #e8edf2;
-    }
-
-    /* ----- APP CONTAINER (DARK CARD) ----- */
+    /* ---- APP CONTAINER ---- */
     .app-container {
-      max-width: 420px;
+      max-width: 460px;
       width: 100%;
       background: #1e1e1e;
       border-radius: 36px 36px 28px 28px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 8px 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 8px 20px rgba(0,0,0,0.5);
       overflow: hidden;
-      padding: 20px 18px 10px 18px;
-      transition: background 0.3s, box-shadow 0.3s;
+      padding: 20px 18px 20px 18px;
       border: 1px solid #2c2c2c;
     }
 
-    /* light mode container */
-    body.light-mode .app-container {
-      background: #ffffff;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), 0 8px 20px rgba(0, 0, 0, 0.12);
-      border: 1px solid #e0e0e0;
-    }
-
-    /* ----- 1. HEADER (dark / light) ----- */
-    .header {
+    /* ---- FIXED HEADER ---- */
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      max-width: 484px;
+      margin: 0 auto;
+      width: 100%;
+      background: #1a1a1a;
+      padding: 14px 20px 10px 20px;
+      border-bottom: 1px solid #2c2c2c;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
-    body.light-mode .header {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    .logo-area {
+    .fixed-header .logo-area {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-
-    .logo-icon {
-      width: 44px;
-      height: 44px;
+    .fixed-header .logo-icon {
+      width: 40px;
+      height: 40px;
       background: linear-gradient(145deg, #38bdf8, #0ea5e9);
-      border-radius: 14px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 22px;
-      box-shadow: 0 6px 14px rgba(56, 189, 248, 0.35);
+      font-size: 20px;
+      box-shadow: 0 6px 14px rgba(56,189,248,0.3);
     }
-
-    .logo-text {
+    .fixed-header .logo-text {
       font-weight: 700;
-      font-size: 18px;
-      letter-spacing: -0.3px;
+      font-size: 16px;
       color: #f0f0f0;
       line-height: 1.2;
     }
-    body.light-mode .logo-text {
-      color: #1a1a1a;
-    }
-
-    .logo-text span {
+    .fixed-header .logo-text span {
       display: block;
       font-weight: 400;
-      font-size: 10px;
-      color: #a0a0a0;
+      font-size: 9px;
+      color: #888;
       letter-spacing: 0.3px;
     }
-    body.light-mode .logo-text span {
-      color: #6b6b6b;
-    }
-
-    .header-actions {
+    .fixed-header .header-actions {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       align-items: center;
     }
-
-    .header-actions i {
-      font-size: 22px;
+    .fixed-header .header-actions i {
+      font-size: 20px;
       color: #d0d0d0;
       background: #2a2a2a;
       padding: 8px;
       border-radius: 50%;
-      transition: 0.2s;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
     }
-    body.light-mode .header-actions i {
-      color: #2d2d2d;
-      background: #f0f0f0;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
-    }
-    .header-actions i.fa-bell {
-      background: #1a3a4a;
-      color: #38bdf8;
-    }
-    body.light-mode .header-actions i.fa-bell {
-      background: #e6f4ff;
-      color: #0ea5e9;
-    }
-
-    /* dark mode toggle button */
-    .theme-toggle {
+    .fixed-header .header-actions .theme-toggle {
       background: transparent;
       border: none;
-      color: #f0f0f0;
       font-size: 20px;
       cursor: pointer;
-      padding: 4px 6px;
-      border-radius: 30px;
-      transition: 0.2s;
+      padding: 4px;
+      color: #f0f0f0;
     }
-    body.light-mode .theme-toggle {
-      color: #1a1a1a;
-    }
-    .theme-toggle i {
+    .fixed-header .header-actions .theme-toggle i {
       background: transparent !important;
       box-shadow: none !important;
       padding: 0 !important;
-      font-size: 20px;
     }
 
-    /* ----- 2. WELCOME (dark) ----- */
-    .welcome-section {
-      margin: 18px 0 16px 0;
-      padding: 22px 18px;
-      background: linear-gradient(145deg, #252525, #1a1a1a);
-      border-radius: 28px;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
-      border: 1px solid #2e2e2e;
-    }
-    body.light-mode .welcome-section {
-      background: linear-gradient(145deg, #eef2f7, #dce3ec);
-      color: #1a1a1a;
-      border: 1px solid #d0d8e0;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    }
-
-    .welcome-section::after {
-      content: "🦟";
-      position: absolute;
-      right: -8px;
-      bottom: -18px;
-      font-size: 82px;
-      opacity: 0.08;
-      transform: rotate(12deg);
-    }
-    body.light-mode .welcome-section::after {
-      opacity: 0.15;
-    }
-
-    .welcome-section h2 {
-      font-weight: 700;
-      font-size: 20px;
-      letter-spacing: -0.2px;
-      margin-bottom: 4px;
-    }
-    .welcome-section p {
-      font-weight: 300;
-      font-size: 14px;
-      opacity: 0.9;
+    /* ---- FIXED FOOTER ---- */
+    .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      max-width: 484px;
+      margin: 0 auto;
+      width: 100%;
+      background: #1a1a1a;
+      padding: 8px 12px 12px 12px;
+      border-top: 1px solid #2c2c2c;
+      box-shadow: 0 -6px 20px rgba(0,0,0,0.6);
       display: flex;
+      justify-content: space-around;
       align-items: center;
-      gap: 6px;
+      border-radius: 30px 30px 0 0;
     }
-    .welcome-section p i {
-      color: #38bdf8;
-      font-size: 14px;
-    }
-
-    /* ----- 3. SEARCH BAR (dark) ----- */
-    .search-bar {
-      background: #2a2a2a;
-      border-radius: 40px;
-      padding: 10px 18px;
+    .fixed-footer .nav-item {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      margin: 8px 0 18px 0;
-      border: 1px solid #3a3a3a;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+      font-size: 9px;
+      color: #888;
+      font-weight: 500;
+      gap: 2px;
+      padding: 4px 12px;
+      border-radius: 30px;
       transition: 0.2s;
+      cursor: pointer;
+      text-decoration: none;
     }
-    body.light-mode .search-bar {
-      background: #f2f4f8;
-      border: 1px solid #d0d8e0;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    }
-
-    .search-bar i {
-      color: #a0a0a0;
-      font-size: 18px;
-    }
-    body.light-mode .search-bar i {
+    .fixed-footer .nav-item i {
+      font-size: 20px;
       color: #6b6b6b;
     }
-    .search-bar input {
-      flex: 1;
-      border: none;
-      background: transparent;
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      outline: none;
-      padding: 4px 0;
-      color: #e0e0e0;
-    }
-    body.light-mode .search-bar input {
-      color: #1a1a1a;
-    }
-    .search-bar input::placeholder {
-      color: #888;
-    }
-    body.light-mode .search-bar input::placeholder {
-      color: #9a9a9a;
-    }
-    .search-bar .fa-microphone {
+    .fixed-footer .nav-item.active i {
       color: #38bdf8;
-      font-size: 18px;
+    }
+    .fixed-footer .nav-item.active {
+      color: #38bdf8;
+      background: rgba(56,189,248,0.1);
     }
 
-    /* ----- 4. QUICK ACTION CARDS (dark) ----- */
-    .quick-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 14px 0 20px 0;
+    /* ---- SLIDER ---- */
+    .slider-container {
+      margin: 6px 0 18px 0;
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.6);
+      height: 160px;
     }
-    .quick-card {
-      background: #252525;
-      border-radius: 24px;
-      padding: 14px 8px;
-      text-align: center;
-      border: 1px solid #333;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    .slider-track {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      animation: slide 12s infinite ease-in-out;
+    }
+    .slider-slide {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #fff;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .slider-slide:nth-child(1) { background: linear-gradient(135deg, #0ea5e9, #38bdf8); }
+    .slider-slide:nth-child(2) { background: linear-gradient(135deg, #f97316, #fb923c); }
+    .slider-slide:nth-child(3) { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+    .slider-slide span { font-size: 14px; font-weight: 300; display: block; margin-top: 4px; }
+
+    @keyframes slide {
+      0%, 28% { transform: translateX(0); }
+      33%, 61% { transform: translateX(-33.33%); }
+      66%, 94% { transform: translateX(-66.66%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ---- CARDS (clickable) ---- */
+    .card-click {
+      cursor: pointer;
       transition: 0.2s;
     }
-    body.light-mode .quick-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10);
-    }
-    .quick-card i {
-      font-size: 26px;
-      color: #38bdf8;
-      margin-bottom: 6px;
-      display: block;
-    }
-    .quick-card span {
-      font-weight: 600;
-      font-size: 13px;
-      color: #e8e8e8;
-      display: block;
-    }
-    body.light-mode .quick-card span {
-      color: #1a1a1a;
-    }
-    .quick-card:hover {
-      transform: translateY(-4px);
-      border-color: #38bdf8;
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.7);
-    }
-    body.light-mode .quick-card:hover {
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+    .card-click:active {
+      transform: scale(0.97);
     }
 
-    /* ----- 5. PRODUCT CATEGORIES (dark) ----- */
+    /* ---- other styles (same as before) ---- */
     .section-title {
       display: flex;
       justify-content: space-between;
@@ -317,14 +221,39 @@
       color: #f0f0f0;
       letter-spacing: -0.2px;
     }
-    body.light-mode .section-title h3 {
-      color: #1a1a1a;
-    }
     .section-title a {
       font-size: 12px;
       color: #38bdf8;
       font-weight: 600;
       text-decoration: none;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0 20px 0;
+    }
+    .quick-card {
+      background: #252525;
+      border-radius: 24px;
+      padding: 16px 8px;
+      text-align: center;
+      border: 1px solid #333;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+      transition: 0.2s;
+    }
+    .quick-card i {
+      font-size: 28px;
+      color: #38bdf8;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .quick-card span {
+      font-weight: 600;
+      font-size: 13px;
+      color: #e8e8e8;
+      display: block;
     }
 
     .category-scroll {
@@ -336,16 +265,8 @@
       scrollbar-color: #38bdf8 #2a2a2a;
       -webkit-overflow-scrolling: touch;
     }
-    body.light-mode .category-scroll {
-      scrollbar-color: #38bdf8 #e2e8f0;
-    }
-    .category-scroll::-webkit-scrollbar {
-      height: 4px;
-    }
-    .category-scroll::-webkit-scrollbar-thumb {
-      background: #38bdf8;
-      border-radius: 20px;
-    }
+    .category-scroll::-webkit-scrollbar { height: 4px; }
+    .category-scroll::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 20px; }
 
     .category-card {
       min-width: 150px;
@@ -353,15 +274,11 @@
       border-radius: 24px;
       padding: 14px 10px;
       border: 1px solid #333;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.6);
       text-align: center;
       flex-shrink: 0;
       transition: 0.2s;
-    }
-    body.light-mode .category-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
     }
     .category-card .product-img {
       width: 70px;
@@ -374,7 +291,7 @@
       justify-content: center;
       font-size: 32px;
       color: #fff;
-      box-shadow: 0 6px 14px rgba(56, 189, 248, 0.3);
+      box-shadow: 0 6px 14px rgba(56,189,248,0.3);
     }
     .category-card .product-name {
       font-weight: 600;
@@ -382,27 +299,16 @@
       color: #e8e8e8;
       margin-bottom: 4px;
     }
-    body.light-mode .category-card .product-name {
-      color: #1a1a1a;
-    }
     .category-card .view-btn {
-      background: none;
-      border: none;
       color: #38bdf8;
       font-weight: 700;
       font-size: 12px;
       padding: 4px 12px;
       border-radius: 40px;
-      background: rgba(56, 189, 248, 0.12);
+      background: rgba(56,189,248,0.12);
       display: inline-block;
-      margin-top: 4px;
-      cursor: default;
-    }
-    body.light-mode .category-card .view-btn {
-      background: #e6f4ff;
     }
 
-    /* ----- 6. PROMO BANNER (sky blue) ----- */
     .promo-banner {
       margin: 14px 0 20px 0;
       background: linear-gradient(135deg, #38bdf8, #0ea5e9);
@@ -411,22 +317,11 @@
       color: #fff;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 12px 28px rgba(56, 189, 248, 0.35);
+      box-shadow: 0 12px 28px rgba(56,189,248,0.35);
+      cursor: pointer;
     }
-    body.light-mode .promo-banner {
-      box-shadow: 0 12px 28px rgba(56, 189, 248, 0.25);
-    }
-    .promo-banner h4 {
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-    }
-    .promo-banner p {
-      font-weight: 300;
-      font-size: 14px;
-      opacity: 0.95;
-      margin: 2px 0 12px 0;
-    }
+    .promo-banner h4 { font-weight: 800; font-size: 18px; }
+    .promo-banner p { font-weight: 300; font-size: 14px; margin: 2px 0 12px 0; }
     .promo-banner .btn-explore {
       background: #fff;
       border: none;
@@ -435,9 +330,8 @@
       font-weight: 700;
       font-size: 14px;
       color: #0ea5e9;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
       display: inline-block;
-      cursor: default;
     }
     .promo-banner .mosquito-icon {
       position: absolute;
@@ -447,7 +341,6 @@
       opacity: 0.10;
     }
 
-    /* ----- 7. WHY CHOOSE US (dark) ----- */
     .feature-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -462,40 +355,13 @@
       align-items: center;
       gap: 10px;
       border: 1px solid #333;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
-      transition: 0.2s;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+      cursor: pointer;
     }
-    body.light-mode .feature-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-    }
-    .feature-card i {
-      font-size: 24px;
-      color: #38bdf8;
-      width: 36px;
-      text-align: center;
-    }
-    .feature-card .feature-text {
-      font-weight: 600;
-      font-size: 13px;
-      color: #e8e8e8;
-      line-height: 1.2;
-    }
-    body.light-mode .feature-card .feature-text {
-      color: #1a1a1a;
-    }
-    .feature-card .feature-text small {
-      display: block;
-      font-weight: 300;
-      font-size: 10px;
-      color: #888;
-    }
-    body.light-mode .feature-card .feature-text small {
-      color: #6b6b6b;
-    }
+    .feature-card i { font-size: 24px; color: #38bdf8; width: 36px; text-align: center; }
+    .feature-card .feature-text { font-weight: 600; font-size: 13px; color: #e8e8e8; line-height: 1.2; }
+    .feature-card .feature-text small { display: block; font-weight: 300; font-size: 10px; color: #888; }
 
-    /* ----- 8. CUSTOMER SERVICES (dark) ----- */
     .service-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -508,8 +374,7 @@
       padding: 12px 6px;
       text-align: center;
       border: 1px solid #333;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-      transition: 0.2s;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.5);
       font-size: 12px;
       font-weight: 600;
       color: #d0d0d0;
@@ -517,53 +382,23 @@
       flex-direction: column;
       align-items: center;
       gap: 4px;
+      cursor: pointer;
     }
-    body.light-mode .service-btn {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
-      color: #1a1a1a;
-    }
-    .service-btn i {
-      font-size: 22px;
-      color: #38bdf8;
-    }
-    .service-btn:hover {
-      border-color: #38bdf8;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
-    }
-    body.light-mode .service-btn:hover {
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10);
-    }
+    .service-btn i { font-size: 22px; color: #38bdf8; }
 
-    /* ----- 9. CTA SECTION (sky blue gradient) ----- */
     .cta-section {
       background: linear-gradient(135deg, #38bdf8, #0ea5e9);
       border-radius: 32px;
       padding: 24px 20px;
       margin: 14px 0 10px 0;
       color: #fff;
-      box-shadow: 0 14px 32px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 14px 32px rgba(56,189,248,0.4);
       text-align: center;
+      cursor: pointer;
     }
-    .cta-section h3 {
-      font-weight: 800;
-      font-size: 20px;
-      letter-spacing: -0.2px;
-    }
-    .cta-section p {
-      font-weight: 300;
-      font-size: 14px;
-      margin: 4px 0 14px 0;
-      opacity: 0.95;
-    }
-    .cta-actions {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
+    .cta-section h3 { font-weight: 800; font-size: 20px; }
+    .cta-section p { font-weight: 300; font-size: 14px; margin: 4px 0 14px 0; }
+    .cta-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
     .cta-actions .btn-primary {
       background: #fff;
       border: none;
@@ -572,16 +407,15 @@
       font-weight: 700;
       font-size: 14px;
       color: #0ea5e9;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      cursor: default;
     }
     .cta-actions .btn-secondary {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.2);
       backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255,255,255,0.3);
       padding: 10px 22px;
       border-radius: 40px;
       font-weight: 700;
@@ -590,191 +424,178 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      cursor: default;
     }
 
-    /* ----- 10. BOTTOM NAV (dark) ----- */
-    .bottom-nav {
+    .search-bar {
+      background: #2a2a2a;
+      border-radius: 40px;
+      padding: 10px 18px;
       display: flex;
-      justify-content: space-around;
       align-items: center;
-      background: #1a1a1a;
-      padding: 8px 6px 10px 6px;
-      margin: 18px -6px 0 -6px;
-      border-top: 1px solid #2c2c2c;
-      border-radius: 40px 40px 0 0;
-      box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.5);
+      gap: 12px;
+      margin: 8px 0 18px 0;
+      border: 1px solid #3a3a3a;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
     }
-    body.light-mode .bottom-nav {
-      background: #ffffff;
-      border-top: 1px solid #e2e8f0;
-      box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.04);
+    .search-bar i { color: #a0a0a0; font-size: 18px; }
+    .search-bar input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 400;
+      outline: none;
+      padding: 4px 0;
+      color: #e0e0e0;
     }
+    .search-bar input::placeholder { color: #888; }
+    .search-bar .fa-microphone { color: #38bdf8; }
 
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 10px;
-      color: #888;
-      transition: 0.2s;
-      font-weight: 500;
-      gap: 2px;
-      padding: 4px 10px;
-      border-radius: 30px;
+    .welcome-section {
+      margin: 0 0 16px 0;
+      padding: 22px 18px;
+      background: linear-gradient(145deg, #252525, #1a1a1a);
+      border-radius: 28px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.6);
+      border: 1px solid #2e2e2e;
     }
-    body.light-mode .nav-item {
-      color: #8a8a8a;
+    .welcome-section::after {
+      content: "🦟";
+      position: absolute;
+      right: -8px;
+      bottom: -18px;
+      font-size: 82px;
+      opacity: 0.08;
+      transform: rotate(12deg);
     }
-    .nav-item i {
-      font-size: 22px;
-      color: #6b6b6b;
-    }
-    body.light-mode .nav-item i {
-      color: #8a8a8a;
-    }
-    .nav-item.active i {
-      color: #38bdf8;
-    }
-    .nav-item.active {
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.12);
-    }
-    body.light-mode .nav-item.active {
-      background: #e6f4ff;
-    }
+    .welcome-section h2 { font-weight: 700; font-size: 20px; margin-bottom: 4px; }
+    .welcome-section p { font-weight: 300; font-size: 14px; opacity: 0.9; display: flex; align-items: center; gap: 6px; }
+    .welcome-section p i { color: #38bdf8; }
 
-    /* small footer */
-    .footer-note {
-      text-align: center;
-      font-size: 9px;
-      color: #555;
-      padding: 14px 0 4px 0;
-      letter-spacing: 0.3px;
-    }
-    body.light-mode .footer-note {
-      color: #aaa;
-    }
-
-    /* responsive */
-    @media (max-width: 380px) {
-      .app-container { padding: 16px 12px 10px 12px; }
-      .logo-text { font-size: 16px; }
-      .quick-card span { font-size: 12px; }
-      .category-card { min-width: 130px; }
+    @media (max-width: 400px) {
+      .quick-grid { gap: 8px; }
       .service-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (min-width: 600px) {
-      body { padding: 30px 20px 80px 20px; }
-      .app-container { max-width: 460px; }
+      .fixed-header .logo-text { font-size: 14px; }
+      .slider-container { height: 130px; }
     }
   </style>
 </head>
 <body>
 
-<div class="app-container" id="appContainer">
-
-  <!-- 1. HEADER -->
-  <div class="header">
-    <div class="logo-area">
-      <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-      <div class="logo-text">
-        Raj Marketing Mysore
-        <span>Mosquito Nets · Window Screens</span>
-      </div>
+<!-- FIXED HEADER -->
+<header class="fixed-header">
+  <div class="logo-area">
+    <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+    <div class="logo-text">
+      Raj Marketing Mysore
+      <span>Mosquito Nets · Window Screens</span>
     </div>
-    <div class="header-actions">
-      <i class="fas fa-bell"></i>
-      <i class="fas fa-user-circle"></i>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
-      </button>
+  </div>
+  <div class="header-actions">
+    <i class="fas fa-bell"></i>
+    <i class="fas fa-user-circle"></i>
+    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+  </div>
+</header>
+
+<!-- APP CONTAINER -->
+<div class="app-container">
+
+  <!-- SLIDER -->
+  <div class="slider-container">
+    <div class="slider-track">
+      <div class="slider-slide">🦟 Premium Mosquito Nets <span>100% Protection</span></div>
+      <div class="slider-slide">📏 Custom Window Screens <span>Perfect Fit Guaranteed</span></div>
+      <div class="slider-slide">🏆 Trusted Since 2016 <span>500+ Happy Customers</span></div>
     </div>
   </div>
 
-  <!-- 2. WELCOME -->
+  <!-- WELCOME -->
   <div class="welcome-section">
     <h2>Welcome to Raj Marketing Mysore</h2>
     <p><i class="fas fa-check-circle"></i> Smart Mosquito Protection for Every Home</p>
   </div>
 
-  <!-- 3. SEARCH -->
+  <!-- SEARCH -->
   <div class="search-bar">
     <i class="fas fa-search"></i>
     <input type="text" placeholder="Search products, services..." />
     <i class="fas fa-microphone"></i>
   </div>
 
-  <!-- 4. QUICK ACTION CARDS -->
+  <!-- QUICK ACTION CARDS (clickable) -->
   <div class="quick-grid">
-    <div class="quick-card"><i class="fas fa-ruler-combined"></i><span>Measure Window</span></div>
-    <div class="quick-card"><i class="fas fa-tag"></i><span>Check Price</span></div>
-    <div class="quick-card"><i class="fas fa-file-invoice"></i><span>Get Estimate</span></div>
-    <div class="quick-card"><i class="fas fa-calendar-check"></i><span>Book Appointment</span></div>
+    <div class="quick-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-ruler-combined"></i><span>Measure Window</span></div>
+    <div class="quick-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-tag"></i><span>Check Price</span></div>
+    <div class="quick-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-file-invoice"></i><span>Get Estimate</span></div>
+    <div class="quick-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-calendar-check"></i><span>Book Appointment</span></div>
   </div>
 
-  <!-- 5. PRODUCT CATEGORIES -->
+  <!-- PRODUCT CATEGORIES -->
   <div class="section-title">
     <h3>Our Products</h3>
     <a href="#">See all</a>
   </div>
   <div class="category-scroll">
-    <div class="category-card">
+    <div class="category-card card-click" onclick="window.location.href='estimate.html'">
       <div class="product-img"><i class="fas fa-vector-square"></i></div>
       <div class="product-name">Velcro Net</div>
       <span class="view-btn">View Details</span>
     </div>
-    <div class="category-card">
+    <div class="category-card card-click" onclick="window.location.href='estimate.html'">
       <div class="product-img"><i class="fas fa-border-all"></i></div>
       <div class="product-name">Aluminium Frame</div>
       <span class="view-btn">View Details</span>
     </div>
-    <div class="category-card">
+    <div class="category-card card-click" onclick="window.location.href='estimate.html'">
       <div class="product-img"><i class="fas fa-wind"></i></div>
       <div class="product-name">Pleated Net</div>
       <span class="view-btn">View Details</span>
     </div>
-    <div class="category-card">
+    <div class="category-card card-click" onclick="window.location.href='estimate.html'">
       <div class="product-img"><i class="fas fa-door-open"></i></div>
       <div class="product-name">Mesh Door</div>
       <span class="view-btn">View Details</span>
     </div>
-    <div class="category-card">
+    <div class="category-card card-click" onclick="window.location.href='estimate.html'">
       <div class="product-img"><i class="fas fa-window-maximize"></i></div>
       <div class="product-name">Window Screen</div>
       <span class="view-btn">View Details</span>
     </div>
   </div>
 
-  <!-- 6. PROMO BANNER -->
-  <div class="promo-banner">
+  <!-- PROMO BANNER (clickable) -->
+  <div class="promo-banner card-click" onclick="window.location.href='estimate.html'">
     <h4>Protect Your Home from Mosquitoes</h4>
     <p>Premium Quality Mosquito Nets</p>
     <span class="btn-explore">Explore Products</span>
     <div class="mosquito-icon">🦟</div>
   </div>
 
-  <!-- 7. WHY CHOOSE US -->
+  <!-- WHY CHOOSE US -->
   <div class="section-title" style="margin-top: 6px;"><h3>Why Choose Us</h3></div>
   <div class="feature-grid">
-    <div class="feature-card"><i class="fas fa-check-circle"></i><div class="feature-text">Quality Materials <small>Durable & reliable</small></div></div>
-    <div class="feature-card"><i class="fas fa-ruler"></i><div class="feature-text">Custom Measurements <small>Perfect fit</small></div></div>
-    <div class="feature-card"><i class="fas fa-tools"></i><div class="feature-text">Professional Installation <small>Expert team</small></div></div>
-    <div class="feature-card"><i class="fas fa-star"></i><div class="feature-text">Trusted Since 2016 <small>Established</small></div></div>
+    <div class="feature-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-check-circle"></i><div class="feature-text">Quality Materials <small>Durable & reliable</small></div></div>
+    <div class="feature-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-ruler"></i><div class="feature-text">Custom Measurements <small>Perfect fit</small></div></div>
+    <div class="feature-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-tools"></i><div class="feature-text">Professional Installation <small>Expert team</small></div></div>
+    <div class="feature-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-star"></i><div class="feature-text">Trusted Since 2016 <small>Established</small></div></div>
   </div>
 
-  <!-- 8. CUSTOMER SERVICES -->
+  <!-- CUSTOMER SERVICES -->
   <div class="section-title"><h3>Services</h3></div>
   <div class="service-grid">
-    <div class="service-btn"><i class="fas fa-box"></i> My Orders</div>
-    <div class="service-btn"><i class="fas fa-file-invoice"></i> Estimates</div>
-    <div class="service-btn"><i class="fas fa-save"></i> Measurements</div>
-    <div class="service-btn"><i class="fas fa-history"></i> Appointment</div>
-    <div class="service-btn"><i class="fas fa-headset"></i> Contact Us</div>
+    <div class="service-btn card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-box"></i> My Orders</div>
+    <div class="service-btn card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-file-invoice"></i> Estimates</div>
+    <div class="service-btn card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-save"></i> Measurements</div>
+    <div class="service-btn card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-history"></i> Appointment</div>
+    <div class="service-btn card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-headset"></i> Contact Us</div>
   </div>
 
-  <!-- 9. CTA -->
-  <div class="cta-section">
+  <!-- CTA -->
+  <div class="cta-section card-click" onclick="window.location.href='estimate.html'">
     <h3>Need a Mosquito Net?</h3>
     <p>Get your window measurement and price today.</p>
     <div class="cta-actions">
@@ -783,51 +604,58 @@
     </div>
   </div>
 
-  <!-- 10. BOTTOM NAV -->
-  <div class="bottom-nav">
-    <div class="nav-item active"><i class="fas fa-home"></i> Home</div>
-    <div class="nav-item"><i class="fas fa-th-large"></i> Products</div>
-    <div class="nav-item"><i class="fas fa-ruler"></i> Measure</div>
-    <div class="nav-item"><i class="fas fa-clipboard-list"></i> Orders</div>
-    <div class="nav-item"><i class="fas fa-user"></i> Profile</div>
+  <div style="font-size:9px; color:#444; text-align:center; margin-top:14px;">
+    Raj Marketing Mysore · Est. 2016
   </div>
-
-  <div class="footer-note">Raj Marketing Mysore · Est. 2016</div>
 </div>
 
-<script>
-  (function() {
-    const toggleBtn = document.getElementById('themeToggle');
-    const body = document.body;
-    const icon = toggleBtn.querySelector('i');
+<!-- FIXED FOOTER -->
+<footer class="fixed-footer">
+  <a href="index.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-ruler"></i> Measure</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Orders</a>
+  <a href="estimate.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+</footer>
 
-    // check saved preference
-    const saved = localStorage.getItem('theme');
-    if (saved === 'light') {
-      body.classList.add('light-mode');
+<script>
+  // Theme toggle (dark/light)
+  const toggleBtn = document.getElementById('themeToggle');
+  const body = document.body;
+  const icon = toggleBtn.querySelector('i');
+
+  // check saved
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    body.classList.add('light-mode');
+    icon.classList.remove('fa-moon');
+    icon.classList.add('fa-sun');
+    // update header/footer for light mode
+    document.querySelector('.fixed-header').style.background = '#ffffff';
+    document.querySelector('.fixed-footer').style.background = '#ffffff';
+  } else {
+    document.querySelector('.fixed-header').style.background = '#1a1a1a';
+    document.querySelector('.fixed-footer').style.background = '#1a1a1a';
+  }
+
+  toggleBtn.addEventListener('click', function() {
+    body.classList.toggle('light-mode');
+    const isLight = body.classList.contains('light-mode');
+    if (isLight) {
       icon.classList.remove('fa-moon');
       icon.classList.add('fa-sun');
+      localStorage.setItem('theme', 'light');
+      document.querySelector('.fixed-header').style.background = '#ffffff';
+      document.querySelector('.fixed-footer').style.background = '#ffffff';
     } else {
-      // default dark
-      body.classList.remove('light-mode');
       icon.classList.remove('fa-sun');
       icon.classList.add('fa-moon');
+      localStorage.setItem('theme', 'dark');
+      document.querySelector('.fixed-header').style.background = '#1a1a1a';
+      document.querySelector('.fixed-footer').style.background = '#1a1a1a';
     }
-
-    toggleBtn.addEventListener('click', function() {
-      body.classList.toggle('light-mode');
-      if (body.classList.contains('light-mode')) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'light');
-      } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'dark');
-      }
-    });
-  })();
+  });
 </script>
 
 </body>
-  </html>
+</html>
