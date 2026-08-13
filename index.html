@@ -19,7 +19,7 @@
     }
 
     body {
-      background: #121212;
+      background: #f0f2f5;
       display: flex;
       justify-content: center;
       min-height: 100vh;
@@ -28,19 +28,19 @@
       padding-bottom: 85px;
     }
 
-    /* ---- APP CONTAINER ---- */
+    /* ---- APP CONTAINER (WHITE) ---- */
     .app-container {
       max-width: 460px;
       width: 100%;
-      background: #1e1e1e;
+      background: #ffffff;
       border-radius: 36px 36px 28px 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 8px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08), 0 4px 20px rgba(0,0,0,0.04);
       overflow: hidden;
       padding: 20px 18px 20px 18px;
-      border: 1px solid #2c2c2c;
+      border: 1px solid #e8ecf0;
     }
 
-    /* ---- FIXED HEADER ---- */
+    /* ---- FIXED HEADER (WHITE) ---- */
     .fixed-header {
       position: fixed;
       top: 0;
@@ -50,10 +50,10 @@
       max-width: 484px;
       margin: 0 auto;
       width: 100%;
-      background: #1a1a1a;
+      background: #ffffff;
       padding: 14px 20px 10px 20px;
-      border-bottom: 1px solid #2c2c2c;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      border-bottom: 1px solid #e8ecf0;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -73,19 +73,19 @@
       justify-content: center;
       color: #fff;
       font-size: 20px;
-      box-shadow: 0 6px 14px rgba(56,189,248,0.3);
+      box-shadow: 0 4px 12px rgba(56,189,248,0.25);
     }
     .fixed-header .logo-text {
       font-weight: 700;
       font-size: 16px;
-      color: #f0f0f0;
+      color: #1a1a1a;
       line-height: 1.2;
     }
     .fixed-header .logo-text span {
       display: block;
       font-weight: 400;
       font-size: 9px;
-      color: #888;
+      color: #6b6b6b;
       letter-spacing: 0.3px;
     }
     .fixed-header .header-actions {
@@ -95,11 +95,11 @@
     }
     .fixed-header .header-actions i {
       font-size: 20px;
-      color: #d0d0d0;
-      background: #2a2a2a;
+      color: #2d2d2d;
+      background: #f0f2f5;
       padding: 8px;
       border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
     .fixed-header .header-actions .theme-toggle {
       background: transparent;
@@ -107,7 +107,7 @@
       font-size: 20px;
       cursor: pointer;
       padding: 4px;
-      color: #f0f0f0;
+      color: #1a1a1a;
     }
     .fixed-header .header-actions .theme-toggle i {
       background: transparent !important;
@@ -115,7 +115,7 @@
       padding: 0 !important;
     }
 
-    /* ---- FIXED FOOTER ---- */
+    /* ---- FIXED FOOTER (WHITE) ---- */
     .fixed-footer {
       position: fixed;
       bottom: 0;
@@ -125,10 +125,10 @@
       max-width: 484px;
       margin: 0 auto;
       width: 100%;
-      background: #1a1a1a;
+      background: #ffffff;
       padding: 8px 12px 12px 12px;
-      border-top: 1px solid #2c2c2c;
-      box-shadow: 0 -6px 20px rgba(0,0,0,0.6);
+      border-top: 1px solid #e8ecf0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -139,7 +139,7 @@
       flex-direction: column;
       align-items: center;
       font-size: 9px;
-      color: #888;
+      color: #8a8a8a;
       font-weight: 500;
       gap: 2px;
       padding: 4px 12px;
@@ -150,24 +150,25 @@
     }
     .fixed-footer .nav-item i {
       font-size: 20px;
-      color: #6b6b6b;
+      color: #8a8a8a;
     }
     .fixed-footer .nav-item.active i {
       color: #38bdf8;
     }
     .fixed-footer .nav-item.active {
       color: #38bdf8;
-      background: rgba(56,189,248,0.1);
+      background: rgba(56,189,248,0.08);
     }
 
-    /* ---- SLIDER ---- */
+    /* ---- SLIDER (WHITE CARD) ---- */
     .slider-container {
       margin: 6px 0 18px 0;
       border-radius: 28px;
       overflow: hidden;
       position: relative;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.6);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
       height: 160px;
+      border: 1px solid #e8ecf0;
     }
     .slider-track {
       display: flex;
@@ -185,7 +186,7 @@
       font-weight: 700;
       font-size: 20px;
       color: #fff;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     .slider-slide:nth-child(1) { background: linear-gradient(135deg, #0ea5e9, #38bdf8); }
     .slider-slide:nth-child(2) { background: linear-gradient(135deg, #f97316, #fb923c); }
@@ -199,16 +200,16 @@
       100% { transform: translateX(0); }
     }
 
-    /* ---- CARDS (clickable) ---- */
+    /* ---- CARDS (clickable, white) ---- */
     .card-click {
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.2s ease;
     }
     .card-click:active {
       transform: scale(0.97);
     }
 
-    /* ---- other styles (same as before) ---- */
+    /* ---- SECTION TITLES ---- */
     .section-title {
       display: flex;
       justify-content: space-between;
@@ -218,7 +219,7 @@
     .section-title h3 {
       font-weight: 700;
       font-size: 18px;
-      color: #f0f0f0;
+      color: #1a1a1a;
       letter-spacing: -0.2px;
     }
     .section-title a {
@@ -228,6 +229,7 @@
       text-decoration: none;
     }
 
+    /* ---- QUICK ACTION CARDS (WHITE) ---- */
     .quick-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -235,13 +237,17 @@
       margin: 14px 0 20px 0;
     }
     .quick-card {
-      background: #252525;
+      background: #ffffff;
       border-radius: 24px;
       padding: 16px 8px;
       text-align: center;
-      border: 1px solid #333;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+      border: 1px solid #e8ecf0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
       transition: 0.2s;
+    }
+    .quick-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: #38bdf8;
     }
     .quick-card i {
       font-size: 28px;
@@ -252,17 +258,18 @@
     .quick-card span {
       font-weight: 600;
       font-size: 13px;
-      color: #e8e8e8;
+      color: #1a1a1a;
       display: block;
     }
 
+    /* ---- PRODUCT CATEGORIES (WHITE) ---- */
     .category-scroll {
       display: flex;
       gap: 14px;
       overflow-x: auto;
       padding: 4px 2px 12px 2px;
       scrollbar-width: thin;
-      scrollbar-color: #38bdf8 #2a2a2a;
+      scrollbar-color: #38bdf8 #e8ecf0;
       -webkit-overflow-scrolling: touch;
     }
     .category-scroll::-webkit-scrollbar { height: 4px; }
@@ -270,15 +277,19 @@
 
     .category-card {
       min-width: 150px;
-      background: #242424;
+      background: #ffffff;
       border-radius: 24px;
       padding: 14px 10px;
-      border: 1px solid #333;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.6);
+      border: 1px solid #e8ecf0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
       text-align: center;
       flex-shrink: 0;
       transition: 0.2s;
       cursor: pointer;
+    }
+    .category-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: #38bdf8;
     }
     .category-card .product-img {
       width: 70px;
@@ -291,12 +302,12 @@
       justify-content: center;
       font-size: 32px;
       color: #fff;
-      box-shadow: 0 6px 14px rgba(56,189,248,0.3);
+      box-shadow: 0 4px 12px rgba(56,189,248,0.2);
     }
     .category-card .product-name {
       font-weight: 600;
       font-size: 14px;
-      color: #e8e8e8;
+      color: #1a1a1a;
       margin-bottom: 4px;
     }
     .category-card .view-btn {
@@ -305,10 +316,11 @@
       font-size: 12px;
       padding: 4px 12px;
       border-radius: 40px;
-      background: rgba(56,189,248,0.12);
+      background: rgba(56,189,248,0.08);
       display: inline-block;
     }
 
+    /* ---- PROMO BANNER ---- */
     .promo-banner {
       margin: 14px 0 20px 0;
       background: linear-gradient(135deg, #38bdf8, #0ea5e9);
@@ -317,7 +329,7 @@
       color: #fff;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 12px 28px rgba(56,189,248,0.35);
+      box-shadow: 0 8px 24px rgba(56,189,248,0.25);
       cursor: pointer;
     }
     .promo-banner h4 { font-weight: 800; font-size: 18px; }
@@ -330,7 +342,7 @@
       font-weight: 700;
       font-size: 14px;
       color: #0ea5e9;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       display: inline-block;
     }
     .promo-banner .mosquito-icon {
@@ -341,6 +353,7 @@
       opacity: 0.10;
     }
 
+    /* ---- WHY CHOOSE US (WHITE) ---- */
     .feature-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -348,20 +361,26 @@
       margin: 8px 0 16px 0;
     }
     .feature-card {
-      background: #242424;
+      background: #ffffff;
       border-radius: 22px;
       padding: 14px 10px;
       display: flex;
       align-items: center;
       gap: 10px;
-      border: 1px solid #333;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+      border: 1px solid #e8ecf0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
       cursor: pointer;
+      transition: 0.2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: #38bdf8;
     }
     .feature-card i { font-size: 24px; color: #38bdf8; width: 36px; text-align: center; }
-    .feature-card .feature-text { font-weight: 600; font-size: 13px; color: #e8e8e8; line-height: 1.2; }
-    .feature-card .feature-text small { display: block; font-weight: 300; font-size: 10px; color: #888; }
+    .feature-card .feature-text { font-weight: 600; font-size: 13px; color: #1a1a1a; line-height: 1.2; }
+    .feature-card .feature-text small { display: block; font-weight: 300; font-size: 10px; color: #6b6b6b; }
 
+    /* ---- CUSTOMER SERVICES (WHITE) ---- */
     .service-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -369,30 +388,36 @@
       margin: 10px 0 16px 0;
     }
     .service-btn {
-      background: #242424;
+      background: #ffffff;
       border-radius: 30px;
       padding: 12px 6px;
       text-align: center;
-      border: 1px solid #333;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+      border: 1px solid #e8ecf0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
       font-size: 12px;
       font-weight: 600;
-      color: #d0d0d0;
+      color: #1a1a1a;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 4px;
       cursor: pointer;
+      transition: 0.2s;
+    }
+    .service-btn:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: #38bdf8;
     }
     .service-btn i { font-size: 22px; color: #38bdf8; }
 
+    /* ---- CTA SECTION (SKY BLUE) ---- */
     .cta-section {
       background: linear-gradient(135deg, #38bdf8, #0ea5e9);
       border-radius: 32px;
       padding: 24px 20px;
       margin: 14px 0 10px 0;
       color: #fff;
-      box-shadow: 0 14px 32px rgba(56,189,248,0.4);
+      box-shadow: 0 8px 24px rgba(56,189,248,0.25);
       text-align: center;
       cursor: pointer;
     }
@@ -407,7 +432,7 @@
       font-weight: 700;
       font-size: 14px;
       color: #0ea5e9;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -426,18 +451,19 @@
       gap: 8px;
     }
 
+    /* ---- SEARCH BAR (WHITE) ---- */
     .search-bar {
-      background: #2a2a2a;
+      background: #f0f2f5;
       border-radius: 40px;
       padding: 10px 18px;
       display: flex;
       align-items: center;
       gap: 12px;
       margin: 8px 0 18px 0;
-      border: 1px solid #3a3a3a;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      border: 1px solid #e8ecf0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
-    .search-bar i { color: #a0a0a0; font-size: 18px; }
+    .search-bar i { color: #8a8a8a; font-size: 18px; }
     .search-bar input {
       flex: 1;
       border: none;
@@ -446,21 +472,22 @@
       font-weight: 400;
       outline: none;
       padding: 4px 0;
-      color: #e0e0e0;
+      color: #1a1a1a;
     }
-    .search-bar input::placeholder { color: #888; }
+    .search-bar input::placeholder { color: #a0a0a0; }
     .search-bar .fa-microphone { color: #38bdf8; }
 
+    /* ---- WELCOME SECTION (WHITE) ---- */
     .welcome-section {
       margin: 0 0 16px 0;
       padding: 22px 18px;
-      background: linear-gradient(145deg, #252525, #1a1a1a);
+      background: linear-gradient(145deg, #f8fafc, #f0f2f5);
       border-radius: 28px;
-      color: #fff;
+      color: #1a1a1a;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.6);
-      border: 1px solid #2e2e2e;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      border: 1px solid #e8ecf0;
     }
     .welcome-section::after {
       content: "🦟";
@@ -468,12 +495,54 @@
       right: -8px;
       bottom: -18px;
       font-size: 82px;
-      opacity: 0.08;
+      opacity: 0.06;
       transform: rotate(12deg);
     }
     .welcome-section h2 { font-weight: 700; font-size: 20px; margin-bottom: 4px; }
-    .welcome-section p { font-weight: 300; font-size: 14px; opacity: 0.9; display: flex; align-items: center; gap: 6px; }
+    .welcome-section p { font-weight: 300; font-size: 14px; opacity: 0.8; display: flex; align-items: center; gap: 6px; }
     .welcome-section p i { color: #38bdf8; }
+
+    /* ---- BUSINESS CONTACT CARD ---- */
+    .contact-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 16px 18px;
+      border: 1px solid #e8ecf0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 10px 0 16px 0;
+    }
+    .contact-card i {
+      font-size: 32px;
+      color: #38bdf8;
+      background: rgba(56,189,248,0.08);
+      padding: 12px;
+      border-radius: 16px;
+    }
+    .contact-card .contact-info {
+      flex: 1;
+    }
+    .contact-card .contact-info .label {
+      font-size: 11px;
+      color: #6b6b6b;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .contact-card .contact-info .number {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+    .contact-card .contact-info .number i {
+      font-size: 16px;
+      color: #25D366;
+      background: transparent;
+      padding: 0;
+      margin-left: 8px;
+    }
 
     @media (max-width: 400px) {
       .quick-grid { gap: 8px; }
@@ -485,7 +554,7 @@
 </head>
 <body>
 
-<!-- FIXED HEADER -->
+<!-- FIXED HEADER (WHITE) -->
 <header class="fixed-header">
   <div class="logo-area">
     <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
@@ -497,7 +566,6 @@
   <div class="header-actions">
     <i class="fas fa-bell"></i>
     <i class="fas fa-user-circle"></i>
-    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
   </div>
 </header>
 
@@ -526,7 +594,16 @@
     <i class="fas fa-microphone"></i>
   </div>
 
-  <!-- QUICK ACTION CARDS (clickable) -->
+  <!-- BUSINESS CONTACT -->
+  <div class="contact-card">
+    <i class="fas fa-phone-alt"></i>
+    <div class="contact-info">
+      <div class="label">Contact Us</div>
+      <div class="number">9483037385 <i class="fab fa-whatsapp"></i></div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTION CARDS -->
   <div class="quick-grid">
     <div class="quick-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-ruler-combined"></i><span>Measure Window</span></div>
     <div class="quick-card card-click" onclick="window.location.href='estimate.html'"><i class="fas fa-tag"></i><span>Check Price</span></div>
@@ -537,7 +614,7 @@
   <!-- PRODUCT CATEGORIES -->
   <div class="section-title">
     <h3>Our Products</h3>
-    <a href="#">See all</a>
+    <a href="estimate.html">See all</a>
   </div>
   <div class="category-scroll">
     <div class="category-card card-click" onclick="window.location.href='estimate.html'">
@@ -567,7 +644,7 @@
     </div>
   </div>
 
-  <!-- PROMO BANNER (clickable) -->
+  <!-- PROMO BANNER -->
   <div class="promo-banner card-click" onclick="window.location.href='estimate.html'">
     <h4>Protect Your Home from Mosquitoes</h4>
     <p>Premium Quality Mosquito Nets</p>
@@ -604,12 +681,12 @@
     </div>
   </div>
 
-  <div style="font-size:9px; color:#444; text-align:center; margin-top:14px;">
+  <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
     Raj Marketing Mysore · Est. 2016
   </div>
 </div>
 
-<!-- FIXED FOOTER -->
+<!-- FIXED FOOTER (WHITE) -->
 <footer class="fixed-footer">
   <a href="index.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
   <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
@@ -617,45 +694,6 @@
   <a href="estimate.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Orders</a>
   <a href="estimate.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
 </footer>
-
-<script>
-  // Theme toggle (dark/light)
-  const toggleBtn = document.getElementById('themeToggle');
-  const body = document.body;
-  const icon = toggleBtn.querySelector('i');
-
-  // check saved
-  const saved = localStorage.getItem('theme');
-  if (saved === 'light') {
-    body.classList.add('light-mode');
-    icon.classList.remove('fa-moon');
-    icon.classList.add('fa-sun');
-    // update header/footer for light mode
-    document.querySelector('.fixed-header').style.background = '#ffffff';
-    document.querySelector('.fixed-footer').style.background = '#ffffff';
-  } else {
-    document.querySelector('.fixed-header').style.background = '#1a1a1a';
-    document.querySelector('.fixed-footer').style.background = '#1a1a1a';
-  }
-
-  toggleBtn.addEventListener('click', function() {
-    body.classList.toggle('light-mode');
-    const isLight = body.classList.contains('light-mode');
-    if (isLight) {
-      icon.classList.remove('fa-moon');
-      icon.classList.add('fa-sun');
-      localStorage.setItem('theme', 'light');
-      document.querySelector('.fixed-header').style.background = '#ffffff';
-      document.querySelector('.fixed-footer').style.background = '#ffffff';
-    } else {
-      icon.classList.remove('fa-sun');
-      icon.classList.add('fa-moon');
-      localStorage.setItem('theme', 'dark');
-      document.querySelector('.fixed-header').style.background = '#1a1a1a';
-      document.querySelector('.fixed-footer').style.background = '#1a1a1a';
-    }
-  });
-</script>
 
 </body>
 </html>
