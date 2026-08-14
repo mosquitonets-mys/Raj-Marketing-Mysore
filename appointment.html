@@ -34,7 +34,6 @@
             border: 1px solid #e8e0d8;
         }
 
-        /* Fixed Header */
         .fixed-header {
             position: fixed;
             top: 0;
@@ -104,7 +103,6 @@
             text-decoration: none;
         }
 
-        /* Fixed Footer */
         .fixed-footer {
             position: fixed;
             bottom: 0;
@@ -146,7 +144,6 @@
             background: rgba(249, 115, 22, 0.08);
         }
 
-        /* Mode Switch */
         .mode-switch {
             display: flex;
             background: #f5f0eb;
@@ -171,7 +168,6 @@
             box-shadow: 0 2px 8px rgba(249, 115, 22, 0.2);
         }
 
-        /* Cards */
         .card {
             background: #ffffff;
             border-radius: 24px;
@@ -193,7 +189,6 @@
             color: #f97316;
         }
 
-        /* Chat UI */
         .chat-container {
             max-height: 460px;
             overflow-y: auto;
@@ -225,36 +220,6 @@
             align-self: flex-start;
             margin-right: auto;
         }
-        .chat-bubble.ai .typing-dots {
-            display: inline-flex;
-            gap: 4px;
-        }
-        .chat-bubble.ai .typing-dots span {
-            width: 6px;
-            height: 6px;
-            background: #8a8a8a;
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-        .chat-bubble.ai .typing-dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        .chat-bubble.ai .typing-dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        @keyframes typing {
-            0%,
-            60%,
-            100% {
-                transform: translateY(0);
-                opacity: 0.4;
-            }
-            30% {
-                transform: translateY(-6px);
-                opacity: 1;
-            }
-        }
-
         .chat-bubble.user {
             background: #f97316;
             color: #fff;
@@ -282,7 +247,6 @@
             }
         }
 
-        /* Typing indicator */
         .typing-indicator {
             display: none;
             padding: 12px 18px;
@@ -310,8 +274,19 @@
         .typing-indicator span:nth-child(3) {
             animation-delay: 0.4s;
         }
+        @keyframes typing {
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-6px);
+                opacity: 1;
+            }
+        }
 
-        /* Chat Options */
         .chat-options {
             display: flex;
             flex-wrap: wrap;
@@ -343,9 +318,6 @@
             color: #fff;
             border-color: #f97316;
             box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
-        }
-        .chat-options button:active {
-            transform: scale(0.95);
         }
 
         .chat-input {
@@ -383,7 +355,6 @@
             transform: scale(1.02);
         }
 
-        /* Question Area */
         #questionArea {
             background: #faf8f6;
             border-radius: 20px;
@@ -398,7 +369,6 @@
             margin-bottom: 10px;
         }
 
-        /* Summary */
         .summary-item {
             display: flex;
             justify-content: space-between;
@@ -414,7 +384,6 @@
             color: #1a1a1a;
         }
 
-        /* Form (Manual) */
         .form-group {
             margin-bottom: 14px;
         }
@@ -489,20 +458,7 @@
             display: flex;
             gap: 10px;
         }
-        .flex-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-        .mt-8 {
-            margin-top: 8px;
-        }
-        .mb-8 {
-            margin-bottom: 8px;
-        }
 
-        /* Success */
         .success-card {
             text-align: center;
             padding: 30px 20px;
@@ -529,7 +485,6 @@
             margin: 8px 0 16px 0;
         }
 
-        /* WhatsApp Business Badge */
         .whatsapp-badge {
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: #fff;
@@ -541,20 +496,6 @@
             align-items: center;
             gap: 8px;
             margin-top: 4px;
-        }
-
-        /* Edit button on summary */
-        .edit-btn {
-            background: transparent;
-            border: none;
-            color: #f97316;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            padding: 4px 8px;
-        }
-        .edit-btn:hover {
-            text-decoration: underline;
         }
 
         @media (max-width: 400px) {
@@ -645,7 +586,7 @@
                 </div>
             </div>
 
-              <!-- AI Summary -->
+            <!-- AI Summary -->
             <div class="card" id="aiSummary" style="display:none; border-color:#fde4d0; background:#fefaf7;">
                 <div class="card-title"><i class="fas fa-clipboard-check" style="color:#22c55e;"></i> Your Appointment Request</div>
                 <div id="summaryContent"></div>
@@ -802,6 +743,7 @@
     </footer>
 
     <script type="module">
+        // Import Firebase from the existing config
         import { db } from "./firebase-config.js";
         import {
             doc,
@@ -811,14 +753,14 @@
         } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
         // ============================================================
-        // FIREBASE HELPERS - BACKEND ONLY (UI/AI FLOW UNCHANGED)
+        // ID GENERATORS
         // ============================================================
         function makeId(prefix) {
             const now = new Date();
             const date = now.getFullYear() +
                 String(now.getMonth() + 1).padStart(2, '0') +
                 String(now.getDate()).padStart(2, '0');
-            const random = Math.random().toString(36).substring(2, 7).toUpperCase();
+            const random = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
             return `${prefix}-${date}-${random}`;
         }
 
@@ -827,71 +769,87 @@
             return digits ? `MOB-${digits}` : makeId('CUS');
         }
 
+        // ============================================================
+        // FIREBASE SAVE FUNCTIONS
+        // ============================================================
         async function saveAppointmentToFirebase(data) {
-            const customerId = customerDocId(data.mobile);
-            const enquiryId = makeId('RM-ENQ');
-            const leadId = makeId('RM-LEAD');
-            const appointmentId = makeId('RM-APT');
+            try {
+                const customerId = customerDocId(data.mobile);
+                const enquiryId = makeId('RM-ENQ');
+                const leadId = makeId('RM-LEAD');
+                const appointmentId = makeId('RM-APT');
 
-            const customerRef = doc(db, 'customers', customerId);
-            const customerSnap = await getDoc(customerRef);
+                // 1. Save/Update Customer
+                const customerRef = doc(db, 'customers', customerId);
+                const customerSnap = await getDoc(customerRef);
 
-            const customerData = {
-                customerId,
-                name: data.name,
-                phone: data.mobile,
-                email: data.email || '',
-                address: data.address || '',
-                source: data.source || 'AI Appointment',
-                status: 'Active',
-                updatedAt: serverTimestamp()
-            };
+                const customerData = {
+                    customerId,
+                    name: data.name,
+                    phone: data.mobile,
+                    email: data.email || '',
+                    address: data.address || '',
+                    city: data.city || '',
+                    source: data.source || 'AI Appointment',
+                    status: 'Active',
+                    updatedAt: serverTimestamp()
+                };
 
-            if (!customerSnap.exists()) customerData.createdAt = serverTimestamp();
-            await setDoc(customerRef, customerData, { merge: true });
+                if (!customerSnap.exists()) {
+                    customerData.createdAt = serverTimestamp();
+                }
 
-            await setDoc(doc(db, 'enquiries', enquiryId), {
-                enquiryId,
-                leadId,
-                customerId,
-                type: 'Appointment Enquiry',
-                netType: data.netType || 'Not specified',
-                quantity: data.quantity || '',
-                location: data.location || '',
-                measurements: data.measurements || '',
-                measurementDetails: data.measurementDetails || '',
-                notes: data.notes || '',
-                source: data.source || 'AI Appointment',
-                status: 'NEW',
-                createdAt: serverTimestamp(),
-                updatedAt: serverTimestamp()
-            });
+                await setDoc(customerRef, customerData, { merge: true });
 
-            await setDoc(doc(db, 'appointments', appointmentId), {
-                appointmentId,
-                enquiryId,
-                customerId,
-                customerName: data.name,
-                mobile: data.mobile,
-                address: data.address || '',
-                netType: data.netType || 'Not specified',
-                quantity: data.quantity || '',
-                location: data.location || '',
-                measurementDetails: data.measurementDetails || '',
-                date: data.date || '',
-                time: data.time || '',
-                notes: data.notes || '',
-                status: 'New',
-                source: data.source || 'AI Appointment',
-                createdAt: serverTimestamp(),
-                updatedAt: serverTimestamp()
-            });
+                // 2. Create Enquiry
+                await setDoc(doc(db, 'enquiries', enquiryId), {
+                    enquiryId,
+                    leadId,
+                    customerId,
+                    type: 'Appointment Enquiry',
+                    netType: data.netType || 'Not specified',
+                    quantity: data.quantity || '',
+                    location: data.location || '',
+                    measurements: data.measurements || '',
+                    measurementDetails: data.measurementDetails || '',
+                    notes: data.notes || '',
+                    source: data.source || 'AI Appointment',
+                    status: 'NEW',
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                });
 
-            return { customerId, enquiryId, leadId, appointmentId };
+                // 3. Create Appointment
+                await setDoc(doc(db, 'appointments', appointmentId), {
+                    appointmentId,
+                    enquiryId,
+                    customerId,
+                    customerName: data.name,
+                    mobile: data.mobile,
+                    address: data.address || '',
+                    netType: data.netType || 'Not specified',
+                    quantity: data.quantity || '',
+                    location: data.location || '',
+                    measurementDetails: data.measurementDetails || '',
+                    date: data.date || '',
+                    time: data.time || '',
+                    notes: data.notes || '',
+                    status: 'New',
+                    source: data.source || 'AI Appointment',
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                });
+
+                return { customerId, enquiryId, leadId, appointmentId };
+
+            } catch (error) {
+                console.error('Firebase appointment save failed:', error);
+                throw error;
+            }
         }
 
         // ============================================================
-        // AI CONVERSATION ENGINE - NATURAL LANGUAGE FLOW - NATURAL LANGUAGE FLOW
+        // AI CONVERSATION ENGINE
         // ============================================================
         const QUESTIONS = [{
             id: 'welcome',
@@ -967,7 +925,6 @@
         let currentQuestionIndex = 0;
         let answers = {};
         let conversation = [];
-        let isTyping = false;
         let enquiryId = 'RM-ENQ-2026-0001';
         let leadId = 'RM-LEAD-2026-0001';
 
@@ -990,7 +947,6 @@
 
         function showTyping() {
             document.getElementById('typingIndicator').classList.add('show');
-            document.getElementById('chatContainer').scrollTop = document.getElementById('chatContainer').scrollHeight;
         }
 
         function hideTyping() {
@@ -1002,7 +958,6 @@
             setTimeout(() => {
                 hideTyping();
                 addChatMessage('ai', text, isHTML);
-                // If this is the welcome message, show the question after delay
                 if (text.includes('Welcome')) {
                     setTimeout(() => showQuestion(currentQuestionIndex), 800);
                 } else {
@@ -1011,7 +966,7 @@
             }, 1200 + Math.random() * 800);
         }
 
-        // ============================================================
+           // ============================================================
         // QUESTION FLOW
         // ============================================================
         function startAI() {
@@ -1024,7 +979,6 @@
             document.getElementById('aiMode').classList.remove('hidden');
             document.getElementById('manualMode').classList.add('hidden');
 
-            // Show welcome message with natural delay
             setTimeout(() => {
                 addAIResponse('Hi! 👋 Welcome to Raj Marketing Mysore. I\'m here to help you book an appointment for your mosquito net needs. Let\'s get started! <br/><br/>May I know your name?', true);
             }, 500);
@@ -1036,9 +990,7 @@
                 return;
             }
             const q = QUESTIONS[index];
-            // Skip welcome - already shown
             if (q.isWelcome) {
-                // Question already shown via AI response
                 const questionText = document.getElementById('questionText');
                 const optionsContainer = document.getElementById('optionsContainer');
                 const inputContainer = document.getElementById('inputContainer');
@@ -1073,10 +1025,6 @@
                     btn.onclick = function() { selectOption(this, opt, q.id); };
                     optionsContainer.appendChild(btn);
                 });
-                // Show question in chat if not already shown
-                if (!conversation.some(c => c.text.includes(q.question.substring(0, 30)))) {
-                    // Only add if not already added
-                }
             } else {
                 optionsContainer.classList.add('hidden');
                 inputContainer.classList.remove('hidden');
@@ -1095,19 +1043,16 @@
         }
 
         function selectOption(btn, value, qid) {
-            // Highlight selected
             const parent = btn.parentElement;
             parent.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
 
             const q = QUESTIONS.find(q => q.id === qid);
             if (q) {
-                // Clean emoji from value for storage
                 const cleanValue = value.replace(/[🪟🖼️🌀🚪🤔✅❌📏🪟🚪🏠🍳🛏️📍🌅☀️🌆🕐]/g, '').trim();
                 answers[q.field] = cleanValue || value;
                 addChatMessage('user', value);
 
-                // Handle conditional logic
                 if (q.id === 'requirement' && value.includes('Not Sure')) {
                     setTimeout(() => {
                         addAIResponse('No problem! 😊 Let me help you decide. Is this mainly for windows, doors, or both?');
@@ -1207,7 +1152,6 @@
             if (idx !== -1 && idx + 1 < QUESTIONS.length) {
                 currentQuestionIndex = idx + 1;
                 const nextQ = QUESTIONS[currentQuestionIndex];
-                // Show AI response before question
                 let responseText = '';
                 switch (nextQ.id) {
                     case 'requirement':
@@ -1240,7 +1184,6 @@
                     default:
                         responseText = nextQ.question;
                 }
-                // Add AI response and then show question
                 setTimeout(() => {
                     addAIResponse(responseText);
                 }, 300);
@@ -1274,7 +1217,6 @@
             });
             content.innerHTML = html;
 
-            // Add AI summary message
             const name = answers.customerName || 'Customer';
             addChatMessage('ai', `Perfect! 😊 Here's a summary of your appointment request. Please review and confirm.`, false);
         }
@@ -1282,16 +1224,13 @@
         function editSummary() {
             document.getElementById('aiSummary').style.display = 'none';
             document.getElementById('questionArea').style.display = 'block';
-            // Reset to first question
             currentQuestionIndex = 0;
-            // Clear chat after summary
-            // Start over
             document.getElementById('chatContainer').innerHTML = '';
             startAI();
         }
 
         // ============================================================
-        // CONFIRM APPOINTMENT
+        // CONFIRM APPOINTMENT - WITH FIREBASE
         // ============================================================
         async function confirmAppointment() {
             const name = answers.customerName || '';
@@ -1307,22 +1246,22 @@
                     mobile,
                     email: answers.email || '',
                     address: answers.address || '',
-                    netType: answers.netType,
-                    quantity: answers.quantity,
-                    location: answers.location,
-                    measurements: answers.measurements,
-                    measurementDetails: answers.measurementDetails,
-                    date: answers.date,
-                    time: answers.time,
-                    notes: answers.notes,
+                    netType: answers.netType || 'Not specified',
+                    quantity: answers.quantity || 'N/A',
+                    location: answers.location || 'N/A',
+                    measurements: answers.measurements || 'N/A',
+                    measurementDetails: answers.measurementDetails || 'Not provided',
+                    date: answers.date || 'N/A',
+                    time: answers.time || 'N/A',
+                    notes: answers.notes || 'None',
                     source: 'AI Appointment'
                 });
 
                 enquiryId = saved.enquiryId;
                 leadId = saved.leadId;
 
-                // Build professional WhatsApp notification
-            const msg = `🔔 NEW CUSTOMER ENQUIRY
+                // Build WhatsApp notification
+                const msg = `🔔 NEW CUSTOMER ENQUIRY
 
         Enquiry ID: ${enquiryId}
         Lead ID: ${leadId}
@@ -1340,34 +1279,30 @@
 
         Lead Status: NEW
         Source: WhatsApp AI Chat
-        Action: Contact Customer Immediately
+        Action: Contact Customer Immediately`;
 
-        ---
-        This enquiry was generated through the Raj Marketing AI Appointment System.
-        Please contact the customer to confirm the appointment.`;
+                // Show success
+                document.getElementById('aiMode').classList.add('hidden');
+                document.getElementById('successState').classList.remove('hidden');
+                document.getElementById('successEnquiryId').textContent = enquiryId;
+                document.getElementById('successLeadId').textContent = leadId;
+                document.getElementById('successAppointment').textContent = `${answers.date || 'N/A'}, ${answers.time || 'N/A'}`;
+                document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered. Our team will contact you shortly.`;
 
-            // Show success
-            document.getElementById('aiMode').classList.add('hidden');
-            document.getElementById('successState').classList.remove('hidden');
-            document.getElementById('successEnquiryId').textContent = enquiryId;
-            document.getElementById('successLeadId').textContent = leadId;
-            document.getElementById('successAppointment').textContent = `${answers.date || 'N/A'}, ${answers.time || 'N/A'}`;
-            document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered. Our team will contact you shortly.`;
+                console.log('📤 WhatsApp Notification to 9483037385:');
+                console.log(msg);
 
-            // Send to WhatsApp (simulated - in production would call API)
-            console.log('📤 WhatsApp Notification to 9483037385:');
-            console.log(msg);
+                // Show confirmation in chat
+                addChatMessage('ai',
+                    `✅ Appointment confirmed! Your enquiry ID is ${enquiryId}. Our team will contact you on ${mobile} shortly.`,
+                    false);
 
-            // Show confirmation in chat
-            addChatMessage('ai',
-                `✅ Appointment confirmed! Your enquiry ID is ${enquiryId}. Our team will contact you on ${mobile} shortly.`, false);
-
-            // Alert with WhatsApp message
-            alert('✅ Appointment Confirmed!\n\nEnquiry ID: ' + enquiryId + '\nLead ID: ' + leadId + '\n\nYour appointment has been saved successfully.\n\nThe WhatsApp message is ready in the console; automatic WhatsApp sending requires a WhatsApp Business API.');
+                alert('✅ Appointment Confirmed!\n\nEnquiry ID: ' + enquiryId + '\nLead ID: ' + leadId +
+                    '\n\nYour appointment has been saved to Firebase successfully.');
 
             } catch (error) {
                 console.error('Firebase appointment save failed:', error);
-                alert('❌ Could not save the appointment to Firebase.\n\n' + error.code + '\n' + error.message);
+                alert('❌ Could not save the appointment to Firebase.\n\n' + error.message);
             }
         }
 
@@ -1392,7 +1327,7 @@
         }
 
         // ============================================================
-        // MANUAL SUBMIT
+        // MANUAL SUBMIT - WITH FIREBASE
         // ============================================================
         async function submitManual() {
             const name = document.getElementById('manualName').value.trim();
@@ -1402,6 +1337,7 @@
                 alert('Please fill in all required fields (Name, Mobile, Address).');
                 return;
             }
+
             const product = document.getElementById('manualProduct').value;
             const qty = document.getElementById('manualQty').value || 'N/A';
             const location = document.getElementById('manualLocation').value;
@@ -1409,7 +1345,6 @@
             const time = document.getElementById('manualTime').value;
             const notes = document.getElementById('manualNotes').value || 'None';
 
-            let enqId, leadId2;
             try {
                 const saved = await saveAppointmentToFirebase({
                     name,
@@ -1424,15 +1359,11 @@
                     notes,
                     source: 'Manual Appointment'
                 });
-                enqId = saved.enquiryId;
-                leadId2 = saved.leadId;
-            } catch (error) {
-                console.error('Firebase appointment save failed:', error);
-                alert('❌ Could not save the appointment to Firebase.\n\n' + error.code + '\n' + error.message);
-                return;
-            }
 
-            const msg = `🔔 NEW CUSTOMER ENQUIRY (Manual)
+                const enqId = saved.enquiryId;
+                const leadId2 = saved.leadId;
+
+                const msg = `🔔 NEW CUSTOMER ENQUIRY (Manual)
 
         Enquiry ID: ${enqId}
         Lead ID: ${leadId2}
@@ -1451,16 +1382,32 @@
         Source: Manual Form
         Action: Contact Customer Immediately`;
 
-            document.getElementById('successState').classList.remove('hidden');
-            document.getElementById('manualMode').classList.add('hidden');
-            document.getElementById('successEnquiryId').textContent = enqId;
-            document.getElementById('successLeadId').textContent = leadId2;
-            document.getElementById('successAppointment').textContent = `${date}, ${time}`;
-            document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered. Our team will contact you shortly.`;
+                document.getElementById('successState').classList.remove('hidden');
+                document.getElementById('manualMode').classList.add('hidden');
+                document.getElementById('successEnquiryId').textContent = enqId;
+                document.getElementById('successLeadId').textContent = leadId2;
+                document.getElementById('successAppointment').textContent = `${date}, ${time}`;
+                document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered. Our team will contact you shortly.`;
 
-            console.log('📤 Manual enquiry notification:', msg);
-            alert('✅ Appointment submitted!\n\nEnquiry ID: ' + enqId + '\nLead ID: ' + leadId2 + '\n\n' + msg);
+                console.log('📤 Manual enquiry notification:', msg);
+                alert('✅ Appointment submitted!\n\nEnquiry ID: ' + enqId + '\nLead ID: ' + leadId2 +
+                    '\n\nYour appointment has been saved to Firebase successfully.');
+
+            } catch (error) {
+                console.error('Firebase appointment save failed:', error);
+                alert('❌ Could not save the appointment to Firebase.\n\n' + error.message);
+            }
         }
+
+        // ============================================================
+        // EXPOSE FUNCTIONS TO GLOBAL SCOPE
+        // ============================================================
+        window.setMode = setMode;
+        window.selectOption = selectOption;
+        window.submitTextAnswer = submitTextAnswer;
+        window.confirmAppointment = confirmAppointment;
+        window.editSummary = editSummary;
+        window.submitManual = submitManual;
 
         // ============================================================
         // INIT
@@ -1469,13 +1416,11 @@
             if (e.key === 'Enter') submitTextAnswer();
         });
 
-        // Start AI mode
         startAI();
 
-        // Set default date for manual
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('manualDate').value = today;
     </script>
 
 </body>
-</html>
+    </html>
