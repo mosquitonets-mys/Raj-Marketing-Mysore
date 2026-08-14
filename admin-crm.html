@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raj Marketing CRM</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Poppins,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#172033;
+}
+
+.header{
+    background:#ffffff;
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:800;
+}
+
+.logo span{
+    display:block;
+    font-size:11px;
+    color:#777;
+    font-weight:500;
+}
+
+.logout{
+    border:0;
+    background:#ef4444;
+    color:white;
+    padding:9px 15px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.welcome{
+    margin-bottom:20px;
+}
+
+.welcome h1{
+    font-size:24px;
+}
+
+.welcome p{
+    color:#777;
+    font-size:13px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+
+.card .icon{
+    font-size:25px;
+}
+
+.card h2{
+    font-size:28px;
+    margin-top:8px;
+}
+
+.card p{
+    font-size:12px;
+    color:#777;
+}
+
+.section{
+    background:#fff;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.section-title h2{
+    font-size:18px;
+}
+
+.search{
+    width:100%;
+    padding:12px 15px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    outline:none;
+    margin-bottom:15px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+}
+
+th,td{
+    padding:11px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    font-size:12px;
+}
+
+th{
+    background:#f8fafc;
+    font-weight:700;
+}
+
+.status{
+    padding:4px 9px;
+    border-radius:20px;
+    background:#fff7ed;
+    color:#ea580c;
+    font-size:10px;
+    font-weight:600;
+}
+
+.loading{
+    text-align:center;
+    padding:25px;
+    color:#777;
+}
+
+.error{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:15px;
+    display:none;
+}
+
+@media(max-width:700px){
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .container{
+        padding:14px;
+    }
+
+    .welcome h1{
+        font-size:21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">
+        Raj Marketing
+        <span>Mysore · Admin CRM</span>
+    </div>
+
+    <button class="logout" onclick="logout()">
+        Logout
+    </button>
+</header>
+
+<main class="container">
+
+    <div class="welcome">
+        <h1>CRM Dashboard</h1>
+        <p>Customer, enquiry and appointment management</p>
+    </div>
+
+    <div id="errorBox" class="error"></div>
+
+    <!-- SUMMARY CARDS -->
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">👥</div>
+            <h2 id="customerCount">0</h2>
+            <p>Total Customers</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📞</div>
+            <h2 id="enquiryCount">0</h2>
+            <p>Total Enquiries</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📅</div>
+            <h2 id="appointmentCount">0</h2>
+            <p>Total Appointments</p>
+        </div>
+
+    </div>
+
+    <!-- CUSTOMERS -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>👥 Customers</h2>
+        </div>
+
+        <input
+            id="customerSearch"
+            class="search"
+            type="text"
+            placeholder="Search customer name or mobile..."
+            oninput="filterCustomers()"
+        >
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+
+                <tbody id="customerTable">
+                    <tr>
+                        <td colspan="4" class="loading">
+                            Loading customers...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- APPOINTMENTS -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>📅 Recent Appointments</h2>
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Mobile</th>
+                        <th>Appointment</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="appointmentTable">
+                    <tr>
+                        <td colspan="4" class="loading">
+                            Loading appointments...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script type="module">
+
+import { auth, db } from "./firebase-config.js";
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+
+let customers = [];
+let appointments = [];
+
+
+/* ==============================
+   AUTHENTICATION
+============================== */
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+        window.location.href = "login.html";
+        return;
+
+    }
+
+    await loadCRM();
+
+});
+
+
+/* ==============================
+   LOAD CRM
+============================== */
+
+async function loadCRM(){
+
+    try{
+
+        showError("");
+
+        const customerSnapshot =
+            await getDocs(collection(db,"customers"));
+
+        customers = [];
+
+        customerSnapshot.forEach((doc) => {
+
+            customers.push({
+                id:doc.id,
+                ...doc.data()
+            });
+
+        });
+
+
+        const appointmentSnapshot =
+            await getDocs(collection(db,"appointments"));
+
+        appointments = [];
+
+        appointmentSnapshot.forEach((doc) => {
+
+            appointments.push({
+                id:doc.id,
+                ...doc.data()
+            });
+
+        });
+
+
+        document.getElementById("customerCount").textContent =
+            customers.length;
+
+        document.getElementById("appointmentCount").textContent =
+            appointments.length;
+
+
+        /*
+          Enquiries collection may not yet be
+          available to this admin user.
+        */
+
+        try{
+
+            const enquirySnapshot =
+                await getDocs(collection(db,"enquiries"));
+
+            document.getElementById("enquiryCount").textContent =
+                enquirySnapshot.size;
+
+        }catch(error){
+
+            document.getElementById("enquiryCount").textContent =
+                "—";
+
+        }
+
+
+        renderCustomers(customers);
+        renderAppointments(appointments);
+
+    }catch(error){
+
+        console.error(error);
+
+        showError(
+            "Unable to load CRM data: " + error.message
+        );
+
+    }
+
+}
+
+
+/* ==============================
+   CUSTOMERS
+============================== */
+
+function renderCustomers(list){
+
+    const table =
+        document.getElementById("customerTable");
+
+    if(!list.length){
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="4" class="loading">
+                    No customers found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    table.innerHTML = list.map(customer => `
+
+        <tr>
+
+            <td>
+                <strong>
+                    ${safe(customer.name || customer.customerName || "—")}
+                </strong>
+            </td>
+
+            <td>
+                ${safe(customer.mobile || customer.phone || "—")}
+            </td>
+
+            <td>
+                ${safe(customer.address || "—")}
+            </td>
+
+            <td>
+                ${formatDate(customer.createdAt)}
+            </td>
+
+        </tr>
+
+    `).join("");
+
+}
+
+
+/* ==============================
+   APPOINTMENTS
+============================== */
+
+function renderAppointments(list){
+
+    const table =
+        document.getElementById("appointmentTable");
+
+    if(!list.length){
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="4" class="loading">
+                    No appointments found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    const recent =
+        [...list].reverse().slice(0,20);
+
+
+    table.innerHTML = recent.map(item => `
+
+        <tr>
+
+            <td>
+                <strong>
+                    ${safe(item.customerName || "—")}
+                </strong>
+            </td>
+
+            <td>
+                ${safe(item.mobile || item.phone || "—")}
+            </td>
+
+            <td>
+                ${safe(item.date || "—")}
+                ${item.time ? "<br>" + safe(item.time) : ""}
+            </td>
+
+            <td>
+                <span class="status">
+                    ${safe(item.status || "NEW")}
+                </span>
+            </td>
+
+        </tr>
+
+    `).join("");
+
+}
+
+
+/* ==============================
+   SEARCH
+============================== */
+
+window.filterCustomers = function(){
+
+    const search =
+        document.getElementById("customerSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    if(!search){
+
+        renderCustomers(customers);
+        return;
+
+    }
+
+
+    const filtered =
+        customers.filter(customer => {
+
+            const text = [
+
+                customer.name,
+                customer.customerName,
+                customer.mobile,
+                customer.phone,
+                customer.address
+
+            ]
+            .join(" ")
+            .toLowerCase();
+
+
+            return text.includes(search);
+
+        });
+
+
+    renderCustomers(filtered);
+
+};
+
+
+/* ==============================
+   LOGOUT
+============================== */
+
+window.logout = async function(){
+
+    try{
+
+        await signOut(auth);
+
+        window.location.href = "login.html";
+
+    }catch(error){
+
+        showError(error.message);
+
+    }
+
+};
+
+
+/* ==============================
+   HELPERS
+============================== */
+
+function formatDate(value){
+
+    if(!value) return "—";
+
+    try{
+
+        if(value.toDate){
+
+            return value.toDate().toLocaleDateString("en-IN");
+
+        }
+
+        return new Date(value).toLocaleDateString("en-IN");
+
+    }catch{
+
+        return "—";
+
+    }
+
+}
+
+
+function safe(value){
+
+    return String(value ?? "—")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function showError(message){
+
+    const box =
+        document.getElementById("errorBox");
+
+    if(!message){
+
+        box.style.display = "none";
+        box.textContent = "";
+
+        return;
+
+    }
+
+    box.style.display = "block";
+    box.textContent = message;
+
+}
+
+</script>
+
+</body>
+  </html>
