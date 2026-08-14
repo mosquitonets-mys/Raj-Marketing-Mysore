@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raj Marketing - Price Importer</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background: #f5f7fa;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      box-sizing: border-box;
+      border-radius: 7px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #1565c0;
+      color: white;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #result {
+      white-space: pre-wrap;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Raj Marketing Mysore</h1>
+  <h2>Admin Price Importer</h2>
+
+  <div class="box">
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Admin email"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Admin password"
+    >
+
+    <button id="importBtn">
+      Login & Import Prices
+    </button>
+
+    <div id="result">
+      Ready...
+    </div>
+
+  </div>
+
+
+  <script type="module">
+
+    import { auth, db }
+      from "./firebase-config.js";
+
+    import {
+      signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+    import {
+      collection,
+      query,
+      where,
+      getDocs,
+      addDoc,
+      updateDoc,
+      doc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+
+    /*
+      RAJ MARKETING PRICE DATABASE
+
+      IMPORTANT:
+      - Existing products are updated using productCode.
+      - New products are added.
+      - Running this importer again will NOT create duplicates.
+    */
+
+    const products = [
+
+      {
+        productName: "Velcro System Regular",
+        productCode: "VEL-REG",
+        category: "Velcro System",
+        customerPrice: 60,
+        dealerPrice: 45,
+        unit: "sqft",
+        active: true
+      },
+
+      {
+        productName: "Velcro System Saint-Gobain",
+        productCode: "VEL-SG",
+        category: "Velcro System",
+        customerPrice: 80,
+        dealerPrice: 65,
+        unit: "sqft",
+        active: true
+      },
+
+      {
+        productName: "Aluminium Frame SS Mesh",
+        productCode: "AF-SS",
+        category: "Frame System",
+        customerPrice: 220,
+        dealerPrice: 190,
+        unit: "sqft",
+        active: true
+      },
+
+      {
+        productName: "Woodgrain Teakwood Frame",
+        productCode: "AF-WG",
+        category: "Frame System",
+        customerPrice: 320,
+        dealerPrice: 290,
+        unit: "sqft",
+        active: true
+      },
+
+      {
+        productName: "Openable Aluminium Frame SS Mesh",
+        productCode: "OPEN-SS",
+        category: "Openable System",
+        customerPrice: 220,
+        dealerPrice: 190,
+        offerPrice: 200,
+        offerActive: true,
+        offerName: "Limited Offer",
+        unit: "sqft",
+        active: true
+      },
+
+      {
+        productName: "Pleated Mosquito Net - Economic",
+        productCode: "PLEATED-ECO",
+        category: "Pleated System",
+        customerPrice: 380,
+        unit: "sqft",
+        active: true
+      },
+
+      {
+        productName: "Pleated Mosquito Net - Premium",
+        productCode: "PLEATED-PREMIUM",
+        category: "Pleated System",
+        customerPrice: 480,
+        unit: "sqft",
+        active: true
+      }
+
+    ];
+
+
+    const result = document.getElementById("result");
+
+
+    document
+      .getElementById("importBtn")
+      .addEventListener("click", async () => {
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const password =
+          document.getElementById("password").value;
+
+
+        if (!email || !password) {
+
+          result.textContent =
+            "Please enter your admin email and password.";
+
+          return;
+        }
+
+
+        try {
+
+          result.textContent =
+            "Logging in to Firebase...\n";
+
+
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+
+          result.textContent +=
+            "✅ Admin login successful.\n\n";
+
+
+          let added = 0;
+          let updated = 0;
+
+
+          for (const product of products) {
+
+            result.textContent +=
+              "Checking: " +
+              product.productName +
+              "...\n";
+
+
+            const q = query(
+              collection(db, "priceList"),
+              where(
+                "productCode",
+                "==",
+                product.productCode
+              )
+            );
+
+
+            const snapshot =
+              await getDocs(q);
+
+
+            if (snapshot.empty) {
+
+              await addDoc(
+                collection(db, "priceList"),
+                {
+                  ...product,
+                  updatedAt: serverTimestamp()
+                }
+              );
+
+              added++;
+
+              result.textContent +=
+                "  ➕ Added\n";
+
+            } else {
+
+              const existing =
+                snapshot.docs[0];
+
+
+              await updateDoc(
+                doc(
+                  db,
+                  "priceList",
+                  existing.id
+                ),
+                {
+                  ...product,
+                  updatedAt: serverTimestamp()
+                }
+              );
+
+              updated++;
+
+              result.textContent +=
+                "  🔄 Updated\n";
+            }
+
+          }
+
+
+          result.textContent +=
+            "\n============================\n" +
+            "IMPORT COMPLETED\n" +
+            "============================\n\n" +
+            "New products: " + added + "\n" +
+            "Updated products: " + updated + "\n" +
+            "Total processed: " + products.length + "\n\n" +
+            "✅ Raj Marketing price database is ready.";
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          result.textContent =
+            "❌ IMPORT FAILED\n\n" +
+            error.code +
+            "\n\n" +
+            error.message;
+
+        }
+
+      });
+
+  </script>
+
+</body>
+  </html>
