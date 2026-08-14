@@ -965,6 +965,19 @@ async function loadFirebaseBusinessData() {
         // CALCULATION ENGINE
         // ============================================================
         function calculateEstimate(width, height, qty) {
+           let discountPct = 0;
+if (sqft > 200) {
+  discountPct = RULES.discountAbove200Sqft ?? 12;
+}
+else if (sqft >= 150) {
+  discountPct = RULES.discount150Sqft ?? 10;
+}
+else if (sqft >= 100) {
+  discountPct = RULES.discount100Sqft ?? 8;
+}
+else {
+  discountPct = RULES.discountBelow100Sqft ?? 5;
+}
             const prod = PRODUCTS[context.product];
             if (!prod) {
                 addAIResponse('I need to know which product first. Please tell me the product type.');
