@@ -315,9 +315,54 @@ th{
             </table>
 
         </div>
+<!-- ENQUIRIES -->
+
+<section class="section">
+
+    <div class="section-title">
+        <h2>📞 Customer Enquiries</h2>
+    </div>
+
+    <input
+        id="enquirySearch"
+        class="search"
+        type="text"
+        placeholder="Search enquiry name, mobile or product..."
+        oninput="filterEnquiries()"
+    >
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Mobile</th>
+                    <th>Product</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="enquiryTable">
+
+                <tr>
+                    <td colspan="7" class="loading">
+                        Loading enquiries...
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
 
     </section>
-
+        
 </main>
 
 
@@ -338,6 +383,7 @@ import {
 
 let customers = [];
 let appointments = [];
+let enquiries = [];
 
 
 /* ==============================
@@ -410,24 +456,40 @@ async function loadCRM(){
           available to this admin user.
         */
 
-        try{
+        try {
 
-            const enquirySnapshot =
-                await getDocs(collection(db,"enquiries"));
+    const enquirySnapshot =
+        await getDocs(collection(db, "enquiries"));
 
-            document.getElementById("enquiryCount").textContent =
-                enquirySnapshot.size;
+    enquiries = [];
 
-        }catch(error){
+    enquirySnapshot.forEach((doc) => {
 
-            document.getElementById("enquiryCount").textContent =
-                "—";
+        enquiries.push({
+            id: doc.id,
+            ...doc.data()
+        });
 
-        }
+    });
+
+    document.getElementById("enquiryCount").textContent =
+        enquiries.length;
+
+} catch (error) {
+
+    console.error("Enquiry loading error:", error);
+
+    enquiries = [];
+
+    document.getElementById("enquiryCount").textContent =
+        "—";
+    }
 
 
-        renderCustomers(customers);
-        renderAppointments(appointments);
+       renderCustomers(customers);
+renderAppointments(appointments);
+renderEnquiries(enquiries);
+    
 
     }catch(error){
 
@@ -599,6 +661,183 @@ window.filterCustomers = function(){
 
 };
 
+    /* ==============================
+   ENQUIRIES
+============================== */
+
+function renderEnquiries(list) {
+
+    const table =
+        document.getElementById("enquiryTable");
+
+    if (!table) return;
+
+    if (!list.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="loading">
+                    No enquiries found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    const recent =
+        [...list].reverse().slice(0, 50);
+
+    table.innerHTML = recent.map(item => {
+
+        const mobile =
+            item.mobile ||
+            item.phone ||
+            "";
+
+        const customer =
+            item.customerName ||
+            item.name ||
+            "—";
+
+        const product =
+            item.product ||
+            item.productName ||
+            "—";
+
+        const message =
+            item.message ||
+            item.enquiry ||
+            "—";
+
+        const status =
+            item.status ||
+            "NEW";
+
+        const whatsappNumber =
+            String(mobile).replace(/\D/g, "");
+
+        return `
+            <tr>
+
+                <td>
+                    <strong>
+                        ${safe(customer)}
+                    </strong>
+                </td>
+
+                <td>
+                    ${safe(mobile)}
+                </td>
+
+                <td>
+                    ${safe(product)}
+                </td>
+
+                <td>
+                    ${safe(message)}
+                </td>
+
+                <td>
+                    ${formatDate(
+                        item.createdAt ||
+                        item.date
+                    )}
+                </td>
+
+                <td>
+                    <span class="status">
+                        ${safe(status)}
+                    </span>
+                </td>
+
+                <td>
+
+                    ${
+                        mobile
+                        ? `
+                        <a
+                            href="tel:${safe(mobile)}"
+                            style="
+                                text-decoration:none;
+                                margin-right:6px;
+                            "
+                        >
+                            📞
+                        </a>
+
+                        <a
+                            href="https://wa.me/91${whatsappNumber}"
+                            target="_blank"
+                            style="
+                                text-decoration:none;
+                            "
+                        >
+                            💬
+                        </a>
+                        `
+                        : "—"
+                    }
+
+                </td>
+
+            </tr>
+        `;
+
+    }).join("");
+
+}
+
+
+/* ==============================
+   ENQUIRY SEARCH
+============================== */
+
+window.filterEnquiries = function () {
+
+    const input =
+        document.getElementById("enquirySearch");
+
+    if (!input) return;
+
+    const search =
+        input.value
+            .toLowerCase()
+            .trim();
+
+    if (!search) {
+
+        renderEnquiries(enquiries);
+
+        return;
+    }
+
+    const filtered =
+        enquiries.filter(item => {
+
+            const text = [
+
+                item.customerName,
+                item.name,
+                item.mobile,
+                item.phone,
+                item.product,
+                item.productName,
+                item.message,
+                item.status
+
+            ]
+            .join(" ")
+            .toLowerCase();
+
+            return text.includes(search);
+
+        });
+
+    renderEnquiries(filtered);
+
+};
+    
 
 /* ==============================
    LOGOUT
