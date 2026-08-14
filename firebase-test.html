@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raj Marketing Firebase Test</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f2f2f2;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Raj Marketing Firebase Test</h1>
+
+  <input id="email" type="email" placeholder="Admin email">
+
+  <input id="password" type="password" placeholder="Admin password">
+
+  <button id="loginBtn">Login & Test Firebase</button>
+
+  <div id="result">Waiting...</div>
+
+  <script type="module">
+
+    import { auth, db } from "./firebase-config.js";
+
+    import {
+      signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+    import {
+      collection,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+
+    const result = document.getElementById("result");
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!email || !password) {
+        result.textContent = "Please enter email and password.";
+        return;
+      }
+
+      try {
+
+        result.textContent = "Connecting to Firebase...";
+
+        await signInWithEmailAndPassword(auth, email, password);
+
+        result.textContent = "Login successful.\n\nReading priceList...";
+
+        const snapshot = await getDocs(collection(db, "priceList"));
+
+        let output = "";
+
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+
+          output +=
+            "Product: " + (data.productName || "") +
+            "\nCustomer: ₹" + (data.customerPrice || "") +
+            "\nDealer: ₹" + (data.dealerPrice || "") +
+            "\n\n";
+        });
+
+        result.textContent =
+          "✅ FIREBASE CONNECTION SUCCESSFUL\n\n" +
+          "Products found: " + snapshot.size +
+          "\n\n" + output;
+
+      } catch (error) {
+
+        console.error(error);
+
+        result.textContent =
+          "❌ Firebase Error\n\n" +
+          error.code +
+          "\n\n" +
+          error.message;
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
