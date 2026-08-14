@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raj Marketing - Firebase Master Setup</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    background: #f5f7fa;
+}
+
+.box {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.08);
+}
+
+input, button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #1565c0;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#result {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Raj Marketing Mysore</h1>
+
+<h2>Firebase Master Database Setup</h2>
+
+<p>
+This creates the initial Raj Marketing database structure.
+No fake customer or dealer records will be created.
+</p>
+
+<input
+    id="email"
+    type="email"
+    placeholder="Firebase admin email"
+>
+
+<input
+    id="password"
+    type="password"
+    placeholder="Firebase admin password"
+>
+
+<button id="setupBtn">
+    Login & Create Master Database
+</button>
+
+<div id="result">
+Ready...
+</div>
+
+</div>
+
+
+<script type="module">
+
+import { auth, db }
+    from "./firebase-config.js";
+
+import {
+    signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+import {
+    doc,
+    setDoc,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+
+const result =
+    document.getElementById("result");
+
+
+/* ============================================================
+   MASTER DATABASE STRUCTURE
+============================================================ */
+
+const databaseStructure = {
+
+    customers: {
+        purpose: "Customer master database",
+        fields: [
+            "customerId",
+            "name",
+            "phone",
+            "alternatePhone",
+            "email",
+            "address",
+            "landmark",
+            "googleMapLocation",
+            "source",
+            "status",
+            "notes",
+            "createdAt",
+            "updatedAt"
+        ]
+    },
+
+    dealers: {
+        purpose: "Dealer master database",
+        fields: [
+            "dealerId",
+            "businessName",
+            "ownerName",
+            "phone",
+            "whatsapp",
+            "email",
+            "address",
+            "city",
+            "gstNumber",
+            "dealerType",
+            "status",
+            "notes",
+            "createdAt",
+            "updatedAt"
+        ]
+    },
+
+    enquiries: {
+        purpose: "Customer and dealer enquiries",
+        fields: [
+            "enquiryId",
+            "customerId",
+            "dealerId",
+            "type",
+            "source",
+            "message",
+            "status",
+            "assignedTo",
+            "createdAt",
+            "updatedAt"
+        ]
+    },
+
+    measurements: {
+        purpose: "Window and door measurements",
+        fields: [
+            "measurementId",
+            "customerId",
+            "enquiryId",
+            "room",
+            "location",
+            "width",
+            "height",
+            "quantity",
+            "unit",
+            "sqft",
+            "productCode",
+            "notes",
+            "createdAt"
+        ]
+    },
+
+    estimates: {
+        purpose: "Customer quotations and estimates",
+        fields: [
+            "estimateId",
+            "customerId",
+            "enquiryId",
+            "items",
+            "subtotal",
+            "discountPercent",
+            "discountAmount",
+            "finalAmount",
+            "advancePercent",
+            "advanceAmount",
+            "balanceAmount",
+            "status",
+            "validUntil",
+            "createdAt",
+            "updatedAt"
+        ]
+    },
+
+    orders: {
+        purpose: "Confirmed customer orders",
+        fields: [
+            "orderId",
+            "customerId",
+            "estimateId",
+            "items",
+            "totalAmount",
+            "advanceAmount",
+            "balanceAmount",
+            "paymentStatus",
+            "productionStatus",
+            "installationStatus",
+            "orderStatus",
+            "expectedDate",
+            "createdAt",
+            "updatedAt"
+        ]
+    },
+
+    payments: {
+        purpose: "Customer payment records",
+        fields: [
+            "paymentId",
+            "customerId",
+            "orderId",
+            "amount",
+            "paymentType",
+            "paymentMethod",
+            "transactionReference",
+            "paymentDate",
+            "notes",
+            "createdAt"
+        ]
+    },
+
+    appointments: {
+        purpose: "Site visit and measurement appointments",
+        fields: [
+            "appointmentId",
+            "customerId",
+            "enquiryId",
+            "date",
+            "time",
+            "address",
+            "googleMapLocation",
+            "assignedPerson",
+            "status",
+            "notes",
+            "createdAt",
+            "updatedAt"
+        ]
+    },
+
+    offers: {
+        purpose: "Product offers and promotional pricing",
+        fields: [
+            "offerId",
+            "productCode",
+            "offerName",
+            "offerPrice",
+            "startDate",
+            "endDate",
+            "active",
+            "description",
+            "createdAt",
+            "updatedAt"
+        ]
+    },
+
+    products: {
+        purpose: "Detailed product catalogue",
+        fields: [
+            "productCode",
+            "productName",
+            "category",
+            "description",
+            "features",
+            "meshType",
+            "frameType",
+            "availableColors",
+            "warranty",
+            "active",
+            "createdAt",
+            "updatedAt"
+        ]
+    }
+
+};
+
+
+/* ============================================================
+   SETUP
+============================================================ */
+
+document
+.getElementById("setupBtn")
+.addEventListener("click", async () => {
+
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("password")
+        .value;
+
+
+    if (!email || !password) {
+
+        result.textContent =
+            "Please enter your Firebase admin email and password.";
+
+        return;
+    }
+
+
+    try {
+
+        result.textContent =
+            "Logging in to Firebase...\n";
+
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        result.textContent +=
+            "✅ Admin login successful.\n\n";
+
+
+        /* ------------------------------------------------------
+           SAVE DATABASE STRUCTURE
+        ------------------------------------------------------ */
+
+        await setDoc(
+            doc(db, "settings", "database"),
+            {
+                businessName:
+                    "Raj Marketing Mysore",
+
+                version:
+                    "1.0",
+
+                description:
+                    "Raj Marketing master Firebase database structure",
+
+                collections:
+                    databaseStructure,
+
+                createdAt:
+                    serverTimestamp(),
+
+                updatedAt:
+                    serverTimestamp()
+            },
+            { merge: true }
+        );
+
+
+        result.textContent +=
+            "✅ Database structure saved.\n\n";
+
+
+        /* ------------------------------------------------------
+           BUSINESS SETTINGS
+        ------------------------------------------------------ */
+
+        await setDoc(
+            doc(db, "settings", "business"),
+            {
+
+                businessName:
+                    "Raj Marketing Mysore",
+
+                businessType:
+                    "Mosquito Net Sales, Manufacturing & Installation",
+
+                location:
+                    "Mysore, Karnataka, India",
+
+                currency:
+                    "INR",
+
+                phone:
+                    "9483037385",
+
+                website:
+                    "rajmarketingmysore.online",
+
+                firebaseVersion:
+                    "1.0",
+
+                createdAt:
+                    serverTimestamp(),
+
+                updatedAt:
+                    serverTimestamp()
+
+            },
+            { merge: true }
+        );
+
+
+        result.textContent +=
+            "✅ Business settings saved.\n\n";
+
+
+        /* ------------------------------------------------------
+           COLLECTION INFORMATION DOCUMENTS
+           These are only structure markers.
+           NO customer/dealer data is created.
+        ------------------------------------------------------ */
+
+        for (
+            const [collectionName, info]
+            of Object.entries(databaseStructure)
+        ) {
+
+            await setDoc(
+
+                doc(
+                    db,
+                    collectionName,
+                    "_collectionInfo"
+                ),
+
+                {
+                    type:
+                        "system",
+
+                    purpose:
+                        info.purpose,
+
+                    fields:
+                        info.fields,
+
+                    note:
+                        "System structure document. Not a customer/dealer record.",
+
+                    createdAt:
+                        serverTimestamp()
+
+                },
+
+                { merge: true }
+
+            );
+
+
+            result.textContent +=
+                "✅ " +
+                collectionName +
+                "\n";
+
+        }
+
+
+        result.textContent += `
+
+================================
+MASTER SETUP COMPLETED
+================================
+
+Customers          ✅
+Dealers             ✅
+Enquiries           ✅
+Measurements        ✅
+Estimates           ✅
+Orders              ✅
+Payments            ✅
+Appointments        ✅
+Offers              ✅
+Products            ✅
+
+Business Settings   ✅
+Database Settings   ✅
+
+No fake customer records created.
+No fake dealer records created.
+
+Raj Marketing Firebase backend
+is ready for the next stage.
+`;
+
+
+    }
+    catch(error) {
+
+        console.error(error);
+
+        result.textContent =
+            "❌ SETUP FAILED\n\n" +
+            error.code +
+            "\n\n" +
+            error.message;
+
+    }
+
+});
+
+</script>
+
+</body>
+  </html>
