@@ -439,11 +439,21 @@
         <a href="#" class="nav-item active"><i class="fas fa-robot"></i> AI</a>
     </footer>
 
-    <script>
+    <script type="module">
+
+        import { db } from "./firebase-config.js";
+
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        
         // ============================================================
         // PRICE DATABASE
         // ============================================================
-        const PRODUCTS = {
+        let PRODUCTS = {
             'velcro': {
                 name: 'Velcro System',
                 variants: {
@@ -484,6 +494,207 @@
                 defaultVariant: 'regular'
             }
         };
+
+        // ============================================================
+// FIREBASE LIVE DATA
+// ============================================================
+
+let RULES = {};
+
+async function loadFirebaseBusinessData() {
+
+  try {
+
+    console.log("Connecting to Raj Marketing Firebase...");
+
+    // -----------------------------
+    // LOAD PRODUCTS
+    // -----------------------------
+
+    const productSnapshot =
+      await getDocs(collection(db, "priceList"));
+
+    let firebaseProducts = {};
+
+    productSnapshot.forEach((document) => {
+
+      const p = document.data();
+
+      if (!p.active) return;
+
+      const code = p.productCode;
+
+      if (code === "VEL-REG") {
+
+        firebaseProducts.velcro ??= {
+          name: "Velcro System",
+          variants: {},
+          defaultVariant: "regular"
+        };
+
+        firebaseProducts.velcro.variants.regular = {
+          customer: p.customerPrice,
+          dealer: p.dealerPrice
+        };
+
+      }
+
+      else if (code === "VEL-SG") {
+
+        firebaseProducts.velcro ??= {
+          name: "Velcro System",
+          variants: {},
+          defaultVariant: "regular"
+        };
+
+        firebaseProducts.velcro.variants["saint-gobain"] = {
+          customer: p.customerPrice,
+          dealer: p.dealerPrice
+        };
+
+      }
+
+      else if (code === "AF-SS") {
+
+        firebaseProducts.aluminium ??= {
+          name: "Aluminium Frame System",
+          variants: {},
+          defaultVariant: "regular"
+        };
+
+        firebaseProducts.aluminium.variants.regular = {
+          customer: p.customerPrice,
+          dealer: p.dealerPrice
+        };
+
+      }
+
+      else if (code === "AF-WG") {
+
+        firebaseProducts.aluminium ??= {
+          name: "Aluminium Frame System",
+          variants: {},
+          defaultVariant: "regular"
+        };
+
+        firebaseProducts.aluminium.variants.woodgrain = {
+          customer: p.customerPrice,
+          dealer: p.dealerPrice
+        };
+
+      }
+
+      else if (code === "OPEN-SS") {
+
+        firebaseProducts.openable ??= {
+          name: "Aluminium Frame + SS Mesh (Openable)",
+          variants: {},
+          defaultVariant: "regular"
+        };
+
+        firebaseProducts.openable.variants.regular = {
+          customer: p.customerPrice,
+          dealer: p.dealerPrice
+        };
+
+        if (p.offerActive && p.offerPrice) {
+
+          firebaseProducts.openable.variants.limited = {
+            customer: p.offerPrice,
+            dealer: p.dealerPrice,
+            offer: true
+          };
+
+        }
+
+      }
+
+      else if (code === "PLEATED-ECO") {
+
+        firebaseProducts.pleated ??= {
+          name: "Pleated Mosquito Nets",
+          variants: {},
+          defaultVariant: "economic"
+        };
+
+        firebaseProducts.pleated.variants.economic = {
+          customer: p.customerPrice,
+          dealer: p.dealerPrice
+        };
+
+      }
+
+      else if (code === "PLEATED-PREMIUM") {
+
+        firebaseProducts.pleated ??= {
+          name: "Pleated Mosquito Nets",
+          variants: {},
+          defaultVariant: "economic"
+        };
+
+        firebaseProducts.pleated.variants.premium = {
+          customer: p.customerPrice,
+          dealer: p.dealerPrice
+        };
+
+      }
+
+    });
+
+
+    // Replace matching hard-coded products
+    // with Firebase products.
+
+    Object.keys(firebaseProducts).forEach((key) => {
+
+      PRODUCTS[key] = firebaseProducts[key];
+
+    });
+
+
+    // -----------------------------
+    // LOAD BUSINESS RULES
+    // -----------------------------
+
+    const rulesDoc =
+      await getDoc(doc(db, "rules", "business"));
+
+    if (rulesDoc.exists()) {
+
+      RULES = rulesDoc.data();
+
+    }
+
+
+    console.log(
+      "Raj Marketing Firebase data loaded:",
+      firebaseProducts
+    );
+
+    console.log(
+      "Raj Marketing business rules loaded:",
+      RULES
+    );
+
+
+    return true;
+
+  } catch (error) {
+
+    console.error(
+      "Firebase data loading failed:",
+      error
+    );
+
+    addAIResponse(
+      "⚠️ I couldn't connect to the latest Raj Marketing price database. Please try again."
+    );
+
+    return false;
+
+  }
+
+        }
 
         // ============================================================
         // STATE
@@ -871,8 +1082,46 @@
         }
 
         // ============================================================
-        // INIT
-        // ============================================================
+// INIT
+// ============================================================
+
+async function startRajMarketingAI() {
+
+  const input =
+    document.getElementById("userInput");
+
+  input.disabled = true;
+
+  input.placeholder =
+    "Loading latest Raj Marketing prices...";
+
+  const loaded =
+    await loadFirebaseBusinessData();
+
+  if (loaded) {
+
+    input.disabled = false;
+
+    input.placeholder =
+      "Type your question...";
+
+    addAIResponse(
+      "✅ Latest Raj Marketing prices and business rules are loaded from Firebase."
+    );
+
+  } else {
+
+    input.placeholder =
+      "Unable to load prices. Please refresh.";
+
+  }
+
+  input.focus();
+
+}
+
+startRajMarketingAI();
+        
         // Auto focus
         document.getElementById('userInput').focus();
     </script>
