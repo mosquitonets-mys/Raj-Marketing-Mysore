@@ -360,8 +360,61 @@ th{
         </table>
 
     </div>
-
+    
     </section>
+        
+    <!-- ORDERS -->
+
+<section class="section">
+
+    <div class="section-title">
+        <h2>📦 Orders</h2>
+    </div>
+
+
+    <input
+        id="orderSearch"
+        class="search"
+        type="text"
+        placeholder="Search order, customer, mobile or product..."
+        oninput="filterOrders()"
+    >
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Mobile</th>
+                    <th>Product</th>
+                    <th>Sqft</th>
+                    <th>Total</th>
+                    <th>Advance</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody id="orderTable">
+
+                <tr>
+                    <td colspan="11" class="loading">
+                        Loading orders...
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
         
 </main>
 
