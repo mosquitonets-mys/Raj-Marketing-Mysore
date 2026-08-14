@@ -437,6 +437,7 @@ import {
 let customers = [];
 let appointments = [];
 let enquiries = [];
+let orders = [];
 
 
 /* ==============================
@@ -540,8 +541,9 @@ async function loadCRM(){
 
 
        renderCustomers(customers);
-renderAppointments(appointments);
-renderEnquiries(enquiries);
+       renderAppointments(appointments);
+       renderEnquiries(enquiries);
+       renderOrders(orders);
     
 
     }catch(error){
@@ -667,6 +669,185 @@ function renderAppointments(list){
 
 }
 
+    // ==============================
+// ORDERS
+// ==============================
+
+function renderOrders(list) {
+window.filterOrders = function () {
+
+    const input =
+        document.getElementById("orderSearch");
+
+    if (!input) return;
+
+    const search =
+        input.value.toLowerCase().trim();
+
+    if (!search) {
+        renderOrders(orders);
+        return;
+    }
+
+    const filtered =
+        orders.filter(order => {
+
+            const text = [
+                order.orderId,
+                order.id,
+                order.customerName,
+                order.name,
+                order.mobile,
+                order.phone,
+                order.product,
+                order.productName,
+                order.status,
+                order.orderStatus,
+                order.paymentStatus
+            ]
+            .join(" ")
+            .toLowerCase();
+
+            return text.includes(search);
+        });
+
+    renderOrders(filtered);
+
+};
+    const table =
+        document.getElementById("orderTable");
+
+    if (!table) return;
+
+    if (!list.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="11" class="loading">
+                    No orders found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    table.innerHTML = list.map(order => {
+
+        const customer =
+            order.customerName ||
+            order.name ||
+            "—";
+
+        const mobile =
+            order.mobile ||
+            order.phone ||
+            "—";
+
+        const product =
+            order.product ||
+            order.productName ||
+            "—";
+
+        const sqft =
+            order.sqft ??
+            order.totalSqft ??
+            "—";
+
+        const total =
+            order.totalAmount ??
+            order.finalAmount ??
+            order.total ??
+            0;
+
+        const advance =
+            order.advanceAmount ??
+            order.advance ??
+            0;
+
+        const balance =
+            order.balanceAmount ??
+            order.balance ??
+            Math.max(Number(total) - Number(advance), 0);
+
+        const status =
+            order.orderStatus ||
+            order.status ||
+            "NEW";
+
+        const payment =
+            order.paymentStatus ||
+            "PENDING";
+
+        const orderId =
+            order.orderId ||
+            order.id ||
+            "—";
+
+        const date =
+            formatDate(
+                order.createdAt ||
+                order.orderDate ||
+                order.date
+            );
+
+        return `
+            <tr>
+
+                <td>
+                    <strong>${safe(orderId)}</strong>
+                </td>
+
+                <td>
+                    ${safe(customer)}
+                </td>
+
+                <td>
+                    ${safe(mobile)}
+                </td>
+
+                <td>
+                    ${safe(product)}
+                </td>
+
+                <td>
+                    ${safe(sqft)}
+                </td>
+
+                <td>
+                    ₹${Number(total).toLocaleString("en-IN")}
+                </td>
+
+                <td>
+                    ₹${Number(advance).toLocaleString("en-IN")}
+                </td>
+
+                <td>
+                    ₹${Number(balance).toLocaleString("en-IN")}
+                </td>
+
+                <td>
+                    <span class="status">
+                        ${safe(status)}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="status">
+                        ${safe(payment)}
+                    </span>
+                </td>
+
+                <td>
+                    ${date}
+                </td>
+
+            </tr>
+        `;
+
+    }).join("");
+
+    }
 
 /* ==============================
    SEARCH
@@ -841,6 +1022,36 @@ function renderEnquiries(list) {
 
 }
 
+    // ==============================
+// LOAD ORDERS
+// ==============================
+
+try {
+
+    const orderSnapshot =
+        await getDocs(collection(db, "orders"));
+
+    orders = [];
+
+    orderSnapshot.forEach((doc) => {
+
+        orders.push({
+            id: doc.id,
+            ...doc.data()
+        });
+
+    });
+
+    console.log("Orders loaded:", orders.length);
+
+} catch (error) {
+
+    console.error("Orders loading error:", error);
+
+    orders = [];
+
+    }
+    
 
 /* ==============================
    ENQUIRY SEARCH
