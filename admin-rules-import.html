@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raj Marketing - Business Rules Import</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background: #f5f7fa;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      box-sizing: border-box;
+      border-radius: 7px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #1565c0;
+      color: white;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #result {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Raj Marketing Mysore</h1>
+  <h2>Business Rules Importer</h2>
+
+  <div class="box">
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Admin email"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Admin password"
+    >
+
+    <button id="importBtn">
+      Login & Import Business Rules
+    </button>
+
+    <div id="result">Ready...</div>
+
+  </div>
+
+
+  <script type="module">
+
+    import { auth, db }
+      from "./firebase-config.js";
+
+    import {
+      signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+    import {
+      doc,
+      setDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+
+    const businessRules = {
+
+      currency: "INR",
+
+      measurementFormula:
+        "Width × Height × Quantity ÷ 144 = Sqft",
+
+      minimumDimension:
+        "Below 24 inches considered as 2 feet",
+
+      advancePercent: 60,
+
+      balancePercent: 40,
+
+      siteVisitMysore:
+        "Free",
+
+      siteVisitOutsideMysore:
+        "₹15/km",
+
+      installation:
+        "No hidden installation cost",
+
+      cancellationDeductionPercent: 20,
+
+      refundPercent: 40,
+
+      aluminiumFrameWarrantyYears: 5,
+
+      ssMeshWarrantyYears: 1,
+
+      pleatedWarrantyYears: 1,
+
+      velcroDelivery:
+        "2 days after confirmation",
+
+      frameDelivery:
+        "3 days after confirmation",
+
+      pleatedDelivery:
+        "3 days; imported from Coimbatore after booking",
+
+      discountBelow100Sqft: 5,
+
+      discount100Sqft: 8,
+
+      discount150Sqft: 10,
+
+      discountAbove200Sqft: 12,
+
+      updatedAt: serverTimestamp()
+
+    };
+
+
+    const result =
+      document.getElementById("result");
+
+
+    document
+      .getElementById("importBtn")
+      .addEventListener("click", async () => {
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const password =
+          document.getElementById("password").value;
+
+
+        if (!email || !password) {
+
+          result.textContent =
+            "Please enter your admin email and password.";
+
+          return;
+        }
+
+
+        try {
+
+          result.textContent =
+            "Logging in to Firebase...\n";
+
+
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+
+          result.textContent +=
+            "✅ Admin login successful.\n\n";
+
+
+          result.textContent +=
+            "Writing business rules...\n";
+
+
+          await setDoc(
+            doc(db, "rules", "business"),
+            businessRules
+          );
+
+
+          result.textContent +=
+            "✅ Business rules saved.\n\n";
+
+
+          result.textContent +=
+            "============================\n" +
+            "IMPORT COMPLETED\n" +
+            "============================\n\n" +
+
+            "Measurement rules      ✅\n" +
+            "Advance rules           ✅\n" +
+            "Cancellation rules      ✅\n" +
+            "Refund rules            ✅\n" +
+            "Warranty rules          ✅\n" +
+            "Site visit rules        ✅\n" +
+            "Installation rules      ✅\n" +
+            "Delivery rules          ✅\n" +
+            "Discount rules          ✅\n\n" +
+
+            "✅ Raj Marketing business rules are ready.";
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          result.textContent =
+            "❌ IMPORT FAILED\n\n" +
+            error.code +
+            "\n\n" +
+            error.message;
+
+        }
+
+      });
+
+  </script>
+
+</body>
+</html>
