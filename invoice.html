@@ -488,4 +488,34 @@
                         <div class="card-title"><i class="fas fa-actions"></i> Actions</div>
                         <div class="action-grid">
                             <button class="btn-primary" onclick="window.print()">
-                                <i class="fas fa-prin
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                            <button class="btn-secondary" onclick="downloadPDF()">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                            <a href="https://wa.me/91${String(order.mobile || '9483037385').replace(/\D/g,'')}?text=Hi%20${encodeURIComponent(order.customerName || 'Customer')}%2C%20Your%20invoice%20${invoiceNo}%20for%20order%20${order.orderId || id}%20is%20ready.%20Total%3A%20₹${total.toFixed(2)}.%20Balance%3A%20₹${balance.toFixed(2)}." target="_blank" class="btn-whatsapp">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error("Invoice load error:", error);
+                document.getElementById("invoiceContent").innerHTML = `
+                    <div class="card" style="text-align:center; padding:30px 20px;">
+                        <i class="fas fa-exclamation-circle" style="font-size:48px; color:#dc2626; display:block; margin-bottom:12px;"></i>
+                        <h3 style="font-size:16px; font-weight:700; color:#1a1a2e;">Error Loading Invoice</h3>
+                        <p style="color:#6b6b7b; font-size:13px;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        window.downloadPDF = function() {
+            alert("PDF download will be available in the next update.\n\nInvoice data is ready for PDF generation.");
+        };
+    </script>
+
+</body>
+</html>
