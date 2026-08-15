@@ -491,4 +491,43 @@
                 const orderData = {
                     orderId,
                     customerId: estimate.customerId || "",
-                    cu
+                    customerName: estimate.customerName || "Unknown",
+                    mobile: estimate.mobile || "",
+                    product: estimate.product || "Not specified",
+                    sqft: estimate.sqft || 0,
+                    rate: estimate.rate || 0,
+                    totalAmount: total,
+                    advanceAmount: total * 0.6,
+                    balanceAmount: total * 0.4,
+                    estimateId,
+                    orderStatus: "NEW",
+                    productionStatus: "PENDING",
+                    paymentStatus: "PENDING",
+                    createdAt: new Date().toISOString()
+                };
+
+                await addDoc(collection(db, "orders"), orderData);
+                alert("✅ Order created successfully! Order ID: " + orderId);
+                window.location.href = "order-details.html?id=" + orderId;
+            } catch (error) {
+                alert("Failed to convert: " + error.message);
+            }
+        };
+
+        function formatDate(value) {
+            if (!value) return "—";
+            try {
+                if (value.toDate) {
+                    return value.toDate().toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+                }
+                const d = new Date(value);
+                if (isNaN(d.getTime())) return "—";
+                return d.toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+            } catch {
+                return "—";
+            }
+        }
+    </script>
+
+</body>
+</html>
