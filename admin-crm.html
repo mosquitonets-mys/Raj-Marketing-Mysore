@@ -2158,7 +2158,105 @@
                 box.style.display = "none";
             }, 5000);
         }
+<!-- Add to sidebar navigation -->
+<div class="nav-section">Business</div>
+<a class="nav-item" onclick="showSection('dealers')" data-section="dealers">
+    <i class="fas fa-handshake"></i> Dealers
+</a>
 
+<!-- Add dealer section to main content -->
+<div id="section-dealers" class="container hidden">
+    <div class="welcome">
+        <h1>🏢 Dealer Management</h1>
+        <p>Approve, suspend and manage dealer accounts</p>
+    </div>
+    <div class="section">
+        <div class="section-title">
+            <h2>All Dealers</h2>
+            <span class="badge" id="dealerBadge">0</span>
+        </div>
+        <input id="dealerSearch" class="search" type="text" placeholder="Search by business, owner, mobile..." oninput="filterDealers()">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Business</th>
+                        <th>Owner</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="dealerTable"><tr><td colspan="6" class="loading">Loading dealers...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add to script section -->
+// Load dealers
+try {
+    const dealerSnap = await getDocs(collection(db, "dealers"));
+    state.dealers = [];
+    dealerSnap.forEach(doc => state.dealers.push({ id: doc.id, ...doc.data() }));
+} catch (e) { state.dealers = []; }
+
+// Render dealers
+function renderDealers(list) {
+    const table = document.getElementById("dealerTable");
+    if (!list.length) {
+        table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">🏢</div>No dealers found.</td></tr>`;
+        return;
+    }
+    table.innerHTML = list.map(d => `
+        <tr>
+            <td><strong>${safe(d.businessName || "—")}</strong></td>
+            <td>${safe(d.ownerName || "—")}</td>
+            <td>${safe(d.mobile || d.phone || "—")}</td>
+            <td>${safe(d.email || "—")}</td>
+            <td><span class="status status-${getStatusClass(d.status)}">${safe(d.status || "Pending")}</span></td>
+            <td>
+                ${d.status === "Pending" ? `<button class="btn-sm btn-sm-success" onclick="updateDealerStatus('${d.id}','Approved')">✅ Approve</button>` : ''}
+                ${d.status === "Approved" ? `<button class="btn-sm btn-sm-warning" onclick="updateDealerStatus('${d.id}','Suspended')">⏸️ Suspend</button>` : ''}
+                ${d.status === "Suspended" ? `<button class="btn-sm btn-sm-success" onclick="updateDealerStatus('${d.id}','Approved')">▶️ Reactivate</button>` : ''}
+                ${d.status !== "Rejected" ? `<button class="btn-sm btn-sm-danger" onclick="updateDealerStatus('${d.id}','Rejected')">✖ Reject</button>` : ''}
+                ${d.mobile ? `<a href="tel:${safe(d.mobile)}" class="action-link">📞</a>` : ''}
+                ${d.whatsapp ? `<a href="https://wa.me/91${String(d.whatsapp).replace(/\D/g,'')}" target="_blank" class="action-link">💬</a>` : ''}
+            </td>
+        </tr>
+    `).join("");
+}
+
+// Update dealer status
+window.updateDealerStatus = async function(dealerId, status) {
+    try {
+        await updateDoc(doc(db, "dealers", dealerId), {
+            status: status,
+            updatedAt: serverTimestamp(),
+            ...(status === "Approved" ? { approvedAt: serverTimestamp() } : {})
+        });
+        await loadAllData();
+        showSuccess(`✅ Dealer ${status}!`);
+    } catch (error) {
+        showError("Failed to update dealer status: " + error.message);
+    }
+};
+
+// Dealer search
+window.filterDealers = function() {
+    const search = document.getElementById("dealerSearch").value.toLowerCase().trim();
+    if (!search) { renderDealers(state.dealers); return; }
+    const filtered = state.dealers.filter(d => {
+        const text = [d.businessName, d.ownerName, d.mobile, d.phone, d.email, d.city].join(" ").toLowerCase();
+        return text.includes(search);
+    });
+    renderDealers(filtered);
+};
+
+// Add dealer badge count
+document.getElementById("dealerBadge").textContent = state.dealers.length;
+        
         // ============================================================
         // AUTO-REFRESH
         // ============================================================
