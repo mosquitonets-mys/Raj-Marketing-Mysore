@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Disclaimer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f5f7fb;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8e0d8;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8e0d8;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8e0d8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #0ea5e9;
+        }
+        .fixed-footer .nav-item.active {
+            color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.08);
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8e0d8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #0ea5e9;
+        }
+        .hero-page {
+            text-align: center;
+            padding: 6px 0 10px 0;
+        }
+        .hero-page .icon-circle {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 28px;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+            margin-bottom: 10px;
+        }
+        .hero-page h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+        .hero-page p {
+            font-size: 13px;
+            color: #6b6b7b;
+            margin-top: 2px;
+        }
+        .content-block {
+            margin-bottom: 16px;
+        }
+        .content-block h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 6px;
+        }
+        .content-block p {
+            font-size: 13px;
+            color: #4a4a5a;
+            line-height: 1.8;
+        }
+        .content-block ul {
+            list-style: none;
+            padding: 0;
+        }
+        .content-block ul li {
+            padding: 4px 0;
+            font-size: 13px;
+            color: #4a4a5a;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+        .content-block ul li::before {
+            content: "•";
+            color: #0ea5e9;
+            font-weight: 700;
+            position: absolute;
+            left: 0;
+        }
+        .last-updated {
+            font-size: 11px;
+            color: #6b6b7b;
+            text-align: center;
+            margin-top: 8px;
+            padding-top: 12px;
+            border-top: 1px solid #e8e0d8;
+        }
+        .highlight-box {
+            background: #fff7ed;
+            border-radius: 12px;
+            padding: 14px 16px;
+            border-left: 4px solid #f97316;
+            margin: 8px 0;
+        }
+        .highlight-box p {
+            font-size: 13px;
+            color: #1a1a2e;
+            margin: 0;
+        }
+        @media (max-width: 400px) {
+            .hero-page h1 { font-size: 19px; }
+            .content-block h3 { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile"></i>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div class="hero-page">
+            <div class="icon-circle"><i class="fas fa-exclamation-triangle"></i></div>
+            <h1>Disclaimer</h1>
+            <p>Important legal information about our website and services</p>
+        </div>
+
+        <div class="card">
+            <div class="highlight-box">
+                <p><strong>⚠️ Important:</strong> Please read this disclaimer carefully before using our website or services. By using our services, you accept and agree to be bound by this disclaimer.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>1. General Information</h3>
+                <p>The information provided on the Raj Marketing Mysore website is for general informational purposes only. While we strive to keep the information accurate and up-to-date, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the information, products, services, or related graphics contained on the website.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>2. Product Information</h3>
+                <ul>
+                    <li>Product images, descriptions, and specifications are for illustrative purposes only</li>
+                    <li>Actual products may vary slightly from images shown</li>
+                    <li>Colors may appear different on different devices</li>
+                    <li>Product availability is subject to change without notice</li>
+                    <li>We reserve the right to modify or discontinue any product without prior notice</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>3. Pricing Information</h3>
+                <ul>
+                    <li>All prices are subject to change without prior notice</li>
+                    <li>Prices do not include applicable taxes unless stated otherwise</li>
+                    <li>We reserve the right to correct pricing errors</li>
+                    <li>Prices quoted on estimates are valid for a limited period as specified</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>4. Measurement and Estimates</h3>
+                <p>Any estimates, measurements, or calculations provided are based on the information supplied by you. We recommend verifying all measurements and requirements before placing orders. We are not responsible for errors resulting from inaccurate information provided.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>5. Third-Party Links</h3>
+                <p>Our website may contain links to third-party websites. These links are provided for your convenience and do not signify endorsement of the content. We have no control over the content, privacy policies, or practices of third-party sites and accept no responsibility for them.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>6. Limitation of Liability</h3>
+                <p>In no event shall Raj Marketing Mysore be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:</p>
+                <ul>
+                    <li>Your use or inability to use our services</li>
+                    <li>Any conduct or content of any third party</li>
+                    <li>Unauthorized access to or alteration of your transmissions or data</li>
+                    <li>Any other matter relating to our services</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>7. Warranty Disclaimer</h3>
+                <p>All products and services are provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+                <div class="highlight-box" style="margin-top:8px;">
+                    <p><strong>✅ Warranty Coverage:</strong> SS Mesh and Pleated Nets: 1-year manufacturer warranty · Aluminium Frame: 5-year warranty · Warranty covers manufacturing defects only.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>8. Professional Advice</h3>
+                <p>The information on this website is not intended as professional advice. You should consult with qualified professionals for specific advice related to your situation. We do not assume any responsibility for actions taken based on the information provided.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>9. Changes to This Disclaimer</h3>
+                <p>We reserve the right to update or modify this disclaimer at any time without prior notice. Your continued use of our services constitutes acceptance of the updated disclaimer. We recommend reviewing this page periodically for changes.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>10. Contact Us</h3>
+                <p>If you have any questions about this disclaimer, please contact us:</p>
+                <ul>
+                    <li><strong>Phone:</strong> <a href="tel:9483037385" style="color:#0ea5e9;">9483037385</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:info@rajmarketing.in" style="color:#0ea5e9;">info@rajmarketing.in</a></li>
+                    <li><strong>Address:</strong> #45, Devraj Urs Road, Mysore, Karnataka - 570001</li>
+                </ul>
+            </div>
+
+            <div class="last-updated">
+                <i class="fas fa-calendar-alt"></i> Last Updated: August 2026
+            </div>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Est. 2016
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
+    </footer>
+
+</body>
+</html>
