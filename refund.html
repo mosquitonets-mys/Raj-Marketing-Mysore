@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Refund Policy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f5f7fb;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8e0d8;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8e0d8;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8e0d8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #0ea5e9;
+        }
+        .fixed-footer .nav-item.active {
+            color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.08);
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8e0d8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #0ea5e9;
+        }
+        .hero-page {
+            text-align: center;
+            padding: 6px 0 10px 0;
+        }
+        .hero-page .icon-circle {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 28px;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+            margin-bottom: 10px;
+        }
+        .hero-page h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+        .hero-page p {
+            font-size: 13px;
+            color: #6b6b7b;
+            margin-top: 2px;
+        }
+        .content-block {
+            margin-bottom: 16px;
+        }
+        .content-block h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 6px;
+        }
+        .content-block p {
+            font-size: 13px;
+            color: #4a4a5a;
+            line-height: 1.8;
+        }
+        .content-block ul {
+            list-style: none;
+            padding: 0;
+        }
+        .content-block ul li {
+            padding: 4px 0;
+            font-size: 13px;
+            color: #4a4a5a;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+        .content-block ul li::before {
+            content: "•";
+            color: #0ea5e9;
+            font-weight: 700;
+            position: absolute;
+            left: 0;
+        }
+        .last-updated {
+            font-size: 11px;
+            color: #6b6b7b;
+            text-align: center;
+            margin-top: 8px;
+            padding-top: 12px;
+            border-top: 1px solid #e8e0d8;
+        }
+        .highlight-box {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 14px 16px;
+            border-left: 4px solid #0ea5e9;
+            margin: 8px 0;
+        }
+        .highlight-box p {
+            font-size: 13px;
+            color: #1a1a2e;
+            margin: 0;
+        }
+        @media (max-width: 400px) {
+            .hero-page h1 { font-size: 19px; }
+            .content-block h3 { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile"></i>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div class="hero-page">
+            <div class="icon-circle"><i class="fas fa-money-bill-wave"></i></div>
+            <h1>Refund Policy</h1>
+            <p>Our commitment to fair and transparent refunds</p>
+        </div>
+
+        <div class="card">
+            <div class="highlight-box">
+                <p><strong>⏱️ Quick Summary:</strong> 60% advance payment required. Refund limited to 40% of advance where applicable. Cancellation deductions may apply.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>1. Advance Payment Policy</h3>
+                <p>Raj Marketing Mysore requires a <strong>60% advance payment</strong> at the time of order confirmation. This advance covers material procurement and production planning.</p>
+                <p style="margin-top:6px;">The remaining <strong>40% balance</strong> is due upon completion of the work, site inspection, and customer satisfaction.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>2. Cancellation Policy</h3>
+                <ul>
+                    <li>If you cancel your order <strong>within 24 hours</strong> of confirmation, you will receive a <strong>full refund</strong> of your advance payment.</li>
+                    <li>If you cancel <strong>after 24 hours but before production</strong> begins, a <strong>20% cancellation fee</strong> will be deducted from your advance.</li>
+                    <li>If you cancel <strong>after production has started</strong>, deductions will be calculated based on ready-material cost and work completed.</li>
+                    <li><strong>Custom orders</strong> with specific requirements cannot be cancelled once production begins.</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>3. Refund Calculation</h3>
+                <ul>
+                    <li>Refund is limited to a <strong>maximum of 40%</strong> of the advance payment where the refund policy applies.</li>
+                    <li>Refund amount = (Advance Paid × 40%) − (Cancellation Fee + Material Cost)</li>
+                    <li>Refund processing time: <strong>7-10 business days</strong> from the date of cancellation.</li>
+                </ul>
+                <p style="margin-top:6px;">Refunds are calculated based on the original payment method used. Bank transfer and UPI refunds may take additional time to reflect in your account.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>4. Material Deductions</h3>
+                <ul>
+                    <li>If materials have been procured specifically for your order, the cost of these materials will be deducted from the refund.</li>
+                    <li>Ready-material items cannot be returned and will be charged at full cost.</li>
+                    <li>Custom-made items (e.g., custom-sized aluminium frames) cannot be resold and will be charged at full cost.</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>5. Non-Refundable Items</h3>
+                <ul>
+                    <li>Custom-made products (custom sizes, colors, designs)</li>
+                    <li>Items that have been manufactured specifically for your order</li>
+                    <li>Materials that have been cut or modified</li>
+                    <li>Site survey and measurement charges (if applicable)</li>
+                    <li>Any items covered by our "No Return" policy at the time of order</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>6. Quality Issues</h3>
+                <p>If you experience quality issues with our products, please contact us immediately. We will:</p>
+                <ul>
+                    <li>Inspect the issue and determine if it's a manufacturing defect</li>
+                    <li>If covered under warranty, arrange for repair or replacement</li>
+                    <li>If the issue is significant, provide a partial or full refund</li>
+                </ul>
+                <div class="highlight-box" style="margin-top:8px;">
+                    <p><strong>Note:</strong> Warranty covers manufacturing defects only. Physical damage or customer-caused damage may attract additional charges after inspection.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>7. Refund Process</h3>
+                <ul>
+                    <li>Contact our team via <a href="tel:9483037385" style="color:#0ea5e9;">9483037385</a> or <a href="mailto:info@rajmarketing.in" style="color:#0ea5e9;">info@rajmarketing.in</a></li>
+                    <li>Share your order details and reason for refund</li>
+                    <li>Our team will review your request and calculate the refund amount</li>
+                    <li>Refund will be processed within 7-10 business days</li>
+                    <li>You will receive a confirmation notification</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>8. Contact Us</h3>
+                <p>For any questions about our refund policy, please contact us:</p>
+                <ul>
+                    <li><strong>Phone:</strong> <a href="tel:9483037385" style="color:#0ea5e9;">9483037385</a></li>
+                    <li><strong>WhatsApp:</strong> <a href="https://wa.me/919483037385" style="color:#0ea5e9;">9483037385</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:info@rajmarketing.in" style="color:#0ea5e9;">info@rajmarketing.in</a></li>
+                    <li><strong>Address:</strong> #45, Devraj Urs Road, Mysore, Karnataka - 570001</li>
+                </ul>
+            </div>
+
+            <div class="last-updated">
+                <i class="fas fa-calendar-alt"></i> Last Updated: August 2026
+            </div>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Est. 2016
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
+    </footer>
+
+</body>
+  </html>
