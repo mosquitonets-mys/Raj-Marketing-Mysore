@@ -233,6 +233,20 @@
             box-shadow: 0 6px 24px rgba(249, 115, 22, 0.35);
             transform: translateY(-2px);
         }
+        .btn-secondary {
+            background: #f5f0eb;
+            color: #1a1a1a;
+            border: 1px solid #e8e0d8;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #e8e0d8;
+        }
 
         .status-badge {
             padding: 4px 14px;
@@ -277,6 +291,49 @@
             font-size: 14px;
         }
 
+        .document-status {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0ece6;
+            font-size: 13px;
+        }
+        .document-status:last-child {
+            border-bottom: none;
+        }
+        .document-status .doc-name {
+            font-weight: 500;
+            color: #4a4a4a;
+        }
+        .document-status .doc-status {
+            font-weight: 600;
+        }
+        .doc-uploaded {
+            color: #059669;
+        }
+        .doc-pending {
+            color: #f97316;
+        }
+        .doc-missing {
+            color: #dc2626;
+        }
+
+        .logout-btn {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .logout-btn:hover {
+            background: #fecaca;
+        }
+
         @media (max-width: 400px) {
             .form-row {
                 grid-template-columns: 1fr;
@@ -307,6 +364,7 @@
         <div id="errorBox" class="error-box"></div>
         <div id="successBox" class="success-box"></div>
 
+        <!-- Profile Header -->
         <div class="card" style="text-align:center;">
             <div class="profile-avatar"><i class="fas fa-user"></i></div>
             <h3 id="profileName" style="font-size:18px; font-weight:700; color:#1a1a1a;">Loading...</h3>
@@ -317,6 +375,7 @@
             </div>
         </div>
 
+        <!-- Edit Profile Form -->
         <div class="card">
             <div class="card-title"><i class="fas fa-edit"></i> Edit Profile</div>
             <form id="profileForm" onsubmit="updateProfile(event)">
@@ -408,18 +467,32 @@
             </form>
         </div>
 
+        <!-- Document Status -->
         <div class="card">
             <div class="card-title"><i class="fas fa-file-alt"></i> Document Status</div>
-            <div style="font-size:13px; line-height:2;">
-                <div>📄 GST Certificate: <span id="docGst" style="font-weight:600; color:#f97316;">Not Uploaded</span></div>
-                <div>📄 PAN Card: <span id="docPan" style="font-weight:600; color:#f97316;">Not Uploaded</span></div>
-                <div>📄 Business Proof: <span id="docBusiness" style="font-weight:600; color:#f97316;">Not Uploaded</span></div>
-                <div>📄 ID Proof: <span id="docId" style="font-weight:600; color:#f97316;">Not Uploaded</span></div>
+            <div class="document-status">
+                <span class="doc-name">📄 GST Certificate</span>
+                <span class="doc-status doc-pending" id="docGst">Not Uploaded</span>
             </div>
-            <div style="margin-top:8px; font-size:11px; color:#6b6b6b;">
+            <div class="document-status">
+                <span class="doc-name">📄 PAN Card</span>
+                <span class="doc-status doc-pending" id="docPan">Not Uploaded</span>
+            </div>
+            <div class="document-status">
+                <span class="doc-name">📄 Business Proof</span>
+                <span class="doc-status doc-pending" id="docBusiness">Not Uploaded</span>
+            </div>
+            <div class="document-status">
+                <span class="doc-name">📄 ID Proof</span>
+                <span class="doc-status doc-pending" id="docId">Not Uploaded</span>
+            </div>
+            <div style="margin-top:10px; font-size:11px; color:#6b6b6b; text-align:center;">
                 <i class="fas fa-info-circle"></i> Contact admin to upload documents
             </div>
         </div>
+
+        <!-- Logout -->
+        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
 
         <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
             Raj Marketing Mysore · Dealer Profile
@@ -438,7 +511,7 @@
     <script type="module">
         import { auth, db } from "./firebase-config.js";
         import { collection, getDocs, query, where, updateDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
         let dealerData = null;
         let dealerId = null;
@@ -501,18 +574,25 @@
 
                 // Document status
                 const docStatus = dealerData.documents || {};
-                document.getElementById("docGst").textContent = docStatus.gst ? "✅ Uploaded" : "Not Uploaded";
-                document.getElementById("docGst").style.color = docStatus.gst ? "#059669" : "#f97316";
-                document.getElementById("docPan").textContent = docStatus.pan ? "✅ Uploaded" : "Not Uploaded";
-                document.getElementById("docPan").style.color = docStatus.pan ? "#059669" : "#f97316";
-                document.getElementById("docBusiness").textContent = docStatus.businessProof ? "✅ Uploaded" : "Not Uploaded";
-                document.getElementById("docBusiness").style.color = docStatus.businessProof ? "#059669" : "#f97316";
-                document.getElementById("docId").textContent = docStatus.idProof ? "✅ Uploaded" : "Not Uploaded";
-                document.getElementById("docId").style.color = docStatus.idProof ? "#059669" : "#f97316";
+                updateDocStatus("docGst", docStatus.gst);
+                updateDocStatus("docPan", docStatus.pan);
+                updateDocStatus("docBusiness", docStatus.businessProof);
+                updateDocStatus("docId", docStatus.idProof);
 
             } catch (error) {
                 console.error("❌ Load error:", error);
                 showError("Unable to load profile: " + error.message);
+            }
+        }
+
+        function updateDocStatus(elementId, status) {
+            const el = document.getElementById(elementId);
+            if (status) {
+                el.textContent = "✅ Uploaded";
+                el.className = "doc-status doc-uploaded";
+            } else {
+                el.textContent = "Not Uploaded";
+                el.className = "doc-status doc-pending";
             }
         }
 
@@ -556,6 +636,16 @@
                 await loadDealerData();
             } catch (error) {
                 showError("Failed to update profile: " + error.message);
+            }
+        };
+
+        window.logout = async function() {
+            if (!confirm("Are you sure you want to logout?")) return;
+            try {
+                await signOut(auth);
+                window.location.href = "dealer-login.html";
+            } catch (error) {
+                showError("Logout failed: " + error.message);
             }
         };
 
