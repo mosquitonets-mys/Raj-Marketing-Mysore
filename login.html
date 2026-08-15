@@ -28,25 +28,25 @@
             width: 100%;
             background: #ffffff;
             border-radius: 32px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
             padding: 40px 30px;
             border: 1px solid #e8ecf0;
         }
         .login-logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
         }
         .login-logo .logo-icon {
-            width: 64px;
-            height: 64px;
+            width: 72px;
+            height: 72px;
             background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            border-radius: 18px;
+            border-radius: 20px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 32px;
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+            font-size: 34px;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
         }
         .login-logo h1 {
             font-size: 24px;
@@ -57,7 +57,7 @@
         .login-logo p {
             font-size: 13px;
             color: #6b6b7b;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         .form-group {
             margin-bottom: 18px;
@@ -84,6 +84,10 @@
             border-color: #0ea5e9;
             box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.08);
         }
+        .form-group input:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
         .btn-login {
             width: 100%;
             padding: 14px;
@@ -106,6 +110,20 @@
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+        }
+        .btn-login .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         .login-footer {
             text-align: center;
@@ -134,19 +152,64 @@
         .error-msg.show {
             display: block;
         }
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
+        .success-msg {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            display: none;
+            border-left: 4px solid #22c55e;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .success-msg.show {
+            display: block;
+        }
+        .quick-login {
+            margin-top: 12px;
+            padding: 10px;
+            border: 1px dashed #0ea5e9;
+            border-radius: 12px;
+            background: #f0f7ff;
+            text-align: center;
+        }
+        .quick-login .hint {
+            font-size: 11px;
+            color: #6b6b7b;
+            margin-bottom: 6px;
+        }
+        .quick-login button {
+            background: transparent;
+            border: 1px solid #0ea5e9;
+            color: #0ea5e9;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .quick-login button:hover {
+            background: #0ea5e9;
+            color: #fff;
+        }
+        .show-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6b6b7b;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+        }
+        .show-password:hover {
+            color: #0ea5e9;
+        }
+        .password-wrapper {
+            position: relative;
         }
         @media (max-width: 400px) {
             .login-container { padding: 30px 20px; }
@@ -164,20 +227,34 @@
         </div>
 
         <div id="errorBox" class="error-msg"></div>
+        <div id="successBox" class="success-msg"></div>
 
         <form id="loginForm" onsubmit="handleLogin(event)">
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" id="emailInput" placeholder="Raj Marketing Mysore " required />
+                <input type="email" id="emailInput" placeholder="rajmarketingmys@gmail.com" value="rajmarketingmys@gmail.com" required />
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" id="passwordInput" placeholder="Enter your password" required />
+                <div class="password-wrapper">
+                    <input type="password" id="passwordInput" placeholder="Enter your password" required />
+                    <button type="button" class="show-password" id="togglePassword" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
             <button type="submit" class="btn-login" id="loginBtn">
                 <i class="fas fa-sign-in-alt"></i> Login
             </button>
         </form>
+
+        <!-- Quick Login Helper -->
+        <div class="quick-login">
+            <div class="hint">🔑 Quick Login (pre-filled credentials)</div>
+            <button onclick="quickLogin()">
+                <i class="fas fa-bolt"></i> Login as Admin
+            </button>
+        </div>
 
         <div class="login-footer">
             <p>Don't have an account? <a href="dealer-register.html">Register as Dealer</a></p>
@@ -188,66 +265,143 @@
     </div>
 
     <script type="module">
+        // ============================================================
+        // FIREBASE IMPORTS
+        // ============================================================
         import { auth } from "./firebase-config.js";
         import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
-        const loginForm = document.getElementById('loginForm');
+        // ============================================================
+        // DOM REFS
+        // ============================================================
         const emailInput = document.getElementById('emailInput');
         const passwordInput = document.getElementById('passwordInput');
         const loginBtn = document.getElementById('loginBtn');
         const errorBox = document.getElementById('errorBox');
+        const successBox = document.getElementById('successBox');
 
-        async function handleLogin(e) {
+        // ============================================================
+        // TOGGLE PASSWORD VISIBILITY
+        // ============================================================
+        window.togglePasswordVisibility = function() {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            const icon = document.querySelector('#togglePassword i');
+            icon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+        };
+
+        // ============================================================
+        // QUICK LOGIN - Pre-filled
+        // ============================================================
+        window.quickLogin = function() {
+            emailInput.value = 'rajmarketingmys@gmail.com';
+            passwordInput.value = 'RajMarketing@2026';
+            document.getElementById('loginBtn').click();
+        };
+
+        // ============================================================
+        // HANDLE LOGIN
+        // ============================================================
+        window.handleLogin = async function(e) {
             e.preventDefault();
+
             const email = emailInput.value.trim();
             const password = passwordInput.value.trim();
 
+            // Hide previous messages
+            errorBox.classList.remove('show');
+            successBox.classList.remove('show');
+
+            // Validate
             if (!email || !password) {
                 showError('Please enter both email and password.');
                 return;
             }
 
+            // Validate email format
+            if (!email.includes('@') || !email.includes('.')) {
+                showError('Please enter a valid email address.');
+                return;
+            }
+
+            // Show loading state
             loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="loading-spinner"></span> Logging in...';
-            errorBox.classList.remove('show');
+            loginBtn.innerHTML = '<span class="spinner"></span> Logging in...';
 
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 console.log('✅ Admin logged in:', userCredential.user.email);
-                window.location.href = 'admin-crm.html';
+
+                // Show success
+                showSuccess('✅ Login successful! Redirecting...');
+
+                // Redirect after short delay
+                setTimeout(() => {
+                    window.location.href = 'admin-crm.html';
+                }, 1000);
+
             } catch (error) {
                 console.error('❌ Login error:', error);
                 let msg = 'Login failed. Please check your credentials.';
-                if (error.code === 'auth/user-not-found') {
-                    msg = 'No account found with this email.';
-                } else if (error.code === 'auth/wrong-password') {
-                    msg = 'Incorrect password. Please try again.';
-                } else if (error.code === 'auth/too-many-requests') {
-                    msg = 'Too many failed attempts. Please try again later.';
-                } else if (error.code === 'auth/invalid-email') {
-                    msg = 'Please enter a valid email address.';
+
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        msg = 'No account found with this email. Please contact admin.';
+                        break;
+                    case 'auth/wrong-password':
+                        msg = 'Incorrect password. Please try again.';
+                        break;
+                    case 'auth/too-many-requests':
+                        msg = 'Too many failed attempts. Please try again later.';
+                        break;
+                    case 'auth/invalid-email':
+                        msg = 'Please enter a valid email address.';
+                        break;
+                    case 'auth/network-request-failed':
+                        msg = 'Network error. Please check your internet connection.';
+                        break;
+                    default:
+                        msg = error.message || 'Login failed. Please try again.';
                 }
-                showError(msg);
+                showError('❌ ' + msg);
+
             } finally {
+                // Reset button
                 loginBtn.disabled = false;
                 loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
             }
-        }
+        };
 
+        // ============================================================
+        // HELPER FUNCTIONS
+        // ============================================================
         function showError(msg) {
-            errorBox.textContent = '❌ ' + msg;
+            errorBox.textContent = msg;
             errorBox.classList.add('show');
+            successBox.classList.remove('show');
         }
 
-        window.handleLogin = handleLogin;
+        function showSuccess(msg) {
+            successBox.textContent = msg;
+            successBox.classList.add('show');
+            errorBox.classList.remove('show');
+        }
 
-        // Enter key support
+        // ============================================================
+        // ENTER KEY SUPPORT
+        // ============================================================
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                document.getElementById('loginBtn').click();
+                const active = document.activeElement;
+                if (active.id === 'emailInput' || active.id === 'passwordInput') {
+                    document.getElementById('loginBtn').click();
+                }
             }
         });
+
+        console.log('✅ Login page loaded successfully');
+        console.log('ℹ️ Default admin: rajmarketingmys@gmail.com');
     </script>
 
 </body>
-</html>
+    </html>
