@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Customer Estimate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f0f4f8; display: flex; justify-content: center; min-height: 100vh; padding: 20px; padding-top: 80px; }
+        .container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 24px 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); border: 1px solid #e8ecf0; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .header .logo { font-weight: 800; font-size: 18px; color: #1a1a2e; }
+        .header .logo span { display: block; font-size: 9px; color: #6b6b7b; font-weight: 400; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { font-size: 12px; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 4px; }
+        .form-group input, .form-group select { width: 100%; padding: 10px 14px; border: 1.5px solid #e8ecf0; border-radius: 12px; font-size: 13px; outline: none; background: #f8fafc; transition: 0.2s; }
+        .form-group input:focus, .form-group select:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.08); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn-primary { width: 100%; padding: 14px; background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; border: none; border-radius: 40px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.35); }
+        .result-card { background: #f8fafc; border-radius: 16px; padding: 16px; margin-top: 16px; border: 1px solid #e8ecf0; }
+        .result-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; border-bottom: 1px solid #f0ece6; }
+        .result-row:last-child { border-bottom: none; }
+        .result-row .label { color: #6b6b7b; }
+        .result-row .value { font-weight: 600; color: #1a1a2e; }
+        .result-row .value.total { font-size: 20px; color: #0ea5e9; }
+        .hidden { display: none !important; }
+        .note { font-size: 11px; color: #6b6b7b; margin-top: 4px; }
+        .nav-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+        .nav-links a { font-size: 11px; color: #0ea5e9; text-decoration: none; }
+        .nav-links a:hover { text-decoration: underline; }
+        @media (max-width: 400px) { .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Raj Marketing <span>Mysore</span></div>
+            <span style="font-size:11px; color:#6b6b7b;">📐 Estimate</span>
+        </div>
+
+        <h2 style="font-size:18px; font-weight:800; margin-bottom:4px;">Customer Estimate</h2>
+        <p style="font-size:13px; color:#6b6b7b; margin-bottom:16px;">Get a quick price estimate for your mosquito net needs.</p>
+
+        <form id="estimateForm">
+            <div class="form-group">
+                <label>Product *</label>
+                <select id="productSelect" required>
+                    <option value="">Select Product</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Width (inches) *</label>
+                    <input type="number" id="widthInput" placeholder="36" required />
+                </div>
+                <div class="form-group">
+                    <label>Height (inches) *</label>
+                    <input type="number" id="heightInput" placeholder="48" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" id="qtyInput" value="1" min="1" />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Frame Colour</label>
+                    <select id="colourSelect">
+                        <option value="Ivory">Ivory</option>
+                        <option value="Honey Gold">Honey Gold</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Black">Black</option>
+                        <option value="White">White</option>
+                        <option value="Teakwood">Teakwood (Premium)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Product Type</label>
+                    <select id="typeSelect">
+                        <option value="Window">Window</option>
+                        <option value="Door">Door</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+                <label style="font-size:12px; display:flex; align-items:center; gap:4px;">
+                    <input type="checkbox" id="includeInstallation" /> Installation
+                </label>
+                <label style="font-size:12px; display:flex; align-items:center; gap:4px;">
+                    <input type="checkbox" id="includeDelivery" /> Delivery
+                </label>
+                <label style="font-size:12px; display:flex; align-items:center; gap:4px;">
+                    <input type="checkbox" id="includeWoodFinish" /> Wood Finish (₹20/sq.ft)
+                </label>
+                <label style="font-size:12px; display:flex; align-items:center; gap:4px;">
+                    <input type="checkbox" id="includeWallInstallation" /> Wall Installation (₹30/sq.ft)
+                </label>
+            </div>
+
+            <button type="submit" class="btn-primary"><i class="fas fa-calculator"></i> Calculate Estimate</button>
+        </form>
+
+        <!-- Results -->
+        <div id="resultCard" class="result-card hidden">
+            <div style="font-weight:700; font-size:15px; margin-bottom:8px; color:#1a1a2e;">📋 Estimate Summary</div>
+            <div class="result-row"><span class="label">Product</span><span class="value" id="rProduct">—</span></div>
+            <div class="result-row"><span class="label">Colour</span><span class="value" id="rColour">—</span></div>
+            <div class="result-row"><span class="label">Dimensions</span><span class="value" id="rDimensions">—</span></div>
+            <div class="result-row"><span class="label">Quantity</span><span class="value" id="rQty">—</span></div>
+            <div class="result-row"><span class="label">Billable Sq.ft</span><span class="value" id="rSqft">—</span></div>
+            <div class="result-row"><span class="label">Rate</span><span class="value" id="rRate">—</span></div>
+            <div class="result-row"><span class="label">Subtotal</span><span class="value" id="rSubtotal">—</span></div>
+            <div class="result-row"><span class="label">Extra Charges</span><span class="value" id="rExtra">—</span></div>
+            <div class="result-row"><span class="label">GST (18%)</span><span class="value" id="rGst">—</span></div>
+            <div class="result-row" style="border-top:2px solid #e8ecf0; margin-top:4px; padding-top:8px;">
+                <span class="label" style="font-weight:700;">Grand Total</span>
+                <span class="value total" id="rTotal">—</span>
+            </div>
+            <div style="font-size:10px; color:#6b6b7b; margin-top:6px; text-align:center;">* All prices are customer retail prices. GST included where applicable.</div>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="products.html">🛒 Products</a>
+            <a href="appointment.html">📅 Appointment</a>
+            <a href="price-checker.html">🤖 AI Price</a>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:16px;">
+            Raj Marketing Mysore · Customer Estimate
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { getPricingEngine } from "./pricing-engine.js";
+
+        let pricingEngine = null;
+        let products = [];
+
+        async function init() {
+            pricingEngine = await getPricingEngine();
+
+            // Load products for dropdown
+            const productSnap = await getDocs(collection(db, 'products'));
+            products = [];
+            productSnap.forEach(doc => products.push({ id: doc.id, ...doc.data() }));
+
+            // Populate dropdown
+            const select = document.getElementById('productSelect');
+            const categories = ['Velcro', 'Aluminium Frame', 'Premium Aluminium', 'Pleated', 'Mesh Door'];
+            const sorted = products.filter(p => categories.includes(p.category) && p.active !== false);
+            sorted.sort((a, b) => {
+                const idxA = categories.indexOf(a.category);
+                const idxB = categories.indexOf(b.category);
+                return (idxA === -1 ? 999 : idxA) - (idxB === -1 ? 999 : idxB);
+            });
+
+            select.innerHTML = '<option value="">Select Product</option>';
+            sorted.forEach(p => {
+                select.innerHTML += `<option value="${p.id}">${p.name} (${p.category})</option>`;
+            });
+
+            // Check authentication
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const adminEmails = ['rajmarketingmys@gmail.com'];
+                    if (adminEmails.includes(user.email)) {
+                        console.log('Admin logged in');
+                    }
+                }
+            });
+
+            console.log('✅ Estimate page loaded');
+        }
+
+        document.getElementById('estimateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const productId = document.getElementById('productSelect').value;
+            const width = parseFloat(document.getElementById('widthInput').value) || 0;
+            const height = parseFloat(document.getElementById('heightInput').value) || 0;
+            const quantity = parseFloat(document.getElementById('qtyInput').value) || 1;
+            const colour = document.getElementById('colourSelect').value;
+            const productType = document.getElementById('typeSelect').value;
+            const includeInstallation = document.getElementById('includeInstallation').checked;
+            const includeDelivery = document.getElementById('includeDelivery').checked;
+            const includeWoodFinish = document.getElementById('includeWoodFinish').checked;
+            const includeWallInstallation = document.getElementById('includeWallInstallation').checked;
+
+            if (!productId || width <= 0 || height <= 0) {
+                alert('Please select a product and enter valid width and height.');
+                return;
+            }
+
+            try {
+                const result = pricingEngine.calculateEstimate({
+                    productId,
+                    width,
+                    height,
+                    quantity,
+                    userRole: 'customer',
+                    includeInstallation,
+                    includeDelivery,
+                    includeWoodFinish,
+                    includeWallInstallation
+                });
+
+                if (!result) {
+                    alert('Error calculating estimate. Please try again.');
+                    return;
+                }
+
+                document.getElementById('resultCard').classList.remove('hidden');
+                document.getElementById('rProduct').textContent = result.product?.name || '—';
+                document.getElementById('rColour').textContent = colour;
+                document.getElementById('rDimensions').textContent = `${width}″ × ${height}″`;
+                document.getElementById('rQty').textContent = quantity;
+                document.getElementById('rSqft').textContent = result.billableSqft.toFixed(2);
+                document.getElementById('rRate').textContent = `₹${result.rate}/sq.ft`;
+                document.getElementById('rSubtotal').textContent = `₹${result.subtotal.toFixed(2)}`;
+                document.getElementById('rExtra').textContent = `₹${result.extraCharges.toFixed(2)}`;
+                document.getElementById('rGst').textContent = `₹${result.gst.toFixed(2)}`;
+                document.getElementById('rTotal').textContent = `₹${result.grandTotal.toFixed(2)}`;
+
+                // Scroll to result
+                document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            } catch (error) {
+                console.error('❌ Estimate error:', error);
+                alert('Error calculating estimate: ' + error.message);
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>
