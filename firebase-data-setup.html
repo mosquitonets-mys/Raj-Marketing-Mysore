@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raj Marketing · Data Setup</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f0f4f8; padding: 40px 20px; display: flex; justify-content: center; }
+        .container { max-width: 800px; width: 100%; background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
+        h1 { font-size: 24px; margin-bottom: 8px; color: #1a1a2e; }
+        p { color: #6b6b7b; margin-bottom: 20px; }
+        .section { margin-bottom: 24px; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e8ecf0; }
+        .section h3 { font-size: 16px; margin-bottom: 8px; color: #0ea5e9; }
+        .section pre { background: #1a1a2e; color: #e8ecf0; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.6; white-space: pre-wrap; }
+        .btn { background: #0ea5e9; color: #fff; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.3); }
+        .status { padding: 8px 12px; border-radius: 8px; margin: 8px 0; }
+        .status.success { background: #d1fae5; color: #065f46; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .status.info { background: #dbeafe; color: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Raj Marketing Data Setup</h1>
+        <p>Run this once to initialize your Firebase collections with product and pricing data.</p>
+
+        <div id="status"></div>
+
+        <div class="section">
+            <h3>📦 Products Collection</h3>
+            <pre id="productsData">Loading...</pre>
+        </div>
+
+        <div class="section">
+            <h3>🏷️ Price Master Collection</h3>
+            <pre id="pricesData">Loading...</pre>
+        </div>
+
+        <div class="section">
+            <h3>👤 Sample Users</h3>
+            <pre id="usersData">Loading...</pre>
+        </div>
+
+        <button class="btn" onclick="setupData()">🚀 Initialize Data</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_a91sI0xpFRX5_ti2ukM8Ybn2lMXS6Zw",
+            authDomain: "raj-marketing-mysore-f91f7.firebaseapp.com",
+            projectId: "raj-marketing-mysore-f91f7",
+            storageBucket: "raj-marketing-mysore-f91f7.firebasestorage.app",
+            messagingSenderId: "534782698781",
+            appId: "1:534782698781:web:bad9454adb5d2ad1e7edf4",
+            measurementId: "G-P95PHHGV2M"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // ============================================================
+        // PRODUCT DATA - COMPLETE MASTER PROMPT
+        // ============================================================
+        const products = [
+            // VELCRO SYSTEM
+            { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', customerPrice: 65, dealerBasePrice: 45, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
+            { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium Saint-Gobain', customerPrice: 80, dealerBasePrice: 60, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
+
+            // ALUMINIUM FRAME - REGULAR COLOURS
+            { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium Frame', variant: 'Regular Colour + Black Coated SS Mesh', customerPrice: 200, dealerBasePrice: 160, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
+            { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304 Grade Mesh', category: 'Aluminium Frame', variant: 'Regular Colour + Bright SS 304 Grade Mesh', customerPrice: 220, dealerBasePrice: 180, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
+
+            // FRAME COLOURS (separate for selection)
+            { id: 'frame-colour-ivory', name: 'Ivory', category: 'Frame Colour', variant: 'Ivory', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
+            { id: 'frame-colour-honey-gold', name: 'Honey Gold', category: 'Frame Colour', variant: 'Honey Gold', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
+            { id: 'frame-colour-brown', name: 'Brown', category: 'Frame Colour', variant: 'Brown', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
+            { id: 'frame-colour-black', name: 'Black', category: 'Frame Colour', variant: 'Black', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
+            { id: 'frame-colour-white', name: 'White', category: 'Frame Colour', variant: 'White', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
+
+            // PREMIUM ALUMINIUM - TEAKWOOD
+            { id: 'aluminium-teakwood-black-ss', name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Black Coated SS Mesh', customerPrice: 300, dealerBasePrice: 260, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
+            { id: 'aluminium-teakwood-bright-ss', name: 'Premium Teakwood – Bright SS 304 Grade Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Bright SS 304 Grade Mesh', customerPrice: 320, dealerBasePrice: 280, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
+
+            // PLEATED NETS - Manufacturer Rate Based
+            { id: 'pleated-gold-single-25mm', name: 'Pleated Mesh – Non Detachable [Gold]', category: 'Pleated', variant: '25mm Single', manufacturerRate: 145, customerPrice: 290, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-gold-double-25mm', name: 'Pleated Mesh – Non Detachable [Gold]', category: 'Pleated', variant: '25mm Double', manufacturerRate: 160, customerPrice: 320, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-gold-detachable-single-32mm', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', manufacturerRate: 190, customerPrice: 380, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-gold-detachable-double-32mm', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Double', manufacturerRate: 205, customerPrice: 410, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-gold-detachable-single-25mm', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '25mm Single', manufacturerRate: 160, customerPrice: 320, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-gold-detachable-double-25mm', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '25mm Double', manufacturerRate: 175, customerPrice: 350, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-platinum-single-25mm', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single', manufacturerRate: 250, customerPrice: 500, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-platinum-double-25mm', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Double', manufacturerRate: 260, customerPrice: 520, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-diamond-single-32mm', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Single', manufacturerRate: 280, customerPrice: 560, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-diamond-double-32mm', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Double', manufacturerRate: 290, customerPrice: 580, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-honeycomb-single-32mm', name: 'Pleated Honeycomb Gold – Detachable [Plain]', category: 'Pleated', variant: '32mm Single', manufacturerRate: 260, customerPrice: 520, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-honeycomb-double-32mm', name: 'Pleated Honeycomb Gold – Detachable [Plain]', category: 'Pleated', variant: '32mm Double', manufacturerRate: 280, customerPrice: 560, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-honeycomb-design-single-32mm', name: 'Pleated Honeycomb Gold – Detachable [Design]', category: 'Pleated', variant: '32mm Single', manufacturerRate: 270, customerPrice: 540, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-honeycomb-design-double-32mm', name: 'Pleated Honeycomb Gold – Detachable [Design]', category: 'Pleated', variant: '32mm Double', manufacturerRate: 290, customerPrice: 580, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+            { id: 'pleated-combo-32mm', name: 'Pleated Combo – Honeycomb + Mesh', category: 'Pleated', variant: '32mm Combo', manufacturerRate: 300, customerPrice: 600, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
+
+            // MESH DOOR
+            { id: 'mesh-door-black-ss', name: 'Mesh Door – Black Coated SS Mesh', category: 'Mesh Door', variant: 'Regular Aluminium + Black Coated SS Mesh', customerPrice: 350, dealerBasePrice: 300, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
+            { id: 'mesh-door-bright-ss', name: 'Mesh Door – Bright SS 304 Grade Mesh', category: 'Mesh Door', variant: 'Regular Aluminium + Bright SS 304 Grade Mesh', customerPrice: 380, dealerBasePrice: 330, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
+
+            // SECURITY ALUMINIUM MESH DOOR (Manufacturer Reference)
+            { id: 'security-mesh-door-single', name: 'Security Aluminium Mesh Door with Lock', category: 'Security Door', variant: '63mm Single', manufacturerRate: 500, customerPrice: null, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_reference' },
+            { id: 'security-mesh-door-double', name: 'Security Aluminium Mesh Door with Lock', category: 'Security Door', variant: '63mm Double', manufacturerRate: 550, customerPrice: null, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_reference' },
+
+            // MAGNET DOOR (Manufacturer Reference)
+            { id: 'magnet-door-60gsm-regular', name: 'Magnet Door', category: 'Magnet Door', variant: '60 GSM Regular', manufacturerRate: 750, customerPrice: null, dealerBasePrice: null, unit: 'door', pricingModel: 'manufacturer_reference' },
+            { id: 'magnet-door-60gsm-custom', name: 'Magnet Door', category: 'Magnet Door', variant: '60 GSM Customized', manufacturerRate: 950, customerPrice: null, dealerBasePrice: null, unit: 'door', pricingModel: 'manufacturer_reference' },
+            { id: 'magnet-door-80gsm-regular', name: 'Magnet Door', category: 'Magnet Door', variant: '80 GSM Regular', manufacturerRate: 850, customerPrice: null, dealerBasePrice: null, unit: 'door', pricingModel: 'manufacturer_reference' },
+            { id: 'magnet-door-80gsm-custom', name: 'Magnet Door', category: 'Magnet Door', variant: '80 GSM Customized', manufacturerRate: 1000, customerPrice: null, dealerBasePrice: null, unit: 'door', pricingModel: 'manufacturer_reference' }
+        ];
+
+        // ============================================================
+        // EXTRA CHARGES
+        // ============================================================
+        const extraCharges = [
+            { id: 'delivery', name: 'Delivery', type: 'delivery', price: 0, unit: 'per order' },
+            { id: 'installation', name: 'Installation', type: 'installation', price: 0, unit: 'per sq.ft' },
+            { id: 'wood-finish', name: 'Wood Finish', type: 'extra', price: 20, unit: 'per sq.ft' },
+            { id: 'wall-installation', name: 'Wall Installation', type: 'extra', price: 30, unit: 'per sq.ft' }
+        ];
+
+        // ============================================================
+        // FRAME COLOURS
+        // ============================================================
+        const frameColours = [
+            { id: 'colour-ivory', name: 'Ivory', code: '#F5F0E8' },
+            { id: 'colour-honey-gold', name: 'Honey Gold', code: '#D4A843' },
+            { id: 'colour-brown', name: 'Brown', code: '#8B6914' },
+            { id: 'colour-black', name: 'Black', code: '#1A1A1A' },
+            { id: 'colour-white', name: 'White', code: '#FFFFFF' },
+            { id: 'colour-teakwood', name: 'Teakwood', code: '#8B6914' }
+        ];
+
+        // ============================================================
+        // DEALER ELIGIBILITY SETTINGS
+        // ============================================================
+        const dealerSettings = {
+            initialDiscount: 12,
+            threeMonthBonus: 5,
+            sixMonthBonus: 3,
+            maxDiscount: 25,
+            reviewPeriodMonths: 12
+        };
+
+        // ============================================================
+        // SETUP FUNCTION
+        // ============================================================
+        window.setupData = async function() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '<div class="status info">⏳ Initializing data...</div>';
+
+            try {
+                // Clear existing collections
+                await clearCollection('products');
+                await clearCollection('priceList');
+                await clearCollection('frameColours');
+                await clearCollection('extraCharges');
+                await clearCollection('dealerSettings');
+
+                // Add products
+                const batch = writeBatch(db);
+                for (const product of products) {
+                    const ref = doc(db, 'products', product.id);
+                    batch.set(ref, {
+                        ...product,
+                        active: true,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+                await batch.commit();
+
+                // Add price list
+                const priceBatch = writeBatch(db);
+                for (const product of products) {
+                    if (product.customerPrice || product.dealerBasePrice || product.manufacturerRate) {
+                        const ref = doc(db, 'priceList', product.id);
+                        priceBatch.set(ref, {
+                            productId: product.id,
+                            productName: product.name,
+                            category: product.category,
+                            variant: product.variant,
+                            customerPrice: product.customerPrice || null,
+                            dealerBasePrice: product.dealerBasePrice || null,
+                            manufacturerRate: product.manufacturerRate || null,
+                            pricingModel: product.pricingModel,
+                            unit: product.unit,
+                            active: true,
+                            createdAt: new Date().toISOString()
+                        });
+                    }
+                }
+                await priceBatch.commit();
+
+                // Add frame colours
+                const colourBatch = writeBatch(db);
+                for (const colour of frameColours) {
+                    const ref = doc(db, 'frameColours', colour.id);
+                    colourBatch.set(ref, colour);
+                }
+                await colourBatch.commit();
+
+                // Add extra charges
+                const chargeBatch = writeBatch(db);
+                for (const charge of extraCharges) {
+                    const ref = doc(db, 'extraCharges', charge.id);
+                    chargeBatch.set(ref, charge);
+                }
+                await chargeBatch.commit();
+
+                // Add dealer settings
+                await setDoc(doc(db, 'dealerSettings', 'eligibility'), {
+                    ...dealerSettings,
+                    updatedAt: new Date().toISOString()
+                });
+
+                statusDiv.innerHTML = `
+                    <div class="status success">✅ All data initialized successfully!</div>
+                    <div class="status info">📦 ${products.length} products loaded</div>
+                    <div class="status info">🏷️ ${products.filter(p => p.customerPrice || p.dealerBasePrice || p.manufacturerRate).length} prices loaded</div>
+                    <div class="status info">🎨 ${frameColours.length} frame colours loaded</div>
+                    <div class="status info">💰 ${extraCharges.length} extra charges loaded</div>
+                    <div class="status info">⚙️ Dealer eligibility settings loaded</div>
+                `;
+
+                // Show data preview
+                document.getElementById('productsData').textContent = JSON.stringify(products.slice(0, 5), null, 2) + '\n... and ' + (products.length - 5) + ' more';
+                document.getElementById('pricesData').textContent = JSON.stringify(products.filter(p => p.customerPrice || p.dealerBasePrice || p.manufacturerRate).slice(0, 5), null, 2) + '\n... and more';
+                document.getElementById('usersData').textContent = JSON.stringify({
+                    admin: { email: 'rajmarketingmys@gmail.com', role: 'admin' },
+                    customer: { email: 'customer@example.com', role: 'customer' },
+                    dealer: { email: 'dealer@example.com', role: 'dealer', discountLevel: 12 }
+                }, null, 2);
+
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+                console.error('Setup error:', error);
+            }
+        };
+
+        async function clearCollection(collectionName) {
+            try {
+                const snapshot = await getDocs(collection(db, collectionName));
+                const batch = writeBatch(db);
+                snapshot.forEach(doc => {
+                    batch.delete(doc.ref);
+                });
+                if (snapshot.size > 0) {
+                    await batch.commit();
+                }
+                console.log(`✅ Cleared ${collectionName} (${snapshot.size} documents)`);
+            } catch (e) {
+                console.log(`ℹ️ Collection ${collectionName} may not exist yet`);
+            }
+        }
+
+        // Load initial preview
+        async function loadPreview() {
+            try {
+                const snapshot = await getDocs(collection(db, 'products'));
+                const count = snapshot.size;
+                if (count > 0) {
+                    document.getElementById('productsData').textContent = `✅ ${count} products already exist in Firebase. Run setup to update.`;
+                    document.getElementById('status').innerHTML = `<div class="status info">ℹ️ Data already exists (${count} products). Click "Initialize Data" to update.</div>`;
+         } else {
+                    document.getElementById('productsData').textContent = '⚠️ No products found. Click "Initialize Data" to set up your database.';
+                    document.getElementById('status').innerHTML = `<div class="status info">⚠️ Database is empty. Click "Initialize Data" to set up your product catalog.</div>`;
+                }
+            } catch (e) {
+                document.getElementById('productsData').textContent = '⚠️ Unable to read database. Please run setup.';
+            }
+        }
+
+        loadPreview();
+        console.log('✅ Data setup page loaded');
+    </script>
+</body>
+</html>
