@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f0f4f8; padding: 20px; }
+        .container { max-width: 480px; margin: 0 auto; }
+        .header { background: #fff; border-radius: 24px; padding: 16px 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+        .header .logo { font-weight: 800; font-size: 18px; color: #1a1a2e; }
+        .header .logo span { display: block; font-size: 9px; color: #6b6b7b; font-weight: 400; }
+        .header .role-badge { padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 600; }
+        .role-customer { background: #dbeafe; color: #1d4ed8; }
+        .role-dealer { background: #d1fae5; color: #059669; }
+        .role-admin { background: #fef3c7; color: #d97706; }
+        .product-card { background: #fff; border-radius: 20px; padding: 16px; margin-bottom: 12px; border: 1px solid #e8ecf0; }
+        .product-card h3 { font-size: 15px; font-weight: 700; color: #1a1a2e; }
+        .product-card .variant { font-size: 12px; color: #6b6b7b; }
+        .product-card .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0ece6; }
+        .product-card .price-row .price { font-size: 18px; font-weight: 800; color: #0ea5e9; }
+        .product-card .price-row .dealer-price { font-size: 14px; font-weight: 600; color: #059669; }
+        .product-card .price-row .manufacturer { font-size: 12px; color: #6b6b7b; text-decoration: line-through; }
+        .product-card .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 9px; font-weight: 600; margin-top: 4px; }
+        .badge-velcro { background: #dbeafe; color: #1d4ed8; }
+        .badge-aluminium { background: #fef3c7; color: #d97706; }
+        .badge-pleated { background: #d1fae5; color: #059669; }
+        .badge-door { background: #fce4ec; color: #dc2626; }
+        .badge-premium { background: #fef3c7; color: #d97706; }
+        .hidden { display: none !important; }
+        .login-banner { background: #fff; border-radius: 20px; padding: 20px; text-align: center; border: 1px solid #e8ecf0; margin-bottom: 16px; }
+        .login-banner .btn { background: #0ea5e9; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 8px; }
+        .category-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+        .category-filter button { padding: 6px 14px; border-radius: 20px; border: 1px solid #e8ecf0; background: #fff; font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .category-filter button:hover, .category-filter button.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+        .nav-links { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+        .nav-links a { font-size: 11px; color: #0ea5e9; text-decoration: none; }
+        .nav-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Raj Marketing <span>Mysore</span></div>
+            <div>
+                <span class="role-badge role-customer" id="roleBadge">👤 Customer</span>
+                <span style="margin-left:8px; font-size:10px; color:#6b6b7b;" id="userNameDisplay"></span>
+            </div>
+        </div>
+
+        <!-- Login/Status Banner -->
+        <div id="loginBanner" class="login-banner">
+            <p style="font-size:13px; color:#6b6b7b;">🔒 You are viewing <strong>customer prices</strong></p>
+            <a href="dealer-login.html" class="btn">🔑 Dealer Login</a>
+            <span style="margin:0 8px; color:#6b6b7b;">|</span>
+            <a href="login.html" style="font-size:12px; color:#0ea5e9; text-decoration:none;">Admin Login</a>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-filter" id="categoryFilter">
+            <button class="active" onclick="filterCategory('all')">All</button>
+            <button onclick="filterCategory('Velcro')">Velcro</button>
+            <button onclick="filterCategory('Aluminium Frame')">Aluminium</button>
+            <button onclick="filterCategory('Premium Aluminium')">Premium</button>
+            <button onclick="filterCategory('Pleated')">Pleated</button>
+            <button onclick="filterCategory('Mesh Door')">Mesh Door</button>
+        </div>
+
+        <!-- Product List -->
+        <div id="productList"></div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="estimate.html">📐 Estimate</a>
+            <a href="appointment.html">📅 Appointment</a>
+            <a href="price-checker.html">🤖 AI Price Check</a>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:16px;">
+            Raj Marketing Mysore · Product Catalog
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+        import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { getPricingEngine } from "./pricing-engine.js";
+
+        let allProducts = [];
+        let pricingEngine = null;
+        let currentUser = null;
+        let userRole = 'customer';
+        let dealerData = null;
+
+        // ============================================================
+        // INITIALIZE
+        // ============================================================
+        async function init() {
+            try {
+                // Get pricing engine
+                pricingEngine = await getPricingEngine();
+
+                // Load products from Firebase
+                const productSnap = await getDocs(collection(db, 'products'));
+                allProducts = [];
+                productSnap.forEach(doc => {
+                    allProducts.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Load price list
+                const priceSnap = await getDocs(collection(db, 'priceList'));
+                const prices = {};
+                priceSnap.forEach(doc => {
+                    prices[doc.id] = doc.data();
+                });
+
+                // Merge products with prices
+                allProducts = allProducts.map(p => ({
+                    ...p,
+                    priceData: prices[p.id] || null
+                }));
+
+                console.log('✅ Products loaded:', allProducts.length);
+
+                // Check authentication
+                onAuthStateChanged(auth, async (user) => {
+                    currentUser = user;
+                    if (user) {
+                        // Check if user is dealer
+                        const dealerSnap = await getDocs(query(collection(db, 'dealers'), where('uid', '==', user.uid)));
+                        if (!dealerSnap.empty) {
+                            dealerData = { id: dealerSnap.docs[0].id, ...dealerSnap.docs[0].data() };
+                            if (dealerData.status === 'Approved') {
+                                userRole = 'dealer';
+                                document.getElementById('roleBadge').textContent = '🏢 Dealer';
+                                document.getElementById('roleBadge').className = 'role-badge role-dealer';
+                            }
+                        } else {
+                            // Check if admin
+                            const adminEmails = ['rajmarketingmys@gmail.com'];
+                            if (adminEmails.includes(user.email)) {
+                                userRole = 'admin';
+                                document.getElementById('roleBadge').textContent = '⚙️ Admin';
+                                document.getElementById('roleBadge').className = 'role-badge role-admin';
+                            }
+                        }
+                        document.getElementById('userNameDisplay').textContent = user.email;
+                        document.getElementById('loginBanner').innerHTML = `
+                            <p style="font-size:13px; color:#6b6b7b;">👋 Logged in as <strong>${user.email}</strong></p>
+                            <span style="font-size:12px; color:#0ea5e9;">Role: ${userRole}</span>
+                            <button onclick="logout()" style="margin-left:12px; background:#fee2e2; color:#dc2626; border:none; padding:4px 12px; border-radius:16px; font-size:11px; cursor:pointer;">Logout</button>
+                        `;
+                    } else {
+                        userRole = 'customer';
+                        document.getElementById('roleBadge').textContent = '👤 Customer';
+                        document.getElementById('roleBadge').className = 'role-badge role-customer';
+                        document.getElementById('loginBanner').innerHTML = `
+                            <p style="font-size:13px; color:#6b6b7b;">🔒 You are viewing <strong>customer prices</strong></p>
+                            <a href="dealer-login.html" class="btn">🔑 Dealer Login</a>
+                            <span style="margin:0 8px; color:#6b6b7b;">|</span>
+                            <a href="login.html" style="font-size:12px; color:#0ea5e9; text-decoration:none;">Admin Login</a>
+                        `;
+                    }
+                    renderProducts(allProducts);
+                });
+
+            } catch (error) {
+                console.error('❌ Init error:', error);
+                document.getElementById('productList').innerHTML = `
+                    <div style="padding:20px; text-align:center; color:#dc2626;">
+                        <i class="fas fa-exclamation-circle"></i> Error loading products: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================================
+        // LOGOUT
+        // ============================================================
+        window.logout = async function() {
+            const { signOut } = await import("https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js");
+            await signOut(auth);
+            window.location.reload();
+        };
+
+        // ============================================================
+        // RENDER PRODUCTS
+        // ============================================================
+        function renderProducts(products, category = 'all') {
+            const container = document.getElementById('productList');
+
+            let filtered = products;
+            if (category !== 'all') {
+                filtered = products.filter(p => p.category === category);
+            }
+
+            // Sort: Velcro first, then Aluminium, then others
+            const order = ['Velcro', 'Aluminium Frame', 'Premium Aluminium', 'Pleated', 'Mesh Door'];
+            filtered.sort((a, b) => {
+                const idxA = order.indexOf(a.category);
+                const idxB = order.indexOf(b.category);
+                return (idxA === -1 ? 999 : idxA) - (idxB === -1 ? 999 : idxB);
+            });
+
+            if (!filtered.length) {
+                container.innerHTML = `<div style="text-align:center; padding:30px; color:#6b6b7b;">No products found in this category.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(p => {
+                // Determine price display based on role
+                let priceDisplay = '';
+                const price = p.priceData;
+
+                if (userRole === 'admin' || userRole === 'dealer') {
+                    // Show dealer price if available
+                    if (price && price.dealerBasePrice) {
+                        priceDisplay = `
+                            <span class="dealer-price">₹${price.dealerBasePrice}</span>
+                            ${price.customerPrice ? `<span style="font-size:11px; color:#6b6b7b; text-decoration:line-through; margin-left:8px;">₹${price.customerPrice}</span>` : ''}
+                            ${price.manufacturerRate ? `<span style="font-size:10px; color:#6b6b7b; margin-left:8px;">(Mfr: ₹${price.manufacturerRate})</span>` : ''}
+                        `;
+                    } else if (price && price.customerPrice) {
+                        priceDisplay = `<span class="price">₹${price.customerPrice}</span>`;
+                    } else {
+                        priceDisplay = `<span style="color:#6b6b7b;">Price on request</span>`;
+                    }
+                } else {
+                    // Customer view - only show customer price
+                    if (price && price.customerPrice) {
+                        priceDisplay = `<span class="price">₹${price.customerPrice}</span>`;
+                    } else if (price && price.manufacturerRate) {
+                        // For pleated products, show customer price = manufacturer × 2
+                        const customerPrice = price.manufacturerRate * 2;
+                        priceDisplay = `<span class="price">₹${customerPrice}</span>`;
+                    } else {
+                        priceDisplay = `<span style="color:#6b6b7b;">Price on request</span>`;
+                    }
+                }
+
+                // Badge based on category
+                let badgeClass = 'badge-velcro';
+                let badgeText = p.category || 'Product';
+                if (p.category === 'Velcro') { badgeClass = 'badge-velcro'; badgeText = 'Velcro'; }
+                else if (p.category === 'Aluminium Frame') { badgeClass = 'badge-aluminium'; badgeText = 'Aluminium'; }
+                else if (p.category === 'Premium Aluminium') { badgeClass = 'badge-premium'; badgeText = 'Premium'; }
+                else if (p.category === 'Pleated') { badgeClass = 'badge-pleated'; badgeText = 'Pleated'; }
+                else if (p.category === 'Mesh Door') { badgeClass = 'badge-door'; badgeText = 'Door'; }
+
+                // For manufacturer-based pricing, show pricing model
+                let pricingNote = '';
+                if (p.pricingModel === 'manufacturer_x2') {
+                    pricingNote = `<span style="font-size:10px; color:#6b6b7b; display:block;">💰 Customer price = Manufacturer × 2</span>`;
+                }
+
+                return `
+                    <div class="product-card">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div>
+                                <span class="badge ${badgeClass}">${badgeText}</span>
+                                <h3>${p.name || p.productName || 'Product'}</h3>
+                                <div class="variant">${p.variant || ''}</div>
+                                ${pricingNote}
+                            </div>
+                        </div>
+                        <div class="price-row">
+                            <span>${priceDisplay}</span>
+                            <span style="font-size:11px; color:#6b6b7b;">${p.unit || 'sq.ft'}</span>
+                        </div>
+                        ${userRole === 'admin' ? `
+                            <div style="font-size:10px; color:#6b6b7b; margin-top:4px; padding-top:4px; border-top:1px solid #f0ece6;">
+                                <span>ID: ${p.id}</span>
+                                <span style="margin-left:12px;">Model: ${p.pricingModel || 'direct'}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============================================================
+        // FILTER CATEGORY
+        // ============================================================
+        window.filterCategory = function(category) {
+            document.querySelectorAll('.category-filter button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.category-filter button[onclick="filterCategory('${category}')"]`)?.classList.add('active');
+            renderProducts(allProducts, category);
+        };
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        init();
+        console.log('✅ Product display page loaded');
+    </script>
+</body>
+</html>
