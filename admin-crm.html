@@ -315,6 +315,22 @@
             background: #fee2e2;
             color: #dc2626;
         }
+        .status-production {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        .status-ready {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-installation {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .status-completed {
+            background: #d1fae5;
+            color: #059669;
+        }
 
         .loading {
             text-align: center;
@@ -334,6 +350,15 @@
         .error {
             background: #fee2e2;
             color: #991b1b;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 13px;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
             padding: 12px 16px;
             border-radius: 12px;
             margin-bottom: 15px;
@@ -638,6 +663,7 @@
         <div class="main-content">
 
             <div id="errorBox" class="error"></div>
+            <div id="successBox" class="success"></div>
 
             <!-- ============================================================ -->
             <!-- DASHBOARD -->
@@ -652,13 +678,13 @@
                     <div class="card"><div class="icon">👥</div><h2 id="dashCustomers">0</h2><p>Customers</p></div>
                     <div class="card"><div class="icon">📞</div><h2 id="dashEnquiries">0</h2><p>Enquiries</p></div>
                     <div class="card"><div class="icon">📅</div><h2 id="dashAppointments">0</h2><p>Appointments</p></div>
-                    <div class="card"><div class="icon">📐</div><h2 id="dashMeasurements">0</h2><p>Measurements</p></div>
+                                       <div class="card"><div class="icon">📐</div><h2 id="dashMeasurements">0</h2><p>Measurements</p></div>
                     <div class="card"><div class="icon">🧾</div><h2 id="dashEstimates">0</h2><p>Estimates</p></div>
                     <div class="card"><div class="icon">📦</div><h2 id="dashOrders">0</h2><p>Orders</p></div>
                     <div class="card"><div class="icon">💰</div><h2 id="dashSales">₹0</h2><p>Total Sales</p></div>
                     <div class="card"><div class="icon">💳</div><h2 id="dashPayments">₹0</h2><p>Payments Received</p></div>
                     <div class="card"><div class="icon">💵</div><h2 id="dashBalance">₹0</h2><p>Pending Balance</p></div>
-                   <div class="card"><div class="icon">🏢</div><h2 id="dashDealers">0</h2><p>Dealers</p></div>
+                    <div class="card"><div class="icon">🏢</div><h2 id="dashDealers">0</h2><p>Dealers</p></div>
                 </div>
 
                 <div class="section">
@@ -922,8 +948,8 @@
                         </table>
                     </div>
                 </div>
-                        </div>
-                 <!-- ============================================================ -->
+    </div>
+    <!-- ============================================================ -->
             <!-- BUSINESS RULES -->
             <!-- ============================================================ -->
             <div id="section-rules" class="container hidden">
@@ -1119,20 +1145,21 @@
     </div>
 
     <script type="module">
+        // ============================================================
+        // FIREBASE IMPORTS - FIXED
+        // ============================================================
         import { auth, db } from "./firebase-config.js";
         import {
             collection,
             getDocs,
             addDoc,
             updateDoc,
-            deleteDoc,
             doc,
-            query,
-            orderBy,
-            limit,
-            where,
             serverTimestamp,
-            getDoc
+            query,
+            where,
+            orderBy,
+            limit
         } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
         import {
             onAuthStateChanged,
@@ -1170,7 +1197,7 @@
         });
 
         // ============================================================
-        // LOAD ALL DATA
+        // LOAD ALL DATA - FIXED
         // ============================================================
         async function loadAllData() {
             if (state.isLoading) return;
@@ -1182,75 +1209,87 @@
                 const customerSnap = await getDocs(collection(db, "customers"));
                 state.customers = [];
                 customerSnap.forEach(doc => state.customers.push({ id: doc.id, ...doc.data() }));
+                console.log("✅ Customers loaded:", state.customers.length);
 
                 // Enquiries
                 try {
                     const enquirySnap = await getDocs(collection(db, "enquiries"));
                     state.enquiries = [];
                     enquirySnap.forEach(doc => state.enquiries.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.enquiries = []; }
+                    console.log("✅ Enquiries loaded:", state.enquiries.length);
+                } catch (e) { console.warn("Enquiries not found:", e.message); state.enquiries = []; }
+
                 // Appointments
                 try {
                     const appointmentSnap = await getDocs(collection(db, "appointments"));
                     state.appointments = [];
                     appointmentSnap.forEach(doc => state.appointments.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.appointments = []; }
+                    console.log("✅ Appointments loaded:", state.appointments.length);
+                } catch (e) { console.warn("Appointments not found:", e.message); state.appointments = []; }
 
                 // Measurements
                 try {
                     const measurementSnap = await getDocs(collection(db, "measurements"));
                     state.measurements = [];
                     measurementSnap.forEach(doc => state.measurements.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.measurements = []; }
+                    console.log("✅ Measurements loaded:", state.measurements.length);
+                } catch (e) { console.warn("Measurements not found:", e.message); state.measurements = []; }
 
                 // Estimates
                 try {
                     const estimateSnap = await getDocs(collection(db, "estimates"));
                     state.estimates = [];
                     estimateSnap.forEach(doc => state.estimates.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.estimates = []; }
+                    console.log("✅ Estimates loaded:", state.estimates.length);
+                } catch (e) { console.warn("Estimates not found:", e.message); state.estimates = []; }
 
                 // Orders
                 try {
                     const orderSnap = await getDocs(collection(db, "orders"));
                     state.orders = [];
                     orderSnap.forEach(doc => state.orders.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.orders = []; }
+                    console.log("✅ Orders loaded:", state.orders.length);
+                } catch (e) { console.warn("Orders not found:", e.message); state.orders = []; }
 
                 // Payments
                 try {
                     const paymentSnap = await getDocs(collection(db, "payments"));
                     state.payments = [];
                     paymentSnap.forEach(doc => state.payments.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.payments = []; }
+                    console.log("✅ Payments loaded:", state.payments.length);
+                } catch (e) { console.warn("Payments not found:", e.message); state.payments = []; }
 
                 // Dealers
                 try {
                     const dealerSnap = await getDocs(collection(db, "dealers"));
                     state.dealers = [];
                     dealerSnap.forEach(doc => state.dealers.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.dealers = []; }
+                    console.log("✅ Dealers loaded:", state.dealers.length);
+                } catch (e) { console.warn("Dealers not found:", e.message); state.dealers = []; }
 
                 // Products
                 try {
                     const productSnap = await getDocs(collection(db, "products"));
                     state.products = [];
                     productSnap.forEach(doc => state.products.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.products = []; }
+                    console.log("✅ Products loaded:", state.products.length);
+                } catch (e) { console.warn("Products not found:", e.message); state.products = []; }
 
                 // Prices
                 try {
                     const priceSnap = await getDocs(collection(db, "prices"));
                     state.prices = [];
                     priceSnap.forEach(doc => state.prices.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.prices = []; }
+                    console.log("✅ Prices loaded:", state.prices.length);
+                } catch (e) { console.warn("Prices not found:", e.message); state.prices = []; }
 
                 // Offers
                 try {
                     const offerSnap = await getDocs(collection(db, "offers"));
                     state.offers = [];
                     offerSnap.forEach(doc => state.offers.push({ id: doc.id, ...doc.data() }));
-                } catch (e) { state.offers = []; }
+                    console.log("✅ Offers loaded:", state.offers.length);
+                } catch (e) { console.warn("Offers not found:", e.message); state.offers = []; }
 
                 // Render all
                 updateDashboard();
@@ -1268,19 +1307,7 @@
                 updateBadges();
                 updateReports();
 
-                console.log("✅ All data loaded:", {
-                    customers: state.customers.length,
-                    enquiries: state.enquiries.length,
-                    appointments: state.appointments.length,
-                    measurements: state.measurements.length,
-                    estimates: state.estimates.length,
-                    orders: state.orders.length,
-                    payments: state.payments.length,
-                    dealers: state.dealers.length,
-                    products: state.products.length,
-                    prices: state.prices.length,
-                    offers: state.offers.length
-                });
+                console.log("✅ All data loaded successfully!");
 
             } catch (error) {
                 console.error("❌ Load error:", error);
@@ -1337,8 +1364,7 @@
             });
             document.getElementById("pendingOrders").textContent = pending.length;
         }
-
-        // ============================================================
+            // ============================================================
         // RENDER FUNCTIONS
         // ============================================================
         function renderCustomers(list) {
@@ -1416,7 +1442,8 @@
                     </tr>
                 `;
             }).join("");
-    }.    
+        }
+
         function renderMeasurements(list) {
             const table = document.getElementById("measurementTable");
             if (!list.length) {
@@ -1509,10 +1536,10 @@
         function getProdStatusClass(status) {
             const s = String(status || "").toUpperCase();
             if (s === "PENDING") return "pending";
-            if (s === "PRODUCTION") return "contact";
-            if (s === "READY") return "scheduled";
-            if (s === "INSTALLATION") return "contact";
-            if (s === "COMPLETED") return "paid";
+            if (s === "PRODUCTION") return "production";
+            if (s === "READY") return "ready";
+            if (s === "INSTALLATION") return "installation";
+            if (s === "COMPLETED") return "completed";
             return "default";
         }
 
@@ -1561,9 +1588,8 @@
                     </td>
                 </tr>
             `).join("");
-        }
-
-        function renderProducts(list) {
+    }
+function renderProducts(list) {
             const table = document.getElementById("productTable");
             if (!list.length) {
                 table.innerHTML =
@@ -1622,9 +1648,11 @@
                     </td>
                 </tr>
             `).join("");
-    }
-           // ============================================================
-        // UPDATE BADGES        // ============================================================
+        }
+
+        // ============================================================
+        // UPDATE BADGES
+        // ============================================================
         function updateBadges() {
             document.getElementById("customerBadge").textContent = state.customers.length;
             document.getElementById("enquiryBadge").textContent = state.enquiries.length;
@@ -1698,7 +1726,6 @@
             document.getElementById("measurementForm").reset();
             document.getElementById("mSqft").value = "";
             document.getElementById("measurementModal").classList.add("active");
-            // Auto-calc sqft
             document.getElementById("mWidth").addEventListener("input", calcMeasurementSqft);
             document.getElementById("mHeight").addEventListener("input", calcMeasurementSqft);
             document.getElementById("mQty").addEventListener("input", calcMeasurementSqft);
@@ -1722,7 +1749,6 @@
             document.getElementById("oAdvance").value = "";
             document.getElementById("oBalance").value = "";
             document.getElementById("orderModal").classList.add("active");
-            // Auto-calculate
             document.getElementById("oSqft").addEventListener("input", calcOrderTotals);
             document.getElementById("oRate").addEventListener("input", calcOrderTotals);
         };
@@ -1807,9 +1833,10 @@
                         `<option value="${o.id}">${o.orderId || o.id} - ${o.customerName || "Unknown"} (Balance: ₹${balance.toLocaleString("en-IN")})</option>`;
                 }
             });
-    }
-       // ============================================================
-        // SAVE FUNCTIONS (Firebase)
+        }
+
+        // ============================================================
+        // SAVE FUNCTIONS - FIXED
         // ============================================================
         window.saveMeasurement = async function(e) {
             e.preventDefault();
@@ -1960,7 +1987,6 @@
                 showError("Failed to save price: " + error.message);
             }
         };
-
         window.saveOffer = async function(e) {
             e.preventDefault();
             try {
@@ -2142,7 +2168,7 @@
             };
         };
 
-           // ============================================================
+        // ============================================================
         // NAVIGATION
         // ============================================================
         window.showSection = function(section) {
@@ -2182,7 +2208,7 @@
             if (s.includes("DONE") || s.includes("COMPLETED") || s.includes("CONVERTED") || s.includes("PAID")) return "paid";
             if (s.includes("LOST") || s.includes("REJECTED") || s.includes("CANCELLED")) return "lost";
             if (s.includes("PENDING") || s.includes("DRAFT")) return "pending";
-            if (s.includes("PRODUCTION") || s.includes("READY") || s.includes("INSTALLATION")) return "contact";
+            if (s.includes("PRODUCTION") || s.includes("READY") || s.includes("INSTALLATION")) return "production";
             return "default";
         }
 
@@ -2220,20 +2246,25 @@
             box.textContent = "❌ " + message;
             box.style.background = "#fee2e2";
             box.style.color = "#991b1b";
+            document.getElementById("successBox").style.display = "none";
         }
 
         function showSuccess(message) {
-            const box = document.getElementById("errorBox");
+            const box = document.getElementById("successBox");
+            if (!message) {
+                box.style.display = "none";
+                return;
+            }
             box.style.display = "block";
             box.textContent = "✅ " + message;
             box.style.background = "#d1fae5";
             box.style.color = "#065f46";
+            document.getElementById("errorBox").style.display = "none";
             setTimeout(() => {
                 box.style.display = "none";
             }, 5000);
-        }
-
-        // ============================================================
+    }
+         // ============================================================
         // AUTO-REFRESH
         // ============================================================
         setInterval(() => {
@@ -2244,8 +2275,8 @@
         }, 60000);
 
         console.log("✅ Admin CRM loaded successfully!");
+        console.log("ℹ️ Waiting for Firebase authentication...");
     </script>
 
 </body>
-    </html>
-    
+</html>
