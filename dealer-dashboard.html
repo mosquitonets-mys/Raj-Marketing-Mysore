@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Dealer Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f0ece6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8e0d8;
+        }
+
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8e0d8;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8e0d8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #f97316;
+        }
+        .fixed-footer .nav-item.active {
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.08);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8e0d8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #f97316;
+        }
+
+        .status-badge {
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-approved {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .status-rejected {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .status-suspended {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 8px 0;
+        }
+        .stat-card {
+            background: #faf8f6;
+            border-radius: 18px;
+            padding: 16px 12px;
+            text-align: center;
+            border: 1px solid #e8e0d8;
+        }
+        .stat-card .num {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+        .stat-card .label {
+            font-size: 11px;
+            color: #6b6b6b;
+            font-weight: 500;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .nav-grid .nav-btn {
+            background: #faf8f6;
+            border: 1px solid #e8e0d8;
+            border-radius: 18px;
+            padding: 14px 8px;
+            text-align: center;
+            text-decoration: none;
+            color: #1a1a1a;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .nav-grid .nav-btn:hover {
+            background: #f97316;
+            color: #fff;
+            border-color: #f97316;
+        }
+        .nav-grid .nav-btn i {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .nav-grid .nav-btn span {
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .flex {
+            display: flex;
+            gap: 10px;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 24px rgba(249, 115, 22, 0.35);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #f5f0eb;
+            color: #1a1a1a;
+            border: 1px solid #e8e0d8;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #e8e0d8;
+        }
+
+        .error-box {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 400px) {
+            .cards-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .nav-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .stat-card .num {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Header -->
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-bell" title="Notifications"></i>
+            <i class="fas fa-user-circle" title="Profile" onclick="window.location.href='dealer-profile.html'"></i>
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <div class="app-container">
+
+        <!-- Error Box -->
+        <div id="errorBox" class="error-box"></div>
+
+        <!-- Status Message (for non-approved dealers) -->
+        <div id="statusMessage" class="hidden">
+            <div class="card" style="text-align:center; padding:30px 20px;">
+                <i class="fas fa-info-circle" style="font-size:48px; color:#f97316; display:block; margin-bottom:12px;"></i>
+                <h3 id="statusTitle" style="font-size:18px; font-weight:800; color:#1a1a1a;">Dealership Under Review</h3>
+                <p id="statusDesc" style="color:#6b6b6b; font-size:14px; margin-top:8px;">Your dealership application is being reviewed by our team. We'll notify you once approved.</p>
+                <button class="btn-secondary" style="margin-top:16px;" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Content (visible only for APPROVED dealers) -->
+        <div id="dashboardContent">
+
+            <!-- Welcome -->
+            <div style="margin-bottom:10px;">
+                <h2 style="font-size:20px; font-weight:800; color:#1a1a1a;" id="welcomeName">Welcome, Dealer</h2>
+                <p style="font-size:13px; color:#6b6b6b;" id="businessNameDisplay">Business Name</p>
+                <div style="display:flex; gap:10px; margin-top:4px; flex-wrap:wrap; align-items:center;">
+                    <span style="font-size:12px; color:#6b6b6b;" id="dealerIdDisplay">Dealer ID: —</span>
+                    <span class="status-badge status-approved" id="statusBadge">Approved</span>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="cards-grid">
+                <div class="stat-card"><div class="num" id="statEnquiries">0</div><div class="label">My Enquiries</div></div>
+                <div class="stat-card"><div class="num" id="statEstimates">0</div><div class="label">Estimates</div></div>
+                <div class="stat-card"><div class="num" id="statOrders">0</div><div class="label">My Orders</div></div>
+                <div class="stat-card"><div class="num" id="statPending">₹0</div><div class="label">Pending Payments</div></div>
+                <div class="stat-card"><div class="num" id="statPurchases">₹0</div><div class="label">Total Purchases</div></div>
+                <div class="stat-card"><div class="num" id="statOutstanding">₹0</div><div class="label">Outstanding</div></div>
+            </div>
+
+            <!-- Quick Navigation -->
+            <div class="nav-grid">
+                <a href="dealer-prices.html" class="nav-btn"><i class="fas fa-tag"></i><span>Prices</span></a>
+                <a href="dealer-calculator.html" class="nav-btn"><i class="fas fa-calculator"></i><span>Calculator</span></a>
+                <a href="dealer-enquiries.html" class="nav-btn"><i class="fas fa-phone"></i><span>Enquiries</span></a>
+                <a href="dealer-estimates.html" class="nav-btn"><i class="fas fa-file-invoice"></i><span>Estimates</span></a>
+                <a href="dealer-orders.html" class="nav-btn"><i class="fas fa-box"></i><span>Orders</span></a>
+                <a href="dealer-payments.html" class="nav-btn"><i class="fas fa-credit-card"></i><span>Payments</span></a>
+                <a href="dealer-profile.html" class="nav-btn"><i class="fas fa-user"></i><span>Profile</span></a>
+                <a href="dealer-support.html" class="nav-btn"><i class="fas fa-headset"></i><span>Support</span></a>
+                <button class="nav-btn" onclick="logout()" style="background:#fee2e2; border-color:#fca5a5;"><i class="fas fa-sign-out-alt" style="color:#dc2626;"></i><span style="color:#dc2626;">Logout</span></button>
+            </div>
+
+            <!-- Support Card -->
+            <div class="card" style="background:linear-gradient(135deg, #f0faf0, #e8f5e8); border-color:#25D366;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <i class="fab fa-whatsapp" style="font-size:32px; color:#25D366;"></i>
+                    <div style="flex:1;">
+                        <div style="font-weight:700; font-size:14px; color:#1a1a1a;">Need Help?</div>
+                        <div style="font-size:12px; color:#6b6b6b;">Contact Raj Marketing team</div>
+                    </div>
+                    <a href="https://wa.me/9483037385" target="_blank" style="background:#25D366; color:#fff; padding:10px 16px; border-radius:40px; text-decoration:none; font-weight:600; font-size:13px; white-space:nowrap;">
+                        <i class="fab fa-whatsapp"></i> Chat
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Dealer Portal · Est. 2016
+        </div>
+    </div>
+
+    <!-- Fixed Footer -->
+    <footer class="fixed-footer">
+        <a href="dealer-dashboard.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+        <a href="dealer-prices.html" class="nav-item"><i class="fas fa-tag"></i> Prices</a>
+        <a href="dealer-enquiries.html" class="nav-item"><i class="fas fa-phone"></i> Enquiries</a>
+        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="dealer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import {
+            collection,
+            query,
+            where,
+            getDocs,
+            getDoc,
+            doc,
+            onSnapshot
+        } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import {
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let dealerData = null;
+        let dealerId = null;
+        let isApproved = false;
+
+        // ============================================================
+        // AUTHENTICATION
+        // ============================================================
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "dealer-login.html";
+                return;
+            }
+            console.log("✅ Dealer authenticated:", user.uid);
+            await loadDealerData(user.uid);
+        });
+
+        // ============================================================
+        // LOAD DEALER DATA
+        // ============================================================
+        async function loadDealerData(uid) {
+            try {
+                showError("");
+
+                // Find dealer by UID
+                const dealersRef = collection(db, "dealers");
+                const q = query(dealersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+
+                if (snapshot.empty) {
+                    showError("Dealer profile not found. Please contact admin.");
+                    return;
+                }
+
+                const doc = snapshot.docs[0];
+                dealerData = { id: doc.id, ...doc.data() };
+                dealerId = dealerData.id;
+
+                console.log("✅ Dealer data loaded:", dealerData);
+
+                // Check status
+                const status = dealerData.status || "Pending";
+                isApproved = status === "Approved";
+
+                if (isApproved) {
+                    showDashboard();
+                    await loadStats();
+                } else {
+                    showStatusMessage(status);
+                }
+
+                // Listen for real-time updates
+                const dealerRef = doc(db, "dealers", dealerId);
+                onSnapshot(dealerRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const updated = snapshot.data();
+                        const newStatus = updated.status || "Pending";
+                        if (newStatus !== dealerData.status) {
+                            dealerData.status = newStatus;
+                            if (newStatus === "Approved" && !isApproved) {
+                                isApproved = true;
+                                showDashboard();
+                                loadStats();
+                            } else if (newStatus !== "Approved") {
+                                isApproved = false;
+                                showStatusMessage(newStatus);
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("❌ Load dealer error:", error);
+                showError("Unable to load dealer data: " + error.message);
+            }
+        }
+
+        // ============================================================
+        // SHOW DASHBOARD
+        // ============================================================
+        function showDashboard() {
+            document.getElementById("statusMessage").classList.add("hidden");
+            document.getElementById("dashboardContent").classList.remove("hidden");
+
+            const name = dealerData.ownerName || dealerData.name || "Dealer";
+            document.getElementById("welcomeName").textContent = `Welcome, ${name}`;
+            document.getElementById("businessNameDisplay").textContent = dealerData.businessName || "Business Name";
+            document.getElementById("dealerIdDisplay").textContent = `Dealer ID: ${dealerData.dealerId || dealerData.id || "—"}`;
+
+            const status = dealerData.status || "Approved";
+            const badge = document.getElementById("statusBadge");
+            badge.textContent = status;
+            badge.className = `status-badge status-${status.toLowerCase()}`;
+        }
+
+        // ============================================================
+        // SHOW STATUS MESSAGE (non-approved)
+        // ============================================================
+        function showStatusMessage(status) {
+            document.getElementById("dashboardContent").classList.add("hidden");
+            document.getElementById("statusMessage").classList.remove("hidden");
+
+            const title = document.getElementById("statusTitle");
+            const desc = document.getElementById("statusDesc");
+
+            switch (status) {
+                case "Pending":
+                case "Under Review":
+                    title.textContent = "⏳ Dealership Under Review";
+                    desc.textContent = "Your dealership application is being reviewed by our team. We'll notify you once approved.";
+                    break;
+                case "Rejected":
+                    title.textContent = "❌ Dealership Not Approved";
+                    desc.textContent = "Your dealership application was not approved at this time. Please contact admin for more information.";
+                    break;
+                case "Suspended":
+                    title.textContent = "⚠️ Account Suspended";
+                    desc.textContent = "Your dealer account is currently suspended. Please contact admin for assistance.";
+                    break;
+                default:
+                    title.textContent = "⏳ Dealership Under Review";
+                    desc.textContent = "Your dealership application is being reviewed.";
+            }
+        }
+
+        // ============================================================
+        // LOAD STATS
+        // ============================================================
+        async function loadStats() {
+            try {
+                // Enquiries
+                const enquiriesRef = collection(db, "enquiries");
+                const qEnq = query(enquiriesRef, where("dealerId", "==", dealerId));
+                const enqSnap = await getDocs(qEnq);
+                document.getElementById("statEnquiries").textContent = enqSnap.size;
+
+                // Estimates
+                const estimatesRef = collection(db, "estimates");
+                const qEst = query(estimatesRef, where("dealerId", "==", dealerId));
+                const estSnap = await getDocs(qEst);
+                document.getElementById("statEstimates").textContent = estSnap.size;
+
+                // Orders
+                const ordersRef = collection(db, "orders");
+                const qOrd = query(ordersRef, where("dealerId", "==", dealerId));
+                const ordSnap = await getDocs(qOrd);
+                const orders = [];
+                ordSnap.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
+                document.getElementById("statOrders").textContent = orders.length;
+
+                // Calculate totals
+                let totalPurchases = 0;
+                let totalPayments = 0;
+                let pendingAmount = 0;
+
+                orders.forEach(o => {
+                    const total = o.totalAmount || o.total || 0;
+                    const advance = o.advanceAmount || o.advance || 0;
+                    totalPurchases += total;
+                    pendingAmount += (total - advance);
+                });
+
+                // Payments
+                const paymentsRef = collection(db, "payments");
+                const qPay = query(paymentsRef, where("dealerId", "==", dealerId));
+                const paySnap = await getDocs(qPay);
+                paySnap.forEach(doc => {
+                    totalPayments += (doc.data().amount || 0);
+                });
+
+                document.getElementById("statPurchases").textContent = '₹' + totalPurchases.toLocaleString("en-IN");
+                document.getElementById("statPending").textContent = '₹' + pendingAmount.toLocaleString("en-IN");
+                document.getElementById("statOutstanding").textContent = '₹' + (totalPurchases - totalPayments).toLocaleString(
+                    "en-IN");
+
+            } catch (error) {
+                console.error("❌ Stats load error:", error);
+            }
+        }
+
+        // ============================================================
+        // LOGOUT
+        // ============================================================
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                window.location.href = "dealer-login.html";
+            } catch (error) {
+                showError(error.message);
+            }
+        };
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function showError(message) {
+            const box = document.getElementById("errorBox");
+            if (!message) {
+                box.style.display = "none";
+                box.textContent = "";
+                return;
+            }
+            box.style.display = "block";
+            box.textContent = "❌ " + message;
+        }
+    </script>
+
+</body>
+</html>
