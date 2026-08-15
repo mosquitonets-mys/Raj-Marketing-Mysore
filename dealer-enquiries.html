@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Dealer Enquiries</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f0ece6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8e0d8;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8e0d8;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8e0d8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #f97316;
+        }
+        .fixed-footer .nav-item.active {
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.08);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8e0d8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #f97316;
+        }
+
+        .enquiry-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0ece6;
+        }
+        .enquiry-item:last-child {
+            border-bottom: none;
+        }
+        .enquiry-item .name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+        .enquiry-item .detail {
+            font-size: 12px;
+            color: #6b6b6b;
+        }
+        .enquiry-item .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+        .enquiry-item .actions a {
+            text-decoration: none;
+            font-size: 14px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: #f5f0eb;
+            color: #1a1a1a;
+            transition: 0.2s;
+        }
+        .enquiry-item .actions a:hover {
+            background: #f97316;
+            color: #fff;
+        }
+        .status-badge {
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-new {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+        .status-contacted {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        .status-followup {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .status-measurement {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-estimate {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-order {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-completed {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-lost {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .search {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e8e0d8;
+            border-radius: 12px;
+            outline: none;
+            margin-bottom: 12px;
+            font-size: 13px;
+            transition: 0.2s;
+            background: #faf8f6;
+        }
+        .search:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+        }
+
+        .error-box {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 14px;
+        }
+        .loading-text {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-sm-primary {
+            background: #f97316;
+            color: #fff;
+        }
+        .btn-sm-primary:hover {
+            background: #ea580c;
+        }
+        .btn-sm-outline {
+            background: transparent;
+            border: 1px solid #e8e0d8;
+        }
+        .btn-sm-outline:hover {
+            background: #f5f0eb;
+        }
+
+        @media (max-width: 400px) {
+            .enquiry-item .actions {
+                flex-direction: column;
+            }
+            .enquiry-item .actions a {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Header -->
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="dealer-dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile" onclick="window.location.href='dealer-profile.html'"></i>
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <div class="app-container">
+
+        <h2 style="font-size:20px; font-weight:800; color:#1a1a1a; margin-bottom:4px;">📞 My Enquiries</h2>
+        <p style="font-size:13px; color:#6b6b6b; margin-bottom:12px;">Manage your customer enquiries</p>
+
+        <div id="errorBox" class="error-box"></div>
+
+        <input id="enquirySearch" class="search" type="text" placeholder="Search by customer, mobile, product..." oninput="filterEnquiries()" />
+
+        <div id="enquiryList">
+            <div class="loading-text">Loading enquiries...</div>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Dealer Enquiries
+        </div>
+    </div>
+
+    <!-- Fixed Footer -->
+    <footer class="fixed-footer">
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="dealer-prices.html" class="nav-item"><i class="fas fa-tag"></i> Prices</a>
+        <a href="dealer-enquiries.html" class="nav-item active"><i class="fas fa-phone"></i> Enquiries</a>
+        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="dealer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, getDocs, query, where, updateDoc, doc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let allEnquiries = [];
+        let dealerId = null;
+        let dealerStatus = "Pending";
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "dealer-login.html";
+                return;
+            }
+            await loadDealerId(user.uid);
+            await loadEnquiries();
+        });
+
+        async function loadDealerId(uid) {
+            try {
+                const dealersRef = collection(db, "dealers");
+                const q = query(dealersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    const data = snapshot.docs[0].data();
+                    dealerId = snapshot.docs[0].id;
+                    dealerStatus = data.status || "Pending";
+                    if (dealerStatus !== "Approved") {
+                        document.getElementById("enquiryList").innerHTML = `
+                            <div class="card" style="text-align:center; padding:30px 20px;">
+                                <i class="fas fa-lock" style="font-size:36px; color:#f97316; display:block; margin-bottom:12px;"></i>
+                                <h3 style="font-size:16px; font-weight:700;">Access Restricted</h3>
+                                <p style="color:#6b6b6b; font-size:13px;">Only approved dealers can view enquiries.</p>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (e) {
+                console.error("Dealer ID load error:", e);
+            }
+        }
+
+        async function loadEnquiries() {
+            if (dealerStatus !== "Approved" || !dealerId) return;
+
+            try {
+                const enquiriesRef = collection(db, "enquiries");
+                const q = query(enquiriesRef, where("dealerId", "==", dealerId));
+                const snapshot = await getDocs(q);
+                allEnquiries = [];
+                snapshot.forEach(doc => {
+                    allEnquiries.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Also check for assignedDealerId
+                const q2 = query(enquiriesRef, where("assignedDealerId", "==", dealerId));
+                const snapshot2 = await getDocs(q2);
+                snapshot2.forEach(doc => {
+                    if (!allEnquiries.find(e => e.id === doc.id)) {
+                        allEnquiries.push({ id: doc.id, ...doc.data() });
+                    }
+                });
+
+                renderEnquiries(allEnquiries);
+            } catch (error) {
+                console.error("❌ Enquiry load error:", error);
+                document.getElementById("enquiryList").innerHTML = `
+                    <div class="card" style="text-align:center; padding:20px; color:#6b6b6b;">
+                        <i class="fas fa-exclamation-circle" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                        Unable to load enquiries.
+                    </div>
+                `;
+            }
+        }
+
+        function renderEnquiries(list) {
+            const container = document.getElementById("enquiryList");
+            if (!list.length) {
+                container.innerHTML = `
+                    <div class="card" style="text-align:center; padding:20px; color:#6b6b6b;">
+                        <i class="fas fa-inbox" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                        No enquiries found.
+                    </div>
+                `;
+                return;
+            }
+
+            const sorted = [...list].reverse();
+            container.innerHTML = sorted.map(e => {
+                const mobile = e.mobile || e.phone || "";
+                const status = e.status || "NEW";
+                return `
+                    <div class="enquiry-item" data-search="${(e.customerName||'')} ${(e.mobile||'')} ${(e.product||'')} ${(e.netType||'')} ${status}".toLowerCase()>
+                        <div class="name">${e.customerName || e.name || "—"} 
+                            <span class="status-badge status-${status.toLowerCase()}">${status}</span>
+                        </div>
+                        <div class="detail">${mobile} · ${e.product || e.netType || "—"}</div>
+                        <div class="detail" style="font-size:11px; color:#999;">${formatDate(e.createdAt)}</div>
+                        <div class="actions">
+                            ${mobile ? `<a href="tel:${mobile}">📞 Call</a>` : ''}
+                            ${mobile ? `<a href="https://wa.me/91${String(mobile).replace(/\D/g,'')}" target="_blank">💬 WhatsApp</a>` : ''}
+                            <a href="#" onclick="updateEnquiryStatus('${e.id}','MEASUREMENT')">📐 Measurement</a>
+                            <a href="#" onclick="updateEnquiryStatus('${e.id}','ESTIMATE')">🧾 Estimate</a>
+                            <a href="dealer-estimates.html?enquiry=${e.id}">📄 Create Estimate</a>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        window.filterEnquiries = function() {
+            const search = document.getElementById("enquirySearch").value.toLowerCase().trim();
+            if (!search) {
+                renderEnquiries(allEnquiries);
+                return;
+            }
+            const filtered = allEnquiries.filter(e => {
+                const text = [e.customerName, e.name, e.mobile, e.phone, e.product, e.netType, e.status].join(" ")
+                    .toLowerCase();
+                return text.includes(search);
+            });
+            renderEnquiries(filtered);
+        };
+
+        window.updateEnquiryStatus = async function(enquiryId, status) {
+            try {
+                await updateDoc(doc(db, "enquiries", enquiryId), {
+                    status: status,
+                    updatedAt: new Date().toISOString()
+                });
+                await loadEnquiries();
+            } catch (error) {
+                alert("Failed to update status: " + error.message);
+            }
+        };
+
+        function formatDate(value) {
+            if (!value) return "—";
+            try {
+                if (value.toDate) {
+                    return value.toDate().toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+                }
+                const d = new Date(value);
+                if (isNaN(d.getTime())) return "—";
+                return d.toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+            } catch {
+                return "—";
+            }
+        }
+    </script>
+
+</body>
+</html>
