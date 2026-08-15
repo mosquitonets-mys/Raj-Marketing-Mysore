@@ -1,1188 +1,2176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raj Marketing CRM</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Poppins,sans-serif;
-}
-
-body{
-    background:#f5f7fb;
-    color:#172033;
-}
-
-.header{
-    background:#ffffff;
-    padding:18px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 2px 12px rgba(0,0,0,.08);
-    position:sticky;
-    top:0;
-    z-index:10;
-}
-
-.logo{
-    font-size:20px;
-    font-weight:800;
-}
-
-.logo span{
-    display:block;
-    font-size:11px;
-    color:#777;
-    font-weight:500;
-}
-
-.logout{
-    border:0;
-    background:#ef4444;
-    color:white;
-    padding:9px 15px;
-    border-radius:20px;
-    font-weight:600;
-}
-
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
-}
-
-.welcome{
-    margin-bottom:20px;
-}
-
-.welcome h1{
-    font-size:24px;
-}
-
-.welcome p{
-    color:#777;
-    font-size:13px;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-    margin-bottom:25px;
-}
-
-.card{
-    background:#fff;
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 3px 15px rgba(0,0,0,.06);
-}
-
-.card .icon{
-    font-size:25px;
-}
-
-.card h2{
-    font-size:28px;
-    margin-top:8px;
-}
-
-.card p{
-    font-size:12px;
-    color:#777;
-}
-
-.section{
-    background:#fff;
-    border-radius:18px;
-    padding:18px;
-    margin-bottom:20px;
-    box-shadow:0 3px 15px rgba(0,0,0,.06);
-}
-
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
-}
-
-.section-title h2{
-    font-size:18px;
-}
-
-.search{
-    width:100%;
-    padding:12px 15px;
-    border:1px solid #ddd;
-    border-radius:12px;
-    outline:none;
-    margin-bottom:15px;
-}
-
-.table-wrap{
-    overflow-x:auto;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:700px;
-}
-
-th,td{
-    padding:11px;
-    border-bottom:1px solid #eee;
-    text-align:left;
-    font-size:12px;
-}
-
-th{
-    background:#f8fafc;
-    font-weight:700;
-}
-
-.status{
-    padding:4px 9px;
-    border-radius:20px;
-    background:#fff7ed;
-    color:#ea580c;
-    font-size:10px;
-    font-weight:600;
-}
-
-.loading{
-    text-align:center;
-    padding:25px;
-    color:#777;
-}
-
-.error{
-    background:#fee2e2;
-    color:#991b1b;
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:15px;
-    display:none;
-}
-
-@media(max-width:700px){
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .container{
-        padding:14px;
-    }
-
-    .welcome h1{
-        font-size:21px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header class="header">
-    <div class="logo">
-        Raj Marketing
-        <span>Mysore · Admin CRM</span>
-    </div>
-
-    <button class="logout" onclick="logout()">
-        Logout
-    </button>
-</header>
-
-<main class="container">
-
-    <div class="welcome">
-        <h1>CRM Dashboard</h1>
-        <p>Customer, enquiry and appointment management</p>
-    </div>
-
-    <div id="errorBox" class="error"></div>
-
-    <!-- SUMMARY CARDS -->
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="icon">👥</div>
-            <h2 id="customerCount">0</h2>
-            <p>Total Customers</p>
-        </div>
-
-        <div class="card">
-            <div class="icon">📞</div>
-            <h2 id="enquiryCount">0</h2>
-            <p>Total Enquiries</p>
-        </div>
-
-        <div class="card">
-            <div class="icon">📅</div>
-            <h2 id="appointmentCount">0</h2>
-            <p>Total Appointments</p>
-        </div>
-
-    </div>
-
-    <!-- CUSTOMERS -->
-
-    <section class="section">
-
-        <div class="section-title">
-            <h2>👥 Customers</h2>
-        </div>
-
-        <input
-            id="customerSearch"
-            class="search"
-            type="text"
-            placeholder="Search customer name or mobile..."
-            oninput="filterCustomers()"
-        >
-
-        <div class="table-wrap">
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Mobile</th>
-                        <th>Address</th>
-                        <th>Created</th>
-                    </tr>
-                </thead>
-
-                <tbody id="customerTable">
-                    <tr>
-                        <td colspan="4" class="loading">
-                            Loading customers...
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-    <!-- APPOINTMENTS -->
-
-    <section class="section">
-
-        <div class="section-title">
-            <h2>📅 Recent Appointments</h2>
-        </div>
-
-        <div class="table-wrap">
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Customer</th>
-                        <th>Mobile</th>
-                        <th>Appointment</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-
-                <tbody id="appointmentTable">
-                    <tr>
-                        <td colspan="4" class="loading">
-                            Loading appointments...
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-        </div>
-<!-- ENQUIRIES -->
-
-<section class="section">
-
-    <div class="section-title">
-        <h2>📞 Customer Enquiries</h2>
-    </div>
-
-    <input
-        id="enquirySearch"
-        class="search"
-        type="text"
-        placeholder="Search enquiry name, mobile or product..."
-        oninput="filterEnquiries()"
-    >
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Customer</th>
-                    <th>Mobile</th>
-                    <th>Product</th>
-                    <th>Message</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-
-            <tbody id="enquiryTable">
-
-                <tr>
-                    <td colspan="7" class="loading">
-                        Loading enquiries...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-    
-    </section>
-        
-    <!-- ORDERS -->
-
-<section class="section">
-
-    <div class="section-title">
-        <h2>📦 Orders</h2>
-    </div>
-
-
-    <input
-        id="orderSearch"
-        class="search"
-        type="text"
-        placeholder="Search order, customer, mobile or product..."
-        oninput="filterOrders()"
-    >
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Mobile</th>
-                    <th>Product</th>
-                    <th>Sqft</th>
-                    <th>Total</th>
-                    <th>Advance</th>
-                    <th>Balance</th>
-                    <th>Status</th>
-                    <th>Payment</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-
-            <tbody id="orderTable">
-
-                <tr>
-                    <td colspan="11" class="loading">
-                        Loading orders...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-        
-</main>
-
-
-<script type="module">
-
-import { auth, db } from "./firebase-config.js";
-
-import {
-    collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-
-import {
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-
-let customers = [];
-let appointments = [];
-let enquiries = [];
-let orders = [];
-
-
-/* ==============================
-   AUTHENTICATION
-============================== */
-
-onAuthStateChanged(auth, async (user) => {
-
-    if (!user) {
-
-        window.location.href = "login.html";
-        return;
-
-    }
-
-    await loadCRM();
-
-});
-
-
-/* ==============================
-   LOAD CRM
-============================== */
-
-async function loadCRM(){
-
-    try{
-
-        showError("");
-
-        const customerSnapshot =
-            await getDocs(collection(db,"customers"));
-
-        customers = [];
-
-        customerSnapshot.forEach((doc) => {
-
-            customers.push({
-                id:doc.id,
-                ...doc.data()
-            });
-
-        });
-
-
-        const appointmentSnapshot =
-            await getDocs(collection(db,"appointments"));
-
-        appointments = [];
-
-        appointmentSnapshot.forEach((doc) => {
-
-            appointments.push({
-                id:doc.id,
-                ...doc.data()
-            });
-
-        });
-
-
-        document.getElementById("customerCount").textContent =
-            customers.length;
-
-        document.getElementById("appointmentCount").textContent =
-            appointments.length;
-
-
-        /*
-          Enquiries collection may not yet be
-          available to this admin user.
-        */
-
-        try {
-
-    const enquirySnapshot =
-        await getDocs(collection(db, "enquiries"));
-
-    enquiries = [];
-
-    enquirySnapshot.forEach((doc) => {
-
-        enquiries.push({
-            id: doc.id,
-            ...doc.data()
-        });
-
-    });
-
-    document.getElementById("enquiryCount").textContent =
-        enquiries.length;
-
-} catch (error) {
-
-    console.error("Enquiry loading error:", error);
-
-    enquiries = [];
-
-    document.getElementById("enquiryCount").textContent =
-        "—";
-    }
-
-
-       renderCustomers(customers);
-       renderAppointments(appointments);
-       renderEnquiries(enquiries);
-       renderOrders(orders);
-    
-
-    }catch(error){
-
-        console.error(error);
-
-        showError(
-            "Unable to load CRM data: " + error.message
-        );
-
-    }
-
-}
-
-
-/* ==============================
-   CUSTOMERS
-============================== */
-
-function renderCustomers(list){
-
-    const table =
-        document.getElementById("customerTable");
-
-    if(!list.length){
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="4" class="loading">
-                    No customers found.
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    table.innerHTML = list.map(customer => `
-
-        <tr>
-
-            <td>
-                <strong>
-                    ${safe(customer.name || customer.customerName || "—")}
-                </strong>
-            </td>
-
-            <td>
-                ${safe(customer.mobile || customer.phone || "—")}
-            </td>
-
-            <td>
-                ${safe(customer.address || "—")}
-            </td>
-
-            <td>
-                ${formatDate(customer.createdAt)}
-            </td>
-
-        </tr>
-
-    `).join("");
-
-}
-
-
-/* ==============================
-   APPOINTMENTS
-============================== */
-
-function renderAppointments(list){
-
-    const table =
-        document.getElementById("appointmentTable");
-
-    if(!list.length){
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="4" class="loading">
-                    No appointments found.
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    const recent =
-        [...list].reverse().slice(0,20);
-
-
-    table.innerHTML = recent.map(item => `
-
-        <tr>
-
-            <td>
-                <strong>
-                    ${safe(item.customerName || "—")}
-                </strong>
-            </td>
-
-            <td>
-                ${safe(item.mobile || item.phone || "—")}
-            </td>
-
-            <td>
-                ${safe(item.date || "—")}
-                ${item.time ? "<br>" + safe(item.time) : ""}
-            </td>
-
-            <td>
-                <span class="status">
-                    ${safe(item.status || "NEW")}
-                </span>
-            </td>
-
-        </tr>
-
-    `).join("");
-
-}
-
-    // ==============================
-// ORDERS
-// ==============================
-
-function renderOrders(list) {
-window.filterOrders = function () {
-
-    const input =
-        document.getElementById("orderSearch");
-
-    if (!input) return;
-
-    const search =
-        input.value.toLowerCase().trim();
-
-    if (!search) {
-        renderOrders(orders);
-        return;
-    }
-
-    const filtered =
-        orders.filter(order => {
-
-            const text = [
-                order.orderId,
-                order.id,
-                order.customerName,
-                order.name,
-                order.mobile,
-                order.phone,
-                order.product,
-                order.productName,
-                order.status,
-                order.orderStatus,
-                order.paymentStatus
-            ]
-            .join(" ")
-            .toLowerCase();
-
-            return text.includes(search);
-        });
-
-    renderOrders(filtered);
-
-};
-    const table =
-        document.getElementById("orderTable");
-
-    if (!table) return;
-
-    if (!list.length) {
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="11" class="loading">
-                    No orders found.
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-    table.innerHTML = list.map(order => {
-
-        const customer =
-            order.customerName ||
-            order.name ||
-            "—";
-
-        const mobile =
-            order.mobile ||
-            order.phone ||
-            "—";
-
-        const product =
-            order.product ||
-            order.productName ||
-            "—";
-
-        const sqft =
-            order.sqft ??
-            order.totalSqft ??
-            "—";
-
-        const total =
-            order.totalAmount ??
-            order.finalAmount ??
-            order.total ??
-            0;
-
-        const advance =
-            order.advanceAmount ??
-            order.advance ??
-            0;
-
-        const balance =
-            order.balanceAmount ??
-            order.balance ??
-            Math.max(Number(total) - Number(advance), 0);
-
-        const status =
-            order.orderStatus ||
-            order.status ||
-            "NEW";
-
-        const payment =
-            order.paymentStatus ||
-            "PENDING";
-
-        const orderId =
-            order.orderId ||
-            order.id ||
-            "—";
-
-        const date =
-            formatDate(
-                order.createdAt ||
-                order.orderDate ||
-                order.date
-            );
-
-        return `
-            <tr>
-
-                <td>
-                    <strong>${safe(orderId)}</strong>
-                </td>
-
-                <td>
-                    ${safe(customer)}
-                </td>
-
-                <td>
-                    ${safe(mobile)}
-                </td>
-
-                <td>
-                    ${safe(product)}
-                </td>
-
-                <td>
-                    ${safe(sqft)}
-                </td>
-
-                <td>
-                    ₹${Number(total).toLocaleString("en-IN")}
-                </td>
-
-                <td>
-                    ₹${Number(advance).toLocaleString("en-IN")}
-                </td>
-
-                <td>
-                    ₹${Number(balance).toLocaleString("en-IN")}
-                </td>
-
-                <td>
-                    <span class="status">
-                        ${safe(status)}
-                    </span>
-                </td>
-
-                <td>
-                    <span class="status">
-                        ${safe(payment)}
-                    </span>
-                </td>
-
-                <td>
-                    ${date}
-                </td>
-
-            </tr>
-        `;
-
-    }).join("");
-
-    }
-
-/* ==============================
-   SEARCH
-============================== */
-
-window.filterCustomers = function(){
-
-    const search =
-        document.getElementById("customerSearch")
-        .value
-        .toLowerCase()
-        .trim();
-
-
-    if(!search){
-
-        renderCustomers(customers);
-        return;
-
-    }
-
-
-    const filtered =
-        customers.filter(customer => {
-
-            const text = [
-
-                customer.name,
-                customer.customerName,
-                customer.mobile,
-                customer.phone,
-                customer.address
-
-            ]
-            .join(" ")
-            .toLowerCase();
-
-
-            return text.includes(search);
-
-        });
-
-
-    renderCustomers(filtered);
-
-};
-
-    /* ==============================
-   ENQUIRIES
-============================== */
-
-function renderEnquiries(list) {
-
-    const table =
-        document.getElementById("enquiryTable");
-
-    if (!table) return;
-
-    if (!list.length) {
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="7" class="loading">
-                    No enquiries found.
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-    const recent =
-        [...list].reverse().slice(0, 50);
-
-    table.innerHTML = recent.map(item => {
-
-        const mobile =
-            item.mobile ||
-            item.phone ||
-            "";
-
-        const customer =
-            item.customerName ||
-            item.name ||
-            "—";
-
-        const product =
-            item.product ||
-            item.productName ||
-            "—";
-
-        const message =
-            item.message ||
-            item.enquiry ||
-            "—";
-
-        const status =
-            item.status ||
-            "NEW";
-
-        const whatsappNumber =
-            String(mobile).replace(/\D/g, "");
-
-        return `
-            <tr>
-
-                <td>
-                    <strong>
-                        ${safe(customer)}
-                    </strong>
-                </td>
-
-                <td>
-                    ${safe(mobile)}
-                </td>
-
-                <td>
-                    ${safe(product)}
-                </td>
-
-                <td>
-                    ${safe(message)}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        item.createdAt ||
-                        item.date
-                    )}
-                </td>
-
-                <td>
-                    <span class="status">
-                        ${safe(status)}
-                    </span>
-                </td>
-
-                <td>
-
-                    ${
-                        mobile
-                        ? `
-                        <a
-                            href="tel:${safe(mobile)}"
-                            style="
-                                text-decoration:none;
-                                margin-right:6px;
-                            "
-                        >
-                            📞
-                        </a>
-
-                        <a
-                            href="https://wa.me/91${whatsappNumber}"
-                            target="_blank"
-                            style="
-                                text-decoration:none;
-                            "
-                        >
-                            💬
-                        </a>
-                        `
-                        : "—"
-                    }
-
-                </td>
-
-            </tr>
-        `;
-
-    }).join("");
-
-}
-
-    // ==============================
-// LOAD ORDERS
-// ==============================
-
-try {
-
-    const orderSnapshot =
-        await getDocs(collection(db, "orders"));
-
-    orders = [];
-
-    orderSnapshot.forEach((doc) => {
-
-        orders.push({
-            id: doc.id,
-            ...doc.data()
-        });
-
-    });
-
-    console.log("Orders loaded:", orders.length);
-
-} catch (error) {
-
-    console.error("Orders loading error:", error);
-
-    orders = [];
-
-    }
-    
-
-/* ==============================
-   ENQUIRY SEARCH
-============================== */
-
-window.filterEnquiries = function () {
-
-    const input =
-        document.getElementById("enquirySearch");
-
-    if (!input) return;
-
-    const search =
-        input.value
-            .toLowerCase()
-            .trim();
-
-    if (!search) {
-
-        renderEnquiries(enquiries);
-
-        return;
-    }
-
-    const filtered =
-        enquiries.filter(item => {
-
-            const text = [
-
-                item.customerName,
-                item.name,
-                item.mobile,
-                item.phone,
-                item.product,
-                item.productName,
-                item.message,
-                item.status
-
-            ]
-            .join(" ")
-            .toLowerCase();
-
-            return text.includes(search);
-
-        });
-
-    renderEnquiries(filtered);
-
-};
-    
-
-/* ==============================
-   LOGOUT
-============================== */
-
-window.logout = async function(){
-
-    try{
-
-        await signOut(auth);
-
-        window.location.href = "login.html";
-
-    }catch(error){
-
-        showError(error.message);
-
-    }
-
-};
-
-
-/* ==============================
-   HELPERS
-============================== */
-
-function formatDate(value){
-
-    if(!value) return "—";
-
-    try{
-
-        if(value.toDate){
-
-            return value.toDate().toLocaleDateString("en-IN");
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raj Marketing · Admin CRM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f5f7fb;
+            color: #172033;
+        }
+        .header {
+            background: #ffffff;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+        .logo span {
+            display: block;
+            font-size: 10px;
+            color: #777;
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #e8ecf0;
+            color: #1a1a2e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #f5f7fb;
+        }
+        .logout {
+            border: 0;
+            background: #ef4444;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .logout:hover {
+            background: #dc2626;
         }
 
-        return new Date(value).toLocaleDateString("en-IN");
+        /* Sidebar + Main Layout */
+        .app-layout {
+            display: flex;
+            max-width: 1400px;
+            margin: auto;
+            padding: 16px 20px;
+            gap: 20px;
+        }
+        .sidebar {
+            width: 220px;
+            flex-shrink: 0;
+            background: #fff;
+            border-radius: 18px;
+            padding: 16px 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e8ecf0;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 3px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 10px;
+        }
+        .sidebar .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            color: #4a4a5a;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.2s;
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+        .sidebar .nav-item:hover {
+            background: #f5f7fb;
+        }
+        .sidebar .nav-item.active {
+            background: #f97316;
+            color: #fff;
+        }
+        .sidebar .nav-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 15px;
+        }
+        .sidebar .nav-section {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #999;
+            font-weight: 700;
+            padding: 12px 14px 6px 14px;
+            letter-spacing: 0.5px;
+        }
 
-    }catch{
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
 
-        return "—";
+        .container {
+            max-width: 100%;
+        }
 
-    }
+        .welcome {
+            margin-bottom: 16px;
+        }
+        .welcome h1 {
+            font-size: 24px;
+            font-weight: 800;
+        }
+        .welcome p {
+            color: #777;
+            font-size: 13px;
+        }
 
-}
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px 16px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e8ecf0;
+            transition: 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        }
+        .card .icon {
+            font-size: 22px;
+        }
+        .card h2 {
+            font-size: 24px;
+            margin-top: 4px;
+            font-weight: 800;
+        }
+        .card p {
+            font-size: 11px;
+            color: #777;
+            font-weight: 500;
+        }
 
+        .section {
+            background: #fff;
+            border-radius: 18px;
+            padding: 18px 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e8ecf0;
+        }
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .section-title h2 {
+            font-size: 17px;
+            font-weight: 700;
+        }
+        .section-title .badge {
+            background: #f97316;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .search {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e8ecf0;
+            border-radius: 12px;
+            outline: none;
+            margin-bottom: 12px;
+            font-size: 13px;
+            transition: 0.2s;
+            background: #fafbfc;
+        }
+        .search:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+        }
+        .table-wrap {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            font-size: 12px;
+        }
+        th,
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #f0f2f5;
+            text-align: left;
+        }
+        th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: #4a4a5a;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .status {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-new {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+        .status-contact {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        .status-scheduled {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-converted {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-lost {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .status-paid {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-cancelled {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .status-default {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
 
-function safe(value){
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 25px 20px;
+            color: #999;
+        }
+        .empty-state .icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+            opacity: 0.5;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 13px;
+        }
+        .action-link {
+            text-decoration: none;
+            font-size: 15px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .action-link:hover {
+            background: #f0f2f5;
+        }
+        .btn-sm {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-sm-primary {
+            background: #f97316;
+            color: #fff;
+        }
+        .btn-sm-primary:hover {
+            background: #ea580c;
+        }
+        .btn-sm-success {
+            background: #22c55e;
+            color: #fff;
+        }
+        .btn-sm-success:hover {
+            background: #16a34a;
+        }
+        .btn-sm-danger {
+            background: #ef4444;
+            color: #fff;
+        }
+        .btn-sm-danger:hover {
+            background: #dc2626;
+        }
+        .btn-sm-outline {
+            background: transparent;
+            border: 1.5px solid #e8ecf0;
+        }
+        .btn-sm-outline:hover {
+            background: #f5f7fb;
+        }
 
-    return String(value ?? "—")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            background: #fff;
+            border-radius: 24px;
+            padding: 28px 24px;
+            max-width: 560px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        .modal .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .modal .form-group {
+            margin-bottom: 14px;
+        }
+        .modal .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a4a5a;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .modal .form-group input,
+        .modal .form-group select,
+        .modal .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e8ecf0;
+            border-radius: 12px;
+            font-size: 13px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            background: #fafbfc;
+            transition: 0.2s;
+        }
+        .modal .form-group input:focus,
+        .modal .form-group select:focus,
+        .modal .form-group textarea:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+        }
+        .modal .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .modal .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+        .modal .modal-actions .btn {
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 1;
+            min-width: 100px;
+        }
+        .modal .modal-actions .btn-primary {
+            background: #f97316;
+            color: #fff;
+        }
+        .modal .modal-actions .btn-primary:hover {
+            background: #ea580c;
+        }
+        .modal .modal-actions .btn-secondary {
+            background: #f5f7fb;
+            color: #1a1a2e;
+            border: 1px solid #e8ecf0;
+        }
+        .modal .modal-actions .btn-secondary:hover {
+            background: #e8ecf0;
+        }
 
-}
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e8ecf0;
+        }
+        .timeline-item {
+            position: relative;
+            padding: 8px 0 8px 16px;
+            border-left: 2px solid transparent;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 12px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #f97316;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #f97316;
+        }
+        .timeline-item .time {
+            font-size: 10px;
+            color: #999;
+        }
+        .timeline-item .content {
+            font-size: 13px;
+            color: #1a1a2e;
+        }
 
+        .hidden {
+            display: none !important;
+        }
 
-function showError(message){
+        @media (max-width: 900px) {
+            .app-layout {
+                flex-direction: column;
+                padding: 12px;
+            }
+            .sidebar {
+                width: 100%;
+                position: static;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                padding: 10px;
+                max-height: none;
+                overflow-y: visible;
+            }
+            .sidebar .nav-section {
+                display: none;
+            }
+            .sidebar .nav-item {
+                padding: 6px 12px;
+                font-size: 12px;
+                flex: 0 0 auto;
+            }
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .modal .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 500px) {
+            .cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            .header {
+                padding: 10px 14px;
+            }
+            .header-actions .btn-outline {
+                font-size: 10px;
+                padding: 6px 10px;
+            }
+            .logout {
+                font-size: 10px;
+                padding: 6px 10px;
+            }
+            .section {
+                padding: 12px;
+            }
+            table {
+                font-size: 11px;
+                min-width: 500px;
+            }
+            th,
+            td {
+                padding: 6px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
 
-    const box =
-        document.getElementById("errorBox");
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            Raj Marketing
+            <span>Mysore · Admin CRM</span>
+        </div>
+        <div class="header-actions">
+            <button class="btn-outline" onclick="refreshData()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button class="logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
 
-    if(!message){
+    <!-- APP LAYOUT -->
+    <div class="app-layout">
 
-        box.style.display = "none";
-        box.textContent = "";
+        <!-- SIDEBAR -->
+        <nav class="sidebar" id="sidebar">
+            <div class="nav-section">Main</div>
+            <a class="nav-item active" onclick="showSection('dashboard')" data-section="dashboard">
+                <i class="fas fa-chart-pie"></i> Dashboard
+            </a>
+            <a class="nav-item" onclick="showSection('customers')" data-section="customers">
+                <i class="fas fa-users"></i> Customers
+            </a>
+            <a class="nav-item" onclick="showSection('enquiries')" data-section="enquiries">
+                <i class="fas fa-phone"></i> Enquiries
+            </a>
+            <a class="nav-item" onclick="showSection('appointments')" data-section="appointments">
+                <i class="fas fa-calendar-check"></i> Appointments
+            </a>
+            <a class="nav-item" onclick="showSection('measurements')" data-section="measurements">
+                <i class="fas fa-ruler"></i> Measurements
+            </a>
 
-        return;
+            <div class="nav-section">Sales</div>
+            <a class="nav-item" onclick="showSection('estimates')" data-section="estimates">
+                <i class="fas fa-file-invoice"></i> Estimates
+            </a>
+            <a class="nav-item" onclick="showSection('orders')" data-section="orders">
+                <i class="fas fa-box"></i> Orders
+            </a>
+            <a class="nav-item" onclick="showSection('payments')" data-section="payments">
+                <i class="fas fa-credit-card"></i> Payments
+            </a>
 
-    }
+            <div class="nav-section">Business</div>
+            <a class="nav-item" onclick="showSection('dealers')" data-section="dealers">
+                <i class="fas fa-handshake"></i> Dealers
+            </a>
+            <a class="nav-item" onclick="showSection('products')" data-section="products">
+                <i class="fas fa-boxes"></i> Products
+            </a>
+            <a class="nav-item" onclick="showSection('price-master')" data-section="price-master">
+                <i class="fas fa-tag"></i> Price Master
+            </a>
+            <a class="nav-item" onclick="showSection('offers')" data-section="offers">
+                <i class="fas fa-percent"></i> Offers
+            </a>
 
-    box.style.display = "block";
-    box.textContent = message;
+            <div class="nav-section">Settings</div>
+            <a class="nav-item" onclick="showSection('rules')" data-section="rules">
+                <i class="fas fa-cog"></i> Business Rules
+            </a>
+            <a class="nav-item" onclick="showSection('reports')" data-section="reports">
+                <i class="fas fa-chart-bar"></i> Reports
+            </a>
+        </nav>
 
-}
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
 
-</script>
+            <div id="errorBox" class="error"></div>
+
+            <!-- ============================================================ -->
+            <!-- DASHBOARD -->
+            <!-- ============================================================ -->
+            <div id="section-dashboard" class="container">
+                <div class="welcome">
+                    <h1>📊 CRM Dashboard</h1>
+                    <p>Real-time overview of your business</p>
+                </div>
+
+                <div class="cards" id="dashboardCards">
+                    <div class="card"><div class="icon">👥</div><h2 id="dashCustomers">0</h2><p>Customers</p></div>
+                    <div class="card"><div class="icon">📞</div><h2 id="dashEnquiries">0</h2><p>Enquiries</p></div>
+                    <div class="card"><div class="icon">📅</div><h2 id="dashAppointments">0</h2><p>Appointments</p></div>
+                    <div class="card"><div class="icon">📐</div><h2 id="dashMeasurements">0</h2><p>Measurements</p></div>
+                    <div class="card"><div class="icon">🧾</div><h2 id="dashEstimates">0</h2><p>Estimates</p></div>
+                    <div class="card"><div class="icon">📦</div><h2 id="dashOrders">0</h2><p>Orders</p></div>
+                    <div class="card"><div class="icon">💰</div><h2 id="dashSales">₹0</h2><p>Total Sales</p></div>
+                    <div class="card"><div class="icon">💳</div><h2 id="dashPayments">₹0</h2><p>Payments Received</p></div>
+                    <div class="card"><div class="icon">💵</div><h2 id="dashBalance">₹0</h2><p>Pending Balance</p></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title"><h2>📈 Quick Stats</h2></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:13px;">
+                        <div><strong>Today's Enquiries:</strong> <span id="todayEnquiries">0</span></div>
+                        <div><strong>Today's Appointments:</strong> <span id="todayAppointments">0</span></div>
+                        <div><strong>This Month Sales:</strong> <span id="monthSales">₹0</span></div>
+                        <div><strong>Pending Orders:</strong> <span id="pendingOrders">0</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- CUSTOMERS -->
+            <!-- ============================================================ -->
+            <div id="section-customers" class="container hidden">
+                <div class="welcome">
+                    <h1>👥 Customers</h1>
+                    <p>Manage your customer database</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>All Customers</h2>
+                        <span class="badge" id="customerBadge">0</span>
+                    </div>
+                    <input id="customerSearch" class="search" type="text" placeholder="Search by name, mobile, email..." oninput="filterCustomers()">
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Name</th><th>Mobile</th><th>Email</th><th>Address</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="customerTable"><tr><td colspan="6" class="loading">Loading customers...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- ENQUIRIES -->
+            <!-- ============================================================ -->
+            <div id="section-enquiries" class="container hidden">
+                <div class="welcome">
+                    <h1>📞 Enquiries</h1>
+                    <p>Track and manage customer enquiries</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>All Enquiries</h2>
+                        <span class="badge" id="enquiryBadge">0</span>
+                    </div>
+                    <input id="enquirySearch" class="search" type="text" placeholder="Search by name, mobile, product..." oninput="filterEnquiries()">
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Customer</th><th>Mobile</th><th>Product</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+                            <tbody id="enquiryTable"><tr><td colspan="6" class="loading">Loading enquiries...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- APPOINTMENTS -->
+            <!-- ============================================================ -->
+            <div id="section-appointments" class="container hidden">
+                <div class="welcome">
+                    <h1>📅 Appointments</h1>
+                    <p>Manage customer appointments</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>All Appointments</h2>
+                        <span class="badge" id="appointmentBadge">0</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Customer</th><th>Mobile</th><th>Net Type</th><th>Date/Time</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="appointmentTable"><tr><td colspan="6" class="loading">Loading appointments...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- MEASUREMENTS -->
+            <!-- ============================================================ -->
+            <div id="section-measurements" class="container hidden">
+                <div class="welcome">
+                    <h1>📐 Measurements</h1>
+                    <p>Track all customer measurements</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>All Measurements</h2>
+                        <button class="btn-sm btn-sm-primary" onclick="openMeasurementModal()"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Customer</th><th>Room</th><th>Width</th><th>Height</th><th>Qty</th><th>Sq.ft</th><th>Date</th></tr></thead>
+                            <tbody id="measurementTable"><tr><td colspan="7" class="loading">Loading measurements...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- ESTIMATES -->
+            <!-- ============================================================ -->
+            <div id="section-estimates" class="container hidden">
+                <div class="welcome">
+                    <h1>🧾 Estimates</h1>
+                    <p>Manage all customer estimates</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>All Estimates</h2>
+                        <span class="badge" id="estimateBadge">0</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Estimate ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+                            <tbody id="estimateTable"><tr><td colspan="6" class="loading">Loading estimates...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- ORDERS -->
+            <!-- ============================================================ -->
+            <div id="section-orders" class="container hidden">
+                <div class="welcome">
+                    <h1>📦 Orders</h1>
+                    <p>Complete order management with production tracking</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>All Orders</h2>
+                        <button class="btn-sm btn-sm-primary" onclick="openOrderModal()"><i class="fas fa-plus"></i> Create Order</button>
+                    </div>
+                    <input id="orderSearch" class="search" type="text" placeholder="Search by order ID, customer, mobile..." oninput="filterOrders()">
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Total</th><th>Advance</th><th>Balance</th><th>Status</th><th>Production</th><th>Actions</th></tr></thead>
+                            <tbody id="orderTable"><tr><td colspan="9" class="loading">Loading orders...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PAYMENTS -->
+            <!-- ============================================================ -->
+            <div id="section-payments" class="container hidden">
+                <div class="welcome">
+                    <h1>💰 Payments</h1>
+                    <p>Track all customer payments</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>All Payments</h2>
+                        <button class="btn-sm btn-sm-primary" onclick="openPaymentModal()"><i class="fas fa-plus"></i> Record Payment</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Payment ID</th><th>Customer</th><th>Order</th><th>Amount</th><th>Method</th><th>Date</th><th>Actions</th></tr></thead>
+                            <tbody id="paymentTable"><tr><td colspan="7" class="loading">Loading payments...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- DEALERS -->
+            <!-- ============================================================ -->
+            <div id="section-dealers" class="container hidden">
+                <div class="welcome">
+                    <h1>🏢 Dealers</h1>
+                    <p>Manage dealer network</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>All Dealers</h2>
+                        <span class="badge" id="dealerBadge">0</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Business</th><th>Owner</th><th>Mobile</th><th>City</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="dealerTable"><tr><td colspan="6" class="loading">Loading dealers...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PRODUCTS -->
+            <!-- ============================================================ -->
+            <div id="section-products" class="container hidden">
+                <div class="welcome">
+                    <h1>🪟 Products</h1>
+                    <p>Product catalog management</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><h2>Product Catalog</h2></div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Product</th><th>Variant</th><th>Customer Price</th><th>Dealer Price</th><th>Unit</th><th>Status</th></tr></thead>
+                            <tbody id="productTable"><tr><td colspan="6" class="loading">Loading products...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PRICE MASTER -->
+            <!-- ============================================================ -->
+            <div id="section-price-master" class="container hidden">
+                <div class="welcome">
+                    <h1>💰 Price Master</h1>
+                    <p>Centralized pricing for all products</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>Prices</h2>
+                        <button class="btn-sm btn-sm-primary" onclick="openPriceModal()"><i class="fas fa-plus"></i> Add Price</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Product</th><th>Variant</th><th>Customer Price</th><th>Dealer Price</th><th>Offer Price</th><th>Actions</th></tr></thead>
+                            <tbody id="priceTable"><tr><td colspan="6" class="loading">Loading prices...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                        </div>
+    
+       <!-- ============================================================ -->
+            <!-- OFFERS -->
+            <!-- ============================================================ -->
+            <div id="section-offers" class="container hidden">
+                <div class="welcome">
+                    <h1>🏷️ Offers</h1>
+                    <p>Manage promotional offers</p>
+                </div>
+                <div class="section">
+                    <div class="section-title">
+                        <h2>Active Offers</h2>
+                        <button class="btn-sm btn-sm-primary" onclick="openOfferModal()"><i class="fas fa-plus"></i> Add Offer</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Name</th><th>Product</th><th>Offer Price</th><th>Valid</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="offerTable"><tr><td colspan="6" class="loading">Loading offers...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- BUSINESS RULES -->
+            <!-- ============================================================ -->
+            <div id="section-rules" class="container hidden">
+                <div class="welcome">
+                    <h1>⚙️ Business Rules</h1>
+                    <p>Configure business policies</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><h2>Current Rules</h2></div>
+                    <div id="rulesDisplay" style="font-size:13px; line-height:2;">
+                        <div><strong>Measurement Formula:</strong> Width × Height × Quantity ÷ 144 = Sq.ft</div>
+                        <div><strong>Minimum Dimension:</strong> Below 24″ treat as 24″</div>
+                        <div><strong>Advance Payment:</strong> 60%</div>
+                        <div><strong>Balance Payment:</strong> 40%</div>
+                        <div><strong>Site Visit (Mysore):</strong> Free</div>
+                        <div><strong>Site Visit (Outside):</strong> ₹15/km</div>
+                        <div><strong>Warranty SS Mesh/Pleated:</strong> 1 Year</div>
+                        <div><strong>Warranty Aluminium Frame:</strong> 5 Years</div>
+                        <div><strong>Discount Slab:</strong> >200=12%, 150-200=10%, 100-149=8%, &lt;100=5%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- REPORTS -->
+            <!-- ============================================================ -->
+            <div id="section-reports" class="container hidden">
+                <div class="welcome">
+                    <h1>📊 Reports</h1>
+                    <p>Business analytics and insights</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><h2>Sales Summary</h2></div>
+                    <div id="reportContent" style="font-size:13px; line-height:2;">
+                        <div><strong>Total Sales:</strong> ₹<span id="reportTotalSales">0</span></div>
+                        <div><strong>Total Orders:</strong> <span id="reportTotalOrders">0</span></div>
+                        <div><strong>Total Sq.ft Sold:</strong> <span id="reportTotalSqft">0</span></div>
+                        <div><strong>Total Customers:</strong> <span id="reportTotalCustomers">0</span></div>
+                        <div><strong>Pending Amount:</strong> ₹<span id="reportPendingAmount">0</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MODALS -->
+    <!-- ============================================================ -->
+
+    <!-- Measurement Modal -->
+    <div class="modal-overlay" id="measurementModal">
+        <div class="modal">
+            <div class="modal-title">📐 Add Measurement</div>
+            <form id="measurementForm" onsubmit="saveMeasurement(event)">
+                <div class="form-row">
+                    <div class="form-group"><label>Customer</label><select id="mCustomer" required></select></div>
+                    <div class="form-group"><label>Room/Location</label><input id="mRoom" placeholder="e.g. Bedroom" required /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Width (inches)</label><input type="number" id="mWidth" required /></div>
+                    <div class="form-group"><label>Height (inches)</label><input type="number" id="mHeight" required /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Quantity</label><input type="number" id="mQty" value="1" required /></div>
+                    <div class="form-group"><label>Sq.ft (auto-calculated)</label><input id="mSqft" readonly style="background:#f0f2f5;" /></div>
+                </div>
+                <div class="form-group"><label>Notes</label><textarea id="mNotes" rows="2"></textarea></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('measurementModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal">
+            <div class="modal-title">📦 Create Order</div>
+            <form id="orderForm" onsubmit="saveOrder(event)">
+                <div class="form-group"><label>Customer</label><select id="oCustomer" required></select></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Product</label><select id="oProduct" required></select></div>
+                    <div class="form-group"><label>Total Sq.ft</label><input type="number" id="oSqft" required /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Rate (₹/sq.ft)</label><input type="number" id="oRate" required /></div>
+                    <div class="form-group"><label>Total Amount (₹)</label><input id="oTotal" readonly style="background:#f0f2f5;" /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Advance (60%)</label><input id="oAdvance" readonly style="background:#f0f2f5;" /></div>
+                    <div class="form-group"><label>Balance (40%)</label><input id="oBalance" readonly style="background:#f0f2f5;" /></div>
+                </div>
+                <div class="form-group"><label>Notes</label><textarea id="oNotes" rows="2"></textarea></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Create Order</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('orderModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal">
+            <div class="modal-title">💰 Record Payment</div>
+            <form id="paymentForm" onsubmit="savePayment(event)">
+                <div class="form-group"><label>Customer</label><select id="pCustomer" required></select></div>
+                <div class="form-group"><label>Order</label><select id="pOrder" required></select></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Amount (₹)</label><input type="number" id="pAmount" required /></div>
+                    <div class="form-group"><label>Payment Method</label>
+                        <select id="pMethod">
+                            <option value="Cash">Cash</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Card">Card</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group"><label>Transaction Reference</label><input id="pReference" placeholder="Optional" /></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Record Payment</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('paymentModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+                                                           </div>
+        <!-- Price Modal -->
+    <div class="modal-overlay" id="priceModal">
+        <div class="modal">
+            <div class="modal-title">💰 Add/Edit Price</div>
+            <form id="priceForm" onsubmit="savePrice(event)">
+                <div class="form-row">
+                    <div class="form-group"><label>Product</label><select id="prProduct" required>
+                            <option value="Velcro">Velcro</option>
+                            <option value="Aluminium">Aluminium Frame</option>
+                            <option value="Pleated">Pleated Net</option>
+                            <option value="Openable">Openable System</option>
+                            <option value="Sliding">Double Sliding SS Mesh</option>
+                        </select></div>
+                    <div class="form-group"><label>Variant</label><input id="prVariant" placeholder="e.g. Regular" required /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Customer Price (₹)</label><input type="number" id="prCustomer" required /></div>
+                    <div class="form-group"><label>Dealer Price (₹)</label><input type="number" id="prDealer" required /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Offer Price (₹)</label><input type="number" id="prOffer" /></div>
+                    <div class="form-group"><label>Unit</label><input id="prUnit" value="sq.ft" /></div>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('priceModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Offer Modal -->
+    <div class="modal-overlay" id="offerModal">
+        <div class="modal">
+            <div class="modal-title">🏷️ Add Offer</div>
+            <form id="offerForm" onsubmit="saveOffer(event)">
+                <div class="form-group"><label>Offer Name</label><input id="ofName" required /></div>
+                <div class="form-group"><label>Product</label><select id="ofProduct" required>
+                        <option value="Velcro">Velcro</option>
+                        <option value="Aluminium">Aluminium Frame</option>
+                        <option value="Pleated">Pleated Net</option>
+                        <option value="Openable">Openable System</option>
+                        <option value="Sliding">Double Sliding SS Mesh</option>
+                    </select></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Offer Price (₹)</label><input type="number" id="ofPrice" required /></div>
+                    <div class="form-group"><label>Active</label>
+                        <select id="ofActive"><option value="true">Yes</option><option value="false">No</option></select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Start Date</label><input type="date" id="ofStart" required /></div>
+                    <div class="form-group"><label>End Date</label><input type="date" id="ofEnd" required /></div>
+                </div>
+                <div class="form-group"><label>Description</label><textarea id="ofDesc" rows="2"></textarea></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('offerModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import {
+            collection,
+            getDocs,
+            addDoc,
+            updateDoc,
+            deleteDoc,
+            doc,
+            query,
+            orderBy,
+            limit,
+            where,
+            serverTimestamp,
+            getDoc
+        } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import {
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let state = {
+            customers: [],
+            enquiries: [],
+            appointments: [],
+            measurements: [],
+            estimates: [],
+            orders: [],
+            payments: [],
+            dealers: [],
+            products: [],
+            prices: [],
+            offers: [],
+            isLoading: false
+        };
+
+        // ============================================================
+        // AUTHENTICATION
+        // ============================================================
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+            console.log("✅ Admin authenticated:", user.email);
+            await loadAllData();
+        });
+
+        // ============================================================
+        // LOAD ALL DATA
+        // ============================================================
+        async function loadAllData() {
+            if (state.isLoading) return;
+            state.isLoading = true;
+            showError("");
+
+            try {
+                // Customers
+                const customerSnap = await getDocs(collection(db, "customers"));
+                state.customers = [];
+                customerSnap.forEach(doc => state.customers.push({ id: doc.id, ...doc.data() }));
+
+                // Enquiries
+                try {
+                    const enquirySnap = await getDocs(collection(db, "enquiries"));
+                    state.enquiries = [];
+                    enquirySnap.forEach(doc => state.enquiries.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.enquiries = []; }
+
+                // Appointments
+                try {
+                    const appointmentSnap = await getDocs(collection(db, "appointments"));
+                    state.appointments = [];
+                    appointmentSnap.forEach(doc => state.appointments.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.appointments = []; }
+
+                // Measurements
+                try {
+                    const measurementSnap = await getDocs(collection(db, "measurements"));
+                    state.measurements = [];
+                    measurementSnap.forEach(doc => state.measurements.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.measurements = []; }
+
+                // Estimates
+                try {
+                    const estimateSnap = await getDocs(collection(db, "estimates"));
+                    state.estimates = [];
+                    estimateSnap.forEach(doc => state.estimates.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.estimates = []; }
+
+                // Orders
+                try {
+                    const orderSnap = await getDocs(collection(db, "orders"));
+                    state.orders = [];
+                    orderSnap.forEach(doc => state.orders.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.orders = []; }
+
+                // Payments
+                try {
+                    const paymentSnap = await getDocs(collection(db, "payments"));
+                    state.payments = [];
+                    paymentSnap.forEach(doc => state.payments.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.payments = []; }
+
+                // Dealers
+                try {
+                    const dealerSnap = await getDocs(collection(db, "dealers"));
+                    state.dealers = [];
+                    dealerSnap.forEach(doc => state.dealers.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.dealers = []; }
+
+                // Products
+                try {
+                    const productSnap = await getDocs(collection(db, "products"));
+                    state.products = [];
+                    productSnap.forEach(doc => state.products.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.products = []; }
+
+                // Prices
+                try {
+                    const priceSnap = await getDocs(collection(db, "prices"));
+                    state.prices = [];
+                    priceSnap.forEach(doc => state.prices.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.prices = []; }
+
+                // Offers
+                try {
+                    const offerSnap = await getDocs(collection(db, "offers"));
+                    state.offers = [];
+                    offerSnap.forEach(doc => state.offers.push({ id: doc.id, ...doc.data() }));
+                } catch (e) { state.offers = []; }
+
+                // Render all
+                updateDashboard();
+                renderCustomers(state.customers);
+                renderEnquiries(state.enquiries);
+                renderAppointments(state.appointments);
+                renderMeasurements(state.measurements);
+                renderEstimates(state.estimates);
+                renderOrders(state.orders);
+                renderPayments(state.payments);
+                renderDealers(state.dealers);
+                renderProducts(state.products);
+                renderPrices(state.prices);
+                renderOffers(state.offers);
+                updateBadges();
+                updateReports();
+
+                console.log("✅ All data loaded:", {
+                    customers: state.customers.length,
+                    enquiries: state.enquiries.length,
+                    appointments: state.appointments.length,
+                    measurements: state.measurements.length,
+                    estimates: state.estimates.length,
+                    orders: state.orders.length,
+                    payments: state.payments.length,
+                    dealers: state.dealers.length,
+                    products: state.products.length,
+                    prices: state.prices.length,
+                    offers: state.offers.length
+                });
+
+            } catch (error) {
+                console.error("❌ Load error:", error);
+                showError("Unable to load data: " + error.message);
+            }
+            state.isLoading = false;
+        }
+
+        // ============================================================
+        // DASHBOARD
+        // ============================================================
+        function updateDashboard() {
+            const totalSales = state.orders.reduce((sum, o) => sum + Number(o.totalAmount || o.total || 0), 0);
+            const totalPayments = state.payments.reduce((sum, p) => sum + Number(p.amount || 0), 0);
+            const pendingBalance = totalSales - totalPayments;
+
+            document.getElementById("dashCustomers").textContent = state.customers.length;
+            document.getElementById("dashEnquiries").textContent = state.enquiries.length;
+            document.getElementById("dashAppointments").textContent = state.appointments.length;
+            document.getElementById("dashMeasurements").textContent = state.measurements.length;
+            document.getElementById("dashEstimates").textContent = state.estimates.length;
+            document.getElementById("dashOrders").textContent = state.orders.length;
+            document.getElementById("dashSales").textContent = '₹' + totalSales.toLocaleString("en-IN");
+            document.getElementById("dashPayments").textContent = '₹' + totalPayments.toLocaleString("en-IN");
+            document.getElementById("dashBalance").textContent = '₹' + pendingBalance.toLocaleString("en-IN");
+
+            // Today's stats
+            const today = new Date().toDateString();
+            const todayEnq = state.enquiries.filter(e => {
+                const d = e.createdAt?.toDate?.() || new Date(e.createdAt);
+                return d.toDateString() === today;
+            });
+            const todayApp = state.appointments.filter(a => {
+                const d = a.createdAt?.toDate?.() || new Date(a.createdAt);
+                return d.toDateString() === today;
+            });
+            document.getElementById("todayEnquiries").textContent = todayEnq.length;
+            document.getElementById("todayAppointments").textContent = todayApp.length;
+
+            // Month sales
+            const month = new Date().getMonth();
+            const year = new Date().getFullYear();
+            const monthOrders = state.orders.filter(o => {
+                const d = o.createdAt?.toDate?.() || new Date(o.createdAt);
+                return d.getMonth() === month && d.getFullYear() === year;
+            });
+            const monthSales = monthOrders.reduce((sum, o) => sum + Number(o.totalAmount || o.total || 0), 0);
+            document.getElementById("monthSales").textContent = '₹' + monthSales.toLocaleString("en-IN");
+
+            const pending = state.orders.filter(o => {
+                const status = (o.orderStatus || o.status || '').toUpperCase();
+                return !['COMPLETED', 'CANCELLED'].includes(status);
+            });
+            document.getElementById("pendingOrders").textContent = pending.length;
+        }
+
+        // ============================================================
+        // RENDER FUNCTIONS
+        // ============================================================
+        function renderCustomers(list) {
+            const table = document.getElementById("customerTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="6" class="empty-state"><div class="icon">👥</div>No customers found.</td></tr>`;
+                return;
+            }
+            table.innerHTML = list.map(c => `
+                <tr>
+                    <td><strong>${safe(c.name || c.customerName || "—")}</strong></td>
+                    <td>${safe(c.mobile || c.phone || "—")}</td>
+                    <td>${safe(c.email || "—")}</td>
+                    <td>${safe(c.address || "—")}</td>
+                    <td><span class="status status-${getStatusClass(c.status)}">${safe(c.status || "Active")}</span></td>
+                    <td>
+                        ${c.mobile ? `<a href="tel:${safe(c.mobile)}" class="action-link" title="Call">📞</a>` : ''}
+                        ${c.mobile ? `<a href="https://wa.me/91${String(c.mobile).replace(/\D/g,'')}" target="_blank" class="action-link" title="WhatsApp">💬</a>` : ''}
+                        ${c.address ? `<a href="https://maps.google.com/maps?q=${encodeURIComponent(c.address)}" target="_blank" class="action-link" title="Map">📍</a>` : ''}
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function renderEnquiries(list) {
+            const table = document.getElementById("enquiryTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="6" class="empty-state"><div class="icon">📞</div>No enquiries found.</td></tr>`;
+                return;
+            }
+            const sorted = [...list].reverse().slice(0, 50);
+            table.innerHTML = sorted.map(e => {
+                const mobile = e.mobile || e.phone || "";
+                return `
+                    <tr>
+                        <td><strong>${safe(e.customerName || e.name || "—")}</strong></td>
+                        <td>${safe(mobile)}</td>
+                        <td>${safe(e.netType || e.product || "—")}</td>
+                        <td><span class="status status-${getStatusClass(e.status)}">${safe(e.status || "NEW")}</span></td>
+                        <td>${formatDate(e.createdAt)}</td>
+                        <td>
+                            ${mobile ? `<a href="tel:${safe(mobile)}" class="action-link">📞</a>` : ''}
+                            ${mobile ? `<a href="https://wa.me/91${String(mobile).replace(/\D/g,'')}" target="_blank" class="action-link">💬</a>` : ''}
+                            <button class="btn-sm btn-sm-primary" onclick="createOrderFromEnquiry('${e.id}')">📦</button>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        function renderAppointments(list) {
+            const table = document.getElementById("appointmentTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="6" class="empty-state"><div class="icon">📅</div>No appointments found.</td></tr>`;
+                return;
+            }
+            const sorted = [...list].reverse().slice(0, 30);
+            table.innerHTML = sorted.map(a => {
+                const mobile = a.mobile || a.phone || "";
+                return `
+                    <tr>
+                        <td><strong>${safe(a.customerName || "—")}</strong></td>
+                        <td>${safe(mobile)}</td>
+                        <td>${safe(a.netType || "—")}</td>
+                        <td>${safe(a.date || "—")} ${a.time ? "<br><small>" + safe(a.time) + "</small>" : ""}</td>
+                        <td><span class="status status-${getStatusClass(a.status)}">${safe(a.status || "NEW")}</span></td>
+                        <td>
+                            ${mobile ? `<a href="tel:${safe(mobile)}" class="action-link">📞</a>` : ''}
+                            ${mobile ? `<a href="https://wa.me/91${String(mobile).replace(/\D/g,'')}" target="_blank" class="action-link">💬</a>` : ''}
+                            <button class="btn-sm btn-sm-success" onclick="updateAppointmentStatus('${a.id}','COMPLETED')">✅</button>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        function renderMeasurements(list) {
+            const table = document.getElementById("measurementTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="7" class="empty-state"><div class="icon">📐</div>No measurements found.</td></tr>`;
+                return;
+            }
+            const sorted = [...list].reverse().slice(0, 50);
+            table.innerHTML = sorted.map(m => `
+                <tr>
+                    <td>${safe(m.customerName || "—")}</td>
+                    <td>${safe(m.room || "—")}</td>
+                    <td>${safe(m.width)}"</td>
+                    <td>${safe(m.height)}"</td>
+                    <td>${safe(m.qty)}</td>
+                    <td>${(m.sqft || (m.width * m.height * m.qty / 144)).toFixed(2)}</td>
+                    <td>${formatDate(m.createdAt)}</td>
+                </tr>
+            `).join("");
+        }
+
+        function renderEstimates(list) {
+            const table = document.getElementById("estimateTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="6" class="empty-state"><div class="icon">🧾</div>No estimates found.</td></tr>`;
+                return;
+            }
+            const sorted = [...list].reverse().slice(0, 30);
+            table.innerHTML = sorted.map(e => `
+                <tr>
+                    <td><strong>${safe(e.estimateId || e.id || "—")}</strong></td>
+                    <td>${safe(e.customerName || "—")}</td>
+                    <td>₹${(e.finalAmount || e.total || 0).toLocaleString("en-IN")}</td>
+                    <td><span class="status status-${getStatusClass(e.status)}">${safe(e.status || "DRAFT")}</span></td>
+                    <td>${formatDate(e.createdAt)}</td>
+                    <td>
+                        <button class="btn-sm btn-sm-primary" onclick="convertToOrder('${e.id}')">📦 Convert</button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function renderOrders(list) {
+            const table = document.getElementById("orderTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="9" class="empty-state"><div class="icon">📦</div>No orders found.</td></tr>`;
+                return;
+            }
+            const sorted = [...list].reverse();
+            table.innerHTML = sorted.map(o => {
+                const total = Number(o.totalAmount || o.total || 0);
+                const advance = Number(o.advanceAmount || o.advance || 0);
+                const balance = Math.max(total - advance, 0);
+                return `
+                    <tr>
+                        <td><strong>${safe(o.orderId || o.id || "—")}</strong></td>
+                        <td>${safe(o.customerName || "—")}</td>
+                        <td>${safe(o.product || "—")}</td>
+                        <td>₹${total.toLocaleString("en-IN")}</td>
+                        <td>₹${advance.toLocaleString("en-IN")}</td>
+                        <td>₹${balance.toLocaleString("en-IN")}</td>
+                        <td><span class="status status-${getStatusClass(o.orderStatus || o.status)}">${safe(o.orderStatus || o.status || "NEW")}</span></td>
+                        <td><span class="status status-${getStatusClass(o.productionStatus)}">${safe(o.productionStatus || "PENDING")}</span></td>
+                        <td>
+                            <button class="btn-sm btn-sm-primary" onclick="updateOrderStatus('${o.id}','CONFIRMED')">✔</button>
+                            <button class="btn-sm btn-sm-success" onclick="updateProductionStatus('${o.id}','PRODUCTION')">🔧</button>
+                            <button class="btn-sm btn-sm-success" onclick="updateProductionStatus('${o.id}','READY')">✅</button>
+                            ${balance > 0 ? `<button class="btn-sm btn-sm-primary" onclick="openPaymentForOrder('${o.id}')">💰</button>` : ''}
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        function renderPayments(list) {
+            const table = document.getElementById("paymentTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="7" class="empty-state"><div class="icon">💰</div>No payments found.</td></tr>`;
+                return;
+            }
+            const sorted = [...list].reverse().slice(0, 30);
+            table.innerHTML = sorted.map(p => `
+                <tr>
+                    <td><strong>${safe(p.paymentId || p.id || "—")}</strong></td>
+                    <td>${safe(p.customerName || "—")}</td>
+                    <td>${safe(p.orderId || "—")}</td>
+                    <td>₹${(p.amount || 0).toLocaleString("en-IN")}</td>
+                    <td>${safe(p.paymentMethod || p.method || "—")}</td>
+                    <td>${formatDate(p.paymentDate || p.createdAt)}</td>
+                    <td>
+                        ${p.transactionReference ? safe(p.transactionReference) : "—"}
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function renderDealers(list) {
+            const table = document.getElementById("dealerTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="6" class="empty-state"><div class="icon">🏢</div>No dealers found.</td></tr>`;
+                return;
+            }
+            table.innerHTML = list.map(d => `
+                <tr>
+                    <td><strong>${safe(d.businessName || "—")}</strong></td>
+                    <td>${safe(d.ownerName || "—")}</td>
+                    <td>${safe(d.phone || d.whatsapp || "—")}</td>
+                    <td>${safe(d.city || "—")}</td>
+                    <td><span class="status status-${getStatusClass(d.status)}">${safe(d.status || "Active")}</span></td>
+                    <td>
+                        ${d.phone ? `<a href="tel:${safe(d.phone)}" class="action-link">📞</a>` : ''}
+                        ${d.whatsapp ? `<a href="https://wa.me/91${String(d.whatsapp).replace(/\D/g,'')}" target="_blank" class="action-link">💬</a>` : ''}
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function renderProducts(list) {
+            const table = document.getElementById("productTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="6" class="empty-state"><div class="icon">🪟</div>No products found.</td></tr>`;
+                return;
+            }
+            table.innerHTML = list.map(p => `
+                <tr>
+                    <td><strong>${safe(p.name || "—")}</strong></td>
+                    <td>${safe(p.variant || "—")}</td>
+                    <td>₹${(p.customerPrice || 0).toLocaleString("en-IN")}</td>
+                    <td>₹${(p.dealerPrice || 0).toLocaleString("en-IN")}</td>
+                    <td>${safe(p.unit || "sq.ft")}</td>
+                    <td><span class="status status-${p.active !== false ? 'paid' : 'cancelled'}">${p.active !== false ? 'Active' : 'Inactive'}</span></td>
+                </tr>
+            `).join("");
+        }
+
+        function renderPrices(list) {
+            const table = document.getElementById("priceTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="6" class="empty-state"><div class="icon">💰</div>No prices configured.</td></tr>`;
+                return;
+            }
+            table.innerHTML = list.map(p => `
+                <tr>
+                    <td><strong>${safe(p.product || "—")}</strong></td>
+                    <td>${safe(p.variant || "—")}</td>
+                    <td>₹${(p.customerPrice || 0).toLocaleString("en-IN")}</td>
+                    <td>₹${(p.dealerPrice || 0).toLocaleString("en-IN")}</td>
+                    <td>${p.offerPrice ? '₹' + Number(p.offerPrice).toLocaleString("en-IN") : "—"}</td>
+                    <td>
+                        <button class="btn-sm btn-sm-primary" onclick="editPrice('${p.id}')">✏️</button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function renderOffers(list) {
+            const table = document.getElementById("offerTable");
+            if (!list.length) {
+                table.innerHTML =
+                    `<tr><td colspan="6" class="empty-state"><div class="icon">🏷️</div>No offers found.</td></tr>`;
+                return;
+            }
+            table.innerHTML = list.map(o => `
+                <tr>
+                    <td><strong>${safe(o.offerName || "—")}</strong></td>
+                    <td>${safe(o.product || "—")}</td>
+                    <td>₹${(o.offerPrice || 0).toLocaleString("en-IN")}</td>
+                    <td>${o.startDate} → ${o.endDate}</td>
+                    <td><span class="status status-${o.active ? 'paid' : 'cancelled'}">${o.active ? 'Active' : 'Inactive'}</span></td>
+                    <td>
+                        <button class="btn-sm btn-sm-primary" onclick="toggleOffer('${o.id}')">${o.active ? '⏸️' : '▶️'}</button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+         // ============================================================
+        // UPDATE BADGES
+        // ============================================================
+        function updateBadges() {
+            document.getElementById("customerBadge").textContent = state.customers.length;
+            document.getElementById("enquiryBadge").textContent = state.enquiries.length;
+            document.getElementById("appointmentBadge").textContent = state.appointments.length;
+            document.getElementById("estimateBadge").textContent = state.estimates.length;
+            document.getElementById("dealerBadge").textContent = state.dealers.length;
+        }
+
+        function updateReports() {
+            const totalSales = state.orders.reduce((sum, o) => sum + Number(o.totalAmount || o.total || 0), 0);
+            const totalPayments = state.payments.reduce((sum, p) => sum + Number(p.amount || 0), 0);
+            document.getElementById("reportTotalSales").textContent = totalSales.toLocaleString("en-IN");
+            document.getElementById("reportTotalOrders").textContent = state.orders.length;
+            document.getElementById("reportTotalSqft").textContent = state.orders.reduce((sum, o) => sum + Number(o.sqft || 0),
+                0).toFixed(2);
+            document.getElementById("reportTotalCustomers").textContent = state.customers.length;
+            document.getElementById("reportPendingAmount").textContent = (totalSales - totalPayments).toLocaleString("en-IN");
+        }
+
+        // ============================================================
+        // SEARCH FUNCTIONS
+        // ============================================================
+        window.filterCustomers = function() {
+            const search = document.getElementById("customerSearch").value.toLowerCase().trim();
+            if (!search) { renderCustomers(state.customers); return; }
+            const filtered = state.customers.filter(c => {
+                const text = [c.name, c.customerName, c.mobile, c.phone, c.email, c.address].join(" ").toLowerCase();
+                return text.includes(search);
+            });
+            renderCustomers(filtered);
+        };
+
+        window.filterEnquiries = function() {
+            const search = document.getElementById("enquirySearch").value.toLowerCase().trim();
+            if (!search) { renderEnquiries(state.enquiries); return; }
+            const filtered = state.enquiries.filter(e => {
+                const text = [e.customerName, e.name, e.mobile, e.phone, e.netType, e.product, e.message].join(" ")
+                .toLowerCase();
+                return text.includes(search);
+            });
+            renderEnquiries(filtered);
+        };
+
+        window.filterOrders = function() {
+            const search = document.getElementById("orderSearch").value.toLowerCase().trim();
+            if (!search) { renderOrders(state.orders); return; }
+            const filtered = state.orders.filter(o => {
+                const text = [o.orderId, o.id, o.customerName, o.name, o.mobile, o.phone, o.product, o.status].join(" ")
+                    .toLowerCase();
+                return text.includes(search);
+            });
+            renderOrders(filtered);
+        };
+
+        // ============================================================
+        // MODAL FUNCTIONS
+        // ============================================================
+        window.openMeasurementModal = function() {
+            populateCustomerSelect("mCustomer");
+            document.getElementById("measurementForm").reset();
+            document.getElementById("mSqft").value = "";
+            document.getElementById("measurementModal").classList.add("active");
+        };
+
+        window.openOrderModal = function() {
+            populateCustomerSelect("oCustomer");
+            populateProductSelect("oProduct");
+            document.getElementById("orderForm").reset();
+            document.getElementById("oTotal").value = "";
+            document.getElementById("oAdvance").value = "";
+            document.getElementById("oBalance").value = "";
+            document.getElementById("orderModal").classList.add("active");
+            // Auto-calculate
+            document.getElementById("oSqft").addEventListener("input", calcOrderTotals);
+            document.getElementById("oRate").addEventListener("input", calcOrderTotals);
+        };
+
+        window.openPaymentModal = function() {
+            populateCustomerSelect("pCustomer");
+            populateOrderSelect("pOrder");
+            document.getElementById("paymentForm").reset();
+            document.getElementById("paymentModal").classList.add("active");
+        };
+
+        window.openPriceModal = function() {
+            document.getElementById("priceForm").reset();
+            document.getElementById("priceModal").classList.add("active");
+        };
+
+        window.openOfferModal = function() {
+            document.getElementById("offerForm").reset();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("ofStart").value = today;
+            document.getElementById("ofEnd").value = today;
+            document.getElementById("offerModal").classList.add("active");
+        };
+
+        window.closeModal = function(id) {
+            document.getElementById(id).classList.remove("active");
+        };
+
+        window.openPaymentForOrder = function(orderId) {
+            const order = state.orders.find(o => o.id === orderId);
+            if (order) {
+                document.getElementById("pOrder").value = orderId;
+                // Find customer
+                const cust = state.customers.find(c => c.id === order.customerId);
+                if (cust) {
+                    document.getElementById("pCustomer").value = cust.id;
+                }
+                document.getElementById("paymentModal").classList.add("active");
+            }
+        };
+
+        function populateCustomerSelect(elementId) {
+            const select = document.getElementById(elementId);
+            if (!select) return;
+            select.innerHTML = '<option value="">Select Customer</option>';
+            state.customers.forEach(c => {
+                select.innerHTML +=
+                    `<option value="${c.id}">${c.name || c.customerName || "Unknown"} (${c.mobile || c.phone || ""})</option>`;
+            });
+        }
+
+        function populateProductSelect(elementId) {
+            const select = document.getElementById(elementId);
+            if (!select) return;
+            select.innerHTML = '<option value="Velcro">Velcro System</option>';
+            select.innerHTML += '<option value="Aluminium">Aluminium Frame</option>';
+            select.innerHTML += '<option value="Pleated">Pleated Net</option>';
+            select.innerHTML += '<option value="Openable">Openable System</option>';
+            select.innerHTML += '<option value="Sliding">Double Sliding SS Mesh</option>';
+        }
+
+        function populateOrderSelect(elementId) {
+            const select = document.getElementById(elementId);
+            if (!select) return;
+            select.innerHTML = '<option value="">Select Order</option>';
+            state.orders.forEach(o => {
+                select.innerHTML +=
+                    `<option value="${o.id}">${o.orderId || o.id} - ${o.customerName || "Unknown"} (₹${(o.totalAmount || o.total || 0).toLocaleString("en-IN")})</option>`;
+            });
+        }
+
+        function calcOrderTotals() {
+            const sqft = parseFloat(document.getElementById("oSqft").value) || 0;
+            const rate = parseFloat(document.getElementById("oRate").value) || 0;
+            const total = sqft * rate;
+            const advance = total * 0.6;
+            const balance = total * 0.4;
+            document.getElementById("oTotal").value = total.toFixed(2);
+            document.getElementById("oAdvance").value = advance.toFixed(2);
+            document.getElementById("oBalance").value = balance.toFixed(2);
+        }
+
+        // ============================================================
+        // SAVE FUNCTIONS (Firebase)
+        // ============================================================
+        window.saveMeasurement = async function(e) {
+            e.preventDefault();
+            const customerId = document.getElementById("mCustomer").value;
+            const customer = state.customers.find(c => c.id === customerId);
+            const width = parseFloat(document.getElementById("mWidth").value) || 0;
+            const height = parseFloat(document.getElementById("mHeight").value) || 0;
+            const qty = parseInt(document.getElementById("mQty").value) || 1;
+            const sqft = (width * height * qty) / 144;
+
+            try {
+                await addDoc(collection(db, "measurements"), {
+                    customerId,
+                    customerName: customer?.name || customer?.customerName || "Unknown",
+                    room: document.getElementById("mRoom").value,
+                    width,
+                    height,
+                    qty,
+                    sqft,
+                    notes: document.getElementById("mNotes").value,
+                    createdAt: serverTimestamp()
+                });
+                closeModal("measurementModal");
+                await loadAllData();
+                showSuccess("Measurement added successfully!");
+            } catch (error) {
+                showError("Failed to save measurement: " + error.message);
+            }
+        };
+
+        window.saveOrder = async function(e) {
+            e.preventDefault();
+            const customerId = document.getElementById("oCustomer").value;
+            const customer = state.customers.find(c => c.id === customerId);
+            const product = document.getElementById("oProduct").value;
+            const sqft = parseFloat(document.getElementById("oSqft").value) || 0;
+            const rate = parseFloat(document.getElementById("oRate").value) || 0;
+            const total = sqft * rate;
+            const advance = total * 0.6;
+            const balance = total * 0.4;
+            const orderId = "ORD-" + Date.now().toString().slice(-8);
+
+            try {
+                await addDoc(collection(db, "orders"), {
+                    orderId,
+                    customerId,
+                    customerName: customer?.name || customer?.customerName || "Unknown",
+                    mobile: customer?.mobile || customer?.phone || "",
+                    product,
+                    sqft,
+                    rate,
+                    totalAmount: total,
+                    advanceAmount: advance,
+                    balanceAmount: balance,
+                    orderStatus: "NEW",
+                    productionStatus: "PENDING",
+                    paymentStatus: "PENDING",
+                    notes: document.getElementById("oNotes").value,
+                    createdAt: serverTimestamp()
+                });
+                closeModal("orderModal");
+                await loadAllData();
+                showSuccess("Order created successfully! Order ID: " + orderId);
+            } catch (error) {
+                showError("Failed to create order: " + error.message);
+            }
+        };
+
+        window.savePayment = async function(e) {
+            e.preventDefault();
+            const customerId = document.getElementById("pCustomer").value;
+            const customer = state.customers.find(c => c.id === customerId);
+            const orderId = document.getElementById("pOrder").value;
+            const order = state.orders.find(o => o.id === orderId);
+            const amount = parseFloat(document.getElementById("pAmount").value) || 0;
+
+            try {
+                await addDoc(collection(db, "payments"), {
+                    paymentId: "PAY-" + Date.now().toString().slice(-8),
+                    customerId,
+                    customerName: customer?.name || customer?.customerName || "Unknown",
+                    orderId,
+                    orderNumber: order?.orderId || orderId,
+                    amount,
+                    paymentMethod: document.getElementById("pMethod").value,
+                    transactionReference: document.getElementById("pReference").value,
+                    paymentDate: serverTimestamp(),
+                    createdAt: serverTimestamp()
+                });
+                // Update order payment status
+                if (order) {
+                    const orderRef = doc(db, "orders", orderId);
+                    const currentAdvance = order.advanceAmount || 0;
+                    const total = order.totalAmount || order.total || 0;
+                    const newAdvance = currentAdvance + amount;
+                    const paymentStatus = newAdvance >= total ? "PAID" : "PARTIAL";
+                    await updateDoc(orderRef, {
+                        advanceAmount: newAdvance,
+                        balanceAmount: Math.max(total - newAdvance, 0),
+                        paymentStatus,
+                        updatedAt: serverTimestamp()
+                    });
+                }
+                closeModal("paymentModal");
+                await loadAllData();
+                showSuccess("Payment recorded successfully!");
+            } catch (error) {
+                showError("Failed to record payment: " + error.message);
+            }
+        };
+
+        window.savePrice = async function(e) {
+            e.preventDefault();
+            try {
+                await addDoc(collection(db, "prices"), {
+                    product: document.getElementById("prProduct").value,
+                    variant: document.getElementById("prVariant").value,
+                    customerPrice: parseFloat(document.getElementById("prCustomer").value) || 0,
+                    dealerPrice: parseFloat(document.getElementById("prDealer").value) || 0,
+                    offerPrice: parseFloat(document.getElementById("prOffer").value) || null,
+                    unit: document.getElementById("prUnit").value || "sq.ft",
+                    active: true,
+                    createdAt: serverTimestamp()
+                });
+                closeModal("priceModal");
+                await loadAllData();
+                showSuccess("Price added successfully!");
+            } catch (error) {
+                showError("Failed to save price: " + error.message);
+            }
+        };
+
+        window.saveOffer = async function(e) {
+            e.preventDefault();
+            try {
+                await addDoc(collection(db, "offers"), {
+                    offerName: document.getElementById("ofName").value,
+                    product: document.getElementById("ofProduct").value,
+                    offerPrice: parseFloat(document.getElementById("ofPrice").value) || 0,
+                    startDate: document.getElementById("ofStart").value,
+                    endDate: document.getElementById("ofEnd").value,
+                    description: document.getElementById("ofDesc").value,
+                    active: document.getElementById("ofActive").value === "true",
+                    createdAt: serverTimestamp()
+                });
+                closeModal("offerModal");
+                await loadAllData();
+                showSuccess("Offer added successfully!");
+            } catch (error) {
+                showError("Failed to save offer: " + error.message);
+            }
+        };
+
+        // ============================================================
+        // ACTION FUNCTIONS
+        // ============================================================
+        window.convertToOrder = async function(estimateId) {
+            const estimate = state.estimates.find(e => e.id === estimateId);
+            if (!estimate) { showError("Estimate not found."); return; }
+            try {
+                const orderId = "ORD-" + Date.now().toString().slice(-8);
+                await addDoc(collection(db, "orders"), {
+                    orderId,
+                    customerId: estimate.customerId || "",
+                    customerName: estimate.customerName || "Unknown",
+                    product: estimate.product || "Not specified",
+                    sqft: estimate.sqft || 0,
+                    rate: estimate.rate || 0,
+                    totalAmount: estimate.finalAmount || estimate.total || 0,
+                    advanceAmount: (estimate.finalAmount || 0) * 0.6,
+                    balanceAmount: (estimate.finalAmount || 0) * 0.4,
+                    estimateId,
+                    orderStatus: "NEW",
+                    productionStatus: "PENDING",
+                    paymentStatus: "PENDING",
+                    createdAt: serverTimestamp()
+                });
+                await loadAllData();
+                showSuccess("Order created from estimate! Order ID: " + orderId);
+            } catch (error) {
+                showError("Failed to convert to order: " + error.message);
+            }
+        };
+
+        window.createOrderFromEnquiry = async function(enquiryId) {
+            const enquiry = state.enquiries.find(e => e.id === enquiryId);
+            if (!enquiry) { showError("Enquiry not found."); return; }
+            try {
+                const orderId = "ORD-" + Date.now().toString().slice(-8);
+                await addDoc(collection(db, "orders"), {
+                    orderId,
+                    customerId: enquiry.customerId || "",
+                    customerName: enquiry.customerName || enquiry.name || "Unknown",
+                    mobile: enquiry.mobile || enquiry.phone || "",
+                    product: enquiry.netType || enquiry.product || "Not specified",
+                    orderStatus: "NEW",
+                    productionStatus: "PENDING",
+                    paymentStatus: "PENDING",
+                    enquiryId,
+                    createdAt: serverTimestamp()
+                });
+                await loadAllData();
+                showSuccess("Order created from enquiry! Order ID: " + orderId);
+            } catch (error) {
+                showError("Failed to create order: " + error.message);
+            }
+        };
+
+        window.updateOrderStatus = async function(orderId, status) {
+            try {
+                await updateDoc(doc(db, "orders", orderId), {
+                    orderStatus: status,
+                    updatedAt: serverTimestamp()
+                });
+                await loadAllData();
+                showSuccess("Order status updated to: " + status);
+            } catch (error) {
+                showError("Failed to update status: " + error.message);
+            }
+        };
+
+        window.updateProductionStatus = async function(orderId, status) {
+            try {
+                await updateDoc(doc(db, "orders", orderId), {
+                    productionStatus: status,
+                    updatedAt: serverTimestamp()
+                });
+                await loadAllData();
+                showSuccess("Production status updated to: " + status);
+            } catch (error) {
+                showError("Failed to update production: " + error.message);
+            }
+        };
+
+        window.updateAppointmentStatus = async function(appointmentId, status) {
+            try {
+                await updateDoc(doc(db, "appointments", appointmentId), {
+                    status: status,
+                    updatedAt: serverTimestamp()
+                });
+                await loadAllData();
+                showSuccess("Appointment status updated to: " + status);
+            } catch (error) {
+                showError("Failed to update appointment: " + error.message);
+            }
+        };
+
+        window.toggleOffer = async function(offerId) {
+            const offer = state.offers.find(o => o.id === offerId);
+            if (!offer) return;
+            try {
+                await updateDoc(doc(db, "offers", offerId), {
+                    active: !offer.active,
+                    updatedAt: serverTimestamp()
+                });
+                await loadAllData();
+                showSuccess("Offer toggled!");
+            } catch (error) {
+                showError("Failed to toggle offer: " + error.message);
+            }
+        };
+
+        window.editPrice = async function(priceId) {
+            const price = state.prices.find(p => p.id === priceId);
+            if (!price) return;
+            // Simple edit - open modal with pre-filled values
+            document.getElementById("prProduct").value = price.product || "";
+            document.getElementById("prVariant").value = price.variant || "";
+            document.getElementById("prCustomer").value = price.customerPrice || "";
+            document.getElementById("prDealer").value = price.dealerPrice || "";
+            document.getElementById("prOffer").value = price.offerPrice || "";
+            document.getElementById("prUnit").value = price.unit || "sq.ft";
+            document.getElementById("priceModal").classList.add("active");
+
+            // Override submit to update instead of create
+            const form = document.getElementById("priceForm");
+            form.onsubmit = async function(e) {
+                e.preventDefault();
+                try {
+                    await updateDoc(doc(db, "prices", priceId), {
+                        product: document.getElementById("prProduct").value,
+                        variant: document.getElementById("prVariant").value,
+                        customerPrice: parseFloat(document.getElementById("prCustomer").value) || 0,
+                        dealerPrice: parseFloat(document.getElementById("prDealer").value) || 0,
+                        offerPrice: parseFloat(document.getElementById("prOffer").value) || null,
+                        unit: document.getElementById("prUnit").value || "sq.ft",
+                        updatedAt: serverTimestamp()
+                    });
+                    closeModal("priceModal");
+                    await loadAllData();
+                    showSuccess("Price updated successfully!");
+                } catch (error) {
+                    showError("Failed to update price: " + error.message);
+                }
+            };
+        };
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        window.showSection = function(section) {
+            // Hide all sections
+            document.querySelectorAll('.container[id^="section-"]').forEach(el => el.classList.add('hidden'));
+            // Show selected
+            const target = document.getElementById('section-' + section);
+            if (target) target.classList.remove('hidden');
+            // Update nav
+            document.querySelectorAll('.sidebar .nav-item').forEach(el => el.classList.remove('active'));
+            const navItem = document.querySelector(`.sidebar .nav-item[data-section="${section}"]`);
+            if (navItem) navItem.classList.add('active');
+        };
+
+        // ============================================================
+        // REFRESH & LOGOUT
+        // ============================================================
+        window.refreshData = function() {
+            loadAllData();
+        };
+
+        window.logout = async function() {
+            if (!confirm("Are you sure you want to logout?")) return;
+            try {
+                await signOut(auth);
+                window.location.href = "login.html";
+            } catch (error) {
+                showError(error.message);
+            }
+        };
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function getStatusClass(status) {
+            const s = String(status || "").toUpperCase();
+            if (s.includes("NEW") || s.includes("ENQUIRY")) return "new";
+            if (s.includes("CONTACT") || s.includes("CONTACTED")) return "contact";
+            if (s.includes("SCHEDULE") || s.includes("CONFIRMED")) return "scheduled";
+            if (s.includes("DONE") || s.includes("COMPLETED") || s.includes("CONVERTED") || s.includes("PAID")) return "paid";
+            if (s.includes("LOST") || s.includes("REJECTED") || s.includes("CANCELLED")) return "lost";
+            if (s.includes("PENDING") || s.includes("DRAFT")) return "pending";
+            if (s.includes("PRODUCTION") || s.includes("READY") || s.includes("INSTALLATION")) return "contact";
+            return "default";
+        }
+
+        function formatDate(value) {
+            if (!value) return "—";
+            try {
+                if (value.toDate) {
+                    return value.toDate().toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+                }
+                const d = new Date(value);
+                if (isNaN(d.getTime())) return "—";
+                return d.toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+            } catch {
+                return "—";
+            }
+        }
+
+        function safe(value) {
+            if (value === null || value === undefined) return "—";
+            const str = String(value);
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g,
+                "&#039;");
+        }
+
+        function showError(message) {
+            const box = document.getElementById("errorBox");
+            if (!message) {
+                box.style.display = "none";
+                box.textContent = "";
+                box.style.background = "#fee2e2";
+                box.style.color = "#991b1b";
+                return;
+            }
+            box.style.display = "block";
+            box.textContent = "❌ " + message;
+            box.style.background = "#fee2e2";
+            box.style.color = "#991b1b";
+        }
+
+        function showSuccess(message) {
+            const box = document.getElementById("errorBox");
+            box.style.display = "block";
+            box.textContent = "✅ " + message;
+            box.style.background = "#d1fae5";
+            box.style.color = "#065f46";
+            setTimeout(() => {
+                box.style.display = "none";
+            }, 5000);
+        }
+
+        // ============================================================
+        // AUTO-REFRESH
+        // ============================================================
+        setInterval(() => {
+            if (!state.isLoading) {
+                console.log("🔄 Auto-refreshing CRM data...");
+                loadAllData();
+            }
+        }, 60000);
+
+        console.log("✅ Admin CRM loaded successfully!");
+    </script>
 
 </body>
-  </html>
+</html>
