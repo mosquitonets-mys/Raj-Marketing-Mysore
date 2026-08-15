@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Dealer Payments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f0ece6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8e0d8;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8e0d8;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8e0d8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #f97316;
+        }
+        .fixed-footer .nav-item.active {
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.08);
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8e0d8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #f97316;
+        }
+        .payment-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0ece6;
+        }
+        .payment-item:last-child {
+            border-bottom: none;
+        }
+        .payment-item .id {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+        .payment-item .detail {
+            font-size: 12px;
+            color: #6b6b6b;
+        }
+        .payment-item .amount {
+            font-weight: 700;
+            color: #059669;
+        }
+        .error-box {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 14px;
+        }
+        .loading-text {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a4a4a;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e8e0d8;
+            border-radius: 12px;
+            font-size: 13px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            background: #faf8f6;
+            transition: 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .btn-primary {
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
+            transition: 0.2s;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 24px rgba(249, 115, 22, 0.35);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #f5f0eb;
+            color: #1a1a1a;
+            border: 1px solid #e8e0d8;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #e8e0d8;
+        }
+        .status-badge {
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-verified {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .status-rejected {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        @media (max-width: 400px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="dealer-dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile" onclick="window.location.href='dealer-profile.html'"></i>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <h2 style="font-size:20px; font-weight:800; color:#1a1a1a; margin-bottom:4px;">💰 My Payments</h2>
+        <p style="font-size:13px; color:#6b6b6b; margin-bottom:12px;">Track all your payment transactions</p>
+
+        <div id="errorBox" class="error-box"></div>
+
+        <!-- Record Payment Form -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-plus"></i> Record Payment</div>
+            <form id="paymentForm" onsubmit="recordPayment(event)">
+                <div class="form-group">
+                    <label>Order *</label>
+                    <select id="payOrder" required>
+                        <option value="">Select Order</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Customer</label>
+                    <input type="text" id="payCustomer" placeholder="Customer name" />
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Amount (₹) *</label>
+                        <input type="number" id="payAmount" required placeholder="0" />
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method *</label>
+                        <select id="payMethod" required>
+                            <option value="Cash">Cash</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Card">Card</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Transaction Reference</label>
+                    <input type="text" id="payReference" placeholder="Optional reference" />
+                </div>
+                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Record Payment</button>
+            </form>
+        </div>
+
+        <!-- Payment List -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-list"></i> Payment History</div>
+            <div id="paymentList">
+                <div class="loading-text">Loading payments...</div>
+            </div>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Dealer Payments
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="dealer-prices.html" class="nav-item"><i class="fas fa-tag"></i> Prices</a>
+        <a href="dealer-enquiries.html" class="nav-item"><i class="fas fa-phone"></i> Enquiries</a>
+        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="dealer-profile.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, getDocs, query, where, addDoc, updateDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let allPayments = [];
+        let dealerOrders = [];
+        let dealerId = null;
+        let dealerStatus = "Pending";
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "dealer-login.html";
+                return;
+            }
+            await loadDealerId(user.uid);
+            await loadOrders();
+            await loadPayments();
+        });
+
+        async function loadDealerId(uid) {
+            try {
+                const dealersRef = collection(db, "dealers");
+                const q = query(dealersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    dealerId = snapshot.docs[0].id;
+                    dealerStatus = snapshot.docs[0].data().status || "Pending";
+                    if (dealerStatus !== "Approved") {
+                        document.getElementById("paymentForm").style.display = "none";
+                        document.getElementById("errorBox").textContent = "⚠️ Only approved dealers can record payments.";
+                        document.getElementById("errorBox").style.display = "block";
+                    }
+                }
+            } catch (e) {
+                console.error("Dealer ID load error:", e);
+            }
+        }
+
+        async function loadOrders() {
+            if (dealerStatus !== "Approved" || !dealerId) return;
+            try {
+                const ordersRef = collection(db, "orders");
+                const q = query(ordersRef, where("dealerId", "==", dealerId));
+                const snapshot = await getDocs(q);
+                dealerOrders = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const balance = (data.totalAmount || data.total || 0) - (data.advanceAmount || data.advance || 0);
+                    if (balance > 0) {
+                        dealerOrders.push({ id: doc.id, ...data, balance });
+                    }
+                });
+                populateOrderSelect();
+            } catch (e) {
+                console.error("Order load error:", e);
+            }
+        }
+
+        function populateOrderSelect() {
+            const select = document.getElementById("payOrder");
+            select.innerHTML = '<option value="">Select Order</option>';
+            dealerOrders.forEach(o => {
+                select.innerHTML +=
+                    `<option value="${o.id}">${o.orderId || o.id} - ${o.customerName || "Unknown"} (Balance: ₹${o.balance.toLocaleString("en-IN")})</option>`;
+            });
+        }
+
+        async function loadPayments() {
+            if (dealerStatus !== "Approved" || !dealerId) return;
+            try {
+                const paymentsRef = collection(db, "payments");
+                const q = query(paymentsRef, where("dealerId", "==", dealerId));
+                const snapshot = await getDocs(q);
+                allPayments = [];
+                snapshot.forEach(doc => {
+                    allPayments.push({ id: doc.id, ...doc.data() });
+                });
+                renderPayments(allPayments);
+            } catch (error) {
+                console.error("❌ Payment load error:", error);
+                document.getElementById("paymentList").innerHTML = `
+                    <div style="text-align:center; padding:20px; color:#6b6b6b;">
+                        <i class="fas fa-exclamation-circle" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                        Unable to load payments.
+                    </div>
+                `;
+            }
+        }
+
+        function renderPayments(list) {
+            const container = document.getElementById("paymentList");
+            if (!list.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px; color:#6b6b6b;">
+                        <i class="fas fa-credit-card" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                        No payments recorded.
+                    </div>
+                `;
+                return;
+            }
+            const sorted = [...list].reverse().slice(0, 30);
+            container.innerHTML = sorted.map(p => `
+                <div class="payment-item">
+                    <div class="id">${p.paymentId || p.id} 
+                        <span style="font-size:11px; color:#6b6b6b; font-weight:400;">${p.paymentMethod || "—"}</span>
+                        <span class="status-badge status-${p.verified ? 'verified' : 'pending'}">${p.verified ? '✅ Verified' : '⏳ Pending'}</span>
+                    </div>
+                    <div class="detail">${p.customerName || "—"} · Order: ${p.orderNumber || p.orderId || "—"}</div>
+                    <div class="detail">Amount: <span class="amount">₹${(p.amount || 0).toLocaleString("en-IN")}</span></div>
+                    <div class="detail" style="font-size:11px; color:#999;">${p.transactionReference ? "Ref: " + p.transactionReference : ""} · ${formatDate(p.paymentDate || p.createdAt)}</div>
+                </div>
+            `).join("");
+        }
+
+        window.recordPayment = async function(e) {
+            e.preventDefault();
+            const orderId = document.getElementById("payOrder").value;
+            const amount = parseFloat(document.getElementById("payAmount").value) || 0;
+            const method = document.getElementById("payMethod").value;
+            const ref = document.getElementById("payReference").value;
+
+            if (!orderId || amount <= 0) {
+                showError("Please select an order and enter a valid amount.");
+                return;
+            }
+
+            const order = dealerOrders.find(o => o.id === orderId);
+            if (!order) {
+                showError("Order not found.");
+                return;
+            }
+
+            if (amount > order.balance) {
+                showError(`Amount exceeds balance. Current balance: ₹${order.balance.toLocaleString("en-IN")}`);
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "payments"), {
+                    paymentId: "PAY-" + Date.now().toString().slice(-8),
+                    dealerId,
+                    orderId,
+                    orderNumber: order.orderId || order.id,
+                    customerName: order.customerName || "Unknown",
+                    amount,
+                    paymentMethod: method,
+                    transactionReference: ref,
+                    verified: false,
+                    paymentDate: serverTimestamp(),
+                    createdAt: serverTimestamp()
+                });
+
+                // Update order advance
+                const newAdvance = (order.advanceAmount || order.advance || 0) + amount;
+                const total = order.totalAmount || order.total || 0;
+                const paymentStatus = newAdvance >= total ? "PAID" : "PARTIAL";
+                await updateDoc(doc(db, "orders", orderId), {
+                    advanceAmount: newAdvance,
+                    balanceAmount: Math.max(total - newAdvance, 0),
+                    paymentStatus,
+                    updatedAt: serverTimestamp()
+                });
+
+                document.getElementById("paymentForm").reset();
+                await loadOrders();
+                await loadPayments();
+                showSuccess("✅ Payment recorded successfully! Awaiting admin verification.");
+            } catch (error) {
+                showError("Failed to record payment: " + error.message);
+            }
+        };
+
+ 
