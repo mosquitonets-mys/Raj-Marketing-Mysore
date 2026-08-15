@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Invoice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8ecf0;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8ecf0;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8ecf0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #0ea5e9;
+        }
+        .fixed-footer .nav-item.active {
+            color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.08);
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8ecf0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #0ea5e9;
+        }
+        .invoice-header {
+            text-align: center;
+            padding: 6px 0 10px 0;
+            border-bottom: 2px solid #e8ecf0;
+        }
+        .invoice-header .company {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+        .invoice-header .detail {
+            font-size: 11px;
+            color: #6b6b7b;
+        }
+        .invoice-header .detail a {
+            color: #0ea5e9;
+            text-decoration: none;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 12px;
+            border-bottom: 1px solid #f0ece6;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-row .label {
+            color: #6b6b7b;
+        }
+        .detail-row .value {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+        .detail-row .value.total {
+            font-size: 20px;
+            color: #0ea5e9;
+        }
+        .item-row {
+            padding: 6px 0;
+            border-bottom: 1px solid #f0ece6;
+            font-size: 12px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4px;
+        }
+        .item-row.header {
+            font-weight: 700;
+            color: #4a4a5a;
+            border-bottom: 2px solid #e8ecf0;
+        }
+        .item-row:last-child {
+            border-bottom: none;
+        }
+        .status-badge {
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-paid { background: #d1fae5; color: #059669; }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-partial { background: #dbeafe; color: #1d4ed8; }
+        .btn-primary {
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+        }
+        .btn-secondary {
+            background: #f5f0eb;
+            color: #1a1a1a;
+            border: 1px solid #e8ecf0;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+        }
+        .btn-secondary:hover {
+            background: #e8ecf0;
+        }
+        .btn-whatsapp {
+            background: #25D366;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            transition: 0.2s;
+        }
+        .btn-whatsapp:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+        }
+        .action-grid {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .action-grid .btn-primary,
+        .action-grid .btn-secondary,
+        .action-grid .btn-whatsapp {
+            flex: 1;
+            min-width: 100px;
+        }
+        .loading-text {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+        .terms-text {
+            font-size: 9px;
+            color: #6b6b7b;
+            text-align: center;
+            padding: 8px 0;
+            border-top: 1px solid #e8ecf0;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+        .gst-breakdown {
+            font-size: 11px;
+            color: #6b6b7b;
+            text-align: right;
+            padding: 2px 0;
+        }
+        @media print {
+            body { background: #fff; padding: 0; }
+            .fixed-header, .fixed-footer, .action-grid { display: none !important; }
+            .app-container { box-shadow: none; border: none; padding: 10px; }
+            .card { box-shadow: none; border: 1px solid #ddd; }
+        }
+        @media (max-width: 400px) {
+            .item-row { grid-template-columns: 1.5fr 1fr 1fr; font-size: 11px; }
+            .action-grid .btn-primary,
+            .action-grid .btn-secondary,
+            .action-grid .btn-whatsapp { min-width: 80px; font-size: 11px; padding: 8px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile"></i>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div id="invoiceContent">
+            <div class="loading-text">Loading invoice...</div>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Invoice
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
+        <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('id');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "customer-login.html";
+                return;
+            }
+            if (orderId) {
+                await loadInvoice(orderId);
+            } else {
+                document.getElementById("invoiceContent").innerHTML = `
+                    <div class="card" style="text-align:center; padding:30px 20px;">
+                        <i class="fas fa-file-invoice" style="font-size:48px; color:#6b6b7b; display:block; margin-bottom:12px;"></i>
+                        <h3 style="font-size:16px; font-weight:700; color:#1a1a2e;">No Order Selected</h3>
+                        <p style="color:#6b6b7b; font-size:13px;">Please select an order to view invoice.</p>
+                        <a href="customer-dashboard.html" class="btn-secondary" style="margin-top:12px; display:inline-block; width:auto;">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </a>
+                    </div>
+                `;
+            }
+        });
+
+        async function loadInvoice(id) {
+            try {
+                const orderRef = doc(db, "orders", id);
+                const orderSnap = await getDoc(orderRef);
+
+                if (!orderSnap.exists()) {
+                    document.getElementById("invoiceContent").innerHTML = `
+                        <div class="card" style="text-align:center; padding:30px 20px;">
+                            <i class="fas fa-exclamation-circle" style="font-size:48px; color:#dc2626; display:block; margin-bottom:12px;"></i>
+                            <h3 style="font-size:16px; font-weight:700; color:#1a1a2e;">Order Not Found</h3>
+                            <p style="color:#6b6b7b; font-size:13px;">The order you're looking for doesn't exist.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const order = orderSnap.data();
+                const total = order.totalAmount || order.total || 0;
+                const advance = order.advanceAmount || order.advance || 0;
+                const balance = Math.max(total - advance, 0);
+                const gst = total * 0.18;
+                const taxable = total - gst;
+                const invoiceNo = "INV-" + Date.now().toString().slice(-8);
+                const date = new Date().toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+
+                const paymentStatus = balance === 0 ? "PAID" : advance > 0 ? "PARTIAL" : "PENDING";
+                const statusClass = paymentStatus.toLowerCase();
+
+                document.getElementById("invoiceContent").innerHTML = `
+                    <div class="card" style="padding:16px;">
+                        <!-- Invoice Header -->
+                        <div class="invoice-header">
+                            <div class="company">RAJ MARKETING MYSORE</div>
+                            <div class="detail">Mosquito Nets & Window Screens · Est. 2016</div>
+                            <div class="detail">#45, Devraj Urs Road, Mysore - 570001</div>
+                            <div class="detail">📞 <a href="tel:9483037385">9483037385</a> · 📧 <a href="mailto:info@rajmarketing.in">info@rajmarketing.in</a></div>
+                            <div style="margin-top:8px; font-size:13px; font-weight:700; color:#1a1a2e;">
+                                Tax Invoice
+                            </div>
+                            <div style="font-size:11px; color:#6b6b7b;">
+                                Invoice No: ${invoiceNo} · Date: ${date}
+                            </div>
+                            <div style="margin-top:4px;">
+                                <span class="status-badge status-${statusClass}">${paymentStatus}</span>
+                            </div>
+                        </div>
+
+                        <!-- Customer Details -->
+                        <div style="margin:12px 0 8px 0; font-weight:600; font-size:13px; color:#1a1a2e;">Bill To:</div>
+                        <div class="detail-row"><span class="label">Customer</span><span class="value">${order.customerName || "—"}</span></div>
+                        <div class="detail-row"><span class="label">Mobile</span><span class="value">${order.mobile || "—"}</span></div>
+                        <div class="detail-row"><span class="label">Email</span><span class="value">${order.email || "—"}</span></div>
+                        <div class="detail-row"><span class="label">Address</span><span class="value">${order.address || "—"}</span></div>
+                        <div class="detail-row"><span class="label">Order ID</span><span class="value">${order.orderId || order.id || "—"}</span></div>
+
+                        <!-- Items -->
+                        <div style="margin:12px 0 4px 0; font-weight:600; font-size:13px; color:#1a1a2e;">Items</div>
+                        <div class="item-row header">
+                            <span>Description</span>
+                            <span style="text-align:right;">Qty</span>
+                            <span style="text-align:right;">Amount</span>
+                        </div>
+                        <div class="item-row">
+                            <span>${order.product || "—"} ${order.variant ? '(' + order.variant + ')' : ''}</span>
+                            <span style="text-align:right;">${order.sqft || 0} sq.ft</span>
+                            <span style="text-align:right;">₹${(order.sqft * order.rate || 0).toLocaleString("en-IN")}</span>
+                        </div>
+
+                        <!-- Totals -->
+                        <div style="margin-top:10px; border-top:2px solid #e8ecf0; padding-top:8px;">
+                            <div class="detail-row"><span class="label">Subtotal</span><span class="value">₹${total.toLocaleString("en-IN")}</span></div>
+                            <div class="gst-breakdown">CGST 9%: ₹${(total * 0.09).toFixed(2)} · SGST 9%: ₹${(total * 0.09).toFixed(2)}</div>
+                            <div class="detail-row"><span class="label">GST (18%)</span><span class="value">₹${gst.toFixed(2)}</span></div>
+                            <div class="detail-row"><span class="label">Taxable Amount</span><span class="value">₹${taxable.toFixed(2)}</span></div>
+                            <div class="detail-row" style="border-bottom: none;"><span class="label">Total</span><span class="value total">₹${total.toFixed(2)}</span></div>
+                        </div>
+
+                        <!-- Payment Details -->
+                        <div style="margin-top:8px; border-top:1px solid #e8ecf0; padding-top:8px;">
+                            <div class="detail-row"><span class="label">Advance Paid</span><span class="value">₹${advance.toLocaleString("en-IN")}</span></div>
+                            <div class="detail-row"><span class="label">Balance Due</span><span class="value" style="color:${balance > 0 ? '#dc2626' : '#059669'};">₹${balance.toLocaleString("en-IN")}</span></div>
+                            <div class="detail-row"><span class="label">Payment Status</span><span class="value"><span class="status-badge status-${statusClass}">${paymentStatus}</span></span></div>
+                        </div>
+
+                        <!-- Terms -->
+                        <div class="terms-text">
+                            <strong>Terms &amp; Conditions:</strong><br />
+                            60% advance required · Balance on completion · Warranty as applicable<br />
+                            Site visit free within Mysore · ₹15/km outside Mysore<br />
+                            Thank you for choosing Raj Marketing Mysore!
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-actions"></i> Actions</div>
+                        <div class="action-grid">
+                            <button class="btn-primary" onclick="window.print()">
+                                <i class="fas fa-prin
