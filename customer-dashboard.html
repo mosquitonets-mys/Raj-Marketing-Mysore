@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Customer Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8ecf0;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8ecf0;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8ecf0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #0ea5e9;
+        }
+        .fixed-footer .nav-item.active {
+            color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.08);
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8ecf0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #0ea5e9;
+        }
+        .welcome-section {
+            text-align: center;
+            padding: 6px 0 10px 0;
+        }
+        .welcome-section .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 28px;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+            margin-bottom: 8px;
+        }
+        .welcome-section h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+        .welcome-section p {
+            font-size: 13px;
+            color: #6b6b7b;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 4px 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 12px 6px;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 1px solid #e8ecf0;
+        }
+        .stat-item .number {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0ea5e9;
+        }
+        .stat-item .label {
+            font-size: 9px;
+            color: #6b6b7b;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 6px 0;
+        }
+        .nav-grid .nav-btn {
+            background: #f8fafc;
+            border: 1px solid #e8ecf0;
+            border-radius: 16px;
+            padding: 12px 6px;
+            text-align: center;
+            text-decoration: none;
+            color: #1a1a2e;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .nav-grid .nav-btn:hover {
+            background: #f0f7ff;
+            border-color: #0ea5e9;
+            transform: translateY(-2px);
+        }
+        .nav-grid .nav-btn i {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 2px;
+            color: #0ea5e9;
+        }
+        .nav-grid .nav-btn span {
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .order-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0ece6;
+        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        .order-item .id {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+        .order-item .detail {
+            font-size: 12px;
+            color: #6b6b7b;
+        }
+        .order-item .status-badge {
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-new { background: #fff7ed; color: #ea580c; }
+        .status-confirmed { background: #dbeafe; color: #1d4ed8; }
+        .status-production { background: #dbeafe; color: #1d4ed8; }
+        .status-ready { background: #d1fae5; color: #059669; }
+        .status-completed { background: #d1fae5; color: #059669; }
+        .status-cancelled { background: #fee2e2; color: #dc2626; }
+        .btn-logout {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .btn-logout:hover {
+            background: #dc2626;
+        }
+        @media (max-width: 400px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .nav-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile"></i>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div class="welcome-section">
+            <div class="avatar"><i class="fas fa-user"></i></div>
+            <h1 id="customerName">Welcome, Customer</h1>
+            <p id="customerEmail">customer@email.com</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="number" id="statOrders">0</div>
+                <div class="label">Orders</div>
+            </div>
+            <div class="stat-item">
+                <div class="number" id="statEstimates">0</div>
+                <div class="label">Estimates</div>
+            </div>
+            <div class="stat-item">
+                <div class="number" id="statAppointments">0</div>
+                <div class="label">Appointments</div>
+            </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="nav-grid">
+            <a href="estimate.html" class="nav-btn">
+                <i class="fas fa-file-invoice"></i>
+                <span>New Estimate</span>
+            </a>
+            <a href="appointment.html" class="nav-btn">
+                <i class="fas fa-calendar-check"></i>
+                <span>Book Appointment</span>
+            </a>
+            <a href="order-details.html" class="nav-btn">
+                <i class="fas fa-box"></i>
+                <span>My Orders</span>
+            </a>
+        </div>
+
+        
+
+        <!-- Recent Orders -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-box"></i> Recent Orders</div>
+            <div id="orderList">
+                <div style="text-align:center; padding:16px; color:#6b6b7b; font-size:13px;">Loading orders...</div>
+            </div>
+        </div>
+
+        <!-- Logout -->
+        <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Customer Portal
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
+        <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let customerData = null;
+        let customerId = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "customer-login.html";
+                return;
+            }
+            await loadCustomerData(user.uid);
+            await loadCustomerOrders();
+        });
+
+        async function loadCustomerData(uid) {
+            try {
+                const customersRef = collection(db, "customers");
+                const q = query(customersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    const doc = snapshot.docs[0];
+                    customerData = { id: doc.id, ...doc.data() };
+                    customerId = customerData.id;
+                    document.getElementById("customerName").textContent = `Welcome, ${customerData.name || "Customer"}`;
+                    document.getElementById("customerEmail").textContent = customerData.email || "";
+                }
+            } catch (error) {
+                console.error("Customer load error:", error);
+            }
+        }
+
+        async function loadCustomerOrders() {
+            if (!customerId) return;
+            try {
+                const ordersRef = collection(db, "orders");
+                const q = query(ordersRef, where("customerId", "==", customerId));
+                const snapshot = await getDocs(q);
+                const orders = [];
+                snapshot.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
+
+                document.getElementById("statOrders").textContent = orders.length;
+
+                const container = document.getElementById("orderList");
+                if (!orders.length) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding:16px; color:#6b6b7b; font-size:13px;">
+                            <i class="fas fa-inbox" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                            No orders found.
+                        </div>
+                    `;
+                    return;
+                }
+
+                const sorted = orders.reverse().slice(0, 5);
+                container.innerHTML = sorted.map(o => {
+                    const status = o.orderStatus || o.status || "NEW";
+                    const statusClass = status.toLowerCase().replace(/ /g, '');
+                    return `
+                        <div class="order-item">
+                            <div class="id">${o.orderId || o.id} 
+                                <span class="status-badge status-${statusClass}">${status}</span>
+                            </div>
+                            <div class="detail">${o.product || "—"} · ${o.sqft || 0} sq.ft</div>
+                            <div class="detail" style="font-weight:600; color:#1a1a1a;">
+                                ₹${(o.totalAmount || o.total || 0).toLocaleString("en-IN")}
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+
+            } catch (error) {
+                console.error("Orders load error:", error);
+            }
+        }
+
+        window.logout = async function() {
+            if (!confirm("Are you sure you want to logout?")) return;
+            try {
+                await signOut(auth);
+                window.location.href = "index.html";
+            } catch (error) {
+                alert("Logout failed: " + error.message);
+            }
+        };
+    </script>
+
+</body>
+</html>
+```
+  
