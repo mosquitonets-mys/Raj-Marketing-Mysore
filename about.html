@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · About Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f5f7fb;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8e0d8;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8e0d8;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8e0d8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #0ea5e9;
+        }
+        .fixed-footer .nav-item.active {
+            color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.08);
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8e0d8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #0ea5e9;
+        }
+        .hero-about {
+            text-align: center;
+            padding: 10px 0 6px 0;
+        }
+        .hero-about .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 36px;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+            margin-bottom: 12px;
+        }
+        .hero-about h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+        .hero-about p {
+            font-size: 14px;
+            color: #6b6b7b;
+            margin-top: 4px;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 8px 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 12px 6px;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 1px solid #e8ecf0;
+        }
+        .stat-item .number {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0ea5e9;
+        }
+        .stat-item .label {
+            font-size: 10px;
+            color: #6b6b7b;
+            font-weight: 500;
+        }
+        .value-list {
+            list-style: none;
+            padding: 0;
+        }
+        .value-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0ece6;
+            font-size: 13px;
+            color: #4a4a5a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .value-list li:last-child {
+            border-bottom: none;
+        }
+        .value-list li i {
+            color: #0ea5e9;
+            font-size: 18px;
+            width: 28px;
+            text-align: center;
+        }
+        .btn-primary {
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+            transition: 0.2s;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.35);
+        }
+        @media (max-width: 400px) {
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile"></i>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div class="hero-about">
+            <div class="icon-circle"><i class="fas fa-shield-alt"></i></div>
+            <h1>About Raj Marketing</h1>
+            <p>Your trusted partner for mosquito net solutions since 2016</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stat-grid">
+            <div class="stat-item">
+                <div class="number">2016</div>
+                <div class="label">Established</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">500+</div>
+                <div class="label">Happy Customers</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">5</div>
+                <div class="label">Product Categories</div>
+            </div>
+        </div>
+
+        <!-- Story -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-story"></i> Our Story</div>
+            <p style="font-size:13px; color:#4a4a5a; line-height:1.8;">
+                Raj Marketing Mysore was established in 2016 with a mission to provide high-quality mosquito protection solutions for homes and businesses. 
+                Starting from a small workshop in Mysore, we have grown into a trusted name in the mosquito net industry.
+            </p>
+            <p style="font-size:13px; color:#4a4a5a; line-height:1.8; margin-top:10px;">
+                We specialize in Velcro nets, Aluminium frame systems, Pleated nets, and custom window screens. 
+                Our commitment to quality, craftsmanship, and customer satisfaction has made us the preferred choice for families and businesses across Karnataka.
+            </p>
+        </div>
+
+        <!-- Mission & Vision -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-bullseye"></i> Mission &amp; Vision</div>
+            <div style="margin-bottom:12px;">
+                <h4 style="font-size:14px; font-weight:700; color:#0ea5e9;">Our Mission</h4>
+                <p style="font-size:13px; color:#4a4a5a; line-height:1.7;">
+                    To provide innovative, durable, and affordable mosquito protection solutions that enhance the quality of life for every family.
+                </p>
+            </div>
+            <div>
+                <h4 style="font-size:14px; font-weight:700; color:#0ea5e9;">Our Vision</h4>
+                <p style="font-size:13px; color:#4a4a5a; line-height:1.7;">
+                    To become the most trusted mosquito net brand in India, known for quality, innovation, and exceptional customer service.
+                </p>
+            </div>
+        </div>
+
+        <!-- Core Values -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-gem"></i> Core Values</div>
+            <ul class="value-list">
+                <li><i class="fas fa-check-circle"></i> Quality craftsmanship in every product</li>
+                <li><i class="fas fa-handshake"></i> Honest and transparent business practices</li>
+                <li><i class="fas fa-user-check"></i> Customer-first approach</li>
+                <li><i class="fas fa-lightbulb"></i> Innovation and continuous improvement</li>
+                <li><i class="fas fa-leaf"></i> Environmentally responsible manufacturing</li>
+            </ul>
+        </div>
+
+        <!-- CTA -->
+        <a href="contact.html" class="btn-primary">
+            <i class="fas fa-envelope"></i> Get in Touch
+        </a>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Est. 2016
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
+    </footer>
+
+</body>
+</html>
