@@ -335,4 +335,209 @@
             <div style="display:flex; align-items:center; gap:12px;">
                 <i class="fab fa-whatsapp" style="font-size:32px; color:#25D366;"></i>
                 <div style="flex:1;">
-                    <div style="
+                                        <div style="font-weight:700; font-size:14px; color:#1a1a1a;">Quick Support</div>
+                    <div style="font-size:12px; color:#6b6b6b;">Connect with us on WhatsApp</div>
+                </div>
+                <a href="https://wa.me/919483037385?text=Hi%20Raj%20Marketing%2C%20I%20need%20support%20as%20a%20dealer." target="_blank" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> Chat Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Support Form -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-plus"></i> Create Support Ticket</div>
+            <form id="supportForm" onsubmit="createTicket(event)">
+                <div class="form-group">
+                    <label>Subject *</label>
+                    <input type="text" id="ticketSubject" placeholder="Brief subject" required />
+                </div>
+                <div class="form-group">
+                    <label>Message *</label>
+                    <textarea id="ticketMessage" rows="3" placeholder="Describe your issue..." required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Order ID (optional)</label>
+                        <input type="text" id="ticketOrder" placeholder="e.g. ORD-XXXX" />
+                    </div>
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <select id="ticketPriority">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Submit Ticket</button>
+            </form>
+        </div>
+
+        <!-- Ticket History -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-list"></i> My Tickets</div>
+            <div id="ticketList">
+                <div class="loading-text" style="text-align:center; padding:20px; color:#777;">Loading tickets...</div>
+            </div>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Dealer Support
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="dealer-prices.html" class="nav-item"><i class="fas fa-tag"></i> Prices</a>
+        <a href="dealer-enquiries.html" class="nav-item"><i class="fas fa-phone"></i> Enquiries</a>
+        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="dealer-profile.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, getDocs, query, where, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let dealerId = null;
+        let tickets = [];
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "dealer-login.html";
+                return;
+            }
+            await loadDealerId(user.uid);
+            await loadTickets();
+        });
+
+        async function loadDealerId(uid) {
+            try {
+                const dealersRef = collection(db, "dealers");
+                const q = query(dealersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    dealerId = snapshot.docs[0].id;
+                }
+            } catch (e) {
+                console.error("Dealer ID load error:", e);
+            }
+        }
+
+        async function loadTickets() {
+            if (!dealerId) return;
+            try {
+                const ticketsRef = collection(db, "supportTickets");
+                const q = query(ticketsRef, where("dealerId", "==", dealerId));
+                const snapshot = await getDocs(q);
+                tickets = [];
+                snapshot.forEach(doc => {
+                    tickets.push({ id: doc.id, ...doc.data() });
+                });
+                renderTickets(tickets);
+            } catch (error) {
+                console.error("Ticket load error:", error);
+            }
+        }
+
+        function renderTickets(list) {
+            const container = document.getElementById("ticketList");
+            if (!list.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px; color:#6b6b6b;">
+                        <i class="fas fa-ticket-alt" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                        No support tickets found.
+                    </div>
+                `;
+                return;
+            }
+            const sorted = [...list].reverse();
+            container.innerHTML = sorted.map(t => {
+                const status = t.status || "OPEN";
+                const statusClass = status.toLowerCase().replace(/ /g, '-');
+                return `
+                    <div class="ticket-item">
+                        <div class="id">#${t.ticketId || t.id} 
+                            <span class="status-badge status-${statusClass}">${status}</span>
+                            <span style="font-size:10px; color:#6b6b6b; font-weight:400;">${t.priority || "Medium"}</span>
+                        </div>
+                        <div class="subject">${t.subject || "—"}</div>
+                        <div class="detail">${t.message || "—"}</div>
+                        <div class="detail" style="font-size:11px; color:#999; margin-top:2px;">
+                            ${t.orderId ? "Order: " + t.orderId : ""} · ${formatDate(t.createdAt)}
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        window.createTicket = async function(e) {
+            e.preventDefault();
+            const subject = document.getElementById("ticketSubject").value.trim();
+            const message = document.getElementById("ticketMessage").value.trim();
+            const orderId = document.getElementById("ticketOrder").value.trim();
+            const priority = document.getElementById("ticketPriority").value;
+
+            if (!subject || !message) {
+                showError("Please fill in subject and message.");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "supportTickets"), {
+                    ticketId: "TKT-" + Date.now().toString().slice(-8),
+                    dealerId,
+                    subject,
+                    message,
+                    orderId: orderId || "",
+                    priority,
+                    status: "OPEN",
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                });
+
+                document.getElementById("supportForm").reset();
+                await loadTickets();
+                showSuccess("✅ Support ticket created successfully!");
+            } catch (error) {
+                showError("Failed to create ticket: " + error.message);
+            }
+        };
+
+        function showError(msg) {
+            const box = document.getElementById("errorBox");
+            box.textContent = "❌ " + msg;
+            box.style.display = "block";
+            box.style.background = "#fee2e2";
+            box.style.color = "#991b1b";
+            document.getElementById("successBox").style.display = "none";
+        }
+
+        function showSuccess(msg) {
+            const box = document.getElementById("successBox");
+            box.textContent = "✅ " + msg;
+            box.style.display = "block";
+            box.style.background = "#d1fae5";
+            box.style.color = "#065f46";
+            document.getElementById("errorBox").style.display = "none";
+            setTimeout(() => { box.style.display = "none"; }, 4000);
+        }
+
+        function formatDate(value) {
+            if (!value) return "—";
+            try {
+                if (value.toDate) {
+                    return value.toDate().toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+                }
+                const d = new Date(value);
+                if (isNaN(d.getTime())) return "—";
+                return d.toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+            } catch {
+                return "—";
+            }
+        }
+    </script>
+
+</body>
+    </html>
