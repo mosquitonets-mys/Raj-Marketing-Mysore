@@ -78,7 +78,6 @@
             background: #dc2626;
         }
 
-        /* Sidebar + Main Layout */
         .app-layout {
             display: flex;
             max-width: 1400px;
@@ -304,6 +303,18 @@
             background: #f3f4f6;
             color: #4b5563;
         }
+        .status-approved {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-rejected {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .status-suspended {
+            background: #fee2e2;
+            color: #dc2626;
+        }
 
         .loading {
             text-align: center;
@@ -369,6 +380,13 @@
         }
         .btn-sm-danger:hover {
             background: #dc2626;
+        }
+        .btn-sm-warning {
+            background: #f59e0b;
+            color: #fff;
+        }
+        .btn-sm-warning:hover {
+            background: #d97706;
         }
         .btn-sm-outline {
             background: transparent;
@@ -476,46 +494,6 @@
             background: #e8ecf0;
         }
 
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 24px;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #e8ecf0;
-        }
-        .timeline-item {
-            position: relative;
-            padding: 8px 0 8px 16px;
-            border-left: 2px solid transparent;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 12px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #f97316;
-            border: 2px solid #fff;
-            box-shadow: 0 0 0 2px #f97316;
-        }
-        .timeline-item .time {
-            font-size: 10px;
-            color: #999;
-        }
-        .timeline-item .content {
-            font-size: 13px;
-            color: #1a1a2e;
-        }
-
         .hidden {
             display: none !important;
         }
@@ -591,6 +569,9 @@
             <button class="btn-outline" onclick="refreshData()">
                 <i class="fas fa-sync-alt"></i> Refresh
             </button>
+            <a href="index.html" class="btn-outline" style="text-decoration:none;">
+                <i class="fas fa-home"></i> Home
+            </a>
             <button class="logout" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </button>
@@ -677,6 +658,7 @@
                     <div class="card"><div class="icon">💰</div><h2 id="dashSales">₹0</h2><p>Total Sales</p></div>
                     <div class="card"><div class="icon">💳</div><h2 id="dashPayments">₹0</h2><p>Payments Received</p></div>
                     <div class="card"><div class="icon">💵</div><h2 id="dashBalance">₹0</h2><p>Pending Balance</p></div>
+                   <div class="card"><div class="icon">🏢</div><h2 id="dashDealers">0</h2><p>Dealers</p></div>
                 </div>
 
                 <div class="section">
@@ -852,17 +834,27 @@
             <!-- ============================================================ -->
             <div id="section-dealers" class="container hidden">
                 <div class="welcome">
-                    <h1>🏢 Dealers</h1>
-                    <p>Manage dealer network</p>
+                    <h1>🏢 Dealer Management</h1>
+                    <p>Approve, suspend and manage dealer accounts</p>
                 </div>
                 <div class="section">
                     <div class="section-title">
                         <h2>All Dealers</h2>
                         <span class="badge" id="dealerBadge">0</span>
                     </div>
+                    <input id="dealerSearch" class="search" type="text" placeholder="Search by business, owner, mobile..." oninput="filterDealers()">
                     <div class="table-wrap">
                         <table>
-                            <thead><tr><th>Business</th><th>Owner</th><th>Mobile</th><th>City</th><th>Status</th><th>Actions</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Business</th>
+                                    <th>Owner</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
                             <tbody id="dealerTable"><tr><td colspan="6" class="loading">Loading dealers...</td></tr></tbody>
                         </table>
                     </div>
@@ -908,9 +900,9 @@
                         </table>
                     </div>
                 </div>
-                        </div>
-    
-       <!-- ============================================================ -->
+            </div>
+
+            <!-- ============================================================ -->
             <!-- OFFERS -->
             <!-- ============================================================ -->
             <div id="section-offers" class="container hidden">
@@ -930,9 +922,8 @@
                         </table>
                     </div>
                 </div>
-            </div>
-
-            <!-- ============================================================ -->
+                        </div>
+                 <!-- ============================================================ -->
             <!-- BUSINESS RULES -->
             <!-- ============================================================ -->
             <div id="section-rules" class="container hidden">
@@ -1062,8 +1053,9 @@
                 </div>
             </form>
         </div>
-                                                           </div>
-        <!-- Price Modal -->
+    </div>
+
+    <!-- Price Modal -->
     <div class="modal-overlay" id="priceModal">
         <div class="modal">
             <div class="modal-title">💰 Add/Edit Price</div>
@@ -1197,7 +1189,6 @@
                     state.enquiries = [];
                     enquirySnap.forEach(doc => state.enquiries.push({ id: doc.id, ...doc.data() }));
                 } catch (e) { state.enquiries = []; }
-
                 // Appointments
                 try {
                     const appointmentSnap = await getDocs(collection(db, "appointments"));
@@ -1315,6 +1306,7 @@
             document.getElementById("dashSales").textContent = '₹' + totalSales.toLocaleString("en-IN");
             document.getElementById("dashPayments").textContent = '₹' + totalPayments.toLocaleString("en-IN");
             document.getElementById("dashBalance").textContent = '₹' + pendingBalance.toLocaleString("en-IN");
+            document.getElementById("dashDealers").textContent = state.dealers.length;
 
             // Today's stats
             const today = new Date().toDateString();
@@ -1424,8 +1416,7 @@
                     </tr>
                 `;
             }).join("");
-        }
-
+    }.    
         function renderMeasurements(list) {
             const table = document.getElementById("measurementTable");
             if (!list.length) {
@@ -1481,6 +1472,8 @@
                 const total = Number(o.totalAmount || o.total || 0);
                 const advance = Number(o.advanceAmount || o.advance || 0);
                 const balance = Math.max(total - advance, 0);
+                const status = o.orderStatus || o.status || "NEW";
+                const prodStatus = o.productionStatus || "PENDING";
                 return `
                     <tr>
                         <td><strong>${safe(o.orderId || o.id || "—")}</strong></td>
@@ -1489,17 +1482,38 @@
                         <td>₹${total.toLocaleString("en-IN")}</td>
                         <td>₹${advance.toLocaleString("en-IN")}</td>
                         <td>₹${balance.toLocaleString("en-IN")}</td>
-                        <td><span class="status status-${getStatusClass(o.orderStatus || o.status)}">${safe(o.orderStatus || o.status || "NEW")}</span></td>
-                        <td><span class="status status-${getStatusClass(o.productionStatus)}">${safe(o.productionStatus || "PENDING")}</span></td>
+                        <td><span class="status status-${getOrderStatusClass(status)}">${safe(status)}</span></td>
+                        <td><span class="status status-${getProdStatusClass(prodStatus)}">${safe(prodStatus)}</span></td>
                         <td>
-                            <button class="btn-sm btn-sm-primary" onclick="updateOrderStatus('${o.id}','CONFIRMED')">✔</button>
-                            <button class="btn-sm btn-sm-success" onclick="updateProductionStatus('${o.id}','PRODUCTION')">🔧</button>
-                            <button class="btn-sm btn-sm-success" onclick="updateProductionStatus('${o.id}','READY')">✅</button>
-                            ${balance > 0 ? `<button class="btn-sm btn-sm-primary" onclick="openPaymentForOrder('${o.id}')">💰</button>` : ''}
+                            <button class="btn-sm btn-sm-primary" onclick="updateOrderStatus('${o.id}','CONFIRMED')" title="Confirm">✔</button>
+                            <button class="btn-sm btn-sm-warning" onclick="updateProductionStatus('${o.id}','PRODUCTION')" title="Production">🔧</button>
+                            <button class="btn-sm btn-sm-success" onclick="updateProductionStatus('${o.id}','READY')" title="Ready">✅</button>
+                            ${balance > 0 ? `<button class="btn-sm btn-sm-primary" onclick="openPaymentForOrder('${o.id}')" title="Payment">💰</button>` : ''}
+                            <button class="btn-sm btn-sm-danger" onclick="updateOrderStatus('${o.id}','CANCELLED')" title="Cancel">✖</button>
                         </td>
                     </tr>
                 `;
             }).join("");
+        }
+
+        function getOrderStatusClass(status) {
+            const s = String(status || "").toUpperCase();
+            if (s === "NEW") return "new";
+            if (s === "CONFIRMED") return "scheduled";
+            if (s === "ADVANCE RECEIVED") return "paid";
+            if (s === "CANCELLED") return "cancelled";
+            if (s === "COMPLETED") return "converted";
+            return "default";
+        }
+
+        function getProdStatusClass(status) {
+            const s = String(status || "").toUpperCase();
+            if (s === "PENDING") return "pending";
+            if (s === "PRODUCTION") return "contact";
+            if (s === "READY") return "scheduled";
+            if (s === "INSTALLATION") return "contact";
+            if (s === "COMPLETED") return "paid";
+            return "default";
         }
 
         function renderPayments(list) {
@@ -1518,9 +1532,7 @@
                     <td>₹${(p.amount || 0).toLocaleString("en-IN")}</td>
                     <td>${safe(p.paymentMethod || p.method || "—")}</td>
                     <td>${formatDate(p.paymentDate || p.createdAt)}</td>
-                    <td>
-                        ${p.transactionReference ? safe(p.transactionReference) : "—"}
-                    </td>
+                    <td>${p.transactionReference ? safe(p.transactionReference) : "—"}</td>
                 </tr>
             `).join("");
         }
@@ -1536,11 +1548,15 @@
                 <tr>
                     <td><strong>${safe(d.businessName || "—")}</strong></td>
                     <td>${safe(d.ownerName || "—")}</td>
-                    <td>${safe(d.phone || d.whatsapp || "—")}</td>
-                    <td>${safe(d.city || "—")}</td>
-                    <td><span class="status status-${getStatusClass(d.status)}">${safe(d.status || "Active")}</span></td>
+                    <td>${safe(d.mobile || d.phone || "—")}</td>
+                    <td>${safe(d.email || "—")}</td>
+                    <td><span class="status status-${getStatusClass(d.status)}">${safe(d.status || "Pending")}</span></td>
                     <td>
-                        ${d.phone ? `<a href="tel:${safe(d.phone)}" class="action-link">📞</a>` : ''}
+                        ${d.status === "Pending" ? `<button class="btn-sm btn-sm-success" onclick="updateDealerStatus('${d.id}','Approved')">✅ Approve</button>` : ''}
+                        ${d.status === "Approved" ? `<button class="btn-sm btn-sm-warning" onclick="updateDealerStatus('${d.id}','Suspended')">⏸️ Suspend</button>` : ''}
+                        ${d.status === "Suspended" ? `<button class="btn-sm btn-sm-success" onclick="updateDealerStatus('${d.id}','Approved')">▶️ Reactivate</button>` : ''}
+                        ${d.status !== "Rejected" ? `<button class="btn-sm btn-sm-danger" onclick="updateDealerStatus('${d.id}','Rejected')">✖ Reject</button>` : ''}
+                        ${d.mobile ? `<a href="tel:${safe(d.mobile)}" class="action-link">📞</a>` : ''}
                         ${d.whatsapp ? `<a href="https://wa.me/91${String(d.whatsapp).replace(/\D/g,'')}" target="_blank" class="action-link">💬</a>` : ''}
                     </td>
                 </tr>
@@ -1606,11 +1622,9 @@
                     </td>
                 </tr>
             `).join("");
-        }
-
-         // ============================================================
-        // UPDATE BADGES
-        // ============================================================
+    }
+           // ============================================================
+        // UPDATE BADGES        // ============================================================
         function updateBadges() {
             document.getElementById("customerBadge").textContent = state.customers.length;
             document.getElementById("enquiryBadge").textContent = state.enquiries.length;
@@ -1648,7 +1662,7 @@
             if (!search) { renderEnquiries(state.enquiries); return; }
             const filtered = state.enquiries.filter(e => {
                 const text = [e.customerName, e.name, e.mobile, e.phone, e.netType, e.product, e.message].join(" ")
-                .toLowerCase();
+                    .toLowerCase();
                 return text.includes(search);
             });
             renderEnquiries(filtered);
@@ -1658,11 +1672,22 @@
             const search = document.getElementById("orderSearch").value.toLowerCase().trim();
             if (!search) { renderOrders(state.orders); return; }
             const filtered = state.orders.filter(o => {
-                const text = [o.orderId, o.id, o.customerName, o.name, o.mobile, o.phone, o.product, o.status].join(" ")
-                    .toLowerCase();
+                const text = [o.orderId, o.id, o.customerName, o.name, o.mobile, o.phone, o.product, o.status, o
+                    .orderStatus
+                ].join(" ").toLowerCase();
                 return text.includes(search);
             });
             renderOrders(filtered);
+        };
+
+        window.filterDealers = function() {
+            const search = document.getElementById("dealerSearch").value.toLowerCase().trim();
+            if (!search) { renderDealers(state.dealers); return; }
+            const filtered = state.dealers.filter(d => {
+                const text = [d.businessName, d.ownerName, d.mobile, d.phone, d.email, d.city].join(" ").toLowerCase();
+                return text.includes(search);
+            });
+            renderDealers(filtered);
         };
 
         // ============================================================
@@ -1673,7 +1698,21 @@
             document.getElementById("measurementForm").reset();
             document.getElementById("mSqft").value = "";
             document.getElementById("measurementModal").classList.add("active");
+            // Auto-calc sqft
+            document.getElementById("mWidth").addEventListener("input", calcMeasurementSqft);
+            document.getElementById("mHeight").addEventListener("input", calcMeasurementSqft);
+            document.getElementById("mQty").addEventListener("input", calcMeasurementSqft);
         };
+
+        function calcMeasurementSqft() {
+            const w = parseFloat(document.getElementById("mWidth").value) || 0;
+            const h = parseFloat(document.getElementById("mHeight").value) || 0;
+            const qty = parseFloat(document.getElementById("mQty").value) || 1;
+            if (w > 0 && h > 0) {
+                const sqft = (w * h * qty) / 144;
+                document.getElementById("mSqft").value = sqft.toFixed(2);
+            }
+        }
 
         window.openOrderModal = function() {
             populateCustomerSelect("oCustomer");
@@ -1687,6 +1726,17 @@
             document.getElementById("oSqft").addEventListener("input", calcOrderTotals);
             document.getElementById("oRate").addEventListener("input", calcOrderTotals);
         };
+
+        function calcOrderTotals() {
+            const sqft = parseFloat(document.getElementById("oSqft").value) || 0;
+            const rate = parseFloat(document.getElementById("oRate").value) || 0;
+            const total = sqft * rate;
+            const advance = total * 0.6;
+            const balance = total * 0.4;
+            document.getElementById("oTotal").value = total.toFixed(2);
+            document.getElementById("oAdvance").value = advance.toFixed(2);
+            document.getElementById("oBalance").value = balance.toFixed(2);
+        }
 
         window.openPaymentModal = function() {
             populateCustomerSelect("pCustomer");
@@ -1715,8 +1765,9 @@
         window.openPaymentForOrder = function(orderId) {
             const order = state.orders.find(o => o.id === orderId);
             if (order) {
+                populateCustomerSelect("pCustomer");
+                populateOrderSelect("pOrder");
                 document.getElementById("pOrder").value = orderId;
-                // Find customer
                 const cust = state.customers.find(c => c.id === order.customerId);
                 if (cust) {
                     document.getElementById("pCustomer").value = cust.id;
@@ -1750,33 +1801,30 @@
             if (!select) return;
             select.innerHTML = '<option value="">Select Order</option>';
             state.orders.forEach(o => {
-                select.innerHTML +=
-                    `<option value="${o.id}">${o.orderId || o.id} - ${o.customerName || "Unknown"} (₹${(o.totalAmount || o.total || 0).toLocaleString("en-IN")})</option>`;
+                const balance = (o.totalAmount || o.total || 0) - (o.advanceAmount || o.advance || 0);
+                if (balance > 0) {
+                    select.innerHTML +=
+                        `<option value="${o.id}">${o.orderId || o.id} - ${o.customerName || "Unknown"} (Balance: ₹${balance.toLocaleString("en-IN")})</option>`;
+                }
             });
-        }
-
-        function calcOrderTotals() {
-            const sqft = parseFloat(document.getElementById("oSqft").value) || 0;
-            const rate = parseFloat(document.getElementById("oRate").value) || 0;
-            const total = sqft * rate;
-            const advance = total * 0.6;
-            const balance = total * 0.4;
-            document.getElementById("oTotal").value = total.toFixed(2);
-            document.getElementById("oAdvance").value = advance.toFixed(2);
-            document.getElementById("oBalance").value = balance.toFixed(2);
-        }
-
-        // ============================================================
+    }
+       // ============================================================
         // SAVE FUNCTIONS (Firebase)
         // ============================================================
         window.saveMeasurement = async function(e) {
             e.preventDefault();
             const customerId = document.getElementById("mCustomer").value;
+            if (!customerId) { showError("Please select a customer."); return; }
             const customer = state.customers.find(c => c.id === customerId);
             const width = parseFloat(document.getElementById("mWidth").value) || 0;
             const height = parseFloat(document.getElementById("mHeight").value) || 0;
             const qty = parseInt(document.getElementById("mQty").value) || 1;
             const sqft = (width * height * qty) / 144;
+
+            if (width <= 0 || height <= 0) {
+                showError("Please enter valid width and height.");
+                return;
+            }
 
             try {
                 await addDoc(collection(db, "measurements"), {
@@ -1801,6 +1849,7 @@
         window.saveOrder = async function(e) {
             e.preventDefault();
             const customerId = document.getElementById("oCustomer").value;
+            if (!customerId) { showError("Please select a customer."); return; }
             const customer = state.customers.find(c => c.id === customerId);
             const product = document.getElementById("oProduct").value;
             const sqft = parseFloat(document.getElementById("oSqft").value) || 0;
@@ -1809,6 +1858,11 @@
             const advance = total * 0.6;
             const balance = total * 0.4;
             const orderId = "ORD-" + Date.now().toString().slice(-8);
+
+            if (sqft <= 0 || rate <= 0) {
+                showError("Please enter valid Sq.ft and Rate.");
+                return;
+            }
 
             try {
                 await addDoc(collection(db, "orders"), {
@@ -1839,10 +1893,16 @@
         window.savePayment = async function(e) {
             e.preventDefault();
             const customerId = document.getElementById("pCustomer").value;
-            const customer = state.customers.find(c => c.id === customerId);
             const orderId = document.getElementById("pOrder").value;
-            const order = state.orders.find(o => o.id === orderId);
             const amount = parseFloat(document.getElementById("pAmount").value) || 0;
+
+            if (!customerId || !orderId || amount <= 0) {
+                showError("Please fill all required fields.");
+                return;
+            }
+
+            const customer = state.customers.find(c => c.id === customerId);
+            const order = state.orders.find(o => o.id === orderId);
 
             try {
                 await addDoc(collection(db, "payments"), {
@@ -1853,11 +1913,11 @@
                     orderNumber: order?.orderId || orderId,
                     amount,
                     paymentMethod: document.getElementById("pMethod").value,
-                    transactionReference: document.getElementById("pReference").value,
+                    transactionReference: document.getElementById("pReference").value || "",
                     paymentDate: serverTimestamp(),
                     createdAt: serverTimestamp()
                 });
-                // Update order payment status
+
                 if (order) {
                     const orderRef = doc(db, "orders", orderId);
                     const currentAdvance = order.advanceAmount || 0;
@@ -1871,6 +1931,7 @@
                         updatedAt: serverTimestamp()
                     });
                 }
+
                 closeModal("paymentModal");
                 await loadAllData();
                 showSuccess("Payment recorded successfully!");
@@ -1929,6 +1990,7 @@
             if (!estimate) { showError("Estimate not found."); return; }
             try {
                 const orderId = "ORD-" + Date.now().toString().slice(-8);
+                const total = estimate.finalAmount || estimate.total || 0;
                 await addDoc(collection(db, "orders"), {
                     orderId,
                     customerId: estimate.customerId || "",
@@ -1936,9 +1998,9 @@
                     product: estimate.product || "Not specified",
                     sqft: estimate.sqft || 0,
                     rate: estimate.rate || 0,
-                    totalAmount: estimate.finalAmount || estimate.total || 0,
-                    advanceAmount: (estimate.finalAmount || 0) * 0.6,
-                    balanceAmount: (estimate.finalAmount || 0) * 0.4,
+                    totalAmount: total,
+                    advanceAmount: total * 0.6,
+                    balanceAmount: total * 0.4,
                     estimateId,
                     orderStatus: "NEW",
                     productionStatus: "PENDING",
@@ -2015,6 +2077,23 @@
             }
         };
 
+        window.updateDealerStatus = async function(dealerId, status) {
+            try {
+                const updates = {
+                    status: status,
+                    updatedAt: serverTimestamp()
+                };
+                if (status === "Approved") {
+                    updates.approvedAt = serverTimestamp();
+                }
+                await updateDoc(doc(db, "dealers", dealerId), updates);
+                await loadAllData();
+                showSuccess(`✅ Dealer ${status}!`);
+            } catch (error) {
+                showError("Failed to update dealer status: " + error.message);
+            }
+        };
+
         window.toggleOffer = async function(offerId) {
             const offer = state.offers.find(o => o.id === offerId);
             if (!offer) return;
@@ -2033,7 +2112,6 @@
         window.editPrice = async function(priceId) {
             const price = state.prices.find(p => p.id === priceId);
             if (!price) return;
-            // Simple edit - open modal with pre-filled values
             document.getElementById("prProduct").value = price.product || "";
             document.getElementById("prVariant").value = price.variant || "";
             document.getElementById("prCustomer").value = price.customerPrice || "";
@@ -2042,7 +2120,6 @@
             document.getElementById("prUnit").value = price.unit || "sq.ft";
             document.getElementById("priceModal").classList.add("active");
 
-            // Override submit to update instead of create
             const form = document.getElementById("priceForm");
             form.onsubmit = async function(e) {
                 e.preventDefault();
@@ -2065,16 +2142,13 @@
             };
         };
 
-        // ============================================================
+           // ============================================================
         // NAVIGATION
         // ============================================================
         window.showSection = function(section) {
-            // Hide all sections
             document.querySelectorAll('.container[id^="section-"]').forEach(el => el.classList.add('hidden'));
-            // Show selected
             const target = document.getElementById('section-' + section);
             if (target) target.classList.remove('hidden');
-            // Update nav
             document.querySelectorAll('.sidebar .nav-item').forEach(el => el.classList.remove('active'));
             const navItem = document.querySelector(`.sidebar .nav-item[data-section="${section}"]`);
             if (navItem) navItem.classList.add('active');
@@ -2158,105 +2232,7 @@
                 box.style.display = "none";
             }, 5000);
         }
-<!-- Add to sidebar navigation -->
-<div class="nav-section">Business</div>
-<a class="nav-item" onclick="showSection('dealers')" data-section="dealers">
-    <i class="fas fa-handshake"></i> Dealers
-</a>
 
-<!-- Add dealer section to main content -->
-<div id="section-dealers" class="container hidden">
-    <div class="welcome">
-        <h1>🏢 Dealer Management</h1>
-        <p>Approve, suspend and manage dealer accounts</p>
-    </div>
-    <div class="section">
-        <div class="section-title">
-            <h2>All Dealers</h2>
-            <span class="badge" id="dealerBadge">0</span>
-        </div>
-        <input id="dealerSearch" class="search" type="text" placeholder="Search by business, owner, mobile..." oninput="filterDealers()">
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Business</th>
-                        <th>Owner</th>
-                        <th>Mobile</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="dealerTable"><tr><td colspan="6" class="loading">Loading dealers...</td></tr></tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<!-- Add to script section -->
-// Load dealers
-try {
-    const dealerSnap = await getDocs(collection(db, "dealers"));
-    state.dealers = [];
-    dealerSnap.forEach(doc => state.dealers.push({ id: doc.id, ...doc.data() }));
-} catch (e) { state.dealers = []; }
-
-// Render dealers
-function renderDealers(list) {
-    const table = document.getElementById("dealerTable");
-    if (!list.length) {
-        table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">🏢</div>No dealers found.</td></tr>`;
-        return;
-    }
-    table.innerHTML = list.map(d => `
-        <tr>
-            <td><strong>${safe(d.businessName || "—")}</strong></td>
-            <td>${safe(d.ownerName || "—")}</td>
-            <td>${safe(d.mobile || d.phone || "—")}</td>
-            <td>${safe(d.email || "—")}</td>
-            <td><span class="status status-${getStatusClass(d.status)}">${safe(d.status || "Pending")}</span></td>
-            <td>
-                ${d.status === "Pending" ? `<button class="btn-sm btn-sm-success" onclick="updateDealerStatus('${d.id}','Approved')">✅ Approve</button>` : ''}
-                ${d.status === "Approved" ? `<button class="btn-sm btn-sm-warning" onclick="updateDealerStatus('${d.id}','Suspended')">⏸️ Suspend</button>` : ''}
-                ${d.status === "Suspended" ? `<button class="btn-sm btn-sm-success" onclick="updateDealerStatus('${d.id}','Approved')">▶️ Reactivate</button>` : ''}
-                ${d.status !== "Rejected" ? `<button class="btn-sm btn-sm-danger" onclick="updateDealerStatus('${d.id}','Rejected')">✖ Reject</button>` : ''}
-                ${d.mobile ? `<a href="tel:${safe(d.mobile)}" class="action-link">📞</a>` : ''}
-                ${d.whatsapp ? `<a href="https://wa.me/91${String(d.whatsapp).replace(/\D/g,'')}" target="_blank" class="action-link">💬</a>` : ''}
-            </td>
-        </tr>
-    `).join("");
-}
-
-// Update dealer status
-window.updateDealerStatus = async function(dealerId, status) {
-    try {
-        await updateDoc(doc(db, "dealers", dealerId), {
-            status: status,
-            updatedAt: serverTimestamp(),
-            ...(status === "Approved" ? { approvedAt: serverTimestamp() } : {})
-        });
-        await loadAllData();
-        showSuccess(`✅ Dealer ${status}!`);
-    } catch (error) {
-        showError("Failed to update dealer status: " + error.message);
-    }
-};
-
-// Dealer search
-window.filterDealers = function() {
-    const search = document.getElementById("dealerSearch").value.toLowerCase().trim();
-    if (!search) { renderDealers(state.dealers); return; }
-    const filtered = state.dealers.filter(d => {
-        const text = [d.businessName, d.ownerName, d.mobile, d.phone, d.email, d.city].join(" ").toLowerCase();
-        return text.includes(search);
-    });
-    renderDealers(filtered);
-};
-
-// Add dealer badge count
-document.getElementById("dealerBadge").textContent = state.dealers.length;
-        
         // ============================================================
         // AUTO-REFRESH
         // ============================================================
@@ -2271,4 +2247,5 @@ document.getElementById("dealerBadge").textContent = state.dealers.length;
     </script>
 
 </body>
-</html>
+    </html>
+    
