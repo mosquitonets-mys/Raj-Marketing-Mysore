@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Dealer Prices</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f0ece6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8e0d8;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8e0d8;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8e0d8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #f97316;
+        }
+        .fixed-footer .nav-item.active {
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.08);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8e0d8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #f97316;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0ece6;
+        }
+        .price-item:last-child {
+            border-bottom: none;
+        }
+        .price-item .product {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+        .price-item .variant {
+            font-size: 12px;
+            color: #6b6b6b;
+        }
+        .price-item .price {
+            font-weight: 700;
+            font-size: 16px;
+            color: #ea580c;
+            text-align: right;
+        }
+        .price-item .offer {
+            font-size: 12px;
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .error-box {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 14px;
+        }
+        .loading-text {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+
+        .search {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e8e0d8;
+            border-radius: 12px;
+            outline: none;
+            margin-bottom: 12px;
+            font-size: 13px;
+            transition: 0.2s;
+            background: #faf8f6;
+        }
+        .search:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+        }
+
+        @media (max-width: 400px) {
+            .price-item {
+                flex-wrap: wrap;
+            }
+            .price-item .price {
+                width: 100%;
+                text-align: left;
+                margin-top: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Header -->
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="dealer-dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile" onclick="window.location.href='dealer-profile.html'"></i>
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <div class="app-container">
+
+        <h2 style="font-size:20px; font-weight:800; color:#1a1a1a; margin-bottom:4px;">💰 Dealer Price List</h2>
+        <p style="font-size:13px; color:#6b6b6b; margin-bottom:12px;">Approved dealer prices for all products</p>
+
+        <div id="errorBox" class="error-box"></div>
+
+        <input id="priceSearch" class="search" type="text" placeholder="Search products..." oninput="filterPrices()" />
+
+        <div id="priceList">
+            <div class="loading-text">Loading prices...</div>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Dealer Prices
+        </div>
+    </div>
+
+    <!-- Fixed Footer -->
+    <footer class="fixed-footer">
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="dealer-prices.html" class="nav-item active"><i class="fas fa-tag"></i> Prices</a>
+        <a href="dealer-enquiries.html" class="nav-item"><i class="fas fa-phone"></i> Enquiries</a>
+        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="dealer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let allPrices = [];
+        let dealerStatus = "Pending";
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "dealer-login.html";
+                return;
+            }
+            await checkDealerStatus(user.uid);
+            await loadPrices();
+        });
+
+        async function checkDealerStatus(uid) {
+            try {
+                const dealersRef = collection(db, "dealers");
+                const q = query(dealersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    const data = snapshot.docs[0].data();
+                    dealerStatus = data.status || "Pending";
+                    if (dealerStatus !== "Approved") {
+                        document.getElementById("priceList").innerHTML = `
+                            <div class="card" style="text-align:center; padding:30px 20px;">
+                                <i class="fas fa-lock" style="font-size:36px; color:#f97316; display:block; margin-bottom:12px;"></i>
+                                <h3 style="font-size:16px; font-weight:700;">Access Restricted</h3>
+                                <p style="color:#6b6b6b; font-size:13px; margin-top:4px;">Dealer prices are only available for approved dealers.</p>
+                                <p style="color:#6b6b6b; font-size:12px; margin-top:4px;">Status: ${dealerStatus}</p>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (e) {
+                console.error("Status check error:", e);
+            }
+        }
+
+        async function loadPrices() {
+            if (dealerStatus !== "Approved") return;
+
+            try {
+                const pricesRef = collection(db, "priceList");
+                const snapshot = await getDocs(pricesRef);
+                allPrices = [];
+                snapshot.forEach(doc => {
+                    allPrices.push({ id: doc.id, ...doc.data() });
+                });
+
+                if (allPrices.length === 0) {
+                    // Try alternative collection name
+                    const pricesRef2 = collection(db, "prices");
+                    const snapshot2 = await getDocs(pricesRef2);
+                    snapshot2.forEach(doc => {
+                        allPrices.push({ id: doc.id, ...doc.data() });
+                    });
+                }
+
+                renderPrices(allPrices);
+            } catch (error) {
+                console.error("❌ Price load error:", error);
+                document.getElementById("priceList").innerHTML = `
+                    <div class="card" style="text-align:center; padding:20px; color:#6b6b6b;">
+                        <i class="fas fa-exclamation-circle" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                        Unable to load prices. Please try again later.
+                    </div>
+                `;
+            }
+        }
+
+        function renderPrices(list) {
+            const container = document.getElementById("priceList");
+            if (!list.length) {
+                container.innerHTML = `
+                    <div class="card" style="text-align:center; padding:20px; color:#6b6b6b;">
+                        <i class="fas fa-tag" style="font-size:24px; display:block; margin-bottom:8px;"></i>
+                        No prices configured yet.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = list.map(item => `
+                <div class="card price-item-card" data-product="${(item.product || '').toLowerCase()} ${(item.variant || '').toLowerCase()}">
+                    <div class="price-item">
+                        <div>
+                            <div class="product">${item.product || "—"}</div>
+                            <div class="variant">${item.variant || "Standard"} · ${item.unit || "sq.ft"}</div>
+                            ${item.offerPrice ? `<div class="offer">🔥 Offer: ₹${Number(item.offerPrice).toLocaleString("en-IN")}</div>` : ''}
+                        </div>
+                        <div class="price">
+                            ₹${Number(item.dealerPrice || item.price || 0).toLocaleString("en-IN")}
+                            ${item.offerPrice ? `<br><span style="font-size:11px; color:#6b6b6b; text-decoration:line-through;">₹${Number(item.customerPrice || 0).toLocaleString("en-IN")}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        window.filterPrices = function() {
+            const search = document.getElementById("priceSearch").value.toLowerCase().trim();
+            if (!search) {
+                renderPrices(allPrices);
+                return;
+            }
+            const filtered = allPrices.filter(p => {
+                const text = [p.product, p.variant, p.category].join(" ").toLowerCase();
+                return text.includes(search);
+            });
+            renderPrices(filtered);
+        };
+    </script>
+
+</body>
+  </html>
