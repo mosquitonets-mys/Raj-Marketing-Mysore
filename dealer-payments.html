@@ -533,4 +533,38 @@
             }
         };
 
+        function showError(msg) {
+            const box = document.getElementById("errorBox");
+            box.textContent = "❌ " + msg;
+            box.style.display = "block";
+            box.style.background = "#fee2e2";
+            box.style.color = "#991b1b";
+        }
+
+        function showSuccess(msg) {
+            const box = document.getElementById("errorBox");
+            box.textContent = "✅ " + msg;
+            box.style.display = "block";
+            box.style.background = "#d1fae5";
+            box.style.color = "#065f46";
+            setTimeout(() => { box.style.display = "none"; }, 4000);
+        }
+
+        function formatDate(value) {
+            if (!value) return "—";
+            try {
+                if (value.toDate) {
+                    return value.toDate().toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+                }
+                const d = new Date(value);
+                if (isNaN(d.getTime())) return "—";
+                return d.toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
+            } catch {
+                return "—";
+            }
+        }
+    </script>
+
+</body>
+</html>
  
