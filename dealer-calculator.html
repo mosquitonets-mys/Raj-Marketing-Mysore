@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Dealer Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f0ece6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+        .app-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            padding: 20px 18px;
+            border: 1px solid #e8e0d8;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 14px 20px 10px 20px;
+            border-bottom: 1px solid #e8e0d8;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fixed-header .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+        }
+        .fixed-header .logo-text {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #6b6b6b;
+        }
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .fixed-header .header-actions i {
+            font-size: 18px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .fixed-header .back-btn {
+            font-size: 20px;
+            color: #2d2d2d;
+            background: #f5f0eb;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 504px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px 12px;
+            border-top: 1px solid #e8e0d8;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 30px 30px 0 0;
+        }
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #8a8a8a;
+            font-weight: 500;
+            gap: 2px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #8a8a8a;
+        }
+        .fixed-footer .nav-item.active i {
+            color: #f97316;
+        }
+        .fixed-footer .nav-item.active {
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.08);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 16px;
+            margin: 14px 0;
+            border: 1px solid #e8e0d8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title i {
+            color: #f97316;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a4a4a;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e8e0d8;
+            border-radius: 12px;
+            font-size: 13px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            background: #faf8f6;
+            transition: 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0ece6;
+            font-size: 14px;
+        }
+        .result-row.total {
+            font-weight: 800;
+            font-size: 18px;
+            color: #ea580c;
+            border-bottom: none;
+            border-top: 2px solid #e8e0d8;
+            margin-top: 6px;
+            padding-top: 12px;
+        }
+        .result-row .label {
+            color: #6b6b6b;
+        }
+        .result-row .value {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
+            transition: 0.2s;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 24px rgba(249, 115, 22, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .error-box {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 400px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Header -->
+    <header class="fixed-header">
+        <div class="logo-area">
+            <a href="dealer-dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <i class="fas fa-user-circle" title="Profile" onclick="window.location.href='dealer-profile.html'"></i>
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <div class="app-container">
+
+        <h2 style="font-size:20px; font-weight:800; color:#1a1a1a; margin-bottom:4px;">🧮 Dealer Price Calculator</h2>
+        <p style="font-size:13px; color:#6b6b6b; margin-bottom:12px;">Calculate dealer prices instantly</p>
+
+        <div id="errorBox" class="error-box"></div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-calculator"></i> Enter Details</div>
+            <form id="calcForm" onsubmit="calculatePrice(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Product *</label>
+                        <select id="calcProduct" required>
+                            <option value="">Select Product</option>
+                            <option value="Velcro">Velcro System</option>
+                            <option value="Aluminium">Aluminium Frame</option>
+                            <option value="Pleated">Pleated Net</option>
+                            <option value="Openable">Openable System</option>
+                            <option value="Sliding">Double Sliding SS Mesh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Variant</label>
+                        <select id="calcVariant">
+                            <option value="Regular">Regular</option>
+                            <option value="Premium">Premium</option>
+                            <option value="Woodgrain">Woodgrain</option>
+                            <option value="Economic">Economic</option>
+                            <option value="Saint-Gobain">Saint-Gobain</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Width (inches) *</label>
+                        <input type="number" id="calcWidth" required placeholder="36" />
+                    </div>
+                    <div class="form-group">
+                        <label>Height (inches) *</label>
+                        <input type="number" id="calcHeight" required placeholder="48" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Quantity *</label>
+                    <input type="number" id="calcQty" value="1" required />
+                </div>
+                <button type="submit" class="btn-primary"><i class="fas fa-calculator"></i> Calculate Price</button>
+            </form>
+        </div>
+
+        <!-- Results -->
+        <div id="resultCard" class="card" style="display:none;">
+            <div class="card-title"><i class="fas fa-file-invoice" style="color:#22c55e;"></i> Price Estimate</div>
+            <div id="resultContent">
+                <div class="result-row"><span class="label">Product</span><span class="value" id="rProduct">—</span></div>
+                <div class="result-row"><span class="label">Variant</span><span class="value" id="rVariant">—</span></div>
+                <div class="result-row"><span class="label">Width × Height</span><span class="value" id="rDimensions">—</span></div>
+                <div class="result-row"><span class="label">Quantity</span><span class="value" id="rQty">—</span></div>
+                <div class="result-row"><span class="label">Total Sq.ft</span><span class="value" id="rSqft">—</span></div>
+                <div class="result-row"><span class="label">Dealer Rate</span><span class="value" id="rRate">—</span></div>
+                <div class="result-row"><span class="label">Subtotal</span><span class="value" id="rSubtotal">—</span></div>
+                <div class="result-row"><span class="label">Discount</span><span class="value" id="rDiscount">—</span></div>
+                <div class="result-row total"><span class="label">Final Amount</span><span class="value" id="rFinal">—</span></div>
+            </div>
+        </div>
+
+        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
+            Raj Marketing Mysore · Dealer Calculator
+        </div>
+    </div>
+
+    <!-- Fixed Footer -->
+    <footer class="fixed-footer">
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="dealer-prices.html" class="nav-item"><i class="fas fa-tag"></i> Prices</a>
+        <a href="dealer-enquiries.html" class="nav-item"><i class="fas fa-phone"></i> Enquiries</a>
+        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="dealer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let priceData = [];
+        let dealerStatus = "Pending";
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "dealer-login.html";
+                return;
+            }
+            await checkDealerStatus(user.uid);
+            await loadPrices();
+        });
+
+        async function checkDealerStatus(uid) {
+            try {
+                const dealersRef = collection(db, "dealers");
+                const q = query(dealersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    dealerStatus = snapshot.docs[0].data().status || "Pending";
+                    if (dealerStatus !== "Approved") {
+                        document.getElementById("calcForm").style.display = "none";
+                        document.getElementById("errorBox").textContent = "⚠️ Only approved dealers can use the calculator.";
+                        document.getElementById("errorBox").style.display = "block";
+                    }
+                }
+            } catch (e) {
+                console.error("Status check error:", e);
+            }
+        }
+
+        async function loadPrices() {
+            if (dealerStatus !== "Approved") return;
+            try {
+                const pricesRef = collection(db, "priceList");
+                const snapshot = await getDocs(pricesRef);
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const key = (data.product || "") + "|" + (data.variant || "Regular");
+                    priceData[key] = {
+                        dealerPrice: data.dealerPrice || data.price || 0,
+                        customerPrice: data.customerPrice || 0,
+                        offerPrice: data.offerPrice || null,
+                        unit: data.unit || "sq.ft"
+                    };
+                });
+                // Fallback to prices collection
+                if (Object.keys(priceData).length === 0) {
+                    const pricesRef2 = collection(db, "prices");
+                    const snapshot2 = await getDocs(pricesRef2);
+                    snapshot2.forEach(doc => {
+                        const data = doc.data();
+                        const key = (data.product || "") + "|" + (data.variant || "Regular");
+                        priceData[key] = {
+                            dealerPrice: data.dealerPrice || data.price || 0,
+                            customerPrice: data.customerPrice || 0,
+                            offerPrice: data.offerPrice || null,
+                            unit: data.unit || "sq.ft"
+                        };
+                    });
+                }
+                console.log("✅ Price data loaded:", Object.keys(priceData).length);
+            } catch (error) {
+                console.error("❌ Price load error:", error);
+            }
+        }
+
+        window.calculatePrice = function(e) {
+            e.preventDefault();
+            if (dealerStatus !== "Approved") {
+                showError("Only approved dealers can use the calculator.");
+                return;
+            }
+
+            const product = document.getElementById("calcProduct").value;
+            const variant = document.getElementById("calcVariant").value;
+            const width = parseFloat(document.getElementById("calcWidth").value) || 0;
+            const height = parseFloat(document.getElementById("calcHeight").value) || 0;
+            const qty = parseFloat(document.getElementById("calcQty").value) || 1;
+
+            if (!product || width <= 0 || height <= 0 || qty <= 0) {
+                showError("Please fill all fields with valid values.");
+                return;
+            }
+
+            // Apply min 24" rule
+            let w = width < 24 ? 24 : width;
+            let h = height < 24 ? 24 : height;
+
+            // For Aluminium, apply 1.5" deduction
+            if (product === "Aluminium" || product === "Openable") {
+                w = w - 1.5;
+                h = h - 1.5;
+            }
+
+            const sqft = (w * h * qty) / 144;
+
+            // Find price
+            const key = product + "|" + variant;
+            let price = priceData[key] || priceData[product + "|Regular"] || { dealerPrice: 0 };
+
+            let rate = price.dealerPrice || 0;
+
+            // Check for offer
+            if (price.offerPrice && price.offerPrice < rate) {
+                rate = price.offerPrice;
+            }
+
+            const subtotal = sqft * rate;
+
+            // Apply discount based on sqft
+            let discountPct = 0;
+            if (sqft > 200) discountPct = 12;
+            else if (sqft >= 150) discountPct = 10;
+            else if (sqft >= 100) discountPct = 8;
+            else discountPct = 5;
+
+            const discountAmount = (subtotal * discountPct) / 100;
+            const finalAmount = subtotal - discountAmount;
+
+            // Show results
+            document.getElementById("resultCard").style.display = "block";
+            document.getElementById("rProduct").textContent = product;
+            document.getElementById("rVariant").textContent = variant;
+            document.getElementById("rDimensions").textContent = `${width}″ × ${height}″`;
+            document.getElementById("rQty").textContent = qty;
+            document.getElementById("rSqft").textContent = sqft.toFixed(2) + " sq.ft";
+            document.getElementById("rRate").textContent = `₹${rate.toFixed(2)}/${price.unit || "sq.ft"}`;
+            document.getElementById("rSubtotal").textContent = `₹${subtotal.toFixed(2)}`;
+            document.getElementById("rDiscount").textContent = `-${discountPct}% = ₹${discountAmount.toFixed(2)}`;
+            document.getElementById("rFinal").textContent = `₹${finalAmount.toFixed(2)}`;
+
+            document.getElementById("errorBox").style.display = "none";
+        };
+
+        function showError(msg) {
+            const box = document.getElementById("errorBox");
+            box.textContent = "❌ " + msg;
+            box.style.display = "block";
+        }
+    </script>
+
+</body>
+  </html>
