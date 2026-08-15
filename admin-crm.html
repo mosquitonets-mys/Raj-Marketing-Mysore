@@ -6,78 +6,128 @@
     <title>Raj Marketing · Admin CRM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ============================================================
+           ROOT VARIABLES
+        ============================================================ */
+        :root {
+            --primary: #f97316;
+            --primary-dark: #ea580c;
+            --primary-light: #fb923c;
+            --secondary: #1a1a2e;
+            --bg: #f5f7fb;
+            --card-bg: #ffffff;
+            --border: #e8ecf0;
+            --text: #1a1a2e;
+            --text-muted: #6b6b7b;
+            --shadow: 0 2px 12px rgba(0,0,0,0.04);
+            --radius: 16px;
+            --radius-sm: 12px;
+            --transition: 0.25s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
+
         body {
-            background: #f5f7fb;
-            color: #172033;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
         }
+
+        /* ============================================================
+           HEADER
+        ============================================================ */
         .header {
-            background: #ffffff;
-            padding: 14px 24px;
+            background: var(--card-bg);
+            padding: 12px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
             position: sticky;
             top: 0;
             z-index: 100;
             flex-wrap: wrap;
             gap: 10px;
         }
+
         .logo {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
-            color: #1a1a2e;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo i {
+            color: var(--primary);
+            font-size: 22px;
         }
         .logo span {
             display: block;
-            font-size: 10px;
-            color: #777;
+            font-size: 9px;
+            color: var(--text-muted);
             font-weight: 500;
+            letter-spacing: 0.5px;
         }
+
         .header-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
             flex-wrap: wrap;
         }
+
         .btn-outline {
             background: transparent;
-            border: 1.5px solid #e8ecf0;
-            color: #1a1a2e;
-            padding: 8px 16px;
+            border: 1.5px solid var(--border);
+            color: var(--text);
+            padding: 7px 14px;
             border-radius: 20px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 12px;
-            transition: 0.2s;
+            font-size: 11px;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
         .btn-outline:hover {
-            background: #f5f7fb;
+            background: var(--bg);
+            border-color: var(--primary);
+            color: var(--primary);
         }
-        .logout {
-            border: 0;
+
+        .btn-logout {
             background: #ef4444;
-            color: white;
-            padding: 8px 16px;
+            color: #fff;
+            border: none;
+            padding: 7px 14px;
             border-radius: 20px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 12px;
-            transition: 0.2s;
+            font-size: 11px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        .logout:hover {
+        .btn-logout:hover {
             background: #dc2626;
+            transform: translateY(-1px);
         }
 
+        /* ============================================================
+           APP LAYOUT
+        ============================================================ */
         .app-layout {
             display: flex;
             max-width: 1400px;
@@ -85,14 +135,18 @@
             padding: 16px 20px;
             gap: 20px;
         }
+
+        /* ============================================================
+           SIDEBAR
+        ============================================================ */
         .sidebar {
             width: 220px;
             flex-shrink: 0;
-            background: #fff;
-            border-radius: 18px;
-            padding: 16px 12px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
-            border: 1px solid #e8ecf0;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 12px 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
             position: sticky;
             top: 80px;
             height: fit-content;
@@ -106,41 +160,48 @@
             background: #ddd;
             border-radius: 10px;
         }
+
+        .sidebar .nav-section {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 700;
+            padding: 10px 12px 4px 12px;
+            letter-spacing: 0.5px;
+        }
+
         .sidebar .nav-item {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 14px;
-            border-radius: 12px;
-            color: #4a4a5a;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
-            transition: 0.2s;
+            transition: var(--transition);
             cursor: pointer;
             margin-bottom: 2px;
         }
         .sidebar .nav-item:hover {
-            background: #f5f7fb;
+            background: var(--bg);
+            color: var(--text);
         }
         .sidebar .nav-item.active {
-            background: #f97316;
+            background: var(--primary);
             color: #fff;
+            box-shadow: 0 4px 12px rgba(249,115,22,0.25);
         }
         .sidebar .nav-item i {
-            width: 20px;
+            width: 18px;
             text-align: center;
-            font-size: 15px;
-        }
-        .sidebar .nav-section {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: #999;
-            font-weight: 700;
-            padding: 12px 14px 6px 14px;
-            letter-spacing: 0.5px;
+            font-size: 14px;
         }
 
+        /* ============================================================
+           MAIN CONTENT
+        ============================================================ */
         .main-content {
             flex: 1;
             min-width: 0;
@@ -150,58 +211,75 @@
             max-width: 100%;
         }
 
+        /* ============================================================
+           WELCOME
+        ============================================================ */
         .welcome {
             margin-bottom: 16px;
         }
         .welcome h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
+            color: var(--secondary);
         }
         .welcome p {
-            color: #777;
+            color: var(--text-muted);
             font-size: 13px;
         }
 
+        /* ============================================================
+           DASHBOARD CARDS
+        ============================================================ */
         .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
             margin-bottom: 20px;
         }
-        .card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 16px 16px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
-            border: 1px solid #e8ecf0;
-            transition: 0.2s;
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
         }
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
         }
-        .card .icon {
+        .stat-card .icon {
+            font-size: 20px;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+        .stat-card .number {
             font-size: 22px;
-        }
-        .card h2 {
-            font-size: 24px;
-            margin-top: 4px;
             font-weight: 800;
+            color: var(--secondary);
+            margin-top: 2px;
         }
-        .card p {
-            font-size: 11px;
-            color: #777;
+        .stat-card .label {
+            font-size: 10px;
+            color: var(--text-muted);
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
 
+        /* ============================================================
+           SECTIONS
+        ============================================================ */
         .section {
-            background: #fff;
-            border-radius: 18px;
-            padding: 18px 16px;
-            margin-bottom: 18px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
-            border: 1px solid #e8ecf0;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 16px 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
+
         .section-title {
             display: flex;
             justify-content: space-between;
@@ -211,216 +289,145 @@
             gap: 8px;
         }
         .section-title h2 {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
+            color: var(--secondary);
         }
         .section-title .badge {
-            background: #f97316;
+            background: var(--primary);
             color: #fff;
             font-size: 10px;
             padding: 2px 12px;
             border-radius: 30px;
             font-weight: 600;
         }
+
+        /* ============================================================
+           SEARCH
+        ============================================================ */
         .search {
             width: 100%;
-            padding: 10px 14px;
-            border: 1.5px solid #e8ecf0;
-            border-radius: 12px;
+            padding: 9px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
             outline: none;
             margin-bottom: 12px;
             font-size: 13px;
-            transition: 0.2s;
-            background: #fafbfc;
+            transition: var(--transition);
+            background: var(--bg);
+            color: var(--text);
         }
         .search:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
         }
+
+        /* ============================================================
+           TABLES
+        ============================================================ */
         .table-wrap {
             overflow-x: auto;
         }
+        .table-wrap::-webkit-scrollbar {
+            height: 4px;
+        }
+        .table-wrap::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 20px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             min-width: 600px;
             font-size: 12px;
         }
-        th,
-        td {
-            padding: 10px 8px;
-            border-bottom: 1px solid #f0f2f5;
-            text-align: left;
-        }
+
         th {
-            background: #f8fafc;
+            background: var(--bg);
             font-weight: 700;
-            color: #4a4a5a;
+            color: var(--text-muted);
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.3px;
+            padding: 10px 8px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
         }
-        .status {
+
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: middle;
+        }
+        tr:hover td {
+            background: #faf8f6;
+        }
+
+        /* ============================================================
+           STATUS BADGES
+        ============================================================ */
+        .status-badge {
             padding: 3px 10px;
             border-radius: 20px;
             font-size: 10px;
             font-weight: 600;
             display: inline-block;
         }
-        .status-new {
-            background: #fff7ed;
-            color: #ea580c;
-        }
-        .status-contact {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-        .status-scheduled {
-            background: #d1fae5;
-            color: #059669;
-        }
-        .status-converted {
-            background: #d1fae5;
-            color: #059669;
-        }
-        .status-lost {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-        .status-pending {
-            background: #fef3c7;
-            color: #d97706;
-        }
-        .status-paid {
-            background: #d1fae5;
-            color: #059669;
-        }
-        .status-cancelled {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-        .status-default {
-            background: #f3f4f6;
-            color: #4b5563;
-        }
-        .status-approved {
-            background: #d1fae5;
-            color: #059669;
-        }
-        .status-rejected {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-        .status-suspended {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-        .status-production {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-        .status-ready {
-            background: #d1fae5;
-            color: #059669;
-        }
-        .status-installation {
-            background: #fef3c7;
-            color: #d97706;
-        }
-        .status-completed {
-            background: #d1fae5;
-            color: #059669;
-        }
+        .status-new { background: #fff7ed; color: #ea580c; }
+        .status-contact { background: #dbeafe; color: #1d4ed8; }
+        .status-scheduled { background: #d1fae5; color: #059669; }
+        .status-converted { background: #d1fae5; color: #059669; }
+        .status-lost { background: #fee2e2; color: #dc2626; }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-paid { background: #d1fae5; color: #059669; }
+        .status-cancelled { background: #fee2e2; color: #dc2626; }
+        .status-default { background: #f3f4f6; color: #4b5563; }
+        .status-approved { background: #d1fae5; color: #059669; }
+        .status-rejected { background: #fee2e2; color: #dc2626; }
+        .status-suspended { background: #fee2e2; color: #dc2626; }
+        .status-production { background: #dbeafe; color: #1d4ed8; }
+        .status-ready { background: #d1fae5; color: #059669; }
+        .status-installation { background: #fef3c7; color: #d97706; }
+        .status-completed { background: #d1fae5; color: #059669; }
 
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 25px 20px;
-            color: #999;
-        }
-        .empty-state .icon {
-            font-size: 32px;
-            margin-bottom: 6px;
-            opacity: 0.5;
-        }
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-            font-size: 13px;
-        }
-        .success {
-            background: #d1fae5;
-            color: #065f46;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-            font-size: 13px;
-        }
-        .action-link {
-            text-decoration: none;
-            font-size: 15px;
-            padding: 4px 6px;
-            border-radius: 6px;
-            transition: 0.2s;
-            display: inline-block;
-        }
-        .action-link:hover {
-            background: #f0f2f5;
-        }
+        /* ============================================================
+           BUTTONS
+        ============================================================ */
         .btn-sm {
-            padding: 4px 14px;
+            padding: 4px 12px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
         }
-        .btn-sm-primary {
-            background: #f97316;
-            color: #fff;
-        }
-        .btn-sm-primary:hover {
-            background: #ea580c;
-        }
-        .btn-sm-success {
-            background: #22c55e;
-            color: #fff;
-        }
-        .btn-sm-success:hover {
-            background: #16a34a;
-        }
-        .btn-sm-danger {
-            background: #ef4444;
-            color: #fff;
-        }
-        .btn-sm-danger:hover {
-            background: #dc2626;
-        }
-        .btn-sm-warning {
-            background: #f59e0b;
-            color: #fff;
-        }
-        .btn-sm-warning:hover {
-            background: #d97706;
-        }
-        .btn-sm-outline {
-            background: transparent;
-            border: 1.5px solid #e8ecf0;
-        }
-        .btn-sm-outline:hover {
-            background: #f5f7fb;
-        }
+        .btn-sm-primary { background: var(--primary); color: #fff; }
+        .btn-sm-primary:hover { background: var(--primary-dark); }
+        .btn-sm-success { background: #22c55e; color: #fff; }
+        .btn-sm-success:hover { background: #16a34a; }
+        .btn-sm-danger { background: #ef4444; color: #fff; }
+        .btn-sm-danger:hover { background: #dc2626; }
+        .btn-sm-warning { background: #f59e0b; color: #fff; }
+        .btn-sm-warning:hover { background: #d97706; }
+        .btn-sm-outline { background: transparent; border: 1.5px solid var(--border); }
+        .btn-sm-outline:hover { background: var(--bg); }
 
+        .action-link {
+            text-decoration: none;
+            font-size: 14px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        .action-link:hover { background: var(--bg); }
+
+        /* ============================================================
+           MODALS
+        ============================================================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -428,37 +435,45 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
             z-index: 200;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
+
         .modal {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 24px;
             padding: 28px 24px;
             max-width: 560px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            animation: modalIn 0.3s ease;
         }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
         .modal .modal-title {
             font-size: 20px;
             font-weight: 800;
             margin-bottom: 16px;
+            color: var(--secondary);
         }
+
         .modal .form-group {
             margin-bottom: 14px;
         }
         .modal .form-group label {
             font-size: 12px;
             font-weight: 600;
-            color: #4a4a5a;
+            color: var(--text-muted);
             display: block;
             margin-bottom: 4px;
         }
@@ -467,25 +482,26 @@
         .modal .form-group textarea {
             width: 100%;
             padding: 10px 14px;
-            border: 1.5px solid #e8ecf0;
-            border-radius: 12px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
             font-size: 13px;
             outline: none;
             font-family: 'Poppins', sans-serif;
-            background: #fafbfc;
-            transition: 0.2s;
+            background: var(--bg);
+            transition: var(--transition);
         }
         .modal .form-group input:focus,
         .modal .form-group select:focus,
         .modal .form-group textarea:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
         }
         .modal .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
+
         .modal .modal-actions {
             display: flex;
             gap: 10px;
@@ -499,30 +515,75 @@
             font-size: 14px;
             border: none;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
             flex: 1;
             min-width: 100px;
         }
         .modal .modal-actions .btn-primary {
-            background: #f97316;
+            background: var(--primary);
             color: #fff;
         }
         .modal .modal-actions .btn-primary:hover {
-            background: #ea580c;
+            background: var(--primary-dark);
         }
         .modal .modal-actions .btn-secondary {
-            background: #f5f7fb;
-            color: #1a1a2e;
-            border: 1px solid #e8ecf0;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
         }
         .modal .modal-actions .btn-secondary:hover {
             background: #e8ecf0;
         }
 
-        .hidden {
-            display: none !important;
+        /* ============================================================
+           MESSAGES
+        ============================================================ */
+        .error-msg {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+            display: none;
+            font-size: 13px;
+            border-left: 4px solid #dc2626;
+        }
+        .success-msg {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+            display: none;
+            font-size: 13px;
+            border-left: 4px solid #22c55e;
         }
 
+        .loading-text {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 25px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state .icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+            opacity: 0.4;
+        }
+
+        /* ============================================================
+           HIDDEN
+        ============================================================ */
+        .hidden { display: none !important; }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
         @media (max-width: 900px) {
             .app-layout {
                 flex-direction: column;
@@ -538,12 +599,10 @@
                 max-height: none;
                 overflow-y: visible;
             }
-            .sidebar .nav-section {
-                display: none;
-            }
+            .sidebar .nav-section { display: none; }
             .sidebar .nav-item {
                 padding: 6px 12px;
-                font-size: 12px;
+                font-size: 11px;
                 flex: 0 0 auto;
             }
             .cards {
@@ -553,6 +612,7 @@
                 grid-template-columns: 1fr;
             }
         }
+
         @media (max-width: 500px) {
             .cards {
                 grid-template-columns: 1fr 1fr;
@@ -562,11 +622,11 @@
             }
             .header-actions .btn-outline {
                 font-size: 10px;
-                padding: 6px 10px;
+                padding: 5px 10px;
             }
-            .logout {
+            .btn-logout {
                 font-size: 10px;
-                padding: 6px 10px;
+                padding: 5px 10px;
             }
             .section {
                 padding: 12px;
@@ -575,18 +635,32 @@
                 font-size: 11px;
                 min-width: 500px;
             }
-            th,
-            td {
+            th, td {
                 padding: 6px 4px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+            .logo {
+                font-size: 15px;
+            }
+            .logo span {
+                font-size: 8px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
+    <!-- ============================================================
+    HEADER
+    ============================================================ -->
     <header class="header">
         <div class="logo">
+            <i class="fas fa-shield-alt"></i>
             Raj Marketing
             <span>Mysore · Admin CRM</span>
         </div>
@@ -597,16 +671,20 @@
             <a href="index.html" class="btn-outline" style="text-decoration:none;">
                 <i class="fas fa-home"></i> Home
             </a>
-            <button class="logout" onclick="logout()">
+            <button class="btn-logout" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </button>
         </div>
     </header>
 
-    <!-- APP LAYOUT -->
+    <!-- ============================================================
+    APP LAYOUT
+    ============================================================ -->
     <div class="app-layout">
 
-        <!-- SIDEBAR -->
+        <!-- ============================================================
+        SIDEBAR
+        ============================================================ -->
         <nav class="sidebar" id="sidebar">
             <div class="nav-section">Main</div>
             <a class="nav-item active" onclick="showSection('dashboard')" data-section="dashboard">
@@ -658,16 +736,17 @@
                 <i class="fas fa-chart-bar"></i> Reports
             </a>
         </nav>
-
-        <!-- MAIN CONTENT -->
+    <!-- ============================================================
+        MAIN CONTENT
+        ============================================================ -->
         <div class="main-content">
 
-            <div id="errorBox" class="error"></div>
-            <div id="successBox" class="success"></div>
+            <div id="errorBox" class="error-msg"></div>
+            <div id="successBox" class="success-msg"></div>
 
-            <!-- ============================================================ -->
-            <!-- DASHBOARD -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            DASHBOARD
+            ============================================================ -->
             <div id="section-dashboard" class="container">
                 <div class="welcome">
                     <h1>📊 CRM Dashboard</h1>
@@ -675,21 +754,21 @@
                 </div>
 
                 <div class="cards" id="dashboardCards">
-                    <div class="card"><div class="icon">👥</div><h2 id="dashCustomers">0</h2><p>Customers</p></div>
-                    <div class="card"><div class="icon">📞</div><h2 id="dashEnquiries">0</h2><p>Enquiries</p></div>
-                    <div class="card"><div class="icon">📅</div><h2 id="dashAppointments">0</h2><p>Appointments</p></div>
-                                       <div class="card"><div class="icon">📐</div><h2 id="dashMeasurements">0</h2><p>Measurements</p></div>
-                    <div class="card"><div class="icon">🧾</div><h2 id="dashEstimates">0</h2><p>Estimates</p></div>
-                    <div class="card"><div class="icon">📦</div><h2 id="dashOrders">0</h2><p>Orders</p></div>
-                    <div class="card"><div class="icon">💰</div><h2 id="dashSales">₹0</h2><p>Total Sales</p></div>
-                    <div class="card"><div class="icon">💳</div><h2 id="dashPayments">₹0</h2><p>Payments Received</p></div>
-                    <div class="card"><div class="icon">💵</div><h2 id="dashBalance">₹0</h2><p>Pending Balance</p></div>
-                    <div class="card"><div class="icon">🏢</div><h2 id="dashDealers">0</h2><p>Dealers</p></div>
+                    <div class="stat-card"><div class="icon">👥</div><div class="number" id="dashCustomers">0</div><div class="label">Customers</div></div>
+                    <div class="stat-card"><div class="icon">📞</div><div class="number" id="dashEnquiries">0</div><div class="label">Enquiries</div></div>
+                    <div class="stat-card"><div class="icon">📅</div><div class="number" id="dashAppointments">0</div><div class="label">Appointments</div></div>
+                    <div class="stat-card"><div class="icon">📐</div><div class="number" id="dashMeasurements">0</div><div class="label">Measurements</div></div>
+                    <div class="stat-card"><div class="icon">🧾</div><div class="number" id="dashEstimates">0</div><div class="label">Estimates</div></div>
+                    <div class="stat-card"><div class="icon">📦</div><div class="number" id="dashOrders">0</div><div class="label">Orders</div></div>
+                    <div class="stat-card"><div class="icon">💰</div><div class="number" id="dashSales">₹0</div><div class="label">Total Sales</div></div>
+                    <div class="stat-card"><div class="icon">💳</div><div class="number" id="dashPayments">₹0</div><div class="label">Payments Received</div></div>
+                    <div class="stat-card"><div class="icon">💵</div><div class="number" id="dashBalance">₹0</div><div class="label">Pending Balance</div></div>
+                    <div class="stat-card"><div class="icon">🏢</div><div class="number" id="dashDealers">0</div><div class="label">Dealers</div></div>
                 </div>
 
                 <div class="section">
                     <div class="section-title"><h2>📈 Quick Stats</h2></div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:13px;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:13px;">
                         <div><strong>Today's Enquiries:</strong> <span id="todayEnquiries">0</span></div>
                         <div><strong>Today's Appointments:</strong> <span id="todayAppointments">0</span></div>
                         <div><strong>This Month Sales:</strong> <span id="monthSales">₹0</span></div>
@@ -698,9 +777,9 @@
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- CUSTOMERS -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            CUSTOMERS
+            ============================================================ -->
             <div id="section-customers" class="container hidden">
                 <div class="welcome">
                     <h1>👥 Customers</h1>
@@ -715,15 +794,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Name</th><th>Mobile</th><th>Email</th><th>Address</th><th>Status</th><th>Actions</th></tr></thead>
-                            <tbody id="customerTable"><tr><td colspan="6" class="loading">Loading customers...</td></tr></tbody>
+                            <tbody id="customerTable"><tr><td colspan="6" class="loading-text">Loading customers...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- ENQUIRIES -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            ENQUIRIES
+            ============================================================ -->
             <div id="section-enquiries" class="container hidden">
                 <div class="welcome">
                     <h1>📞 Enquiries</h1>
@@ -738,15 +817,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Customer</th><th>Mobile</th><th>Product</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
-                            <tbody id="enquiryTable"><tr><td colspan="6" class="loading">Loading enquiries...</td></tr></tbody>
+                            <tbody id="enquiryTable"><tr><td colspan="6" class="loading-text">Loading enquiries...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- APPOINTMENTS -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            APPOINTMENTS
+            ============================================================ -->
             <div id="section-appointments" class="container hidden">
                 <div class="welcome">
                     <h1>📅 Appointments</h1>
@@ -760,15 +839,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Customer</th><th>Mobile</th><th>Net Type</th><th>Date/Time</th><th>Status</th><th>Actions</th></tr></thead>
-                            <tbody id="appointmentTable"><tr><td colspan="6" class="loading">Loading appointments...</td></tr></tbody>
+                            <tbody id="appointmentTable"><tr><td colspan="6" class="loading-text">Loading appointments...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- MEASUREMENTS -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            MEASUREMENTS
+            ============================================================ -->
             <div id="section-measurements" class="container hidden">
                 <div class="welcome">
                     <h1>📐 Measurements</h1>
@@ -782,15 +861,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Customer</th><th>Room</th><th>Width</th><th>Height</th><th>Qty</th><th>Sq.ft</th><th>Date</th></tr></thead>
-                            <tbody id="measurementTable"><tr><td colspan="7" class="loading">Loading measurements...</td></tr></tbody>
+                            <tbody id="measurementTable"><tr><td colspan="7" class="loading-text">Loading measurements...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- ESTIMATES -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            ESTIMATES
+            ============================================================ -->
             <div id="section-estimates" class="container hidden">
                 <div class="welcome">
                     <h1>🧾 Estimates</h1>
@@ -804,15 +883,14 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Estimate ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
-                            <tbody id="estimateTable"><tr><td colspan="6" class="loading">Loading estimates...</td></tr></tbody>
+                            <tbody id="estimateTable"><tr><td colspan="6" class="loading-text">Loading estimates...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-
-            <!-- ============================================================ -->
-            <!-- ORDERS -->
-            <!-- ============================================================ -->
+                </div>
+        <!-- ============================================================
+            ORDERS
+            ============================================================ -->
             <div id="section-orders" class="container hidden">
                 <div class="welcome">
                     <h1>📦 Orders</h1>
@@ -827,15 +905,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Total</th><th>Advance</th><th>Balance</th><th>Status</th><th>Production</th><th>Actions</th></tr></thead>
-                            <tbody id="orderTable"><tr><td colspan="9" class="loading">Loading orders...</td></tr></tbody>
+                            <tbody id="orderTable"><tr><td colspan="9" class="loading-text">Loading orders...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- PAYMENTS -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            PAYMENTS
+            ============================================================ -->
             <div id="section-payments" class="container hidden">
                 <div class="welcome">
                     <h1>💰 Payments</h1>
@@ -849,15 +927,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Payment ID</th><th>Customer</th><th>Order</th><th>Amount</th><th>Method</th><th>Date</th><th>Actions</th></tr></thead>
-                            <tbody id="paymentTable"><tr><td colspan="7" class="loading">Loading payments...</td></tr></tbody>
+                            <tbody id="paymentTable"><tr><td colspan="7" class="loading-text">Loading payments...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- DEALERS -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            DEALERS
+            ============================================================ -->
             <div id="section-dealers" class="container hidden">
                 <div class="welcome">
                     <h1>🏢 Dealer Management</h1>
@@ -871,25 +949,16 @@
                     <input id="dealerSearch" class="search" type="text" placeholder="Search by business, owner, mobile..." oninput="filterDealers()">
                     <div class="table-wrap">
                         <table>
-                            <thead>
-                                <tr>
-                                    <th>Business</th>
-                                    <th>Owner</th>
-                                    <th>Mobile</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="dealerTable"><tr><td colspan="6" class="loading">Loading dealers...</td></tr></tbody>
+                            <thead><tr><th>Business</th><th>Owner</th><th>Mobile</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="dealerTable"><tr><td colspan="6" class="loading-text">Loading dealers...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- PRODUCTS -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            PRODUCTS
+            ============================================================ -->
             <div id="section-products" class="container hidden">
                 <div class="welcome">
                     <h1>🪟 Products</h1>
@@ -900,15 +969,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Product</th><th>Variant</th><th>Customer Price</th><th>Dealer Price</th><th>Unit</th><th>Status</th></tr></thead>
-                            <tbody id="productTable"><tr><td colspan="6" class="loading">Loading products...</td></tr></tbody>
+                            <tbody id="productTable"><tr><td colspan="6" class="loading-text">Loading products...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- PRICE MASTER -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            PRICE MASTER
+            ============================================================ -->
             <div id="section-price-master" class="container hidden">
                 <div class="welcome">
                     <h1>💰 Price Master</h1>
@@ -922,15 +991,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Product</th><th>Variant</th><th>Customer Price</th><th>Dealer Price</th><th>Offer Price</th><th>Actions</th></tr></thead>
-                            <tbody id="priceTable"><tr><td colspan="6" class="loading">Loading prices...</td></tr></tbody>
+                            <tbody id="priceTable"><tr><td colspan="6" class="loading-text">Loading prices...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- OFFERS -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            OFFERS
+            ============================================================ -->
             <div id="section-offers" class="container hidden">
                 <div class="welcome">
                     <h1>🏷️ Offers</h1>
@@ -944,14 +1013,15 @@
                     <div class="table-wrap">
                         <table>
                             <thead><tr><th>Name</th><th>Product</th><th>Offer Price</th><th>Valid</th><th>Status</th><th>Actions</th></tr></thead>
-                            <tbody id="offerTable"><tr><td colspan="6" class="loading">Loading offers...</td></tr></tbody>
+                            <tbody id="offerTable"><tr><td colspan="6" class="loading-text">Loading offers...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
-    </div>
-    <!-- ============================================================ -->
-            <!-- BUSINESS RULES -->
-            <!-- ============================================================ -->
+            </div>
+
+            <!-- ============================================================
+            BUSINESS RULES
+            ============================================================ -->
             <div id="section-rules" class="container hidden">
                 <div class="welcome">
                     <h1>⚙️ Business Rules</h1>
@@ -959,23 +1029,23 @@
                 </div>
                 <div class="section">
                     <div class="section-title"><h2>Current Rules</h2></div>
-                    <div id="rulesDisplay" style="font-size:13px; line-height:2;">
-                        <div><strong>Measurement Formula:</strong> Width × Height × Quantity ÷ 144 = Sq.ft</div>
-                        <div><strong>Minimum Dimension:</strong> Below 24″ treat as 24″</div>
-                        <div><strong>Advance Payment:</strong> 60%</div>
-                        <div><strong>Balance Payment:</strong> 40%</div>
-                        <div><strong>Site Visit (Mysore):</strong> Free</div>
-                        <div><strong>Site Visit (Outside):</strong> ₹15/km</div>
-                        <div><strong>Warranty SS Mesh/Pleated:</strong> 1 Year</div>
-                        <div><strong>Warranty Aluminium Frame:</strong> 5 Years</div>
-                        <div><strong>Discount Slab:</strong> >200=12%, 150-200=10%, 100-149=8%, &lt;100=5%</div>
+                    <div id="rulesDisplay" style="font-size:13px; line-height:2; color:var(--text-muted);">
+                        <div><strong style="color:var(--text);">Measurement Formula:</strong> Width × Height × Quantity ÷ 144 = Sq.ft</div>
+                        <div><strong style="color:var(--text);">Minimum Dimension:</strong> Below 24″ treat as 24″</div>
+                        <div><strong style="color:var(--text);">Advance Payment:</strong> 60%</div>
+                        <div><strong style="color:var(--text);">Balance Payment:</strong> 40%</div>
+                        <div><strong style="color:var(--text);">Site Visit (Mysore):</strong> Free</div>
+                        <div><strong style="color:var(--text);">Site Visit (Outside):</strong> ₹15/km</div>
+                        <div><strong style="color:var(--text);">Warranty SS Mesh/Pleated:</strong> 1 Year</div>
+                        <div><strong style="color:var(--text);">Warranty Aluminium Frame:</strong> 5 Years</div>
+                        <div><strong style="color:var(--text);">Discount Slab:</strong> >200=12%, 150-200=10%, 100-149=8%, &lt;100=5%</div>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================ -->
-            <!-- REPORTS -->
-            <!-- ============================================================ -->
+            <!-- ============================================================
+            REPORTS
+            ============================================================ -->
             <div id="section-reports" class="container hidden">
                 <div class="welcome">
                     <h1>📊 Reports</h1>
@@ -983,22 +1053,21 @@
                 </div>
                 <div class="section">
                     <div class="section-title"><h2>Sales Summary</h2></div>
-                    <div id="reportContent" style="font-size:13px; line-height:2;">
-                        <div><strong>Total Sales:</strong> ₹<span id="reportTotalSales">0</span></div>
-                        <div><strong>Total Orders:</strong> <span id="reportTotalOrders">0</span></div>
-                        <div><strong>Total Sq.ft Sold:</strong> <span id="reportTotalSqft">0</span></div>
-                        <div><strong>Total Customers:</strong> <span id="reportTotalCustomers">0</span></div>
-                        <div><strong>Pending Amount:</strong> ₹<span id="reportPendingAmount">0</span></div>
+                    <div id="reportContent" style="font-size:13px; line-height:2.2; color:var(--text-muted);">
+                        <div><strong style="color:var(--text);">Total Sales:</strong> ₹<span id="reportTotalSales">0</span></div>
+                        <div><strong style="color:var(--text);">Total Orders:</strong> <span id="reportTotalOrders">0</span></div>
+                        <div><strong style="color:var(--text);">Total Sq.ft Sold:</strong> <span id="reportTotalSqft">0</span></div>
+                        <div><strong style="color:var(--text);">Total Customers:</strong> <span id="reportTotalCustomers">0</span></div>
+                        <div><strong style="color:var(--text);">Pending Amount:</strong> ₹<span id="reportPendingAmount">0</span></div>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- MODALS -->
-    <!-- ============================================================ -->
+                        </div>
+            <!-- ============================================================
+    MODALS
+    ============================================================ -->
 
     <!-- Measurement Modal -->
     <div class="modal-overlay" id="measurementModal">
@@ -1015,7 +1084,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group"><label>Quantity</label><input type="number" id="mQty" value="1" required /></div>
-                    <div class="form-group"><label>Sq.ft (auto-calculated)</label><input id="mSqft" readonly style="background:#f0f2f5;" /></div>
+                    <div class="form-group"><label>Sq.ft (auto)</label><input id="mSqft" readonly style="background:#f0f2f5;" /></div>
                 </div>
                 <div class="form-group"><label>Notes</label><textarea id="mNotes" rows="2"></textarea></div>
                 <div class="modal-actions">
@@ -1144,9 +1213,12 @@
         </div>
     </div>
 
+    <!-- ============================================================
+    MAIN SCRIPT
+    ============================================================ -->
     <script type="module">
         // ============================================================
-        // FIREBASE IMPORTS - FIXED
+        // FIREBASE IMPORTS
         // ============================================================
         import { auth, db } from "./firebase-config.js";
         import {
@@ -1197,7 +1269,7 @@
         });
 
         // ============================================================
-        // LOAD ALL DATA - FIXED
+        // LOAD ALL DATA
         // ============================================================
         async function loadAllData() {
             if (state.isLoading) return;
@@ -1209,87 +1281,86 @@
                 const customerSnap = await getDocs(collection(db, "customers"));
                 state.customers = [];
                 customerSnap.forEach(doc => state.customers.push({ id: doc.id, ...doc.data() }));
-                console.log("✅ Customers loaded:", state.customers.length);
+                console.log("✅ Customers:", state.customers.length);
 
                 // Enquiries
                 try {
                     const enquirySnap = await getDocs(collection(db, "enquiries"));
                     state.enquiries = [];
                     enquirySnap.forEach(doc => state.enquiries.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Enquiries loaded:", state.enquiries.length);
-                } catch (e) { console.warn("Enquiries not found:", e.message); state.enquiries = []; }
+                    console.log("✅ Enquiries:", state.enquiries.length);
+                } catch (e) { state.enquiries = []; }
 
                 // Appointments
                 try {
                     const appointmentSnap = await getDocs(collection(db, "appointments"));
                     state.appointments = [];
                     appointmentSnap.forEach(doc => state.appointments.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Appointments loaded:", state.appointments.length);
-                } catch (e) { console.warn("Appointments not found:", e.message); state.appointments = []; }
+                    console.log("✅ Appointments:", state.appointments.length);
+                } catch (e) { state.appointments = []; }
 
                 // Measurements
                 try {
                     const measurementSnap = await getDocs(collection(db, "measurements"));
                     state.measurements = [];
                     measurementSnap.forEach(doc => state.measurements.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Measurements loaded:", state.measurements.length);
-                } catch (e) { console.warn("Measurements not found:", e.message); state.measurements = []; }
+                    console.log("✅ Measurements:", state.measurements.length);
+                } catch (e) { state.measurements = []; }
 
                 // Estimates
                 try {
                     const estimateSnap = await getDocs(collection(db, "estimates"));
                     state.estimates = [];
                     estimateSnap.forEach(doc => state.estimates.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Estimates loaded:", state.estimates.length);
-                } catch (e) { console.warn("Estimates not found:", e.message); state.estimates = []; }
-
-                // Orders
+                    console.log("✅ Estimates:", state.estimates.length);
+                } catch (e) { state.estimates = []; }
+                    // Orders
                 try {
                     const orderSnap = await getDocs(collection(db, "orders"));
                     state.orders = [];
                     orderSnap.forEach(doc => state.orders.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Orders loaded:", state.orders.length);
-                } catch (e) { console.warn("Orders not found:", e.message); state.orders = []; }
+                    console.log("✅ Orders:", state.orders.length);
+                } catch (e) { state.orders = []; }
 
                 // Payments
                 try {
                     const paymentSnap = await getDocs(collection(db, "payments"));
                     state.payments = [];
                     paymentSnap.forEach(doc => state.payments.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Payments loaded:", state.payments.length);
-                } catch (e) { console.warn("Payments not found:", e.message); state.payments = []; }
+                    console.log("✅ Payments:", state.payments.length);
+                } catch (e) { state.payments = []; }
 
                 // Dealers
                 try {
                     const dealerSnap = await getDocs(collection(db, "dealers"));
                     state.dealers = [];
                     dealerSnap.forEach(doc => state.dealers.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Dealers loaded:", state.dealers.length);
-                } catch (e) { console.warn("Dealers not found:", e.message); state.dealers = []; }
+                    console.log("✅ Dealers:", state.dealers.length);
+                } catch (e) { state.dealers = []; }
 
                 // Products
                 try {
                     const productSnap = await getDocs(collection(db, "products"));
                     state.products = [];
                     productSnap.forEach(doc => state.products.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Products loaded:", state.products.length);
-                } catch (e) { console.warn("Products not found:", e.message); state.products = []; }
+                    console.log("✅ Products:", state.products.length);
+                } catch (e) { state.products = []; }
 
                 // Prices
                 try {
                     const priceSnap = await getDocs(collection(db, "prices"));
                     state.prices = [];
                     priceSnap.forEach(doc => state.prices.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Prices loaded:", state.prices.length);
-                } catch (e) { console.warn("Prices not found:", e.message); state.prices = []; }
+                    console.log("✅ Prices:", state.prices.length);
+                } catch (e) { state.prices = []; }
 
                 // Offers
                 try {
                     const offerSnap = await getDocs(collection(db, "offers"));
                     state.offers = [];
                     offerSnap.forEach(doc => state.offers.push({ id: doc.id, ...doc.data() }));
-                    console.log("✅ Offers loaded:", state.offers.length);
-                } catch (e) { console.warn("Offers not found:", e.message); state.offers = []; }
+                    console.log("✅ Offers:", state.offers.length);
+                } catch (e) { state.offers = []; }
 
                 // Render all
                 updateDashboard();
@@ -1335,7 +1406,6 @@
             document.getElementById("dashBalance").textContent = '₹' + pendingBalance.toLocaleString("en-IN");
             document.getElementById("dashDealers").textContent = state.dealers.length;
 
-            // Today's stats
             const today = new Date().toDateString();
             const todayEnq = state.enquiries.filter(e => {
                 const d = e.createdAt?.toDate?.() || new Date(e.createdAt);
@@ -1348,7 +1418,6 @@
             document.getElementById("todayEnquiries").textContent = todayEnq.length;
             document.getElementById("todayAppointments").textContent = todayApp.length;
 
-            // Month sales
             const month = new Date().getMonth();
             const year = new Date().getFullYear();
             const monthOrders = state.orders.filter(o => {
@@ -1364,14 +1433,14 @@
             });
             document.getElementById("pendingOrders").textContent = pending.length;
         }
-            // ============================================================
+
+        // ============================================================
         // RENDER FUNCTIONS
         // ============================================================
         function renderCustomers(list) {
             const table = document.getElementById("customerTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="6" class="empty-state"><div class="icon">👥</div>No customers found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">👥</div>No customers found.</td></tr>`;
                 return;
             }
             table.innerHTML = list.map(c => `
@@ -1380,7 +1449,7 @@
                     <td>${safe(c.mobile || c.phone || "—")}</td>
                     <td>${safe(c.email || "—")}</td>
                     <td>${safe(c.address || "—")}</td>
-                    <td><span class="status status-${getStatusClass(c.status)}">${safe(c.status || "Active")}</span></td>
+                    <td><span class="status-badge status-${getStatusClass(c.status)}">${safe(c.status || "Active")}</span></td>
                     <td>
                         ${c.mobile ? `<a href="tel:${safe(c.mobile)}" class="action-link" title="Call">📞</a>` : ''}
                         ${c.mobile ? `<a href="https://wa.me/91${String(c.mobile).replace(/\D/g,'')}" target="_blank" class="action-link" title="WhatsApp">💬</a>` : ''}
@@ -1393,8 +1462,7 @@
         function renderEnquiries(list) {
             const table = document.getElementById("enquiryTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="6" class="empty-state"><div class="icon">📞</div>No enquiries found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">📞</div>No enquiries found.</td></tr>`;
                 return;
             }
             const sorted = [...list].reverse().slice(0, 50);
@@ -1405,7 +1473,7 @@
                         <td><strong>${safe(e.customerName || e.name || "—")}</strong></td>
                         <td>${safe(mobile)}</td>
                         <td>${safe(e.netType || e.product || "—")}</td>
-                        <td><span class="status status-${getStatusClass(e.status)}">${safe(e.status || "NEW")}</span></td>
+                        <td><span class="status-badge status-${getStatusClass(e.status)}">${safe(e.status || "NEW")}</span></td>
                         <td>${formatDate(e.createdAt)}</td>
                         <td>
                             ${mobile ? `<a href="tel:${safe(mobile)}" class="action-link">📞</a>` : ''}
@@ -1420,8 +1488,7 @@
         function renderAppointments(list) {
             const table = document.getElementById("appointmentTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="6" class="empty-state"><div class="icon">📅</div>No appointments found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">📅</div>No appointments found.</td></tr>`;
                 return;
             }
             const sorted = [...list].reverse().slice(0, 30);
@@ -1433,7 +1500,7 @@
                         <td>${safe(mobile)}</td>
                         <td>${safe(a.netType || "—")}</td>
                         <td>${safe(a.date || "—")} ${a.time ? "<br><small>" + safe(a.time) + "</small>" : ""}</td>
-                        <td><span class="status status-${getStatusClass(a.status)}">${safe(a.status || "NEW")}</span></td>
+                        <td><span class="status-badge status-${getStatusClass(a.status)}">${safe(a.status || "NEW")}</span></td>
                         <td>
                             ${mobile ? `<a href="tel:${safe(mobile)}" class="action-link">📞</a>` : ''}
                             ${mobile ? `<a href="https://wa.me/91${String(mobile).replace(/\D/g,'')}" target="_blank" class="action-link">💬</a>` : ''}
@@ -1447,8 +1514,7 @@
         function renderMeasurements(list) {
             const table = document.getElementById("measurementTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="7" class="empty-state"><div class="icon">📐</div>No measurements found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="7" class="empty-state"><div class="icon">📐</div>No measurements found.</td></tr>`;
                 return;
             }
             const sorted = [...list].reverse().slice(0, 50);
@@ -1468,8 +1534,7 @@
         function renderEstimates(list) {
             const table = document.getElementById("estimateTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="6" class="empty-state"><div class="icon">🧾</div>No estimates found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">🧾</div>No estimates found.</td></tr>`;
                 return;
             }
             const sorted = [...list].reverse().slice(0, 30);
@@ -1478,7 +1543,7 @@
                     <td><strong>${safe(e.estimateId || e.id || "—")}</strong></td>
                     <td>${safe(e.customerName || "—")}</td>
                     <td>₹${(e.finalAmount || e.total || 0).toLocaleString("en-IN")}</td>
-                    <td><span class="status status-${getStatusClass(e.status)}">${safe(e.status || "DRAFT")}</span></td>
+                    <td><span class="status-badge status-${getStatusClass(e.status)}">${safe(e.status || "DRAFT")}</span></td>
                     <td>${formatDate(e.createdAt)}</td>
                     <td>
                         <button class="btn-sm btn-sm-primary" onclick="convertToOrder('${e.id}')">📦 Convert</button>
@@ -1490,8 +1555,7 @@
         function renderOrders(list) {
             const table = document.getElementById("orderTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="9" class="empty-state"><div class="icon">📦</div>No orders found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="9" class="empty-state"><div class="icon">📦</div>No orders found.</td></tr>`;
                 return;
             }
             const sorted = [...list].reverse();
@@ -1509,8 +1573,8 @@
                         <td>₹${total.toLocaleString("en-IN")}</td>
                         <td>₹${advance.toLocaleString("en-IN")}</td>
                         <td>₹${balance.toLocaleString("en-IN")}</td>
-                        <td><span class="status status-${getOrderStatusClass(status)}">${safe(status)}</span></td>
-                        <td><span class="status status-${getProdStatusClass(prodStatus)}">${safe(prodStatus)}</span></td>
+                        <td><span class="status-badge status-${getOrderStatusClass(status)}">${safe(status)}</span></td>
+                        <td><span class="status-badge status-${getProdStatusClass(prodStatus)}">${safe(prodStatus)}</span></td>
                         <td>
                             <button class="btn-sm btn-sm-primary" onclick="updateOrderStatus('${o.id}','CONFIRMED')" title="Confirm">✔</button>
                             <button class="btn-sm btn-sm-warning" onclick="updateProductionStatus('${o.id}','PRODUCTION')" title="Production">🔧</button>
@@ -1521,9 +1585,9 @@
                     </tr>
                 `;
             }).join("");
-        }
+    }
 
-        function getOrderStatusClass(status) {
+                 function getOrderStatusClass(status) {
             const s = String(status || "").toUpperCase();
             if (s === "NEW") return "new";
             if (s === "CONFIRMED") return "scheduled";
@@ -1546,8 +1610,7 @@
         function renderPayments(list) {
             const table = document.getElementById("paymentTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="7" class="empty-state"><div class="icon">💰</div>No payments found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="7" class="empty-state"><div class="icon">💰</div>No payments found.</td></tr>`;
                 return;
             }
             const sorted = [...list].reverse().slice(0, 30);
@@ -1567,8 +1630,7 @@
         function renderDealers(list) {
             const table = document.getElementById("dealerTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="6" class="empty-state"><div class="icon">🏢</div>No dealers found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">🏢</div>No dealers found.</td></tr>`;
                 return;
             }
             table.innerHTML = list.map(d => `
@@ -1577,7 +1639,7 @@
                     <td>${safe(d.ownerName || "—")}</td>
                     <td>${safe(d.mobile || d.phone || "—")}</td>
                     <td>${safe(d.email || "—")}</td>
-                    <td><span class="status status-${getStatusClass(d.status)}">${safe(d.status || "Pending")}</span></td>
+                    <td><span class="status-badge status-${getStatusClass(d.status)}">${safe(d.status || "Pending")}</span></td>
                     <td>
                         ${d.status === "Pending" ? `<button class="btn-sm btn-sm-success" onclick="updateDealerStatus('${d.id}','Approved')">✅ Approve</button>` : ''}
                         ${d.status === "Approved" ? `<button class="btn-sm btn-sm-warning" onclick="updateDealerStatus('${d.id}','Suspended')">⏸️ Suspend</button>` : ''}
@@ -1588,12 +1650,12 @@
                     </td>
                 </tr>
             `).join("");
-    }
-function renderProducts(list) {
+        }
+
+        function renderProducts(list) {
             const table = document.getElementById("productTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="6" class="empty-state"><div class="icon">🪟</div>No products found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">🪟</div>No products found.</td></tr>`;
                 return;
             }
             table.innerHTML = list.map(p => `
@@ -1603,7 +1665,7 @@ function renderProducts(list) {
                     <td>₹${(p.customerPrice || 0).toLocaleString("en-IN")}</td>
                     <td>₹${(p.dealerPrice || 0).toLocaleString("en-IN")}</td>
                     <td>${safe(p.unit || "sq.ft")}</td>
-                    <td><span class="status status-${p.active !== false ? 'paid' : 'cancelled'}">${p.active !== false ? 'Active' : 'Inactive'}</span></td>
+                    <td><span class="status-badge status-${p.active !== false ? 'paid' : 'cancelled'}">${p.active !== false ? 'Active' : 'Inactive'}</span></td>
                 </tr>
             `).join("");
         }
@@ -1611,8 +1673,7 @@ function renderProducts(list) {
         function renderPrices(list) {
             const table = document.getElementById("priceTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="6" class="empty-state"><div class="icon">💰</div>No prices configured.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">💰</div>No prices configured.</td></tr>`;
                 return;
             }
             table.innerHTML = list.map(p => `
@@ -1632,8 +1693,7 @@ function renderProducts(list) {
         function renderOffers(list) {
             const table = document.getElementById("offerTable");
             if (!list.length) {
-                table.innerHTML =
-                    `<tr><td colspan="6" class="empty-state"><div class="icon">🏷️</div>No offers found.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="6" class="empty-state"><div class="icon">🏷️</div>No offers found.</td></tr>`;
                 return;
             }
             table.innerHTML = list.map(o => `
@@ -1642,7 +1702,7 @@ function renderProducts(list) {
                     <td>${safe(o.product || "—")}</td>
                     <td>₹${(o.offerPrice || 0).toLocaleString("en-IN")}</td>
                     <td>${o.startDate} → ${o.endDate}</td>
-                    <td><span class="status status-${o.active ? 'paid' : 'cancelled'}">${o.active ? 'Active' : 'Inactive'}</span></td>
+                    <td><span class="status-badge status-${o.active ? 'paid' : 'cancelled'}">${o.active ? 'Active' : 'Inactive'}</span></td>
                     <td>
                         <button class="btn-sm btn-sm-primary" onclick="toggleOffer('${o.id}')">${o.active ? '⏸️' : '▶️'}</button>
                     </td>
@@ -1651,7 +1711,7 @@ function renderProducts(list) {
         }
 
         // ============================================================
-        // UPDATE BADGES
+        // UPDATE BADGES & REPORTS
         // ============================================================
         function updateBadges() {
             document.getElementById("customerBadge").textContent = state.customers.length;
@@ -1666,8 +1726,7 @@ function renderProducts(list) {
             const totalPayments = state.payments.reduce((sum, p) => sum + Number(p.amount || 0), 0);
             document.getElementById("reportTotalSales").textContent = totalSales.toLocaleString("en-IN");
             document.getElementById("reportTotalOrders").textContent = state.orders.length;
-            document.getElementById("reportTotalSqft").textContent = state.orders.reduce((sum, o) => sum + Number(o.sqft || 0),
-                0).toFixed(2);
+            document.getElementById("reportTotalSqft").textContent = state.orders.reduce((sum, o) => sum + Number(o.sqft || 0), 0).toFixed(2);
             document.getElementById("reportTotalCustomers").textContent = state.customers.length;
             document.getElementById("reportPendingAmount").textContent = (totalSales - totalPayments).toLocaleString("en-IN");
         }
@@ -1689,8 +1748,7 @@ function renderProducts(list) {
             const search = document.getElementById("enquirySearch").value.toLowerCase().trim();
             if (!search) { renderEnquiries(state.enquiries); return; }
             const filtered = state.enquiries.filter(e => {
-                const text = [e.customerName, e.name, e.mobile, e.phone, e.netType, e.product, e.message].join(" ")
-                    .toLowerCase();
+                const text = [e.customerName, e.name, e.mobile, e.phone, e.netType, e.product, e.message].join(" ").toLowerCase();
                 return text.includes(search);
             });
             renderEnquiries(filtered);
@@ -1700,9 +1758,7 @@ function renderProducts(list) {
             const search = document.getElementById("orderSearch").value.toLowerCase().trim();
             if (!search) { renderOrders(state.orders); return; }
             const filtered = state.orders.filter(o => {
-                const text = [o.orderId, o.id, o.customerName, o.name, o.mobile, o.phone, o.product, o.status, o
-                    .orderStatus
-                ].join(" ").toLowerCase();
+                const text = [o.orderId, o.id, o.customerName, o.name, o.mobile, o.phone, o.product, o.status, o.orderStatus].join(" ").toLowerCase();
                 return text.includes(search);
             });
             renderOrders(filtered);
@@ -1807,12 +1863,10 @@ function renderProducts(list) {
             if (!select) return;
             select.innerHTML = '<option value="">Select Customer</option>';
             state.customers.forEach(c => {
-                select.innerHTML +=
-                    `<option value="${c.id}">${c.name || c.customerName || "Unknown"} (${c.mobile || c.phone || ""})</option>`;
+                select.innerHTML += `<option value="${c.id}">${c.name || c.customerName || "Unknown"} (${c.mobile || c.phone || ""})</option>`;
             });
         }
-
-        function populateProductSelect(elementId) {
+         function populateProductSelect(elementId) {
             const select = document.getElementById(elementId);
             if (!select) return;
             select.innerHTML = '<option value="Velcro">Velcro System</option>';
@@ -1829,14 +1883,13 @@ function renderProducts(list) {
             state.orders.forEach(o => {
                 const balance = (o.totalAmount || o.total || 0) - (o.advanceAmount || o.advance || 0);
                 if (balance > 0) {
-                    select.innerHTML +=
-                        `<option value="${o.id}">${o.orderId || o.id} - ${o.customerName || "Unknown"} (Balance: ₹${balance.toLocaleString("en-IN")})</option>`;
+                    select.innerHTML += `<option value="${o.id}">${o.orderId || o.id} - ${o.customerName || "Unknown"} (Balance: ₹${balance.toLocaleString("en-IN")})</option>`;
                 }
             });
         }
 
         // ============================================================
-        // SAVE FUNCTIONS - FIXED
+        // SAVE FUNCTIONS
         // ============================================================
         window.saveMeasurement = async function(e) {
             e.preventDefault();
@@ -1987,6 +2040,7 @@ function renderProducts(list) {
                 showError("Failed to save price: " + error.message);
             }
         };
+
         window.saveOffer = async function(e) {
             e.preventDefault();
             try {
@@ -2007,8 +2061,7 @@ function renderProducts(list) {
                 showError("Failed to save offer: " + error.message);
             }
         };
-
-        // ============================================================
+    // ============================================================
         // ACTION FUNCTIONS
         // ============================================================
         window.convertToOrder = async function(estimateId) {
@@ -2105,10 +2158,7 @@ function renderProducts(list) {
 
         window.updateDealerStatus = async function(dealerId, status) {
             try {
-                const updates = {
-                    status: status,
-                    updatedAt: serverTimestamp()
-                };
+                const updates = { status, updatedAt: serverTimestamp() };
                 if (status === "Approved") {
                     updates.approvedAt = serverTimestamp();
                 }
@@ -2229,8 +2279,7 @@ function renderProducts(list) {
         function safe(value) {
             if (value === null || value === undefined) return "—";
             const str = String(value);
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g,
-                "&#039;");
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
         function showError(message) {
@@ -2238,8 +2287,6 @@ function renderProducts(list) {
             if (!message) {
                 box.style.display = "none";
                 box.textContent = "";
-                box.style.background = "#fee2e2";
-                box.style.color = "#991b1b";
                 return;
             }
             box.style.display = "block";
@@ -2263,8 +2310,9 @@ function renderProducts(list) {
             setTimeout(() => {
                 box.style.display = "none";
             }, 5000);
-    }
-         // ============================================================
+        }
+
+        // ============================================================
         // AUTO-REFRESH
         // ============================================================
         setInterval(() => {
@@ -2280,3 +2328,4 @@ function renderProducts(list) {
 
 </body>
 </html>
+    
