@@ -13,6 +13,7 @@
         body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
         .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
 
+        /* Fixed Header */
         .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
         .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
         .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
@@ -75,6 +76,8 @@
         .btn-primary { width: 100%; padding: 12px; background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; border: none; border-radius: 40px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
         .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-danger { width: 100%; padding: 12px; background: #ef4444; color: #fff; border: none; border-radius: 40px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(239,68,68,0.25); }
 
         .error-msg { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 12px; margin-bottom: 14px; display: none; font-size: 13px; border-left: 4px solid #dc2626; }
         .success-msg { background: #d1fae5; color: #065f46; padding: 12px 16px; border-radius: 12px; margin-bottom: 14px; display: none; font-size: 13px; border-left: 4px solid #22c55e; }
@@ -88,11 +91,18 @@
         .hidden { display: none !important; }
         .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
         @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
+        .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
 
-        @media (max-width: 400px) { .form-row { grid-template-columns: 1fr; } }
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.08); }
+
+        @media (max-width: 400px) { .form-row { grid-template-columns: 1fr; } .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; } }
     </style>
 </head>
 <body>
+
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <header class="fixed-header">
         <div class="logo-area">
@@ -105,15 +115,15 @@
     </header>
 
     <div class="app-container">
-        <div id="loadingState" style="text-align:center; padding:40px; color:#6b6b7b;">
-            <i class="fas fa-spinner fa-spin" style="font-size:32px; display:block; margin-bottom:12px;"></i>
+        <div id="loadingState" class="loading-text">
+            <i class="fas fa-spinner fa-spin"></i>
             Loading profile...
         </div>
 
         <div id="profileContent" class="hidden">
             <!-- Profile Header -->
             <div class="profile-header">
-                <div class="profile-avatar">
+                <div class="profile-avatar" id="avatarContainer">
                     <i class="fas fa-user" id="avatarIcon"></i>
                     <div class="edit-photo" onclick="document.getElementById('photoInput').click()">
                         <i class="fas fa-camera"></i>
@@ -188,7 +198,6 @@
                 <div class="detail-row"><span class="label">Customer ID</span><span class="value" id="detailId">—</span></div>
                 <div class="detail-row"><span class="label">Registration Date</span><span class="value" id="detailDate">—</span></div>
                 <div class="detail-row"><span class="label">Account Status</span><span class="value" id="detailStatus">—</span></div>
-                <div class="detail-row"><span class="label">Customer Since</span><span class="value" id="detailSince">—</span></div>
             </div>
 
             <!-- Quick Actions -->
@@ -196,7 +205,7 @@
                 <button class="btn-primary" style="flex:1; min-width:120px; background:#1a1a2e;" onclick="window.location.href='customer-dashboard.html'">
                     <i class="fas fa-home"></i> Dashboard
                 </button>
-                <button class="btn-primary" style="flex:1; min-width:120px; background:#ef4444;" onclick="logout()">
+                <button class="btn-danger" style="flex:1; min-width:120px;" onclick="logout()">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </div>
@@ -213,39 +222,50 @@
 
     <script type="module">
         import { auth, db } from "./firebase-config.js";
-        import { doc, getDoc, updateDoc, collection, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { doc, getDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
         let customerData = null;
-        let customerId = null;
+        let customerDocId = null;
 
+        // ============================================================
+        // AUTHENTICATION
+        // ============================================================
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
                 window.location.href = "customer-login.html";
                 return;
             }
+            console.log("✅ Customer authenticated:", user.uid);
             await loadCustomerData(user.uid);
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('profileContent').classList.remove('hidden');
         });
 
+        // ============================================================
+        // LOAD CUSTOMER DATA
+        // ============================================================
         async function loadCustomerData(uid) {
             try {
+                // Find customer by UID
                 const customersRef = collection(db, "customers");
                 const q = query(customersRef, where("uid", "==", uid));
                 const snapshot = await getDocs(q);
 
                 if (snapshot.empty) {
-                    window.location.href = "customer-login.html";
+                    // Try to find by customerId or create fallback
+                    console.warn("No customer found for UID:", uid);
+                    // Show error but allow limited functionality
+                    showError("Customer profile not found. Please contact support.");
                     return;
                 }
 
-                const doc = snapshot.docs[0];
-                customerData = { id: doc.id, ...doc.data() };
-                customerId = customerData.id;
+                const docSnap = snapshot.docs[0];
+                customerDocId = docSnap.id;
+                customerData = { id: docSnap.id, ...docSnap.data() };
 
-                fillProfile(customerData);
                 console.log("✅ Customer data loaded:", customerData);
+                fillProfile(customerData);
 
             } catch (error) {
                 console.error("❌ Load error:", error);
@@ -253,11 +273,16 @@
             }
         }
 
+        // ============================================================
+        // FILL PROFILE
+        // ============================================================
         function fillProfile(data) {
+            // Profile header
             document.getElementById('profileName').textContent = data.name || 'Customer';
             document.getElementById('profileId').textContent = `ID: ${data.customerId || data.id || '—'}`;
             document.getElementById('profileStatus').textContent = data.status || 'Active';
 
+            // Form fields
             document.getElementById('fName').value = data.name || '';
             document.getElementById('fMobile').value = data.mobile || data.phone || '';
             document.getElementById('fWhatsapp').value = data.whatsapp || '';
@@ -269,14 +294,40 @@
             document.getElementById('fState').value = data.state || 'Karnataka';
             document.getElementById('fPin').value = data.pin || '';
 
+            // Account details
             document.getElementById('detailId').textContent = data.customerId || data.id || '—';
             document.getElementById('detailStatus').textContent = data.status || 'Active';
 
+            // Format date
             const date = data.createdAt?.toDate?.() || new Date(data.createdAt);
-            document.getElementById('detailDate').textContent = date ? date.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }) : '—';
-            document.getElementById('detailSince').textContent = date ? date.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }) : '—';
+            if (date && !isNaN(date.getTime())) {
+                const dateStr = date.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+                document.getElementById('detailDate').textContent = dateStr;
+            } else {
+                document.getElementById('detailDate').textContent = '—';
+            }
+
+            // Update avatar
+            updateAvatar(data.name);
         }
 
+        // ============================================================
+        // UPDATE AVATAR
+        // ============================================================
+        function updateAvatar(name) {
+            const avatar = document.getElementById('avatarContainer');
+            const icon = document.getElementById('avatarIcon');
+            // If name is available, show first letter
+            if (name && name.length > 0) {
+                const initial = name.charAt(0).toUpperCase();
+                icon.className = 'fas fa-user';
+                // Could add initial as text, but keeping icon for consistency
+            }
+        }
+
+        // ============================================================
+        // UPDATE PROFILE
+        // ============================================================
         window.updateProfile = async function(e) {
             e.preventDefault();
 
@@ -288,6 +339,11 @@
                 return;
             }
 
+            if (mobile.length < 10) {
+                showError('Please enter a valid 10-digit mobile number.');
+                return;
+            }
+
             const saveBtn = document.getElementById('saveBtn');
             saveBtn.disabled = true;
             saveBtn.innerHTML = '<span class="loading-spinner"></span> Saving...';
@@ -295,25 +351,34 @@
             showSuccess('');
 
             try {
+                if (!customerDocId) {
+                    throw new Error('Customer ID not found');
+                }
+
                 const updates = {
                     name: name,
                     mobile: mobile,
                     phone: mobile,
-                    whatsapp: document.getElementById('fWhatsapp').value.trim(),
+                    whatsapp: document.getElementById('fWhatsapp').value.trim() || mobile,
                     address: document.getElementById('fAddress').value.trim(),
                     landmark: document.getElementById('fLandmark').value.trim(),
                     city: document.getElementById('fCity').value.trim(),
                     district: document.getElementById('fDistrict').value.trim(),
-                    state: document.getElementById('fState').value.trim(),
+                    state: document.getElementById('fState').value.trim() || 'Karnataka',
                     pin: document.getElementById('fPin').value.trim(),
                     updatedAt: new Date().toISOString()
                 };
 
-                const docRef = doc(db, "customers", customerId);
+                const docRef = doc(db, "customers", customerDocId);
                 await updateDoc(docRef, updates);
 
+                // Update local data
+                customerData = { ...customerData, ...updates };
+
                 showSuccess('✅ Profile updated successfully!');
-                await loadCustomerData(auth.currentUser.uid);
+
+                // Refresh display
+                fillProfile(customerData);
 
             } catch (error) {
                 console.error("❌ Update error:", error);
@@ -324,6 +389,9 @@
             }
         };
 
+        // ============================================================
+        // LOGOUT
+        // ============================================================
         window.logout = async function() {
             if (!confirm("Are you sure you want to logout?")) return;
             try {
@@ -334,6 +402,9 @@
             }
         };
 
+        // ============================================================
+        // HELPERS
+        // ============================================================
         function showError(msg) {
             const box = document.getElementById('errorBox');
             if (!msg) { box.classList.remove('show'); box.textContent = ''; return; }
@@ -348,16 +419,45 @@
             box.textContent = '✅ ' + msg;
             box.classList.add('show');
             document.getElementById('errorBox').classList.remove('show');
-            setTimeout(() => box.classList.remove('show'), 4000);
+            setTimeout(() => {
+                box.classList.remove('show');
+            }, 4000);
         }
 
-        // Photo upload
+        // ============================================================
+        // PHOTO UPLOAD (Simulated)
+        // ============================================================
         document.getElementById('photoInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
-            alert('📸 Photo upload will be available with Firebase Storage integration.\n\nFile selected: ' + file.name);
+
+            // Check file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('❌ File size too large. Please choose an image under 2MB.');
+                this.value = '';
+                return;
+            }
+
+            // Check file type
+            if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+                alert('❌ Please upload a JPEG, PNG, or WebP image.');
+                this.value = '';
+                return;
+            }
+
+            // Read and display preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const avatar = document.getElementById('avatarContainer');
+                const icon = document.getElementById('avatarIcon');
+                // Store in Firebase Storage would go here
+                alert('📸 Photo upload will be available with Firebase Storage integration.\n\nFile: ' + file.name + '\nSize: ' + (file.size / 1024).toFixed(1) + 'KB');
+            };
+            reader.readAsDataURL(file);
             this.value = '';
         });
+
+        console.log("✅ Customer profile page loaded");
     </script>
 </body>
 </html>
