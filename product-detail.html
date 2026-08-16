@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Product Detail</title>
+    <meta name="description" content="Premium mosquito nets and window screens in Mysore. Quality mosquito protection since 2016." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
+        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+
+        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
+        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
+        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
+        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
+        .fixed-header .header-actions { display: flex; gap: 4px; align-items: center; }
+        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 12px; cursor: pointer; text-decoration: none; min-width: 44px; transition: 0.2s; }
+        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
+        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
+        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
+
+        .breadcrumb { font-size: 10px; color: #6b6b7b; margin-bottom: 8px; display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+        .breadcrumb a { color: #0ea5e9; text-decoration: none; }
+        .breadcrumb .sep { color: #ccc; }
+
+        .product-hero { margin-bottom: 16px; }
+        .product-hero .badge-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+        .product-hero .badge-row .tag { padding: 2px 10px; border-radius: 12px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+        .tag-velcro { background: #dbeafe; color: #1d4ed8; }
+        .tag-pleated { background: #d1fae5; color: #059669; }
+        .tag-frame { background: #fef3c7; color: #d97706; }
+        .tag-door { background: #fce4ec; color: #dc2626; }
+        .tag-premium { background: #fef3c7; color: #d97706; }
+        .product-hero h1 { font-size: 22px; font-weight: 800; color: #1a1a2e; line-height: 1.2; }
+        .product-hero .sub { font-size: 13px; color: #6b6b7b; margin-top: 2px; }
+
+        .slider-container { border-radius: 16px; overflow: hidden; position: relative; height: 240px; background: #f1f5f9; margin: 10px 0; }
+        .slider-track { display: flex; width: 300%; height: 100%; transition: transform 0.5s ease; }
+        .slider-slide { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 60px; color: #0ea5e9; background: #f1f5f9; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.2s; }
+        .slider-btn:hover { background: #fff; }
+        .slider-btn.prev { left: 8px; }
+        .slider-btn.next { right: 8px; }
+        .slider-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+        .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; border: none; transition: 0.2s; }
+        .slider-dots .dot.active { background: #0ea5e9; transform: scale(1.2); }
+
+        .price-section { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid #e8ecf0; margin-bottom: 12px; }
+        .price-section .current { font-size: 28px; font-weight: 800; color: #0ea5e9; }
+        .price-section .current .unit { font-size: 14px; font-weight: 400; color: #6b6b7b; }
+        .price-section .original { font-size: 16px; color: #6b6b7b; text-decoration: line-through; }
+        .price-section .discount-badge { background: #d1fae5; color: #059669; padding: 2px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+
+        .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+        .cta-row .btn { flex: 1; min-width: 120px; padding: 12px 20px; border-radius: 40px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; text-align: center; text-decoration: none; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.35); }
+        .btn-success { background: linear-gradient(145deg, #22c55e, #16a34a); color: #fff; box-shadow: 0 4px 16px rgba(34,197,94,0.25); }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(34,197,94,0.35); }
+        .btn-secondary { background: #f1f5f9; color: #1a1a2e; border: 1px solid #e8ecf0; }
+        .btn-secondary:hover { background: #e8ecf0; }
+        .btn-whatsapp { background: #25D366; color: #fff; }
+        .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(37,211,102,0.3); }
+
+        .section-title { font-weight: 700; font-size: 16px; color: #1a1a2e; margin: 16px 0 8px 0; display: flex; align-items: center; gap: 8px; }
+        .section-title i { color: #0ea5e9; }
+
+        .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0; }
+        .spec-table tr { border-bottom: 1px solid #f1f5f9; }
+        .spec-table td { padding: 8px 4px; }
+        .spec-table .label { color: #6b6b7b; font-weight: 500; width: 40%; }
+        .spec-table .value { font-weight: 600; color: #1a1a2e; }
+
+        .colour-selector { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0; }
+        .colour-selector .colour { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #e8ecf0; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+        .colour-selector .colour:hover { border-color: #0ea5e9; transform: scale(1.05); }
+        .colour-selector .colour.active { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.2); }
+        .colour-ivory { background: #F5F0E8; }
+        .colour-honey-gold { background: #D4A843; }
+        .colour-brown { background: #8B6914; }
+        .colour-black { background: #1A1A1A; }
+        .colour-white { background: #FFFFFF; border-color: #ddd; }
+        .colour-teakwood { background: #8B6914; }
+
+        .type-selector { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
+        .type-selector .type { padding: 6px 16px; border-radius: 20px; border: 1px solid #e8ecf0; background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .type-selector .type:hover { border-color: #0ea5e9; }
+        .type-selector .type.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+
+        .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0; }
+        .benefit-grid .item { background: #f1f5f9; border-radius: 12px; padding: 12px; text-align: center; }
+        .benefit-grid .item i { font-size: 24px; color: #0ea5e9; display: block; margin-bottom: 4px; }
+        .benefit-grid .item span { font-size: 11px; font-weight: 600; color: #1a1a2e; }
+
+        .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0; }
+        .related-card { background: #fff; border-radius: 16px; padding: 12px; border: 1px solid #e8ecf0; text-align: center; cursor: pointer; transition: 0.2s; text-decoration: none; color: #1a1a2e; }
+        .related-card:hover { transform: translateY(-2px); border-color: #0ea5e9; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        .related-card .icon { font-size: 28px; color: #0ea5e9; display: block; margin-bottom: 4px; }
+        .related-card .name { font-size: 12px; font-weight: 600; }
+
+        .faq-item { border-bottom: 1px solid #f1f5f9; padding: 10px 0; cursor: pointer; }
+        .faq-item .q { display: flex; justify-content: space-between; font-weight: 600; font-size: 13px; color: #1a1a2e; }
+        .faq-item .q i { color: #0ea5e9; transition: 0.2s; }
+        .faq-item .a { font-size: 13px; color: #6b6b7b; padding-top: 6px; display: none; line-height: 1.6; }
+        .faq-item.open .a { display: block; }
+        .faq-item.open .q i { transform: rotate(180deg); }
+
+        .sticky-bottom { position: fixed; bottom: 80px; left: 0; right: 0; z-index: 900; max-width: 504px; margin: 0 auto; padding: 0 12px; display: none; }
+        .sticky-bottom .inner { background: #fff; border-radius: 20px; padding: 12px 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); display: flex; gap: 10px; align-items: center; border: 1px solid #e8ecf0; }
+        .sticky-bottom .inner .price { font-weight: 800; font-size: 18px; color: #0ea5e9; flex: 1; }
+        .sticky-bottom .inner .btn { padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 12px; border: none; cursor: pointer; text-decoration: none; white-space: nowrap; }
+        .sticky-bottom .inner .btn-primary { background: #0ea5e9; color: #fff; }
+
+        .modal-overlay { display: none; position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: #fff; border-radius: 24px; padding: 24px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; }
+        .modal .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
+        .modal .form-group { margin-bottom: 12px; }
+        .modal .form-group label { font-size: 12px; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 4px; }
+        .modal .form-group input, .modal .form-group select, .modal .form-group textarea { width: 100%; padding: 10px 14px; border: 1.5px solid #e8ecf0; border-radius: 12px; font-size: 13px; outline: none; background: #f8fafc; font-family: 'Poppins', sans-serif; }
+        .modal .form-group input:focus, .modal .form-group select:focus, .modal .form-group textarea:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.08); }
+        .modal .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .modal .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
+        .modal .modal-actions .btn { flex: 1; padding: 12px; border-radius: 40px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: 0.2s; }
+        .modal .modal-actions .btn-primary { background: #0ea5e9; color: #fff; }
+        .modal .modal-actions .btn-secondary { background: #f1f5f9; color: #1a1a2e; border: 1px solid #e8ecf0; }
+
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; transition: 0.2s; }
+        .whatsapp-float:hover { transform: scale(1.08); }
+
+        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
+        .footer-links a:hover { color: #0ea5e9; }
+        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
+
+        .loading { text-align: center; padding: 40px; color: #6b6b7b; }
+        .loading i { font-size: 32px; display: block; margin-bottom: 12px; }
+
+        @media (max-width: 400px) {
+            .product-hero h1 { font-size: 18px; }
+            .price-section .current { font-size: 22px; }
+            .slider-container { height: 180px; }
+            .slider-slide { font-size: 40px; }
+            .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
+            .modal .form-row { grid-template-columns: 1fr; }
+            .cta-row .btn { min-width: 100px; font-size: 12px; padding: 10px 14px; }
+            .sticky-bottom { bottom: 70px; }
+            .sticky-bottom .inner .price { font-size: 15px; }
+            .sticky-bottom .inner .btn { font-size: 11px; padding: 6px 12px; }
+        }
+        @media (min-width: 500px) { .sticky-bottom { display: none !important; } }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <a href="customer-login.html" class="header-btn"><i class="fas fa-user"></i><span class="label">Customer</span></a>
+            <a href="dealer-login.html" class="header-btn"><i class="fas fa-user-tie"></i><span class="label">Dealer</span></a>
+            <a href="login.html" class="header-btn"><i class="fas fa-cog"></i><span class="label">Admin</span></a>
+        </div>
+    </header>
+
+    <div class="app-container" id="mainContent">
+        <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading product...</div>
+    </div>
+
+    <div class="sticky-bottom" id="stickyBottom">
+        <div class="inner">
+            <span class="price" id="stickyPrice">₹0</span>
+            <button class="btn btn-primary" id="stickyCta" onclick="handlePrimaryCta()">Book Appointment</button>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal">
+            <div class="modal-title">📅 Book Appointment</div>
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <div class="form-group"><label>Full Name *</label><input type="text" id="bName" required /></div>
+                <div class="form-group"><label>Mobile Number *</label><input type="tel" id="bMobile" required /></div>
+                <div class="form-group"><label>WhatsApp Number</label><input type="tel" id="bWhatsapp" /></div>
+                <div class="form-group"><label>Location / Address</label><input type="text" id="bAddress" /></div>
+                <div class="form-group"><label>Product</label><input type="text" id="bProduct" readonly /></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Preferred Date</label><input type="date" id="bDate" /></div>
+                    <div class="form-group"><label>Preferred Time</label><select id="bTime"><option value="Morning">Morning</option><option value="Afternoon">Afternoon</option><option value="Evening">Evening</option></select></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>No. of Windows</label><input type="number" id="bWindows" value="1" /></div>
+                    <div class="form-group"><label>No. of Doors</label><input type="number" id="bDoors" value="0" /></div>
+                </div>
+                <div class="form-group"><label>Message</label><textarea id="bMessage" rows="2" placeholder="Any special requirements..."></textarea></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('bookingModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="products.html" class="nav-item active"><i class="fas fa-th-large"></i> Products</a>
+        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
+        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_a91sI0xpFRX5_ti2ukM8Ybn2lMXS6Zw",
+            authDomain: "raj-marketing-mysore-f91f7.firebaseapp.com",
+            projectId: "raj-marketing-mysore-f91f7",
+            storageBucket: "raj-marketing-mysore-f91f7.firebasestorage.app",
+            messagingSenderId: "534782698781",
+            appId: "1:534782698781:web:bad9454adb5d2ad1e7edf4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const productData = {
+            'velcro-economic': {
+                id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic',
+                price: 65, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: true,
+                description: 'Economical Velcro mosquito net for windows and doors. Easy to install and remove.',
+                longDescription: 'The Velcro System – Economic offers affordable mosquito protection for homes and offices. It features high-quality velcro attachment for easy installation and removal. Perfect for windows and doors where you need quick access.',
+                specs: { 'Product Type': 'Velcro Mosquito Net', 'Mesh': 'Polyester', 'Attachment': 'Velcro', 'Colours': 'Grey, Ivory, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                benefits: ['Mosquito Protection', 'Easy Installation', 'Affordable', 'Multiple Colours', 'Removable'],
+                images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'],
+                applications: ['Windows', 'Doors', 'Balcony', 'Kitchen', 'Bedroom'],
+                faqs: [
+                    { q: 'Can this be customized to my window size?', a: 'Yes, we provide custom sizing for all our Velcro nets.' },
+                                   { q: 'Is installation included?', a: 'Professional installation is available at additional charges.' }
+                ],
+                colours: ['Ivory', 'Black', 'White'],
+                types: ['Single', 'Double'],
+                badge: 'velcro', slug: 'velcro-economic'
+            },
+            'pleated-gold': {
+                id: 'pleated-gold', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single',
+                price: 380, originalPrice: 420, discount: 10, unit: 'sq.ft', onlinePurchase: false,
+                description: 'Premium gold pleated mosquito net with detachable design. Perfect for doors and large openings.',
+                longDescription: 'The Pleated Mesh – Gold Detachable features a stylish gold finish with premium pleated design. Ideal for main doors, balcony doors, and large openings where you need elegant and effective mosquito protection.',
+                specs: { 'Product Type': 'Pleated Mosquito Net', 'Mesh': 'Fibre', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Gold', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                benefits: ['Mosquito Protection', 'Elegant Design', 'Easy Operation', 'Durable Frame', 'Space Saving'],
+                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                applications: ['Main Doors', 'Balcony Doors', 'Large Windows', 'Villas', 'Apartments'],
+                faqs: [
+                    { q: 'What is the difference between detachable and non-detachable?', a: 'Detachable nets can be easily removed for cleaning and storage.' },
+                    { q: 'Is installation included?', a: 'Professional installation is available. Book an appointment for a site visit.' }
+                ],
+                colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
+                types: ['Single', 'Double'],
+                badge: 'pleated', slug: 'pleated-gold'
+            }
+        };
+
+        const productImages = {
+            'velcro-economic': {
+                slides: [
+                    { src: 'assets/images/velcro-econ-1.jpg', alt: 'Velcro Economic Mosquito Net' },
+                    { src: 'assets/images/velcro-econ-2.jpg', alt: 'Velcro Net Installed on Window' },
+                    { src: 'assets/images/velcro-econ-3.jpg', alt: 'Velcro Net Close-up' }
+                ]
+            },
+            'default': {
+                slides: [
+                    { src: 'fas fa-box', alt: 'Product Image 1' },
+                    { src: 'fas fa-box', alt: 'Product Image 2' },
+                    { src: 'fas fa-box', alt: 'Product Image 3' }
+                ]
+            }
+        };
+
+        let currentProduct = null;
+        let currentSlide = 0;
+        let productId = null;
+
+        function getProductFromId(id) {
+            return productData[id] || null;
+        }
+
+        async function loadProduct() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            productId = id;
+
+            if (!id) {
+                document.getElementById('mainContent').innerHTML = `
+                    <div style="text-align:center; padding:40px; color:#6b6b7b;">
+                        <i class="fas fa-exclamation-circle" style="font-size:32px; display:block; margin-bottom:8px;"></i>
+                        <h3>Product not found</h3>
+                        <a href="products.html" style="color:#0ea5e9; text-decoration:none;">← Back to Products</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Try Firebase first
+            try {
+                const docRef = doc(db, 'products', id);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    currentProduct = { id: docSnap.id, ...docSnap.data() };
+                } else {
+                    currentProduct = getProductFromId(id);
+                }
+            } catch (error) {
+                currentProduct = getProductFromId(id);
+            }
+
+            if (!currentProduct) {
+                document.getElementById('mainContent').innerHTML = `
+                    <div style="text-align:center; padding:40px; color:#6b6b7b;">
+                        <i class="fas fa-exclamation-circle" style="font-size:32px; display:block; margin-bottom:8px;"></i>
+                        <h3>Product not found</h3>
+                        <a href="products.html" style="color:#0ea5e9; text-decoration:none;">← Back to Products</a>
+                    </div>
+                `;
+                return;
+            }
+
+            renderProduct(currentProduct);
+        }
+
+        function renderProduct(product) {
+            const isOnline = product.onlinePurchase !== false;
+            const ctaText = isOnline ? '🛒 Buy Online' : '📅 Book Appointment';
+            const ctaClass = isOnline ? 'btn-success' : 'btn-primary';
+            const badgeClass = product.badge || 'velcro';
+
+            // Get images
+            const images = productImages[product.id] || productImages['default'];
+            const slides = images.slides || productImages['default'].slides;
+
+            // Colours
+            const colours = product.colours || ['Ivory', 'Black', 'White', 'Teakwood'];
+            const types = product.types || ['Single', 'Double'];
+
+            // Benefits
+            const benefits = product.benefits || ['Mosquito Protection', 'Custom Measurements', 'Durable Materials', 'Professional Installation'];
+
+            // Applications
+            const applications = product.applications || ['Windows', 'Doors', 'Balcony'];
+
+            // Related products
+            const related = getRelatedProducts(product);
+
+            // FAQs
+            const faqs = product.faqs || [
+                { q: 'Can this be customized?', a: 'Yes, custom sizes are available.' },
+                { q: 'Is installation included?', a: 'Professional installation is available. Book an appointment.' }
+            ];
+
+            // Specifications
+            const specs = product.specs || {
+                'Product Type': product.category || 'Mosquito Net',
+                'Mesh': 'Premium Quality',
+                'Frame': 'Aluminium',
+                'Colour': 'Multiple Options',
+                'Custom Size': 'Yes',
+                'Warranty': 'As applicable'
+            };
+
+            const specHtml = Object.entries(specs).map(([key, val]) =>
+                `<tr><td class="label">${key}</td><td class="value">${val}</td></tr>`
+            ).join('');
+
+            const colourHtml = colours.map(c => {
+                const colourClass = c.toLowerCase().replace(/ /g, '-');
+                return `<span class="colour colour-${colourClass}" onclick="selectColour(this, '${c}')" title="${c}"></span>`;
+            }).join('');
+
+            const typeHtml = types.map(t =>
+                `<span class="type ${t === types[0] ? 'active' : ''}" onclick="selectType(this, '${t}')">${t}</span>`
+            ).join('');
+
+            const benefitHtml = benefits.map(b =>
+                `<div class="item"><i class="fas fa-check-circle"></i><span>${b}</span></div>`
+            ).join('');
+
+            const applicationHtml = applications.map(a =>
+                `<span style="background:#f1f5f9; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:500; color:#1a1a2e; display:inline-block; margin:2px;">${a}</span>`
+            ).join('');
+
+            const relatedHtml = related.map(r =>
+                `<a href="product-detail.html?id=${r.id}" class="related-card">
+                    <span class="icon"><i class="${r.image || 'fas fa-box'}"></i></span>
+                    <span class="name">${r.name}</span>
+                </a>`
+            ).join('');
+
+            const faqHtml = faqs.map((f, i) =>
+                `<div class="faq-item ${i === 0 ? 'open' : ''}" onclick="toggleFaq(this)">
+                    <div class="q"><span>${f.q}</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="a">${f.a}</div>
+                </div>`
+            ).join('');
+
+            const discountHtml = product.discount ?
+                `<span class="discount-badge">${product.discount}% OFF</span>` : '';
+            const originalHtml = product.originalPrice ?
+                `<span class="original">₹${product.originalPrice}</span>` : '';
+
+            document.getElementById('mainContent').innerHTML = `
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a><span class="sep">›</span>
+                    <a href="products.html">Products</a><span class="sep">›</span>
+                    <span>${product.name}</span>
+                </div>
+
+                <div class="product-hero">
+                    <div class="badge-row">
+                        <span class="tag tag-${badgeClass}">${product.category || 'Product'}</span>
+                        ${isOnline ? '<span class="tag tag-velcro" style="background:#d1fae5; color:#059669;">Buy Online</span>' : '<span class="tag tag-frame" style="background:#fef3c7; color:#d97706;">Book Appointment</span>'}
+                    </div>
+                    <h1>${product.name}</h1>
+                    <div class="sub">${product.variant || ''}</div>
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-track" id="sliderTrack">
+                        ${slides.map((s, i) => `
+                            <div class="slider-slide">
+                                ${s.src.startsWith('fas') ? `<i class="${s.src}"></i>` : `<img src="${s.src}" alt="${s.alt}" style="width:100%;height:100%;object-fit:cover;" />`}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="slider-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    <div class="slider-dots">
+                        ${slides.map((_, i) => `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>`).join('')}
+                    </div>
+                </div>
+
+                <div class="price-section">
+                    <span class="current">₹${product.price} <span class="unit">/ ${product.unit || 'sq.ft'}</span></span>
+                    ${originalHtml}
+                    ${discountHtml}
+                </div>
+                                <div class="cta-row">
+                    <button class="btn ${ctaClass}" onclick="handlePrimaryCta()">${ctaText}</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='https://wa.me/919483037385?text=Hi%2C%20I%20want%20to%20know%20about%20${encodeURIComponent(product.name)}'"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                </div>
+
+                ${isOnline ? `
+                    <div style="background:#f1f5f9; border-radius:16px; padding:16px; margin:12px 0;">
+                        <div style="font-weight:700; font-size:14px; margin-bottom:8px;">🛒 Quick Purchase</div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                            <input type="number" id="qtyInput" value="1" min="1" style="width:60px; padding:8px; border:1px solid #e8ecf0; border-radius:12px; text-align:center; font-size:14px;" />
+                            <button class="btn btn-success" style="flex:1; padding:10px 20px; border-radius:40px; font-weight:700; font-size:13px; border:none; color:#fff; background:linear-gradient(145deg,#22c55e,#16a34a); cursor:pointer;" onclick="addToCart()">Add to Cart</button>
+                            <button class="btn btn-primary" style="flex:1; padding:10px 20px; border-radius:40px; font-weight:700; font-size:13px; border:none; color:#fff; background:linear-gradient(145deg,#0ea5e9,#0284c7); cursor:pointer;" onclick="buyNow()">Buy Now</button>
+                        </div>
+                    </div>
+                ` : `
+                    <div style="background:#fef3c7; border-radius:16px; padding:12px 16px; margin:12px 0; border-left:4px solid #f59e0b;">
+                        <span style="font-size:13px; color:#1a1a2e;">📐 This product requires professional measurement and installation.</span>
+                        <span style="font-size:12px; color:#6b6b7b; display:block; margin-top:2px;">Click "Book Appointment" to schedule a site visit.</span>
+                    </div>
+                `}
+
+                <div class="section-title"><i class="fas fa-info-circle"></i> Description</div>
+                <p style="font-size:13px; color:#4a4a5a; line-height:1.7;">${product.description || product.longDescription || 'Premium quality mosquito net from Raj Marketing Mysore.'}</p>
+                ${product.longDescription ? `<p style="font-size:13px; color:#4a4a5a; line-height:1.7; margin-top:6px;">${product.longDescription}</p>` : ''}
+
+                <div class="section-title"><i class="fas fa-list"></i> Specifications</div>
+                <table class="spec-table">${specHtml}</table>
+
+                <div class="section-title"><i class="fas fa-palette"></i> Frame Colour</div>
+                <div class="colour-selector">${colourHtml}</div>
+
+                <div class="section-title"><i class="fas fa-layer-group"></i> Type</div>
+                <div class="type-selector">${typeHtml}</div>
+
+                <div class="section-title"><i class="fas fa-star"></i> Benefits</div>
+                <div class="benefit-grid">${benefitHtml}</div>
+
+                <div class="section-title"><i class="fas fa-check-circle"></i> Best For</div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">${applicationHtml}</div>
+
+                <div class="section-title"><i class="fas fa-cogs"></i> Installation Process</div>
+                <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:12px; color:#6b6b7b;">
+                    <span>1. Book Appointment</span><span>→</span>
+                    <span>2. Site Measurement</span><span>→</span>
+                    <span>3. Product Confirmation</span><span>→</span>
+                    <span>4. Manufacturing</span><span>→</span>
+                    <span>5. Installation</span>
+                </div>
+
+                <div class="section-title"><i class="fas fa-question-circle"></i> FAQs</div>
+                ${faqHtml}
+
+                <div class="section-title"><i class="fas fa-link"></i> You May Also Like</div>
+                <div class="related-grid">${relatedHtml || '<div style="grid-column:1/-1; text-align:center; color:#6b6b7b; font-size:13px;">No related products found.</div>'}</div>
+
+                <div style="background:#f1f5f9; border-radius:16px; padding:16px; margin:12px 0; text-align:center;">
+                    <div style="font-weight:700; font-size:14px; color:#1a1a2e;">Need Help?</div>
+                    <p style="font-size:12px; color:#6b6b7b;">Call us at <a href="tel:9483037385" style="color:#0ea5e9; text-decoration:none; font-weight:600;">9483037385</a></p>
+                    <div style="display:flex; gap:10px; justify-content:center; margin-top:8px;">
+                        <a href="https://wa.me/919483037385" target="_blank" style="background:#25D366; color:#fff; padding:8px 20px; border-radius:30px; text-decoration:none; font-weight:600; font-size:12px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="tel:9483037385" style="background:#0ea5e9; color:#fff; padding:8px 20px; border-radius:30px; text-decoration:none; font-weight:600; font-size:12px;"><i class="fas fa-phone"></i> Call</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <a href="index.html">Home</a>| <a href="about.html">About</a>| <a href="contact.html">Contact</a>| <a href="terms.html">Terms</a>| <a href="privacy.html">Privacy</a>
+                </div>
+                <div class="footer-copyright">© 2026 Raj Marketing Mysore</div>
+            `;
+
+            // Update sticky bottom
+            const sticky = document.getElementById('stickyBottom');
+            sticky.style.display = 'block';
+            document.getElementById('stickyPrice').textContent = `₹${product.price}/sq.ft`;
+            document.getElementById('stickyCta').textContent = isOnline ? '🛒 Buy Online' : '📅 Book Appointment';
+            document.getElementById('stickyCta').className = `btn ${isOnline ? 'btn-success' : 'btn-primary'}`;
+
+            // Update SEO metadata
+            document.title = `${product.name} – Raj Marketing Mysore`;
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.content = `${product.name}. ${product.description || 'Premium mosquito net from Raj Marketing Mysore.'}`;
+            }
+
+            // Update page URL without reload
+            if (window.history && window.history.pushState) {
+                const newUrl = `/product-detail.html?id=${product.id}`;
+                window.history.pushState({ productId: product.id }, '', newUrl);
+            }
+
+            // Set product in booking modal
+            document.getElementById('bProduct').value = product.name;
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            console.log('✅ Product rendered:', product.name);
+        }
+
+        function getRelatedProducts(product) {
+            const allProducts = Object.values(productData);
+            const related = allProducts.filter(p => p.id !== product.id && p.category === product.category);
+            return related.slice(0, 4);
+        }
+
+        // ============================================================
+        // SLIDER FUNCTIONS
+        // ============================================================
+        window.changeSlide = function(direction) {
+            const track = document.getElementById('sliderTrack');
+            if (!track) return;
+            const slides = track.querySelectorAll('.slider-slide');
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            track.style.transform = `translateX(-${currentSlide * (100 / slides.length)}%)`;
+            document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        };
+
+        window.goToSlide = function(index) {
+            const track = document.getElementById('sliderTrack');
+            if (!track) return;
+            const slides = track.querySelectorAll('.slider-slide');
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * (100 / slides.length)}%)`;
+            document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        };
+
+        // ============================================================
+        // COLOUR & TYPE SELECTORS
+        // ============================================================
+        window.selectColour = function(el, colour) {
+            document.querySelectorAll('.colour-selector .colour').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            console.log('Selected colour:', colour);
+        };
+
+        window.selectType = function(el, type) {
+            document.querySelectorAll('.type-selector .type').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            console.log('Selected type:', type);
+        };
+
+        // ============================================================
+        // FAQ TOGGLE
+        // ============================================================
+        window.toggleFaq = function(el) {
+            el.classList.toggle('open');
+        };
+
+        // ============================================================
+        // CTA HANDLERS
+        // ============================================================
+        window.handlePrimaryCta = function() {
+            if (currentProduct && currentProduct.onlinePurchase !== false) {
+                // Velcro - Buy Online
+                const qty = document.getElementById('qtyInput')?.value || 1;
+                alert(`🛒 Buy Online: ${currentProduct.name}\nPrice: ₹${currentProduct.price}/sq.ft\nQuantity: ${qty}\n\nThis will redirect to checkout.`);
+            } else {
+                // Book Appointment
+                document.getElementById('bookingModal').classList.add('active');
+            }
+        };
+
+        window.addToCart = function() {
+            const qty = document.getElementById('qtyInput')?.value || 1;
+            alert(`🛒 Added to cart:\n${currentProduct.name}\n₹${currentProduct.price}/sq.ft × ${qty}\nTotal: ₹${currentProduct.price * qty}`);
+        };
+
+        window.buyNow = function() {
+            const qty = document.getElementById('qtyInput')?.value || 1;
+            alert(`🛒 Buy Now:\n${currentProduct.name}\n₹${currentProduct.price}/sq.ft × ${qty}\nTotal: ₹${currentProduct.price * qty}\n\nRedirecting to checkout...`);
+        };
+
+        // ============================================================
+        // BOOKING SUBMIT
+        // ============================================================
+        window.submitBooking = async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('bName').value.trim();
+            const mobile = document.getElementById('bMobile').value.trim();
+
+            if (!name || !mobile) {
+                alert('Please enter your name and mobile number.');
+                return;
+            }
+
+            const data = {
+                customerName: name,
+                mobile: mobile,
+                whatsapp: document.getElementById('bWhatsapp').value.trim(),
+                address: document.getElementById('bAddress').value.trim(),
+                product: document.getElementById('bProduct').value,
+                date: document.getElementById('bDate').value,
+                time: document.getElementById('bTime').value,
+                windows: parseInt(document.getElementById('bWindows').value) || 1,
+                doors: parseInt(document.getElementById('bDoors').value) || 0,
+                message: document.getElementById('bMessage').value.trim(),
+                source: 'Product Page',
+                status: 'NEW',
+                createdAt: serverTimestamp ? serverTimestamp() : new Date().toISOString()
+            };
+
+            try {
+                await addDoc(collection(db, 'appointments'), data);
+                alert('✅ Appointment request received successfully! Our team will contact you to confirm.');
+                closeModal('bookingModal');
+            } catch (error) {
+                console.error('Booking error:', error);
+                alert('❌ Failed to submit booking. Please try again or call us directly.');
+            }
+        };
+
+        // ============================================================
+        // MODAL
+        // ============================================================
+        window.closeModal = function(id) {
+            document.getElementById(id).classList.remove('active');
+        };
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        loadProduct();
+
+        // Listen for back/forward navigation
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.productId) {
+                loadProduct();
+            }
+        });
+
+        console.log('✅ Product detail page loaded');
+    </script>
+</body>
+</html>
