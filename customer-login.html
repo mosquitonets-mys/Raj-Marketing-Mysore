@@ -9,12 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body {
             background: #f0f4f8;
             display: flex;
@@ -26,141 +21,91 @@
         .login-container {
             max-width: 420px;
             width: 100%;
-            background: #ffffff;
+            background: #fff;
             border-radius: 32px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
             padding: 40px 30px;
             border: 1px solid #e8ecf0;
         }
-        .login-logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        .login-logo { text-align: center; margin-bottom: 28px; }
         .login-logo .logo-icon {
-            width: 64px;
-            height: 64px;
+            width: 72px; height: 72px;
             background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            border-radius: 18px;
+            border-radius: 20px;
             display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 30px;
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+            align-items: center; justify-content: center;
+            color: #fff; font-size: 34px;
+            box-shadow: 0 4px 20px rgba(14,165,233,0.3);
         }
-        .login-logo h1 {
-            font-size: 22px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-top: 12px;
-        }
-        .login-logo p {
-            font-size: 13px;
-            color: #6b6b7b;
-            margin-top: 4px;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #4a4a5a;
-            display: block;
-            margin-bottom: 6px;
-        }
+        .login-logo h1 { font-size: 24px; font-weight: 800; color: #1a1a2e; margin-top: 12px; }
+        .login-logo p { font-size: 13px; color: #6b6b7b; margin-top: 2px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { font-size: 12px; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 6px; }
         .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1.5px solid #e8ecf0;
-            border-radius: 14px;
-            font-size: 14px;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
-            background: #f8fafc;
-            transition: 0.2s;
+            width: 100%; padding: 12px 16px;
+            border: 1.5px solid #e8ecf0; border-radius: 14px;
+            font-size: 14px; outline: none;
+            background: #f8fafc; transition: 0.2s;
         }
-        .form-group input:focus {
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.08);
-        }
+        .form-group input:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.08); }
         .btn-login {
-            width: 100%;
-            padding: 14px;
+            width: 100%; padding: 14px;
             background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            color: #fff;
-            border: none;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+            color: #fff; border: none; border-radius: 40px;
+            font-weight: 700; font-size: 16px;
+            cursor: pointer; transition: 0.2s;
+            box-shadow: 0 4px 16px rgba(14,165,233,0.25);
             margin-top: 6px;
         }
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.35);
-        }
-        .btn-login:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .login-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6b6b7b;
-        }
-        .login-footer a {
-            color: #0ea5e9;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .login-footer a:hover {
-            text-decoration: underline;
-        }
-        .error-msg {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            display: none;
-            border-left: 4px solid #dc2626;
-        }
-        .error-msg.show {
-            display: block;
-        }
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.35); }
+        .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-login .spinner {
+            display: inline-block; width: 18px; height: 18px;
             border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
+            border-top-color: #fff; border-radius: 50%;
             animation: spin 0.6s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
+            margin-right: 8px; vertical-align: middle;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .login-footer { text-align: center; margin-top: 20px; font-size: 13px; color: #6b6b7b; }
+        .login-footer a { color: #0ea5e9; text-decoration: none; font-weight: 600; }
+        .login-footer a:hover { text-decoration: underline; }
+        .error-msg {
+            background: #fee2e2; color: #991b1b;
+            padding: 12px 16px; border-radius: 12px;
+            margin-bottom: 16px; font-size: 13px;
+            display: none; border-left: 4px solid #dc2626;
         }
-        @media (max-width: 400px) {
-            .login-container { padding: 30px 20px; }
-            .login-logo h1 { font-size: 20px; }
+        .error-msg.show { display: block; }
+        .password-wrapper { position: relative; }
+        .password-wrapper .toggle-pass {
+            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; color: #6b6b7b; cursor: pointer; font-size: 16px;
         }
+        .password-wrapper .toggle-pass:hover { color: #0ea5e9; }
+        .social-login { display: flex; gap: 12px; justify-content: center; margin: 16px 0; }
+        .social-login .social-btn {
+            width: 48px; height: 48px; border-radius: 50%;
+            border: 1px solid #e8ecf0; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: #6b6b7b; cursor: pointer; transition: 0.2s;
+        }
+        .social-login .social-btn:hover { border-color: #0ea5e9; color: #0ea5e9; }
+        .quick-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+        .quick-actions a {
+            font-size: 12px; color: #0ea5e9; text-decoration: none; padding: 6px 14px;
+            border-radius: 20px; background: #f0f9ff; transition: 0.2s;
+        }
+        .quick-actions a:hover { background: #dbeafe; }
+        @media (max-width: 400px) { .login-container { padding: 30px 20px; } }
     </style>
 </head>
 <body>
 
     <div class="login-container">
         <div class="login-logo">
-            <div class="logo-icon"><i class="fas fa-user"></i></div>
+            <div class="logo-icon"><i class="fas fa-user-circle"></i></div>
             <h1>Customer Login</h1>
-            <p>Access your orders and estimates</p>
+            <p>Access your orders, estimates and appointments</p>
         </div>
 
         <div id="errorBox" class="error-msg"></div>
@@ -172,7 +117,12 @@
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" id="passwordInput" placeholder="Enter your password" required />
+                <div class="password-wrapper">
+                    <input type="password" id="passwordInput" placeholder="Enter your password" required />
+                    <button type="button" class="toggle-pass" onclick="togglePassword()">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
             <button type="submit" class="btn-login" id="loginBtn">
                 <i class="fas fa-sign-in-alt"></i> Login
@@ -181,9 +131,14 @@
 
         <div class="login-footer">
             <p>New customer? <a href="customer-register.html">Create Account</a></p>
-            <p style="margin-top:6px; font-size:12px; color:#8a8a9a;">
-                <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
-            </p>
+            <p style="margin-top:4px;"><a href="customer-forgot-password.html">Forgot Password?</a></p>
+        </div>
+
+        <div class="quick-actions">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="appointment.html"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+            <a href="price-checker.html"><i class="fas fa-tag"></i> Check Price</a>
+            <a href="https://wa.me/919483037385" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
         </div>
     </div>
 
@@ -196,50 +151,49 @@
         const loginBtn = document.getElementById('loginBtn');
         const errorBox = document.getElementById('errorBox');
 
-        async function handleLogin(e) {
+        window.togglePassword = function() {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            const icon = document.querySelector('.toggle-pass i');
+            icon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+        };
+
+        window.handleLogin = async function(e) {
             e.preventDefault();
             const email = emailInput.value.trim();
             const password = passwordInput.value.trim();
 
+            errorBox.classList.remove('show');
+
             if (!email || !password) {
-                showError('Please enter both email and password.');
+                errorBox.textContent = '❌ Please enter both email and password.';
+                errorBox.classList.add('show');
                 return;
             }
 
             loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="loading-spinner"></span> Logging in...';
-            errorBox.classList.remove('show');
+            loginBtn.innerHTML = '<span class="spinner"></span> Logging in...';
 
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 console.log('✅ Customer logged in:', userCredential.user.email);
                 window.location.href = 'customer-dashboard.html';
             } catch (error) {
-                console.error('❌ Login error:', error);
                 let msg = 'Login failed. Please check your credentials.';
-                if (error.code === 'auth/user-not-found') {
-                    msg = 'No account found with this email.';
-                } else if (error.code === 'auth/wrong-password') {
-                    msg = 'Incorrect password. Please try again.';
-                } else if (error.code === 'auth/too-many-requests') {
-                    msg = 'Too many failed attempts. Please try again later.';
-                } else if (error.code === 'auth/invalid-email') {
-                    msg = 'Please enter a valid email address.';
-                }
-                showError(msg);
+                if (error.code === 'auth/user-not-found') msg = 'No account found with this email.';
+                else if (error.code === 'auth/wrong-password') msg = 'Incorrect password. Please try again.';
+                else if (error.code === 'auth/too-many-requests') msg = 'Too many failed attempts. Please try again later.';
+                errorBox.textContent = '❌ ' + msg;
+                errorBox.classList.add('show');
             } finally {
                 loginBtn.disabled = false;
                 loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
             }
-        }
+        };
 
-        function showError(msg) {
-            errorBox.textContent = '❌ ' + msg;
-            errorBox.classList.add('show');
-        }
-
-        window.handleLogin = handleLogin;
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
     </script>
-
 </body>
-</html>
+    </html>
