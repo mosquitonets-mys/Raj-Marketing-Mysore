@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Raj Marketing · Home</title>
+    <meta name="description" content="Raj Marketing Mysore - Premium mosquito nets, window screens and door screens. Quality mosquito protection since 2016." />
+    <meta property="og:title" content="Raj Marketing Mysore - Mosquito Nets & Window Screens" />
+    <meta property="og:description" content="Premium mosquito nets, custom window screens, and door screens. Free site visit. Trusted since 2016." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -54,7 +57,7 @@
             width: 100%;
             background: var(--card-bg);
             border-radius: 32px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
             padding: 18px 16px 20px 16px;
             border: 1px solid var(--border);
         }
@@ -74,7 +77,7 @@
             background: var(--card-bg);
             padding: 8px 16px;
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -96,7 +99,7 @@
             justify-content: center;
             color: #fff;
             font-size: 16px;
-            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+            box-shadow: 0 2px 8px rgba(14,165,233,0.2);
         }
 
         .fixed-header .logo-text {
@@ -116,25 +119,40 @@
 
         .fixed-header .header-actions {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             align-items: center;
         }
 
         .fixed-header .header-btn {
             position: relative;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            padding: 4px 6px;
+            border-radius: 8px;
             background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 16px;
+            font-size: 12px;
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
+            min-width: 44px;
+        }
+
+        .fixed-header .header-btn i {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .fixed-header .header-btn .label {
+            font-size: 7px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            opacity: 0.7;
         }
 
         .fixed-header .header-btn:hover {
@@ -142,26 +160,8 @@
             color: var(--primary);
         }
 
-        .fixed-header .header-btn .tooltip {
-            position: absolute;
-            bottom: -22px;
-            left: 50%;
-            transform: translateX(-50%) scale(0.8);
-            background: var(--secondary);
-            color: #fff;
-            font-size: 8px;
-            font-weight: 500;
-            padding: 2px 8px;
-            border-radius: 4px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-
-        .fixed-header .header-btn:hover .tooltip {
-            opacity: 1;
-            transform: translateX(-50%) scale(1);
+        .fixed-header .header-btn.active {
+            color: var(--primary);
         }
 
         /* ============================================================
@@ -183,7 +183,7 @@
             justify-content: space-around;
             align-items: center;
             border-radius: 30px 30px 0 0;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.03);
         }
 
         .fixed-footer .nav-item {
@@ -198,7 +198,6 @@
             border-radius: 20px;
             text-decoration: none;
             transition: var(--transition);
-            position: relative;
         }
 
         .fixed-footer .nav-item i {
@@ -220,23 +219,23 @@
         }
 
         /* ============================================================
-           SLIDER
+           SLIDER - 10 SLIDES
         ============================================================ */
         .slider-container {
             margin: 4px 0 14px 0;
             border-radius: 20px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-            height: 140px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            height: 160px;
             border: 1px solid var(--border);
         }
 
         .slider-track {
             display: flex;
-            width: 300%;
+            width: 1000%;
             height: 100%;
-            animation: slide 15s infinite ease-in-out;
+            animation: slide25 45s infinite ease-in-out;
         }
 
         .slider-slide {
@@ -246,27 +245,49 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 16px 20px;
-            font-weight: 700;
-            font-size: 18px;
+            padding: 14px 20px;
             color: #fff;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.15);
             text-align: center;
             position: relative;
         }
 
         .slider-slide .emoji {
-            font-size: 32px;
+            font-size: 30px;
             display: block;
             margin-bottom: 2px;
         }
 
-        .slider-slide span {
+        .slider-slide .main-text {
+            font-weight: 800;
+            font-size: 22px;
+            line-height: 1.2;
+            display: block;
+        }
+
+        .slider-slide .main-text.large {
+            font-size: 28px;
+        }
+
+        .slider-slide .main-text.small {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .slider-slide .sub-text {
             font-size: 12px;
             font-weight: 300;
             display: block;
             margin-top: 2px;
             opacity: 0.9;
+        }
+
+        .slider-slide .sub-text.bold {
+            font-weight: 600;
+        }
+
+        .slider-slide .sub-text.italic {
+            font-style: italic;
         }
 
         .slider-slide .slide-bg {
@@ -275,20 +296,29 @@
             z-index: -1;
         }
 
-        .slider-slide:nth-child(1) .slide-bg {
-            background: linear-gradient(135deg, #0ea5e9, #0284c7);
-        }
-        .slider-slide:nth-child(2) .slide-bg {
-            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
-        }
-        .slider-slide:nth-child(3) .slide-bg {
-            background: linear-gradient(135deg, #0284c7, #0ea5e9);
-        }
+        /* 10 Different Colors */
+        .slider-slide:nth-child(1) .slide-bg { background: linear-gradient(135deg, #f97316, #fb923c); }
+        .slider-slide:nth-child(2) .slide-bg { background: linear-gradient(135deg, #0ea5e9, #38bdf8); }
+        .slider-slide:nth-child(3) .slide-bg { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .slider-slide:nth-child(4) .slide-bg { background: linear-gradient(135deg, #22c55e, #4ade80); }
+        .slider-slide:nth-child(5) .slide-bg { background: linear-gradient(135deg, #ec4899, #f472b6); }
+        .slider-slide:nth-child(6) .slide-bg { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+        .slider-slide:nth-child(7) .slide-bg { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .slider-slide:nth-child(8) .slide-bg { background: linear-gradient(135deg, #ef4444, #f87171); }
+        .slider-slide:nth-child(9) .slide-bg { background: linear-gradient(135deg, #14b8a6, #2dd4bf); }
+        .slider-slide:nth-child(10) .slide-bg { background: linear-gradient(135deg, #6366f1, #818cf8); }
 
-        @keyframes slide {
-            0%, 28% { transform: translateX(0); }
-            33%, 61% { transform: translateX(-33.33%); }
-            66%, 94% { transform: translateX(-66.66%); }
+        @keyframes slide25 {
+            0%, 8% { transform: translateX(0); }
+            10%, 18% { transform: translateX(-10%); }
+            20%, 28% { transform: translateX(-20%); }
+            30%, 38% { transform: translateX(-30%); }
+            40%, 48% { transform: translateX(-40%); }
+            50%, 58% { transform: translateX(-50%); }
+            60%, 68% { transform: translateX(-60%); }
+            70%, 78% { transform: translateX(-70%); }
+            80%, 88% { transform: translateX(-80%); }
+            90%, 98% { transform: translateX(-90%); }
             100% { transform: translateX(0); }
         }
 
@@ -303,7 +333,7 @@
             color: var(--text);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14,165,233,0.1);
         }
 
         .welcome-section::after {
@@ -352,7 +382,7 @@
 
         .search-bar:focus-within {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.08);
+            box-shadow: 0 0 0 3px rgba(14,165,233,0.08);
         }
 
         .search-bar i {
@@ -397,7 +427,7 @@
         }
 
         .contact-card:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
             border-color: var(--primary);
         }
 
@@ -449,7 +479,7 @@
 
         .contact-card .whatsapp-btn:hover {
             transform: scale(1.04);
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 4px 12px rgba(37,211,102,0.3);
         }
 
         /* ============================================================
@@ -503,7 +533,7 @@
         }
 
         .quick-card:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
             border-color: var(--primary);
             transform: translateY(-2px);
         }
@@ -523,7 +553,7 @@
         }
 
         /* ============================================================
-           PRODUCT CATEGORIES WITH IMAGES
+           PRODUCT CATEGORIES
         ============================================================ */
         .category-scroll {
             display: flex;
@@ -560,7 +590,7 @@
         }
 
         .category-card:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
             border-color: var(--primary);
             transform: translateY(-2px);
         }
@@ -577,13 +607,7 @@
             background: var(--primary-bg);
             color: var(--primary);
             font-size: 28px;
-            border: 1px solid rgba(14, 165, 233, 0.1);
-        }
-
-        .category-card .product-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            border: 1px solid rgba(14,165,233,0.1);
         }
 
         .category-card .product-name {
@@ -614,14 +638,14 @@
             color: #fff;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.2);
+            box-shadow: 0 4px 16px rgba(14,165,233,0.2);
             cursor: pointer;
             transition: var(--transition);
         }
 
         .promo-banner:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.3);
+             box-shadow: 0 6px 24px rgba(14,165,233,0.3);
         }
 
         .promo-banner .banner-content {
@@ -649,7 +673,7 @@
             font-weight: 700;
             font-size: 12px;
             color: var(--primary-dark);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: inline-block;
         }
 
@@ -662,17 +686,10 @@
             z-index: 1;
         }
 
-        .promo-banner .banner-bg-image {
-            position: absolute;
-            inset: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.03)"/><circle cx="80" cy="20" r="30" fill="rgba(255,255,255,0.03)"/><circle cx="20" cy="80" r="25" fill="rgba(255,255,255,0.03)"/></svg>') repeat;
-            opacity: 0.5;
-        }
-
         /* ============================================================
            FEATURE GRID
         ============================================================ */
-             .feature-grid {
+        .feature-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
@@ -694,7 +711,7 @@
         }
 
         .feature-card:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
             border-color: var(--primary);
             transform: translateX(3px);
         }
@@ -750,7 +767,7 @@
         }
 
         .service-btn:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
             border-color: var(--primary);
             transform: translateY(-2px);
         }
@@ -770,8 +787,8 @@
             color: #fff;
             text-align: center;
             margin: 12px 0 10px 0;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
         }
 
         .dealer-banner h4 {
@@ -809,7 +826,7 @@
 
         .dealer-banner .btn-dealer:hover {
             transform: scale(1.04);
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+            box-shadow: 0 4px 16px rgba(14,165,233,0.3);
         }
 
         .dealer-banner .btn-dealer-outline {
@@ -823,12 +840,12 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255,255,255,0.2);
             transition: var(--transition);
         }
 
         .dealer-banner .btn-dealer-outline:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             transform: scale(1.04);
         }
 
@@ -841,7 +858,7 @@
             padding: 20px 18px;
             margin: 12px 0 10px 0;
             color: #fff;
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.2);
+            box-shadow: 0 4px 16px rgba(14,165,233,0.2);
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
@@ -849,7 +866,7 @@
 
         .cta-section:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.3);
+            box-shadow: 0 6px 24px rgba(14,165,233,0.3);
         }
 
         .cta-section h3 {
@@ -879,7 +896,7 @@
             font-weight: 700;
             font-size: 13px;
             color: var(--primary-dark);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -889,13 +906,13 @@
 
         .cta-actions .btn-primary:hover {
             transform: scale(1.04);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
 
         .cta-actions .btn-secondary {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255,255,255,0.15);
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255,255,255,0.25);
             padding: 8px 20px;
             border-radius: 30px;
             font-weight: 700;
@@ -909,7 +926,7 @@
         }
 
         .cta-actions .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255,255,255,0.25);
             transform: scale(1.04);
         }
 
@@ -951,6 +968,33 @@
         }
 
         /* ============================================================
+           WHATSAPP FLOATING BUTTON
+        ============================================================ */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: #25D366;
+            color: #fff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+        }
+
+        /* ============================================================
            RESPONSIVE
         ============================================================ */
         @media (max-width: 400px) {
@@ -959,24 +1003,39 @@
             .category-card { min-width: 120px; }
             .category-card .product-img { width: 52px; height: 52px; font-size: 22px; }
             .fixed-header .logo-text { font-size: 12px; }
-            .slider-container { height: 110px; }
-            .slider-slide { font-size: 15px; }
-            .slider-slide .emoji { font-size: 26px; }
+            .fixed-header .header-btn { min-width: 36px; padding: 2px 4px; }
+            .fixed-header .header-btn i { font-size: 14px; }
+            .fixed-header .header-btn .label { font-size: 6px; }
+            .slider-container { height: 130px; }
+            .slider-slide .main-text { font-size: 18px; }
+            .slider-slide .main-text.large { font-size: 22px; }
+            .slider-slide .main-text.small { font-size: 14px; }
+            .slider-slide .emoji { font-size: 24px; }
             .feature-grid { grid-template-columns: 1fr; }
             .contact-card .number { font-size: 15px; }
             .cta-section h3 { font-size: 16px; }
             .fixed-footer .nav-item { font-size: 7px; padding: 2px 6px; }
             .fixed-footer .nav-item i { font-size: 16px; }
+            .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
         }
 
         @media (max-width: 350px) {
             .fixed-header .logo-area .logo-text span { display: none; }
             .fixed-header .logo-area .logo-text { font-size: 11px; }
-            .fixed-header .header-btn { width: 28px; height: 28px; font-size: 14px; }
+            .slider-container { height: 110px; }
+            .slider-slide .main-text { font-size: 15px; }
+            .slider-slide .main-text.large { font-size: 18px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ============================================================
+    WHATSAPP FLOATING BUTTON
+    ============================================================ -->
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- ============================================================
     FIXED HEADER - COMPACT
@@ -990,25 +1049,17 @@
             </div>
         </div>
         <div class="header-actions">
-            <a href="appointment.html" class="header-btn" title="Appointment">
-                <i class="fas fa-calendar-check"></i>
-                <span class="tooltip">Appointment</span>
-            </a>
-            <a href="price-checker.html" class="header-btn" title="Price Check">
-                <i class="fas fa-tag"></i>
-                <span class="tooltip">Price</span>
-            </a>
-            <a href="dealership.html" class="header-btn" title="Dealer">
-                <i class="fas fa-handshake"></i>
-                <span class="tooltip">Dealer</span>
-            </a>
-            <a href="login.html" class="header-btn" title="Admin">
-                <i class="fas fa-cog"></i>
-                <span class="tooltip">Admin</span>
+            <a href="customer-login.html" class="header-btn" title="Customer Login">
+                <i class="fas fa-user"></i>
+                <span class="label">Customer</span>
             </a>
             <a href="dealer-login.html" class="header-btn" title="Dealer Login">
                 <i class="fas fa-user-tie"></i>
-                <span class="tooltip">Login</span>
+                <span class="label">Dealer</span>
+            </a>
+            <a href="login.html" class="header-btn" title="Admin Login">
+                <i class="fas fa-cog"></i>
+                <span class="label">Admin</span>
             </a>
         </div>
     </header>
@@ -1018,31 +1069,84 @@
     ============================================================ -->
     <div class="app-container">
 
-        <!-- SLIDER -->
+        <!-- ============================================================
+        SLIDER - 10 SLIDES
+        ============================================================ -->
         <div class="slider-container">
             <div class="slider-track">
+                <!-- Slide 1 -->
                 <div class="slider-slide">
                     <div class="slide-bg"></div>
                     <span class="emoji">🦟</span>
-                    Premium Mosquito Nets
-                    <span>100% Protection · Quality Guaranteed</span>
+                    <span class="main-text large">Premium Mosquito Nets</span>
+                    <span class="sub-text bold">100% Protection · Quality Guaranteed</span>
                 </div>
+                <!-- Slide 2 -->
                 <div class="slider-slide">
                     <div class="slide-bg"></div>
                     <span class="emoji">📏</span>
-                    Custom Window Screens
-                    <span>Perfect Fit Guaranteed for Every Window</span>
+                    <span class="main-text">Custom Window Screens</span>
+                    <span class="sub-text">Perfect Fit Guaranteed for Every Window</span>
                 </div>
+                <!-- Slide 3 -->
                 <div class="slider-slide">
                     <div class="slide-bg"></div>
                     <span class="emoji">🏆</span>
-                    Trusted Since 2016
-                    <span>500+ Happy Customers · 5-Star Service</span>
+                    <span class="main-text large">Trusted Since 2016</span>
+                    <span class="sub-text italic">500+ Happy Customers · 5-Star Service</span>
+                </div>
+                <!-- Slide 4 -->
+                <div class="slider-slide">
+                    <div class="slide-bg"></div>
+                    <span class="emoji">💪</span>
+                    <span class="main-text">Quality You Can Trust</span>
+                    <span class="sub-text bold">Premium materials · Expert craftsmanship</span>
+                </div>
+                <!-- Slide 5 -->
+                <div class="slider-slide">
+                    <div class="slide-bg"></div>
+                    <span class="emoji">🏠</span>
+                    <span class="main-text large">Protect Your Family</span>
+                    <span class="sub-text">Safe · Reliable · Affordable</span>
+                </div>
+                <!-- Slide 6 -->
+                <div class="slider-slide">
+                    <div class="slide-bg"></div>
+                    <span class="emoji">🌟</span>
+                    <span class="main-text">Why Raj Marketing?</span>
+                    <span class="sub-text italic">Quality · Trust · Excellence since 2016</span>
+                </div>
+                <!-- Slide 7 -->
+                <div class="slider-slide">
+                    <div class="slide-bg"></div>
+                    <span class="emoji">🔧</span>
+                    <span class="main-text">Professional Installation</span>
+                    <span class="sub-text bold">Expert team · Hassle-free service</span>
+                </div>
+                <!-- Slide 8 -->
+                <div class="slider-slide">
+                    <div class="slide-bg"></div>
+                    <span class="emoji">💎</span>
+                    <span class="main-text large">Premium Quality Nets</span>
+                    <span class="sub-text">Velcro · Aluminium · Pleated · Mesh</span>
+                </div>
+                <!-- Slide 9 -->
+                <div class="slider-slide">
+                    <div class="slide-bg"></div>
+                    <span class="emoji">🤝</span>
+                    <span class="main-text">Dealer Opportunities</span>
+                    <span class="sub-text bold">Join our network · Grow your business</span>
+                </div>
+                <!-- Slide 10 -->
+                <div class="slider-slide">
+                    <div class="slide-bg"></div>
+                    <span class="emoji">🎉</span>
+                    <span class="main-text large">New Offers Coming!</span>
+                    <span class="sub-text italic">Stay tuned for exclusive deals</span>
                 </div>
             </div>
         </div>
-
-        <!-- WELCOME SECTION -->
+    <!-- WELCOME SECTION -->
         <div class="welcome-section">
             <h2>Welcome to Raj Marketing Mysore</h2>
             <p><i class="fas fa-check-circle"></i> Smart Mosquito Protection for Every Home</p>
@@ -1122,7 +1226,6 @@
 
         <!-- PROMO BANNER -->
         <div class="promo-banner" onclick="window.location.href='estimate.html'">
-            <div class="banner-bg-image"></div>
             <div class="banner-content">
                 <h4>Protect Your Home from Mosquitoes</h4>
                 <p>Premium Quality Nets · Free Site Visit</p>
@@ -1130,7 +1233,8 @@
             </div>
             <div class="banner-icon">🦟</div>
         </div>
-   <!-- WHY CHOOSE US -->
+
+        <!-- WHY CHOOSE US -->
         <div class="section-title" style="margin-top: 4px;">
             <h3>Why Choose Us</h3>
             <a href="#">Learn more</a>
@@ -1181,7 +1285,7 @@
             <h4>🤝 Become a Raj Marketing Dealer</h4>
             <p>Join our dealer network and grow your business with quality products.</p>
             <div class="dealer-actions">
-                <a href="dealer-registration.html" class="btn-dealer">
+                <a href="dealer-register.html" class="btn-dealer">
                     <i class="fas fa-handshake"></i> Register Now
                 </a>
                 <a href="dealer-login.html" class="btn-dealer-outline">
@@ -1233,5 +1337,115 @@
         <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
     </footer>
 
+    <!-- ============================================================
+    FIREBASE INTEGRATION
+    ============================================================ -->
+    <script type="module">
+        // ============================================================
+        // FIREBASE IMPORTS
+        // ============================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        // ============================================================
+        // FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_a91sI0xpFRX5_ti2ukM8Ybn2lMXS6Zw",
+            authDomain: "raj-marketing-mysore-f91f7.firebaseapp.com",
+            projectId: "raj-marketing-mysore-f91f7",
+            storageBucket: "raj-marketing-mysore-f91f7.firebasestorage.app",
+            messagingSenderId: "534782698781",
+            appId: "1:534782698781:web:bad9454adb5d2ad1e7edf4",
+            measurementId: "G-P95PHHGV2M"
+        };
+
+        // ============================================================
+        // INITIALIZE
+        // ============================================================
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        console.log('✅ Firebase initialized for Raj Marketing');
+
+        // ============================================================
+        // AUTH STATE
+        // ============================================================
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log('✅ User logged in:', user.email);
+                // Update UI for logged-in user
+                const headerActions = document.querySelector('.header-actions');
+                const existingProfile = headerActions.querySelector('.header-btn.profile-btn');
+                if (!existingProfile) {
+                    const profileBtn = document.createElement('a');
+                    profileBtn.href = 'customer-dashboard.html';
+                    profileBtn.className = 'header-btn';
+                    profileBtn.innerHTML = `
+                        <i class="fas fa-user-circle"></i>
+                        <span class="label">Profile</span>
+                    `;
+                    headerActions.appendChild(profileBtn);
+                }
+            } else {
+                console.log('ℹ️ No user logged in');
+            }
+        });
+
+        // ============================================================
+        // LOAD DYNAMIC PRODUCT COUNT
+        // ============================================================
+        async function loadProductCount() {
+            try {
+                const productsRef = collection(db, 'products');
+                const snapshot = await getDocs(productsRef);
+                const count = snapshot.size;
+                
+                // Update product section with count
+                const productTitle = document.querySelector('.section-title h3');
+                if (productTitle && productTitle.textContent === 'Our Products') {
+                    // Keep it simple, don't modify
+                }
+                console.log(`📦 ${count} products available`);
+            } catch (error) {
+                console.error('❌ Error loading products:', error);
+            }
+        }
+
+        // ============================================================
+        // LOAD PROMO BANNER FROM FIREBASE
+        // ============================================================
+        async function loadPromoBanner() {
+            try {
+                const settingsRef = collection(db, 'settings');
+                const snapshot = await getDocs(settingsRef);
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.type === 'promo') {
+                        const promoBanner = document.querySelector('.promo-banner');
+                        if (promoBanner) {
+                            const title = promoBanner.querySelector('h4');
+                            const desc = promoBanner.querySelector('p');
+                            if (title && data.title) title.textContent = data.title;
+                            if (desc && data.description) desc.textContent = data.description;
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('❌ Error loading promo banner:', error);
+            }
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        loadProductCount();
+        loadPromoBanner();
+
+        console.log('✅ Home page loaded with Firebase integration');
+    </script>
+
 </body>
-  </html>
+</html>
