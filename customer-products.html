@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
+        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
+
+        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
+        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
+        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
+        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
+        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
+        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; }
+        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
+        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
+        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
+
+        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
+        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b6b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
+        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b6b; }
+        .fixed-footer .nav-item.active i { color: #0ea5e9; }
+        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .page-header h1 { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+        .page-header .count { font-size: 12px; color: #6b6b7b; background: #f0f9ff; padding: 2px 12px; border-radius: 20px; }
+
+        .search-bar { background: #f1f5f9; border-radius: 40px; padding: 8px 16px; display: flex; align-items: center; gap: 10px; margin: 0 0 12px 0; border: 1px solid #e8ecf0; }
+        .search-bar input { flex: 1; border: none; background: transparent; font-size: 13px; outline: none; padding: 4px 0; color: #1a1a2e; }
+        .search-bar input::placeholder { color: #6b6b7b; }
+        .search-bar i { color: #6b6b7b; font-size: 16px; }
+
+        .filter-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 12px 0; scrollbar-width: none; }
+        .filter-chips::-webkit-scrollbar { display: none; }
+        .filter-chips .chip { padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; background: #f1f5f9; color: #4a4a5a; border: 1px solid #e8ecf0; white-space: nowrap; cursor: pointer; transition: 0.2s; }
+        .filter-chips .chip:hover { background: #f0f9ff; border-color: #0ea5e9; }
+        .filter-chips .chip.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 16px 0; }
+        .product-card { background: #fff; border-radius: 20px; padding: 12px; border: 1px solid #e8ecf0; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); border-color: #0ea5e9; }
+        .product-card .img-wrap { width: 100%; aspect-ratio: 1; border-radius: 14px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #0ea5e9; overflow: hidden; margin-bottom: 8px; position: relative; }
+        .product-card .img-wrap .badge { position: absolute; top: 8px; left: 8px; padding: 2px 10px; border-radius: 12px; font-size: 8px; font-weight: 700; text-transform: uppercase; }
+        .badge-velcro { background: #dbeafe; color: #1d4ed8; }
+        .badge-pleated { background: #d1fae5; color: #059669; }
+        .badge-frame { background: #fef3c7; color: #d97706; }
+        .badge-door { background: #fce4ec; color: #dc2626; }
+        .badge-premium { background: #fef3c7; color: #d97706; }
+        .product-card .name { font-weight: 700; font-size: 13px; color: #1a1a2e; margin-bottom: 2px; line-height: 1.2; }
+        .product-card .variant { font-size: 11px; color: #6b6b7b; }
+        .product-card .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; padding-top: 6px; border-top: 1px solid #f1f5f9; }
+        .product-card .price { font-size: 16px; font-weight: 800; color: #0ea5e9; }
+        .product-card .price .original { font-size: 12px; color: #6b6b7b; text-decoration: line-through; font-weight: 400; margin-left: 4px; }
+        .product-card .discount { font-size: 11px; color: #059669; font-weight: 700; }
+        .product-card .cta-small { font-size: 9px; font-weight: 600; color: #0ea5e9; background: #f0f9ff; padding: 2px 10px; border-radius: 30px; }
+
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.08); }
+
+        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
+        .footer-links a:hover { color: #0ea5e9; }
+        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
+
+        @media (max-width: 400px) { .product-grid { gap: 8px; } .product-card { padding: 10px; } .product-card .name { font-size: 12px; } .product-card .price { font-size: 14px; } .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; } }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <a href="customer-dashboard.html" class="header-btn"><i class="fas fa-arrow-left"></i><span class="label">Back</span></a>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div class="page-header">
+            <h1>🛒 Products</h1>
+            <span class="count" id="productCount">0 Products</span>
+        </div>
+
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search mosquito nets..." oninput="filterProducts()" />
+        </div>
+
+        <div class="filter-chips" id="filterChips">
+            <span class="chip active" data-filter="all" onclick="setFilter('all')">All</span>
+            <span class="chip" data-filter="Velcro" onclick="setFilter('Velcro')">Velcro</span>
+            <span class="chip" data-filter="Aluminium" onclick="setFilter('Aluminium')">Aluminium</span>
+            <span class="chip" data-filter="Premium" onclick="setFilter('Premium')">Premium</span>
+            <span class="chip" data-filter="Pleated" onclick="setFilter('Pleated')">Pleated</span>
+            <span class="chip" data-filter="Door" onclick="setFilter('Door')">Door</span>
+        </div>
+
+        <div id="loadingState" style="text-align:center; padding:40px; color:#6b6b7b;">
+            <i class="fas fa-spinner fa-spin" style="font-size:32px; display:block; margin-bottom:12px;"></i>
+            Loading products...
+        </div>
+
+        <div class="product-grid" id="productGrid" style="display:none;">
+            <!-- Products will be rendered here -->
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>| <a href="about.html">About</a>| <a href="contact.html">Contact</a>| <a href="terms.html">Terms</a>| <a href="privacy.html">Privacy</a>
+        </div>
+        <div class="footer-copyright">© 2026 Raj Marketing Mysore</div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="customer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="customer-products.html" class="nav-item active"><i class="fas fa-th-large"></i> Products</a>
+        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="customer-appointments.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let allProducts = [];
+        let currentFilter = 'all';
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "customer-login.html";
+                return;
+            }
+            await loadProducts();
+        });
+
+        async function loadProducts() {
+            try {
+                const productsRef = collection(db, "products");
+                const snapshot = await getDocs(productsRef);
+                allProducts = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    allProducts.push({ id: doc.id, ...data });
+                });
+
+                if (allProducts.length === 0) {
+                    // Fallback products
+                    allProducts = getFallbackProducts();
+                }
+
+                renderProducts(allProducts);
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('productGrid').style.display = 'grid';
+                document.getElementById('productCount').textContent = allProducts.length + ' Products';
+                console.log('✅ Products loaded:', allProducts.length);
+
+            } catch (error) {
+                console.error('❌ Error loading products:', error);
+                allProducts = getFallbackProducts();
+                renderProducts(allProducts);
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('productGrid').style.display = 'grid';
+                document.getElementById('productCount').textContent = allProducts.length + ' Products';
+            }
+        }
+
+        function getFallbackProducts() {
+            return [
+                { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', price: 65, image: 'fas fa-vector-square', badge: 'velcro' },
+                { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium', price: 80, image: 'fas fa-vector-square', badge: 'velcro' },
+                { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS', category: 'Aluminium', variant: 'Regular + Black Coated', price: 200, image: 'fas fa-border-all', badge: 'frame' },
+                { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304', category: 'Aluminium', variant: 'Regular + Bright 304', price: 220, image: 'fas fa-border-all', badge: 'frame' },
+                { id: 'aluminium-teakwood', name: 'Premium Teakwood – Black Coated', category: 'Premium', variant: 'Teakwood + Black Coated', price: 300, image: 'fas fa-crown', badge: 'premium' },
+                { id: 'pleated-gold', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', price: 380, image: 'fas fa-wind', badge: 'pleated' },
+                { id: 'pleated-platinum', name: 'Pleated SS Mesh – Platinum', category: 'Pleated', variant: '25mm Single', price: 500, image: 'fas fa-wind', badge: 'pleated' },
+                { id: 'pleated-diamond', name: 'Pleated SS Mesh – Diamond', category: 'Pleated', variant: '32mm Single', price: 560, image: 'fas fa-wind', badge: 'pleated' },
+                { id: 'honeycomb-gold', name: 'Honeycomb Gold – Detachable', category: 'Pleated', variant: '32mm Single', price: 520, image: 'fas fa-wind', badge: 'pleated' },
+                { id: 'mesh-door-black', name: 'Mesh Door – Black Coated SS', category: 'Door', variant: 'Regular + Black Coated', price: 350, image: 'fas fa-door-open', badge: 'door' },
+                { id: 'mesh-door-bright', name: 'Mesh Door – Bright SS 304', category: 'Door', variant: 'Regular + Bright 304', price: 380, image: 'fas fa-door-open', badge: 'door' }
+            ];
+        }
+
+        function renderProducts(products) {
+            const grid = document.getElementById('productGrid');
+            if (!products.length) {
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:#6b6b7b;"><i class="fas fa-box-open" style="font-size:32px; display:block; margin-bottom:8px;"></i>No products found</div>`;
+                return;
+            }
+            grid.innerHTML = products.map(p => {
+                const badgeClass = p.badge || 'velcro';
+                const isOnline = p.onlinePurchase !== false;
+                const ctaText = isOnline ? 'Buy Online' : 'Book Appointment';
+                const discountHtml = p.discount ? `<span class="discount">${p.discount}% OFF</span>` : '';
+                const originalHtml = p.originalPrice ? `<span class="original">₹${p.originalPrice}</span>` : '';
+                return `
+                    <a href="customer-product-detail.html?id=${p.id}" class="product-card">
+                        <div class="img-wrap">
+                            <i class="${p.image || 'fas fa-box'}"></i>
+                            <span class="badge badge-${badgeClass}">${p.category || 'Product'}</span>
+                        </div>
+                        <div class="name">${p.name}</div>
+                        <div class="variant">${p.variant || ''}</div>
+                        <div class="price-row">
+                            <span class="price">₹${p.price} ${originalHtml}</span>
+                            <span class="cta-small">${ctaText}</span>
+                        </div>
+                        ${discountHtml}
+                    </a>
+                `;
+            }).join('');
+            document.getElementById('productCount').textContent = products.length + ' Products';
+        }
+
+        window.filterProducts = function() {
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            let filtered = allProducts;
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
+            if (search) {
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(search) || (p.variant && p.variant.toLowerCase().includes(search)));
+            }
+            renderProducts(filtered);
+        };
+
+        window.setFilter = function(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-chips .chip').forEach(c => c.classList.toggle('active', c.dataset.filter === filter));
+            filterProducts();
+        };
+    </script>
+</body>
+          </html>
