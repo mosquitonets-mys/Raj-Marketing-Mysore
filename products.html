@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Products - Raj Marketing Mysore</title>
-    <meta name="description" content="Premium mosquito nets, window screens and door screens in Mysore. Quality mosquito protection since 2016." />
+    <meta name="description" content="Premium mosquito nets, window screens and door screens in Mysore." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -12,7 +12,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
-        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
 
         .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
         .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
@@ -47,7 +47,7 @@
         .filter-chips .chip.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
 
         .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 16px 0; }
-        .product-card { background: #fff; border-radius: 20px; padding: 12px; border: 1px solid #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.3s; cursor: pointer; text-decoration: none; display: block; }
+        .product-card { background: #fff; border-radius: 20px; padding: 12px; border: 1px solid #e8ecf0; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; }
         .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); border-color: #0ea5e9; }
         .product-card .img-wrap { width: 100%; aspect-ratio: 1; border-radius: 14px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #0ea5e9; overflow: hidden; margin-bottom: 8px; position: relative; }
         .product-card .img-wrap .badge { position: absolute; top: 8px; left: 8px; padding: 2px 10px; border-radius: 12px; font-size: 8px; font-weight: 700; text-transform: uppercase; }
@@ -64,7 +64,7 @@
         .product-card .discount { font-size: 11px; color: #059669; font-weight: 700; }
         .product-card .cta-small { font-size: 9px; font-weight: 600; color: #0ea5e9; background: #f0f9ff; padding: 2px 10px; border-radius: 30px; }
 
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; transition: 0.2s; }
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
         .whatsapp-float:hover { transform: scale(1.08); }
 
         .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
@@ -94,7 +94,7 @@
     <div class="app-container">
         <div class="page-header">
             <h1>🛒 All Products</h1>
-            <span class="count" id="productCount">0 Products</span>
+            <span class="count" id="productCount">11 Products</span>
         </div>
 
         <div class="search-bar">
@@ -105,10 +105,10 @@
         <div class="filter-chips" id="filterChips">
             <span class="chip active" data-filter="all" onclick="setFilter('all')">All</span>
             <span class="chip" data-filter="Velcro" onclick="setFilter('Velcro')">Velcro</span>
-            <span class="chip" data-filter="Aluminium Frame" onclick="setFilter('Aluminium Frame')">Frame</span>
-            <span class="chip" data-filter="Premium Aluminium" onclick="setFilter('Premium Aluminium')">Premium</span>
+            <span class="chip" data-filter="Aluminium" onclick="setFilter('Aluminium')">Aluminium</span>
+            <span class="chip" data-filter="Premium" onclick="setFilter('Premium')">Premium</span>
             <span class="chip" data-filter="Pleated" onclick="setFilter('Pleated')">Pleated</span>
-            <span class="chip" data-filter="Mesh Door" onclick="setFilter('Mesh Door')">Mesh Door</span>
+            <span class="chip" data-filter="Door" onclick="setFilter('Door')">Door</span>
         </div>
 
         <div class="product-grid" id="productGrid">
@@ -132,64 +132,23 @@
         <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+    <script>
+        const PRODUCTS = [
+            { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', price: 65, originalPrice: null, discount: null, image: 'fas fa-vector-square', badge: 'velcro', onlinePurchase: true },
+            { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium Saint-Gobain', price: 80, originalPrice: null, discount: null, image: 'fas fa-vector-square', badge: 'velcro', onlinePurchase: true },
+            { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium', variant: 'Regular + Black Coated SS', price: 200, originalPrice: null, discount: null, image: 'fas fa-border-all', badge: 'frame', onlinePurchase: false },
+            { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304 Mesh', category: 'Aluminium', variant: 'Regular + Bright SS 304', price: 220, originalPrice: null, discount: null, image: 'fas fa-border-all', badge: 'frame', onlinePurchase: false },
+            { id: 'aluminium-teakwood', name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium', variant: 'Teakwood + Black Coated SS', price: 300, originalPrice: null, discount: null, image: 'fas fa-crown', badge: 'premium', onlinePurchase: false },
+            { id: 'pleated-gold', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', price: 380, originalPrice: 420, discount: 10, image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
+            { id: 'pleated-platinum', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single', price: 500, originalPrice: null, discount: null, image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
+            { id: 'pleated-diamond', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Single', price: 560, originalPrice: null, discount: null, image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
+            { id: 'honeycomb-gold', name: 'Pleated Honeycomb Gold – Detachable', category: 'Pleated', variant: '32mm Single', price: 520, originalPrice: null, discount: null, image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
+            { id: 'mesh-door-black', name: 'Mesh Door – Black Coated SS Mesh', category: 'Door', variant: 'Regular + Black Coated SS', price: 350, originalPrice: null, discount: null, image: 'fas fa-door-open', badge: 'door', onlinePurchase: false },
+            { id: 'mesh-door-bright', name: 'Mesh Door – Bright SS 304 Mesh', category: 'Door', variant: 'Regular + Bright SS 304', price: 380, originalPrice: null, discount: null, image: 'fas fa-door-open', badge: 'door', onlinePurchase: false }
+        ];
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyB_a91sI0xpFRX5_ti2ukM8Ybn2lMXS6Zw",
-            authDomain: "raj-marketing-mysore-f91f7.firebaseapp.com",
-            projectId: "raj-marketing-mysore-f91f7",
-            storageBucket: "raj-marketing-mysore-f91f7.firebasestorage.app",
-            messagingSenderId: "534782698781",
-            appId: "1:534782698781:web:bad9454adb5d2ad1e7edf4"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        let allProducts = [];
         let currentFilter = 'all';
-
-        async function loadProducts() {
-            try {
-                const snapshot = await getDocs(collection(db, 'products'));
-                allProducts = [];
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    allProducts.push({ id: doc.id, ...data });
-                });
-
-                // Fallback if empty
-                if (allProducts.length === 0) {
-                    allProducts = getFallbackProducts();
-                }
-
-                renderProducts(allProducts);
-                document.getElementById('productCount').textContent = allProducts.length + ' Products';
-            } catch (error) {
-                console.error('Error loading products:', error);
-                allProducts = getFallbackProducts();
-                renderProducts(allProducts);
-                document.getElementById('productCount').textContent = allProducts.length + ' Products';
-            }
-        }
-
-        function getFallbackProducts() {
-            return [
-                { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', price: 65, unit: 'sq.ft', image: 'fas fa-vector-square', badge: 'velcro', onlinePurchase: true },
-                { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium', price: 80, unit: 'sq.ft', image: 'fas fa-vector-square', badge: 'velcro', onlinePurchase: true },
-                { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium Frame', variant: 'Regular + Black Coated SS', price: 200, unit: 'sq.ft', image: 'fas fa-border-all', badge: 'frame', onlinePurchase: false },
-                { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304 Mesh', category: 'Aluminium Frame', variant: 'Regular + Bright SS 304', price: 220, unit: 'sq.ft', image: 'fas fa-border-all', badge: 'frame', onlinePurchase: false },
-                { id: 'aluminium-teakwood', name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Black Coated SS', price: 300, unit: 'sq.ft', image: 'fas fa-crown', badge: 'premium', onlinePurchase: false },
-                { id: 'pleated-gold', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', price: 380, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
-                { id: 'pleated-platinum', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single', price: 500, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
-                { id: 'pleated-diamond', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Single', price: 560, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
-                { id: 'honeycomb-gold', name: 'Pleated Honeycomb Gold – Detachable', category: 'Pleated', variant: '32mm Single', price: 520, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
-                { id: 'mesh-door-black', name: 'Mesh Door – Black Coated SS Mesh', category: 'Mesh Door', variant: 'Regular + Black Coated SS', price: 350, unit: 'sq.ft', image: 'fas fa-door-open', badge: 'door', onlinePurchase: false },
-                { id: 'mesh-door-bright', name: 'Mesh Door – Bright SS 304 Mesh', category: 'Mesh Door', variant: 'Regular + Bright SS 304', price: 380, unit: 'sq.ft', image: 'fas fa-door-open', badge: 'door', onlinePurchase: false }
-            ];
-        }
+        let allProducts = PRODUCTS;
 
         function renderProducts(products) {
             const grid = document.getElementById('productGrid');
@@ -202,6 +161,7 @@
                 const isOnline = p.onlinePurchase !== false;
                 const ctaText = isOnline ? 'Buy Online' : 'Book Appointment';
                 const discountHtml = p.discount ? `<span class="discount">${p.discount}% OFF</span>` : '';
+                const originalHtml = p.originalPrice ? `<span class="original">₹${p.originalPrice}</span>` : '';
                 return `
                     <a href="product-detail.html?id=${p.id}" class="product-card">
                         <div class="img-wrap">
@@ -211,16 +171,17 @@
                         <div class="name">${p.name}</div>
                         <div class="variant">${p.variant || ''}</div>
                         <div class="price-row">
-                            <span class="price">₹${p.price} <span class="original">${p.originalPrice ? '₹' + p.originalPrice : ''}</span></span>
+                            <span class="price">₹${p.price} ${originalHtml}</span>
                             <span class="cta-small">${ctaText}</span>
                         </div>
                         ${discountHtml}
                     </a>
                 `;
             }).join('');
+            document.getElementById('productCount').textContent = products.length + ' Products';
         }
 
-        window.filterProducts = function() {
+        function filterProducts() {
             const search = document.getElementById('searchInput').value.toLowerCase().trim();
             let filtered = allProducts;
             if (currentFilter !== 'all') {
@@ -230,15 +191,15 @@
                 filtered = filtered.filter(p => p.name.toLowerCase().includes(search) || (p.variant && p.variant.toLowerCase().includes(search)));
             }
             renderProducts(filtered);
-        };
+        }
 
-        window.setFilter = function(filter) {
+        function setFilter(filter) {
             currentFilter = filter;
             document.querySelectorAll('.filter-chips .chip').forEach(c => c.classList.toggle('active', c.dataset.filter === filter));
             filterProducts();
-        };
+        }
 
-        loadProducts();
+        renderProducts(allProducts);
         console.log('✅ Products page loaded');
     </script>
 </body>
