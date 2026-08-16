@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Setup</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f0f4f8; padding: 40px 20px; display: flex; justify-content: center; }
+        .container { max-width: 800px; width: 100%; background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
+        h1 { font-size: 24px; margin-bottom: 8px; color: #1a1a2e; }
+        p { color: #6b6b7b; margin-bottom: 20px; }
+        .btn { background: #0ea5e9; color: #fff; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.3); }
+        .status { padding: 8px 12px; border-radius: 8px; margin: 8px 0; }
+        .status.success { background: #d1fae5; color: #065f46; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .status.info { background: #dbeafe; color: #1d4ed8; }
+        pre { background: #1a1a2e; color: #e8ecf0; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.6; max-height: 400px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Product Setup</h1>
+        <p>Upload all products to Firebase Firestore.</p>
+        <div id="status"></div>
+        <button class="btn" onclick="setupProducts()">🚀 Upload Products</button>
+        <div style="margin-top:20px;"><pre id="dataPreview">Loading...</pre></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_a91sI0xpFRX5_ti2ukM8Ybn2lMXS6Zw",
+            authDomain: "raj-marketing-mysore-f91f7.firebaseapp.com",
+            projectId: "raj-marketing-mysore-f91f7",
+            storageBucket: "raj-marketing-mysore-f91f7.firebasestorage.app",
+            messagingSenderId: "534782698781",
+            appId: "1:534782698781:web:bad9454adb5d2ad1e7edf4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const products = [
+            { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', price: 65, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: true, description: 'Economical Velcro mosquito net for windows and doors. Easy to install and remove.', longDescription: 'The Velcro System – Economic offers affordable mosquito protection. Features high-quality velcro attachment for easy installation.', specs: { 'Product Type': 'Velcro Mosquito Net', 'Mesh': 'Polyester', 'Attachment': 'Velcro', 'Colours': 'Grey, Ivory, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' }, benefits: ['Mosquito Protection', 'Easy Installation', 'Affordable', 'Multiple Colours'], images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'], applications: ['Windows', 'Doors', 'Balcony', 'Kitchen', 'Bedroom'], colours: ['Ivory', 'Black', 'White'], types: ['Single', 'Double'], badge: 'velcro', active: true, featured: true, slug: 'velcro-economic' },
+            { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium Saint-Gobain', price: 80, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: true, description: 'Premium Saint-Gobain Velcro mosquito net with superior quality mesh.', longDescription: 'Premium Saint-Gobain Velcro system offers superior mosquito protection with high-quality mesh.', specs: { 'Product Type': 'Velcro Mosquito Net', 'Mesh': 'Saint-Gobain', 'Attachment': 'Velcro', 'Colours': 'Grey, Ivory, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' }, benefits: ['Premium Quality', 'Superior Protection', 'Easy Installation', 'Multiple Colours'], images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'], applications: ['Windows', 'Doors', 'Balcony', 'Premium Homes'], colours: ['Ivory', 'Black', 'White'], types: ['Single', 'Double'], badge: 'velcro', active: true, featured: true, slug: 'velcro-premium' },
+            { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium Frame', variant: 'Regular + Black Coated SS Mesh', price: 200, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Strong aluminium frame with black coated stainless steel mesh for durability.', longDescription: 'Durable aluminium frame with black coated SS mesh. Perfect for windows and doors requiring robust protection.', specs: { 'Product Type': 'Aluminium Frame Mosquito Net', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '5 Years' }, benefits: ['Durable Frame', 'Long-lasting', 'Strong Protection', 'Multiple Colours'], images: ['fas fa-border-all', 'fas fa-border-all', 'fas fa-border-all'], applications: ['Windows', 'Doors', 'Commercial Buildings'], colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'], types: ['Single', 'Double'], badge: 'frame', active: true, featured: true, slug: 'aluminium-black-ss' },
+            { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304 Mesh', category: 'Aluminium Frame', variant: 'Regular + Bright SS 304 Mesh', price: 220, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium aluminium frame with bright SS 304 grade stainless steel mesh.', longDescription: 'High-grade aluminium frame with bright SS 304 mesh. Premium choice for long-lasting mosquito protection.', specs: { 'Product Type': 'Aluminium Frame Mosquito Net', 'Mesh': 'SS 304 Bright', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '5 Years' }, benefits: ['Premium Quality', 'SS 304 Mesh', 'Long-lasting', 'Multiple Colours'], images: ['fas fa-border-all', 'fas fa-border-all', 'fas fa-border-all'], applications: ['Windows', 'Doors', 'Premium Homes', 'Commercial'], colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'], types: ['Single', 'Double'], badge: 'frame', active: true, featured: true, slug: 'aluminium-bright-ss' },
+            { id: 'aluminium-teakwood', name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Black Coated SS Mesh', price: 300, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium teakwood finish aluminium frame with black coated SS mesh.', longDescription: 'Elegant teakwood finish frame with black coated SS mesh. Premium choice for luxury homes and offices.', specs: { 'Product Type': 'Premium Aluminium Frame', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium Teakwood', 'Colours': 'Teakwood', 'Custom Size': 'Yes', 'Warranty': '5 Years' }, benefits: ['Premium Finish', 'Durable', 'Luxury Look', 'Strong Protection'], images: ['fas fa-crown', 'fas fa-crown', 'fas fa-crown'], applications: ['Premium Windows', 'Luxury Doors', 'Villas', 'Apartments'], colours: ['Teakwood'], types: ['Single', 'Double'], badge: 'premium', active: true, featured: true, slug: 'aluminium-teakwood' },
+            { id: 'pleated-gold', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', price: 380, originalPrice: 420, discount: 10, unit: 'sq.ft', onlinePurchase: false, description: 'Premium gold pleated mosquito net with detachable design.', longDescription: 'Elegant gold pleated net with detachable design. Perfect for main doors and large openings.', specs: { 'Product Type': 'Pleated Mosquito Net', 'Mesh': 'Fibre', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Gold', 'Custom Size': 'Yes', 'Warranty': '1 Year' }, benefits: ['Elegant Design', 'Easy Operation', 'Durable', 'Space Saving'], images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'], applications: ['Main Doors', 'Balcony Doors', 'Large Windows', 'Villas'], colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'], types: ['Single', 'Double'], badge: 'pleated', active: true, featured: true, slug: 'pleated-gold' },
+            { id: 'pleated-platinum', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single', price: 500, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium platinum SS mesh pleated net with detachable design.', longDescription: 'High-quality platinum SS mesh pleated net. Superior mosquito protection with elegant design.', specs: { 'Product Type': 'Pleated SS Mesh', 'Mesh': 'SS', 'Frame': 'Aluminium', 'Section': '25mm', 'Operation': 'Single', 'Colour': 'Platinum', 'Custom Size': 'Yes', 'Warranty': '1 Year' }, benefits: ['SS Mesh', 'Elegant Design', 'Durable', 'Easy Operation'], images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'], applications: ['Premium Doors', 'Balcony', 'Villas', 'Apartments'], colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'], types: ['Single', 'Double'], badge: 'pleated', active: true, featured: true, slug: 'pleated-platinum' },
+            { id: 'pleated-diamond', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Single', price: 560, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium diamond SS mesh pleated net with detachable design.', longDescription: 'Premium diamond pattern SS mesh pleated net. Elegant and durable mosquito protection.', specs: { 'Product Type': 'Pleated SS Mesh', 'Mesh': 'SS Diamond', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Diamond', 'Custom Size': 'Yes', 'Warranty': '1 Year' }, benefits: ['Diamond Design', 'SS Mesh', 'Elegant', 'Durable'], images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'], applications: ['Premium Doors', 'Balcony', 'Villas', 'Hotels'], colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'], types: ['Single', 'Double'], badge: 'pleated', active: true, featured: true, slug: 'pleated-diamond' },
+            { id: 'honeycomb-gold', name: 'Pleated Honeycomb Gold – Detachable', category: 'Pleated', variant: '32mm Single', price: 520, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium honeycomb gold pleated net with detachable design.', longDescription: 'Honeycomb gold pleated net combines elegance with effective mosquito protection.', specs: { 'Product Type': 'Honeycomb Net', 'Mesh': 'Fibre', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Gold', 'Custom Size': 'Yes', 'Warranty': '1 Year' }, benefits: ['Honeycomb Design', 'Elegant', 'Durable', 'Easy Operation'], images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'], applications: ['Premium Doors', 'Balcony', 'Villas', 'Apartments'], colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'], types: ['Single', 'Double'], badge: 'pleated', active: true, featured: true, slug: 'honeycomb-gold' },
+            { id: 'mesh-door-black', name: 'Mesh Door – Black Coated SS Mesh', category: 'Mesh Door', variant: 'Regular + Black Coated SS Mesh', price: 350, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Durable mesh door with black coated SS mesh. Perfect for main entrances.', longDescription: 'Sturdy mesh door with black coated SS mesh for superior mosquito protection.', specs: { 'Product Type': 'Mesh Door', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' }, benefits: ['Strong Door', 'Mosquito Protection', 'Durable', 'Multiple Colours'], images: ['fas fa-door-open', 'fas fa-door-open', 'fas fa-door-open'], applications: ['Main Doors', 'Balcony Doors', 'Entrances'], colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'], types: ['Single', 'Double'], badge: 'door', active: true, featured: true, slug: 'mesh-door-black' },
+            { id: 'mesh-door-bright', name: 'Mesh Door – Bright SS 304 Mesh', category: 'Mesh Door', variant: 'Regular + Bright SS 304 Mesh', price: 380, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium mesh door with bright SS 304 mesh for maximum durability.', longDescription: 'Premium mesh door with bright SS 304 mesh. Superior protection for your entrances.', specs: { 'Product Type': 'Mesh Door', 'Mesh': 'SS 304 Bright', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' }, benefits: ['SS 304 Mesh', 'Premium Quality', 'Durable', 'Multiple Colours'], images: ['fas fa-door-open', 'fas fa-door-open', 'fas fa-door-open'], applications: ['Main Doors', 'Balcony Doors', 'Entrances', 'Premium Homes'], colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'], types: ['Single', 'Double'], badge: 'door', active: true, featured: true, slug: 'mesh-door-bright' }
+        ];
+
+        window.setupProducts = async function() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '<div class="status info">⏳ Uploading products...</div>';
+
+            try {
+                // Clear existing
+                const snapshot = await getDocs(collection(db, 'products'));
+                const batch = writeBatch(db);
+                snapshot.forEach(doc => batch.delete(doc.ref));
+                if (snapshot.size > 0) await batch.commit();
+
+                // Upload new products
+                const uploadBatch = writeBatch(db);
+                for (const p of products) {
+                    const ref = doc(db, 'products', p.id);
+                    uploadBatch.set(ref, {
+                        ...p,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    });
+                }
+                await uploadBatch.commit();
+
+                statusDiv.innerHTML = `
+                    <div class="status success">✅ ${products.length} products uploaded successfully!</div>
+                    <div class="status info">📦 All products are now available in Firebase</div>
+                `;
+                document.getElementById('dataPreview').textContent = JSON.stringify(products, null, 2);
+
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+                console.error('Setup error:', error);
+            }
+        };
+
+        async function loadPreview() {
+            try {
+                const snapshot = await getDocs(collection(db, 'products'));
+                const count = snapshot.size;
+                if (count > 0) {
+                    document.getElementById('dataPreview').textContent = `✅ ${count} products already exist.`;
+                } else {
+                    document.getElementById('dataPreview').textContent = '⚠️ No products found. Click "Upload Products" to set up.';
+                }
+            } catch (e) {
+                document.getElementById('dataPreview').textContent = '⚠️ Unable to read database. Please run setup.';
+            }
+        }
+        loadPreview();
+    </script>
+</body>
+</html>
