@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · My Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
+        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
+
+        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
+        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
+        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
+        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
+        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
+        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; }
+        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
+        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
+        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
+
+        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
+        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b6b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
+        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b6b; }
+        .fixed-footer .nav-item.active i { color: #0ea5e9; }
+        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
+
+        .profile-header { text-align: center; padding: 10px 0 16px; }
+        .profile-avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            display: inline-flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 32px;
+            border: 3px solid #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .profile-avatar .edit-photo {
+            position: absolute; bottom: -4px; right: -4px;
+            background: #0ea5e9; color: #fff;
+            border-radius: 50%; width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; border: 2px solid #fff;
+            cursor: pointer; transition: 0.2s;
+        }
+        .profile-avatar .edit-photo:hover { transform: scale(1.05); }
+        .profile-header .name { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+        .profile-header .customer-id { font-size: 12px; color: #6b6b7b; }
+        .profile-header .status { font-size: 11px; font-weight: 600; color: #059669; background: #d1fae5; padding: 2px 14px; border-radius: 20px; display: inline-block; margin-top: 2px; }
+
+        .card { background: #fff; border-radius: 20px; padding: 16px; border: 1px solid #e8ecf0; margin: 12px 0; }
+        .card-title { font-weight: 700; font-size: 15px; color: #1a1a2e; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .card-title i { color: #0ea5e9; }
+
+        .form-group { margin-bottom: 14px; }
+        .form-group label { font-size: 12px; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 4px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px 14px;
+            border: 1.5px solid #e8ecf0; border-radius: 12px;
+            font-size: 13px; outline: none;
+            background: #f8fafc; font-family: 'Poppins', sans-serif;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.08);
+        }
+        .form-group input:disabled { background: #f1f5f9; color: #6b6b7b; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .btn-primary { width: 100%; padding: 12px; background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; border: none; border-radius: 40px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        .error-msg { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 12px; margin-bottom: 14px; display: none; font-size: 13px; border-left: 4px solid #dc2626; }
+        .success-msg { background: #d1fae5; color: #065f46; padding: 12px 16px; border-radius: 12px; margin-bottom: 14px; display: none; font-size: 13px; border-left: 4px solid #22c55e; }
+        .error-msg.show, .success-msg.show { display: block; }
+
+        .detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-row .label { color: #6b6b7b; }
+        .detail-row .value { font-weight: 600; color: #1a1a2e; }
+
+        .hidden { display: none !important; }
+        .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 400px) { .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <a href="customer-dashboard.html" class="header-btn"><i class="fas fa-arrow-left"></i><span class="label">Back</span></a>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div id="loadingState" style="text-align:center; padding:40px; color:#6b6b7b;">
+            <i class="fas fa-spinner fa-spin" style="font-size:32px; display:block; margin-bottom:12px;"></i>
+            Loading profile...
+        </div>
+
+        <div id="profileContent" class="hidden">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user" id="avatarIcon"></i>
+                    <div class="edit-photo" onclick="document.getElementById('photoInput').click()">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*" style="display:none;" />
+                </div>
+                <div class="name" id="profileName">Customer</div>
+                <div class="customer-id" id="profileId">ID: —</div>
+                <span class="status" id="profileStatus">Active</span>
+            </div>
+
+            <div id="errorBox" class="error-msg"></div>
+            <div id="successBox" class="success-msg"></div>
+
+            <!-- Edit Form -->
+            <div class="card">
+                <div class="card-title"><i class="fas fa-edit"></i> Edit Profile</div>
+                <form id="profileForm" onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="fName" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile Number *</label>
+                        <input type="tel" id="fMobile" required />
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="tel" id="fWhatsapp" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="fEmail" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="fAddress" placeholder="Street, area" />
+                    </div>
+                    <div class="form-group">
+                        <label>Landmark</label>
+                        <input type="text" id="fLandmark" placeholder="Nearby landmark" />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" id="fCity" />
+                        </div>
+                        <div class="form-group">
+                            <label>District</label>
+                            <input type="text" id="fDistrict" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" id="fState" value="Karnataka" />
+                        </div>
+                        <div class="form-group">
+                            <label>PIN Code</label>
+                            <input type="text" id="fPin" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary" id="saveBtn">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+
+            <!-- Account Details -->
+            <div class="card">
+                <div class="card-title"><i class="fas fa-info-circle"></i> Account Details</div>
+                <div class="detail-row"><span class="label">Customer ID</span><span class="value" id="detailId">—</span></div>
+                <div class="detail-row"><span class="label">Registration Date</span><span class="value" id="detailDate">—</span></div>
+                <div class="detail-row"><span class="label">Account Status</span><span class="value" id="detailStatus">—</span></div>
+                <div class="detail-row"><span class="label">Customer Since</span><span class="value" id="detailSince">—</span></div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin:12px 0;">
+                <button class="btn-primary" style="flex:1; min-width:120px; background:#1a1a2e;" onclick="window.location.href='customer-dashboard.html'">
+                    <i class="fas fa-home"></i> Dashboard
+                </button>
+                <button class="btn-primary" style="flex:1; min-width:120px; background:#ef4444;" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="customer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="customer-appointments.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="customer-profile.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { doc, getDoc, updateDoc, collection, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let customerData = null;
+        let customerId = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "customer-login.html";
+                return;
+            }
+            await loadCustomerData(user.uid);
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('profileContent').classList.remove('hidden');
+        });
+
+        async function loadCustomerData(uid) {
+            try {
+                const customersRef = collection(db, "customers");
+                const q = query(customersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+
+                if (snapshot.empty) {
+                    window.location.href = "customer-login.html";
+                    return;
+                }
+
+                const doc = snapshot.docs[0];
+                customerData = { id: doc.id, ...doc.data() };
+                customerId = customerData.id;
+
+                fillProfile(customerData);
+                console.log("✅ Customer data loaded:", customerData);
+
+            } catch (error) {
+                console.error("❌ Load error:", error);
+                showError("Unable to load profile: " + error.message);
+            }
+        }
+
+        function fillProfile(data) {
+            document.getElementById('profileName').textContent = data.name || 'Customer';
+            document.getElementById('profileId').textContent = `ID: ${data.customerId || data.id || '—'}`;
+            document.getElementById('profileStatus').textContent = data.status || 'Active';
+
+            document.getElementById('fName').value = data.name || '';
+            document.getElementById('fMobile').value = data.mobile || data.phone || '';
+            document.getElementById('fWhatsapp').value = data.whatsapp || '';
+            document.getElementById('fEmail').value = data.email || '';
+            document.getElementById('fAddress').value = data.address || '';
+            document.getElementById('fLandmark').value = data.landmark || '';
+            document.getElementById('fCity').value = data.city || '';
+            document.getElementById('fDistrict').value = data.district || '';
+            document.getElementById('fState').value = data.state || 'Karnataka';
+            document.getElementById('fPin').value = data.pin || '';
+
+            document.getElementById('detailId').textContent = data.customerId || data.id || '—';
+            document.getElementById('detailStatus').textContent = data.status || 'Active';
+
+            const date = data.createdAt?.toDate?.() || new Date(data.createdAt);
+            document.getElementById('detailDate').textContent = date ? date.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }) : '—';
+            document.getElementById('detailSince').textContent = date ? date.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }) : '—';
+        }
+
+        window.updateProfile = async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('fName').value.trim();
+            const mobile = document.getElementById('fMobile').value.trim();
+
+            if (!name || !mobile) {
+                showError('Please enter your name and mobile number.');
+                return;
+            }
+
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<span class="loading-spinner"></span> Saving...';
+            showError('');
+            showSuccess('');
+
+            try {
+                const updates = {
+                    name: name,
+                    mobile: mobile,
+                    phone: mobile,
+                    whatsapp: document.getElementById('fWhatsapp').value.trim(),
+                    address: document.getElementById('fAddress').value.trim(),
+                    landmark: document.getElementById('fLandmark').value.trim(),
+                    city: document.getElementById('fCity').value.trim(),
+                    district: document.getElementById('fDistrict').value.trim(),
+                    state: document.getElementById('fState').value.trim(),
+                    pin: document.getElementById('fPin').value.trim(),
+                    updatedAt: new Date().toISOString()
+                };
+
+                const docRef = doc(db, "customers", customerId);
+                await updateDoc(docRef, updates);
+
+                showSuccess('✅ Profile updated successfully!');
+                await loadCustomerData(auth.currentUser.uid);
+
+            } catch (error) {
+                console.error("❌ Update error:", error);
+                showError('Failed to update profile: ' + error.message);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+            }
+        };
+
+        window.logout = async function() {
+            if (!confirm("Are you sure you want to logout?")) return;
+            try {
+                await signOut(auth);
+                window.location.href = "customer-login.html";
+            } catch (error) {
+                showError("Logout failed: " + error.message);
+            }
+        };
+
+        function showError(msg) {
+            const box = document.getElementById('errorBox');
+            if (!msg) { box.classList.remove('show'); box.textContent = ''; return; }
+            box.textContent = '❌ ' + msg;
+            box.classList.add('show');
+            document.getElementById('successBox').classList.remove('show');
+        }
+
+        function showSuccess(msg) {
+            const box = document.getElementById('successBox');
+            if (!msg) { box.classList.remove('show'); box.textContent = ''; return; }
+            box.textContent = '✅ ' + msg;
+            box.classList.add('show');
+            document.getElementById('errorBox').classList.remove('show');
+            setTimeout(() => box.classList.remove('show'), 4000);
+        }
+
+        // Photo upload
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            alert('📸 Photo upload will be available with Firebase Storage integration.\n\nFile selected: ' + file.name);
+            this.value = '';
+        });
+    </script>
+</body>
+</html>
