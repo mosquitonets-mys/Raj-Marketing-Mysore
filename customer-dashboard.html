@@ -24,13 +24,7 @@
         .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
         .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
         .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
-        .fixed-header .header-btn .badge {
-            position: absolute; top: -4px; right: -4px;
-            background: #ef4444; color: #fff;
-            font-size: 8px; font-weight: 700;
-            border-radius: 50%; width: 16px; height: 16px;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .fixed-header .header-btn .badge { position: absolute; top: -4px; right: -4px; background: #ef4444; color: #fff; font-size: 8px; font-weight: 700; border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; }
 
         .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
         .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b6b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
@@ -38,126 +32,98 @@
         .fixed-footer .nav-item.active i { color: #0ea5e9; }
         .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
 
-        /* Cover Image */
-        .cover-container { position: relative; border-radius: 20px; overflow: hidden; height: 140px; margin-bottom: 0; }
-        .cover-container .cover-image {
-            width: 100%; height: 100%; object-fit: cover;
-            background: linear-gradient(135deg, #0ea5e9, #0284c7);
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 48px;
-        }
-        .cover-container .cover-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            padding: 16px 16px 12px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.3));
-        }
-        .cover-container .cover-overlay .title {
-            color: #fff; font-weight: 700; font-size: 14px;
-        }
-        .cover-container .cover-overlay .sub {
-            color: rgba(255,255,255,0.8); font-size: 11px;
-        }
+        .cover-container { border-radius: 20px; overflow: hidden; height: 120px; margin-bottom: 0; background: linear-gradient(135deg, #0ea5e9, #0284c7); position: relative; }
+        .cover-container .cover-content { position: absolute; bottom: 12px; left: 16px; color: #fff; }
+        .cover-container .cover-content .title { font-weight: 700; font-size: 14px; }
+        .cover-container .cover-content .sub { font-size: 11px; opacity: 0.8; }
 
-        /* Profile Section */
         .profile-section { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: #fff; border-radius: 20px; margin-top: -30px; position: relative; z-index: 2; border: 1px solid #e8ecf0; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
-        .profile-avatar {
-            width: 64px; height: 64px; border-radius: 50%;
-            background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 28px; flex-shrink: 0;
-            border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .profile-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(145deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; flex-shrink: 0; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .profile-info { flex: 1; min-width: 0; }
         .profile-info .name { font-weight: 800; font-size: 17px; color: #1a1a2e; display: block; }
         .profile-info .greeting { font-size: 13px; font-weight: 500; color: #059669; display: block; }
-        .profile-info .customer-id { font-size: 10px; color: #6b6b7b; }
-        .profile-info .contact-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
-        .profile-info .contact-row .phone { font-size: 12px; color: #1a1a2e; font-weight: 600; }
-        .profile-info .contact-row .address { font-size: 10px; color: #6b6b7b; }
+        .profile-info .customer-id { font-size: 10px; color: #6b6b7b; display: block; }
+        .profile-info .phone { font-size: 12px; color: #1a1a2e; font-weight: 600; }
+
+        .error-box { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 12px; margin-bottom: 12px; display: none; font-size: 13px; border-left: 4px solid #dc2626; }
+        .error-box.show { display: block; }
 
         .greeting-banner { background: #f0f9ff; border-radius: 16px; padding: 12px 16px; margin: 12px 0; border: 1px solid rgba(14,165,233,0.1); }
         .greeting-banner .main { font-weight: 700; font-size: 16px; color: #1a1a2e; }
         .greeting-banner .sub { font-size: 13px; color: #6b6b7b; }
 
-        /* Quick Grid */
-        .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0 16px 0; }
-        .quick-card { background: #fff; border-radius: 18px; padding: 14px 6px; text-align: center; border: 1px solid #e8ecf0; transition: 0.2s; text-decoration: none; display: block; }
+        .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 12px 0 16px 0; }
+        .quick-card { background: #fff; border-radius: 16px; padding: 12px 4px; text-align: center; border: 1px solid #e8ecf0; transition: 0.2s; text-decoration: none; display: block; }
         .quick-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-2px); }
-        .quick-card i { font-size: 24px; color: #0ea5e9; display: block; margin-bottom: 4px; }
-        .quick-card .title { font-size: 10px; font-weight: 600; color: #1a1a2e; display: block; }
-        .quick-card .desc { font-size: 7px; color: #6b6b7b; display: block; }
+        .quick-card i { font-size: 22px; color: #0ea5e9; display: block; margin-bottom: 2px; }
+        .quick-card .title { font-size: 9px; font-weight: 600; color: #1a1a2e; display: block; }
 
         .section-title { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 0 10px 0; }
-        .section-title h3 { font-weight: 700; font-size: 16px; color: #1a1a2e; }
+        .section-title h3 { font-weight: 700; font-size: 15px; color: #1a1a2e; }
         .section-title a { font-size: 11px; color: #0ea5e9; font-weight: 600; text-decoration: none; }
 
-        /* Product Slider */
         .product-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; }
         .product-scroll::-webkit-scrollbar { height: 3px; }
         .product-scroll::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
-        .product-slide { min-width: 140px; background: #fff; border-radius: 18px; padding: 12px; border: 1px solid #e8ecf0; text-align: center; flex-shrink: 0; transition: 0.2s; text-decoration: none; display: block; }
+        .product-slide { min-width: 130px; background: #fff; border-radius: 16px; padding: 12px; border: 1px solid #e8ecf0; text-align: center; flex-shrink: 0; transition: 0.2s; text-decoration: none; display: block; }
         .product-slide:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-2px); }
-        .product-slide .icon { font-size: 32px; color: #0ea5e9; display: block; margin-bottom: 4px; }
-        .product-slide .name { font-weight: 600; font-size: 12px; color: #1a1a2e; }
-        .product-slide .price { font-weight: 700; font-size: 14px; color: #0ea5e9; display: block; margin-top: 2px; }
-        .product-slide .offer-tag { background: #d1fae5; color: #059669; font-size: 9px; font-weight: 700; padding: 1px 8px; border-radius: 12px; display: inline-block; }
+        .product-slide .icon { font-size: 28px; color: #0ea5e9; display: block; margin-bottom: 4px; }
+        .product-slide .name { font-weight: 600; font-size: 11px; color: #1a1a2e; }
+        .product-slide .price { font-weight: 700; font-size: 13px; color: #0ea5e9; display: block; margin-top: 2px; }
+        .product-slide .offer-tag { background: #d1fae5; color: #059669; font-size: 8px; font-weight: 700; padding: 1px 8px; border-radius: 12px; display: inline-block; }
 
-        /* Order Status Timeline */
-        .timeline { display: flex; justify-content: space-between; padding: 8px 0; position: relative; }
-        .timeline::before { content: ''; position: absolute; top: 20px; left: 10%; right: 10%; height: 2px; background: #e8ecf0; }
-        .timeline .step { text-align: center; flex: 1; position: relative; z-index: 1; }
-        .timeline .step .dot { width: 16px; height: 16px; border-radius: 50%; background: #e8ecf0; margin: 0 auto 4px; border: 2px solid #fff; box-shadow: 0 0 0 2px #e8ecf0; }
-        .timeline .step.active .dot { background: #0ea5e9; box-shadow: 0 0 0 2px #0ea5e9; }
-        .timeline .step.completed .dot { background: #22c55e; box-shadow: 0 0 0 2px #22c55e; }
-        .timeline .step .label { font-size: 8px; color: #6b6b7b; }
-        .timeline .step.active .label { color: #0ea5e9; font-weight: 600; }
-        .timeline .step.completed .label { color: #22c55e; }
+        .video-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; }
+        .video-scroll::-webkit-scrollbar { height: 3px; }
+        .video-scroll::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
+        .video-card { min-width: 140px; background: #1a1a2e; border-radius: 16px; overflow: hidden; flex-shrink: 0; cursor: pointer; transition: 0.2s; text-decoration: none; display: block; }
+        .video-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+        .video-card .thumb { height: 80px; background: linear-gradient(135deg, #2d2d4a, #1a1a2e); display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 32px; position: relative; }
+        .video-card .thumb .play { position: absolute; background: rgba(0,0,0,0.5); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; }
+        .video-card .info { padding: 8px 10px; }
+        .video-card .info .title { font-size: 10px; color: #fff; font-weight: 500; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-        /* YouTube Shorts */
-        .youtube-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; }
-        .youtube-scroll::-webkit-scrollbar { height: 3px; }
-        .youtube-scroll::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
-        .youtube-card { min-width: 140px; background: #1a1a2e; border-radius: 18px; overflow: hidden; flex-shrink: 0; cursor: pointer; transition: 0.2s; text-decoration: none; display: block; }
-        .youtube-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
-        .youtube-card .thumb { height: 80px; background: linear-gradient(135deg, #2d2d4a, #1a1a2e); display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 32px; position: relative; }
-        .youtube-card .thumb .play { position: absolute; background: rgba(0,0,0,0.5); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
-        .youtube-card .info { padding: 8px 10px; }
-        .youtube-card .info .title { font-size: 11px; color: #fff; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .promo-banner { background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 16px; padding: 14px 16px; color: #fff; margin: 12px 0; cursor: pointer; transition: 0.2s; }
+        .promo-banner:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.2); }
+        .promo-banner .title { font-weight: 700; font-size: 14px; }
+        .promo-banner .desc { font-size: 11px; opacity: 0.9; }
+        .promo-banner .btn { background: #fff; color: #0284c7; border: none; padding: 4px 14px; border-radius: 30px; font-weight: 600; font-size: 10px; margin-top: 4px; display: inline-block; }
 
-        .social-links { display: flex; gap: 12px; justify-content: center; margin: 8px 0; }
+        .social-links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 8px 0; }
         .social-links a { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #e8ecf0; display: flex; align-items: center; justify-content: center; color: #6b6b7b; transition: 0.2s; text-decoration: none; }
-        .social-links a:hover { border-color: #0ea5e9; color: #0ea5e9; }
+        .social-links a:hover { border-color: #0ea5e9; color: #0ea5e9; transform: translateY(-2px); }
+
+        .support-card { background: #f1f5f9; border-radius: 16px; padding: 16px; margin: 12px 0; text-align: center; }
+        .support-card .title { font-weight: 700; font-size: 14px; color: #1a1a2e; }
+        .support-card .sub { font-size: 12px; color: #6b6b7b; }
+        .support-card .actions { display: flex; gap: 8px; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+        .support-card .actions a { padding: 6px 16px; border-radius: 30px; font-weight: 600; font-size: 11px; text-decoration: none; display: inline-block; transition: 0.2s; }
+        .support-card .actions a:hover { transform: scale(1.04); }
 
         .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; }
         .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
         .footer-links a:hover { color: #0ea5e9; }
         .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
 
-        .promo-banner { background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 16px; padding: 14px 16px; color: #fff; margin: 12px 0; cursor: pointer; transition: 0.2s; }
-        .promo-banner:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.2); }
-        .promo-banner .title { font-weight: 700; font-size: 15px; }
-        .promo-banner .desc { font-size: 12px; opacity: 0.9; }
-        .promo-banner .btn { background: #fff; color: #0284c7; border: none; padding: 4px 16px; border-radius: 30px; font-weight: 600; font-size: 11px; margin-top: 6px; display: inline-block; }
-
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; transition: 0.2s; }
         .whatsapp-float:hover { transform: scale(1.08); }
+
+        .hidden { display: none !important; }
+        .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
+        .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
 
         @media (max-width: 400px) {
             .quick-grid { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-            .quick-card { padding: 10px 4px; }
-            .quick-card i { font-size: 20px; }
-            .quick-card .title { font-size: 9px; }
+            .quick-card { padding: 10px 2px; }
+            .quick-card i { font-size: 18px; }
+            .quick-card .title { font-size: 8px; }
             .profile-section { padding: 10px 12px; }
             .profile-avatar { width: 52px; height: 52px; font-size: 22px; }
             .profile-info .name { font-size: 15px; }
             .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
-            .cover-container { height: 110px; }
-            .product-slide { min-width: 120px; }
-            .youtube-card { min-width: 120px; }
+            .product-slide { min-width: 110px; padding: 10px; }
+            .video-card { min-width: 120px; }
+            .cover-container { height: 100px; }
         }
-        .hidden { display: none !important; }
-        .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -182,39 +148,34 @@
         </div>
     </header>
 
-    <div class="app-container" id="appContainer">
-        <div id="loadingState" style="text-align:center; padding:40px; color:#6b6b7b;">
-            <i class="fas fa-spinner fa-spin" style="font-size:32px; display:block; margin-bottom:12px;"></i>
+    <div class="app-container">
+        <div id="loadingState" class="loading-text">
+            <i class="fas fa-spinner fa-spin"></i>
             Loading dashboard...
         </div>
 
         <div id="dashboardContent" class="hidden">
             <!-- Cover Image -->
             <div class="cover-container">
-                <div class="cover-image" id="coverImage">
-                    <i class="fas fa-shield-alt" style="font-size:48px;"></i>
-                </div>
-                <div class="cover-overlay">
-                    <div class="title" id="coverTitle">Raj Marketing Mysore</div>
-                    <div class="sub" id="coverSub">Premium Mosquito Protection</div>
+                <div class="cover-content">
+                    <div class="title">Raj Marketing Mysore</div>
+                    <div class="sub">Premium Mosquito Protection</div>
                 </div>
             </div>
 
             <!-- Profile Section -->
             <div class="profile-section">
-                <div class="profile-avatar" id="profileAvatar">
-                    <i class="fas fa-user"></i>
-                </div>
+                <div class="profile-avatar" id="profileAvatar"><i class="fas fa-user"></i></div>
                 <div class="profile-info">
                     <span class="name" id="customerName">Customer</span>
                     <span class="greeting" id="greetingText">Welcome back! 👋</span>
-                    <div class="contact-row">
-                        <span class="phone" id="customerPhone">📱 —</span>
-                        <span class="customer-id" id="customerIdDisplay">ID: —</span>
-                    </div>
-                    <span class="address" id="customerAddress">—</span>
+                    <span class="customer-id" id="customerIdDisplay">ID: —</span>
+                    <span class="phone" id="customerPhone">📱 —</span>
                 </div>
             </div>
+
+            <!-- Error Box -->
+            <div id="errorBox" class="error-box"></div>
 
             <!-- Greeting Banner -->
             <div class="greeting-banner">
@@ -224,55 +185,57 @@
 
             <!-- Quick Grid -->
             <div class="quick-grid">
-                <a href="customer-profile.html" class="quick-card"><i class="fas fa-user"></i><span class="title">Profile</span><span class="desc">View & edit</span></a>
-                <a href="price-checker.html" class="quick-card"><i class="fas fa-tag"></i><span class="title">Check Price</span><span class="desc">AI assistant</span></a>
-                <a href="customer-products.html" class="quick-card"><i class="fas fa-th-large"></i><span class="title">Products</span><span class="desc">Browse catalog</span></a>
-                <a href="customer-estimates.html" class="quick-card"><i class="fas fa-file-invoice"></i><span class="title">Estimates</span><span class="desc">My quotes</span></a>
-                <a href="customer-orders.html" class="quick-card"><i class="fas fa-box"></i><span class="title">Orders</span><span class="desc">Track orders</span></a>
-                <a href="customer-appointments.html" class="quick-card"><i class="fas fa-calendar-check"></i><span class="title">Appointments</span><span class="desc">My bookings</span></a>
-                <a href="customer-payments.html" class="quick-card"><i class="fas fa-credit-card"></i><span class="title">Payments</span><span class="desc">Payment history</span></a>
-                <a href="customer-bills.html" class="quick-card"><i class="fas fa-receipt"></i><span class="title">Bills</span><span class="desc">Invoices</span></a>
-                <a href="customer-measurements.html" class="quick-card"><i class="fas fa-ruler"></i><span class="title">Measurements</span><span class="desc">My sizes</span></a>
-                <a href="customer-offers.html" class="quick-card"><i class="fas fa-gift"></i><span class="title">Offers</span><span class="desc">Deals & offers</span></a>
-                <a href="customer-support.html" class="quick-card"><i class="fas fa-headset"></i><span class="title">Support</span><span class="desc">Get help</span></a>
-                <a href="customer-feedback.html" class="quick-card"><i class="fas fa-star"></i><span class="title">Feedback</span><span class="desc">Rate us</span></a>
+                <a href="customer-profile.html" class="quick-card"><i class="fas fa-user"></i><span class="title">Profile</span></a>
+                <a href="price-checker.html" class="quick-card"><i class="fas fa-tag"></i><span class="title">Price</span></a>
+                <a href="customer-products.html" class="quick-card"><i class="fas fa-th-large"></i><span class="title">Products</span></a>
+                <a href="customer-estimates.html" class="quick-card"><i class="fas fa-file-invoice"></i><span class="title">Estimates</span></a>
+                <a href="customer-orders.html" class="quick-card"><i class="fas fa-box"></i><span class="title">Orders</span></a>
+                <a href="customer-appointments.html" class="quick-card"><i class="fas fa-calendar-check"></i><span class="title">Appointments</span></a>
+                <a href="customer-payments.html" class="quick-card"><i class="fas fa-credit-card"></i><span class="title">Payments</span></a>
+                <a href="customer-bills.html" class="quick-card"><i class="fas fa-receipt"></i><span class="title">Bills</span></a>
+                <a href="customer-offers.html" class="quick-card"><i class="fas fa-gift"></i><span class="title">Offers</span></a>
+                <a href="customer-measurements.html" class="quick-card"><i class="fas fa-ruler"></i><span class="title">Measurements</span></a>
+                <a href="customer-support.html" class="quick-card"><i class="fas fa-headset"></i><span class="title">Support</span></a>
+                <a href="customer-feedback.html" class="quick-card"><i class="fas fa-star"></i><span class="title">Feedback</span></a>
             </div>
 
-            <!-- Product Slider -->
+            <!-- Products Slider -->
             <div class="section-title"><h3>🔥 Featured Products</h3><a href="customer-products.html">View all</a></div>
             <div class="product-scroll" id="productSlider">
-                <div style="text-align:center; padding:20px; color:#6b6b7b; width:100%;">Loading products...</div>
+                <div style="text-align:center; padding:20px; color:#6b6b7b; width:100%; font-size:13px;">Loading products...</div>
             </div>
 
             <!-- Promo Banner -->
             <div class="promo-banner" onclick="window.location.href='customer-offers.html'">
-                <div class="title">🎉 Special Offer</div>
+                <div class="title">🎉 Special Offers</div>
                 <div class="desc">Check out our latest deals on premium mosquito nets!</div>
                 <span class="btn">View Offers</span>
             </div>
 
             <!-- YouTube Shorts -->
             <div class="section-title"><h3>📹 Raj Marketing Videos</h3><a href="#">View all</a></div>
-            <div class="youtube-scroll" id="youtubeSlider">
-                <div style="text-align:center; padding:20px; color:#6b6b7b; width:100%;">Loading videos...</div>
+            <div class="video-scroll" id="videoSlider">
+                <div style="text-align:center; padding:20px; color:#6b6b7b; width:100%; font-size:13px;">Loading videos...</div>
             </div>
 
             <!-- Social Links -->
             <div class="section-title"><h3>📱 Follow Us</h3></div>
             <div class="social-links">
-                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" title="Google"><i class="fab fa-google"></i></a>
-          <!-- Support Card -->
-            <div style="background:#f1f5f9; border-radius:16px; padding:16px; margin:12px 0; text-align:center;">
-                <div style="font-weight:700; font-size:14px; color:#1a1a2e;">Need Help?</div>
-                <p style="font-size:12px; color:#6b6b7b;">Call us at <a href="tel:9483037385" style="color:#0ea5e9; text-decoration:none; font-weight:600;">9483037385</a></p>
-                <div style="display:flex; gap:10px; justify-content:center; margin-top:8px;">
-                    <a href="https://wa.me/919483037385" target="_blank" style="background:#25D366; color:#fff; padding:6px 16px; border-radius:30px; text-decoration:none; font-weight:600; font-size:11px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    <a href="tel:9483037385" style="background:#0ea5e9; color:#fff; padding:6px 16px; border-radius:30px; text-decoration:none; font-weight:600; font-size:11px;"><i class="fas fa-phone"></i> Call</a>
-                    <a href="customer-support.html" style="background:#1a1a2e; color:#fff; padding:6px 16px; border-radius:30px; text-decoration:none; font-weight:600; font-size:11px;"><i class="fas fa-headset"></i> Support</a>
+                <a href="https://x.com/Mosquito_Nets_" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
+                <a href="https://pin.it/6O3Iy7tIG" target="_blank" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+                <a href="https://www.youtube.com/@RajMarketingMysore" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.facebook.com/share/r/1DQuFEj8E7/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/rajmarketingmysore/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+
+            <!-- Support Card -->
+            <div class="support-card">
+                <div class="title">Need Help?</div>
+                <div class="sub">Call us at <a href="tel:9483037385" style="color:#0ea5e9; text-decoration:none; font-weight:600;">9483037385</a></div>
+                <div class="actions">
+                    <a href="https://wa.me/919483037385" target="_blank" style="background:#25D366; color:#fff;">💬 WhatsApp</a>
+                    <a href="tel:9483037385" style="background:#0ea5e9; color:#fff;">📞 Call</a>
+                    <a href="customer-support.html" style="background:#1a1a2e; color:#fff;">🛟 Support</a>
                 </div>
             </div>
 
@@ -294,11 +257,34 @@
 
     <script type="module">
         import { auth, db } from "./firebase-config.js";
-        import { doc, getDoc, updateDoc, collection, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { collection, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
         let customerData = null;
         let customerId = null;
+
+        const PRODUCTS = [
+            { id: 'velcro-economic', name: 'Velcro Economic', price: 65, image: 'fas fa-vector-square', offer: false },
+            { id: 'velcro-premium', name: 'Velcro Premium', price: 80, image: 'fas fa-vector-square', offer: false },
+            { id: 'aluminium-black-ss', name: 'Aluminium Black SS', price: 200, image: 'fas fa-border-all', offer: false },
+            { id: 'aluminium-bright-ss', name: 'Aluminium Bright SS', price: 220, image: 'fas fa-border-all', offer: false },
+            { id: 'aluminium-teakwood', name: 'Premium Teakwood', price: 300, image: 'fas fa-crown', offer: true },
+            { id: 'pleated-gold', name: 'Pleated Gold', price: 380, image: 'fas fa-wind', offer: true },
+            { id: 'pleated-platinum', name: 'Pleated Platinum', price: 500, image: 'fas fa-wind', offer: false },
+            { id: 'mesh-door-black', name: 'Mesh Door Black', price: 350, image: 'fas fa-door-open', offer: false },
+            { id: 'mesh-door-bright', name: 'Mesh Door Bright', price: 380, image: 'fas fa-door-open', offer: false }
+        ];
+
+        const VIDEOS = [
+            { id: '1', title: 'Pleated Nets for Windows', url: 'https://youtube.com/shorts/iHajLLF_018', thumbnail: '' },
+            { id: '2', title: 'Pleated Nets for Doors', url: 'https://youtube.com/shorts/6l4WIfANJgM', thumbnail: '' },
+            { id: '3', title: 'Mosquito Net Installation', url: 'https://youtube.com/shorts/IxGfFmwXgg4', thumbnail: '' },
+            { id: '4', title: 'Premium Mosquito Nets', url: 'https://youtube.com/shorts/_CtBTE6Kgcc', thumbnail: '' },
+            { id: '5', title: 'Window Screen Solutions', url: 'https://youtube.com/shorts/hjadYyeV9CE', thumbnail: '' },
+            { id: '6', title: 'Door Mesh Solutions', url: 'https://youtube.com/shorts/L0WaHtLqyts', thumbnail: '' },
+            { id: '7', title: 'Aluminium Frame Nets', url: 'https://youtube.com/shorts/6Rvfr29Sq34', thumbnail: '' },
+            { id: '8', title: 'Velcro Net Installation', url: 'https://youtube.com/shorts/aSAoNgIsj_0', thumbnail: '' }
+        ];
 
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
@@ -319,34 +305,8 @@
                 const snapshot = await getDocs(q);
 
                 if (snapshot.empty) {
-                    // Try to find by customerId or create
-                    const allCustomers = await getDocs(collection(db, "customers"));
-                    let found = false;
-                    allCustomers.forEach(doc => {
-                        if (doc.data().uid === uid) {
-                            customerData = { id: doc.id, ...doc.data() };
-                            customerId = customerData.id;
-                            found = true;
-                        }
-                    });
-                    if (!found) {
-                        // Create customer profile
-                        const newId = 'CUS-' + Date.now().toString().slice(-8);
-                        await setDoc(doc(db, "customers", newId), {
-                            customerId: newId,
-                            uid: uid,
-                            name: 'Customer',
-                            email: auth.currentUser?.email || '',
-                            mobile: '',
-                            address: '',
-                            city: '',
-                            state: 'Karnataka',
-                            status: 'Active',
-                            createdAt: new Date().toISOString()
-                        });
-                        customerData = { id: newId, uid: uid, name: 'Customer' };
-                        customerId = newId;
-                    }
+                    showError("Customer profile not found. Please contact support.");
+                    customerData = { name: 'Customer', id: '—' };
                     return;
                 }
 
@@ -357,26 +317,21 @@
 
             } catch (error) {
                 console.error("❌ Customer load error:", error);
-                // Fallback
-                customerData = { name: 'Customer', id: 'CUS-' + Date.now().toString().slice(-8) };
-                customerId = customerData.id;
+                showError("Unable to load profile: " + error.message);
+                customerData = { name: 'Customer', id: '—' };
             }
         }
 
         async function loadDashboardData() {
             try {
-                // Update profile
                 const name = customerData?.name || 'Customer';
                 const mobile = customerData?.mobile || customerData?.phone || '—';
-                const address = customerData?.address ? `${customerData.address}, ${customerData.city || ''}` : '—';
                 const customerIdDisplay = customerData?.customerId || customerData?.id || '—';
 
                 document.getElementById('customerName').textContent = name;
                 document.getElementById('customerPhone').textContent = `📱 ${mobile}`;
                 document.getElementById('customerIdDisplay').textContent = `ID: ${customerIdDisplay}`;
-                document.getElementById('customerAddress').textContent = address;
 
-                // Greeting
                 const hour = new Date().getHours();
                 let greeting = 'Good Morning';
                 if (hour >= 12 && hour < 17) greeting = 'Good Afternoon';
@@ -386,116 +341,48 @@
                 document.getElementById('greetingMain').textContent = `${greeting}, ${name} 👋`;
                 document.getElementById('greetingText').textContent = `${greeting}! 👋`;
 
-                // Load products
-                await loadProducts();
-
-                // Load YouTube videos
-                await loadYouTubeVideos();
-
-                // Load notifications count
-                await loadNotificationCount();
+                loadProducts();
+                loadVideos();
+                loadNotificationCount();
 
             } catch (error) {
                 console.error("❌ Dashboard load error:", error);
             }
         }
 
-        async function loadProducts() {
-            try {
-                const productsRef = collection(db, "products");
-                const q = query(productsRef, where("active", "==", true), orderBy("featured", "desc"), limit(6));
-                const snapshot = await getDocs(q);
-
-                const slider = document.getElementById('productSlider');
-
-                if (snapshot.empty) {
-                    // Fallback products
-                    slider.innerHTML = `
-                        <a href="customer-products.html" class="product-slide">
-                            <span class="icon"><i class="fas fa-vector-square"></i></span>
-                            <span class="name">Velcro System</span>
-                            <span class="price">₹65/sq.ft</span>
-                        </a>
-                        <a href="customer-products.html" class="product-slide">
-                            <span class="icon"><i class="fas fa-border-all"></i></span>
-                            <span class="name">Aluminium Frame</span>
-                            <span class="price">₹200/sq.ft</span>
-                        </a>
-                        <a href="customer-products.html" class="product-slide">
-                            <span class="icon"><i class="fas fa-wind"></i></span>
-                            <span class="name">Pleated Net</span>
-                            <span class="price">₹380/sq.ft</span>
-                        </a>
-                    `;
-                    return;
-                }
-
-                slider.innerHTML = snapshot.docs.map(doc => {
-                    const p = doc.data();
-                    return `
-                        <a href="customer-product-detail.html?id=${doc.id}" class="product-slide">
-                            <span class="icon"><i class="${p.image || 'fas fa-box'}"></i></span>
-                            <span class="name">${p.name || 'Product'}</span>
-                            <span class="price">₹${p.price || 0}/sq.ft</span>
-                            ${p.offerPrice ? `<span class="offer-tag">🔥 Offer</span>` : ''}
-                        </a>
-                    `;
-                }).join('');
-
-            } catch (error) {
-                console.error("❌ Products load error:", error);
-                document.getElementById('productSlider').innerHTML = `
-                    <a href="customer-products.html" class="product-slide">
-                        <span class="icon"><i class="fas fa-box"></i></span>
-                        <span class="name">View Products</span>
-                        <span class="price">Browse catalog</span>
-                    </a>
-                `;
-            }
+        function loadProducts() {
+            const slider = document.getElementById('productSlider');
+            const display = PRODUCTS.slice(0, 5);
+            slider.innerHTML = display.map(p => `
+                <a href="customer-product-detail.html?id=${p.id}" class="product-slide">
+                    <span class="icon"><i class="${p.image}"></i></span>
+                    <span class="name">${p.name}</span>
+                    <span class="price">₹${p.price}/sq.ft</span>
+                    ${p.offer ? `<span class="offer-tag">🔥 Offer</span>` : ''}
+                </a>
+            `).join('');
         }
 
-        async function loadYouTubeVideos() {
-            try {
-                const videosRef = collection(db, "youtubeVideos");
-                const q = query(videosRef, where("active", "==", true), orderBy("sortOrder"), limit(5));
-                const snapshot = await getDocs(q);
-
-                const slider = document.getElementById('youtubeSlider');
-
-                if (snapshot.empty) {
-                    slider.innerHTML = `
-                        <div class="youtube-card" onclick="window.open('https://www.youtube.com','_blank')">
-                            <div class="thumb"><i class="fab fa-youtube"></i><div class="play"><i class="fas fa-play"></i></div></div>
-                            <div class="info"><div class="title">Raj Marketing Videos</div></div>
-                        </div>
-                    `;
-                    return;
-                }
-
-                slider.innerHTML = snapshot.docs.map(doc => {
-                    const v = doc.data();
-                    return `
-                        <a href="${v.youtubeUrl || '#'}" target="_blank" class="youtube-card">
-                            <div class="thumb">
-                                ${v.thumbnail ? `<img src="${v.thumbnail}" alt="${v.title}" style="width:100%;height:100%;object-fit:cover;" />` : '<i class="fab fa-youtube"></i>'}
-                                <div class="play"><i class="fas fa-play"></i></div>
-                            </div>
-                            <div class="info"><div class="title">${v.title || 'Video'}</div></div>
-                        </a>
-                    `;
-                }).join('');
-
-            } catch (error) {
-                console.error("❌ YouTube videos load error:", error);
-            }
+        function loadVideos() {
+            const slider = document.getElementById('videoSlider');
+            const display = VIDEOS.slice(0, 5);
+            slider.innerHTML = display.map(v => `
+                <a href="${v.url}" target="_blank" class="video-card">
+                    <div class="thumb">
+                        <i class="fab fa-youtube"></i>
+                        <div class="play"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="info"><div class="title">${v.title}</div></div>
+                </a>
+            `).join('');
         }
 
         async function loadNotificationCount() {
             try {
+                if (!customerId) return;
                 const notifRef = collection(db, "notifications");
                 const q = query(notifRef, where("customerId", "==", customerId), where("read", "==", false));
                 const snapshot = await getDocs(q);
-
                 const badge = document.getElementById('notifBadge');
                 if (snapshot.size > 0) {
                     badge.textContent = snapshot.size;
@@ -508,17 +395,24 @@
             }
         }
 
+        function showError(msg) {
+            const box = document.getElementById('errorBox');
+            if (!msg) { box.classList.remove('show'); box.textContent = ''; return; }
+            box.textContent = '❌ ' + msg;
+            box.classList.add('show');
+        }
+
         window.logout = async function() {
             if (!confirm("Are you sure you want to logout?")) return;
             try {
                 await signOut(auth);
                 window.location.href = "customer-login.html";
             } catch (error) {
-                alert("Logout failed: " + error.message);
+                showError("Logout failed: " + error.message);
             }
         };
 
         console.log("✅ Customer dashboard loaded");
     </script>
 </body>
-    </html>
+</html>
