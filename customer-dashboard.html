@@ -4,377 +4,297 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Raj Marketing · Customer Dashboard</title>
+    <meta name="description" content="Customer dashboard for Raj Marketing Mysore" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
+        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
+
+        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
+        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
+        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
+        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
+        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
+        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; }
+        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
+        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
+        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
+        .fixed-header .header-btn .badge {
+            position: absolute; top: -4px; right: -4px;
+            background: #ef4444; color: #fff;
+            font-size: 8px; font-weight: 700;
+            border-radius: 50%; width: 16px; height: 16px;
+            display: flex; align-items: center; justify-content: center;
         }
-        body {
-            background: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0 12px;
-            padding-top: 80px;
-            padding-bottom: 100px;
+
+        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
+        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b6b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
+        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b6b; }
+        .fixed-footer .nav-item.active i { color: #0ea5e9; }
+        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
+
+        /* Cover Image */
+        .cover-container { position: relative; border-radius: 20px; overflow: hidden; height: 140px; margin-bottom: 0; }
+        .cover-container .cover-image {
+            width: 100%; height: 100%; object-fit: cover;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 48px;
         }
-        .app-container {
-            max-width: 480px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 36px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            padding: 20px 18px;
-            border: 1px solid #e8ecf0;
+        .cover-container .cover-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 16px 16px 12px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
         }
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 14px 20px 10px 20px;
-            border-bottom: 1px solid #e8ecf0;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .cover-container .cover-overlay .title {
+            color: #fff; font-weight: 700; font-size: 14px;
         }
-        .fixed-header .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .cover-container .cover-overlay .sub {
+            color: rgba(255,255,255,0.8); font-size: 11px;
         }
-        .fixed-header .logo-icon {
-            width: 40px;
-            height: 40px;
+
+        /* Profile Section */
+        .profile-section { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: #fff; border-radius: 20px; margin-top: -30px; position: relative; z-index: 2; border: 1px solid #e8ecf0; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+        .profile-avatar {
+            width: 64px; height: 64px; border-radius: 50%;
             background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 28px; flex-shrink: 0;
+            border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .fixed-header .logo-text {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1a1a1a;
-            line-height: 1.2;
-        }
-        .fixed-header .logo-text span {
-            display: block;
-            font-weight: 400;
-            font-size: 9px;
-            color: #6b6b6b;
-        }
-        .fixed-header .header-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .fixed-header .header-actions i {
-            font-size: 18px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .fixed-header .back-btn {
-            font-size: 20px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .fixed-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 8px 12px 12px 12px;
-            border-top: 1px solid #e8ecf0;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-radius: 30px 30px 0 0;
-        }
-        .fixed-footer .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 9px;
-            color: #8a8a8a;
-            font-weight: 500;
-            gap: 2px;
-            padding: 4px 12px;
-            border-radius: 30px;
-            text-decoration: none;
-        }
-        .fixed-footer .nav-item i {
-            font-size: 20px;
-            color: #8a8a8a;
-        }
-        .fixed-footer .nav-item.active i {
-            color: #0ea5e9;
-        }
-        .fixed-footer .nav-item.active {
-            color: #0ea5e9;
-            background: rgba(14, 165, 233, 0.08);
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 18px 16px;
-            margin: 14px 0;
-            border: 1px solid #e8ecf0;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-        }
-        .card-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card-title i {
-            color: #0ea5e9;
-        }
-        .welcome-section {
-            text-align: center;
-            padding: 6px 0 10px 0;
-        }
-        .welcome-section .avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 28px;
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
-            margin-bottom: 8px;
-        }
-        .welcome-section h1 {
-            font-size: 20px;
-            font-weight: 800;
-            color: #1a1a2e;
-        }
-        .welcome-section p {
-            font-size: 13px;
-            color: #6b6b7b;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin: 4px 0;
-        }
-        .stat-item {
-            text-align: center;
-            padding: 12px 6px;
-            background: #f8fafc;
-            border-radius: 16px;
-            border: 1px solid #e8ecf0;
-        }
-        .stat-item .number {
-            font-size: 20px;
-            font-weight: 800;
-            color: #0ea5e9;
-        }
-        .stat-item .label {
-            font-size: 9px;
-            color: #6b6b7b;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-        .nav-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin: 6px 0;
-        }
-        .nav-grid .nav-btn {
-            background: #f8fafc;
-            border: 1px solid #e8ecf0;
-            border-radius: 16px;
-            padding: 12px 6px;
-            text-align: center;
-            text-decoration: none;
-            color: #1a1a2e;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-        .nav-grid .nav-btn:hover {
-            background: #f0f7ff;
-            border-color: #0ea5e9;
-            transform: translateY(-2px);
-        }
-        .nav-grid .nav-btn i {
-            font-size: 22px;
-            display: block;
-            margin-bottom: 2px;
-            color: #0ea5e9;
-        }
-        .nav-grid .nav-btn span {
-            font-size: 10px;
-            font-weight: 600;
-        }
-        .order-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #f0ece6;
-        }
-        .order-item:last-child {
-            border-bottom: none;
-        }
-        .order-item .id {
-            font-weight: 600;
-            font-size: 14px;
-            color: #1a1a1a;
-        }
-        .order-item .detail {
-            font-size: 12px;
-            color: #6b6b7b;
-        }
-        .order-item .status-badge {
-            padding: 2px 10px;
-            border-radius: 30px;
-            font-size: 10px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .status-new { background: #fff7ed; color: #ea580c; }
-        .status-confirmed { background: #dbeafe; color: #1d4ed8; }
-        .status-production { background: #dbeafe; color: #1d4ed8; }
-        .status-ready { background: #d1fae5; color: #059669; }
-        .status-completed { background: #d1fae5; color: #059669; }
-        .status-cancelled { background: #fee2e2; color: #dc2626; }
-        .btn-logout {
-            background: #ef4444;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-        }
-        .btn-logout:hover {
-            background: #dc2626;
-        }
+        .profile-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .profile-info { flex: 1; min-width: 0; }
+        .profile-info .name { font-weight: 800; font-size: 17px; color: #1a1a2e; display: block; }
+        .profile-info .greeting { font-size: 13px; font-weight: 500; color: #059669; display: block; }
+        .profile-info .customer-id { font-size: 10px; color: #6b6b7b; }
+        .profile-info .contact-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
+        .profile-info .contact-row .phone { font-size: 12px; color: #1a1a2e; font-weight: 600; }
+        .profile-info .contact-row .address { font-size: 10px; color: #6b6b7b; }
+
+        .greeting-banner { background: #f0f9ff; border-radius: 16px; padding: 12px 16px; margin: 12px 0; border: 1px solid rgba(14,165,233,0.1); }
+        .greeting-banner .main { font-weight: 700; font-size: 16px; color: #1a1a2e; }
+        .greeting-banner .sub { font-size: 13px; color: #6b6b7b; }
+
+        /* Quick Grid */
+        .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0 16px 0; }
+        .quick-card { background: #fff; border-radius: 18px; padding: 14px 6px; text-align: center; border: 1px solid #e8ecf0; transition: 0.2s; text-decoration: none; display: block; }
+        .quick-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-2px); }
+        .quick-card i { font-size: 24px; color: #0ea5e9; display: block; margin-bottom: 4px; }
+        .quick-card .title { font-size: 10px; font-weight: 600; color: #1a1a2e; display: block; }
+        .quick-card .desc { font-size: 7px; color: #6b6b7b; display: block; }
+
+        .section-title { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 0 10px 0; }
+        .section-title h3 { font-weight: 700; font-size: 16px; color: #1a1a2e; }
+        .section-title a { font-size: 11px; color: #0ea5e9; font-weight: 600; text-decoration: none; }
+
+        /* Product Slider */
+        .product-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; }
+        .product-scroll::-webkit-scrollbar { height: 3px; }
+        .product-scroll::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
+        .product-slide { min-width: 140px; background: #fff; border-radius: 18px; padding: 12px; border: 1px solid #e8ecf0; text-align: center; flex-shrink: 0; transition: 0.2s; text-decoration: none; display: block; }
+        .product-slide:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-2px); }
+        .product-slide .icon { font-size: 32px; color: #0ea5e9; display: block; margin-bottom: 4px; }
+        .product-slide .name { font-weight: 600; font-size: 12px; color: #1a1a2e; }
+        .product-slide .price { font-weight: 700; font-size: 14px; color: #0ea5e9; display: block; margin-top: 2px; }
+        .product-slide .offer-tag { background: #d1fae5; color: #059669; font-size: 9px; font-weight: 700; padding: 1px 8px; border-radius: 12px; display: inline-block; }
+
+        /* Order Status Timeline */
+        .timeline { display: flex; justify-content: space-between; padding: 8px 0; position: relative; }
+        .timeline::before { content: ''; position: absolute; top: 20px; left: 10%; right: 10%; height: 2px; background: #e8ecf0; }
+        .timeline .step { text-align: center; flex: 1; position: relative; z-index: 1; }
+        .timeline .step .dot { width: 16px; height: 16px; border-radius: 50%; background: #e8ecf0; margin: 0 auto 4px; border: 2px solid #fff; box-shadow: 0 0 0 2px #e8ecf0; }
+        .timeline .step.active .dot { background: #0ea5e9; box-shadow: 0 0 0 2px #0ea5e9; }
+        .timeline .step.completed .dot { background: #22c55e; box-shadow: 0 0 0 2px #22c55e; }
+        .timeline .step .label { font-size: 8px; color: #6b6b7b; }
+        .timeline .step.active .label { color: #0ea5e9; font-weight: 600; }
+        .timeline .step.completed .label { color: #22c55e; }
+
+        /* YouTube Shorts */
+        .youtube-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; }
+        .youtube-scroll::-webkit-scrollbar { height: 3px; }
+        .youtube-scroll::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
+        .youtube-card { min-width: 140px; background: #1a1a2e; border-radius: 18px; overflow: hidden; flex-shrink: 0; cursor: pointer; transition: 0.2s; text-decoration: none; display: block; }
+        .youtube-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+        .youtube-card .thumb { height: 80px; background: linear-gradient(135deg, #2d2d4a, #1a1a2e); display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 32px; position: relative; }
+        .youtube-card .thumb .play { position: absolute; background: rgba(0,0,0,0.5); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+        .youtube-card .info { padding: 8px 10px; }
+        .youtube-card .info .title { font-size: 11px; color: #fff; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .social-links { display: flex; gap: 12px; justify-content: center; margin: 8px 0; }
+        .social-links a { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #e8ecf0; display: flex; align-items: center; justify-content: center; color: #6b6b7b; transition: 0.2s; text-decoration: none; }
+        .social-links a:hover { border-color: #0ea5e9; color: #0ea5e9; }
+
+        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; }
+        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
+        .footer-links a:hover { color: #0ea5e9; }
+        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
+
+        .promo-banner { background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 16px; padding: 14px 16px; color: #fff; margin: 12px 0; cursor: pointer; transition: 0.2s; }
+        .promo-banner:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.2); }
+        .promo-banner .title { font-weight: 700; font-size: 15px; }
+        .promo-banner .desc { font-size: 12px; opacity: 0.9; }
+        .promo-banner .btn { background: #fff; color: #0284c7; border: none; padding: 4px 16px; border-radius: 30px; font-weight: 600; font-size: 11px; margin-top: 6px; display: inline-block; }
+
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.08); }
+
         @media (max-width: 400px) {
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .nav-grid { grid-template-columns: 1fr 1fr; }
+            .quick-grid { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+            .quick-card { padding: 10px 4px; }
+            .quick-card i { font-size: 20px; }
+            .quick-card .title { font-size: 9px; }
+            .profile-section { padding: 10px 12px; }
+            .profile-avatar { width: 52px; height: 52px; font-size: 22px; }
+            .profile-info .name { font-size: 15px; }
+            .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
+            .cover-container { height: 110px; }
+            .product-slide { min-width: 120px; }
+            .youtube-card { min-width: 120px; }
         }
+        .hidden { display: none !important; }
+        .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
     </style>
 </head>
 <body>
 
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
     <header class="fixed-header">
         <div class="logo-area">
-            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
             <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
             <div class="logo-text">Raj Marketing<span>Mysore</span></div>
         </div>
         <div class="header-actions">
-            <i class="fas fa-user-circle" title="Profile"></i>
+            <a href="customer-notifications.html" class="header-btn" style="position:relative;">
+                <i class="fas fa-bell"></i>
+                <span class="badge" id="notifBadge" style="display:none;">0</span>
+                <span class="label">Alerts</span>
+            </a>
+            <button class="header-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="label">Logout</span>
+            </button>
         </div>
     </header>
 
-    <div class="app-container">
-        <div class="welcome-section">
-            <div class="avatar"><i class="fas fa-user"></i></div>
-            <h1 id="customerName">Welcome, Customer</h1>
-            <p id="customerEmail">customer@email.com</p>
+    <div class="app-container" id="appContainer">
+        <div id="loadingState" style="text-align:center; padding:40px; color:#6b6b7b;">
+            <i class="fas fa-spinner fa-spin" style="font-size:32px; display:block; margin-bottom:12px;"></i>
+            Loading dashboard...
         </div>
 
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="number" id="statOrders">0</div>
-                <div class="label">Orders</div>
+        <div id="dashboardContent" class="hidden">
+            <!-- Cover Image -->
+            <div class="cover-container">
+                <div class="cover-image" id="coverImage">
+                    <i class="fas fa-shield-alt" style="font-size:48px;"></i>
+                </div>
+                <div class="cover-overlay">
+                    <div class="title" id="coverTitle">Raj Marketing Mysore</div>
+                    <div class="sub" id="coverSub">Premium Mosquito Protection</div>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="number" id="statEstimates">0</div>
-                <div class="label">Estimates</div>
+
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <span class="name" id="customerName">Customer</span>
+                    <span class="greeting" id="greetingText">Welcome back! 👋</span>
+                    <div class="contact-row">
+                        <span class="phone" id="customerPhone">📱 —</span>
+                        <span class="customer-id" id="customerIdDisplay">ID: —</span>
+                    </div>
+                    <span class="address" id="customerAddress">—</span>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="number" id="statAppointments">0</div>
-                <div class="label">Appointments</div>
+
+            <!-- Greeting Banner -->
+            <div class="greeting-banner">
+                <div class="main" id="greetingMain">Good Morning, Customer 👋</div>
+                <div class="sub" id="greetingSub">Thank you for choosing Raj Marketing Mysore.</div>
             </div>
-        </div>
 
-        <!-- Quick Navigation -->
-        <div class="nav-grid">
-            <a href="estimate.html" class="nav-btn">
-                <i class="fas fa-file-invoice"></i>
-                <span>New Estimate</span>
-            </a>
-            <a href="appointment.html" class="nav-btn">
-                <i class="fas fa-calendar-check"></i>
-                <span>Book Appointment</span>
-            </a>
-            <a href="order-details.html" class="nav-btn">
-                <i class="fas fa-box"></i>
-                <span>My Orders</span>
-            </a>
-        </div>
-
-        
-
-        <!-- Recent Orders -->
-        <div class="card">
-            <div class="card-title"><i class="fas fa-box"></i> Recent Orders</div>
-            <div id="orderList">
-                <div style="text-align:center; padding:16px; color:#6b6b7b; font-size:13px;">Loading orders...</div>
+            <!-- Quick Grid -->
+            <div class="quick-grid">
+                <a href="customer-profile.html" class="quick-card"><i class="fas fa-user"></i><span class="title">Profile</span><span class="desc">View & edit</span></a>
+                <a href="price-checker.html" class="quick-card"><i class="fas fa-tag"></i><span class="title">Check Price</span><span class="desc">AI assistant</span></a>
+                <a href="customer-products.html" class="quick-card"><i class="fas fa-th-large"></i><span class="title">Products</span><span class="desc">Browse catalog</span></a>
+                <a href="customer-estimates.html" class="quick-card"><i class="fas fa-file-invoice"></i><span class="title">Estimates</span><span class="desc">My quotes</span></a>
+                <a href="customer-orders.html" class="quick-card"><i class="fas fa-box"></i><span class="title">Orders</span><span class="desc">Track orders</span></a>
+                <a href="customer-appointments.html" class="quick-card"><i class="fas fa-calendar-check"></i><span class="title">Appointments</span><span class="desc">My bookings</span></a>
+                <a href="customer-payments.html" class="quick-card"><i class="fas fa-credit-card"></i><span class="title">Payments</span><span class="desc">Payment history</span></a>
+                <a href="customer-bills.html" class="quick-card"><i class="fas fa-receipt"></i><span class="title">Bills</span><span class="desc">Invoices</span></a>
+                <a href="customer-measurements.html" class="quick-card"><i class="fas fa-ruler"></i><span class="title">Measurements</span><span class="desc">My sizes</span></a>
+                <a href="customer-offers.html" class="quick-card"><i class="fas fa-gift"></i><span class="title">Offers</span><span class="desc">Deals & offers</span></a>
+                <a href="customer-support.html" class="quick-card"><i class="fas fa-headset"></i><span class="title">Support</span><span class="desc">Get help</span></a>
+                <a href="customer-feedback.html" class="quick-card"><i class="fas fa-star"></i><span class="title">Feedback</span><span class="desc">Rate us</span></a>
             </div>
-        </div>
 
-        <!-- Logout -->
-        <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <!-- Product Slider -->
+            <div class="section-title"><h3>🔥 Featured Products</h3><a href="customer-products.html">View all</a></div>
+            <div class="product-scroll" id="productSlider">
+                <div style="text-align:center; padding:20px; color:#6b6b7b; width:100%;">Loading products...</div>
+            </div>
 
-        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
-            Raj Marketing Mysore · Customer Portal
+            <!-- Promo Banner -->
+            <div class="promo-banner" onclick="window.location.href='customer-offers.html'">
+                <div class="title">🎉 Special Offer</div>
+                <div class="desc">Check out our latest deals on premium mosquito nets!</div>
+                <span class="btn">View Offers</span>
+            </div>
+
+            <!-- YouTube Shorts -->
+            <div class="section-title"><h3>📹 Raj Marketing Videos</h3><a href="#">View all</a></div>
+            <div class="youtube-scroll" id="youtubeSlider">
+                <div style="text-align:center; padding:20px; color:#6b6b7b; width:100%;">Loading videos...</div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="section-title"><h3>📱 Follow Us</h3></div>
+            <div class="social-links">
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Google"><i class="fab fa-google"></i></a>
+          <!-- Support Card -->
+            <div style="background:#f1f5f9; border-radius:16px; padding:16px; margin:12px 0; text-align:center;">
+                <div style="font-weight:700; font-size:14px; color:#1a1a2e;">Need Help?</div>
+                <p style="font-size:12px; color:#6b6b7b;">Call us at <a href="tel:9483037385" style="color:#0ea5e9; text-decoration:none; font-weight:600;">9483037385</a></p>
+                <div style="display:flex; gap:10px; justify-content:center; margin-top:8px;">
+                    <a href="https://wa.me/919483037385" target="_blank" style="background:#25D366; color:#fff; padding:6px 16px; border-radius:30px; text-decoration:none; font-weight:600; font-size:11px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="tel:9483037385" style="background:#0ea5e9; color:#fff; padding:6px 16px; border-radius:30px; text-decoration:none; font-weight:600; font-size:11px;"><i class="fas fa-phone"></i> Call</a>
+                    <a href="customer-support.html" style="background:#1a1a2e; color:#fff; padding:6px 16px; border-radius:30px; text-decoration:none; font-weight:600; font-size:11px;"><i class="fas fa-headset"></i> Support</a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer-links">
+                <a href="index.html">Home</a>| <a href="about.html">About</a>| <a href="contact.html">Contact</a>| <a href="terms.html">Terms</a>| <a href="privacy.html">Privacy</a>
+            </div>
+            <div class="footer-copyright">© 2026 Raj Marketing Mysore · Customer Portal</div>
         </div>
     </div>
 
     <footer class="fixed-footer">
-        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
-        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
-        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
-        <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
+        <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+        <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="customer-appointments.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
     </footer>
 
     <script type="module">
         import { auth, db } from "./firebase-config.js";
-        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { doc, getDoc, updateDoc, collection, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
         let customerData = null;
@@ -385,8 +305,11 @@
                 window.location.href = "customer-login.html";
                 return;
             }
+            console.log("✅ Customer authenticated:", user.uid);
             await loadCustomerData(user.uid);
-            await loadCustomerOrders();
+            await loadDashboardData();
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('dashboardContent').classList.remove('hidden');
         });
 
         async function loadCustomerData(uid) {
@@ -394,59 +317,194 @@
                 const customersRef = collection(db, "customers");
                 const q = query(customersRef, where("uid", "==", uid));
                 const snapshot = await getDocs(q);
-                if (!snapshot.empty) {
-                    const doc = snapshot.docs[0];
-                    customerData = { id: doc.id, ...doc.data() };
-                    customerId = customerData.id;
-                    document.getElementById("customerName").textContent = `Welcome, ${customerData.name || "Customer"}`;
-                    document.getElementById("customerEmail").textContent = customerData.email || "";
+
+                if (snapshot.empty) {
+                    // Try to find by customerId or create
+                    const allCustomers = await getDocs(collection(db, "customers"));
+                    let found = false;
+                    allCustomers.forEach(doc => {
+                        if (doc.data().uid === uid) {
+                            customerData = { id: doc.id, ...doc.data() };
+                            customerId = customerData.id;
+                            found = true;
+                        }
+                    });
+                    if (!found) {
+                        // Create customer profile
+                        const newId = 'CUS-' + Date.now().toString().slice(-8);
+                        await setDoc(doc(db, "customers", newId), {
+                            customerId: newId,
+                            uid: uid,
+                            name: 'Customer',
+                            email: auth.currentUser?.email || '',
+                            mobile: '',
+                            address: '',
+                            city: '',
+                            state: 'Karnataka',
+                            status: 'Active',
+                            createdAt: new Date().toISOString()
+                        });
+                        customerData = { id: newId, uid: uid, name: 'Customer' };
+                        customerId = newId;
+                    }
+                    return;
                 }
+
+                const doc = snapshot.docs[0];
+                customerData = { id: doc.id, ...doc.data() };
+                customerId = customerData.id;
+                console.log("✅ Customer data loaded:", customerData);
+
             } catch (error) {
-                console.error("Customer load error:", error);
+                console.error("❌ Customer load error:", error);
+                // Fallback
+                customerData = { name: 'Customer', id: 'CUS-' + Date.now().toString().slice(-8) };
+                customerId = customerData.id;
             }
         }
 
-        async function loadCustomerOrders() {
-            if (!customerId) return;
+        async function loadDashboardData() {
             try {
-                const ordersRef = collection(db, "orders");
-                const q = query(ordersRef, where("customerId", "==", customerId));
+                // Update profile
+                const name = customerData?.name || 'Customer';
+                const mobile = customerData?.mobile || customerData?.phone || '—';
+                const address = customerData?.address ? `${customerData.address}, ${customerData.city || ''}` : '—';
+                const customerIdDisplay = customerData?.customerId || customerData?.id || '—';
+
+                document.getElementById('customerName').textContent = name;
+                document.getElementById('customerPhone').textContent = `📱 ${mobile}`;
+                document.getElementById('customerIdDisplay').textContent = `ID: ${customerIdDisplay}`;
+                document.getElementById('customerAddress').textContent = address;
+
+                // Greeting
+                const hour = new Date().getHours();
+                let greeting = 'Good Morning';
+                if (hour >= 12 && hour < 17) greeting = 'Good Afternoon';
+                else if (hour >= 17 && hour < 21) greeting = 'Good Evening';
+                else if (hour >= 21 || hour < 5) greeting = 'Good Night';
+
+                document.getElementById('greetingMain').textContent = `${greeting}, ${name} 👋`;
+                document.getElementById('greetingText').textContent = `${greeting}! 👋`;
+
+                // Load products
+                await loadProducts();
+
+                // Load YouTube videos
+                await loadYouTubeVideos();
+
+                // Load notifications count
+                await loadNotificationCount();
+
+            } catch (error) {
+                console.error("❌ Dashboard load error:", error);
+            }
+        }
+
+        async function loadProducts() {
+            try {
+                const productsRef = collection(db, "products");
+                const q = query(productsRef, where("active", "==", true), orderBy("featured", "desc"), limit(6));
                 const snapshot = await getDocs(q);
-                const orders = [];
-                snapshot.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
 
-                document.getElementById("statOrders").textContent = orders.length;
+                const slider = document.getElementById('productSlider');
 
-                const container = document.getElementById("orderList");
-                if (!orders.length) {
-                    container.innerHTML = `
-                        <div style="text-align:center; padding:16px; color:#6b6b7b; font-size:13px;">
-                            <i class="fas fa-inbox" style="font-size:24px; display:block; margin-bottom:8px;"></i>
-                            No orders found.
+                if (snapshot.empty) {
+                    // Fallback products
+                    slider.innerHTML = `
+                        <a href="customer-products.html" class="product-slide">
+                            <span class="icon"><i class="fas fa-vector-square"></i></span>
+                            <span class="name">Velcro System</span>
+                            <span class="price">₹65/sq.ft</span>
+                        </a>
+                        <a href="customer-products.html" class="product-slide">
+                            <span class="icon"><i class="fas fa-border-all"></i></span>
+                            <span class="name">Aluminium Frame</span>
+                            <span class="price">₹200/sq.ft</span>
+                        </a>
+                        <a href="customer-products.html" class="product-slide">
+                            <span class="icon"><i class="fas fa-wind"></i></span>
+                            <span class="name">Pleated Net</span>
+                            <span class="price">₹380/sq.ft</span>
+                        </a>
+                    `;
+                    return;
+                }
+
+                slider.innerHTML = snapshot.docs.map(doc => {
+                    const p = doc.data();
+                    return `
+                        <a href="customer-product-detail.html?id=${doc.id}" class="product-slide">
+                            <span class="icon"><i class="${p.image || 'fas fa-box'}"></i></span>
+                            <span class="name">${p.name || 'Product'}</span>
+                            <span class="price">₹${p.price || 0}/sq.ft</span>
+                            ${p.offerPrice ? `<span class="offer-tag">🔥 Offer</span>` : ''}
+                        </a>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error("❌ Products load error:", error);
+                document.getElementById('productSlider').innerHTML = `
+                    <a href="customer-products.html" class="product-slide">
+                        <span class="icon"><i class="fas fa-box"></i></span>
+                        <span class="name">View Products</span>
+                        <span class="price">Browse catalog</span>
+                    </a>
+                `;
+            }
+        }
+
+        async function loadYouTubeVideos() {
+            try {
+                const videosRef = collection(db, "youtubeVideos");
+                const q = query(videosRef, where("active", "==", true), orderBy("sortOrder"), limit(5));
+                const snapshot = await getDocs(q);
+
+                const slider = document.getElementById('youtubeSlider');
+
+                if (snapshot.empty) {
+                    slider.innerHTML = `
+                        <div class="youtube-card" onclick="window.open('https://www.youtube.com','_blank')">
+                            <div class="thumb"><i class="fab fa-youtube"></i><div class="play"><i class="fas fa-play"></i></div></div>
+                            <div class="info"><div class="title">Raj Marketing Videos</div></div>
                         </div>
                     `;
                     return;
                 }
 
-                const sorted = orders.reverse().slice(0, 5);
-                container.innerHTML = sorted.map(o => {
-                    const status = o.orderStatus || o.status || "NEW";
-                    const statusClass = status.toLowerCase().replace(/ /g, '');
+                slider.innerHTML = snapshot.docs.map(doc => {
+                    const v = doc.data();
                     return `
-                        <div class="order-item">
-                            <div class="id">${o.orderId || o.id} 
-                                <span class="status-badge status-${statusClass}">${status}</span>
+                        <a href="${v.youtubeUrl || '#'}" target="_blank" class="youtube-card">
+                            <div class="thumb">
+                                ${v.thumbnail ? `<img src="${v.thumbnail}" alt="${v.title}" style="width:100%;height:100%;object-fit:cover;" />` : '<i class="fab fa-youtube"></i>'}
+                                <div class="play"><i class="fas fa-play"></i></div>
                             </div>
-                            <div class="detail">${o.product || "—"} · ${o.sqft || 0} sq.ft</div>
-                            <div class="detail" style="font-weight:600; color:#1a1a1a;">
-                                ₹${(o.totalAmount || o.total || 0).toLocaleString("en-IN")}
-                            </div>
-                        </div>
+                            <div class="info"><div class="title">${v.title || 'Video'}</div></div>
+                        </a>
                     `;
-                }).join("");
+                }).join('');
 
             } catch (error) {
-                console.error("Orders load error:", error);
+                console.error("❌ YouTube videos load error:", error);
+            }
+        }
+
+        async function loadNotificationCount() {
+            try {
+                const notifRef = collection(db, "notifications");
+                const q = query(notifRef, where("customerId", "==", customerId), where("read", "==", false));
+                const snapshot = await getDocs(q);
+
+                const badge = document.getElementById('notifBadge');
+                if (snapshot.size > 0) {
+                    badge.textContent = snapshot.size;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            } catch (error) {
+                console.error("❌ Notification count error:", error);
             }
         }
 
@@ -454,14 +512,13 @@
             if (!confirm("Are you sure you want to logout?")) return;
             try {
                 await signOut(auth);
-                window.location.href = "index.html";
+                window.location.href = "customer-login.html";
             } catch (error) {
                 alert("Logout failed: " + error.message);
             }
         };
-    </script>
 
+        console.log("✅ Customer dashboard loaded");
+    </script>
 </body>
-</html>
-```
-  
+    </html>
