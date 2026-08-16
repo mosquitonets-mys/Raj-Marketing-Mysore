@@ -15,7 +15,7 @@
         ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
-        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
 
         .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
         .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
@@ -70,12 +70,12 @@
         .cta-row .btn { flex: 1; min-width: 120px; padding: 12px 20px; border-radius: 40px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; text-align: center; text-decoration: none; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-primary { background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.35); }
-        .btn-success { background: linear-gradient(145deg, #22c55e, #16a34a); color: #fff; box-shadow: 0 4px 16px rgba(34,197,94,0.25); }
-        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(34,197,94,0.35); }
+        .btn-success { background: linear-gradient(145deg, #22c55e, #16a34a); color: #fff; }
+        .btn-success:hover { transform: translateY(-2px); }
         .btn-secondary { background: #f1f5f9; color: #1a1a2e; border: 1px solid #e8ecf0; }
         .btn-secondary:hover { background: #e8ecf0; }
         .btn-whatsapp { background: #25D366; color: #fff; }
-        .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(37,211,102,0.3); }
+        .btn-whatsapp:hover { transform: translateY(-2px); }
 
         .section-title { font-weight: 700; font-size: 16px; color: #1a1a2e; margin: 16px 0 8px 0; display: flex; align-items: center; gap: 8px; }
         .section-title i { color: #0ea5e9; }
@@ -87,7 +87,7 @@
         .spec-table .value { font-weight: 600; color: #1a1a2e; }
 
         .colour-selector { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0; }
-        .colour-selector .colour { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #e8ecf0; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+        .colour-selector .colour { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #e8ecf0; cursor: pointer; transition: 0.2s; }
         .colour-selector .colour:hover { border-color: #0ea5e9; transform: scale(1.05); }
         .colour-selector .colour.active { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.2); }
         .colour-ivory { background: #F5F0E8; }
@@ -116,14 +116,14 @@
 
         .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0; }
         .related-card { background: #fff; border-radius: 16px; padding: 12px; border: 1px solid #e8ecf0; text-align: center; cursor: pointer; transition: 0.2s; text-decoration: none; color: #1a1a2e; }
-        .related-card:hover { transform: translateY(-2px); border-color: #0ea5e9; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        .related-card:hover { transform: translateY(-2px); border-color: #0ea5e9; }
         .related-card .icon { font-size: 28px; color: #0ea5e9; display: block; margin-bottom: 4px; }
         .related-card .name { font-size: 12px; font-weight: 600; }
 
         .sticky-bottom { position: fixed; bottom: 80px; left: 0; right: 0; z-index: 900; max-width: 504px; margin: 0 auto; padding: 0 12px; display: none; }
         .sticky-bottom .inner { background: #fff; border-radius: 20px; padding: 12px 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); display: flex; gap: 10px; align-items: center; border: 1px solid #e8ecf0; }
         .sticky-bottom .inner .price { font-weight: 800; font-size: 18px; color: #0ea5e9; flex: 1; }
-        .sticky-bottom .inner .btn { padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 12px; border: none; cursor: pointer; text-decoration: none; white-space: nowrap; }
+        .sticky-bottom .inner .btn { padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 12px; border: none; cursor: pointer; text-decoration: none; }
 
         .modal-overlay { display: none; position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
@@ -139,7 +139,7 @@
         .modal .modal-actions .btn-primary { background: #0ea5e9; color: #fff; }
         .modal .modal-actions .btn-secondary { background: #f1f5f9; color: #1a1a2e; border: 1px solid #e8ecf0; }
 
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; transition: 0.2s; }
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
         .whatsapp-float:hover { transform: scale(1.08); }
 
         .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
@@ -227,190 +227,297 @@
         <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyB_a91sI0xpFRX5_ti2ukM8Ybn2lMXS6Zw",
-            authDomain: "raj-marketing-mysore-f91f7.firebaseapp.com",
-            projectId: "raj-marketing-mysore-f91f7",
-            storageBucket: "raj-marketing-mysore-f91f7.firebasestorage.app",
-            messagingSenderId: "534782698781",
-            appId: "1:534782698781:web:bad9454adb5d2ad1e7edf4"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        const PRODUCT_DATA = {
+    <script>
+        // ============================================================
+        // PRODUCT DATABASE - All Products with Complete Data
+        // ============================================================
+        const PRODUCT_DB = {
             'velcro-economic': {
-                name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic',
-                price: 65, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: true,
+                id: 'velcro-economic',
+                name: 'Velcro System – Economic',
+                category: 'Velcro',
+                variant: 'Economic',
+                price: 65,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: true,
+                badge: 'velcro',
                 description: 'Economical Velcro mosquito net for windows and doors. Easy to install and remove.',
-                                longDescription: 'The Velcro System – Economic offers affordable mosquito protection. Features high-quality velcro attachment for easy installation.',
+                longDescription: 'The Velcro System – Economic offers affordable mosquito protection for homes and offices. It features high-quality velcro attachment for easy installation and removal. Perfect for windows and doors where you need quick access. Available in multiple colours to match your home decor.',
                 specs: { 'Product Type': 'Velcro Mosquito Net', 'Mesh': 'Polyester', 'Attachment': 'Velcro', 'Colours': 'Grey, Ivory, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
-                benefits: ['Mosquito Protection', 'Easy Installation', 'Affordable', 'Multiple Colours'],
-                images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'],
+                benefits: ['Mosquito Protection', 'Easy Installation', 'Affordable', 'Multiple Colours', 'Removable'],
                 applications: ['Windows', 'Doors', 'Balcony', 'Kitchen', 'Bedroom'],
                 colours: ['Ivory', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'Can this be customized to my window size?', a: 'Yes, we provide custom sizing for all our Velcro nets.' }],
-                badge: 'velcro'
+                images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'],
+                faqs: [
+                    { q: 'Can this be customized to my window size?', a: 'Yes, we provide custom sizing for all our Velcro nets. Just share your window dimensions during booking.' },
+                    { q: 'Is installation included?', a: 'Professional installation is available at additional charges. You can select this during booking.' },
+                    { q: 'How long does delivery take?', a: 'Velcro nets are normally delivered within 2 days after order confirmation.' }
+                ],
+                related: ['velcro-premium', 'aluminium-black-ss', 'mesh-door-black']
             },
             'velcro-premium': {
-                name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium Saint-Gobain',
-                price: 80, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: true,
+                id: 'velcro-premium',
+                name: 'Velcro System – Premium Saint-Gobain',
+                category: 'Velcro',
+                variant: 'Premium Saint-Gobain',
+                price: 80,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: true,
+                badge: 'velcro',
                 description: 'Premium Saint-Gobain Velcro mosquito net with superior quality mesh.',
-                longDescription: 'Premium Saint-Gobain Velcro system offers superior mosquito protection with high-quality mesh.',
+                longDescription: 'Premium Saint-Gobain Velcro system offers superior mosquito protection with high-quality mesh. The Saint-Gobain mesh provides enhanced durability and better protection compared to standard mesh. Ideal for premium homes and offices.',
                 specs: { 'Product Type': 'Velcro Mosquito Net', 'Mesh': 'Saint-Gobain', 'Attachment': 'Velcro', 'Colours': 'Grey, Ivory, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
-                benefits: ['Premium Quality', 'Superior Protection', 'Easy Installation', 'Multiple Colours'],
-                images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'],
-                applications: ['Windows', 'Doors', 'Balcony', 'Premium Homes'],
+                benefits: ['Premium Quality', 'Superior Protection', 'Easy Installation', 'Multiple Colours', 'Durable'],
+                applications: ['Windows', 'Doors', 'Balcony', 'Premium Homes', 'Offices'],
                 colours: ['Ivory', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What is Saint-Gobain mesh?', a: 'Saint-Gobain mesh is a premium quality mosquito mesh with superior durability.' }],
-                badge: 'velcro'
+                images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'],
+                faqs: [
+                    { q: 'What is Saint-Gobain mesh?', a: 'Saint-Gobain mesh is a premium quality mosquito mesh with superior durability and protection.' },
+                    { q: 'Is this better than regular velcro?', a: 'Yes, Saint-Gobain mesh offers enhanced durability and better protection compared to standard mesh.' }
+                ],
+                related: ['velcro-economic', 'aluminium-bright-ss', 'mesh-door-bright']
             },
             'aluminium-black-ss': {
-                name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium Frame', variant: 'Regular + Black Coated SS Mesh',
-                price: 200, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false,
+                id: 'aluminium-black-ss',
+                name: 'Aluminium Frame – Black Coated SS Mesh',
+                category: 'Aluminium',
+                variant: 'Regular + Black Coated SS Mesh',
+                price: 200,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'frame',
                 description: 'Strong aluminium frame with black coated stainless steel mesh for durability.',
-                longDescription: 'Durable aluminium frame with black coated SS mesh. Perfect for windows and doors requiring robust protection.',
+                longDescription: 'Durable aluminium frame with black coated SS mesh. Perfect for windows and doors requiring robust protection. The black coating provides additional corrosion resistance and a sleek appearance. Available in multiple frame colours.',
                 specs: { 'Product Type': 'Aluminium Frame Mosquito Net', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '5 Years' },
-                benefits: ['Durable Frame', 'Long-lasting', 'Strong Protection', 'Multiple Colours'],
-                images: ['fas fa-border-all', 'fas fa-border-all', 'fas fa-border-all'],
-                applications: ['Windows', 'Doors', 'Commercial Buildings'],
+                benefits: ['Durable Frame', 'Long-lasting', 'Strong Protection', 'Multiple Colours', 'Corrosion Resistant'],
+                applications: ['Windows', 'Doors', 'Commercial Buildings', 'Homes'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What is the warranty on aluminium frames?', a: 'Aluminium frames come with a 5-year warranty.' }],
-                badge: 'frame'
+                images: ['fas fa-border-all', 'fas fa-border-all', 'fas fa-border-all'],
+                faqs: [
+                    { q: 'What is the warranty on aluminium frames?', a: 'Aluminium frames come with a 5-year warranty against manufacturing defects.' },
+                    { q: 'Can I choose the frame colour?', a: 'Yes, we offer multiple frame colours including Ivory, Honey Gold, Brown, Black, and White.' }
+                ],
+                related: ['aluminium-bright-ss', 'mesh-door-black', 'velcro-economic']
             },
             'aluminium-bright-ss': {
-                name: 'Aluminium Frame – Bright SS 304 Mesh', category: 'Aluminium Frame', variant: 'Regular + Bright SS 304 Mesh',
-                price: 220, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false,
+                id: 'aluminium-bright-ss',
+                name: 'Aluminium Frame – Bright SS 304 Mesh',
+                category: 'Aluminium',
+                variant: 'Regular + Bright SS 304 Mesh',
+                price: 220,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'frame',
                 description: 'Premium aluminium frame with bright SS 304 grade stainless steel mesh.',
-                longDescription: 'High-grade aluminium frame with bright SS 304 mesh. Premium choice for long-lasting mosquito protection.',
+                longDescription: 'High-grade aluminium frame with bright SS 304 mesh. Premium choice for long-lasting mosquito protection. SS 304 is rust-resistant and offers superior durability compared to standard steel mesh.',
                 specs: { 'Product Type': 'Aluminium Frame Mosquito Net', 'Mesh': 'SS 304 Bright', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '5 Years' },
-                benefits: ['Premium Quality', 'SS 304 Mesh', 'Long-lasting', 'Multiple Colours'],
-                images: ['fas fa-border-all', 'fas fa-border-all', 'fas fa-border-all'],
-                applications: ['Windows', 'Doors', 'Premium Homes', 'Commercial'],
+                benefits: ['Premium Quality', 'SS 304 Mesh', 'Long-lasting', 'Multiple Colours', 'Rust Resistant'],
+                applications: ['Windows', 'Doors', 'Premium Homes', 'Commercial', 'Coastal Areas'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What is SS 304 mesh?', a: 'SS 304 is a high-grade stainless steel mesh that is rust-resistant and durable.' }],
-                badge: 'frame'
+                images: ['fas fa-border-all', 'fas fa-border-all', 'fas fa-border-all'],
+                faqs: [
+                    { q: 'What is SS 304 mesh?', a: 'SS 304 is a high-grade stainless steel mesh that is rust-resistant and durable.' },
+                    { q: 'Is this suitable for coastal areas?', a: 'Yes, SS 304 mesh is rust-resistant and ideal for coastal areas.' }
+                ],
+                related: ['aluminium-black-ss', 'mesh-door-bright', 'velcro-premium']
             },
             'aluminium-teakwood': {
-                name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Black Coated SS Mesh',
-                price: 300, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false,
+                id: 'aluminium-teakwood',
+                name: 'Premium Teakwood – Black Coated SS Mesh',
+                category: 'Premium',
+                variant: 'Teakwood + Black Coated SS Mesh',
+                price: 300,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'premium',
                 description: 'Premium teakwood finish aluminium frame with black coated SS mesh.',
-                longDescription: 'Elegant teakwood finish frame with black coated SS mesh. Premium choice for luxury homes and offices.',
+                longDescription: 'Elegant teakwood finish frame with black coated SS mesh. Premium choice for luxury homes and offices. The teakwood finish gives a natural wood look while the aluminium frame provides strength and durability.',
                 specs: { 'Product Type': 'Premium Aluminium Frame', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium Teakwood', 'Colours': 'Teakwood', 'Custom Size': 'Yes', 'Warranty': '5 Years' },
-                benefits: ['Premium Finish', 'Durable', 'Luxury Look', 'Strong Protection'],
-                images: ['fas fa-crown', 'fas fa-crown', 'fas fa-crown'],
-                applications: ['Premium Windows', 'Luxury Doors', 'Villas', 'Apartments'],
+                benefits: ['Premium Finish', 'Durable', 'Luxury Look', 'Strong Protection', 'Natural Wood Appearance'],
+                applications: ['Premium Windows', 'Luxury Doors', 'Villas', 'Apartments', 'High-end Homes'],
                 colours: ['Teakwood'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What is teakwood finish?', a: 'Teakwood finish gives a premium wooden look to the aluminium frame.' }],
-                badge: 'premium'
+                images: ['fas fa-crown', 'fas fa-crown', 'fas fa-crown'],
+                faqs: [
+                    { q: 'What is teakwood finish?', a: 'Teakwood finish gives a premium wooden look to the aluminium frame, perfect for luxury interiors.' },
+                    { q: 'Is this more expensive than regular frames?', a: 'Yes, the teakwood finish is a premium option with a higher price point.' }
+                ],
+                related: ['aluminium-bright-ss', 'pleated-gold', 'mesh-door-bright']
             },
             'pleated-gold': {
-                name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single',
-                price: 380, originalPrice: 420, discount: 10, unit: 'sq.ft', onlinePurchase: false,
+                id: 'pleated-gold',
+                name: 'Pleated Mesh – Gold Detachable',
+                category: 'Pleated',
+                variant: '32mm Single',
+                price: 380,
+                originalPrice: 420,
+                discount: 10,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'pleated',
                 description: 'Premium gold pleated mosquito net with detachable design.',
-                longDescription: 'Elegant gold pleated net with detachable design. Perfect for main doors and large openings.',
+                longDescription: 'Elegant gold pleated net with detachable design. Perfect for main doors and large openings. The detachable feature allows easy removal for cleaning. The gold finish adds a touch of luxury to any entrance.',
                 specs: { 'Product Type': 'Pleated Mosquito Net', 'Mesh': 'Fibre', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Gold', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
-                benefits: ['Elegant Design', 'Easy Operation', 'Durable', 'Space Saving'],
-                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
-                applications: ['Main Doors', 'Balcony Doors', 'Large Windows', 'Villas'],
+                benefits: ['Elegant Design', 'Easy Operation', 'Durable', 'Space Saving', 'Detachable for Cleaning'],
+                applications: ['Main Doors', 'Balcony Doors', 'Large Windows', 'Villas', 'Hotels'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What is the difference between detachable and non-detachable?', a: 'Detachable nets can be easily removed for cleaning.' }],
-                badge: 'pleated'
+                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                faqs: [
+                    { q: 'What is the difference between detachable and non-detachable?', a: 'Detachable nets can be easily removed for cleaning and storage.' },
+                    { q: 'How long does installation take?', a: 'Pleated nets normally take around 3 days for manufacturing and installation, subject to availability.' }
+                ],
+                related: ['pleated-platinum', 'pleated-diamond', 'honeycomb-gold']
             },
             'pleated-platinum': {
-                name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single',
-                price: 500, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false,
+                id: 'pleated-platinum',
+                name: 'Pleated SS Mesh – Platinum Detachable',
+                category: 'Pleated',
+                variant: '25mm Single',
+                price: 500,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'pleated',
                 description: 'Premium platinum SS mesh pleated net with detachable design.',
-                longDescription: 'High-quality platinum SS mesh pleated net. Superior mosquito protection with elegant design.',
+                longDescription: 'High-quality platinum SS mesh pleated net. Superior mosquito protection with elegant design. The SS mesh provides enhanced durability and protection compared to fibre mesh.',
                 specs: { 'Product Type': 'Pleated SS Mesh', 'Mesh': 'SS', 'Frame': 'Aluminium', 'Section': '25mm', 'Operation': 'Single', 'Colour': 'Platinum', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
-                benefits: ['SS Mesh', 'Elegant Design', 'Durable', 'Easy Operation'],
-                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
-                applications: ['Premium Doors', 'Balcony', 'Villas', 'Apartments'],
+                benefits: ['SS Mesh', 'Elegant Design', 'Durable', 'Easy Operation', 'Detachable'],
+                applications: ['Premium Doors', 'Balcony', 'Villas', 'Apartments', 'Hotels'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What is platinum SS mesh?', a: 'Platinum SS mesh is a premium quality stainless steel mesh.' }],
-                badge: 'pleated'
+                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                faqs: [
+                    { q: 'What is platinum SS mesh?', a: 'Platinum SS mesh is a premium quality stainless steel mesh with enhanced durability.' },
+                    { q: 'Is this better than gold mesh?', a: 'Yes, SS mesh offers superior durability and protection compared to fibre mesh.' }
+                ],
+                related: ['pleated-gold', 'pleated-diamond', 'honeycomb-gold']
             },
             'pleated-diamond': {
-                name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Single',
-                price: 560, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false,
+                id: 'pleated-diamond',
+                name: 'Pleated SS Mesh – Diamond Detachable',
+                category: 'Pleated',
+                variant: '32mm Single',
+                price: 560,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'pleated',
                 description: 'Premium diamond SS mesh pleated net with detachable design.',
-                longDescription: 'Premium diamond pattern SS mesh pleated net. Elegant and durable mosquito protection.',
+                longDescription: 'Premium diamond pattern SS mesh pleated net. Elegant and durable mosquito protection. The diamond pattern adds a unique aesthetic while the SS mesh provides superior protection.',
                 specs: { 'Product Type': 'Pleated SS Mesh', 'Mesh': 'SS Diamond', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Diamond', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
-                benefits: ['Diamond Design', 'SS Mesh', 'Elegant', 'Durable'],
-                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
-                applications: ['Premium Doors', 'Balcony', 'Villas', 'Hotels'],
+                benefits: ['Diamond Design', 'SS Mesh', 'Elegant', 'Durable', 'Detachable'],
+                applications: ['Premium Doors', 'Balcony', 'Villas', 'Hotels', 'Restaurants'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What is diamond SS mesh?', a: 'Diamond SS mesh features a diamond pattern for enhanced aesthetics.' }],
-                badge: 'pleated'
+                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                faqs: [
+                    { q: 'What is diamond SS mesh?', a: 'Diamond SS mesh features a diamond pattern for enhanced aesthetics and durability.' },
+                    { q: 'Is this suitable for commercial use?', a: 'Yes, it is ideal for hotels, restaurants, and commercial buildings.' }
+                ],
+                related: ['pleated-gold', 'pleated-platinum', 'honeycomb-gold']
             },
             'honeycomb-gold': {
-                name: 'Pleated Honeycomb Gold – Detachable', category: 'Pleated', variant: '32mm Single',
-                price: 520, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false,
+                id: 'honeycomb-gold',
+                name: 'Pleated Honeycomb Gold – Detachable',
+                category: 'Pleated',
+                variant: '32mm Single',
+                price: 520,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'pleated',
                 description: 'Premium honeycomb gold pleated net with detachable design.',
-                longDescription: 'Honeycomb gold pleated net combines elegance with effective mosquito protection.',
+                longDescription: 'Honeycomb gold pleated net combines elegance with effective mosquito protection. The honeycomb design provides a unique look while maintaining excellent ventilation and protection.',
                 specs: { 'Product Type': 'Honeycomb Net', 'Mesh': 'Fibre', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Gold', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
-                benefits: ['Honeycomb Design', 'Elegant', 'Durable', 'Easy Operation'],
-                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
-                applications: ['Premium Doors', 'Balcony', 'Villas', 'Apartments'],
+                benefits: ['Honeycomb Design', 'Elegant', 'Durable', 'Easy Operation', 'Detachable'],
+                applications: ['Premium Doors', 'Balcony', 'Villas', 'Apartments', 'Modern Homes'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What is honeycomb design?', a: 'Honeycomb design provides a unique and elegant look to the net.' }],
-                badge: 'pleated'
+                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                faqs: [
+                    { q: 'What is honeycomb design?', a: 'Honeycomb design provides a unique and elegant look to the net with excellent ventilation.' },
+                    { q: 'Is this suitable for modern homes?', a: 'Yes, the honeycomb design is perfect for modern and contemporary homes.' }
+                ],
+                related: ['pleated-gold', 'pleated-platinum', 'pleated-diamond']
             },
             'mesh-door-black': {
-                name: 'Mesh Door – Black Coated SS Mesh', category: 'Mesh Door', variant: 'Regular + Black Coated SS Mesh',
-                price: 350, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false,
+                id: 'mesh-door-black',
+                name: 'Mesh Door – Black Coated SS Mesh',
+                category: 'Door',
+                variant: 'Regular + Black Coated SS Mesh',
+                price: 350,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'door',
                 description: 'Durable mesh door with black coated SS mesh. Perfect for main entrances.',
-                longDescription: 'Sturdy mesh door with black coated SS mesh for superior mosquito protection.',
+                longDescription: 'Sturdy mesh door with black coated SS mesh for superior mosquito protection. The door is designed to provide full coverage for entrances while maintaining visibility and ventilation.',
                 specs: { 'Product Type': 'Mesh Door', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
-                benefits: ['Strong Door', 'Mosquito Protection', 'Durable', 'Multiple Colours'],
-                images: ['fas fa-door-open', 'fas fa-door-open', 'fas fa-door-open'],
-                applications: ['Main Doors', 'Balcony Doors', 'Entrances'],
+                benefits: ['Strong Door', 'Mosquito Protection', 'Durable', 'Multiple Colours', 'Full Coverage'],
+                applications: ['Main Doors', 'Balcony Doors', 'Entrances', 'Commercial Buildings'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'Is the mesh door suitable for main entrances?', a: 'Yes, mesh doors are perfect for main entrances.' }],
-                badge: 'door'
+                images: ['fas fa-door-open', 'fas fa-door-open', 'fas fa-door-open'],
+                faqs: [
+                    { q: 'Is the mesh door suitable for main entrances?', a: 'Yes, mesh doors are perfect for main entrances and provide full coverage.' },
+                    { q: 'Can I customize the size?', a: 'Yes, we provide custom sizing for all mesh doors.' }
+                ],
+                related: ['mesh-door-bright', 'aluminium-black-ss', 'pleated-gold']
             },
             'mesh-door-bright': {
-                name: 'Mesh Door – Bright SS 304 Mesh', category: 'Mesh Door', variant: 'Regular + Bright SS 304 Mesh',
-                price: 380, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false,
+                id: 'mesh-door-bright',
+                name: 'Mesh Door – Bright SS 304 Mesh',
+                category: 'Door',
+                variant: 'Regular + Bright SS 304 Mesh',
+                price: 380,
+                originalPrice: null,
+                discount: null,
+                unit: 'sq.ft',
+                onlinePurchase: false,
+                badge: 'door',
                 description: 'Premium mesh door with bright SS 304 mesh for maximum durability.',
-                longDescription: 'Premium mesh door with bright SS 304 mesh. Superior protection for your entrances.',
+                longDescription: 'Premium mesh door with bright SS 304 mesh. Superior protection for your entrances. SS 304 mesh provides enhanced durability and rust resistance compared to standard steel mesh.',
                 specs: { 'Product Type': 'Mesh Door', 'Mesh': 'SS 304 Bright', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
-                benefits: ['SS 304 Mesh', 'Premium Quality', 'Durable', 'Multiple Colours'],
-                images: ['fas fa-door-open', 'fas fa-door-open', 'fas fa-door-open'],
-                applications: ['Main Doors', 'Balcony Doors', 'Entrances', 'Premium Homes'],
+                benefits: ['SS 304 Mesh', 'Premium Quality', 'Durable', 'Multiple Colours', 'Rust Resistant'],
+                applications: ['Main Doors', 'Balcony Doors', 'Entrances', 'Premium Homes', 'Coastal Areas'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                faqs: [{ q: 'What makes SS 304 mesh better?', a: 'SS 304 is rust-resistant and offers superior durability.' }],
-                badge: 'door'
+                images: ['fas fa-door-open', 'fas fa-door-open', 'fas fa-door-open'],
+                faqs: [
+                    { q: 'What makes SS 304 mesh better?', a: 'SS 304 is rust-resistant and offers superior durability compared to standard steel.' },
+                    { q: 'Is this suitable for coastal areas?', a: 'Yes, SS 304 mesh is ideal for coastal areas due to its rust resistance.' }
+                ],
+                related: ['mesh-door-black', 'aluminium-bright-ss', 'pleated-platinum']
             }
-        };
-          const productImages = {
-            'default': { slides: [{ src: 'fas fa-box', alt: 'Product' }, { src: 'fas fa-box', alt: 'Product' }, { src: 'fas fa-box', alt: 'Product' }] }
         };
 
         let currentProduct = null;
         let currentSlide = 0;
 
-        function getProductFromId(id) {
-            return PRODUCT_DATA[id] || null;
+        function getProduct(id) {
+            return PRODUCT_DB[id] || null;
         }
 
-        async function loadProduct() {
+        function loadProduct() {
             const params = new URLSearchParams(window.location.search);
             const id = params.get('id');
 
@@ -425,23 +532,12 @@
                 return;
             }
 
-            // Try Firebase first
-            try {
-                const docRef = doc(db, 'products', id);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    currentProduct = { id: docSnap.id, ...docSnap.data() };
-                } else {
-                    currentProduct = getProductFromId(id);
-                }
-            } catch (error) {
-                currentProduct = getProductFromId(id);
-            }
+            currentProduct = getProduct(id);
 
             if (!currentProduct) {
                 document.getElementById('mainContent').innerHTML = `
                     <div style="text-align:center; padding:40px; color:#6b6b7b;">
-                        <i class="fas fa-exclamation-circle" style="font-size:32px; display:block; margin-bottom:8px;"></i>
+                        <i class="fas fa-exclamation-circle" style="font-size:32px; display:block;margin-bottom:8px;"></i>
                         <h3>Product not found</h3>
                         <a href="products.html" style="color:#0ea5e9; text-decoration:none;">← Back to Products</a>
                     </div>
@@ -458,8 +554,7 @@
             const ctaClass = isOnline ? 'btn-success' : 'btn-primary';
             const badgeClass = product.badge || 'velcro';
 
-            const images = productImages[product.id] || productImages['default'];
-            const slides = images.slides || productImages['default'].slides;
+            const images = product.images || ['fas fa-box', 'fas fa-box', 'fas fa-box'];
 
             const colours = product.colours || ['Ivory', 'Black', 'White'];
             const types = product.types || ['Single', 'Double'];
@@ -508,6 +603,18 @@
             const originalHtml = product.originalPrice ?
                 `<span class="original">₹${product.originalPrice}</span>` : '';
 
+            // Related products
+            const relatedHtml = product.related ? product.related.map(id => {
+                const related = getProduct(id);
+                if (!related) return '';
+                return `
+                    <a href="product-detail.html?id=${related.id}" class="related-card">
+                        <span class="icon"><i class="${related.images ? related.images[0] : 'fas fa-box'}"></i></span>
+                        <span class="name">${related.name}</span>
+                    </a>
+                `;
+            }).join('') : '<div style="grid-column:1/-1; text-align:center; color:#6b6b7b; font-size:13px;">No related products found.</div>';
+
             document.getElementById('mainContent').innerHTML = `
                 <div class="breadcrumb">
                     <a href="index.html">Home</a><span class="sep">›</span>
@@ -526,16 +633,16 @@
 
                 <div class="slider-container">
                     <div class="slider-track" id="sliderTrack">
-                        ${slides.map((s, i) => `
+                        ${images.map((src, i) => `
                             <div class="slider-slide">
-                                ${s.src.startsWith('fas') ? `<i class="${s.src}"></i>` : `<img src="${s.src}" alt="${s.alt}" style="width:100%;height:100%;object-fit:cover;" />`}
+                                ${src.startsWith('fas') ? `<i class="${src}"></i>` : `<img src="${src}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;" />`}
                             </div>
                         `).join('')}
                     </div>
                     <button class="slider-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
                     <button class="slider-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
                     <div class="slider-dots">
-                        ${slides.map((_, i) => `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>`).join('')}
+                        ${images.map((_, i) => `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>`).join('')}
                     </div>
                 </div>
 
@@ -597,6 +704,9 @@
                 <div class="section-title"><i class="fas fa-question-circle"></i> FAQs</div>
                 ${faqHtml}
 
+                <div class="section-title"><i class="fas fa-link"></i> You May Also Like</div>
+                <div class="related-grid">${relatedHtml}</div>
+
                 <div style="background:#f1f5f9; border-radius:16px; padding:16px; margin:12px 0; text-align:center;">
                     <div style="font-weight:700; font-size:14px; color:#1a1a2e;">Need Help?</div>
                     <p style="font-size:12px; color:#6b6b7b;">Call us at <a href="tel:9483037385" style="color:#0ea5e9; text-decoration:none; font-weight:600;">9483037385</a></p>
@@ -611,8 +721,7 @@
                 </div>
                 <div class="footer-copyright">© 2026 Raj Marketing Mysore</div>
             `;
-
-            // Update sticky bottom
+                // Update sticky bottom
             const sticky = document.getElementById('stickyBottom');
             sticky.style.display = 'block';
             document.getElementById('stickyPrice').textContent = `₹${product.price}/sq.ft`;
@@ -626,13 +735,13 @@
                 metaDesc.content = `${product.name}. ${product.description || 'Premium mosquito net from Raj Marketing Mysore.'}`;
             }
 
-            // Set product in booking modal
             document.getElementById('bProduct').value = product.name;
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
             console.log('✅ Product rendered:', product.name);
-    }
-                // ============================================================
+        }
+
+        // ============================================================
         // SLIDER FUNCTIONS
         // ============================================================
         window.changeSlide = function(direction) {
@@ -657,9 +766,6 @@
             });
         };
 
-        // ============================================================
-        // SELECTORS
-        // ============================================================
         window.selectColour = function(el, colour) {
             document.querySelectorAll('.colour-selector .colour').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
@@ -676,9 +782,6 @@
             el.classList.toggle('open');
         };
 
-        // ============================================================
-        // CTA HANDLERS
-        // ============================================================
         window.handlePrimaryCta = function() {
             if (currentProduct && currentProduct.onlinePurchase !== false) {
                 const qty = document.getElementById('qtyInput')?.value || 1;
@@ -698,10 +801,7 @@
             alert(`🛒 Buy Now:\n${currentProduct.name}\n₹${currentProduct.price}/sq.ft × ${qty}\nTotal: ₹${currentProduct.price * qty}\n\nRedirecting to checkout...`);
         };
 
-        // ============================================================
-        // BOOKING SUBMIT
-        // ============================================================
-        window.submitBooking = async function(e) {
+        window.submitBooking = function(e) {
             e.preventDefault();
             const name = document.getElementById('bName').value.trim();
             const mobile = document.getElementById('bMobile').value.trim();
@@ -711,30 +811,8 @@
                 return;
             }
 
-            const data = {
-                customerName: name,
-                mobile: mobile,
-                whatsapp: document.getElementById('bWhatsapp').value.trim(),
-                address: document.getElementById('bAddress').value.trim(),
-                product: document.getElementById('bProduct').value,
-                date: document.getElementById('bDate').value,
-                time: document.getElementById('bTime').value,
-                windows: parseInt(document.getElementById('bWindows').value) || 1,
-                doors: parseInt(document.getElementById('bDoors').value) || 0,
-                message: document.getElementById('bMessage').value.trim(),
-                source: 'Product Page',
-                status: 'NEW',
-                createdAt: new Date().toISOString()
-            };
-
-            try {
-                await addDoc(collection(db, 'appointments'), data);
-                alert('✅ Appointment request received successfully! Our team will contact you.');
-                closeModal('bookingModal');
-            } catch (error) {
-                console.error('Booking error:', error);
-                alert('❌ Failed to submit booking. Please try again or call us directly.');
-            }
+            alert('✅ Appointment request received successfully! Our team will contact you to confirm.');
+            closeModal('bookingModal');
         };
 
         window.closeModal = function(id) {
@@ -746,10 +824,8 @@
         // ============================================================
         loadProduct();
 
-        window.addEventListener('popstate', function(e) {
-            if (e.state && e.state.productId) {
-                loadProduct();
-            }
+        window.addEventListener('popstate', function() {
+            loadProduct();
         });
 
         console.log('✅ Product detail page loaded');
