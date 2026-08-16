@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Products</title>
+    <title>Products - Raj Marketing Mysore</title>
     <meta name="description" content="Premium mosquito nets, window screens and door screens in Mysore. Quality mosquito protection since 2016." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -93,13 +93,13 @@
 
     <div class="app-container">
         <div class="page-header">
-            <h1>🛒 Our Products</h1>
+            <h1>🛒 All Products</h1>
             <span class="count" id="productCount">0 Products</span>
         </div>
 
         <div class="search-bar">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Search mosquito nets, pleated nets..." oninput="filterProducts()" />
+            <input type="text" id="searchInput" placeholder="Search mosquito nets..." oninput="filterProducts()" />
         </div>
 
         <div class="filter-chips" id="filterChips">
@@ -160,7 +160,7 @@
                     allProducts.push({ id: doc.id, ...data });
                 });
 
-                // Fallback data if Firebase is empty
+                // Fallback if empty
                 if (allProducts.length === 0) {
                     allProducts = getFallbackProducts();
                 }
@@ -177,17 +177,17 @@
 
         function getFallbackProducts() {
             return [
-                { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', price: 65, unit: 'sq.ft', image: 'fas fa-vector-square', badge: 'velcro', onlinePurchase: true, slug: 'velcro-economic' },
-                { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium Saint-Gobain', price: 80, unit: 'sq.ft', image: 'fas fa-vector-square', badge: 'velcro', onlinePurchase: true, slug: 'velcro-premium' },
-                { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium Frame', variant: 'Regular + Black Coated SS Mesh', price: 200, unit: 'sq.ft', image: 'fas fa-border-all', badge: 'frame', onlinePurchase: false, slug: 'aluminium-black-ss' },
-                { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304 Mesh', category: 'Aluminium Frame', variant: 'Regular + Bright SS 304 Mesh', price: 220, unit: 'sq.ft', image: 'fas fa-border-all', badge: 'frame', onlinePurchase: false, slug: 'aluminium-bright-ss' },
-                { id: 'aluminium-teakwood', name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Black Coated SS Mesh', price: 300, unit: 'sq.ft', image: 'fas fa-crown', badge: 'premium', onlinePurchase: false, slug: 'aluminium-teakwood' },
-                { id: 'pleated-gold', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', price: 380, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false, slug: 'pleated-gold' },
-                { id: 'pleated-platinum', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single', price: 500, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false, slug: 'pleated-platinum' },
-                { id: 'pleated-diamond', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Single', price: 560, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false, slug: 'pleated-diamond' },
-                { id: 'honeycomb-gold', name: 'Pleated Honeycomb Gold – Detachable', category: 'Pleated', variant: '32mm Single', price: 520, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false, slug: 'honeycomb-gold' },
-                { id: 'mesh-door-black', name: 'Mesh Door – Black Coated SS Mesh', category: 'Mesh Door', variant: 'Regular + Black Coated SS Mesh', price: 350, unit: 'sq.ft', image: 'fas fa-door-open', badge: 'door', onlinePurchase: false, slug: 'mesh-door-black' },
-                { id: 'mesh-door-bright', name: 'Mesh Door – Bright SS 304 Mesh', category: 'Mesh Door', variant: 'Regular + Bright SS 304 Mesh', price: 380, unit: 'sq.ft', image: 'fas fa-door-open', badge: 'door', onlinePurchase: false, slug: 'mesh-door-bright' }
+                { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', price: 65, unit: 'sq.ft', image: 'fas fa-vector-square', badge: 'velcro', onlinePurchase: true },
+                { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium', price: 80, unit: 'sq.ft', image: 'fas fa-vector-square', badge: 'velcro', onlinePurchase: true },
+                { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium Frame', variant: 'Regular + Black Coated SS', price: 200, unit: 'sq.ft', image: 'fas fa-border-all', badge: 'frame', onlinePurchase: false },
+                { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304 Mesh', category: 'Aluminium Frame', variant: 'Regular + Bright SS 304', price: 220, unit: 'sq.ft', image: 'fas fa-border-all', badge: 'frame', onlinePurchase: false },
+                { id: 'aluminium-teakwood', name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Black Coated SS', price: 300, unit: 'sq.ft', image: 'fas fa-crown', badge: 'premium', onlinePurchase: false },
+                { id: 'pleated-gold', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', price: 380, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
+                { id: 'pleated-platinum', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single', price: 500, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
+                { id: 'pleated-diamond', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Single', price: 560, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
+                { id: 'honeycomb-gold', name: 'Pleated Honeycomb Gold – Detachable', category: 'Pleated', variant: '32mm Single', price: 520, unit: 'sq.ft', image: 'fas fa-wind', badge: 'pleated', onlinePurchase: false },
+                { id: 'mesh-door-black', name: 'Mesh Door – Black Coated SS Mesh', category: 'Mesh Door', variant: 'Regular + Black Coated SS', price: 350, unit: 'sq.ft', image: 'fas fa-door-open', badge: 'door', onlinePurchase: false },
+                { id: 'mesh-door-bright', name: 'Mesh Door – Bright SS 304 Mesh', category: 'Mesh Door', variant: 'Regular + Bright SS 304', price: 380, unit: 'sq.ft', image: 'fas fa-door-open', badge: 'door', onlinePurchase: false }
             ];
         }
 
@@ -201,6 +201,7 @@
                 const badgeClass = p.badge || 'velcro';
                 const isOnline = p.onlinePurchase !== false;
                 const ctaText = isOnline ? 'Buy Online' : 'Book Appointment';
+                const discountHtml = p.discount ? `<span class="discount">${p.discount}% OFF</span>` : '';
                 return `
                     <a href="product-detail.html?id=${p.id}" class="product-card">
                         <div class="img-wrap">
@@ -213,7 +214,7 @@
                             <span class="price">₹${p.price} <span class="original">${p.originalPrice ? '₹' + p.originalPrice : ''}</span></span>
                             <span class="cta-small">${ctaText}</span>
                         </div>
-                        ${p.discount ? `<div class="discount">${p.discount}% OFF</div>` : ''}
+                        ${discountHtml}
                     </a>
                 `;
             }).join('');
@@ -241,4 +242,4 @@
         console.log('✅ Products page loaded');
     </script>
 </body>
-  </html>                                                                                                           </html>
+    </html>
