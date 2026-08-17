@@ -25,8 +25,8 @@
         .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
 
         .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
-        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b6b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
-        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b6b; }
+        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b7b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
+        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b7b; }
         .fixed-footer .nav-item.active i { color: #0ea5e9; }
         .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
 
@@ -50,16 +50,12 @@
         .appointment-details .row { display: flex; gap: 8px; padding: 2px 0; }
         .appointment-details .row .label { color: #6b6b7b; min-width: 70px; }
         .appointment-details .row .value { font-weight: 500; }
+
         .appointment-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f1f5f9; }
         .appointment-actions .btn-sm { padding: 4px 14px; border-radius: 20px; font-size: 10px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; text-decoration: none; display: inline-block; }
         .btn-sm-primary { background: #0ea5e9; color: #fff; }
-        .btn-sm-primary:hover { background: #0284c7; }
         .btn-sm-danger { background: #ef4444; color: #fff; }
-        .btn-sm-danger:hover { background: #dc2626; }
         .btn-sm-whatsapp { background: #25D366; color: #fff; }
-        .btn-sm-whatsapp:hover { background: #1da851; }
-        .btn-sm-outline { background: transparent; border: 1px solid #e8ecf0; color: #1a1a2e; }
-        .btn-sm-outline:hover { background: #f1f5f9; }
 
         .empty-state { text-align: center; padding: 40px 20px; color: #6b6b7b; }
         .empty-state .icon { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.4; }
@@ -71,6 +67,8 @@
         .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
         .footer-links a:hover { color: #0ea5e9; }
         .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
+        .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
+        .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
 
         @media (max-width: 400px) { .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; } }
     </style>
@@ -95,8 +93,8 @@
             <span class="count" id="appointmentCount">0 Appointments</span>
         </div>
 
-        <div id="loadingState" style="text-align:center; padding:40px; color:#6b6b7b;">
-            <i class="fas fa-spinner fa-spin" style="font-size:32px; display:block; margin-bottom:12px;"></i>
+        <div id="loadingState" class="loading-text">
+            <i class="fas fa-spinner fa-spin"></i>
             Loading appointments...
         </div>
 
@@ -124,10 +122,7 @@
         let customerId = null;
 
         onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = "customer-login.html";
-                return;
-            }
+            if (!user) { window.location.href = "customer-login.html"; return; }
             await loadCustomerId(user.uid);
             await loadAppointments();
         });
@@ -137,26 +132,15 @@
                 const customersRef = collection(db, "customers");
                 const q = query(customersRef, where("uid", "==", uid));
                 const snapshot = await getDocs(q);
-                if (!snapshot.empty) {
-                    customerId = snapshot.docs[0].id;
-                }
-            } catch (error) {
-                console.error("Customer ID load error:", error);
-            }
+                if (!snapshot.empty) customerId = snapshot.docs[0].id;
+            } catch (error) { console.error("Customer ID load error:", error); }
         }
 
         async function loadAppointments() {
             if (!customerId) {
                 document.getElementById('loadingState').style.display = 'none';
                 document.getElementById('appointmentList').style.display = 'block';
-                document.getElementById('appointmentList').innerHTML = `
-                    <div class="empty-state">
-                        <span class="icon">📅</span>
-                        <h3 style="font-size:16px; font-weight:700;">No Appointments</h3>
-                        <p style="font-size:13px; margin-top:4px;">You haven't booked any appointments yet.</p>
-                        <a href="appointment.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Book Appointment →</a>
-                    </div>
-                `;
+                document.getElementById('appointmentList').innerHTML = `<div class="empty-state"><span class="icon">📅</span><h3 style="font-size:16px; font-weight:700;">No Appointments</h3><p style="font-size:13px; margin-top:4px;">You haven't booked any appointments yet.</p><a href="appointment.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Book Appointment →</a></div>`;
                 return;
             }
 
@@ -169,14 +153,7 @@
                 document.getElementById('appointmentList').style.display = 'block';
 
                 if (snapshot.empty) {
-                    document.getElementById('appointmentList').innerHTML = `
-                        <div class="empty-state">
-                            <span class="icon">📅</span>
-                            <h3 style="font-size:16px; font-weight:700;">No Appointments</h3>
-                            <p style="font-size:13px; margin-top:4px;">You haven't booked any appointments yet.</p>
-                            <a href="appointment.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Book Appointment →</a>
-                        </div>
-                    `;
+                    document.getElementById('appointmentList').innerHTML = `<div class="empty-state"><span class="icon">📅</span><h3 style="font-size:16px; font-weight:700;">No Appointments</h3><p style="font-size:13px; margin-top:4px;">You haven't booked any appointments yet.</p><a href="appointment.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Book Appointment →</a></div>`;
                     document.getElementById('appointmentCount').textContent = '0 Appointments';
                     return;
                 }
@@ -219,15 +196,9 @@
                 console.error("❌ Appointments load error:", error);
                 document.getElementById('loadingState').style.display = 'none';
                 document.getElementById('appointmentList').style.display = 'block';
-                document.getElementById('appointmentList').innerHTML = `
-                    <div class="empty-state">
-                        <span class="icon">⚠️</span>
-                        <h3 style="font-size:16px; font-weight:700;">Unable to Load Appointments</h3>
-                        <p style="font-size:13px; margin-top:4px;">Please try again later.</p>
-                    </div>
-                `;
+                document.getElementById('appointmentList').innerHTML = `<div class="empty-state"><span class="icon">⚠️</span><h3 style="font-size:16px; font-weight:700;">Unable to Load Appointments</h3><p style="font-size:13px; margin-top:4px;">Please try again later.</p></div>`;
             }
         }
     </script>
 </body>
-</html>
+            </html>
