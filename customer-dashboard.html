@@ -14,7 +14,6 @@
         body { background: #f0f2f5; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
         .app-container { max-width: 480px; width: 100%; background: #ffffff; border-radius: 32px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
 
-        /* Fixed Header */
         .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #ffffff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
         .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
         .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
@@ -33,160 +32,52 @@
         .fixed-footer .nav-item.active i { color: #0ea5e9; }
         .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
 
-        /* Facebook Style Cover + Profile - Fixed */
-.cover-container {
-    position: relative;
-    border-radius: 20px 20px 0 0;
-    overflow: hidden;
-    height: 160px;
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-.cover-container .cover-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-}
-.cover-container .cover-image .cover-title {
-    font-weight: 900;
-    font-size: 24px;
-    color: #fff;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    letter-spacing: -0.5px;
-}
-.cover-container .cover-image .cover-sub {
-    font-size: 13px;
-    color: rgba(255,255,255,0.85);
-    text-shadow: 0 1px 6px rgba(0,0,0,0.2);
-    margin-top: 2px;
-}
-.cover-container .cover-image .cover-icon {
-    font-size: 48px;
-    opacity: 0.08;
-    position: absolute;
-    right: 16px;
-    bottom: 16px;
-    color: #fff;
-}
- <!-- ============================================================
-   COVER + PROFILE - FIXED
-============================================================ -->
+        /* Cover + Profile - Fixed */
+        .cover-container {
+            position: relative;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+            height: 160px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .cover-container .cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            position: relative;
+        }
+        .cover-container .cover-image .cover-title {
+            font-weight: 900;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            letter-spacing: -0.5px;
+        }
+        .cover-container .cover-image .cover-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.85);
+            text-shadow: 0 1px 6px rgba(0,0,0,0.2);
+            margin-top: 2px;
+        }
+        .cover-container .cover-image .cover-icon {
+            font-size: 48px;
+            opacity: 0.08;
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            color: #fff;
+        }
 
-<style>
-/* Cover Container - Business Name Centered */
-.cover-container {
-    position: relative;
-    border-radius: 20px 20px 0 0;
-    overflow: hidden;
-    height: 160px;
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-.cover-container .cover-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background: linear-gradient(135deg, #0ea5e9, #0284c7);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    position: relative;
-}
-.cover-container .cover-image .cover-title {
-    font-weight: 900;
-    font-size: 24px;
-    color: #fff;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    letter-spacing: -0.5px;
-}
-.cover-container .cover-image .cover-sub {
-    font-size: 13px;
-    color: rgba(255,255,255,0.85);
-    text-shadow: 0 1px 6px rgba(0,0,0,0.2);
-    margin-top: 2px;
-}
-.cover-container .cover-image .cover-icon {
-    font-size: 48px;
-    opacity: 0.08;
-    position: absolute;
-    right: 16px;
-    bottom: 16px;
-    color: #fff;
-}
-
-/* Profile Section - Positioned Below Cover */
-.profile-section {
-    display: flex;
-    align-items: flex-end;
-    gap: 14px;
-    padding: 0 16px 12px 16px;
-    background: #ffffff;
-    margin-top: -40px;
-    position: relative;
-    z-index: 2;
-    border-bottom: 1px solid #e8ecf0;
-}
-.profile-avatar {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #0ea5e9, #0284c7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 32px;
-    flex-shrink: 0;
-    border: 3px solid #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    margin-top: -20px;
-    position: relative;
-    z-index: 3;
-}
-.profile-info {
-    flex: 1;
-    min-width: 0;
-    padding-top: 8px;
-}
-.profile-info .name {
-    font-weight: 800;
-    font-size: 18px;
-    color: #1a1a2e;
-    display: block;
-}
-.profile-info .customer-id {
-    font-size: 11px;
-    color: #6b6b7b;
-    display: block;
-}
-.profile-info .phone {
-    font-size: 13px;
-    color: #1a1a2e;
-    font-weight: 600;
-    display: block;
-}
-.profile-info .greeting {
-    font-size: 13px;
-    font-weight: 500;
-    color: #059669;
-    display: block;
-}
-
- /* Profile Section - Facebook Style */
         .profile-section {
             display: flex;
             align-items: flex-end;
@@ -212,7 +103,31 @@
             border: 3px solid #fff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin-top: -20px;
-
+            position: relative;
+            z-index: 3;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-avatar .upload-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 10px;
+            padding: 4px 0;
+            text-align: center;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .profile-avatar:hover .upload-overlay { opacity: 1; }
+        .profile-info { flex: 1; min-width: 0; padding-top: 8px; }
+        .profile-info .name { font-weight: 800; font-size: 18px; color: #1a1a2e; display: block; }
+        .profile-info .customer-id { font-size: 11px; color: #6b6b7b; display: block; }
+        .profile-info .phone { font-size: 13px; color: #1a1a2e; font-weight: 600; display: block; }
+        .profile-info .greeting { font-size: 13px; font-weight: 500; color: #059669; display: block; }
 
         .error-box { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 12px; margin-bottom: 12px; display: none; font-size: 13px; border-left: 4px solid #dc2626; }
         .error-box.show { display: block; }
@@ -221,7 +136,6 @@
         .greeting-banner .main { font-weight: 700; font-size: 15px; color: #1a1a2e; }
         .greeting-banner .sub { font-size: 12px; color: #6b6b7b; margin-top: 2px; }
 
-        /* Quick Grid - 4 columns */
         .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; margin: 10px 0 14px 0; }
         .quick-card { background: #ffffff; border-radius: 14px; padding: 10px 4px; text-align: center; border: 1px solid #e8ecf0; transition: 0.3s; text-decoration: none; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .quick-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-3px); }
@@ -231,9 +145,7 @@
         .section-title { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 0 10px 0; }
         .section-title h3 { font-weight: 700; font-size: 15px; color: #1a1a2e; }
         .section-title a { font-size: 11px; color: #0ea5e9; font-weight: 600; text-decoration: none; }
-        .section-title a:hover { text-decoration: underline; }
 
-        /* Product Slider */
         .product-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; -webkit-overflow-scrolling: touch; }
         .product-scroll::-webkit-scrollbar { height: 3px; }
         .product-scroll::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
@@ -244,21 +156,19 @@
         .product-slide .price { font-weight: 700; font-size: 13px; color: #0ea5e9; display: block; margin-top: 2px; }
         .product-slide .offer-tag { background: #d1fae5; color: #059669; font-size: 8px; font-weight: 700; padding: 1px 8px; border-radius: 12px; display: inline-block; }
 
-        /* Ad Slider - 3 Ads */
-        .ad-slider { border-radius: 16px; overflow: hidden; height: 80px; position: relative; margin: 10px 0; }
+        .ad-slider { border-radius: 16px; overflow: hidden; height: 70px; position: relative; margin: 10px 0; }
         .ad-slider .ad-slides { display: flex; width: 300%; height: 100%; transition: transform 0.6s ease; }
-        .ad-slider .ad-slide { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; padding: 12px 20px; color: #fff; text-align: center; }
-        .ad-slider .ad-slide .ad-icon { font-size: 28px; margin-right: 12px; }
-        .ad-slider .ad-slide .ad-text { font-weight: 700; font-size: 14px; }
-        .ad-slider .ad-slide .ad-sub { font-size: 11px; opacity: 0.85; }
+        .ad-slider .ad-slide { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px 16px; color: #fff; text-align: center; gap: 10px; }
+        .ad-slider .ad-slide .ad-icon { font-size: 24px; }
+        .ad-slider .ad-slide .ad-text { font-weight: 700; font-size: 13px; }
+        .ad-slider .ad-slide .ad-sub { font-size: 10px; opacity: 0.85; }
         .ad-slider .ad-slide:nth-child(1) { background: linear-gradient(135deg, #f97316, #fb923c); }
         .ad-slider .ad-slide:nth-child(2) { background: linear-gradient(135deg, #22c55e, #4ade80); }
         .ad-slider .ad-slide:nth-child(3) { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-        .ad-slider .ad-dots { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+        .ad-slider .ad-dots { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
         .ad-slider .ad-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; border: none; }
         .ad-slider .ad-dots .dot.active { background: #fff; transform: scale(1.2); }
 
-        /* YouTube Shorts */
         .video-section { border-radius: 16px; overflow: hidden; background: #1a1a2e; margin: 4px 0 8px 0; aspect-ratio: 9/16; max-height: 320px; position: relative; }
         .video-section iframe { width: 100%; height: 100%; border: none; }
         .video-section .video-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 16px; background: linear-gradient(transparent, rgba(0,0,0,0.7)); color: #fff; }
@@ -269,7 +179,6 @@
         .video-controls button:hover { background: #0ea5e9; transform: scale(1.04); }
         .video-controls .counter { color: #6b6b7b; font-size: 11px; }
 
-        /* Social Media Feed - Carousel */
         .social-feed { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; -webkit-overflow-scrolling: touch; }
         .social-feed::-webkit-scrollbar { height: 3px; }
         .social-feed::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
@@ -313,6 +222,25 @@
         .support-section .actions .call { background: #0ea5e9; color: #fff; }
         .support-section .actions .support { background: #1a1a2e; color: #fff; }
 
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: #fff; border-radius: 24px; padding: 24px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; }
+        .modal .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .modal .modal-title i { color: #0ea5e9; }
+        .modal .form-group { margin-bottom: 14px; }
+        .modal .form-group label { font-size: 12px; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 4px; }
+        .modal .form-group input, .modal .form-group select, .modal .form-group textarea { width: 100%; padding: 10px 14px; border: 1.5px solid #e8ecf0; border-radius: 12px; font-size: 13px; outline: none; background: #f8fafc; font-family: 'Poppins', sans-serif; transition: 0.2s; }
+        .modal .form-group input:focus, .modal .form-group select:focus, .modal .form-group textarea:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.08); }
+        .modal .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .modal .modal-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+        .modal .modal-actions .btn { flex: 1; min-width: 100px; padding: 12px; border-radius: 40px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: 0.2s; }
+        .modal .modal-actions .btn-primary { background: #0ea5e9; color: #fff; }
+        .modal .modal-actions .btn-primary:hover { background: #0284c7; }
+        .modal .modal-actions .btn-secondary { background: #f1f5f9; color: #1a1a2e; border: 1px solid #e8ecf0; }
+        .modal .modal-actions .btn-success { background: #22c55e; color: #fff; }
+        .modal .modal-actions .btn-success:hover { background: #16a34a; }
+
         .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; }
         .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; transition: 0.2s; }
         .footer-links a:hover { color: #0ea5e9; }
@@ -325,6 +253,18 @@
         .hidden { display: none !important; }
         .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
         .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
+                .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .share-buttons { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 10px 0; }
+        .share-buttons .share-btn { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; text-decoration: none; transition: 0.3s; border: none; cursor: pointer; }
+        .share-buttons .share-btn:hover { transform: scale(1.1); }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1DA1F2; }
+        .share-btn.whatsapp { background: #25D366; }
+        .share-btn.pinterest { background: #E60023; }
+        .share-btn.instagram { background: #E4405F; }
+        .share-btn.copy { background: #6b6b7b; }
 
         @media (max-width: 400px) {
             .quick-grid { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
@@ -337,9 +277,12 @@
             .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
             .product-slide { min-width: 110px; padding: 10px; }
             .cover-container { height: 130px; }
+            .cover-container .cover-image .cover-title { font-size: 20px; }
             .video-section { max-height: 240px; }
             .feed-card { min-width: 160px; }
-            .ad-slider { height: 70px; }
+            .ad-slider { height: 60px; }
+            .ad-slider .ad-slide .ad-text { font-size: 11px; }
+            .share-buttons .share-btn { width: 38px; height: 38px; font-size: 15px; }
         }
     </style>
 </head>
@@ -374,29 +317,29 @@
         </div>
 
         <div id="dashboardContent" class="hidden">
-<!-- ============================================================
-   HTML - Replace Cover + Profile
-============================================================ -->
+            <!-- Cover -->
+            <div class="cover-container">
+                <div class="cover-image">
+                    <div class="cover-title">Raj Marketing Mysore</div>
+                    <div class="cover-sub">Premium Mosquito Protection · Since 2016</div>
+                    <div class="cover-icon"><i class="fas fa-shield-alt"></i></div>
+                </div>
+            </div>
 
-<!-- Cover - Business Name Centered -->
-<div class="cover-container">
-    <div class="cover-image">
-        <div class="cover-title">Raj Marketing Mysore</div>
-        <div class="cover-sub">Premium Mosquito Protection · Since 2016</div>
-        <div class="cover-icon"><i class="fas fa-shield-alt"></i></div>
-    </div>
-</div>
-
-<!-- Profile Section -->
-<div class="profile-section">
-    <div class="profile-avatar" id="profileAvatar"><i class="fas fa-user"></i></div>
-    <div class="profile-info">
-        <span class="name" id="customerName">Customer</span>
-        <span class="greeting" id="greetingText">Welcome back! 👋</span>
-        <span class="customer-id" id="customerIdDisplay">ID: —</span>
-        <span class="phone" id="customerPhone">📱 —</span>
-    </div>
-</div>
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="profile-avatar" id="profileAvatar" onclick="document.getElementById('photoInput').click()">
+                    <i class="fas fa-user" id="avatarIcon"></i>
+                    <div class="upload-overlay">📷 Change</div>
+                    <input type="file" id="photoInput" accept="image/*" style="display:none;" />
+                </div>
+                <div class="profile-info">
+                    <span class="name" id="customerName">Customer</span>
+                    <span class="greeting" id="greetingText">Welcome back! 👋</span>
+                    <span class="customer-id" id="customerIdDisplay">ID: —</span>
+                    <span class="phone" id="customerPhone">📱 —</span>
+                </div>
+            </div>
 
             <!-- Error Box -->
             <div id="errorBox" class="error-box"></div>
@@ -412,41 +355,25 @@
                 <a href="customer-profile.html" class="quick-card"><i class="fas fa-user"></i><span class="title">Profile</span></a>
                 <a href="price-checker.html" class="quick-card"><i class="fas fa-tag"></i><span class="title">Price</span></a>
                 <a href="customer-products.html" class="quick-card"><i class="fas fa-th-large"></i><span class="title">Products</span></a>
-                <a href="customer-estimates.html" class="quick-card"><i class="fas fa-file-invoice"></i><span class="title">Estimates</span></a>
+                <a href="estimate.html" class="quick-card"><i class="fas fa-file-invoice"></i><span class="title">Estimate</span></a>
                 <a href="customer-orders.html" class="quick-card"><i class="fas fa-box"></i><span class="title">Orders</span></a>
-                <a href="customer-appointments.html" class="quick-card"><i class="fas fa-calendar-check"></i><span class="title">Appointments</span></a>
+                <a href="appointment.html" class="quick-card"><i class="fas fa-calendar-check"></i><span class="title">Appointment</span></a>
                 <a href="customer-payments.html" class="quick-card"><i class="fas fa-credit-card"></i><span class="title">Payments</span></a>
                 <a href="invoice.html" class="quick-card"><i class="fas fa-receipt"></i><span class="title">Bills</span></a>
                 <a href="customer-offers.html" class="quick-card"><i class="fas fa-gift"></i><span class="title">Offers</span></a>
                 <a href="customer-measurements.html" class="quick-card"><i class="fas fa-ruler"></i><span class="title">Measurements</span></a>
                 <a href="customer-support.html" class="quick-card"><i class="fas fa-headset"></i><span class="title">Support</span></a>
                 <a href="customer-feedback.html" class="quick-card"><i class="fas fa-star"></i><span class="title">Feedback</span></a>
+                <a href="customer-referral.html" class="quick-card"><i class="fas fa-share-alt"></i><span class="title">Referral</span></a>
+                <a href="#" class="quick-card" onclick="openShareModal()"><i class="fas fa-share"></i><span class="title">Share</span></a>
             </div>
 
-            <!-- Ad Slider - 3 Ads -->
+            <!-- Ad Slider -->
             <div class="ad-slider" id="adSlider">
                 <div class="ad-slides" id="adSlides">
-                    <div class="ad-slide">
-                        <span class="ad-icon">🎯</span>
-                        <div>
-                            <div class="ad-text">Refer & Earn!</div>
-                            <div class="ad-sub">Get ₹500 off on your next order</div>
-                        </div>
-                    </div>
-                    <div class="ad-slide">
-                        <span class="ad-icon">🔥</span>
-                        <div>
-                            <div class="ad-text">Summer Special Offer</div>
-                            <div class="ad-sub">20% off on all Pleated Nets</div>
-                        </div>
-                    </div>
-                    <div class="ad-slide">
-                        <span class="ad-icon">🎉</span>
-                        <div>
-                            <div class="ad-text">Free Installation!</div>
-                            <div class="ad-sub">On orders above ₹10,000</div>
-                        </div>
-                    </div>
+                    <div class="ad-slide"><span class="ad-icon">🎯</span><div><div class="ad-text">Refer & Earn!</div><div class="ad-sub">Get 5% commission on referrals</div></div></div>
+                    <div class="ad-slide"><span class="ad-icon">🔥</span><div><div class="ad-text">Summer Special Offer</div><div class="ad-sub">20% off on all Pleated Nets</div></div></div>
+                    <div class="ad-slide"><span class="ad-icon">🎉</span><div><div class="ad-text">Free Installation!</div><div class="ad-sub">On orders above ₹10,000</div></div></div>
                 </div>
                 <div class="ad-dots" id="adDots">
                     <span class="dot active" onclick="goToAdSlide(0)"></span>
@@ -460,20 +387,18 @@
             <div class="product-scroll" id="productSlider">
                 <div style="text-align:center; padding:20px; color:#6b6b7b; width:100%; font-size:13px;">Loading products...</div>
             </div>
-
-            <!-- Promo Banner -->
+                 <!-- Promo Banner -->
             <div class="promo-banner" onclick="window.location.href='customer-offers.html'">
                 <div class="title">🎉 Special Offers</div>
                 <div class="desc">Check out our latest deals on premium mosquito nets!</div>
                 <span class="btn">View Offers</span>
             </div>
 
-            <!-- Social Media Feeds - One by One -->
+            <!-- Social Media Feeds -->
             <div class="section-title"><h3>📱 Latest from Social Media</h3></div>
-            <div class="social-feed" id="socialFeed">
-                <!-- Will be populated by JavaScript -->
-         </div>
-                     <!-- YouTube Shorts -->
+            <div class="social-feed" id="socialFeed"></div>
+
+            <!-- YouTube Shorts -->
             <div class="section-title"><h3>📹 Raj Marketing Videos</h3></div>
             <div class="video-section" id="videoPlayer">
                 <iframe id="youtubeFrame" src="https://www.youtube.com/embed/_CtBTE6Kgcc?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -526,22 +451,46 @@
         </div>
     </div>
 
+    <!-- Share Modal -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="modal">
+            <div class="modal-title"><i class="fas fa-share-alt"></i> Share Raj Marketing</div>
+            <p style="font-size:13px; color:#6b6b7b; margin-bottom:12px;">Share with your friends and family! Get 5% commission on every referral order.</p>
+            <div class="share-buttons">
+                <button class="share-btn facebook" onclick="shareOn('facebook')"><i class="fab fa-facebook-f"></i></button>
+                <button class="share-btn twitter" onclick="shareOn('twitter')"><i class="fab fa-twitter"></i></button>
+                <button class="share-btn whatsapp" onclick="shareOn('whatsapp')"><i class="fab fa-whatsapp"></i></button>
+                <button class="share-btn pinterest" onclick="shareOn('pinterest')"><i class="fab fa-pinterest"></i></button>
+                <button class="share-btn instagram" onclick="shareOn('instagram')"><i class="fab fa-instagram"></i></button>
+                <button class="share-btn copy" onclick="copyLink()"><i class="fas fa-copy"></i></button>
+            </div>
+            <div style="margin-top:10px; padding:10px; background:#f1f5f9; border-radius:12px; font-size:12px; text-align:center;">
+                <strong>Referral Code:</strong> <span id="referralCode" style="color:#0ea5e9; font-weight:800;">RAJ-REF-001</span>
+                <button class="btn-sm btn-sm-primary" style="padding:2px 12px; font-size:10px; border:none; border-radius:20px; background:#0ea5e9; color:#fff; cursor:pointer; margin-left:6px;" onclick="copyReferralCode()">Copy</button>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('shareModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Fixed Footer -->
     <footer class="fixed-footer">
         <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
         <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
         <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-        <a href="customer-appointments.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
         <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
     </footer>
 
     <script type="module">
         import { auth, db } from "./firebase-config.js";
-        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { collection, query, where, getDocs, doc, updateDoc, getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
         let customerData = null;
         let customerId = null;
+        let customerUid = null;
         let currentAdSlide = 0;
         let currentVideoIndex = 0;
 
@@ -604,6 +553,7 @@
                 window.location.href = "customer-login.html";
                 return;
             }
+            customerUid = user.uid;
             console.log("✅ Customer authenticated:", user.uid);
             await loadCustomerData(user.uid);
             await loadDashboardData();
@@ -630,6 +580,11 @@
                 customerData = { id: doc.id, ...doc.data() };
                 customerId = customerData.id;
                 console.log("✅ Customer data loaded:", customerData);
+           
+                // Load profile image if exists
+                if (customerData.profileImageUrl) {
+                    document.getElementById('avatarIcon').innerHTML = `<img src="${customerData.profileImageUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+                }
 
             } catch (error) {
                 console.error("❌ Customer load error:", error);
@@ -637,6 +592,48 @@
                 customerData = { name: 'Customer', id: '—' };
             }
         }
+
+        // ============================================================
+        // PHOTO UPLOAD
+        // ============================================================
+        document.getElementById('photoInput').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 2 * 1024 * 1024) {
+                alert('❌ File size too large. Please choose an image under 2MB.');
+                this.value = '';
+                return;
+            }
+
+            if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+                alert('❌ Please upload a JPEG, PNG, or WebP image.');
+                this.value = '';
+                return;
+            }
+
+            try {
+                const storage = getStorage();
+                const storageRef = ref(storage, `profile_images/${customerId}_${Date.now()}.jpg`);
+                await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(storageRef);
+
+                // Update Firestore
+                await updateDoc(doc(db, "customers", customerId), {
+                    profileImageUrl: downloadURL,
+                    updatedAt: new Date().toISOString()
+                });
+
+                // Update UI
+                document.getElementById('avatarIcon').innerHTML = `<img src="${downloadURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+                showSuccess('✅ Profile photo updated successfully!');
+
+            } catch (error) {
+                console.error("Photo upload error:", error);
+                showError('Failed to upload photo: ' + error.message);
+            }
+            this.value = '';
+        });
 
         // ============================================================
         // LOAD DASHBOARD DATA
@@ -660,6 +657,10 @@
                 document.getElementById('greetingMain').textContent = `${greeting}, ${name} 👋`;
                 document.getElementById('greetingText').textContent = `${greeting}! 👋`;
 
+                // Set referral code
+                const refCode = customerData?.referralCode || `RAJ-REF-${String(Date.now()).slice(-6)}`;
+                document.getElementById('referralCode').textContent = refCode;
+
                 loadProducts();
                 loadSocialFeeds();
                 loadNotificationCount();
@@ -668,14 +669,15 @@
                 console.error("❌ Dashboard load error:", error);
             }
         }
-            // ============================================================
+
+        // ============================================================
         // LOAD PRODUCTS
         // ============================================================
         function loadProducts() {
             const slider = document.getElementById('productSlider');
             const display = PRODUCTS.slice(0, 5);
             slider.innerHTML = display.map(p => `
-                <a href="customer-product-detail.html?id=${p.id}" class="product-slide">
+                <a href="customer-products.html?id=${p.id}" class="product-slide">
                     <span class="icon"><i class="${p.image}"></i></span>
                     <span class="name">${p.name}</span>
                     <span class="price">₹${p.price}/sq.ft</span>
@@ -762,6 +764,49 @@
         }
 
         // ============================================================
+        // SHARE FUNCTIONS
+        // ============================================================
+        window.openShareModal = function() {
+            document.getElementById('shareModal').classList.add('active');
+        };
+
+        window.closeModal = function(id) {
+            document.getElementById(id).classList.remove('active');
+        };
+
+        window.shareOn = function(platform) {
+            const url = window.location.href;
+            const text = '🦟 Protect your home with Raj Marketing Mysore! Premium mosquito nets and window screens. Get 5% commission on referrals! Visit: ';
+            const shareUrls = {
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`,
+                twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+                whatsapp: `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`,
+                pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&description=${encodeURIComponent(text)}`,
+                instagram: `https://www.instagram.com/rajmarketingmysore/`
+            };
+            if (shareUrls[platform]) {
+                window.open(shareUrls[platform], '_blank');
+            }
+        };
+
+        window.copyLink = function() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('✅ Link copied to clipboard! Share with your friends.');
+            }).catch(() => {
+                prompt('Copy this link:', window.location.href);
+            });
+        };
+
+        window.copyReferralCode = function() {
+            const code = document.getElementById('referralCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('✅ Referral code copied: ' + code);
+            }).catch(() => {
+                prompt('Copy this referral code:', code);
+            });
+        };
+
+        // ============================================================
         // HELPERS
         // ============================================================
         function showError(msg) {
@@ -769,6 +814,17 @@
             if (!msg) { box.classList.remove('show'); box.textContent = ''; return; }
             box.textContent = '❌ ' + msg;
             box.classList.add('show');
+        }
+
+        function showSuccess(msg) {
+            const box = document.getElementById('errorBox');
+            box.textContent = '✅ ' + msg;
+            box.style.background = '#d1fae5';
+            box.style.color = '#065f46';
+            box.style.display = 'block';
+            setTimeout(() => {
+                box.style.display = 'none';
+            }, 4000);
         }
 
         window.logout = async function() {
@@ -784,4 +840,4 @@
         console.log("✅ Customer dashboard loaded");
     </script>
 </body>
-</html>
+</html>         
