@@ -1003,7 +1003,7 @@
             const slider = document.getElementById('productSlider');
             const display = PRODUCTS.slice(0, 5);
             slider.innerHTML = display.map(p => `
-                <a href="customer-product-detail.html?id=${p.id}" class="product-slide">
+                <a href="product-detail.html?id=${p.id}" class="product-slide">
                     <span class="icon"><i class="${p.image}"></i></span>
                     <span class="name">${p.name}</span>
                     <span class="price">₹${p.price}/sq.ft</span>
