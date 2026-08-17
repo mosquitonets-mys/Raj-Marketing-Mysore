@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · My Payments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
+        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
+
+        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
+        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
+        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
+        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
+        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
+        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; }
+        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
+        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
+        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
+
+        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
+        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b7b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
+        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b7b; }
+        .fixed-footer .nav-item.active i { color: #0ea5e9; }
+        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .page-header h1 { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+        .page-header .count { font-size: 12px; color: #6b6b7b; background: #f0f9ff; padding: 2px 12px; border-radius: 20px; }
+
+        .payment-card { background: #fff; border-radius: 20px; padding: 16px; border: 1px solid #e8ecf0; margin-bottom: 12px; transition: 0.2s; }
+        .payment-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.04); border-color: #0ea5e9; }
+        .payment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .payment-header .id { font-weight: 700; font-size: 14px; color: #1a1a2e; }
+        .payment-header .date { font-size: 11px; color: #6b6b7b; }
+        .payment-status { padding: 2px 12px; border-radius: 20px; font-size: 10px; font-weight: 600; display: inline-block; }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-verified { background: #d1fae5; color: #059669; }
+        .status-rejected { background: #fee2e2; color: #dc2626; }
+
+        .payment-details { font-size: 13px; color: #4a4a5a; padding: 4px 0; }
+        .payment-details .row { display: flex; gap: 8px; padding: 2px 0; }
+        .payment-details .row .label { color: #6b6b7b; min-width: 80px; }
+        .payment-details .row .value { font-weight: 500; }
+
+        .empty-state { text-align: center; padding: 40px 20px; color: #6b6b7b; }
+        .empty-state .icon { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.4; }
+
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.08); }
+
+        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
+        .footer-links a:hover { color: #0ea5e9; }
+        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
+        .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
+        .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
+
+        @media (max-width: 400px) { .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; } }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <a href="customer-dashboard.html" class="header-btn"><i class="fas fa-arrow-left"></i><span class="label">Back</span></a>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div class="page-header">
+            <h1>💳 My Payments</h1>
+            <span class="count" id="paymentCount">0 Payments</span>
+        </div>
+
+        <div id="loadingState" class="loading-text">
+            <i class="fas fa-spinner fa-spin"></i>
+            Loading payments...
+        </div>
+
+        <div id="paymentList" style="display:none;"></div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>| <a href="about.html">About</a>| <a href="contact.html">Contact</a>| <a href="terms.html">Terms</a>| <a href="privacy.html">Privacy</a>
+        </div>
+        <div class="footer-copyright">© 2026 Raj Marketing Mysore</div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="customer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="customer-appointments.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let customerId = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) { window.location.href = "customer-login.html"; return; }
+            await loadCustomerId(user.uid);
+            await loadPayments();
+        });
+
+        async function loadCustomerId(uid) {
+            try {
+                const customersRef = collection(db, "customers");
+                const q = query(customersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) customerId = snapshot.docs[0].id;
+            } catch (error) { console.error("Customer ID load error:", error); }
+        }
+
+        async function loadPayments() {
+            if (!customerId) {
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('paymentList').style.display = 'block';
+                document.getElementById('paymentList').innerHTML = `<div class="empty-state"><span class="icon">💳</span><h3 style="font-size:16px; font-weight:700;">No Payments Found</h3><p style="font-size:13px; margin-top:4px;">You haven't made any payments yet.</p></div>`;
+                return;
+            }
+
+            try {
+                const paymentsRef = collection(db, "payments");
+                const q = query(paymentsRef, where("customerId", "==", customerId), orderBy("createdAt", "desc"));
+                const snapshot = await getDocs(q);
+
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('paymentList').style.display = 'block';
+
+                if (snapshot.empty) {
+                    document.getElementById('paymentList').innerHTML = `<div class="empty-state"><span class="icon">💳</span><h3 style="font-size:16px; font-weight:700;">No Payments Found</h3><p style="font-size:13px; margin-top:4px;">You haven't made any payments yet.</p></div>`;
+                    document.getElementById('paymentCount').textContent = '0 Payments';
+                    return;
+                }
+
+                const payments = [];
+                snapshot.forEach(doc => payments.push({ id: doc.id, ...doc.data() }));
+                document.getElementById('paymentCount').textContent = payments.length + ' Payments';
+
+                document.getElementById('paymentList').innerHTML = payments.map(p => {
+                    const status = p.verificationStatus || p.status || 'PENDING';
+                    const statusClass = status.toLowerCase().replace(/ /g, '');
+                    const amount = p.amount || 0;
+                    const date = p.createdAt?.toDate?.() || new Date(p.createdAt);
+                    const dateStr = date ? date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+
+                    return `
+                        <div class="payment-card">
+                            <div class="payment-header">
+                                <span class="id">${p.paymentId || p.id}</span>
+                                <span class="status status-${statusClass}">${status}</span>
+                            </div>
+                            <div style="font-size:11px; color:#6b6b7b; margin-top:-2px;">${dateStr}</div>
+                            <div class="payment-details">
+                                <div class="row"><span class="label">Amount</span><span class="value">₹${amount.toFixed(2)}</span></div>
+                                ${p.orderId ? `<div class="row"><span class="label">Order</span><span class="value">${p.orderId}</span></div>` : ''}
+                                ${p.paymentMethod ? `<div class="row"><span class="label">Method</span><span class="value">${p.paymentMethod}</span></div>` : ''}
+                                ${p.transactionReference ? `<div class="row"><span class="label">Reference</span><span class="value">${p.transactionReference}</span></div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error("❌ Payments load error:", error);
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('paymentList').style.display = 'block';
+                document.getElementById('paymentList').innerHTML = `<div class="empty-state"><span class="icon">⚠️</span><h3 style="font-size:16px; font-weight:700;">Unable to Load Payments</h3><p style="font-size:13px; margin-top:4px;">Please try again later.</p></div>`;
+            }
+        }
+    </script>
+</body>
+  </html>
