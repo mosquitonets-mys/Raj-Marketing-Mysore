@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Raj Marketing · Customer Dashboard</title>
+    <meta name="description" content="Customer dashboard for Raj Marketing Mysore" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -32,12 +33,21 @@
         .fixed-footer .nav-item.active i { color: #0ea5e9; }
         .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
 
-        .cover-container { border-radius: 20px; overflow: hidden; height: 130px; margin-bottom: 0; background: linear-gradient(145deg, #ffffff, #f8fafc); border: 1px solid #e8ecf0; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; position: relative; }
-        .cover-container .cover-title { font-weight: 900; font-size: 28px; color: #1a1a2e; letter-spacing: -0.5px; line-height: 1.1; }
-        .cover-container .cover-title span { color: #0ea5e9; }
-        .cover-container .cover-sub { font-size: 12px; color: #6b6b7b; font-weight: 400; letter-spacing: 1px; margin-top: 2px; }
-        .cover-container .cover-icon { position: absolute; right: 16px; bottom: 16px; font-size: 48px; opacity: 0.06; color: #0ea5e9; }
+        /* Cover Slider - 3 Slides */
+        .cover-slider { border-radius: 20px; overflow: hidden; height: 150px; position: relative; margin-bottom: 0; }
+        .cover-slider .slides { display: flex; width: 300%; height: 100%; transition: transform 0.6s ease; }
+        .cover-slider .slide { flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; color: #fff; position: relative; }
+        .cover-slider .slide .title { font-weight: 900; font-size: 22px; line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .cover-slider .slide .sub { font-size: 13px; opacity: 0.9; margin-top: 4px; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+        .cover-slider .slide .emoji { font-size: 32px; display: block; margin-bottom: 4px; }
+        .cover-slider .slide:nth-child(1) { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+        .cover-slider .slide:nth-child(2) { background: linear-gradient(135deg, #f97316, #fb923c); }
+        .cover-slider .slide:nth-child(3) { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .cover-slider .dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 2; }
+        .cover-slider .dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; border: none; }
+        .cover-slider .dots .dot.active { background: #fff; transform: scale(1.2); }
 
+        /* Profile Section */
         .profile-section { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: #ffffff; border-radius: 20px; margin-top: -20px; position: relative; z-index: 2; border: 1px solid #e8ecf0; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
         .profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(145deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; flex-shrink: 0; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .profile-info { flex: 1; min-width: 0; }
@@ -53,7 +63,7 @@
         .greeting-banner .main { font-weight: 700; font-size: 16px; color: #1a1a2e; }
         .greeting-banner .sub { font-size: 13px; color: #6b6b7b; margin-top: 2px; }
 
-        /* Quick Grid - 4 columns for better layout */
+        /* Quick Grid - 4 columns */
         .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; margin: 12px 0 16px 0; }
         .quick-card { background: #ffffff; border-radius: 14px; padding: 10px 4px; text-align: center; border: 1px solid #e8ecf0; transition: 0.3s; text-decoration: none; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .quick-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-3px); }
@@ -76,7 +86,7 @@
         .product-slide .price { font-weight: 700; font-size: 13px; color: #0ea5e9; display: block; margin-top: 2px; }
         .product-slide .offer-tag { background: #d1fae5; color: #059669; font-size: 8px; font-weight: 700; padding: 1px 8px; border-radius: 12px; display: inline-block; }
 
-        /* YouTube Shorts - Center aligned */
+        /* YouTube Shorts */
         .video-section { border-radius: 16px; overflow: hidden; background: #1a1a2e; margin: 4px 0 8px 0; aspect-ratio: 9/16; max-height: 320px; position: relative; }
         .video-section iframe { width: 100%; height: 100%; border: none; }
         .video-section .video-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 16px; background: linear-gradient(transparent, rgba(0,0,0,0.7)); color: #fff; }
@@ -87,20 +97,23 @@
         .video-controls button:hover { background: #0ea5e9; transform: scale(1.04); }
         .video-controls .counter { color: #6b6b7b; font-size: 11px; }
 
-        /* Twitter/X Post Card */
-        .twitter-card { background: #f8fafc; border-radius: 16px; padding: 16px; border: 1px solid #e8ecf0; margin: 8px 0; transition: 0.2s; }
-        .twitter-card:hover { border-color: #0ea5e9; }
-        .twitter-card .header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .twitter-card .header .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(145deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
-        .twitter-card .header .name { font-weight: 700; font-size: 13px; color: #1a1a2e; }
-        .twitter-card .header .handle { font-size: 11px; color: #6b6b7b; }
-        .twitter-card .header .twitter-icon { color: #1DA1F2; font-size: 18px; margin-left: auto; }
-        .twitter-card .content { font-size: 13px; color: #1a1a2e; line-height: 1.6; }
-        .twitter-card .content .hashtag { color: #0ea5e9; }
-        .twitter-card .footer { display: flex; gap: 16px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #e8ecf0; font-size: 11px; color: #6b6b7b; }
-        .twitter-card .footer span { display: flex; align-items: center; gap: 4px; }
+        /* Social Media Feeds */
+        .social-feed { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; -webkit-overflow-scrolling: touch; }
+        .social-feed::-webkit-scrollbar { height: 3px; }
+        .social-feed::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
+        .feed-card { min-width: 200px; background: #f8fafc; border-radius: 16px; padding: 14px; border: 1px solid #e8ecf0; flex-shrink: 0; transition: 0.3s; }
+        .feed-card:hover { border-color: #0ea5e9; transform: translateY(-2px); }
+        .feed-card .feed-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .feed-card .feed-header .icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; }
+        .feed-card .feed-header .icon.facebook { background: #1877f2; }
+        .feed-card .feed-header .icon.twitter { background: #1DA1F2; }
+        .feed-card .feed-header .icon.pinterest { background: #E60023; }
+        .feed-card .feed-header .name { font-weight: 600; font-size: 12px; color: #1a1a2e; }
+        .feed-card .feed-header .handle { font-size: 10px; color: #6b6b7b; }
+        .feed-card .feed-content { font-size: 12px; color: #1a1a2e; line-height: 1.5; }
+        .feed-card .feed-content .hashtag { color: #0ea5e9; }
+        .feed-card .feed-footer { display: flex; gap: 12px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #e8ecf0; font-size: 10px; color: #6b6b7b; }
 
-        /* Promo Banner */
         .promo-banner { background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 16px; padding: 14px 16px; color: #fff; margin: 12px 0; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 16px rgba(14,165,233,0.15); }
         .promo-banner:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.25); }
         .promo-banner .title { font-weight: 700; font-size: 14px; }
@@ -108,12 +121,10 @@
         .promo-banner .btn { background: #fff; color: #0284c7; border: none; padding: 4px 14px; border-radius: 30px; font-weight: 700; font-size: 10px; margin-top: 6px; display: inline-block; transition: 0.2s; }
         .promo-banner .btn:hover { transform: scale(1.04); }
 
-        /* Social Links */
         .social-links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 8px 0; }
         .social-links a { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #e8ecf0; display: flex; align-items: center; justify-content: center; color: #6b6b7b; transition: 0.3s; text-decoration: none; background: #ffffff; }
         .social-links a:hover { border-color: #0ea5e9; color: #0ea5e9; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
-        /* Support Section - Redesigned */
         .support-section { background: linear-gradient(145deg, #ffffff, #f8fafc); border-radius: 16px; padding: 18px 16px; margin: 12px 0; border: 1px solid #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .support-section .top { display: flex; align-items: center; gap: 12px; }
         .support-section .top .icon-box { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(145deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; flex-shrink: 0; }
@@ -151,11 +162,10 @@
             .profile-info .name { font-size: 15px; }
             .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
             .product-slide { min-width: 110px; padding: 10px; }
-            .cover-container { height: 110px; }
-            .cover-container .cover-title { font-size: 22px; }
+            .cover-slider { height: 120px; }
+            .cover-slider .slide .title { font-size: 18px; }
             .video-section { max-height: 240px; }
-            .twitter-card .content { font-size: 12px; }
-            .support-section .top .info .phone { font-size: 14px; }
+            .feed-card { min-width: 160px; }
         }
     </style>
 </head>
@@ -190,11 +200,30 @@
         </div>
 
         <div id="dashboardContent" class="hidden">
-            <!-- Cover Image -->
-            <div class="cover-container">
-                <div class="cover-title">Raj Marketing <span>Mysore</span></div>
-                <div class="cover-sub">Premium Mosquito Protection · Since 2016</div>
-                <div class="cover-icon"><i class="fas fa-shield-alt"></i></div>
+            <!-- Cover Slider - 3 Slides -->
+            <div class="cover-slider" id="coverSlider">
+                <div class="slides" id="coverSlides">
+                    <div class="slide">
+                        <span class="emoji">🦟</span>
+                        <div class="title">Premium Mosquito Protection</div>
+                        <div class="sub">Quality nets for every home</div>
+                    </div>
+                    <div class="slide">
+                        <span class="emoji">🏆</span>
+                        <div class="title">Trusted Since 2016</div>
+                        <div class="sub">500+ Happy Customers</div>
+                    </div>
+                    <div class="slide">
+                        <span class="emoji">🎉</span>
+                        <div class="title">Exclusive Offers</div>
+                        <div class="sub">Check out our latest deals!</div>
+                    </div>
+                </div>
+                <div class="dots" id="coverDots">
+                    <span class="dot active" onclick="goToSlide(0)"></span>
+                    <span class="dot" onclick="goToSlide(1)"></span>
+                    <span class="dot" onclick="goToSlide(2)"></span>
+                </div>
             </div>
 
             <!-- Profile Section -->
@@ -211,7 +240,7 @@
             <!-- Error Box -->
             <div id="errorBox" class="error-box"></div>
 
-            <!-- Greeting Banner -->
+                <!-- Greeting Banner -->
             <div class="greeting-banner">
                 <div class="main" id="greetingMain">Good Morning, Customer 👋</div>
                 <div class="sub" id="greetingSub">Thank you for choosing Raj Marketing Mysore.</div>
@@ -246,35 +275,73 @@
                 <span class="btn">View Offers</span>
             </div>
 
-            <!-- Twitter/X Post -->
-            <div class="section-title"><h3>🐦 Latest from X</h3><a href="https://x.com/Mosquito_Nets_" target="_blank">Follow us</a></div>
-            <div class="twitter-card">
-                <div class="header">
-                    <div class="avatar"><i class="fas fa-bird"></i></div>
-                    <div>
-                        <div class="name">Raj Marketing Mysore</div>
-                        <div class="handle">@Mosquito_Nets_</div>
+            <!-- Social Media Feeds -->
+            <div class="section-title"><h3>📱 Latest from Social Media</h3></div>
+            <div class="social-feed" id="socialFeed">
+                <!-- Facebook Feed -->
+                <div class="feed-card">
+                    <div class="feed-header">
+                        <div class="icon facebook"><i class="fab fa-facebook-f"></i></div>
+                        <div>
+                            <div class="name">Raj Marketing Mysore</div>
+                            <div class="handle">Facebook</div>
+                        </div>
                     </div>
-                    <div class="twitter-icon"><i class="fab fa-twitter"></i></div>
+                    <div class="feed-content">
+                        🚪 New Pleated Nets for Main Door! 
+                        <span class="hashtag">#pleatednet</span> 
+                        <span class="hashtag">#mosquitonet</span>
+                    </div>
+                    <div class="feed-footer">
+                        <span><i class="far fa-clock"></i> 2 days ago</span>
+                        <span><i class="far fa-heart"></i> 12</span>
+                    </div>
                 </div>
-                <div class="content">
-                    Pleatednets for Main Door 
-                    <span class="hashtag">#pleatednet</span> 
-                    <span class="hashtag">#mosquitonet</span>
+                <!-- Pinterest Feed -->
+                <div class="feed-card">
+                    <div class="feed-header">
+                        <div class="icon pinterest"><i class="fab fa-pinterest"></i></div>
+                        <div>
+                            <div class="name">Raj Marketing Mysore</div>
+                            <div class="handle">Pinterest</div>
+                        </div>
+                    </div>
+                    <div class="feed-content">
+                        📌 Premium Window Mosquito Nets 
+                        <span class="hashtag">#windownets</span> 
+                        <span class="hashtag">#mosquitoprotection</span>
+                    </div>
+                    <div class="feed-footer">
+                        <span><i class="far fa-clock"></i> 3 days ago</span>
+                        <span><i class="far fa-heart"></i> 8</span>
+                    </div>
                 </div>
-                <div class="footer">
-                    <span><i class="far fa-clock"></i> Aug 6, 2026</span>
-                    <span><i class="far fa-eye"></i> 8 Views</span>
-                    <span><i class="far fa-heart"></i> 0</span>
+                <!-- Twitter Feed -->
+                <div class="feed-card">
+                    <div class="feed-header">
+                        <div class="icon twitter"><i class="fab fa-twitter"></i></div>
+                        <div>
+                            <div class="name">Raj Marketing Mysore</div>
+                            <div class="handle">@Mosquito_Nets_</div>
+                        </div>
+                    </div>
+                    <div class="feed-content">
+                        🏠 Protect your home with our premium mosquito nets! 
+                        <span class="hashtag">#mosquitonet</span>
+                    </div>
+                    <div class="feed-footer">
+                        <span><i class="far fa-clock"></i> 5 hours ago</span>
+                        <span><i class="far fa-heart"></i> 5</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- YouTube Shorts - Center aligned -->
+            <!-- YouTube Shorts -->
             <div class="section-title"><h3>📹 Raj Marketing Videos</h3></div>
             <div class="video-section" id="videoPlayer">
-                <iframe id="youtubeFrame" src="https://www.youtube.com/embed/iHajLLF_018?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <iframe id="youtubeFrame" src="https://www.youtube.com/embed/_CtBTE6Kgcc?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 <div class="video-overlay">
-                    <div class="title" id="videoTitle">Pleated Nets for Windows</div>
+                    <div class="title" id="videoTitle">Premium Mosquito Nets</div>
                     <div class="sub" id="videoCounter">1 / 8</div>
                 </div>
             </div>
@@ -294,7 +361,7 @@
                 <a href="https://www.instagram.com/rajmarketingmysore/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
 
-            <!-- Support Section - Redesigned -->
+            <!-- Support Section -->
             <div class="support-section">
                 <div class="top">
                     <div class="icon-box"><i class="fas fa-headset"></i></div>
@@ -320,9 +387,8 @@
             </div>
             <div class="footer-copyright">© 2026 Raj Marketing Mysore · Customer Portal</div>
         </div>
-    </div>
-
-    <!-- Fixed Footer -->
+       </div>
+<!-- Fixed Footer -->
     <footer class="fixed-footer">
         <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
         <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
@@ -338,6 +404,8 @@
 
         let customerData = null;
         let customerId = null;
+        let currentSlide = 0;
+        let currentVideoIndex = 0;
 
         // Product Data
         const PRODUCTS = [
@@ -354,17 +422,33 @@
 
         // YouTube Videos
         const VIDEOS = [
+            { id: '_CtBTE6Kgcc', title: 'Premium Mosquito Nets' },
             { id: 'iHajLLF_018', title: 'Pleated Nets for Windows' },
             { id: '6l4WIfANJgM', title: 'Pleated Nets for Doors' },
             { id: 'IxGfFmwXgg4', title: 'Mosquito Net Installation' },
-            { id: '_CtBTE6Kgcc', title: 'Premium Mosquito Nets' },
             { id: 'hjadYyeV9CE', title: 'Window Screen Solutions' },
             { id: 'L0WaHtLqyts', title: 'Door Mesh Solutions' },
             { id: '6Rvfr29Sq34', title: 'Aluminium Frame Nets' },
             { id: 'aSAoNgIsj_0', title: 'Velcro Net Installation' }
         ];
 
-        let currentVideoIndex = 0;
+        // ============================================================
+        // COVER SLIDER
+        // ============================================================
+        window.goToSlide = function(index) {
+            currentSlide = index;
+            const slides = document.getElementById('coverSlides');
+            slides.style.transform = `translateX(-${index * 33.33}%)`;
+            document.querySelectorAll('#coverDots .dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        };
+
+        // Auto-slide
+        setInterval(() => {
+            const next = (currentSlide + 1) % 3;
+            goToSlide(next);
+        }, 5000);
 
         // ============================================================
         // AUTHENTICATION
@@ -531,4 +615,4 @@
         console.log("✅ Customer dashboard loaded");
     </script>
 </body>
-    </html>
+    </html>         
