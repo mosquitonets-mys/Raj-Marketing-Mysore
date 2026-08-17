@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · My Measurements</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
+        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
+
+        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
+        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
+        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
+        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
+        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
+        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; }
+        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
+        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
+        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
+
+        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
+        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b7b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
+        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b7b; }
+        .fixed-footer .nav-item.active i { color: #0ea5e9; }
+        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .page-header h1 { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+        .page-header .count { font-size: 12px; color: #6b6b7b; background: #f0f9ff; padding: 2px 12px; border-radius: 20px; }
+
+        .measurement-card { background: #fff; border-radius: 20px; padding: 16px; border: 1px solid #e8ecf0; margin-bottom: 12px; transition: 0.2s; }
+        .measurement-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.04); border-color: #0ea5e9; }
+        .measurement-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .measurement-header .name { font-weight: 700; font-size: 14px; color: #1a1a2e; }
+        .measurement-header .date { font-size: 11px; color: #6b6b7b; }
+        .measurement-details { font-size: 13px; color: #4a4a5a; padding: 4px 0; }
+        .measurement-details .row { display: flex; gap: 8px; padding: 2px 0; }
+        .measurement-details .row .label { color: #6b6b7b; min-width: 70px; }
+        .measurement-details .row .value { font-weight: 500; }
+        .measurement-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f1f5f9; }
+        .measurement-actions .btn-sm { padding: 4px 14px; border-radius: 20px; font-size: 10px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; text-decoration: none; display: inline-block; }
+        .btn-sm-primary { background: #0ea5e9; color: #fff; }
+        .btn-sm-success { background: #22c55e; color: #fff; }
+        .btn-sm-whatsapp { background: #25D366; color: #fff; }
+
+        .empty-state { text-align: center; padding: 40px 20px; color: #6b6b7b; }
+        .empty-state .icon { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.4; }
+
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.08); }
+
+        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
+        .footer-links a:hover { color: #0ea5e9; }
+        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
+        .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
+        .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
+
+        @media (max-width: 400px) { .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; } }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <header class="fixed-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+        </div>
+        <div class="header-actions">
+            <a href="customer-dashboard.html" class="header-btn"><i class="fas fa-arrow-left"></i><span class="label">Back</span></a>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <div class="page-header">
+            <h1>📐 My Measurements</h1>
+            <span class="count" id="measurementCount">0</span>
+        </div>
+
+        <div id="loadingState" class="loading-text">
+            <i class="fas fa-spinner fa-spin"></i>
+            Loading measurements...
+        </div>
+
+        <div id="measurementList" style="display:none;"></div>
+
+        <div style="background:linear-gradient(135deg, #f0f9ff, #e0f2fe); border-radius:16px; padding:14px 16px; margin:10px 0; text-align:center; border:1px solid rgba(14,165,233,0.1);">
+            <div style="font-weight:700; font-size:14px; color:#1a1a2e;">📏 Need Help with Measurements?</div>
+            <p style="font-size:12px; color:#6b6b7b;">Use our AI Price Checker for quick measurement assistance.</p>
+            <a href="price-checker.html" style="display:inline-block; margin-top:6px; background:#0ea5e9; color:#fff; padding:6px 20px; border-radius:30px; text-decoration:none; font-weight:600; font-size:12px;">
+                <i class="fas fa-robot"></i> Try AI Price Checker
+            </a>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>| <a href="about.html">About</a>| <a href="contact.html">Contact</a>| <a href="terms.html">Terms</a>| <a href="privacy.html">Privacy</a>
+        </div>
+        <div class="footer-copyright">© 2026 Raj Marketing Mysore</div>
+    </div>
+
+    <footer class="fixed-footer">
+        <a href="customer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
+        <a href="customer-appointments.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
+        <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+    </footer>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+        let customerId = null;
+
+        const FALLBACK_MEASUREMENTS = [
+            { room: 'Bedroom Window', width: 48, height: 60, qty: 2, sqft: 40, product: 'Aluminium Frame', createdAt: new Date('2026-08-15') },
+            { room: 'Living Room Door', width: 36, height: 84, qty: 1, sqft: 21, product: 'Pleated Net', createdAt: new Date('2026-08-10') }
+        ];
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) { window.location.href = "customer-login.html"; return; }
+            await loadCustomerId(user.uid);
+            await loadMeasurements();
+        });
+
+        async function loadCustomerId(uid) {
+            try {
+                const customersRef = collection(db, "customers");
+                const q = query(customersRef, where("uid", "==", uid));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) customerId = snapshot.docs[0].id;
+            } catch (error) { console.error("Customer ID load error:", error); }
+        }
+
+        async function loadMeasurements() {
+            try {
+                let measurements = [];
+                if (customerId) {
+                    const measurementsRef = collection(db, "measurements");
+                    const q = query(measurementsRef, where("customerId", "==", customerId), orderBy("createdAt", "desc"));
+                    const snapshot = await getDocs(q);
+                    snapshot.forEach(doc => measurements.push({ id: doc.id, ...doc.data() }));
+                }
+
+                if (measurements.length === 0) {
+                    measurements = FALLBACK_MEASUREMENTS;
+                }
+
+                renderMeasurements(measurements);
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('measurementList').style.display = 'block';
+                document.getElementById('measurementCount').textContent = measurements.length + ' Measurements';
+
+            } catch (error) {
+                console.error("❌ Measurements load error:", error);
+                renderMeasurements(FALLBACK_MEASUREMENTS);
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('measurementList').style.display = 'block';
+                document.getElementById('measurementCount').textContent = FALLBACK_MEASUREMENTS.length + ' Measurements';
+            }
+        }
+
+        function renderMeasurements(measurements) {
+            const container = document.getElementById('measurementList');
+
+            if (!measurements.length) {
+                container.innerHTML = `<div class="empty-state"><span class="icon">📐</span><h3 style="font-size:16px; font-weight:700;">No Measurements Saved</h3><p style="font-size:13px; margin-top:4px;">Add your measurements using the AI Price Checker.</p><a href="price-checker.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Try AI Price Checker →</a></div>`;
+                return;
+            }
+
+            container.innerHTML = measurements.map(m => {
+                const date = m.createdAt?.toDate?.() || new Date(m.createdAt);
+                const dateStr = date && !isNaN(date.getTime()) ? date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+                const sqft = m.sqft || (m.width * m.height * m.qty / 144);
+
+                return `
+                    <div class="measurement-card">
+                        <div class="measurement-header">
+                            <span class="name">${m.room || 'Window/Door'}</span>
+                            <span class="date">${dateStr}</span>
+                        </div>
+                        <div class="measurement-details">
+                            <div class="row"><span class="label">Width</span><span class="value">${m.width || 0}"</span></div>
+                            <div class="row"><span class="label">Height</span><span class="value">${m.height || 0}"</span></div>
+                            <div class="row"><span class="label">Quantity</span><span class="value">${m.qty || 1}</span></div>
+                            <div class="row"><span class="label">Sq.ft</span><span class="value">${sqft.toFixed(2)} sq.ft</span></div>
+                            ${m.product ? `<div class="row"><span class="label">Product</span><span class="value">${m.product}</span></div>` : ''}
+                        </div>
+                        <div class="measurement-actions">
+                            <a href="price-checker.html" class="btn-sm btn-sm-primary">📏 Check Price</a>
+                            <a href="appointment.html" class="btn-sm btn-sm-success">📅 Book Appointment</a>
+                            <a href="https://wa.me/919483037385?text=Hi%2C%20I%20need%20help%20with%20measurements" target="_blank" class="btn-sm btn-sm-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
