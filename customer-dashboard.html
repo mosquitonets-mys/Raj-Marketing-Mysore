@@ -33,38 +33,110 @@
         .fixed-footer .nav-item.active i { color: #0ea5e9; }
         .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
 
-        /* Cover Slider - 3 Slides */
-        .cover-slider { border-radius: 20px; overflow: hidden; height: 150px; position: relative; margin-bottom: 0; }
-        .cover-slider .slides { display: flex; width: 300%; height: 100%; transition: transform 0.6s ease; }
-        .cover-slider .slide { flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; color: #fff; position: relative; }
-        .cover-slider .slide .title { font-weight: 900; font-size: 22px; line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-        .cover-slider .slide .sub { font-size: 13px; opacity: 0.9; margin-top: 4px; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.15); }
-        .cover-slider .slide .emoji { font-size: 32px; display: block; margin-bottom: 4px; }
-        .cover-slider .slide:nth-child(1) { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
-        .cover-slider .slide:nth-child(2) { background: linear-gradient(135deg, #f97316, #fb923c); }
-        .cover-slider .slide:nth-child(3) { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-        .cover-slider .dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 2; }
-        .cover-slider .dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; border: none; }
-        .cover-slider .dots .dot.active { background: #fff; transform: scale(1.2); }
+        /* Facebook Style Cover + Profile */
+        .cover-container {
+            position: relative;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+            height: 160px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        }
+        .cover-container .cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.1);
+            font-size: 80px;
+        }
+        .cover-container .cover-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 16px 12px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.4));
+        }
+        .cover-container .cover-overlay .title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .cover-container .cover-overlay .sub {
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
 
-        /* Profile Section */
-        .profile-section { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: #ffffff; border-radius: 20px; margin-top: -20px; position: relative; z-index: 2; border: 1px solid #e8ecf0; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
-        .profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(145deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; flex-shrink: 0; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .profile-info { flex: 1; min-width: 0; }
-        .profile-info .name { font-weight: 800; font-size: 17px; color: #1a1a2e; display: block; }
-        .profile-info .greeting { font-size: 13px; font-weight: 500; color: #059669; display: block; }
-        .profile-info .customer-id { font-size: 10px; color: #6b6b7b; display: block; }
-        .profile-info .phone { font-size: 12px; color: #1a1a2e; font-weight: 600; }
+        /* Profile Section - Facebook Style */
+        .profile-section {
+            display: flex;
+            align-items: flex-end;
+            gap: 14px;
+            padding: 0 16px 12px 16px;
+            background: #ffffff;
+            margin-top: -40px;
+            position: relative;
+            z-index: 2;
+            border-bottom: 1px solid #e8ecf0;
+        }
+        .profile-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 32px;
+            flex-shrink: 0;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-top: -20px;
+        }
+        .profile-info {
+            flex: 1;
+            min-width: 0;
+            padding-top: 8px;
+        }
+        .profile-info .name {
+            font-weight: 800;
+            font-size: 18px;
+            color: #1a1a2e;
+            display: block;
+        }
+        .profile-info .customer-id {
+            font-size: 11px;
+            color: #6b6b7b;
+            display: block;
+        }
+        .profile-info .phone {
+            font-size: 13px;
+            color: #1a1a2e;
+            font-weight: 600;
+            display: block;
+        }
+        .profile-info .greeting {
+            font-size: 13px;
+            font-weight: 500;
+            color: #059669;
+            display: block;
+        }
 
         .error-box { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 12px; margin-bottom: 12px; display: none; font-size: 13px; border-left: 4px solid #dc2626; }
         .error-box.show { display: block; }
 
-        .greeting-banner { background: linear-gradient(145deg, #f0f9ff, #e0f2fe); border-radius: 16px; padding: 14px 16px; margin: 12px 0; border: 1px solid rgba(14,165,233,0.1); }
-        .greeting-banner .main { font-weight: 700; font-size: 16px; color: #1a1a2e; }
-        .greeting-banner .sub { font-size: 13px; color: #6b6b7b; margin-top: 2px; }
+        .greeting-banner { background: linear-gradient(145deg, #f0f9ff, #e0f2fe); border-radius: 16px; padding: 12px 16px; margin: 10px 0; border: 1px solid rgba(14,165,233,0.1); }
+        .greeting-banner .main { font-weight: 700; font-size: 15px; color: #1a1a2e; }
+        .greeting-banner .sub { font-size: 12px; color: #6b6b7b; margin-top: 2px; }
 
         /* Quick Grid - 4 columns */
-        .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; margin: 12px 0 16px 0; }
+        .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; margin: 10px 0 14px 0; }
         .quick-card { background: #ffffff; border-radius: 14px; padding: 10px 4px; text-align: center; border: 1px solid #e8ecf0; transition: 0.3s; text-decoration: none; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .quick-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-3px); }
         .quick-card i { font-size: 20px; color: #0ea5e9; display: block; margin-bottom: 2px; }
@@ -86,6 +158,20 @@
         .product-slide .price { font-weight: 700; font-size: 13px; color: #0ea5e9; display: block; margin-top: 2px; }
         .product-slide .offer-tag { background: #d1fae5; color: #059669; font-size: 8px; font-weight: 700; padding: 1px 8px; border-radius: 12px; display: inline-block; }
 
+        /* Ad Slider - 3 Ads */
+        .ad-slider { border-radius: 16px; overflow: hidden; height: 80px; position: relative; margin: 10px 0; }
+        .ad-slider .ad-slides { display: flex; width: 300%; height: 100%; transition: transform 0.6s ease; }
+        .ad-slider .ad-slide { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; padding: 12px 20px; color: #fff; text-align: center; }
+        .ad-slider .ad-slide .ad-icon { font-size: 28px; margin-right: 12px; }
+        .ad-slider .ad-slide .ad-text { font-weight: 700; font-size: 14px; }
+        .ad-slider .ad-slide .ad-sub { font-size: 11px; opacity: 0.85; }
+        .ad-slider .ad-slide:nth-child(1) { background: linear-gradient(135deg, #f97316, #fb923c); }
+        .ad-slider .ad-slide:nth-child(2) { background: linear-gradient(135deg, #22c55e, #4ade80); }
+        .ad-slider .ad-slide:nth-child(3) { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .ad-slider .ad-dots { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+        .ad-slider .ad-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; border: none; }
+        .ad-slider .ad-dots .dot.active { background: #fff; transform: scale(1.2); }
+
         /* YouTube Shorts */
         .video-section { border-radius: 16px; overflow: hidden; background: #1a1a2e; margin: 4px 0 8px 0; aspect-ratio: 9/16; max-height: 320px; position: relative; }
         .video-section iframe { width: 100%; height: 100%; border: none; }
@@ -97,7 +183,7 @@
         .video-controls button:hover { background: #0ea5e9; transform: scale(1.04); }
         .video-controls .counter { color: #6b6b7b; font-size: 11px; }
 
-        /* Social Media Feeds */
+        /* Social Media Feed - Carousel */
         .social-feed { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; -webkit-overflow-scrolling: touch; }
         .social-feed::-webkit-scrollbar { height: 3px; }
         .social-feed::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
@@ -108,6 +194,8 @@
         .feed-card .feed-header .icon.facebook { background: #1877f2; }
         .feed-card .feed-header .icon.twitter { background: #1DA1F2; }
         .feed-card .feed-header .icon.pinterest { background: #E60023; }
+        .feed-card .feed-header .icon.youtube { background: #FF0000; }
+        .feed-card .feed-header .icon.instagram { background: #E4405F; }
         .feed-card .feed-header .name { font-weight: 600; font-size: 12px; color: #1a1a2e; }
         .feed-card .feed-header .handle { font-size: 10px; color: #6b6b7b; }
         .feed-card .feed-content { font-size: 12px; color: #1a1a2e; line-height: 1.5; }
@@ -125,7 +213,7 @@
         .social-links a { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #e8ecf0; display: flex; align-items: center; justify-content: center; color: #6b6b7b; transition: 0.3s; text-decoration: none; background: #ffffff; }
         .social-links a:hover { border-color: #0ea5e9; color: #0ea5e9; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
-        .support-section { background: linear-gradient(145deg, #ffffff, #f8fafc); border-radius: 16px; padding: 18px 16px; margin: 12px 0; border: 1px solid #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .support-section { background: linear-gradient(145deg, #ffffff, #f8fafc); border-radius: 16px; padding: 16px; margin: 12px 0; border: 1px solid #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .support-section .top { display: flex; align-items: center; gap: 12px; }
         .support-section .top .icon-box { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(145deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; flex-shrink: 0; }
         .support-section .top .info { flex: 1; }
@@ -157,15 +245,15 @@
             .quick-card { padding: 8px 2px; }
             .quick-card i { font-size: 16px; }
             .quick-card .title { font-size: 7px; }
-            .profile-section { padding: 10px 12px; }
-            .profile-avatar { width: 52px; height: 52px; font-size: 22px; }
-            .profile-info .name { font-size: 15px; }
+            .profile-section { padding: 0 12px 10px; }
+            .profile-avatar { width: 60px; height: 60px; font-size: 26px; }
+            .profile-info .name { font-size: 16px; }
             .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
             .product-slide { min-width: 110px; padding: 10px; }
-            .cover-slider { height: 120px; }
-            .cover-slider .slide .title { font-size: 18px; }
+            .cover-container { height: 130px; }
             .video-section { max-height: 240px; }
             .feed-card { min-width: 160px; }
+            .ad-slider { height: 70px; }
         }
     </style>
 </head>
@@ -200,29 +288,14 @@
         </div>
 
         <div id="dashboardContent" class="hidden">
-            <!-- Cover Slider - 3 Slides -->
-            <div class="cover-slider" id="coverSlider">
-                <div class="slides" id="coverSlides">
-                    <div class="slide">
-                        <span class="emoji">🦟</span>
-                        <div class="title">Premium Mosquito Protection</div>
-                        <div class="sub">Quality nets for every home</div>
-                    </div>
-                    <div class="slide">
-                        <span class="emoji">🏆</span>
-                        <div class="title">Trusted Since 2016</div>
-                        <div class="sub">500+ Happy Customers</div>
-                    </div>
-                    <div class="slide">
-                        <span class="emoji">🎉</span>
-                        <div class="title">Exclusive Offers</div>
-                        <div class="sub">Check out our latest deals!</div>
-                    </div>
+            <!-- Facebook Style Cover -->
+            <div class="cover-container">
+                <div class="cover-image">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <div class="dots" id="coverDots">
-                    <span class="dot active" onclick="goToSlide(0)"></span>
-                    <span class="dot" onclick="goToSlide(1)"></span>
-                    <span class="dot" onclick="goToSlide(2)"></span>
+                <div class="cover-overlay">
+                    <div class="title">Raj Marketing Mysore</div>
+                    <div class="sub">Premium Mosquito Protection · Since 2016</div>
                 </div>
             </div>
 
@@ -240,7 +313,7 @@
             <!-- Error Box -->
             <div id="errorBox" class="error-box"></div>
 
-                <!-- Greeting Banner -->
+            <!-- Greeting Banner -->
             <div class="greeting-banner">
                 <div class="main" id="greetingMain">Good Morning, Customer 👋</div>
                 <div class="sub" id="greetingSub">Thank you for choosing Raj Marketing Mysore.</div>
@@ -255,11 +328,43 @@
                 <a href="customer-orders.html" class="quick-card"><i class="fas fa-box"></i><span class="title">Orders</span></a>
                 <a href="customer-appointments.html" class="quick-card"><i class="fas fa-calendar-check"></i><span class="title">Appointments</span></a>
                 <a href="customer-payments.html" class="quick-card"><i class="fas fa-credit-card"></i><span class="title">Payments</span></a>
-                <a href="customer-bills.html" class="quick-card"><i class="fas fa-receipt"></i><span class="title">Bills</span></a>
+                <a href="invoice.html" class="quick-card"><i class="fas fa-receipt"></i><span class="title">Bills</span></a>
                 <a href="customer-offers.html" class="quick-card"><i class="fas fa-gift"></i><span class="title">Offers</span></a>
                 <a href="customer-measurements.html" class="quick-card"><i class="fas fa-ruler"></i><span class="title">Measurements</span></a>
                 <a href="customer-support.html" class="quick-card"><i class="fas fa-headset"></i><span class="title">Support</span></a>
                 <a href="customer-feedback.html" class="quick-card"><i class="fas fa-star"></i><span class="title">Feedback</span></a>
+            </div>
+
+            <!-- Ad Slider - 3 Ads -->
+            <div class="ad-slider" id="adSlider">
+                <div class="ad-slides" id="adSlides">
+                    <div class="ad-slide">
+                        <span class="ad-icon">🎯</span>
+                        <div>
+                            <div class="ad-text">Refer & Earn!</div>
+                            <div class="ad-sub">Get ₹500 off on your next order</div>
+                        </div>
+                    </div>
+                    <div class="ad-slide">
+                        <span class="ad-icon">🔥</span>
+                        <div>
+                            <div class="ad-text">Summer Special Offer</div>
+                            <div class="ad-sub">20% off on all Pleated Nets</div>
+                        </div>
+                    </div>
+                    <div class="ad-slide">
+                        <span class="ad-icon">🎉</span>
+                        <div>
+                            <div class="ad-text">Free Installation!</div>
+                            <div class="ad-sub">On orders above ₹10,000</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ad-dots" id="adDots">
+                    <span class="dot active" onclick="goToAdSlide(0)"></span>
+                    <span class="dot" onclick="goToAdSlide(1)"></span>
+                    <span class="dot" onclick="goToAdSlide(2)"></span>
+                </div>
             </div>
 
             <!-- Products Slider -->
@@ -275,68 +380,12 @@
                 <span class="btn">View Offers</span>
             </div>
 
-            <!-- Social Media Feeds -->
+            <!-- Social Media Feeds - One by One -->
             <div class="section-title"><h3>📱 Latest from Social Media</h3></div>
             <div class="social-feed" id="socialFeed">
-                <!-- Facebook Feed -->
-                <div class="feed-card">
-                    <div class="feed-header">
-                        <div class="icon facebook"><i class="fab fa-facebook-f"></i></div>
-                        <div>
-                            <div class="name">Raj Marketing Mysore</div>
-                            <div class="handle">Facebook</div>
-                        </div>
-                    </div>
-                    <div class="feed-content">
-                        🚪 New Pleated Nets for Main Door! 
-                        <span class="hashtag">#pleatednet</span> 
-                        <span class="hashtag">#mosquitonet</span>
-                    </div>
-                    <div class="feed-footer">
-                        <span><i class="far fa-clock"></i> 2 days ago</span>
-                        <span><i class="far fa-heart"></i> 12</span>
-                    </div>
-                </div>
-                <!-- Pinterest Feed -->
-                <div class="feed-card">
-                    <div class="feed-header">
-                        <div class="icon pinterest"><i class="fab fa-pinterest"></i></div>
-                        <div>
-                            <div class="name">Raj Marketing Mysore</div>
-                            <div class="handle">Pinterest</div>
-                        </div>
-                    </div>
-                    <div class="feed-content">
-                        📌 Premium Window Mosquito Nets 
-                        <span class="hashtag">#windownets</span> 
-                        <span class="hashtag">#mosquitoprotection</span>
-                    </div>
-                    <div class="feed-footer">
-                        <span><i class="far fa-clock"></i> 3 days ago</span>
-                        <span><i class="far fa-heart"></i> 8</span>
-                    </div>
-                </div>
-                <!-- Twitter Feed -->
-                <div class="feed-card">
-                    <div class="feed-header">
-                        <div class="icon twitter"><i class="fab fa-twitter"></i></div>
-                        <div>
-                            <div class="name">Raj Marketing Mysore</div>
-                            <div class="handle">@Mosquito_Nets_</div>
-                        </div>
-                    </div>
-                    <div class="feed-content">
-                        🏠 Protect your home with our premium mosquito nets! 
-                        <span class="hashtag">#mosquitonet</span>
-                    </div>
-                    <div class="feed-footer">
-                        <span><i class="far fa-clock"></i> 5 hours ago</span>
-                        <span><i class="far fa-heart"></i> 5</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- YouTube Shorts -->
+                <!-- Will be populated by JavaScript -->
+         </div>
+                     <!-- YouTube Shorts -->
             <div class="section-title"><h3>📹 Raj Marketing Videos</h3></div>
             <div class="video-section" id="videoPlayer">
                 <iframe id="youtubeFrame" src="https://www.youtube.com/embed/_CtBTE6Kgcc?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -387,8 +436,9 @@
             </div>
             <div class="footer-copyright">© 2026 Raj Marketing Mysore · Customer Portal</div>
         </div>
-       </div>
-<!-- Fixed Footer -->
+    </div>
+
+    <!-- Fixed Footer -->
     <footer class="fixed-footer">
         <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
         <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
@@ -404,7 +454,7 @@
 
         let customerData = null;
         let customerId = null;
-        let currentSlide = 0;
+        let currentAdSlide = 0;
         let currentVideoIndex = 0;
 
         // Product Data
@@ -432,22 +482,30 @@
             { id: 'aSAoNgIsj_0', title: 'Velcro Net Installation' }
         ];
 
+        // Social Media Feeds
+        const SOCIAL_FEEDS = [
+            { platform: 'Facebook', icon: 'facebook', bg: '#1877f2', name: 'Raj Marketing Mysore', handle: 'Facebook', content: '🚪 New Pleated Nets for Main Door! #pleatednet #mosquitonet', time: '2 days ago', likes: '12' },
+            { platform: 'Pinterest', icon: 'pinterest', bg: '#E60023', name: 'Raj Marketing Mysore', handle: 'Pinterest', content: '📌 Premium Window Mosquito Nets #windownets #mosquitoprotection', time: '3 days ago', likes: '8' },
+            { platform: 'Twitter', icon: 'twitter', bg: '#1DA1F2', name: 'Raj Marketing Mysore', handle: '@Mosquito_Nets_', content: '🏠 Protect your home with our premium mosquito nets! #mosquitonet', time: '5 hours ago', likes: '5' },
+            { platform: 'YouTube', icon: 'youtube', bg: '#FF0000', name: 'Raj Marketing Mysore', handle: 'YouTube', content: '📹 Watch our latest video on Pleated Nets installation! #DIY', time: '1 day ago', likes: '23' },
+            { platform: 'Instagram', icon: 'instagram', bg: '#E4405F', name: 'Raj Marketing Mysore', handle: '@rajmarketingmysore', content: '📸 Beautiful home with our premium mosquito nets! #homeliving', time: '12 hours ago', likes: '45' }
+        ];
+
         // ============================================================
-        // COVER SLIDER
+        // AD SLIDER
         // ============================================================
-        window.goToSlide = function(index) {
-            currentSlide = index;
-            const slides = document.getElementById('coverSlides');
+        window.goToAdSlide = function(index) {
+            currentAdSlide = index;
+            const slides = document.getElementById('adSlides');
             slides.style.transform = `translateX(-${index * 33.33}%)`;
-            document.querySelectorAll('#coverDots .dot').forEach((dot, i) => {
+            document.querySelectorAll('#adDots .dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
             });
         };
 
-        // Auto-slide
         setInterval(() => {
-            const next = (currentSlide + 1) % 3;
-            goToSlide(next);
+            const next = (currentAdSlide + 1) % 3;
+            goToAdSlide(next);
         }, 5000);
 
         // ============================================================
@@ -515,14 +573,14 @@
                 document.getElementById('greetingText').textContent = `${greeting}! 👋`;
 
                 loadProducts();
+                loadSocialFeeds();
                 loadNotificationCount();
 
             } catch (error) {
                 console.error("❌ Dashboard load error:", error);
             }
         }
-
-        // ============================================================
+            // ============================================================
         // LOAD PRODUCTS
         // ============================================================
         function loadProducts() {
@@ -535,6 +593,29 @@
                     <span class="price">₹${p.price}/sq.ft</span>
                     ${p.offer ? `<span class="offer-tag">🔥 Offer</span>` : ''}
                 </a>
+            `).join('');
+        }
+
+        // ============================================================
+        // LOAD SOCIAL FEEDS
+        // ============================================================
+        function loadSocialFeeds() {
+            const feed = document.getElementById('socialFeed');
+            feed.innerHTML = SOCIAL_FEEDS.map(s => `
+                <div class="feed-card">
+                    <div class="feed-header">
+                        <div class="icon ${s.icon}"><i class="fab fa-${s.icon}"></i></div>
+                        <div>
+                            <div class="name">${s.name}</div>
+                            <div class="handle">${s.handle}</div>
+                        </div>
+                    </div>
+                    <div class="feed-content">${s.content}</div>
+                    <div class="feed-footer">
+                        <span><i class="far fa-clock"></i> ${s.time}</span>
+                        <span><i class="far fa-heart"></i> ${s.likes}</span>
+                    </div>
+                </div>
             `).join('');
         }
 
@@ -615,4 +696,4 @@
         console.log("✅ Customer dashboard loaded");
     </script>
 </body>
-    </html>         
+</html>
