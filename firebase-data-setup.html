@@ -1,54 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raj Marketing · Data Setup</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raj Marketing · Firebase Data Setup</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: #f0f4f8; padding: 40px 20px; display: flex; justify-content: center; }
-        .container { max-width: 800px; width: 100%; background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
-        h1 { font-size: 24px; margin-bottom: 8px; color: #1a1a2e; }
-        p { color: #6b6b7b; margin-bottom: 20px; }
-        .section { margin-bottom: 24px; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e8ecf0; }
-        .section h3 { font-size: 16px; margin-bottom: 8px; color: #0ea5e9; }
-        .section pre { background: #1a1a2e; color: #e8ecf0; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.6; white-space: pre-wrap; }
-        .btn { background: #0ea5e9; color: #fff; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.3); }
-        .status { padding: 8px 12px; border-radius: 8px; margin: 8px 0; }
-        .status.success { background: #d1fae5; color: #065f46; }
-        .status.error { background: #fee2e2; color: #991b1b; }
-        .status.info { background: #dbeafe; color: #1d4ed8; }
+        .container { max-width: 900px; width: 100%; background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
+        h1 { font-size: 24px; margin-bottom: 4px; color: #1a1a2e; }
+        .subtitle { color: #6b6b7b; margin-bottom: 20px; font-size: 14px; }
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+        .btn { padding: 12px 24px; border-radius: 40px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .btn-primary { background: #0ea5e9; color: #fff; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.3); }
+        .btn-danger { background: #ef4444; color: #fff; }
+        .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(239,68,68,0.3); }
+        .btn-success { background: #22c55e; color: #fff; }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(34,197,94,0.3); }
+        .status { padding: 12px 16px; border-radius: 8px; margin: 10px 0; font-size: 14px; }
+        .status.success { background: #d1fae5; color: #065f46; border-left: 4px solid #22c55e; }
+        .status.error { background: #fee2e2; color: #991b1b; border-left: 4px solid #dc2626; }
+        .status.info { background: #dbeafe; color: #1d4ed8; border-left: 4px solid #0ea5e9; }
+        .section { margin-bottom: 20px; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e8ecf0; }
+        .section h3 { font-size: 15px; margin-bottom: 8px; color: #0ea5e9; display: flex; align-items: center; gap: 8px; }
+        .section .count { font-size: 12px; color: #6b6b7b; font-weight: 400; }
+        pre { background: #1a1a2e; color: #e8ecf0; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 11px; line-height: 1.5; max-height: 300px; overflow-y: auto; white-space: pre-wrap; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 10px 0; }
+        .stat-card { background: #fff; border-radius: 12px; padding: 14px; text-align: center; border: 1px solid #e8ecf0; }
+        .stat-card .num { font-size: 24px; font-weight: 800; color: #0ea5e9; }
+        .stat-card .label { font-size: 11px; color: #6b6b7b; }
+        .loading { text-align: center; padding: 20px; color: #6b6b7b; }
+        @media (max-width: 500px) { .container { padding: 16px; } .btn { width: 100%; text-align: center; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔧 Raj Marketing Data Setup</h1>
-        <p>Run this once to initialize your Firebase collections with product and pricing data.</p>
+        <h1>🔧 Firebase Data Setup</h1>
+        <div class="subtitle">Initialize Raj Marketing Mysore collections with complete data</div>
 
         <div id="status"></div>
 
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="setupAll()">🚀 Setup All Data</button>
+            <button class="btn btn-success" onclick="setupCustomer()">👤 Setup Customer</button>
+            <button class="btn btn-success" onclick="setupProducts()">📦 Setup Products</button>
+            <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear All</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card"><div class="num" id="statProducts">0</div><div class="label">Products</div></div>
+            <div class="stat-card"><div class="num" id="statCustomers">0</div><div class="label">Customers</div></div>
+            <div class="stat-card"><div class="num" id="statOffers">0</div><div class="label">Offers</div></div>
+            <div class="stat-card"><div class="num" id="statOrders">0</div><div class="label">Orders</div></div>
+            <div class="stat-card"><div class="num" id="statAppointments">0</div><div class="label">Appointments</div></div>
+        </div>
+
+        <!-- Data Preview -->
         <div class="section">
-            <h3>📦 Products Collection</h3>
+            <h3>📦 Products <span class="count" id="productCount">(0)</span></h3>
             <pre id="productsData">Loading...</pre>
         </div>
 
         <div class="section">
-            <h3>🏷️ Price Master Collection</h3>
-            <pre id="pricesData">Loading...</pre>
+            <h3>👤 Customers <span class="count" id="customerCount">(0)</span></h3>
+            <pre id="customersData">Loading...</pre>
         </div>
 
         <div class="section">
-            <h3>👤 Sample Users</h3>
-            <pre id="usersData">Loading...</pre>
+            <h3>🏷️ Offers <span class="count" id="offerCount">(0)</span></h3>
+            <pre id="offersData">Loading...</pre>
         </div>
 
-        <button class="btn" onclick="setupData()">🚀 Initialize Data</button>
+        <div class="section">
+            <h3>📦 Orders <span class="count" id="orderCount">(0)</span></h3>
+            <pre id="ordersData">Loading...</pre>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-        import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, writeBatch, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB_a91sI0xpFRX5_ti2ukM8Ybn2lMXS6Zw",
@@ -62,225 +96,278 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
         // ============================================================
-        // PRODUCT DATA - COMPLETE MASTER PROMPT
+        // COMPLETE PRODUCT DATA
         // ============================================================
-        const products = [
-            // VELCRO SYSTEM
-            { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', customerPrice: 65, dealerBasePrice: 45, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
-            { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium Saint-Gobain', customerPrice: 80, dealerBasePrice: 60, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
-
-            // ALUMINIUM FRAME - REGULAR COLOURS
-            { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium Frame', variant: 'Regular Colour + Black Coated SS Mesh', customerPrice: 200, dealerBasePrice: 160, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
-            { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304 Grade Mesh', category: 'Aluminium Frame', variant: 'Regular Colour + Bright SS 304 Grade Mesh', customerPrice: 220, dealerBasePrice: 180, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
-
-            // FRAME COLOURS (separate for selection)
-            { id: 'frame-colour-ivory', name: 'Ivory', category: 'Frame Colour', variant: 'Ivory', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
-            { id: 'frame-colour-honey-gold', name: 'Honey Gold', category: 'Frame Colour', variant: 'Honey Gold', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
-            { id: 'frame-colour-brown', name: 'Brown', category: 'Frame Colour', variant: 'Brown', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
-            { id: 'frame-colour-black', name: 'Black', category: 'Frame Colour', variant: 'Black', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
-            { id: 'frame-colour-white', name: 'White', category: 'Frame Colour', variant: 'White', customerPrice: 0, dealerBasePrice: 0, manufacturerRate: null, unit: 'colour', pricingModel: 'colour' },
-
-            // PREMIUM ALUMINIUM - TEAKWOOD
-            { id: 'aluminium-teakwood-black-ss', name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Black Coated SS Mesh', customerPrice: 300, dealerBasePrice: 260, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
-            { id: 'aluminium-teakwood-bright-ss', name: 'Premium Teakwood – Bright SS 304 Grade Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Bright SS 304 Grade Mesh', customerPrice: 320, dealerBasePrice: 280, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
-
-            // PLEATED NETS - Manufacturer Rate Based
-            { id: 'pleated-gold-single-25mm', name: 'Pleated Mesh – Non Detachable [Gold]', category: 'Pleated', variant: '25mm Single', manufacturerRate: 145, customerPrice: 290, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-gold-double-25mm', name: 'Pleated Mesh – Non Detachable [Gold]', category: 'Pleated', variant: '25mm Double', manufacturerRate: 160, customerPrice: 320, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-gold-detachable-single-32mm', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', manufacturerRate: 190, customerPrice: 380, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-gold-detachable-double-32mm', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Double', manufacturerRate: 205, customerPrice: 410, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-gold-detachable-single-25mm', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '25mm Single', manufacturerRate: 160, customerPrice: 320, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-gold-detachable-double-25mm', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '25mm Double', manufacturerRate: 175, customerPrice: 350, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-platinum-single-25mm', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single', manufacturerRate: 250, customerPrice: 500, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-platinum-double-25mm', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Double', manufacturerRate: 260, customerPrice: 520, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-diamond-single-32mm', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Single', manufacturerRate: 280, customerPrice: 560, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-diamond-double-32mm', name: 'Pleated SS Mesh – Diamond Detachable', category: 'Pleated', variant: '32mm Double', manufacturerRate: 290, customerPrice: 580, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-honeycomb-single-32mm', name: 'Pleated Honeycomb Gold – Detachable [Plain]', category: 'Pleated', variant: '32mm Single', manufacturerRate: 260, customerPrice: 520, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-honeycomb-double-32mm', name: 'Pleated Honeycomb Gold – Detachable [Plain]', category: 'Pleated', variant: '32mm Double', manufacturerRate: 280, customerPrice: 560, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-honeycomb-design-single-32mm', name: 'Pleated Honeycomb Gold – Detachable [Design]', category: 'Pleated', variant: '32mm Single', manufacturerRate: 270, customerPrice: 540, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-honeycomb-design-double-32mm', name: 'Pleated Honeycomb Gold – Detachable [Design]', category: 'Pleated', variant: '32mm Double', manufacturerRate: 290, customerPrice: 580, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-            { id: 'pleated-combo-32mm', name: 'Pleated Combo – Honeycomb + Mesh', category: 'Pleated', variant: '32mm Combo', manufacturerRate: 300, customerPrice: 600, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_x2' },
-
-            // MESH DOOR
-            { id: 'mesh-door-black-ss', name: 'Mesh Door – Black Coated SS Mesh', category: 'Mesh Door', variant: 'Regular Aluminium + Black Coated SS Mesh', customerPrice: 350, dealerBasePrice: 300, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
-            { id: 'mesh-door-bright-ss', name: 'Mesh Door – Bright SS 304 Grade Mesh', category: 'Mesh Door', variant: 'Regular Aluminium + Bright SS 304 Grade Mesh', customerPrice: 380, dealerBasePrice: 330, manufacturerRate: null, unit: 'sq.ft', pricingModel: 'direct' },
-
-            // SECURITY ALUMINIUM MESH DOOR (Manufacturer Reference)
-            { id: 'security-mesh-door-single', name: 'Security Aluminium Mesh Door with Lock', category: 'Security Door', variant: '63mm Single', manufacturerRate: 500, customerPrice: null, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_reference' },
-            { id: 'security-mesh-door-double', name: 'Security Aluminium Mesh Door with Lock', category: 'Security Door', variant: '63mm Double', manufacturerRate: 550, customerPrice: null, dealerBasePrice: null, unit: 'sq.ft', pricingModel: 'manufacturer_reference' },
-
-            // MAGNET DOOR (Manufacturer Reference)
-            { id: 'magnet-door-60gsm-regular', name: 'Magnet Door', category: 'Magnet Door', variant: '60 GSM Regular', manufacturerRate: 750, customerPrice: null, dealerBasePrice: null, unit: 'door', pricingModel: 'manufacturer_reference' },
-            { id: 'magnet-door-60gsm-custom', name: 'Magnet Door', category: 'Magnet Door', variant: '60 GSM Customized', manufacturerRate: 950, customerPrice: null, dealerBasePrice: null, unit: 'door', pricingModel: 'manufacturer_reference' },
-            { id: 'magnet-door-80gsm-regular', name: 'Magnet Door', category: 'Magnet Door', variant: '80 GSM Regular', manufacturerRate: 850, customerPrice: null, dealerBasePrice: null, unit: 'door', pricingModel: 'manufacturer_reference' },
-            { id: 'magnet-door-80gsm-custom', name: 'Magnet Door', category: 'Magnet Door', variant: '80 GSM Customized', manufacturerRate: 1000, customerPrice: null, dealerBasePrice: null, unit: 'door', pricingModel: 'manufacturer_reference' }
+        const PRODUCTS = [
+            { id: 'velcro-economic', name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic', price: 65, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: true, description: 'Economical Velcro mosquito net for windows and doors.', image: 'fas fa-vector-square', badge: 'velcro', active: true, featured: true },
+            { id: 'velcro-premium', name: 'Velcro System – Premium Saint-Gobain', category: 'Velcro', variant: 'Premium Saint-Gobain', price: 80, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: true, description: 'Premium Saint-Gobain Velcro mosquito net.', image: 'fas fa-vector-square', badge: 'velcro', active: true, featured: true },
+            { id: 'aluminium-black-ss', name: 'Aluminium Frame – Black Coated SS Mesh', category: 'Aluminium Frame', variant: 'Regular + Black Coated SS Mesh', price: 200, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Strong aluminium frame with black coated SS mesh.', image: 'fas fa-border-all', badge: 'frame', active: true, featured: true },
+            { id: 'aluminium-bright-ss', name: 'Aluminium Frame – Bright SS 304 Mesh', category: 'Aluminium Frame', variant: 'Regular + Bright SS 304 Mesh', price: 220, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium aluminium frame with bright SS 304 mesh.', image: 'fas fa-border-all', badge: 'frame', active: true, featured: true },
+            { id: 'aluminium-teakwood', name: 'Premium Teakwood – Black Coated SS Mesh', category: 'Premium Aluminium', variant: 'Teakwood + Black Coated SS Mesh', price: 300, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium teakwood finish aluminium frame.', image: 'fas fa-crown', badge: 'premium', active: true, featured: true },
+            { id: 'pleated-gold', name: 'Pleated Mesh – Gold Detachable', category: 'Pleated', variant: '32mm Single', price: 380, originalPrice: 420, discount: 10, unit: 'sq.ft', onlinePurchase: false, description: 'Premium gold pleated mosquito net.', image: 'fas fa-wind', badge: 'pleated', active: true, featured: true },
+            { id: 'pleated-platinum', name: 'Pleated SS Mesh – Platinum Detachable', category: 'Pleated', variant: '25mm Single', price: 500, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium platinum SS mesh pleated net.', image: 'fas fa-wind', badge: 'pleated', active: true, featured: true },
+            { id: 'mesh-door-black', name: 'Mesh Door – Black Coated SS Mesh', category: 'Mesh Door', variant: 'Regular + Black Coated SS Mesh', price: 350, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Durable mesh door with black coated SS mesh.', image: 'fas fa-door-open', badge: 'door', active: true, featured: true },
+            { id: 'mesh-door-bright', name: 'Mesh Door – Bright SS 304 Mesh', category: 'Mesh Door', variant: 'Regular + Bright SS 304 Mesh', price: 380, originalPrice: null, discount: null, unit: 'sq.ft', onlinePurchase: false, description: 'Premium mesh door with bright SS 304 mesh.', image: 'fas fa-door-open', badge: 'door', active: true, featured: true }
         ];
 
         // ============================================================
-        // EXTRA CHARGES
+        // SAMPLE CUSTOMER
         // ============================================================
-        const extraCharges = [
-            { id: 'delivery', name: 'Delivery', type: 'delivery', price: 0, unit: 'per order' },
-            { id: 'installation', name: 'Installation', type: 'installation', price: 0, unit: 'per sq.ft' },
-            { id: 'wood-finish', name: 'Wood Finish', type: 'extra', price: 20, unit: 'per sq.ft' },
-            { id: 'wall-installation', name: 'Wall Installation', type: 'extra', price: 30, unit: 'per sq.ft' }
-        ];
-
-        // ============================================================
-        // FRAME COLOURS
-        // ============================================================
-        const frameColours = [
-            { id: 'colour-ivory', name: 'Ivory', code: '#F5F0E8' },
-            { id: 'colour-honey-gold', name: 'Honey Gold', code: '#D4A843' },
-            { id: 'colour-brown', name: 'Brown', code: '#8B6914' },
-            { id: 'colour-black', name: 'Black', code: '#1A1A1A' },
-            { id: 'colour-white', name: 'White', code: '#FFFFFF' },
-            { id: 'colour-teakwood', name: 'Teakwood', code: '#8B6914' }
-        ];
-
-        // ============================================================
-        // DEALER ELIGIBILITY SETTINGS
-        // ============================================================
-        const dealerSettings = {
-            initialDiscount: 12,
-            threeMonthBonus: 5,
-            sixMonthBonus: 3,
-            maxDiscount: 25,
-            reviewPeriodMonths: 12
+        const SAMPLE_CUSTOMER = {
+            customerId: "RM-CUS-20260817-4013",
+            name: "Madhu",
+            mobile: "9353673202",
+            phone: "9353673202",
+            whatsapp: "9353673202",
+            email: "madhu@example.com",
+            address: "123, MG Road, Mysore",
+            landmark: "Near City Centre",
+            city: "Mysore",
+            district: "Mysore",
+            state: "Karnataka",
+            pin: "570001",
+            source: "Website",
+            status: "Active",
+            referralCode: "RAJ-REF-001",
+            profileImageUrl: "",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
         };
 
         // ============================================================
-        // SETUP FUNCTION
+        // SAMPLE OFFERS
         // ============================================================
-        window.setupData = async function() {
-            const statusDiv = document.getElementById('status');
-            statusDiv.innerHTML = '<div class="status info">⏳ Initializing data...</div>';
+        const OFFERS = [
+            { id: 'offer-1', name: 'Summer Special', description: '20% off on all Pleated Nets', product: 'Pleated', discount: 20, originalPrice: 380, offerPrice: 304, validUntil: '2026-09-30', active: true, tag: 'discount' },
+            { id: 'offer-2', name: 'Dealer Launch Offer', description: '10% off on Aluminium Frame Systems', product: 'Aluminium Frame', discount: 10, originalPrice: 220, offerPrice: 198, validUntil: '2026-09-15', active: true, tag: 'limited' },
+            { id: 'offer-3', name: 'Velcro Bundle Deal', description: 'Buy 2 get 5% off on Velcro Systems', product: 'Velcro', discount: 5, originalPrice: 65, offerPrice: 61.75, validUntil: '2026-10-01', active: true, tag: 'exclusive' }
+        ];
 
+        // ============================================================
+        // SAMPLE ORDER
+        // ============================================================
+        const SAMPLE_ORDER = {
+            orderId: "ORD-20260817-4821",
+            customerId: "RM-CUS-20260817-4013",
+            customerName: "Madhu",
+            mobile: "9353673202",
+            product: "Velcro Economic",
+            sqft: 20,
+            rate: 65,
+            totalAmount: 1300,
+            advanceAmount: 780,
+            balanceAmount: 520,
+            orderStatus: "NEW",
+            productionStatus: "PENDING",
+            paymentStatus: "PENDING",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // ============================================================
+        // SAMPLE APPOINTMENT
+        // ============================================================
+        const SAMPLE_APPOINTMENT = {
+            appointmentId: "APT-20260817-001",
+            customerId: "RM-CUS-20260817-4013",
+            customerName: "Madhu",
+            mobile: "9353673202",
+            product: "Aluminium Frame",
+            date: "2026-08-20",
+            time: "Morning",
+            address: "123, MG Road, Mysore",
+            status: "NEW",
+            source: "Website",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // ============================================================
+        // UI FUNCTIONS
+        // ============================================================
+        function showStatus(message, type = 'info') {
+            const div = document.getElementById('status');
+            div.className = `status ${type}`;
+            div.textContent = message;
+        }
+
+        async function updateStats() {
             try {
-                // Clear existing collections
+                const productSnap = await getDocs(collection(db, 'products'));
+                const customerSnap = await getDocs(collection(db, 'customers'));
+                const offerSnap = await getDocs(collection(db, 'offers'));
+                const orderSnap = await getDocs(collection(db, 'orders'));
+                const apptSnap = await getDocs(collection(db, 'appointments'));
+
+                document.getElementById('statProducts').textContent = productSnap.size;
+                document.getElementById('statCustomers').textContent = customerSnap.size;
+                document.getElementById('statOffers').textContent = offerSnap.size;
+                document.getElementById('statOrders').textContent = orderSnap.size;
+                document.getElementById('statAppointments').textContent = apptSnap.size;
+
+                document.getElementById('productCount').textContent = `(${productSnap.size})`;
+                document.getElementById('customerCount').textContent = `(${customerSnap.size})`;
+                document.getElementById('offerCount').textContent = `(${offerSnap.size})`;
+                document.getElementById('orderCount').textContent = `(${orderSnap.size})`;
+            } catch (e) { console.error('Stats error:', e); }
+        }
+
+        async function loadPreviews() {
+            try {
+                const productSnap = await getDocs(collection(db, 'products'));
+                if (productSnap.size > 0) {
+                    const data = [];
+                    productSnap.forEach(doc => data.push(doc.data()));
+                    document.getElementById('productsData').textContent = JSON.stringify(data.slice(0, 5), null, 2) + (data.length > 5 ? `\n... and ${data.length - 5} more` : '');
+                } else {
+                    document.getElementById('productsData').textContent = '⚠️ No products found. Run setup.';
+                }
+
+                const customerSnap = await getDocs(collection(db, 'customers'));
+                if (customerSnap.size > 0) {
+                    const data = [];
+                    customerSnap.forEach(doc => data.push(doc.data()));
+                    document.getElementById('customersData').textContent = JSON.stringify(data.slice(0, 3), null, 2) + (data.length > 3 ? `\n... and ${data.length - 3} more` : '');
+                } else {
+                    document.getElementById('customersData').textContent = '⚠️ No customers found. Run setup.';
+                }
+
+                const offerSnap = await getDocs(collection(db, 'offers'));
+                if (offerSnap.size > 0) {
+                    const data = [];
+                    offerSnap.forEach(doc => data.push(doc.data()));
+                    document.getElementById('offersData').textContent = JSON.stringify(data, null, 2);
+                } else {
+                    document.getElementById('offersData').textContent = '⚠️ No offers found. Run setup.';
+                }
+
+                const orderSnap = await getDocs(collection(db, 'orders'));
+                if (orderSnap.size > 0) {
+                    const data = [];
+                    orderSnap.forEach(doc => data.push(doc.data()));
+                    document.getElementById('ordersData').textContent = JSON.stringify(data.slice(0, 3), null, 2) + (data.length > 3 ? `\n... and ${data.length - 3} more` : '');
+                } else {
+                    document.getElementById('ordersData').textContent = '⚠️ No orders found. Run setup.';
+                }
+
+                await updateStats();
+            } catch (e) {
+                console.error('Preview error:', e);
+            }
+        }
+
+        // ============================================================
+        // SETUP FUNCTIONS
+        // ============================================================
+        window.setupAll = async function() {
+            showStatus('⏳ Setting up all data...', 'info');
+            try {
                 await clearCollection('products');
-                await clearCollection('priceList');
-                await clearCollection('frameColours');
-                await clearCollection('extraCharges');
-                await clearCollection('dealerSettings');
+                await clearCollection('offers');
+                await clearCollection('orders');
+                await clearCollection('appointments');
 
-                // Add products
-                const batch = writeBatch(db);
-                for (const product of products) {
-                    const ref = doc(db, 'products', product.id);
-                    batch.set(ref, {
-                        ...product,
-                        active: true,
-                        createdAt: new Date().toISOString()
-                    });
+                // Products
+                const productBatch = writeBatch(db);
+                for (const p of PRODUCTS) {
+                    const ref = doc(db, 'products', p.id);
+                    productBatch.set(ref, { ...p, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
                 }
-                await batch.commit();
+                await productBatch.commit();
 
-                // Add price list
-                const priceBatch = writeBatch(db);
-                for (const product of products) {
-                    if (product.customerPrice || product.dealerBasePrice || product.manufacturerRate) {
-                        const ref = doc(db, 'priceList', product.id);
-                        priceBatch.set(ref, {
-                            productId: product.id,
-                            productName: product.name,
-                            category: product.category,
-                            variant: product.variant,
-                            customerPrice: product.customerPrice || null,
-                            dealerBasePrice: product.dealerBasePrice || null,
-                            manufacturerRate: product.manufacturerRate || null,
-                            pricingModel: product.pricingModel,
-                            unit: product.unit,
-                            active: true,
-                            createdAt: new Date().toISOString()
-                        });
-                    }
+                // Offers
+                const offerBatch = writeBatch(db);
+                for (const o of OFFERS) {
+                    const ref = doc(db, 'offers', o.id);
+                    offerBatch.set(ref, { ...o, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
                 }
-                await priceBatch.commit();
+                await offerBatch.commit();
 
-                // Add frame colours
-                const colourBatch = writeBatch(db);
-                for (const colour of frameColours) {
-                    const ref = doc(db, 'frameColours', colour.id);
-                    colourBatch.set(ref, colour);
-                }
-                await colourBatch.commit();
+                // Orders
+                const orderRef = doc(db, 'orders', SAMPLE_ORDER.orderId);
+                await setDoc(orderRef, SAMPLE_ORDER);
 
-                // Add extra charges
-                const chargeBatch = writeBatch(db);
-                for (const charge of extraCharges) {
-                    const ref = doc(db, 'extraCharges', charge.id);
-                    chargeBatch.set(ref, charge);
-                }
-                await chargeBatch.commit();
+                // Appointments
+                const apptRef = doc(db, 'appointments', SAMPLE_APPOINTMENT.appointmentId);
+                await setDoc(apptRef, SAMPLE_APPOINTMENT);
 
-                // Add dealer settings
-                await setDoc(doc(db, 'dealerSettings', 'eligibility'), {
-                    ...dealerSettings,
-                    updatedAt: new Date().toISOString()
-                });
+                // Customers (if not exists)
+                const custRef = doc(db, 'customers', SAMPLE_CUSTOMER.customerId);
+                await setDoc(custRef, SAMPLE_CUSTOMER);
 
-                statusDiv.innerHTML = `
-                    <div class="status success">✅ All data initialized successfully!</div>
-                    <div class="status info">📦 ${products.length} products loaded</div>
-                    <div class="status info">🏷️ ${products.filter(p => p.customerPrice || p.dealerBasePrice || p.manufacturerRate).length} prices loaded</div>
-                    <div class="status info">🎨 ${frameColours.length} frame colours loaded</div>
-                    <div class="status info">💰 ${extraCharges.length} extra charges loaded</div>
-                    <div class="status info">⚙️ Dealer eligibility settings loaded</div>
-                `;
-
-                // Show data preview
-                document.getElementById('productsData').textContent = JSON.stringify(products.slice(0, 5), null, 2) + '\n... and ' + (products.length - 5) + ' more';
-                document.getElementById('pricesData').textContent = JSON.stringify(products.filter(p => p.customerPrice || p.dealerBasePrice || p.manufacturerRate).slice(0, 5), null, 2) + '\n... and more';
-                document.getElementById('usersData').textContent = JSON.stringify({
-                    admin: { email: 'rajmarketingmys@gmail.com', role: 'admin' },
-                    customer: { email: 'customer@example.com', role: 'customer' },
-                    dealer: { email: 'dealer@example.com', role: 'dealer', discountLevel: 12 }
-                }, null, 2);
+                showStatus('✅ All data initialized successfully!', 'success');
+                await loadPreviews();
 
             } catch (error) {
-                statusDiv.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+                showStatus('❌ Error: ' + error.message, 'error');
                 console.error('Setup error:', error);
             }
         };
 
-        async function clearCollection(collectionName) {
+        window.setupProducts = async function() {
+            showStatus('⏳ Setting up products...', 'info');
             try {
-                const snapshot = await getDocs(collection(db, collectionName));
+                await clearCollection('products');
                 const batch = writeBatch(db);
-                snapshot.forEach(doc => {
-                    batch.delete(doc.ref);
-                });
-                if (snapshot.size > 0) {
-                    await batch.commit();
+                for (const p of PRODUCTS) {
+                    const ref = doc(db, 'products', p.id);
+                    batch.set(ref, { ...p, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
                 }
-                console.log(`✅ Cleared ${collectionName} (${snapshot.size} documents)`);
-            } catch (e) {
-                console.log(`ℹ️ Collection ${collectionName} may not exist yet`);
+                await batch.commit();
+                showStatus(`✅ ${PRODUCTS.length} products created!`, 'success');
+                await loadPreviews();
+            } catch (error) {
+                showStatus('❌ Error: ' + error.message, 'error');
             }
-        }
+        };
 
-        // Load initial preview
-        async function loadPreview() {
+        window.setupCustomer = async function() {
+            showStatus('⏳ Setting up customer...', 'info');
             try {
-                const snapshot = await getDocs(collection(db, 'products'));
-                const count = snapshot.size;
-                if (count > 0) {
-                    document.getElementById('productsData').textContent = `✅ ${count} products already exist in Firebase. Run setup to update.`;
-                    document.getElementById('status').innerHTML = `<div class="status info">ℹ️ Data already exists (${count} products). Click "Initialize Data" to update.</div>`;
-         } else {
-                    document.getElementById('productsData').textContent = '⚠️ No products found. Click "Initialize Data" to set up your database.';
-                    document.getElementById('status').innerHTML = `<div class="status info">⚠️ Database is empty. Click "Initialize Data" to set up your product catalog.</div>`;
+                const ref = doc(db, 'customers', SAMPLE_CUSTOMER.customerId);
+                await setDoc(ref, SAMPLE_CUSTOMER);
+                showStatus('✅ Customer created!', 'success');
+                await loadPreviews();
+            } catch (error) {
+                showStatus('❌ Error: ' + error.message, 'error');
+            }
+        };
+
+        window.clearAll = async function() {
+            if (!confirm('⚠️ This will delete ALL data from Firestore. Are you sure?')) return;
+            showStatus('⏳ Clearing data...', 'info');
+            try {
+                const collections = ['products', 'customers', 'offers', 'orders', 'appointments', 'estimates', 'payments', 'referrals', 'feedback', 'supportTickets'];
+                for (const name of collections) {
+                    await clearCollection(name);
                 }
+                showStatus('✅ All data cleared!', 'success');
+                await loadPreviews();
+            } catch (error) {
+                showStatus('❌ Error: ' + error.message, 'error');
+            }
+        };
+
+        async function clearCollection(name) {
+            try {
+                const snapshot = await getDocs(collection(db, name));
+                const batch = writeBatch(db);
+                snapshot.forEach(doc => batch.delete(doc.ref));
+                if (snapshot.size > 0) await batch.commit();
+                console.log(`✅ Cleared ${name} (${snapshot.size} documents)`);
             } catch (e) {
-                document.getElementById('productsData').textContent = '⚠️ Unable to read database. Please run setup.';
+                console.log(`ℹ️ Collection ${name} may not exist`);
             }
         }
 
-        loadPreview();
-        console.log('✅ Data setup page loaded');
+        // ============================================================
+        // INIT
+        // ============================================================
+        loadPreviews();
+        console.log('✅ Firebase data setup loaded');
     </script>
 </body>
 </html>
