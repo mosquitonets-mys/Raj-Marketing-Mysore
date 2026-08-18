@@ -882,4 +882,544 @@
                 throw error;
             }
         }
+        // ============================================================
+        // AI CONVERSATION ENGINE — Upgraded with richer guidance
+        // ============================================================
+        const QUESTIONS = [{
+            id: 'welcome',
+            question: 'Hi! 👋 Welcome to Raj Marketing Mysore. I\'m your AI assistant for mosquito net solutions. Let\'s get started! May I know your name?',
+            type: 'text',
+            required: true,
+            field: 'customerName',
+            next: 'requirement',
+            isWelcome: true
+        }, {
+            id: 'requirement',
+            question: 'Great to meet you! What type of mosquito net are you looking for? We offer premium quality solutions.',
+            type: 'choice',
+            options: ['🪟 Velcro System (Easy to install)', '🖼️ Aluminium Frame (Durable)', '🌀 Pleated Net (Foldable)', '🚪 Mesh Door (Heavy duty)', '🤔 Not Sure (Let me guide you)'],
+            field: 'netType',
+            next: 'quantity'
+        }, {
+            id: 'quantity',
+            question: 'Perfect! Approximately how many windows or doors do you need to cover? This helps us plan better.',
+            type: 'number',
+            field: 'quantity',
+            next: 'location'
+        }, {
+            id: 'location',
+            question: 'Where do you plan to install the mosquito nets? (You can select multiple)',
+            type: 'multichoice',
+            options: ['🪟 Windows', '🚪 Main Door', '🏠 Balcony', '🍳 Kitchen', '🛏️ Bedroom', '📍 Other'],
+            field: 'location',
+            next: 'measurements'
+        }, {
+            id: 'measurements',
+            question: 'Do you already have the measurements for your windows/doors? We can also do it on-site.',
+            type: 'choice',
+            options: ['✅ Yes, I have measurements', '❌ No, I need help measuring', '📏 I have partial measurements'],
+            field: 'measurements',
+            next: 'address'
+        }, {
+            id: 'address',
+            question: 'Please enter your installation address so our team can visit you at your convenience.',
+            type: 'text',
+            required: true,
+            field: 'address',
+            next: 'mobile'
+        }, {
+            id: 'mobile',
+            question: 'Great! Please enter your WhatsApp number for appointment confirmation and updates. We\'ll also share a measurement guide.',
+            type: 'text',
+            required: true,
+            field: 'mobile',
+            next: 'date'
+        }, {
+            id: 'date',
+            question: 'Which date would be convenient for our team to visit for measurement/installation?',
+            type: 'date',
+            field: 'date',
+            next: 'time'
+        }, {
+            id: 'time',
+            question: 'What time slot works best for you? We\'ll try our best to accommodate.',
+            type: 'choice',
+            options: ['🌅 Morning (9AM - 12PM)', '☀️ Afternoon (12PM - 4PM)', '🌆 Evening (4PM - 7PM)', '🕐 Specific Time (mention below)'],
+            field: 'time',
+            next: 'additional'
+        }, {
+            id: 'additional',
+            question: 'Anything else you\'d like us to know? (Optional) — e.g., design preference, color, etc.',
+            type: 'text',
+            required: false,
+            field: 'notes',
+            next: null
+        }];
 
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let conversation = [];
+        let enquiryId = 'RM-ENQ-2026-0001';
+        let leadId = 'RM-LEAD-2026-0001';
+
+        // ============================================================
+        // CHAT UI
+        // ============================================================
+        function addChatMessage(type, text, isHTML = false) {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = `chat-bubble ${type}`;
+            if (isHTML) {
+                div.innerHTML = text + `<span class="time">${new Date().toLocaleTimeString()}</span>`;
+            } else {
+                div.innerHTML = text + `<span class="time">${new Date().toLocaleTimeString()}</span>`;
+            }
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            conversation.push({ type, text, time: new Date().toISOString() });
+        }
+
+        function showTyping() {
+            document.getElementById('typingIndicator').classList.add('show');
+        }
+
+        function hideTyping() {
+            document.getElementById('typingIndicator').classList.remove('show');
+        }
+
+        function addAIResponse(text, isHTML = false) {
+            showTyping();
+            setTimeout(() => {
+                hideTyping();
+                addChatMessage('ai', text, isHTML);
+                setTimeout(() => showQuestion(currentQuestionIndex), 500);
+            }, 1000 + Math.random() * 600);
+        }
+
+        // ============================================================
+        // QUESTION FLOW
+        // ============================================================
+        function startAI() {
+            currentQuestionIndex = 0;
+            answers = {};
+            conversation = [];
+            document.getElementById('chatContainer').innerHTML = '';
+            document.getElementById('aiSummary').style.display = 'none';
+            document.getElementById('successState').classList.add('hidden');
+            document.getElementById('aiMode').classList.remove('hidden');
+            document.getElementById('manualMode').classList.add('hidden');
+
+            setTimeout(() => {
+                addAIResponse('Hi! 👋 Welcome to Raj Marketing Mysore. I\'m your AI assistant for mosquito net solutions. Let\'s get started! <br/><br/>May I know your name?', true);
+            }, 400);
+        }
+
+        function showQuestion(index) {
+            if (index >= QUESTIONS.length) {
+                showSummary();
+                return;
+            }
+            const q = QUESTIONS[index];
+            const questionText = document.getElementById('questionText');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const inputContainer = document.getElementById('inputContainer');
+
+            if (q.isWelcome) {
+                questionText.textContent = 'May I know your name?';
+                optionsContainer.innerHTML = '';
+                optionsContainer.classList.add('hidden');
+                inputContainer.classList.remove('hidden');
+                const input = document.getElementById('textInput');
+                input.value = '';
+                input.placeholder = 'Enter your name...';
+                input.type = 'text';
+                input.dataset.qid = q.id;
+                input.focus();
+                return;
+            }
+
+            questionText.textContent = q.question;
+            optionsContainer.innerHTML = '';
+            inputContainer.classList.add('hidden');
+
+            if (q.type === 'choice' || q.type === 'multichoice') {
+                optionsContainer.classList.remove('hidden');
+                const opts = q.options || [];
+                opts.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.textContent = opt;
+                    btn.onclick = function() { selectOption(this, opt, q.id); };
+                    optionsContainer.appendChild(btn);
+                });
+            } else {
+                optionsContainer.classList.add('hidden');
+                inputContainer.classList.remove('hidden');
+                const input = document.getElementById('textInput');
+                input.value = '';
+                input.placeholder = q.type === 'number' ? 'Enter a number...' : q.type === 'date' ? 'Select a date...' :
+                    'Type your answer...';
+                input.type = q.type === 'number' ? 'number' : q.type === 'date' ? 'date' : 'text';
+                if (q.type === 'date') {
+                    const today = new Date().toISOString().split('T')[0];
+                    input.value = today;
+                }
+                input.dataset.qid = q.id;
+                input.focus();
+            }
+        }
+
+        function selectOption(btn, value, qid) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            const q = QUESTIONS.find(q => q.id === qid);
+            if (q) {
+                const cleanValue = value.replace(/[🪟🖼️🌀🚪🤔✅❌📏🪟🚪🏠🍳🛏️📍🌅☀️🌆🕐]/g, '').trim();
+                answers[q.field] = cleanValue || value;
+                addChatMessage('user', value);
+
+                // Special handling for "Not Sure" in requirement
+                if (q.id === 'requirement' && value.includes('Not Sure')) {
+                    setTimeout(() => {
+                        addAIResponse('No problem! 😊 I\'m here to help. Let me ask: Is this mainly for windows, doors, or both?');
+                        setTimeout(() => {
+                            const parent2 = document.getElementById('optionsContainer');
+                            parent2.innerHTML = '';
+                            ['🪟 Windows', '🚪 Doors', '🏠 Both'].forEach(opt => {
+                                const btn2 = document.createElement('button');
+                                btn2.textContent = opt;
+                                btn2.onclick = function() {
+                                    const val = opt.replace(/[🪟🚪🏠]/g, '').trim();
+                                    answers['requirementDetail'] = val;
+                                    addChatMessage('user', opt);
+                                    moveToNext(q.id);
+                                };
+                                parent2.appendChild(btn2);
+                            });
+                        }, 400);
+                    }, 600);
+                    return;
+                }
+
+                if (q.id === 'measurements' && value.includes('Yes')) {
+                    setTimeout(() => {
+                        addAIResponse('Excellent! Please share the measurements. Format: Width, Height, Quantity (e.g., 36x48x2). This helps us prepare the right materials.');
+                        setTimeout(() => {
+                            const parent = document.getElementById('optionsContainer');
+                            parent.innerHTML = '';
+                            const input = document.createElement('input');
+                            input.type = 'text';
+                            input.placeholder = 'e.g. 36x48x2, 42x48x1';
+                            input.style.cssText =
+                                'flex:1; background:#faf8f6; border:1px solid #ece6e0; border-radius:40px; padding:10px 16px; font-size:14px; outline:none;';
+                            const btn2 = document.createElement('button');
+                            btn2.textContent = 'Submit';
+                            btn2.style.cssText =
+                                'background:#f97316; border:none; border-radius:40px; padding:10px 20px; color:#fff; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(249,115,22,0.2);';
+                            btn2.onclick = function() {
+                                const val = input.value || 'Not provided';
+                                answers['measurementDetails'] = val;
+                                addChatMessage('user', val);
+                                moveToNext(q.id);
+                            };
+                            const wrapper = document.createElement('div');
+                            wrapper.style.cssText = 'display:flex; gap:8px; width:100%;';
+                            wrapper.appendChild(input);
+                            wrapper.appendChild(btn2);
+                            parent.appendChild(wrapper);
+                        }, 400);
+                    }, 600);
+                    return;
+                }
+
+                if (q.id === 'measurements' && value.includes('No')) {
+                    setTimeout(() => {
+                        addAIResponse("That's perfectly fine! 😊 Our expert team will handle all measurements during the appointment. We'll bring all necessary tools.");
+                    }, 500);
+                }
+
+                if (q.id === 'measurements' && value.includes('partial')) {
+                    setTimeout(() => {
+                        addAIResponse('No problem! Just share whatever measurements you have, and our team will verify the rest on-site. Accuracy is key!');
+                    }, 500);
+                }
+
+                moveToNext(q.id);
+            }
+        }
+
+        function submitTextAnswer() {
+            const input = document.getElementById('textInput');
+            const value = input.value.trim();
+            if (!value) {
+                alert('Please enter an answer.');
+                return;
+            }
+            const qid = input.dataset.qid || getCurrentQuestionId();
+            const q = QUESTIONS.find(q => q.id === qid);
+            if (q) {
+                if (q.required && !value) {
+                    alert('This field is required.');
+                    return;
+                }
+                answers[q.field] = value;
+                addChatMessage('user', value);
+                moveToNext(qid);
+            }
+        }
+
+        function getCurrentQuestionId() {
+            const q = QUESTIONS[currentQuestionIndex];
+            return q ? q.id : null;
+        }
+
+        function moveToNext(currentId) {
+            const idx = QUESTIONS.findIndex(q => q.id === currentId);
+            if (idx !== -1 && idx + 1 < QUESTIONS.length) {
+                currentQuestionIndex = idx + 1;
+                const nextQ = QUESTIONS[currentQuestionIndex];
+                let responseText = nextQ.question;
+                // Add extra guidance for certain steps
+                if (nextQ.id === 'quantity') {
+                    responseText += ' (Approximate count helps us estimate material)';
+                } else if (nextQ.id === 'address') {
+                    responseText += ' (We\'ll send a team based on this location)';
+                } else if (nextQ.id === 'mobile') {
+                    responseText += ' (We\'ll send confirmation and a measurement guide)';
+                } else if (nextQ.id === 'date') {
+                    responseText += ' (We\'ll try to match your preference)';
+                }
+                setTimeout(() => {
+                    addAIResponse(responseText);
+                }, 400);
+            } else {
+                setTimeout(() => showSummary(), 600);
+            }
+        }
+     / ============================================================
+        // SUMMARY
+        // ============================================================
+        function showSummary() {
+            document.getElementById('questionArea').style.display = 'none';
+            document.getElementById('aiSummary').style.display = 'block';
+            const content = document.getElementById('summaryContent');
+            const fields = [
+                { label: '👤 Customer', key: 'customerName' },
+                { label: '📱 Mobile', key: 'mobile' },
+                { label: '🪟 Net Type', key: 'netType' },
+                { label: '🔢 Quantity', key: 'quantity' },
+                { label: '📍 Location', key: 'location' },
+                { label: '🏠 Address', key: 'address' },
+                { label: '📅 Preferred Date', key: 'date' },
+                { label: '⏰ Preferred Time', key: 'time' },
+                { label: '📝 Additional', key: 'notes' }
+            ];
+            let html = '';
+            fields.forEach(f => {
+                const val = answers[f.key] || '—';
+                html += `<div class="summary-item"><span class="label">${f.label}</span><span class="value">${val}</span></div>`;
+            });
+            content.innerHTML = html;
+
+            const name = answers.customerName || 'Customer';
+            addChatMessage('ai', `Perfect! 😊 Here's a summary of your appointment request. Please review and confirm.`, false);
+        }
+
+        function editSummary() {
+            document.getElementById('aiSummary').style.display = 'none';
+            document.getElementById('questionArea').style.display = 'block';
+            currentQuestionIndex = 0;
+            document.getElementById('chatContainer').innerHTML = '';
+            startAI();
+        }
+
+        // ============================================================
+        // CONFIRM APPOINTMENT
+        // ============================================================
+        async function confirmAppointment() {
+            const name = answers.customerName || '';
+            const mobile = answers.mobile || '';
+            if (!name || !mobile) {
+                alert('Please provide at least name and mobile number.');
+                return;
+            }
+
+            try {
+                const saved = await saveAppointmentToFirebase({
+                    name,
+                    mobile,
+                    email: answers.email || '',
+                    address: answers.address || '',
+                    netType: answers.netType || 'Not specified',
+                    quantity: answers.quantity || 'N/A',
+                    location: answers.location || 'N/A',
+                    measurements: answers.measurements || 'N/A',
+                    measurementDetails: answers.measurementDetails || 'Not provided',
+                    date: answers.date || 'N/A',
+                    time: answers.time || 'N/A',
+                    notes: answers.notes || 'None',
+                    source: 'AI Appointment'
+                });
+
+                enquiryId = saved.enquiryId;
+                leadId = saved.leadId;
+
+                const msg = `🔔 NEW CUSTOMER ENQUIRY
+
+        Enquiry ID: ${enquiryId}
+        Lead ID: ${leadId}
+
+        👤 Customer: ${name}
+        📱 WhatsApp: ${mobile}
+        🪟 Net Type: ${answers.netType || 'Not specified'}
+        🔢 Quantity: ${answers.quantity || 'N/A'}
+        📍 Location: ${answers.location || 'N/A'}
+        🏠 Address: ${answers.address || 'N/A'}
+        📅 Appointment: ${answers.date || 'N/A'}
+        ⏰ Time: ${answers.time || 'N/A'}
+        📝 Requirement: ${answers.notes || 'None'}
+        📐 Measurements: ${answers.measurementDetails || 'Not provided'}
+
+        Lead Status: NEW
+        Source: WhatsApp AI Chat
+        Action: Contact Customer Immediately`;
+
+                document.getElementById('aiMode').classList.add('hidden');
+                document.getElementById('successState').classList.remove('hidden');
+                document.getElementById('successEnquiryId').textContent = enquiryId;
+                document.getElementById('successLeadId').textContent = leadId;
+                document.getElementById('successAppointment').textContent = `${answers.date || 'N/A'}, ${answers.time || 'N/A'}`;
+                document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered. Our team will contact you shortly.`;
+
+                console.log('📤 WhatsApp Notification to 9483037385:');
+                console.log(msg);
+
+                addChatMessage('ai', `✅ Appointment confirmed! Your enquiry ID is ${enquiryId}. Our team will contact you on ${mobile} shortly.`, false);
+
+                alert('✅ Appointment Confirmed!\n\nEnquiry ID: ' + enquiryId + '\nLead ID: ' + leadId +
+                    '\n\nYour appointment has been saved to Firebase successfully.');
+
+            } catch (error) {
+                console.error('Firebase appointment save failed:', error);
+                alert('❌ Could not save the appointment to Firebase.\n\n' + error.message);
+            }
+        }
+
+        // ============================================================
+        // MODE SWITCH
+        // ============================================================
+        function setMode(mode) {
+            document.getElementById('aiModeBtn').classList.toggle('active', mode === 'ai');
+            document.getElementById('manualModeBtn').classList.toggle('active', mode === 'manual');
+            if (mode === 'ai') {
+                document.getElementById('aiMode').classList.remove('hidden');
+                document.getElementById('manualMode').classList.add('hidden');
+                document.getElementById('successState').classList.add('hidden');
+                startAI();
+            } else {
+                document.getElementById('aiMode').classList.add('hidden');
+                document.getElementById('manualMode').classList.remove('hidden');
+                document.getElementById('successState').classList.add('hidden');
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('manualDate').value = today;
+            }
+        }
+
+        // ============================================================
+        // MANUAL SUBMIT
+        // ============================================================
+        async function submitManual() {
+            const name = document.getElementById('manualName').value.trim();
+            const mobile = document.getElementById('manualMobile').value.trim();
+            const address = document.getElementById('manualAddress').value.trim();
+            if (!name || !mobile || !address) {
+                alert('Please fill in all required fields (Name, Mobile, Address).');
+                return;
+            }
+
+            const product = document.getElementById('manualProduct').value;
+            const qty = document.getElementById('manualQty').value || 'N/A';
+            const location = document.getElementById('manualLocation').value;
+            const date = document.getElementById('manualDate').value || 'N/A';
+            const time = document.getElementById('manualTime').value;
+            const notes = document.getElementById('manualNotes').value || 'None';
+
+            try {
+                const saved = await saveAppointmentToFirebase({
+                    name,
+                    mobile,
+                    email: document.getElementById('manualEmail').value.trim(),
+                    address,
+                    netType: product,
+                    quantity: qty,
+                    location,
+                    date,
+                    time,
+                    notes,
+                    source: 'Manual Appointment'
+                });
+
+                const enqId = saved.enquiryId;
+                const leadId2 = saved.leadId;
+
+                const msg = `🔔 NEW CUSTOMER ENQUIRY (Manual)
+
+        Enquiry ID: ${enqId}
+        Lead ID: ${leadId2}
+
+        👤 Customer: ${name}
+        📱 WhatsApp: ${mobile}
+        🪟 Net Type: ${product}
+        🔢 Quantity: ${qty}
+        📍 Location: ${location}
+        🏠 Address: ${address}
+        📅 Appointment: ${date}
+        ⏰ Time: ${time}
+        📝 Requirement: ${notes}
+
+        Lead Status: NEW
+        Source: Manual Form
+        Action: Contact Customer Immediately`;
+
+                document.getElementById('successState').classList.remove('hidden');
+                document.getElementById('manualMode').classList.add('hidden');
+                document.getElementById('successEnquiryId').textContent = enqId;
+                document.getElementById('successLeadId').textContent = leadId2;
+                document.getElementById('successAppointment').textContent = `${date}, ${time}`;
+                document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered. Our team will contact you shortly.`;
+
+                console.log('📤 Manual enquiry notification:', msg);
+                alert('✅ Appointment submitted!\n\nEnquiry ID: ' + enqId + '\nLead ID: ' + leadId2 +
+                    '\n\nYour appointment has been saved to Firebase successfully.');
+
+            } catch (error) {
+                console.error('Firebase appointment save failed:', error);
+                alert('❌ Could not save the appointment to Firebase.\n\n' + error.message);
+            }
+        }
+
+        // ============================================================
+        // EXPOSE GLOBALS
+        // ============================================================
+        window.setMode = setMode;
+        window.selectOption = selectOption;
+        window.submitTextAnswer = submitTextAnswer;
+        window.confirmAppointment = confirmAppointment;
+        window.editSummary = editSummary;
+        window.submitManual = submitManual;
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.getElementById('textInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') submitTextAnswer();
+        });
+
+        startAI();
+
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('manualDate').value = today;
+    </script>
+</body>
+</html>   
