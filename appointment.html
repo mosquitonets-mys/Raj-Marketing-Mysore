@@ -34,7 +34,6 @@
             border: 1px solid #ece6e0;
         }
 
-        /* Fixed Header */
         .fixed-header {
             position: fixed;
             top: 0;
@@ -44,7 +43,7 @@
             max-width: 504px;
             margin: 0 auto;
             width: 100%;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             padding: 12px 20px 10px 20px;
             border-bottom: 1px solid #ece6e0;
@@ -114,7 +113,6 @@
             background: #ece6e0;
         }
 
-        /* Footer */
         .fixed-footer {
             position: fixed;
             bottom: 0;
@@ -124,7 +122,7 @@
             max-width: 504px;
             margin: 0 auto;
             width: 100%;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             padding: 6px 8px 12px 8px;
             border-top: 1px solid #ece6e0;
@@ -159,7 +157,6 @@
             background: rgba(249, 115, 22, 0.08);
         }
 
-        /* Mode switch */
         .mode-switch {
             display: flex;
             background: #f5f0eb;
@@ -184,7 +181,6 @@
             box-shadow: 0 2px 12px rgba(249, 115, 22, 0.25);
         }
 
-        /* Cards */
         .card {
             background: #ffffff;
             border-radius: 28px;
@@ -210,7 +206,6 @@
             color: #f97316;
         }
 
-        /* Chat */
         .chat-container {
             max-height: 480px;
             overflow-y: auto;
@@ -478,7 +473,6 @@
             gap: 12px;
         }
 
-        /* Success */
         .success-card {
             text-align: center;
             padding: 30px 20px;
@@ -782,14 +776,31 @@
     </footer>
 
     <script type="module">
-        // Import Firebase from the existing config
-        import { db } from "./firebase-config.js";
+        // ============================================================
+        // FIREBASE CONFIG - Replace with your own config
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
         import {
+            getFirestore,
             doc,
             setDoc,
             getDoc,
             serverTimestamp
         } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
         // ============================================================
         // ID GENERATORS
@@ -818,6 +829,7 @@
                 const leadId = makeId('RM-LEAD');
                 const appointmentId = makeId('RM-APT');
 
+                // Save/Update Customer
                 const customerRef = doc(db, 'customers', customerId);
                 const customerSnap = await getDoc(customerRef);
 
@@ -838,6 +850,7 @@
                 }
                 await setDoc(customerRef, customerData, { merge: true });
 
+                // Save Enquiry
                 await setDoc(doc(db, 'enquiries', enquiryId), {
                     enquiryId,
                     leadId,
@@ -855,6 +868,7 @@
                     updatedAt: serverTimestamp()
                 });
 
+                // Save Appointment
                 await setDoc(doc(db, 'appointments', appointmentId), {
                     appointmentId,
                     enquiryId,
@@ -882,7 +896,8 @@
                 throw error;
             }
         }
-        // ============================================================
+
+        //============================================================
         // AI CONVERSATION ENGINE — Upgraded with richer guidance
         // ============================================================
         const QUESTIONS = [{
@@ -1008,6 +1023,7 @@
             document.getElementById('successState').classList.add('hidden');
             document.getElementById('aiMode').classList.remove('hidden');
             document.getElementById('manualMode').classList.add('hidden');
+            document.getElementById('questionArea').style.display = 'block';
 
             setTimeout(() => {
                 addAIResponse('Hi! 👋 Welcome to Raj Marketing Mysore. I\'m your AI assistant for mosquito net solutions. Let\'s get started! <br/><br/>May I know your name?', true);
@@ -1197,7 +1213,7 @@
                 setTimeout(() => showSummary(), 600);
             }
         }
-     / ============================================================
+               // ============================================================
         // SUMMARY
         // ============================================================
         function showSummary() {
@@ -1229,7 +1245,6 @@
         function editSummary() {
             document.getElementById('aiSummary').style.display = 'none';
             document.getElementById('questionArea').style.display = 'block';
-            currentQuestionIndex = 0;
             document.getElementById('chatContainer').innerHTML = '';
             startAI();
         }
@@ -1422,4 +1437,4 @@
         document.getElementById('manualDate').value = today;
     </script>
 </body>
-</html>   
+</html>
