@@ -13,204 +13,1423 @@
         /* ============================================================
            FULL PRODUCT DETAIL STYLES
         ============================================================ */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
-        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
-
-        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
-        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
-        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
-        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
-        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
-        .fixed-header .header-actions { display: flex; gap: 4px; align-items: center; }
-        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 12px; cursor: pointer; text-decoration: none; min-width: 44px; transition: 0.2s; }
-        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
-        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
-        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
-
-        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
-        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b6b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
-        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b6b; }
-        .fixed-footer .nav-item.active i { color: #0ea5e9; }
-        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
-
-        .breadcrumb { font-size: 10px; color: #6b6b7b; margin-bottom: 8px; display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
-        .breadcrumb a { color: #0ea5e9; text-decoration: none; }
-        .breadcrumb .sep { color: #ccc; }
-
-        .product-hero { margin-bottom: 16px; }
-        .product-hero .badge-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
-        .product-hero .badge-row .tag { padding: 2px 10px; border-radius: 12px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
-        .tag-velcro { background: #dbeafe; color: #1d4ed8; }
-        .tag-pleated { background: #d1fae5; color: #059669; }
-        .tag-frame { background: #fef3c7; color: #d97706; }
-        .tag-door { background: #fce4ec; color: #dc2626; }
-        .tag-premium { background: #fef3c7; color: #d97706; }
-        .product-hero h1 { font-size: 22px; font-weight: 800; color: #1a1a2e; line-height: 1.2; }
-        .product-hero .sub { font-size: 13px; color: #6b6b7b; margin-top: 2px; }
-
-        .slider-container { border-radius: 16px; overflow: hidden; position: relative; height: 240px; background: #f1f5f9; margin: 10px 0; }
-        .slider-track { display: flex; width: 300%; height: 100%; transition: transform 0.5s ease; }
-        .slider-slide { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 60px; color: #0ea5e9; background: #f1f5f9; }
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.2s; }
-        .slider-btn:hover { background: #fff; }
-        .slider-btn.prev { left: 8px; }
-        .slider-btn.next { right: 8px; }
-        .slider-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
-        .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; border: none; transition: 0.2s; }
-        .slider-dots .dot.active { background: #0ea5e9; transform: scale(1.2); }
-
-        .price-section { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid #e8ecf0; margin-bottom: 12px; }
-        .price-section .current { font-size: 28px; font-weight: 800; color: #0ea5e9; }
-        .price-section .current .unit { font-size: 14px; font-weight: 400; color: #6b6b7b; }
-        .price-section .original { font-size: 16px; color: #6b6b7b; text-decoration: line-through; }
-        .price-section .discount-badge { background: #d1fae5; color: #059669; padding: 2px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
-
-        .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
-        .cta-row .btn { flex: 1; min-width: 120px; padding: 12px 20px; border-radius: 40px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; text-align: center; text-decoration: none; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-primary { background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.35); }
-        .btn-success { background: linear-gradient(145deg, #22c55e, #16a34a); color: #fff; }
-        .btn-success:hover { transform: translateY(-2px); }
-        .btn-secondary { background: #f1f5f9; color: #1a1a2e; border: 1px solid #e8ecf0; }
-        .btn-secondary:hover { background: #e8ecf0; }
-        .btn-whatsapp { background: #25D366; color: #fff; }
-        .btn-whatsapp:hover { transform: translateY(-2px); }
-
-        .section-title { font-weight: 700; font-size: 16px; color: #1a1a2e; margin: 16px 0 8px 0; display: flex; align-items: center; gap: 8px; }
-        .section-title i { color: #0ea5e9; }
-
-        .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0; }
-        .spec-table tr { border-bottom: 1px solid #f1f5f9; }
-        .spec-table td { padding: 8px 4px; }
-        .spec-table .label { color: #6b6b7b; font-weight: 500; width: 40%; }
-        .spec-table .value { font-weight: 600; color: #1a1a2e; }
-
-        .colour-selector { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0; }
-        .colour-selector .colour { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #e8ecf0; cursor: pointer; transition: 0.2s; }
-        .colour-selector .colour:hover { border-color: #0ea5e9; transform: scale(1.05); }
-        .colour-selector .colour.active { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.2); }
-        .colour-ivory { background: #F5F0E8; }
-        .colour-honey-gold { background: #D4A843; }
-        .colour-brown { background: #8B6914; }
-        .colour-black { background: #1A1A1A; }
-        .colour-white { background: #FFFFFF; border-color: #ddd; }
-        .colour-teakwood { background: #8B6914; }
-
-        .type-selector { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
-        .type-selector .type { padding: 6px 16px; border-radius: 20px; border: 1px solid #e8ecf0; background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .type-selector .type:hover { border-color: #0ea5e9; }
-        .type-selector .type.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
-
-        .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0; }
-        .benefit-grid .item { background: #f1f5f9; border-radius: 12px; padding: 12px; text-align: center; }
-        .benefit-grid .item i { font-size: 24px; color: #0ea5e9; display: block; margin-bottom: 4px; }
-        .benefit-grid .item span { font-size: 11px; font-weight: 600; color: #1a1a2e; }
-
-        .faq-item { border-bottom: 1px solid #f1f5f9; padding: 10px 0; cursor: pointer; }
-        .faq-item .q { display: flex; justify-content: space-between; font-weight: 600; font-size: 13px; color: #1a1a2e; }
-        .faq-item .q i { color: #0ea5e9; transition: 0.2s; }
-        .faq-item .a { font-size: 13px; color: #6b6b7b; padding-top: 6px; display: none; line-height: 1.6; }
-        .faq-item.open .a { display: block; }
-        .faq-item.open .q i { transform: rotate(180deg); }
-
-        .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0; }
-        .related-card { background: #fff; border-radius: 16px; padding: 12px; border: 1px solid #e8ecf0; text-align: center; cursor: pointer; transition: 0.2s; text-decoration: none; color: #1a1a2e; }
-        .related-card:hover { transform: translateY(-2px); border-color: #0ea5e9; }
-        .related-card .icon { font-size: 28px; color: #0ea5e9; display: block; margin-bottom: 4px; }
-        .related-card .name { font-size: 12px; font-weight: 600; }
-
-        .sticky-bottom { position: fixed; bottom: 80px; left: 0; right: 0; z-index: 900; max-width: 504px; margin: 0 auto; padding: 0 12px; display: none; }
-        .sticky-bottom .inner { background: #fff; border-radius: 20px; padding: 12px 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); display: flex; gap: 10px; align-items: center; border: 1px solid #e8ecf0; }
-        .sticky-bottom .inner .price { font-weight: 800; font-size: 18px; color: #0ea5e9; flex: 1; }
-        .sticky-bottom .inner .btn { padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 12px; border: none; cursor: pointer; text-decoration: none; }
-
-        .modal-overlay { display: none; position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; padding: 20px; }
-        .modal-overlay.active { display: flex; }
-        .modal { background: #fff; border-radius: 24px; padding: 24px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; }
-        .modal .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
-        .modal .form-group { margin-bottom: 12px; }
-        .modal .form-group label { font-size: 12px; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 4px; }
-        .modal .form-group input, .modal .form-group select, .modal .form-group textarea { width: 100%; padding: 10px 14px; border: 1.5px solid #e8ecf0; border-radius: 12px; font-size: 13px; outline: none; background: #f8fafc; font-family: 'Poppins', sans-serif; }
-        .modal .form-group input:focus, .modal .form-group select:focus, .modal .form-group textarea:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.08); }
-        .modal .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .modal .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
-        .modal .modal-actions .btn { flex: 1; padding: 12px; border-radius: 40px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: 0.2s; }
-        .modal .modal-actions .btn-primary { background: #0ea5e9; color: #fff; }
-        .modal .modal-actions .btn-secondary { background: #f1f5f9; color: #1a1a2e; border: 1px solid #e8ecf0; }
-
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
-        .whatsapp-float:hover { transform: scale(1.08); }
-
-        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
-        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
-        .footer-links a:hover { color: #0ea5e9; }
-        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
-
-        .loading { text-align: center; padding: 40px; color: #6b6b7b; }
-        .loading i { font-size: 32px; display: block; margin-bottom: 12px; }
-
-        @media (max-width: 400px) {
-            .product-hero h1 { font-size: 18px; }
-            .price-section .current { font-size: 22px; }
-            .slider-container { height: 180px; }
-            .slider-slide { font-size: 40px; }
-            .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
-            .modal .form-row { grid-template-columns: 1fr; }
-            .cta-row .btn { min-width: 100px; font-size: 12px; padding: 10px 14px; }
-            .sticky-bottom { bottom: 70px; }
-            .sticky-bottom .inner .price { font-size: 15px; }
-            .sticky-bottom .inner .btn { font-size: 11px; padding: 6px 12px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
-        @media (min-width: 500px) { .sticky-bottom { display: none !important; } }
+
+        body {
+            background: #f0f4f8;
+            min-height: 100vh;
+            padding: 0 16px;
+            padding-top: 76px;
+            padding-bottom: 90px;
+        }
+
+        .app-container {
+            max-width: 520px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 20px 18px 24px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ===== HEADER ===== */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 520px;
+            margin: 0 auto;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            padding: 10px 18px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fixed-header .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+
+        .fixed-header .logo-text {
+            font-weight: 800;
+            font-size: 16px;
+            color: #0f172a;
+            line-height: 1.1;
+        }
+
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: #64748b;
+            letter-spacing: 0.5px;
+        }
+
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 2px;
+            align-items: center;
+        }
+
+        .fixed-header .header-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: none;
+            min-width: 44px;
+            transition: all 0.25s ease;
+        }
+
+        .fixed-header .header-btn i {
+            font-size: 17px;
+            display: block;
+            margin-bottom: 1px;
+            transition: 0.2s;
+        }
+
+        .fixed-header .header-btn .label {
+            font-size: 7px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            opacity: 0.7;
+        }
+
+        .fixed-header .header-btn:hover {
+            background: #f0f9ff;
+            color: #0ea5e9;
+        }
+
+        .fixed-header .header-btn:hover i {
+            transform: translateY(-1px);
+        }
+
+        /* ===== FOOTER ===== */
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 520px;
+            margin: 0 auto;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            padding: 8px 12px 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 28px 28px 0 0;
+        }
+
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #94a3b8;
+            font-weight: 500;
+            gap: 1px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .fixed-footer .nav-item i {
+            font-size: 19px;
+            color: #94a3b8;
+            transition: 0.2s;
+        }
+
+        .fixed-footer .nav-item.active i {
+            color: #0ea5e9;
+        }
+
+        .fixed-footer .nav-item.active {
+            color: #0ea5e9;
+            background: #f0f9ff;
+        }
+
+        .fixed-footer .nav-item:hover {
+            color: #0ea5e9;
+        }
+
+        .fixed-footer .nav-item:hover i {
+            color: #0ea5e9;
+            transform: translateY(-2px);
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: #0284c7;
+            text-decoration: underline;
+        }
+
+        .breadcrumb .sep {
+            color: #cbd5e1;
+        }
+
+        .breadcrumb .current {
+            color: #475569;
+            font-weight: 500;
+        }
+
+        /* ===== PRODUCT HERO ===== */
+        .product-hero {
+            margin-bottom: 16px;
+        }
+
+        .product-hero .badge-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .product-hero .badge-row .tag {
+            padding: 3px 14px;
+            border-radius: 14px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .tag-velcro {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        .tag-pleated {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .tag-frame {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .tag-door {
+            background: #fce4ec;
+            color: #dc2626;
+        }
+        .tag-premium {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .product-hero h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+
+        .product-hero .sub {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        /* ===== SLIDER ===== */
+        .slider-container {
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            height: 260px;
+            background: #f1f5f9;
+            margin: 12px 0 14px 0;
+        }
+
+        .slider-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .slider-slide {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            overflow: hidden;
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-slide .icon-placeholder {
+            font-size: 64px;
+            color: #0ea5e9;
+            opacity: 0.6;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.25s ease;
+            color: #475569;
+        }
+
+        .slider-btn:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            color: #0ea5e9;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .slider-btn.prev {
+            left: 10px;
+        }
+        .slider-btn.next {
+            right: 10px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .slider-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dots .dot.active {
+            background: #0ea5e9;
+            transform: scale(1.2);
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.4);
+        }
+
+        /* ===== PRICE SECTION ===== */
+        .price-section {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 14px;
+        }
+
+        .price-section .current {
+            font-size: 30px;
+            font-weight: 800;
+            color: #0ea5e9;
+        }
+
+        .price-section .current .unit {
+            font-size: 14px;
+            font-weight: 400;
+            color: #94a3b8;
+        }
+
+        .price-section .original {
+            font-size: 16px;
+            color: #94a3b8;
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .price-section .discount-badge {
+            background: #d1fae5;
+            color: #059669;
+            padding: 3px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .price-section .availability-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 14px;
+            border-radius: 30px;
+        }
+
+        .availability-badge.online {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .availability-badge.appointment {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        /* ===== CTA ROW ===== */
+        .cta-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 12px 0 16px 0;
+        }
+
+        .cta-row .btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 13px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(145deg, #22c55e, #16a34a);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #0f172a;
+            border: 1.5px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #0ea5e9;
+            border: 1.5px solid #0ea5e9;
+        }
+
+        .btn-outline:hover {
+            background: #f0f9ff;
+            transform: translateY(-2px);
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: #0f172a;
+            margin: 18px 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #0ea5e9;
+            font-size: 18px;
+        }
+
+        .section-title .title-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, #e2e8f0, transparent);
+            margin-left: 4px;
+        }
+
+        /* ===== SPEC TABLE ===== */
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin: 6px 0;
+            background: #f8fafc;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .spec-table tr {
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .spec-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .spec-table td {
+            padding: 10px 14px;
+        }
+
+        .spec-table .label {
+            color: #64748b;
+            font-weight: 500;
+            width: 40%;
+            background: #f8fafc;
+        }
+
+        .spec-table .value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* ===== COLOUR SELECTOR ===== */
+        .colour-selector {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+
+        .colour-selector .colour {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2.5px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .colour-selector .colour:hover {
+            border-color: #0ea5e9;
+            transform: scale(1.08);
+        }
+
+        .colour-selector .colour.active {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
+            transform: scale(1.05);
+        }
+
+        .colour-selector .colour.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .colour-ivory {
+            background: #F5F0E8;
+        }
+        .colour-honey-gold {
+            background: #D4A843;
+        }
+        .colour-brown {
+            background: #8B6914;
+        }
+        .colour-black {
+            background: #1A1A1A;
+        }
+        .colour-white {
+            background: #FFFFFF;
+            border-color: #d1d5db;
+        }
+        .colour-teakwood {
+            background: #8B6914;
+        }
+
+        /* ===== TYPE SELECTOR ===== */
+        .type-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+
+        .type-selector .type {
+            padding: 7px 20px;
+            border-radius: 30px;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: #475569;
+        }
+
+        .type-selector .type:hover {
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+        }
+
+        .type-selector .type.active {
+            background: #0ea5e9;
+            color: #fff;
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
+        }
+
+        /* ===== BENEFIT GRID ===== */
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 6px 0;
+        }
+
+        .benefit-grid .item {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 14px 12px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .benefit-grid .item:hover {
+            background: #f0f9ff;
+            transform: translateY(-2px);
+        }
+
+        .benefit-grid .item i {
+            font-size: 26px;
+            color: #0ea5e9;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .benefit-grid .item span {
+            font-size: 11px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* ===== APPLICATION TAGS ===== */
+        .app-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 4px 0;
+        }
+
+        .app-tags .tag {
+            background: #f1f5f9;
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #475569;
+            transition: 0.2s;
+        }
+
+        .app-tags .tag:hover {
+            background: #0ea5e9;
+            color: #fff;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-item {
+            border-bottom: 1px solid #f1f5f9;
+            padding: 12px 0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .faq-item:hover {
+            padding-left: 4px;
+        }
+
+        .faq-item .q {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .faq-item .q i {
+            color: #0ea5e9;
+            transition: 0.3s ease;
+            font-size: 14px;
+        }
+
+        .faq-item .a {
+            font-size: 13px;
+            color: #64748b;
+            padding-top: 8px;
+            display: none;
+            line-height: 1.7;
+        }
+
+        .faq-item.open .a {
+            display: block;
+        }
+
+        .faq-item.open .q i {
+            transform: rotate(180deg);
+        }
+
+        /* ===== RELATED PRODUCTS ===== */
+        .related-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 6px 0;
+        }
+
+                .related-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 14px 12px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #0f172a;
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            border-color: #0ea5e9;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .related-card .img-wrap {
+            width: 100%;
+            aspect-ratio: 1.2 / 1;
+            border-radius: 12px;
+            background: #f1f5f9;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .related-card .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .related-card .name {
+            font-size: 12px;
+            font-weight: 600;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .related-card .price {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-top: 2px;
+        }
+
+        /* ===== INSTALLATION PROCESS ===== */
+        .install-steps {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 11px;
+            color: #64748b;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .install-steps .step {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f8fafc;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .install-steps .step i {
+            color: #0ea5e9;
+            font-size: 12px;
+        }
+
+        .install-steps .arrow {
+            color: #cbd5e1;
+        }
+
+        /* ===== HELP SECTION ===== */
+        .help-section {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 18px;
+            margin: 14px 0;
+            text-align: center;
+        }
+
+        .help-section .title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #0f172a;
+        }
+
+        .help-section p {
+            font-size: 12px;
+            color: #64748b;
+            margin: 4px 0 10px 0;
+        }
+
+        .help-section .help-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .help-section .help-buttons a {
+            padding: 8px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .help-section .help-buttons .wa {
+            background: #25D366;
+            color: #fff;
+        }
+
+        .help-section .help-buttons .wa:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+        }
+
+        .help-section .help-buttons .call {
+            background: #0ea5e9;
+            color: #fff;
+        }
+
+        .help-section .help-buttons .call:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+        }
+
+        /* ===== NOTICE ===== */
+        .notice-box {
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-left: 4px solid;
+        }
+
+        .notice-box.info {
+            background: #f0f9ff;
+            border-color: #0ea5e9;
+        }
+
+        .notice-box.warning {
+            background: #fef3c7;
+            border-color: #f59e0b;
+        }
+
+        .notice-box.success {
+            background: #d1fae5;
+            border-color: #22c55e;
+        }
+
+        .notice-box .title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .notice-box p {
+            font-size: 12px;
+            color: #475569;
+            margin-top: 2px;
+        }
+
+        /* ===== FOOTER LINKS ===== */
+        .footer-links {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px 14px;
+        }
+
+        .footer-links a {
+            font-size: 10px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #0ea5e9;
+        }
+
+        .footer-copyright {
+            font-size: 9px;
+            color: #cbd5e1;
+            text-align: center;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        /* ===== WHATSAPP FLOAT ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: #25D366;
+            color: #fff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
+        }
+
+        /* ===== STICKY BOTTOM ===== */
+        .sticky-bottom {
+            position: fixed;
+            bottom: 80px;
+            left: 0;
+            right: 0;
+            z-index: 900;
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: none;
+        }
+
+        .sticky-bottom .inner {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 14px 18px;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .sticky-bottom .inner .price {
+            font-weight: 800;
+            font-size: 19px;
+            color: #0ea5e9;
+            flex: 1;
+        }
+
+        .sticky-bottom .inner .price .unit {
+            font-size: 13px;
+            font-weight: 400;
+            color: #94a3b8;
+        }
+
+        .sticky-bottom .inner .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            color: #fff;
+        }
+
+        .sticky-bottom .inner .btn-primary {
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3);
+        }
+
+        .sticky-bottom .inner .btn-success {
+            background: linear-gradient(145deg, #22c55e, #16a34a);
+            box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 28px;
+            padding: 28px 24px;
+            max-width: 480px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            color: #0f172a;
+        }
+
+        .modal .form-group {
+            margin-bottom: 14px;
+        }
+
+        .modal .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .modal .form-group label .required {
+            color: #dc2626;
+        }
+
+        .modal .form-group input,
+        .modal .form-group select,
+        .modal .form-group textarea {
+            width: 100%;
+            padding: 11px 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 13px;
+            outline: none;
+            background: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.3s;
+            color: #0f172a;
+        }
+
+        .modal .form-group input:focus,
+        .modal .form-group select:focus,
+        .modal .form-group textarea:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.08);
+            background: #fff;
+        }
+
+        .modal .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .modal .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .modal .modal-actions .btn {
+            flex: 1;
+            padding: 13px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .modal .modal-actions .btn-primary {
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+        }
+
+        .modal .modal-actions .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.4);
+        }
+
+        .modal .modal-actions .btn-secondary {
+            background: #f1f5f9;
+            color: #0f172a;
+            border: 1.5px solid #e2e8f0;
+        }
+
+        .modal .modal-actions .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            text-align: center;
+            padding: 50px 20px;
+            color: #94a3b8;
+        }
+
+        .loading i {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 12px;
+            color: #0ea5e9;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 420px) {
+            body {
+                padding: 0 10px;
+                padding-top: 70px;
+                padding-bottom: 80px;
+            }
+
+            .app-container {
+                padding: 14px 12px 18px;
+                border-radius: 20px;
+            }
+
+            .product-hero h1 {
+                font-size: 20px;
+            }
+
+            .price-section .current {
+                font-size: 24px;
+            }
+
+            .slider-container {
+                height: 200px;
+            }
+
+            .slider-slide .icon-placeholder {
+                font-size: 48px;
+            }
+
+            .cta-row .btn {
+                min-width: 80px;
+                font-size: 12px;
+                padding: 11px 16px;
+            }
+
+            .benefit-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .benefit-grid .item {
+                padding: 10px;
+            }
+
+            .benefit-grid .item i {
+                font-size: 20px;
+            }
+
+            .modal {
+                padding: 20px 16px;
+            }
+
+            .modal .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .whatsapp-float {
+                width: 48px;
+                height: 48px;
+                font-size: 22px;
+                bottom: 85px;
+                right: 14px;
+            }
+
+            .sticky-bottom {
+                bottom: 72px;
+                padding: 0 10px;
+            }
+
+            .sticky-bottom .inner {
+                padding: 10px 14px;
+            }
+
+            .sticky-bottom .inner .price {
+                font-size: 16px;
+            }
+
+            .sticky-bottom .inner .btn {
+                font-size: 11px;
+                padding: 8px 14px;
+            }
+
+            .fixed-header {
+                padding: 8px 12px;
+            }
+
+            .fixed-header .logo-text {
+                font-size: 14px;
+            }
+
+            .fixed-header .logo-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .install-steps {
+                font-size: 10px;
+            }
+
+            .install-steps .step {
+                padding: 3px 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .benefit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-row .btn {
+                min-width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    
+        <!-- WhatsApp Float -->
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
-
+    <!-- ===== HEADER ===== -->
     <header class="fixed-header">
         <div class="logo-area">
             <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
             <div class="logo-text">Raj Marketing<span>Mysore</span></div>
         </div>
         <div class="header-actions">
-            <a href="customer-login.html" class="header-btn"><i class="fas fa-user"></i><span class="label">Customer</span></a>
-            <a href="dealer-login.html" class="header-btn"><i class="fas fa-user-tie"></i><span class="label">Dealer</span></a>
-            <a href="login.html" class="header-btn"><i class="fas fa-cog"></i><span class="label">Admin</span></a>
+            <a href="customer-login.html" class="header-btn">
+                <i class="fas fa-user"></i>
+                <span class="label">Customer</span>
+            </a>
+            <a href="dealer-login.html" class="header-btn">
+                <i class="fas fa-user-tie"></i>
+                <span class="label">Dealer</span>
+            </a>
+            <a href="login.html" class="header-btn">
+                <i class="fas fa-cog"></i>
+                <span class="label">Admin</span>
+            </a>
         </div>
     </header>
 
+    <!-- ===== MAIN CONTENT ===== -->
     <div class="app-container" id="mainContent">
-        <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading product...</div>
-    </div>
-
-    <div class="sticky-bottom" id="stickyBottom">
-        <div class="inner">
-            <span class="price" id="stickyPrice">₹0</span>
-            <button class="btn btn-primary" id="stickyCta" onclick="handlePrimaryCta()">Book Appointment</button>
+        <div class="loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading product details...</p>
         </div>
     </div>
 
-    <!-- Booking Modal -->
+    <!-- ===== STICKY BOTTOM ===== -->
+    <div class="sticky-bottom" id="stickyBottom">
+        <div class="inner">
+            <span class="price" id="stickyPrice">₹0 <span class="unit">/ sq.ft</span></span>
+            <button class="btn btn-primary" id="stickyCta" onclick="handlePrimaryCta()">📅 Book Appointment</button>
+        </div>
+    </div>
+
+    <!-- ===== BOOKING MODAL ===== -->
     <div class="modal-overlay" id="bookingModal">
         <div class="modal">
             <div class="modal-title">📅 Book Appointment</div>
             <form id="bookingForm" onsubmit="submitBooking(event)">
-                <div class="form-group"><label>Full Name *</label><input type="text" id="bName" required /></div>
-                <div class="form-group"><label>Mobile Number *</label><input type="tel" id="bMobile" required /></div>
-                <div class="form-group"><label>WhatsApp Number</label><input type="tel" id="bWhatsapp" /></div>
-                <div class="form-group"><label>Location / Address</label><input type="text" id="bAddress" /></div>
-                <div class="form-group"><label>Product</label><input type="text" id="bProduct" readonly /></div>
-                <div class="form-row">
-                    <div class="form-group"><label>Preferred Date</label><input type="date" id="bDate" /></div>
-                    <div class="form-group"><label>Preferred Time</label><select id="bTime"><option value="Morning">Morning</option><option value="Afternoon">Afternoon</option><option value="Evening">Evening</option></select></div>
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" id="bName" required placeholder="Enter your full name" />
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number <span class="required">*</span></label>
+                    <input type="tel" id="bMobile" required placeholder="10-digit mobile number" />
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="bWhatsapp" placeholder="If different from mobile" />
+                </div>
+                <div class="form-group">
+                    <label>Location / Address</label>
+                    <input type="text" id="bAddress" placeholder="Area, landmark, or full address" />
+                </div>
+                <div class="form-group">
+                    <label>Product</label>
+                    <input type="text" id="bProduct" readonly style="background:#f1f5f9; cursor:default;" />
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>No. of Windows</label><input type="number" id="bWindows" value="1" /></div>
-                    <div class="form-group"><label>No. of Doors</label><input type="number" id="bDoors" value="0" /></div>
+                    <div class="form-group">
+                        <label>Preferred Date</label>
+                        <input type="date" id="bDate" />
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Time</label>
+                        <select id="bTime">
+                            <option value="Morning">Morning</option>
+                            <option value="Afternoon">Afternoon</option>
+                            <option value="Evening">Evening</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group"><label>Message</label><textarea id="bMessage" rows="2" placeholder="Any special requirements..."></textarea></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>No. of Windows</label>
+                        <input type="number" id="bWindows" value="1" min="0" />
+                    </div>
+                    <div class="form-group">
+                        <label>No. of Doors</label>
+                        <input type="number" id="bDoors" value="0" min="0" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="bMessage" rows="2" placeholder="Any special requirements..."></textarea>
+                </div>
                 <div class="modal-actions">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
                     <button type="button" class="btn btn-secondary" onclick="closeModal('bookingModal')">Cancel</button>
@@ -219,17 +1438,28 @@
         </div>
     </div>
 
+    <!-- ===== FOOTER NAV ===== -->
     <footer class="fixed-footer">
-        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="products.html" class="nav-item active"><i class="fas fa-th-large"></i> Products</a>
-        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
-        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
-        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="products.html" class="nav-item active">
+            <i class="fas fa-th-large"></i> Products
+        </a>
+        <a href="appointment.html" class="nav-item">
+            <i class="fas fa-calendar-check"></i> Appointment
+        </a>
+        <a href="price-checker.html" class="nav-item">
+            <i class="fas fa-robot"></i> AI Price
+        </a>
+        <a href="dealer-dashboard.html" class="nav-item">
+            <i class="fas fa-handshake"></i> Dealer
+        </a>
     </footer>
 
     <script>
         // ============================================================
-        // PRODUCT DATABASE - All Products with Complete Data
+        // PRODUCT DATABASE - Full Data with Images
         // ============================================================
         const PRODUCT_DB = {
             'velcro-economic': {
@@ -245,12 +1475,23 @@
                 badge: 'velcro',
                 description: 'Economical Velcro mosquito net for windows and doors. Easy to install and remove.',
                 longDescription: 'The Velcro System – Economic offers affordable mosquito protection for homes and offices. It features high-quality velcro attachment for easy installation and removal. Perfect for windows and doors where you need quick access. Available in multiple colours to match your home decor.',
-                specs: { 'Product Type': 'Velcro Mosquito Net', 'Mesh': 'Polyester', 'Attachment': 'Velcro', 'Colours': 'Grey, Ivory, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                specs: {
+                    'Product Type': 'Velcro Mosquito Net',
+                    'Mesh': 'Polyester',
+                    'Attachment': 'Velcro',
+                    'Colours': 'Grey, Ivory, Black, White',
+                    'Custom Size': 'Yes',
+                    'Warranty': '1 Year'
+                },
                 benefits: ['Mosquito Protection', 'Easy Installation', 'Affordable', 'Multiple Colours', 'Removable'],
                 applications: ['Windows', 'Doors', 'Balcony', 'Kitchen', 'Bedroom'],
                 colours: ['Ivory', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'],
+                images: [
+                    'images/velcro-economic.jpg',
+                    'images/velcro-economic-2.jpg',
+                    'images/velcro-economic-3.jpg'
+                ],
                 faqs: [
                     { q: 'Can this be customized to my window size?', a: 'Yes, we provide custom sizing for all our Velcro nets. Just share your window dimensions during booking.' },
                     { q: 'Is installation included?', a: 'Professional installation is available at additional charges. You can select this during booking.' },
@@ -271,12 +1512,23 @@
                 badge: 'velcro',
                 description: 'Premium Saint-Gobain Velcro mosquito net with superior quality mesh.',
                 longDescription: 'Premium Saint-Gobain Velcro system offers superior mosquito protection with high-quality mesh. The Saint-Gobain mesh provides enhanced durability and better protection compared to standard mesh. Ideal for premium homes and offices.',
-                specs: { 'Product Type': 'Velcro Mosquito Net', 'Mesh': 'Saint-Gobain', 'Attachment': 'Velcro', 'Colours': 'Grey, Ivory, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                specs: {
+                    'Product Type': 'Velcro Mosquito Net',
+                    'Mesh': 'Saint-Gobain',
+                    'Attachment': 'Velcro',
+                    'Colours': 'Grey, Ivory, Black, White',
+                    'Custom Size': 'Yes',
+                    'Warranty': '1 Year'
+                },
                 benefits: ['Premium Quality', 'Superior Protection', 'Easy Installation', 'Multiple Colours', 'Durable'],
                 applications: ['Windows', 'Doors', 'Balcony', 'Premium Homes', 'Offices'],
                 colours: ['Ivory', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-vector-square', 'fas fa-vector-square', 'fas fa-vector-square'],
+                images: [
+                    'images/velcro-premium.jpg',
+                    'images/velcro-premium-2.jpg',
+                    'images/velcro-premium-3.jpg'
+                ],
                 faqs: [
                     { q: 'What is Saint-Gobain mesh?', a: 'Saint-Gobain mesh is a premium quality mosquito mesh with superior durability and protection.' },
                     { q: 'Is this better than regular velcro?', a: 'Yes, Saint-Gobain mesh offers enhanced durability and better protection compared to standard mesh.' }
@@ -296,12 +1548,23 @@
                 badge: 'frame',
                 description: 'Strong aluminium frame with black coated stainless steel mesh for durability.',
                 longDescription: 'Durable aluminium frame with black coated SS mesh. Perfect for windows and doors requiring robust protection. The black coating provides additional corrosion resistance and a sleek appearance. Available in multiple frame colours.',
-                specs: { 'Product Type': 'Aluminium Frame Mosquito Net', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '5 Years' },
+                specs: {
+                    'Product Type': 'Aluminium Frame Mosquito Net',
+                    'Mesh': 'Black Coated SS',
+                    'Frame': 'Aluminium',
+                    'Colours': 'Ivory, Honey Gold, Brown, Black, White',
+                    'Custom Size': 'Yes',
+                    'Warranty': '5 Years'
+                },
                 benefits: ['Durable Frame', 'Long-lasting', 'Strong Protection', 'Multiple Colours', 'Corrosion Resistant'],
                 applications: ['Windows', 'Doors', 'Commercial Buildings', 'Homes'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-border-all', 'fas fa-border-all', 'fas fa-border-all'],
+                images: [
+                    'images/aluminium-black-ss.jpg',
+                    'images/aluminium-black-ss-2.jpg',
+                    'images/aluminium-black-ss-3.jpg'
+                ],
                 faqs: [
                     { q: 'What is the warranty on aluminium frames?', a: 'Aluminium frames come with a 5-year warranty against manufacturing defects.' },
                     { q: 'Can I choose the frame colour?', a: 'Yes, we offer multiple frame colours including Ivory, Honey Gold, Brown, Black, and White.' }
@@ -321,12 +1584,23 @@
                 badge: 'frame',
                 description: 'Premium aluminium frame with bright SS 304 grade stainless steel mesh.',
                 longDescription: 'High-grade aluminium frame with bright SS 304 mesh. Premium choice for long-lasting mosquito protection. SS 304 is rust-resistant and offers superior durability compared to standard steel mesh.',
-                specs: { 'Product Type': 'Aluminium Frame Mosquito Net', 'Mesh': 'SS 304 Bright', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '5 Years' },
+                specs: {
+                    'Product Type': 'Aluminium Frame Mosquito Net',
+                    'Mesh': 'SS 304 Bright',
+                    'Frame': 'Aluminium',
+                    'Colours': 'Ivory, Honey Gold, Brown, Black, White',
+                    'Custom Size': 'Yes',
+                    'Warranty': '5 Years'
+                },
                 benefits: ['Premium Quality', 'SS 304 Mesh', 'Long-lasting', 'Multiple Colours', 'Rust Resistant'],
                 applications: ['Windows', 'Doors', 'Premium Homes', 'Commercial', 'Coastal Areas'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-border-all', 'fas fa-border-all', 'fas fa-border-all'],
+                images: [
+                    'images/aluminium-bright-ss.jpg',
+                    'images/aluminium-bright-ss-2.jpg',
+                    'images/aluminium-bright-ss-3.jpg'
+                ],
                 faqs: [
                     { q: 'What is SS 304 mesh?', a: 'SS 304 is a high-grade stainless steel mesh that is rust-resistant and durable.' },
                     { q: 'Is this suitable for coastal areas?', a: 'Yes, SS 304 mesh is rust-resistant and ideal for coastal areas.' }
@@ -346,12 +1620,23 @@
                 badge: 'premium',
                 description: 'Premium teakwood finish aluminium frame with black coated SS mesh.',
                 longDescription: 'Elegant teakwood finish frame with black coated SS mesh. Premium choice for luxury homes and offices. The teakwood finish gives a natural wood look while the aluminium frame provides strength and durability.',
-                specs: { 'Product Type': 'Premium Aluminium Frame', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium Teakwood', 'Colours': 'Teakwood', 'Custom Size': 'Yes', 'Warranty': '5 Years' },
+                specs: {
+                    'Product Type': 'Premium Aluminium Frame',
+                    'Mesh': 'Black Coated SS',
+                    'Frame': 'Aluminium Teakwood',
+                    'Colours': 'Teakwood',
+                    'Custom Size': 'Yes',
+                    'Warranty': '5 Years'
+                },
                 benefits: ['Premium Finish', 'Durable', 'Luxury Look', 'Strong Protection', 'Natural Wood Appearance'],
                 applications: ['Premium Windows', 'Luxury Doors', 'Villas', 'Apartments', 'High-end Homes'],
                 colours: ['Teakwood'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-crown', 'fas fa-crown', 'fas fa-crown'],
+                images: [
+                    'images/aluminium-teakwood.jpg',
+                    'images/aluminium-teakwood-2.jpg',
+                    'images/aluminium-teakwood-3.jpg'
+                ],
                 faqs: [
                     { q: 'What is teakwood finish?', a: 'Teakwood finish gives a premium wooden look to the aluminium frame, perfect for luxury interiors.' },
                     { q: 'Is this more expensive than regular frames?', a: 'Yes, the teakwood finish is a premium option with a higher price point.' }
@@ -371,12 +1656,25 @@
                 badge: 'pleated',
                 description: 'Premium gold pleated mosquito net with detachable design.',
                 longDescription: 'Elegant gold pleated net with detachable design. Perfect for main doors and large openings. The detachable feature allows easy removal for cleaning. The gold finish adds a touch of luxury to any entrance.',
-                specs: { 'Product Type': 'Pleated Mosquito Net', 'Mesh': 'Fibre', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Gold', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                specs: {
+                    'Product Type': 'Pleated Mosquito Net',
+                    'Mesh': 'Fibre',
+                    'Frame': 'Aluminium',
+                    'Section': '32mm',
+                    'Operation': 'Single',
+                    'Colour': 'Gold',
+                    'Custom Size': 'Yes',
+                    'Warranty': '1 Year'
+                },
                 benefits: ['Elegant Design', 'Easy Operation', 'Durable', 'Space Saving', 'Detachable for Cleaning'],
                 applications: ['Main Doors', 'Balcony Doors', 'Large Windows', 'Villas', 'Hotels'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                images: [
+                    'images/pleated-gold.jpg',
+                    'images/pleated-gold-2.jpg',
+                    'images/pleated-gold-3.jpg'
+                ],
                 faqs: [
                     { q: 'What is the difference between detachable and non-detachable?', a: 'Detachable nets can be easily removed for cleaning and storage.' },
                     { q: 'How long does installation take?', a: 'Pleated nets normally take around 3 days for manufacturing and installation, subject to availability.' }
@@ -396,12 +1694,25 @@
                 badge: 'pleated',
                 description: 'Premium platinum SS mesh pleated net with detachable design.',
                 longDescription: 'High-quality platinum SS mesh pleated net. Superior mosquito protection with elegant design. The SS mesh provides enhanced durability and protection compared to fibre mesh.',
-                specs: { 'Product Type': 'Pleated SS Mesh', 'Mesh': 'SS', 'Frame': 'Aluminium', 'Section': '25mm', 'Operation': 'Single', 'Colour': 'Platinum', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                specs: {
+                    'Product Type': 'Pleated SS Mesh',
+                    'Mesh': 'SS',
+                    'Frame': 'Aluminium',
+                    'Section': '25mm',
+                    'Operation': 'Single',
+                    'Colour': 'Platinum',
+                    'Custom Size': 'Yes',
+                    'Warranty': '1 Year'
+                },
                 benefits: ['SS Mesh', 'Elegant Design', 'Durable', 'Easy Operation', 'Detachable'],
                 applications: ['Premium Doors', 'Balcony', 'Villas', 'Apartments', 'Hotels'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                images: [
+                    'images/pleated-platinum.jpg',
+                      'images/pleated-platinum-2.jpg',
+                    'images/pleated-platinum-3.jpg'
+                ],
                 faqs: [
                     { q: 'What is platinum SS mesh?', a: 'Platinum SS mesh is a premium quality stainless steel mesh with enhanced durability.' },
                     { q: 'Is this better than gold mesh?', a: 'Yes, SS mesh offers superior durability and protection compared to fibre mesh.' }
@@ -421,12 +1732,25 @@
                 badge: 'pleated',
                 description: 'Premium diamond SS mesh pleated net with detachable design.',
                 longDescription: 'Premium diamond pattern SS mesh pleated net. Elegant and durable mosquito protection. The diamond pattern adds a unique aesthetic while the SS mesh provides superior protection.',
-                specs: { 'Product Type': 'Pleated SS Mesh', 'Mesh': 'SS Diamond', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Diamond', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                specs: {
+                    'Product Type': 'Pleated SS Mesh',
+                    'Mesh': 'SS Diamond',
+                    'Frame': 'Aluminium',
+                    'Section': '32mm',
+                    'Operation': 'Single',
+                    'Colour': 'Diamond',
+                    'Custom Size': 'Yes',
+                    'Warranty': '1 Year'
+                },
                 benefits: ['Diamond Design', 'SS Mesh', 'Elegant', 'Durable', 'Detachable'],
                 applications: ['Premium Doors', 'Balcony', 'Villas', 'Hotels', 'Restaurants'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                images: [
+                    'images/pleated-diamond.jpg',
+                    'images/pleated-diamond-2.jpg',
+                    'images/pleated-diamond-3.jpg'
+                ],
                 faqs: [
                     { q: 'What is diamond SS mesh?', a: 'Diamond SS mesh features a diamond pattern for enhanced aesthetics and durability.' },
                     { q: 'Is this suitable for commercial use?', a: 'Yes, it is ideal for hotels, restaurants, and commercial buildings.' }
@@ -446,12 +1770,25 @@
                 badge: 'pleated',
                 description: 'Premium honeycomb gold pleated net with detachable design.',
                 longDescription: 'Honeycomb gold pleated net combines elegance with effective mosquito protection. The honeycomb design provides a unique look while maintaining excellent ventilation and protection.',
-                specs: { 'Product Type': 'Honeycomb Net', 'Mesh': 'Fibre', 'Frame': 'Aluminium', 'Section': '32mm', 'Operation': 'Single', 'Colour': 'Gold', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                specs: {
+                    'Product Type': 'Honeycomb Net',
+                    'Mesh': 'Fibre',
+                    'Frame': 'Aluminium',
+                    'Section': '32mm',
+                    'Operation': 'Single',
+                    'Colour': 'Gold',
+                    'Custom Size': 'Yes',
+                    'Warranty': '1 Year'
+                },
                 benefits: ['Honeycomb Design', 'Elegant', 'Durable', 'Easy Operation', 'Detachable'],
                 applications: ['Premium Doors', 'Balcony', 'Villas', 'Apartments', 'Modern Homes'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-wind', 'fas fa-wind', 'fas fa-wind'],
+                images: [
+                    'images/honeycomb-gold.jpg',
+                    'images/honeycomb-gold-2.jpg',
+                    'images/honeycomb-gold-3.jpg'
+                ],
                 faqs: [
                     { q: 'What is honeycomb design?', a: 'Honeycomb design provides a unique and elegant look to the net with excellent ventilation.' },
                     { q: 'Is this suitable for modern homes?', a: 'Yes, the honeycomb design is perfect for modern and contemporary homes.' }
@@ -471,12 +1808,23 @@
                 badge: 'door',
                 description: 'Durable mesh door with black coated SS mesh. Perfect for main entrances.',
                 longDescription: 'Sturdy mesh door with black coated SS mesh for superior mosquito protection. The door is designed to provide full coverage for entrances while maintaining visibility and ventilation.',
-                specs: { 'Product Type': 'Mesh Door', 'Mesh': 'Black Coated SS', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                specs: {
+                    'Product Type': 'Mesh Door',
+                    'Mesh': 'Black Coated SS',
+                    'Frame': 'Aluminium',
+                    'Colours': 'Ivory, Honey Gold, Brown, Black, White',
+                    'Custom Size': 'Yes',
+                    'Warranty': '1 Year'
+                },
                 benefits: ['Strong Door', 'Mosquito Protection', 'Durable', 'Multiple Colours', 'Full Coverage'],
                 applications: ['Main Doors', 'Balcony Doors', 'Entrances', 'Commercial Buildings'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-door-open', 'fas fa-door-open', 'fas fa-door-open'],
+                images: [
+                    'images/mesh-door-black.jpg',
+                    'images/mesh-door-black-2.jpg',
+                    'images/mesh-door-black-3.jpg'
+                ],
                 faqs: [
                     { q: 'Is the mesh door suitable for main entrances?', a: 'Yes, mesh doors are perfect for main entrances and provide full coverage.' },
                     { q: 'Can I customize the size?', a: 'Yes, we provide custom sizing for all mesh doors.' }
@@ -496,12 +1844,23 @@
                 badge: 'door',
                 description: 'Premium mesh door with bright SS 304 mesh for maximum durability.',
                 longDescription: 'Premium mesh door with bright SS 304 mesh. Superior protection for your entrances. SS 304 mesh provides enhanced durability and rust resistance compared to standard steel mesh.',
-                specs: { 'Product Type': 'Mesh Door', 'Mesh': 'SS 304 Bright', 'Frame': 'Aluminium', 'Colours': 'Ivory, Honey Gold, Brown, Black, White', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+                specs: {
+                    'Product Type': 'Mesh Door',
+                    'Mesh': 'SS 304 Bright',
+                    'Frame': 'Aluminium',
+                    'Colours': 'Ivory, Honey Gold, Brown, Black, White',
+                    'Custom Size': 'Yes',
+                    'Warranty': '1 Year'
+                },
                 benefits: ['SS 304 Mesh', 'Premium Quality', 'Durable', 'Multiple Colours', 'Rust Resistant'],
                 applications: ['Main Doors', 'Balcony Doors', 'Entrances', 'Premium Homes', 'Coastal Areas'],
                 colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
                 types: ['Single', 'Double'],
-                images: ['fas fa-door-open', 'fas fa-door-open', 'fas fa-door-open'],
+                images: [
+                    'images/mesh-door-bright.jpg',
+                    'images/mesh-door-bright-2.jpg',
+                    'images/mesh-door-bright-3.jpg'
+                ],
                 faqs: [
                     { q: 'What makes SS 304 mesh better?', a: 'SS 304 is rust-resistant and offers superior durability compared to standard steel.' },
                     { q: 'Is this suitable for coastal areas?', a: 'Yes, SS 304 mesh is ideal for coastal areas due to its rust resistance.' }
@@ -510,6 +1869,9 @@
             }
         };
 
+        // ============================================================
+        // GLOBALS
+        // ============================================================
         let currentProduct = null;
         let currentSlide = 0;
 
@@ -517,16 +1879,20 @@
             return PRODUCT_DB[id] || null;
         }
 
+        // ============================================================
+        // LOAD PRODUCT
+        // ============================================================
         function loadProduct() {
             const params = new URLSearchParams(window.location.search);
             const id = params.get('id');
 
             if (!id) {
                 document.getElementById('mainContent').innerHTML = `
-                    <div style="text-align:center; padding:40px; color:#6b6b7b;">
-                        <i class="fas fa-exclamation-circle" style="font-size:32px; display:block; margin-bottom:8px;"></i>
-                        <h3>Product not found</h3>
-                        <a href="products.html" style="color:#0ea5e9; text-decoration:none;">← Back to Products</a>
+                    <div style="text-align:center; padding:50px 20px; color:#94a3b8;">
+                        <i class="fas fa-exclamation-circle" style="font-size:48px; display:block; margin-bottom:12px; color:#e2e8f0;"></i>
+                        <h3 style="color:#475569;">Product not found</h3>
+                        <p style="font-size:13px; margin-top:4px;">The product you're looking for doesn't exist.</p>
+                        <a href="products.html" style="display:inline-block; margin-top:12px; color:#0ea5e9; text-decoration:none; font-weight:600;">← Back to Products</a>
                     </div>
                 `;
                 return;
@@ -536,10 +1902,11 @@
 
             if (!currentProduct) {
                 document.getElementById('mainContent').innerHTML = `
-                    <div style="text-align:center; padding:40px; color:#6b6b7b;">
-                        <i class="fas fa-exclamation-circle" style="font-size:32px; display:block;margin-bottom:8px;"></i>
-                        <h3>Product not found</h3>
-                        <a href="products.html" style="color:#0ea5e9; text-decoration:none;">← Back to Products</a>
+                    <div style="text-align:center; padding:50px 20px; color:#94a3b8;">
+                        <i class="fas fa-exclamation-circle" style="font-size:48px; display:block; margin-bottom:12px; color:#e2e8f0;"></i>
+                        <h3 style="color:#475569;">Product not found</h3>
+                        <p style="font-size:13px; margin-top:4px;">The product you're looking for doesn't exist.</p>
+                        <a href="products.html" style="display:inline-block; margin-top:12px; color:#0ea5e9; text-decoration:none; font-weight:600;">← Back to Products</a>
                     </div>
                 `;
                 return;
@@ -548,14 +1915,16 @@
             renderProduct(currentProduct);
         }
 
+        // ============================================================
+        // RENDER PRODUCT
+        // ============================================================
         function renderProduct(product) {
             const isOnline = product.onlinePurchase !== false;
             const ctaText = isOnline ? '🛒 Buy Online' : '📅 Book Appointment';
             const ctaClass = isOnline ? 'btn-success' : 'btn-primary';
             const badgeClass = product.badge || 'velcro';
 
-            const images = product.images || ['fas fa-box', 'fas fa-box', 'fas fa-box'];
-
+            const images = product.images || ['images/placeholder.jpg', 'images/placeholder.jpg', 'images/placeholder.jpg'];
             const colours = product.colours || ['Ivory', 'Black', 'White'];
             const types = product.types || ['Single', 'Double'];
             const benefits = product.benefits || ['Mosquito Protection', 'Custom Measurements', 'Durable Materials'];
@@ -570,6 +1939,7 @@
                 'Warranty': 'As applicable'
             };
 
+            // Build HTML
             const specHtml = Object.entries(specs).map(([key, val]) =>
                 `<tr><td class="label">${key}</td><td class="value">${val}</td></tr>`
             ).join('');
@@ -587,8 +1957,8 @@
                 `<div class="item"><i class="fas fa-check-circle"></i><span>${b}</span></div>`
             ).join('');
 
-            const applicationHtml = applications.map(a =>
-                `<span style="background:#f1f5f9; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:500; display:inline-block; margin:2px;">${a}</span>`
+            const appHtml = applications.map(a =>
+                `<span class="tag">${a}</span>`
             ).join('');
 
             const faqHtml = faqs.map((f, i) =>
@@ -603,29 +1973,50 @@
             const originalHtml = product.originalPrice ?
                 `<span class="original">₹${product.originalPrice}</span>` : '';
 
-            // Related products
+            const availabilityHtml = isOnline ?
+                `<span class="availability-badge online"><i class="fas fa-check-circle"></i> Available Online</span>` :
+                `<span class="availability-badge appointment"><i class="fas fa-calendar-check"></i> Book Appointment</span>`;
+                        // Related products
             const relatedHtml = product.related ? product.related.map(id => {
                 const related = getProduct(id);
                 if (!related) return '';
+                const imgSrc = related.images ? related.images[0] : 'images/placeholder.jpg';
                 return `
                     <a href="product-detail.html?id=${related.id}" class="related-card">
-                        <span class="icon"><i class="${related.images ? related.images[0] : 'fas fa-box'}"></i></span>
-                        <span class="name">${related.name}</span>
+                        <div class="img-wrap">
+                            <img src="${imgSrc}" alt="${related.name}" loading="lazy" onerror="this.src='images/placeholder.jpg'" />
+                        </div>
+                        <div class="name">${related.name}</div>
+                        <div class="price">₹${related.price}</div>
                     </a>
                 `;
-            }).join('') : '<div style="grid-column:1/-1; text-align:center; color:#6b6b7b; font-size:13px;">No related products found.</div>';
+            }).join('') : '<div style="grid-column:1/-1; text-align:center; color:#94a3b8; font-size:13px; padding:10px;">No related products found.</div>';
 
+            // Slider images
+            const sliderHtml = images.map((src, i) => `
+                <div class="slider-slide">
+                    <img src="${src}" alt="${product.name}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-box icon-placeholder\\'></i>'" />
+                </div>
+            `).join('');
+
+            const dotsHtml = images.map((_, i) =>
+                `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>`
+            ).join('');
+
+            // Main content
             document.getElementById('mainContent').innerHTML = `
                 <div class="breadcrumb">
-                    <a href="index.html">Home</a><span class="sep">›</span>
-                    <a href="products.html">Products</a><span class="sep">›</span>
-                    <span>${product.name}</span>
+                    <a href="index.html">Home</a>
+                    <span class="sep">›</span>
+                    <a href="products.html">Products</a>
+                    <span class="sep">›</span>
+                    <span class="current">${product.name}</span>
                 </div>
 
                 <div class="product-hero">
                     <div class="badge-row">
                         <span class="tag tag-${badgeClass}">${product.category || 'Product'}</span>
-                        ${isOnline ? '<span class="tag tag-velcro" style="background:#d1fae5; color:#059669;">Buy Online</span>' : '<span class="tag tag-frame" style="background:#fef3c7; color:#d97706;">Book Appointment</span>'}
+                        ${availabilityHtml}
                     </div>
                     <h1>${product.name}</h1>
                     <div class="sub">${product.variant || ''}</div>
@@ -633,17 +2024,11 @@
 
                 <div class="slider-container">
                     <div class="slider-track" id="sliderTrack">
-                        ${images.map((src, i) => `
-                            <div class="slider-slide">
-                                ${src.startsWith('fas') ? `<i class="${src}"></i>` : `<img src="${src}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;" />`}
-                            </div>
-                        `).join('')}
+                        ${sliderHtml}
                     </div>
                     <button class="slider-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
                     <button class="slider-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
-                    <div class="slider-dots">
-                        ${images.map((_, i) => `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>`).join('')}
-                    </div>
+                    <div class="slider-dots">${dotsHtml}</div>
                 </div>
 
                 <div class="price-section">
@@ -654,79 +2039,128 @@
 
                 <div class="cta-row">
                     <button class="btn ${ctaClass}" onclick="handlePrimaryCta()">${ctaText}</button>
-                    <button class="btn btn-secondary" onclick="window.location.href='https://wa.me/919483037385?text=Hi%2C%20I%20want%20to%20know%20about%20${encodeURIComponent(product.name)}'"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                    <button class="btn btn-whatsapp" onclick="window.location.href='https://wa.me/919483037385?text=Hi%2C%20I%20want%20to%20know%20about%20${encodeURIComponent(product.name)}'">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='products.html'">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
                 </div>
 
                 ${isOnline ? `
-                    <div style="background:#f1f5f9; border-radius:16px; padding:16px; margin:12px 0;">
-                        <div style="font-weight:700; font-size:14px; margin-bottom:8px;">🛒 Quick Purchase</div>
-                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-                            <input type="number" id="qtyInput" value="1" min="1" style="width:60px; padding:8px; border:1px solid #e8ecf0; border-radius:12px; text-align:center; font-size:14px;" />
-                            <button class="btn btn-success" style="flex:1; padding:10px 20px; border-radius:40px; font-weight:700; font-size:13px; border:none; color:#fff; background:linear-gradient(145deg,#22c55e,#16a34a); cursor:pointer;" onclick="addToCart()">Add to Cart</button>
-                            <button class="btn btn-primary" style="flex:1; padding:10px 20px; border-radius:40px; font-weight:700; font-size:13px; border:none; color:#fff; background:linear-gradient(145deg,#0ea5e9,#0284c7); cursor:pointer;" onclick="buyNow()">Buy Now</button>
+                    <div class="notice-box success">
+                        <div class="title"><i class="fas fa-shopping-cart"></i> Quick Purchase</div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:6px;">
+                            <input type="number" id="qtyInput" value="1" min="1" style="width:70px; padding:10px 12px; border:1.5px solid #e2e8f0; border-radius:14px; text-align:center; font-size:14px; font-weight:600; outline:none;" />
+                            <button class="btn btn-success" style="flex:1; padding:10px 20px; border-radius:50px; font-weight:700; font-size:13px; border:none; color:#fff; background:linear-gradient(145deg,#22c55e,#16a34a); cursor:pointer; box-shadow:0 4px 14px rgba(34,197,94,0.3);" onclick="addToCart()">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button class="btn btn-primary" style="flex:1; padding:10px 20px; border-radius:50px; font-weight:700; font-size:13px; border:none; color:#fff; background:linear-gradient(145deg,#0ea5e9,#0284c7); cursor:pointer; box-shadow:0 4px 14px rgba(14,165,233,0.3);" onclick="buyNow()">
+                                <i class="fas fa-bolt"></i> Buy Now
+                            </button>
                         </div>
                     </div>
                 ` : `
-                    <div style="background:#fef3c7; border-radius:16px; padding:12px 16px; margin:12px 0; border-left:4px solid #f59e0b;">
-                        <span style="font-size:13px; color:#1a1a2e;">📐 This product requires professional measurement and installation.</span>
-                        <span style="font-size:12px; color:#6b6b7b; display:block; margin-top:2px;">Click "Book Appointment" to schedule a site visit.</span>
+                    <div class="notice-box warning">
+                        <div class="title"><i class="fas fa-ruler-combined"></i> Professional Installation Required</div>
+                        <p>This product requires professional measurement and installation. Click "Book Appointment" to schedule a site visit from our team.</p>
                     </div>
                 `}
 
-                <div class="section-title"><i class="fas fa-info-circle"></i> Description</div>
-                <p style="font-size:13px; color:#4a4a5a; line-height:1.7;">${product.description || 'Premium quality mosquito net from Raj Marketing Mysore.'}</p>
-                ${product.longDescription ? `<p style="font-size:13px; color:#4a4a5a; line-height:1.7; margin-top:6px;">${product.longDescription}</p>` : ''}
+                <div class="section-title">
+                    <i class="fas fa-info-circle"></i> Description
+                    <span class="title-line"></span>
+                </div>
+                <p style="font-size:13px; color:#475569; line-height:1.8;">${product.description || 'Premium quality mosquito net from Raj Marketing Mysore.'}</p>
+                ${product.longDescription ? `<p style="font-size:13px; color:#475569; line-height:1.8; margin-top:6px;">${product.longDescription}</p>` : ''}
 
-                <div class="section-title"><i class="fas fa-list"></i> Specifications</div>
+                <div class="section-title">
+                    <i class="fas fa-list"></i> Specifications
+                    <span class="title-line"></span>
+                </div>
                 <table class="spec-table">${specHtml}</table>
 
-                <div class="section-title"><i class="fas fa-palette"></i> Frame Colour</div>
+                <div class="section-title">
+                    <i class="fas fa-palette"></i> Frame Colour
+                    <span class="title-line"></span>
+                </div>
                 <div class="colour-selector">${colourHtml}</div>
 
-                <div class="section-title"><i class="fas fa-layer-group"></i> Type</div>
+                <div class="section-title">
+                    <i class="fas fa-layer-group"></i> Type
+                    <span class="title-line"></span>
+                </div>
                 <div class="type-selector">${typeHtml}</div>
 
-                <div class="section-title"><i class="fas fa-star"></i> Benefits</div>
+                <div class="section-title">
+                    <i class="fas fa-star"></i> Benefits
+                    <span class="title-line"></span>
+                </div>
                 <div class="benefit-grid">${benefitHtml}</div>
 
-                <div class="section-title"><i class="fas fa-check-circle"></i> Best For</div>
-                <div style="display:flex; gap:6px; flex-wrap:wrap;">${applicationHtml}</div>
+                <div class="section-title">
+                    <i class="fas fa-check-circle"></i> Best For
+                    <span class="title-line"></span>
+                </div>
+                <div class="app-tags">${appHtml}</div>
 
-                <div class="section-title"><i class="fas fa-cogs"></i> Installation Process</div>
-                <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:12px; color:#6b6b7b;">
-                    <span>1. Book Appointment</span><span>→</span>
-                    <span>2. Site Measurement</span><span>→</span>
-                    <span>3. Product Confirmation</span><span>→</span>
-                    <span>4. Manufacturing</span><span>→</span>
-                    <span>5. Installation</span>
+                <div class="section-title">
+                    <i class="fas fa-cogs"></i> Installation Process
+                    <span class="title-line"></span>
+                </div>
+                <div class="install-steps">
+                    <span class="step"><i class="fas fa-calendar-plus"></i> Book</span>
+                    <span class="arrow">→</span>
+                    <span class="step"><i class="fas fa-ruler"></i> Measure</span>
+                    <span class="arrow">→</span>
+                    <span class="step"><i class="fas fa-check-circle"></i> Confirm</span>
+                    <span class="arrow">→</span>
+                    <span class="step"><i class="fas fa-industry"></i> Manufacture</span>
+                    <span class="arrow">→</span>
+                    <span class="step"><i class="fas fa-tools"></i> Install</span>
                 </div>
 
-                <div class="section-title"><i class="fas fa-question-circle"></i> FAQs</div>
+                <div class="section-title">
+                    <i class="fas fa-question-circle"></i> FAQs
+                    <span class="title-line"></span>
+                </div>
                 ${faqHtml}
 
-                <div class="section-title"><i class="fas fa-link"></i> You May Also Like</div>
+                <div class="section-title">
+                    <i class="fas fa-link"></i> You May Also Like
+                    <span class="title-line"></span>
+                </div>
                 <div class="related-grid">${relatedHtml}</div>
 
-                <div style="background:#f1f5f9; border-radius:16px; padding:16px; margin:12px 0; text-align:center;">
-                    <div style="font-weight:700; font-size:14px; color:#1a1a2e;">Need Help?</div>
-                    <p style="font-size:12px; color:#6b6b7b;">Call us at <a href="tel:9483037385" style="color:#0ea5e9; text-decoration:none; font-weight:600;">9483037385</a></p>
-                    <div style="display:flex; gap:10px; justify-content:center; margin-top:8px;">
-                        <a href="https://wa.me/919483037385" target="_blank" style="background:#25D366; color:#fff; padding:8px 20px; border-radius:30px; text-decoration:none; font-weight:600; font-size:12px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                        <a href="tel:9483037385" style="background:#0ea5e9; color:#fff; padding:8px 20px; border-radius:30px; text-decoration:none; font-weight:600; font-size:12px;"><i class="fas fa-phone"></i> Call</a>
+                <div class="help-section">
+                    <div class="title">💬 Need Help?</div>
+                    <p>Call us at <strong style="color:#0ea5e9;">9483037385</strong> or reach out on WhatsApp</p>
+                    <div class="help-buttons">
+                        <a href="https://wa.me/919483037385" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="tel:9483037385" class="call"><i class="fas fa-phone"></i> Call Now</a>
                     </div>
                 </div>
 
                 <div class="footer-links">
-                    <a href="index.html">Home</a>| <a href="about.html">About</a>| <a href="contact.html">Contact</a>| <a href="terms.html">Terms</a>| <a href="privacy.html">Privacy</a>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="terms.html">Terms</a>
+                    <a href="privacy.html">Privacy</a>
                 </div>
-                <div class="footer-copyright">© 2026 Raj Marketing Mysore</div>
+                <div class="footer-copyright">© 2026 Raj Marketing · Mysore</div>
             `;
-                // Update sticky bottom
+
+            // Update sticky bottom
             const sticky = document.getElementById('stickyBottom');
             sticky.style.display = 'block';
-            document.getElementById('stickyPrice').textContent = `₹${product.price}/sq.ft`;
-            document.getElementById('stickyCta').textContent = isOnline ? '🛒 Buy Online' : '📅 Book Appointment';
-            document.getElementById('stickyCta').className = `btn ${isOnline ? 'btn-success' : 'btn-primary'}`;
+            document.getElementById('stickyPrice').innerHTML = `₹${product.price} <span class="unit">/ ${product.unit || 'sq.ft'}</span>`;
+            const stickyBtn = document.getElementById('stickyCta');
+            stickyBtn.textContent = isOnline ? '🛒 Buy Online' : '📅 Book Appointment';
+            stickyBtn.className = `btn ${isOnline ? 'btn-success' : 'btn-primary'}`;
+
+            // Update booking modal product
+            document.getElementById('bProduct').value = product.name;
 
             // Update SEO
             document.title = `${product.name} – Raj Marketing Mysore`;
@@ -734,8 +2168,6 @@
             if (metaDesc) {
                 metaDesc.content = `${product.name}. ${product.description || 'Premium mosquito net from Raj Marketing Mysore.'}`;
             }
-
-            document.getElementById('bProduct').value = product.name;
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
             console.log('✅ Product rendered:', product.name);
@@ -748,6 +2180,7 @@
             const track = document.getElementById('sliderTrack');
             if (!track) return;
             const slides = track.querySelectorAll('.slider-slide');
+            if (!slides.length) return;
             currentSlide = (currentSlide + direction + slides.length) % slides.length;
             track.style.transform = `translateX(-${currentSlide * (100 / slides.length)}%)`;
             document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
@@ -759,6 +2192,7 @@
             const track = document.getElementById('sliderTrack');
             if (!track) return;
             const slides = track.querySelectorAll('.slider-slide');
+            if (!slides.length) return;
             currentSlide = index;
             track.style.transform = `translateX(-${currentSlide * (100 / slides.length)}%)`;
             document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
@@ -766,6 +2200,9 @@
             });
         };
 
+        // ============================================================
+        // INTERACTION FUNCTIONS
+        // ============================================================
         window.selectColour = function(el, colour) {
             document.querySelectorAll('.colour-selector .colour').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
@@ -807,17 +2244,26 @@
             const mobile = document.getElementById('bMobile').value.trim();
 
             if (!name || !mobile) {
-                alert('Please enter your name and mobile number.');
+                alert('⚠️ Please enter your name and mobile number.');
                 return;
             }
 
             alert('✅ Appointment request received successfully! Our team will contact you to confirm.');
             closeModal('bookingModal');
+            document.getElementById('bookingForm').reset();
+            document.getElementById('bProduct').value = currentProduct ? currentProduct.name : '';
         };
 
         window.closeModal = function(id) {
             document.getElementById(id).classList.remove('active');
         };
+
+        // Close modal on overlay click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+            }
+        });
 
         // ============================================================
         // INIT
@@ -830,5 +2276,6 @@
 
         console.log('✅ Product detail page loaded');
     </script>
+
 </body>
 </html>
