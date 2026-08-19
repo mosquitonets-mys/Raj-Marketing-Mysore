@@ -35,72 +35,177 @@
             width: 100%;
             margin: 0 auto;
         }
-        
-/* ===== HEADER - White Background, Black Text/Icons ===== */
-.fixed-header {
-    background: #ffffff;
-    border-bottom: 1px solid #e8ecf0;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
-}
 
-.fixed-header .logo-text {
-    color: #0f172a;
-}
+        /* ============================================================
+           HEADER - White Background, Black Text/Icons
+        ============================================================ */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 540px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid #e8ecf0;
+            height: 72px;
+        }
 
-.fixed-header .logo-text span {
-    color: #64748b;
-}
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.fixed-header .header-btn {
-    color: #64748b;
-}
+        .fixed-header .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+            overflow: hidden;
+        }
 
-.fixed-header .header-btn i {
-    color: #0f172a;
-}
+        .fixed-header .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
 
-.fixed-header .header-btn .label {
-    color: #64748b;
-}
+        .fixed-header .logo-text {
+            font-weight: 800;
+            font-size: 18px;
+            color: #0f172a;
+            line-height: 1.1;
+            letter-spacing: -0.3px;
+        }
 
-.fixed-header .header-btn:hover {
-    background: #f0f9ff;
-    color: #0ea5e9;
-}
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 10px;
+            color: #64748b;
+            letter-spacing: 0.5px;
+        }
 
-.fixed-header .header-btn:hover i {
-    color: #0ea5e9;
-}
-        /* ===== FOOTER - White Background, Black Text/Icons ===== */
-.fixed-footer {
-    background: #ffffff;
-    border-top: 1px solid #e8ecf0;
-    box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.06);
-}
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 2px;
+            align-items: center;
+        }
 
-.fixed-footer .nav-item {
-    color: #64748b;
-}
+        .fixed-header .header-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: none;
+            min-width: 44px;
+            transition: all 0.25s ease;
+        }
 
-.fixed-footer .nav-item i {
-    color: #0f172a;
-}
+        .fixed-header .header-btn i {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 1px;
+            color: #0f172a;
+            transition: 0.2s;
+        }
 
-.fixed-footer .nav-item.active i {
-    color: #0ea5e9;
-}
+        .fixed-header .header-btn .label {
+            font-size: 7px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #64748b;
+        }
 
-.fixed-footer .nav-item.active {
-    color: #0ea5e9;
-    background: #f0f9ff;
-}
+        .fixed-header .header-btn:hover {
+            background: #f0f9ff;
+            color: #0ea5e9;
+        }
 
-.fixed-footer .nav-item:hover {
-    color: #0ea5e9;
-}
+        .fixed-header .header-btn:hover i {
+            color: #0ea5e9;
+        }
 
-.fixed-footer .nav-item:hover i {
-    color: #0ea5e9;
+        /* ============================================================
+           FOOTER - White Background, Black Text/Icons
+        ============================================================ */
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 540px;
+            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 8px 12px 12px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 28px 28px 0 0;
+            box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.06);
+            border-top: 1px solid #e8ecf0;
+        }
+
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 9px;
+            color: #64748b;
+            font-weight: 500;
+            gap: 2px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .fixed-footer .nav-item i {
+            font-size: 20px;
+            color: #0f172a;
+            transition: 0.2s;
+        }
+
+        .fixed-footer .nav-item.active i {
+            color: #0ea5e9;
+        }
+
+        .fixed-footer .nav-item.active {
+            color: #0ea5e9;
+            background: #f0f9ff;
+        }
+
+        .fixed-footer .nav-item:hover {
+            color: #0ea5e9;
+        }
+
+        .fixed-footer .nav-item:hover i {
+            color: #0ea5e9;
+            transform: translateY(-2px);
         }
 
         /* ============================================================
@@ -113,7 +218,7 @@
             position: relative;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             height: 200px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #e8ecf0;
         }
 
         .slider-track {
@@ -949,8 +1054,9 @@
         .dealer-banner .btn-dealer-outline:hover {
             border-color: #0ea5e9;
             background: rgba(14, 165, 233, 0.1);
-    }
-            /* ============================================================
+        }
+
+        /* ============================================================
            CTA SECTION
         ============================================================ */
         .cta-section {
@@ -1740,8 +1846,8 @@
                     <i class="fas fa-sign-in-alt"></i> Login
                 </a>
             </div>
-    </div>
-    
+        </div>
+
         <!-- ===== CTA SECTION ===== -->
         <div class="cta-section" onclick="window.location.href='appointment.html'">
             <h3>📅 Need a Mosquito Net?</h3>
@@ -2026,7 +2132,7 @@
                 results.classList.remove('active');
             }
         });
-                
+
         // ============================================================
         // SLIDER DOTS - Auto update active dot
         // ============================================================
@@ -2055,3 +2161,4 @@
     </script>
 </body>
 </html>
+```
