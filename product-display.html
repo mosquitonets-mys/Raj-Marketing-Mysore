@@ -3,78 +3,495 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Products</title>
+    <title>Product Catalog · Raj Marketing</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #f0f4f8; padding: 20px; }
-        .container { max-width: 480px; margin: 0 auto; }
-        .header { background: #fff; border-radius: 24px; padding: 16px 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
-        .header .logo { font-weight: 800; font-size: 18px; color: #1a1a2e; }
-        .header .logo span { display: block; font-size: 9px; color: #6b6b7b; font-weight: 400; }
-        .header .role-badge { padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 600; }
-        .role-customer { background: #dbeafe; color: #1d4ed8; }
-        .role-dealer { background: #d1fae5; color: #059669; }
-        .role-admin { background: #fef3c7; color: #d97706; }
-        .product-card { background: #fff; border-radius: 20px; padding: 16px; margin-bottom: 12px; border: 1px solid #e8ecf0; }
-        .product-card h3 { font-size: 15px; font-weight: 700; color: #1a1a2e; }
-        .product-card .variant { font-size: 12px; color: #6b6b7b; }
-        .product-card .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0ece6; }
-        .product-card .price-row .price { font-size: 18px; font-weight: 800; color: #0ea5e9; }
-        .product-card .price-row .dealer-price { font-size: 14px; font-weight: 600; color: #059669; }
-        .product-card .price-row .manufacturer { font-size: 12px; color: #6b6b7b; text-decoration: line-through; }
-        .product-card .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 9px; font-weight: 600; margin-top: 4px; }
-        .badge-velcro { background: #dbeafe; color: #1d4ed8; }
-        .badge-aluminium { background: #fef3c7; color: #d97706; }
-        .badge-pleated { background: #d1fae5; color: #059669; }
-        .badge-door { background: #fce4ec; color: #dc2626; }
-        .badge-premium { background: #fef3c7; color: #d97706; }
-        .hidden { display: none !important; }
-        .login-banner { background: #fff; border-radius: 20px; padding: 20px; text-align: center; border: 1px solid #e8ecf0; margin-bottom: 16px; }
-        .login-banner .btn { background: #0ea5e9; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 8px; }
-        .category-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-        .category-filter button { padding: 6px 14px; border-radius: 20px; border: 1px solid #e8ecf0; background: #fff; font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .category-filter button:hover, .category-filter button.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
-        .nav-links { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
-        .nav-links a { font-size: 11px; color: #0ea5e9; text-decoration: none; }
-        .nav-links a:hover { text-decoration: underline; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f0f4f8;
+            padding: 20px 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .header .logo {
+            font-weight: 800;
+            font-size: 20px;
+            color: #0f172a;
+            line-height: 1.1;
+        }
+
+        .header .logo span {
+            display: block;
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .header .user-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header .role-badge {
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .role-customer {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .role-dealer {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .role-admin {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .header .user-email {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* ===== LOGIN BANNER ===== */
+        .login-banner {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 18px 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .login-banner p {
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .login-banner .btn {
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            color: #fff;
+            padding: 10px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
+            transition: 0.3s;
+            font-size: 13px;
+        }
+
+        .login-banner .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.35);
+        }
+
+        .login-banner .logout-btn {
+            background: #fee2e2;
+            color: #dc2626;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-banner .logout-btn:hover {
+            background: #fecaca;
+        }
+
+        /* ===== CATEGORY FILTER ===== */
+        .category-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .category-filter button {
+            padding: 7px 18px;
+            border-radius: 30px;
+            border: 1.5px solid #e2e8f0;
+            background: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .category-filter button:hover {
+            background: #f0f9ff;
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+            transform: translateY(-1px);
+        }
+
+        .category-filter button.active {
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            color: #fff;
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
+        }
+
+        /* ===== PRODUCT CARD ===== */
+        .product-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .product-card:hover {
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .product-card .card-top {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .product-card .card-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 14px;
+            background: #f1f5f9;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .product-card .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-card .card-image .icon-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #94a3b8;
+        }
+
+        .product-card .card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .product-card .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 14px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 3px;
+        }
+
+        .badge-velcro {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        .badge-aluminium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .badge-premium {
+            background: #fef3c7;
+            color: #b45309;
+        }
+        .badge-pleated {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .badge-door {
+            background: #fce4ec;
+            color: #dc2626;
+        }
+
+        .product-card .product-name {
+            font-weight: 700;
+            font-size: 14px;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+
+        .product-card .product-variant {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .product-card .pricing-note {
+            font-size: 10px;
+            color: #94a3b8;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .product-card .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .product-card .price-display {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .product-card .price {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0ea5e9;
+        }
+
+        .product-card .dealer-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #059669;
+        }
+
+        .product-card .manufacturer-price {
+            font-size: 12px;
+            color: #94a3b8;
+            text-decoration: line-through;
+        }
+
+        .product-card .original-price {
+            font-size: 13px;
+            color: #94a3b8;
+            text-decoration: line-through;
+        }
+
+        .product-card .unit {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .product-card .admin-info {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 4px;
+            padding-top: 4px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        /* ===== NAV LINKS ===== */
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 14px 0 10px 0;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            color: #0ea5e9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            padding: 4px 0;
+        }
+
+        .nav-links a:hover {
+            color: #0284c7;
+            text-decoration: underline;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-text {
+            font-size: 9px;
+            color: #cbd5e1;
+            text-align: center;
+            margin-top: 16px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 12px;
+            color: #e2e8f0;
+        }
+
+        .empty-state h3 {
+            color: #475569;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 420px) {
+            body {
+                padding: 12px 10px;
+            }
+
+            .header {
+                padding: 14px 16px;
+            }
+
+            .header .logo {
+                font-size: 17px;
+            }
+
+            .product-card .card-image {
+                width: 64px;
+                height: 64px;
+            }
+
+            .product-card .product-name {
+                font-size: 13px;
+            }
+
+            .product-card .price {
+                font-size: 16px;
+            }
+
+            .product-card .dealer-price {
+                font-size: 14px;
+            }
+
+            .category-filter button {
+                font-size: 10px;
+                padding: 5px 14px;
+            }
+
+            .login-banner {
+                padding: 14px 16px;
+            }
+
+            .login-banner .btn {
+                font-size: 12px;
+                padding: 8px 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .product-card .card-top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .product-card .card-image {
+                width: 100%;
+                height: 120px;
+            }
+
+            .product-card .card-bottom {
+                flex-direction: column;
+                gap: 6px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- ===== HEADER ===== -->
         <div class="header">
             <div class="logo">Raj Marketing <span>Mysore</span></div>
-            <div>
+            <div class="user-area">
                 <span class="role-badge role-customer" id="roleBadge">👤 Customer</span>
-                <span style="margin-left:8px; font-size:10px; color:#6b6b7b;" id="userNameDisplay"></span>
+                <span class="user-email" id="userNameDisplay"></span>
             </div>
         </div>
 
-        <!-- Login/Status Banner -->
+        <!-- ===== LOGIN BANNER ===== -->
         <div id="loginBanner" class="login-banner">
-            <p style="font-size:13px; color:#6b6b7b;">🔒 You are viewing <strong>customer prices</strong></p>
+            <p>🔒 You are viewing <strong>customer prices</strong></p>
             <a href="dealer-login.html" class="btn">🔑 Dealer Login</a>
-            <span style="margin:0 8px; color:#6b6b7b;">|</span>
-            <a href="login.html" style="font-size:12px; color:#0ea5e9; text-decoration:none;">Admin Login</a>
+            <span style="margin:0 10px; color:#94a3b8;">|</span>
+            <a href="login.html" style="font-size:12px; color:#0ea5e9; text-decoration:none; font-weight:500;">Admin Login</a>
         </div>
 
-        <!-- Category Filter -->
+        <!-- ===== CATEGORY FILTER ===== -->
         <div class="category-filter" id="categoryFilter">
             <button class="active" onclick="filterCategory('all')">All</button>
             <button onclick="filterCategory('Velcro')">Velcro</button>
-            <button onclick="filterCategory('Aluminium Frame')">Aluminium</button>
-            <button onclick="filterCategory('Premium Aluminium')">Premium</button>
+            <button onclick="filterCategory('Aluminium')">Aluminium</button>
+            <button onclick="filterCategory('Premium')">Premium</button>
             <button onclick="filterCategory('Pleated')">Pleated</button>
-            <button onclick="filterCategory('Mesh Door')">Mesh Door</button>
+            <button onclick="filterCategory('Door')">Door</button>
         </div>
 
-        <!-- Product List -->
-        <div id="productList"></div>
+        <!-- ===== PRODUCT LIST ===== -->
+        <div id="productList">
+            <div class="empty-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <h3>Loading products...</h3>
+            </div>
+        </div>
 
-        <!-- Navigation -->
+        <!-- ===== NAV LINKS ===== -->
         <div class="nav-links">
             <a href="index.html">🏠 Home</a>
             <a href="estimate.html">📐 Estimate</a>
@@ -82,9 +499,7 @@
             <a href="price-checker.html">🤖 AI Price Check</a>
         </div>
 
-        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:16px;">
-            Raj Marketing Mysore · Product Catalog
-        </div>
+        <div class="footer-text">Raj Marketing Mysore · Product Catalog</div>
     </div>
 
     <script type="module">
@@ -93,21 +508,39 @@
         import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
         import { getPricingEngine } from "./pricing-engine.js";
 
+        // ============================================================
+        // STATE
+        // ============================================================
         let allProducts = [];
         let pricingEngine = null;
         let currentUser = null;
         let userRole = 'customer';
         let dealerData = null;
+        let currentCategory = 'all';
+
+        // Product image mapping - same as products page
+        const productImages = {
+            'velcro-economic': 'images/velcro-economic.jpg',
+            'velcro-premium': 'images/velcro-premium.jpg',
+            'aluminium-black-ss': 'images/aluminium-black-ss.jpg',
+            'aluminium-bright-ss': 'images/aluminium-bright-ss.jpg',
+            'aluminium-teakwood': 'images/aluminium-teakwood.jpg',
+            'pleated-gold': 'images/pleated-gold.jpg',
+            'pleated-platinum': 'images/pleated-platinum.jpg',
+            'pleated-diamond': 'images/pleated-diamond.jpg',
+            'honeycomb-gold': 'images/honeycomb-gold.jpg',
+            'mesh-door-black': 'images/mesh-door-black.jpg',
+            'mesh-door-bright': 'images/mesh-door-bright.jpg'
+        };
 
         // ============================================================
-        // INITIALIZE
+        // INIT
         // ============================================================
         async function init() {
             try {
-                // Get pricing engine
                 pricingEngine = await getPricingEngine();
 
-                // Load products from Firebase
+                // Load products
                 const productSnap = await getDocs(collection(db, 'products'));
                 allProducts = [];
                 productSnap.forEach(doc => {
@@ -121,7 +554,6 @@
                     prices[doc.id] = doc.data();
                 });
 
-                // Merge products with prices
                 allProducts = allProducts.map(p => ({
                     ...p,
                     priceData: prices[p.id] || null
@@ -129,11 +561,10 @@
 
                 console.log('✅ Products loaded:', allProducts.length);
 
-                // Check authentication
+                // Auth state
                 onAuthStateChanged(auth, async (user) => {
                     currentUser = user;
                     if (user) {
-                        // Check if user is dealer
                         const dealerSnap = await getDocs(query(collection(db, 'dealers'), where('uid', '==', user.uid)));
                         if (!dealerSnap.empty) {
                             dealerData = { id: dealerSnap.docs[0].id, ...dealerSnap.docs[0].data() };
@@ -143,7 +574,6 @@
                                 document.getElementById('roleBadge').className = 'role-badge role-dealer';
                             }
                         } else {
-                            // Check if admin
                             const adminEmails = ['rajmarketingmys@gmail.com'];
                             if (adminEmails.includes(user.email)) {
                                 userRole = 'admin';
@@ -153,29 +583,31 @@
                         }
                         document.getElementById('userNameDisplay').textContent = user.email;
                         document.getElementById('loginBanner').innerHTML = `
-                            <p style="font-size:13px; color:#6b6b7b;">👋 Logged in as <strong>${user.email}</strong></p>
-                            <span style="font-size:12px; color:#0ea5e9;">Role: ${userRole}</span>
-                            <button onclick="logout()" style="margin-left:12px; background:#fee2e2; color:#dc2626; border:none; padding:4px 12px; border-radius:16px; font-size:11px; cursor:pointer;">Logout</button>
+                            <p style="font-size:13px; color:#475569;">👋 Logged in as <strong>${user.email}</strong></p>
+                            <span style="font-size:12px; color:#0ea5e9; font-weight:500;">Role: ${userRole}</span>
+                            <button onclick="logout()" class="logout-btn" style="margin-left:12px;">Logout</button>
                         `;
                     } else {
                         userRole = 'customer';
                         document.getElementById('roleBadge').textContent = '👤 Customer';
                         document.getElementById('roleBadge').className = 'role-badge role-customer';
                         document.getElementById('loginBanner').innerHTML = `
-                            <p style="font-size:13px; color:#6b6b7b;">🔒 You are viewing <strong>customer prices</strong></p>
+                            <p>🔒 You are viewing <strong>customer prices</strong></p>
                             <a href="dealer-login.html" class="btn">🔑 Dealer Login</a>
-                            <span style="margin:0 8px; color:#6b6b7b;">|</span>
-                            <a href="login.html" style="font-size:12px; color:#0ea5e9; text-decoration:none;">Admin Login</a>
+                            <span style="margin:0 10px; color:#94a3b8;">|</span>
+                            <a href="login.html" style="font-size:12px; color:#0ea5e9; text-decoration:none; font-weight:500;">Admin Login</a>
                         `;
                     }
-                    renderProducts(allProducts);
+                    renderProducts(allProducts, currentCategory);
                 });
 
             } catch (error) {
                 console.error('❌ Init error:', error);
                 document.getElementById('productList').innerHTML = `
-                    <div style="padding:20px; text-align:center; color:#dc2626;">
-                        <i class="fas fa-exclamation-circle"></i> Error loading products: ${error.message}
+                    <div class="empty-state" style="color:#dc2626;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h3>Error loading products</h3>
+                        <p style="font-size:13px; margin-top:4px;">${error.message}</p>
                     </div>
                 `;
             }
@@ -193,112 +625,357 @@
         // ============================================================
         // RENDER PRODUCTS
         // ============================================================
-        function renderProducts(products, category = 'all') {
-            const container = document.getElementById('productList');
+        function renderProduct(product) {
+            const isOnline = product.onlinePurchase !== false;
+            const ctaText = isOnline ? '🛒 Buy Online' : '📅 Book Appointment';
+            const ctaClass = isOnline ? 'btn-success' : 'btn-primary';
+            const badgeClass = product.badge || 'velcro';
 
-            let filtered = products;
-            if (category !== 'all') {
-                filtered = products.filter(p => p.category === category);
-            }
+            const images = product.images || ['images/placeholder.jpg', 'images/placeholder.jpg', 'images/placeholder.jpg'];
+            const colours = product.colours || ['Ivory', 'Black', 'White'];
+            const types = product.types || ['Single', 'Double'];
+            const benefits = product.benefits || ['Mosquito Protection', 'Custom Measurements', 'Durable Materials'];
+            const applications = product.applications || ['Windows', 'Doors', 'Balcony'];
+            const faqs = product.faqs || [{ q: 'Can this be customized?', a: 'Yes, custom sizes are available.' }];
 
-            // Sort: Velcro first, then Aluminium, then others
-            const order = ['Velcro', 'Aluminium Frame', 'Premium Aluminium', 'Pleated', 'Mesh Door'];
-            filtered.sort((a, b) => {
-                const idxA = order.indexOf(a.category);
-                const idxB = order.indexOf(b.category);
-                return (idxA === -1 ? 999 : idxA) - (idxB === -1 ? 999 : idxB);
-            });
+            const specs = product.specs || {
+                'Product Type': product.category || 'Mosquito Net',
+                'Mesh': 'Premium Quality',
+                'Frame': 'Aluminium',
+                'Custom Size': 'Yes',
+                'Warranty': 'As applicable'
+            };
 
-            if (!filtered.length) {
-                container.innerHTML = `<div style="text-align:center; padding:30px; color:#6b6b7b;">No products found in this category.</div>`;
-                return;
-            }
+            // Build HTML
+            const specHtml = Object.entries(specs).map(([key, val]) =>
+                `<tr><td class="label">${key}</td><td class="value">${val}</td></tr>`
+            ).join('');
 
-            container.innerHTML = filtered.map(p => {
-                // Determine price display based on role
-                let priceDisplay = '';
-                const price = p.priceData;
-
-                if (userRole === 'admin' || userRole === 'dealer') {
-                    // Show dealer price if available
-                    if (price && price.dealerBasePrice) {
-                        priceDisplay = `
-                            <span class="dealer-price">₹${price.dealerBasePrice}</span>
-                            ${price.customerPrice ? `<span style="font-size:11px; color:#6b6b7b; text-decoration:line-through; margin-left:8px;">₹${price.customerPrice}</span>` : ''}
-                            ${price.manufacturerRate ? `<span style="font-size:10px; color:#6b6b7b; margin-left:8px;">(Mfr: ₹${price.manufacturerRate})</span>` : ''}
-                        `;
-                    } else if (price && price.customerPrice) {
-                        priceDisplay = `<span class="price">₹${price.customerPrice}</span>`;
-                    } else {
-                        priceDisplay = `<span style="color:#6b6b7b;">Price on request</span>`;
-                    }
-                } else {
-                    // Customer view - only show customer price
-                    if (price && price.customerPrice) {
-                        priceDisplay = `<span class="price">₹${price.customerPrice}</span>`;
-                    } else if (price && price.manufacturerRate) {
-                        // For pleated products, show customer price = manufacturer × 2
-                        const customerPrice = price.manufacturerRate * 2;
-                        priceDisplay = `<span class="price">₹${customerPrice}</span>`;
-                    } else {
-                        priceDisplay = `<span style="color:#6b6b7b;">Price on request</span>`;
-                    }
-                }
-
-                // Badge based on category
-                let badgeClass = 'badge-velcro';
-                let badgeText = p.category || 'Product';
-                if (p.category === 'Velcro') { badgeClass = 'badge-velcro'; badgeText = 'Velcro'; }
-                else if (p.category === 'Aluminium Frame') { badgeClass = 'badge-aluminium'; badgeText = 'Aluminium'; }
-                else if (p.category === 'Premium Aluminium') { badgeClass = 'badge-premium'; badgeText = 'Premium'; }
-                else if (p.category === 'Pleated') { badgeClass = 'badge-pleated'; badgeText = 'Pleated'; }
-                else if (p.category === 'Mesh Door') { badgeClass = 'badge-door'; badgeText = 'Door'; }
-
-                // For manufacturer-based pricing, show pricing model
-                let pricingNote = '';
-                if (p.pricingModel === 'manufacturer_x2') {
-                    pricingNote = `<span style="font-size:10px; color:#6b6b7b; display:block;">💰 Customer price = Manufacturer × 2</span>`;
-                }
-
-                return `
-                    <div class="product-card">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div>
-                                <span class="badge ${badgeClass}">${badgeText}</span>
-                                <h3>${p.name || p.productName || 'Product'}</h3>
-                                <div class="variant">${p.variant || ''}</div>
-                                ${pricingNote}
-                            </div>
-                        </div>
-                        <div class="price-row">
-                            <span>${priceDisplay}</span>
-                            <span style="font-size:11px; color:#6b6b7b;">${p.unit || 'sq.ft'}</span>
-                        </div>
-                        ${userRole === 'admin' ? `
-                            <div style="font-size:10px; color:#6b6b7b; margin-top:4px; padding-top:4px; border-top:1px solid #f0ece6;">
-                                <span>ID: ${p.id}</span>
-                                <span style="margin-left:12px;">Model: ${p.pricingModel || 'direct'}</span>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
+            const colourHtml = colours.map(c => {
+                const colourClass = c.toLowerCase().replace(/ /g, '-');
+                return `<span class="colour colour-${colourClass}" onclick="selectColour(this, '${c}')" title="${c}"></span>`;
             }).join('');
+
+            const typeHtml = types.map(t =>
+                `<span class="type ${t === types[0] ? 'active' : ''}" onclick="selectType(this, '${t}')">${t}</span>`
+            ).join('');
+
+            const benefitHtml = benefits.map(b =>
+                `<div class="item"><i class="fas fa-check-circle"></i><span>${b}</span></div>`
+            ).join('');
+
+            const appHtml = applications.map(a =>
+                `<span class="tag">${a}</span>`
+            ).join('');
+
+            const faqHtml = faqs.map((f, i) =>
+                `<div class="faq-item ${i === 0 ? 'open' : ''}" onclick="toggleFaq(this)">
+                    <div class="q"><span>${f.q}</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="a">${f.a}</div>
+                </div>`
+            ).join('');
+
+            const discountHtml = product.discount ?
+                `<span class="discount-badge">${product.discount}% OFF</span>` : '';
+            const originalHtml = product.originalPrice ?
+                `<span class="original">₹${product.originalPrice}</span>` : '';
+
+            const availabilityHtml = isOnline ?
+                `<span class="availability-badge online"><i class="fas fa-check-circle"></i> Available Online</span>` :
+                `<span class="availability-badge appointment"><i class="fas fa-calendar-check"></i> Book Appointment</span>`;
+
+            // Related products
+            const relatedHtml = product.related ? product.related.map(id => {
+                const related = getProduct(id);
+                if (!related) return '';
+                const imgSrc = related.images ? related.images[0] : 'images/placeholder.jpg';
+                return `
+                    <a href="product-detail.html?id=${related.id}" class="related-card">
+                        <div class="img-wrap">
+                            <img src="${imgSrc}" alt="${related.name}" loading="lazy" onerror="this.src='images/placeholder.jpg'" />
+                        </div>
+                        <div class="name">${related.name}</div>
+                        <div class="price">₹${related.price}</div>
+                    </a>
+                `;
+            }).join('') : '<div style="grid-column:1/-1; text-align:center; color:#94a3b8; font-size:13px; padding:10px;">No related products found.</div>';
+
+            // Slider images
+            const sliderHtml = images.map((src, i) => `
+                <div class="slider-slide">
+                    <img src="${src}" alt="${product.name}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-box icon-placeholder\\'></i>'" />
+                </div>
+            `).join('');
+
+            const dotsHtml = images.map((_, i) =>
+                `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>`
+            ).join('');
+
+            // Main content
+            document.getElementById('mainContent').innerHTML = `
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="sep">›</span>
+                    <a href="products.html">Products</a>
+                    <span class="sep">›</span>
+                    <span class="current">${product.name}</span>
+                </div>
+
+                <div class="product-hero">
+                    <div class="badge-row">
+                        <span class="tag tag-${badgeClass}">${product.category || 'Product'}</span>
+                        ${availabilityHtml}
+                    </div>
+                    <h1>${product.name}</h1>
+                    <div class="sub">${product.variant || ''}</div>
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-track" id="sliderTrack">
+                        ${sliderHtml}
+                    </div>
+                    <button class="slider-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    <div class="slider-dots">${dotsHtml}</div>
+                </div>
+
+                <div class="price-section">
+                    <span class="current">₹${product.price} <span class="unit">/ ${product.unit || 'sq.ft'}</span></span>
+                    ${originalHtml}
+                    ${discountHtml}
+                </div>
+
+                <div class="cta-row">
+                    <button class="btn ${ctaClass}" onclick="handlePrimaryCta()">${ctaText}</button>
+                    <button class="btn btn-whatsapp" onclick="window.location.href='https://wa.me/919483037385?text=Hi%2C%20I%20want%20to%20know%20about%20${encodeURIComponent(product.name)}'">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='products.html'">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
+
+                ${isOnline ? `
+                    <div class="notice-box success">
+                        <div class="title"><i class="fas fa-shopping-cart"></i> Quick Purchase</div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:6px;">
+                            <input type="number" id="qtyInput" value="1" min="1" style="width:70px; padding:10px 12px; border:1.5px solid #e2e8f0; border-radius:14px; text-align:center; font-size:14px; font-weight:600; outline:none;" />
+                            <button class="btn btn-success" style="flex:1; padding:10px 20px; border-radius:50px; font-weight:700; font-size:13px; border:none; color:#fff; background:linear-gradient(145deg,#22c55e,#16a34a); cursor:pointer; box-shadow:0 4px 14px rgba(34,197,94,0.3);" onclick="addToCart()">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button class="btn btn-primary" style="flex:1; padding:10px 20px; border-radius:50px; font-weight:700; font-size:13px; border:none; color:#fff; background:linear-gradient(145deg,#0ea5e9,#0284c7); cursor:pointer; box-shadow:0 4px 14px rgba(14,165,233,0.3);" onclick="buyNow()">
+                                <i class="fas fa-bolt"></i> Buy Now
+                            </button>
+                        </div>
+                    </div>
+                ` : `
+                    <div class="notice-box warning">
+                        <div class="title"><i class="fas fa-ruler-combined"></i> Professional Installation Required</div>
+                        <p>This product requires professional measurement and installation. Click "Book Appointment" to schedule a site visit from our team.</p>
+                    </div>
+                `}
+
+                <div class="section-title">
+                    <i class="fas fa-info-circle"></i> Description
+                    <span class="title-line"></span>
+                </div>
+                <p style="font-size:13px; color:#475569; line-height:1.8;">${product.description || 'Premium quality mosquito net from Raj Marketing Mysore.'}</p>
+                ${product.longDescription ? `<p style="font-size:13px; color:#475569; line-height:1.8; margin-top:6px;">${product.longDescription}</p>` : ''}
+
+                <div class="section-title">
+                    <i class="fas fa-list"></i> Specifications
+                    <span class="title-line"></span>
+                </div>
+                <table class="spec-table">${specHtml}</table>
+
+                <div class="section-title">
+                    <i class="fas fa-palette"></i> Frame Colour
+                    <span class="title-line"></span>
+                </div>
+                <div class="colour-selector">${colourHtml}</div>
+
+                <div class="section-title">
+                    <i class="fas fa-layer-group"></i> Type
+                    <span class="title-line"></span>
+                </div>
+                <div class="type-selector">${typeHtml}</div>
+
+                <div class="section-title">
+                    <i class="fas fa-star"></i> Benefits
+                    <span class="title-line"></span>
+                </div>
+                <div class="benefit-grid">${benefitHtml}</div>
+
+                <div class="section-title">
+                    <i class="fas fa-check-circle"></i> Best For
+                    <span class="title-line"></span>
+                </div>
+                <div class="app-tags">${appHtml}</div>
+
+                <div class="section-title">
+                    <i class="fas fa-cogs"></i> Installation Process
+                    <span class="title-line"></span>
+                </div>
+                <div class="install-steps">
+                    <span class="step"><i class="fas fa-calendar-plus"></i> Book</span>
+                    <span class="arrow">→</span>
+                    <span class="step"><i class="fas fa-ruler"></i> Measure</span>
+                    <span class="arrow">→</span>
+                    <span class="step"><i class="fas fa-check-circle"></i> Confirm</span>
+                    <span class="arrow">→</span>
+                    <span class="step"><i class="fas fa-industry"></i> Manufacture</span>
+                    <span class="arrow">→</span>
+                    <span class="step"><i class="fas fa-tools"></i> Install</span>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-question-circle"></i> FAQs
+                    <span class="title-line"></span>
+                </div>
+                ${faqHtml}
+
+                <div class="section-title">
+                    <i class="fas fa-link"></i> You May Also Like
+                    <span class="title-line"></span>
+                </div>
+                <div class="related-grid">${relatedHtml}</div>
+
+                <div class="help-section">
+                    <div class="title">💬 Need Help?</div>
+                    <p>Call us at <strong style="color:#0ea5e9;">9483037385</strong> or reach out on WhatsApp</p>
+                    <div class="help-buttons">
+                        <a href="https://wa.me/919483037385" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="tel:9483037385" class="call"><i class="fas fa-phone"></i> Call Now</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="terms.html">Terms</a>
+                    <a href="privacy.html">Privacy</a>
+                </div>
+                <div class="footer-copyright">© 2026 Raj Marketing · Mysore</div>
+            `;
+
+            // Update sticky bottom
+            const sticky = document.getElementById('stickyBottom');
+            sticky.style.display = 'block';
+            document.getElementById('stickyPrice').innerHTML = `₹${product.price} <span class="unit">/ ${product.unit || 'sq.ft'}</span>`;
+            const stickyBtn = document.getElementById('stickyCta');
+            stickyBtn.textContent = isOnline ? '🛒 Buy Online' : '📅 Book Appointment';
+            stickyBtn.className = `btn ${isOnline ? 'btn-success' : 'btn-primary'}`;
+
+            // Update booking modal product
+            document.getElementById('bProduct').value = product.name;
+
+            // Update SEO
+            document.title = `${product.name} – Raj Marketing Mysore`;
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.content = `${product.name}. ${product.description || 'Premium mosquito net from Raj Marketing Mysore.'}`;
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            console.log('✅ Product rendered:', product.name);
         }
 
         // ============================================================
-        // FILTER CATEGORY
+        // SLIDER FUNCTIONS
         // ============================================================
-        window.filterCategory = function(category) {
-            document.querySelectorAll('.category-filter button').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.category-filter button[onclick="filterCategory('${category}')"]`)?.classList.add('active');
-            renderProducts(allProducts, category);
+        window.changeSlide = function(direction) {
+            const track = document.getElementById('sliderTrack');
+            if (!track) return;
+            const slides = track.querySelectorAll('.slider-slide');
+            if (!slides.length) return;
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            track.style.transform = `translateX(-${currentSlide * (100 / slides.length)}%)`;
+            document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        };
+
+        window.goToSlide = function(index) {
+            const track = document.getElementById('sliderTrack');
+            if (!track) return;
+            const slides = track.querySelectorAll('.slider-slide');
+            if (!slides.length) return;
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * (100 / slides.length)}%)`;
+            document.querySelectorAll('.slider-dots .dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
         };
 
         // ============================================================
+        // INTERACTION FUNCTIONS
+        // ============================================================
+        window.selectColour = function(el, colour) {
+            document.querySelectorAll('.colour-selector .colour').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            console.log('Selected colour:', colour);
+        };
+
+        window.selectType = function(el, type) {
+            document.querySelectorAll('.type-selector .type').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            console.log('Selected type:', type);
+        };
+
+        window.toggleFaq = function(el) {
+            el.classList.toggle('open');
+        };
+
+        window.handlePrimaryCta = function() {
+            if (currentProduct && currentProduct.onlinePurchase !== false) {
+                const qty = document.getElementById('qtyInput')?.value || 1;
+                alert(`🛒 Buy Online: ${currentProduct.name}\nPrice: ₹${currentProduct.price}/sq.ft\nQuantity: ${qty}\n\nThis will redirect to checkout.`);
+            } else {
+                document.getElementById('bookingModal').classList.add('active');
+            }
+        };
+
+        window.addToCart = function() {
+            const qty = document.getElementById('qtyInput')?.value || 1;
+            alert(`🛒 Added to cart:\n${currentProduct.name}\n₹${currentProduct.price}/sq.ft × ${qty}\nTotal: ₹${currentProduct.price * qty}`);
+        };
+
+        window.buyNow = function() {
+            const qty = document.getElementById('qtyInput')?.value || 1;
+            alert(`🛒 Buy Now:\n${currentProduct.name}\n₹${currentProduct.price}/sq.ft × ${qty}\nTotal: ₹${currentProduct.price * qty}\n\nRedirecting to checkout...`);
+        };
+
+        window.submitBooking = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('bName').value.trim();
+            const mobile = document.getElementById('bMobile').value.trim();
+
+            if (!name || !mobile) {
+                alert('⚠️ Please enter your name and mobile number.');
+                return;
+            }
+
+            alert('✅ Appointment request received successfully! Our team will contact you to confirm.');
+            closeModal('bookingModal');
+            document.getElementById('bookingForm').reset();
+            document.getElementById('bProduct').value = currentProduct ? currentProduct.name : '';
+        };
+
+        window.closeModal = function(id) {
+            document.getElementById(id).classList.remove('active');
+        };
+        // ============================================================
         // INIT
         // ============================================================
-        init();
-        console.log('✅ Product display page loaded');
+        loadProduct();
+
+        window.addEventListener('popstate', function() {
+            loadProduct();
+        });
+
+        console.log('✅ Product detail page loaded');
     </script>
+
 </body>
 </html>
