@@ -1868,7 +1868,672 @@
                 related: ['mesh-door-black', 'aluminium-bright-ss', 'pleated-platinum']
             }
         };
+   const PRODUCT_DB = {
+    // ===== PLEATED PRODUCTS =====
+    'pleated-economic': {
+        id: 'pleated-economic',
+        name: 'Pleated Economic',
+        category: 'Pleated',
+        variant: 'Standard Pleated',
+        price: '380-460',
+        displayPrice: 420,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'pleated',
+        description: 'Economical pleated mosquito net for windows and doors. Compact folding design that retracts neatly when not in use.',
+        longDescription: 'The Economic Pleated mosquito net offers excellent value for money. It features a compact folding mechanism that allows the net to retract neatly when not in use, saving space and maintaining the aesthetic of your windows and doors. Ideal for residential and commercial applications where budget is a consideration.',
+        specs: {
+            'Product Type': 'Pleated Mosquito Net',
+            'Mesh': 'Fiber Mesh',
+            'Frame': 'Aluminium',
+            'Operation': 'Pleated Folding',
+            'Custom Size': 'Yes',
+            'Warranty': '1 Year'
+        },
+        benefits: ['Space Saving Design', 'Easy Operation', 'Affordable', 'Custom Sizes', 'Neat Appearance'],
+        applications: ['Windows', 'Doors', 'Balcony', 'Kitchen', 'Bedroom'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
+        types: ['Single', 'Double'],
+        images: ['images/pleated-economic.jpg', 'images/pleated-economic-2.jpg', 'images/pleated-economic-3.jpg'],
+        faqs: [
+            { q: 'What is the price range for Economic Pleated?', a: 'The Economic Pleated starts from ₹380/sq.ft and goes up to ₹460/sq.ft depending on the size and configuration.' },
+            { q: 'Is installation included?', a: 'Professional installation is available at additional charges. You can select this during booking.' }
+        ],
+        related: ['pleated-heavy', 'single-sliding-economic', 'aluminium-frame-colour-mesh']
+    },
+    'pleated-heavy': {
+        id: 'pleated-heavy',
+        name: 'Pleated Heavy',
+        category: 'Pleated',
+        variant: 'Heavy Duty',
+        price: '450-460',
+        displayPrice: 455,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'pleated',
+        description: 'Heavy duty pleated mosquito net with stronger construction for high-traffic areas.',
+        longDescription: 'The Heavy Pleated mosquito net is built with stronger materials and construction for areas with high traffic and frequent use. It offers superior durability while maintaining the space-saving benefits of pleated design. Perfect for commercial spaces, main entrances, and high-use doors.',
+        specs: {
+            'Product Type': 'Pleated Mosquito Net',
+            'Mesh': 'Heavy Fiber Mesh',
+            'Frame': 'Reinforced Aluminium',
+            'Operation': 'Pleated Folding',
+            'Custom Size': 'Yes',
+            'Warranty': '2 Years'
+        },
+        benefits: ['Heavy Duty Construction', 'High Durability', 'Space Saving', 'Smooth Operation', 'Long Lasting'],
+        applications: ['Main Doors', 'Commercial Entrances', 'High Traffic Areas', 'Offices', 'Shops'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
+        types: ['Single', 'Double'],
+        images: ['images/pleated-heavy.jpg', 'images/pleated-heavy-2.jpg', 'images/pleated-heavy-3.jpg'],
+        faqs: [
+            { q: 'What makes Heavy Pleated different from Economic?', a: 'Heavy Pleated uses stronger materials and construction for better durability in high-traffic areas.' },
+            { q: 'Is this suitable for commercial use?', a: 'Yes, Heavy Pleated is ideal for commercial spaces, shops, and offices with high foot traffic.' }
+        ],
+        related: ['pleated-top-heavy', 'heavy-detachable-pleated', 'security-screen-single-door']
+    },
+    'pleated-top-heavy': {
+        id: 'pleated-top-heavy',
+        name: 'Pleated Top Heavy',
+        category: 'Pleated',
+        variant: 'Top Heavy',
+        price: '510',
+        displayPrice: 510,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'pleated',
+        description: 'Premium top-heavy pleated net with superior durability and smooth operation.',
+        longDescription: 'Top Heavy Pleated mosquito net features enhanced top rail construction for superior durability and smooth operation. The reinforced top section ensures long-lasting performance even with frequent use. Perfect for premium residential and commercial applications.',
+        specs: {
+            'Product Type': 'Pleated Mosquito Net',
+            'Mesh': 'Premium Fiber Mesh',
+            'Frame': 'Reinforced Aluminium',
+            'Operation': 'Pleated Folding',
+            'Custom Size': 'Yes',
+            'Warranty': '2 Years'
+        },
+        benefits: ['Top Heavy Construction', 'Superior Durability', 'Smooth Operation', 'Premium Quality', 'Long Lasting'],
+        applications: ['Premium Doors', 'Main Entrances', 'Villas', 'Hotels', 'Corporate Offices'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
+        types: ['Single', 'Double'],
+        images: ['images/pleated-top-heavy.jpg', 'images/pleated-top-heavy-2.jpg', 'images/pleated-top-heavy-3.jpg'],
+        faqs: [
+            { q: 'What is Top Heavy construction?', a: 'Top Heavy construction features reinforced top rail for better durability and smoother operation.' },
+            { q: 'Is this better than regular Heavy Pleated?', a: 'Yes, Top Heavy offers enhanced durability with reinforced top section for long-lasting performance.' }
+        ],
+        related: ['pleated-heavy', 'ss-pleated-economic', 'woodgrain-ss-304-mesh']
+    },
+    'ss-pleated-economic': {
+        id: 'ss-pleated-economic',
+        name: 'SS Pleated / SS Economic',
+        category: 'Pleated',
+        variant: 'Stainless Steel Pleated',
+        price: '470',
+        displayPrice: 470,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'pleated',
+        description: 'Stainless steel pleated mosquito net for enhanced durability and protection.',
+        longDescription: 'SS Pleated mosquito net features stainless steel mesh for superior durability and protection. The stainless steel construction provides better resistance to wear, tear, and corrosion compared to standard fiber mesh. Ideal for areas requiring enhanced protection.',
+        specs: {
+            'Product Type': 'Pleated Mosquito Net',
+            'Mesh': 'Stainless Steel',
+            'Frame': 'Aluminium',
+            'Operation': 'Pleated Folding',
+            'Custom Size': 'Yes',
+            'Warranty': '2 Years'
+        },
+        benefits: ['SS Mesh', 'Enhanced Durability', 'Corrosion Resistant', 'Superior Protection', 'Long Lasting'],
+        applications: ['Premium Doors', 'Main Entrances', 'Coastal Areas', 'Villas', 'Hotels'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
+        types: ['Single', 'Double'],
+        images: ['images/ss-pleated.jpg', 'images/ss-pleated-2.jpg', 'images/ss-pleated-3.jpg'],
+        faqs: [
+            { q: 'What is the advantage of SS mesh?', a: 'SS mesh offers better durability, corrosion resistance, and protection compared to fiber mesh.' },
+            { q: 'Is this suitable for coastal areas?', a: 'Yes, SS mesh is corrosion-resistant and ideal for coastal areas.' }
+        ],
+        related: ['pleated-heavy', 'pleated-top-heavy', 'ss-black-mesh']
+    },
+    'heavy-detachable-pleated': {
+        id: 'heavy-detachable-pleated',
+        name: 'Heavy Detachable Pleated',
+        category: 'Pleated',
+        variant: 'Heavy Detachable',
+        price: '460',
+        displayPrice: 460,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'pleated',
+        description: 'Heavy detachable pleated net that can be easily removed for cleaning and storage.',
+        longDescription: 'Heavy Detachable Pleated mosquito net combines durability with convenience. The detachable design allows easy removal for cleaning, maintenance, and storage during off-seasons. Perfect for areas where flexibility and ease of maintenance are important.',
+        specs: {
+            'Product Type': 'Pleated Mosquito Net',
+            'Mesh': 'Heavy Fiber Mesh',
+            'Frame': 'Aluminium',
+            'Operation': 'Detachable Pleated',
+            'Custom Size': 'Yes',
+            'Warranty': '2 Years'
+        },
+        benefits: ['Detachable Design', 'Easy Cleaning', 'Heavy Duty', 'Flexible', 'Convenient'],
+        applications: ['Doors', 'Windows', 'Balcony', 'Kitchen', 'Seasonal Use'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
+        types: ['Single', 'Double'],
+        images: ['images/heavy-detachable-pleated.jpg', 'images/heavy-detachable-pleated-2.jpg', 'images/heavy-detachable-pleated-3.jpg'],
+        faqs: [
+            { q: 'How does detachable design work?', a: 'The detachable design allows the net to be easily removed for cleaning and maintenance.' },
+            { q: 'Is this suitable for seasonal use?', a: 'Yes, the detachable design makes it perfect for seasonal use and storage.' }
+        ],
+        related: ['pleated-heavy', 'economic-woodgrain-pleated', 'single-door-pleated']
+    },
+    'economic-woodgrain-pleated': {
+        id: 'economic-woodgrain-pleated',
+        name: 'Economic Woodgrain Pleated',
+        category: 'Pleated',
+        variant: 'Woodgrain Finish',
+        price: '460',
+        displayPrice: 460,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'pleated',
+        description: 'Economic pleated net with elegant woodgrain finish for premium appearance.',
+        longDescription: 'Economic Woodgrain Pleated mosquito net offers the perfect blend of affordability and aesthetics. The woodgrain finish provides a premium look that complements any interior design, while the economic pricing makes it accessible for all budgets.',
+        specs: {
+            'Product Type': 'Pleated Mosquito Net',
+            'Mesh': 'Fiber Mesh',
+            'Frame': 'Aluminium with Woodgrain Finish',
+            'Operation': 'Pleated Folding',
+            'Custom Size': 'Yes',
+            'Warranty': '1 Year'
+        },
+        benefits: ['Woodgrain Finish', 'Premium Appearance', 'Affordable', 'Space Saving', 'Elegant Design'],
+        applications: ['Premium Doors', 'Windows', 'Villas', 'Apartments', 'Modern Homes'],
+        colours: ['Teakwood', 'Honey Gold', 'Brown'],
+        types: ['Single', 'Double'],
+        images: ['images/woodgrain-pleated.jpg', 'images/woodgrain-pleated-2.jpg', 'images/woodgrain-pleated-3.jpg'],
+        faqs: [
+            { q: 'What is woodgrain finish?', a: 'Woodgrain finish gives a premium wooden appearance to the aluminium frame for aesthetic appeal.' },
+            { q: 'Is this more expensive than regular economic?', a: 'Yes, the woodgrain finish adds a premium touch at a slightly higher price point.' }
+        ],
+        related: ['pleated-economic', 'woodgrain-ss-304-mesh', 'pleated-heavy']
+    },
+    'honeycomb-mesh-double-door': {
+        id: 'honeycomb-mesh-double-door',
+        name: 'Honeycomb + Mesh Double Door',
+        category: 'Honeycomb',
+        variant: 'Double Door',
+        price: '680',
+        displayPrice: 680,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'honeycomb',
+        description: 'Premium honeycomb mesh with double door configuration for large openings.',
+        longDescription: 'Honeycomb Mesh Double Door combines the unique honeycomb design with mesh protection for large openings. The honeycomb structure provides excellent ventilation while maintaining privacy and protection. Ideal for main entrances, balconies, and large door openings.',
+        specs: {
+            'Product Type': 'Honeycomb Net',
+            'Mesh': 'Premium Fiber',
+            'Frame': 'Aluminium',
+            'Configuration': 'Double Door',
+            'Custom Size': 'Yes',
+            'Warranty': '2 Years'
+        },
+        benefits: ['Honeycomb Design', 'Double Door Configuration', 'Excellent Ventilation', 'Privacy Protection', 'Premium Appearance'],
+        applications: ['Main Doors', 'Large Openings', 'Balcony Doors', 'Villas', 'Apartments'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
+        types: ['Double Door'],
+        images: ['images/honeycomb-double-door.jpg', 'images/honeycomb-double-door-2.jpg', 'images/honeycomb-double-door-3.jpg'],
+        faqs: [
+            { q: 'What is honeycomb design?', a: 'Honeycomb design provides a unique aesthetic with excellent ventilation and privacy protection.' },
+            { q: 'Is this suitable for double doors?', a: 'Yes, it is specifically designed for double door configurations.' }
+        ],
+        related: ['single-door-pleated', 'security-screen-double-door', 'double-sliding-economic']
+    },
+    // ===== SLIDING PRODUCTS =====
+    'single-sliding-economic': {
+        id: 'single-sliding-economic',
+        name: 'Single Sliding Economic',
+        category: 'Sliding',
+        variant: 'Single Sliding',
+        price: '400',
+        displayPrice: 400,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'sliding',
+        description: 'Economical single sliding mosquito net for windows and small doors.',
+        longDescription: 'Single Sliding Economic mosquito net offers convenient sliding operation for windows and small doors. The sliding mechanism allows easy opening and closing without swinging the door. Perfect for spaces where a hinged door is not practical.',
+        specs: {
+            'Product Type': 'Sliding Mosquito Net',
+            'Mesh': 'Fiber Mesh',
+            'Frame': 'Aluminium',
+            'Operation': 'Single Sliding',
+            'Custom Size': 'Yes',
+            'Warranty': '1 Year'
+        },
+        benefits: ['Sliding Operation', 'Space Saving', 'Easy Operation', 'Affordable', 'Convenient'],
+        applications: ['Windows', 'Small Doors', 'Kitchen', 'Bedroom', 'Bathroom'],
+        colours: ['Ivory', 'Black', 'White'],
+        types: ['Single'],
+        images: ['images/single-sliding.jpg', 'images/single-sliding-2.jpg', 'images/single-sliding-3.jpg'],
+        faqs: [
+            { q: 'How does sliding operation work?', a: 'The net slides horizontally on tracks for easy opening and closing without door swing.' },
+            { q: 'Is this suitable for small openings?', a: 'Yes, single sliding is perfect for windows and small door openings.' }
+        ],
+        related: ['double-sliding-economic', 'pleated-economic', 'aluminium-frame-colour-mesh']
+    },
+    'double-sliding-economic': {
+        id: 'double-sliding-economic',
+        name: 'Double Sliding Economic',
+        category: 'Sliding',
+        variant: 'Double Sliding',
+        price: '450',
+        displayPrice: 450,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'sliding',
+        description: 'Economical double sliding mosquito net for wider openings and double-panel operation.',
+        longDescription: 'Double Sliding Economic mosquito net features two sliding panels for wider openings. The double-panel design allows for better coverage of large openings while maintaining the convenience of sliding operation. Ideal for large windows, balcony doors, and wide entrances.',
+        specs: {
+            'Product Type': 'Sliding Mosquito Net',
+            'Mesh': 'Fiber Mesh',
+            'Frame': 'Aluminium',
+            'Operation': 'Double Sliding',
+            'Custom Size': 'Yes',
+            'Warranty': '1 Year'
+        },
+        benefits: ['Double Sliding', 'Wide Coverage', 'Space Saving', 'Easy Operation', 'Convenient'],
+        applications: ['Large Windows', 'Balcony Doors', 'Wide Entrances', 'Living Room', 'Shop Doors'],
+        colours: ['Ivory', 'Black', 'White'],
+        types: ['Double'],
+        images: ['images/double-sliding.jpg', 'images/double-sliding-2.jpg', 'images/double-sliding-3.jpg'],
+        faqs: [
+            { q: 'What is double sliding?', a: 'Double sliding features two sliding panels for wider openings and better coverage.' },
+            { q: 'Is this suitable for balcony doors?', a: 'Yes, double sliding is perfect for balcony doors and wide entrances.' }
+        ],
+        related: ['single-sliding-economic', 'honeycomb-mesh-double-door', 'security-screen-double-door']
+    },
+    'single-door-pleated': {
+        id: 'single-door-pleated',
+        name: 'Single Door Pleated',
+        category: 'Pleated',
+        variant: 'Single Door',
+        price: '900',
+        displayPrice: 900,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'pleated',
+        description: 'Pleated mosquito net specially designed for single door installations.',
+        longDescription: 'Single Door Pleated mosquito net is specifically designed for standard single door installations. The pleated design allows the net to fold compactly when not in use, saving space and providing easy access. Perfect for home entrances, office doors, and shop entrances.',
+        specs: {
+            'Product Type': 'Pleated Door Net',
+            'Mesh': 'Premium Fiber Mesh',
+            'Frame': 'Aluminium',
+            'Operation': 'Pleated Folding',
+            'Custom Size': 'Yes',
+            'Warranty': '2 Years'
+        },
+        benefits: ['Door Design', 'Space Saving', 'Easy Access', 'Durable', 'Custom Sizes'],
+        applications: ['Main Doors', 'Office Doors', 'Shop Entrances', 'Balcony Doors', 'Home Entrances'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White', 'Teakwood'],
+        types: ['Single Door'],
+        images: ['images/single-door-pleated.jpg', 'images/single-door-pleated-2.jpg', 'images/single-door-pleated-3.jpg'],
+        faqs: [
+            { q: 'Is this suitable for main doors?', a: 'Yes, single door pleated is perfect for main entrances and standard doors.' },
+            { q: 'How does this compare to sliding?', a: 'Pleated design folds compactly when not in use, while sliding requires side space for panels.' }
+        ],
+        related: ['pleated-heavy', 'security-screen-single-door', 'single-sliding-economic']
+    },
+    // ===== SECURITY SCREEN PRODUCTS =====
+    'security-screen-single-door': {
+        id: 'security-screen-single-door',
+        name: 'Security Screen – Single Door',
+        category: 'Security',
+        variant: 'Single Door + GST',
+        price: '990',
+        displayPrice: 990,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'security',
+        description: 'Premium security screen for single door with robust protection against insects and intruders.',
+        longDescription: 'Security Screen Single Door provides maximum protection with robust construction. Designed to protect against both insects and intruders, this security screen is perfect for main entrances requiring enhanced security. The heavy-duty mesh and frame provide peace of mind.',
+        specs: {
+            'Product Type': 'Security Screen',
+            'Mesh': 'Heavy Duty SS Mesh',
+            'Frame': 'Reinforced Aluminium',
+            'Configuration': 'Single Door',
+            'Custom Size': 'Yes',
+            'Warranty': '3 Years'
+        },
+        benefits: ['Security Protection', 'Insect Protection', 'Heavy Duty', 'Durable', 'Peace of Mind'],
+        applications: ['Main Doors', 'Entrances', 'Security Doors', 'Commercial Buildings', 'Villas'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
+        types: ['Single Door'],
+        images: ['images/security-screen-single.jpg', 'images/security-screen-single-2.jpg', 'images/security-screen-single-3.jpg'],
+        faqs: [
+            { q: 'What makes Security Screen different?', a: 'Security Screen features heavy-duty mesh and frame for enhanced protection against intruders.' },
+            { q: 'Is GST included in the price?', a: 'The price shown is + GST. Taxes will be applied as per government regulations.' }
+        ],
+        related: ['security-screen-double-door', 'single-door-pleated', 'ss-black-304g-0.5mm']
+    },
+    'security-screen-double-door': {
+        id: 'security-screen-double-door',
+        name: 'Security Screen – Double Door',
+        category: 'Security',
+        variant: 'Double Door + GST',
+        price: '1150',
+        displayPrice: 1150,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'security',
+        description: 'Premium security screen for double door with maximum protection and durability.',
+        longDescription: 'Security Screen Double Door provides maximum protection for larger entrances. Designed with heavy-duty materials for enhanced security against both insects and intruders. Perfect for double door configurations requiring the highest level of protection.',
+        specs: {
+            'Product Type': 'Security Screen',
+            'Mesh': 'Heavy Duty SS Mesh',
+            'Frame': 'Reinforced Aluminium',
+            'Configuration': 'Double Door',
+            'Custom Size': 'Yes',
+            'Warranty': '3 Years'
+        },
+        benefits: ['Maximum Security', 'Double Door Coverage', 'Heavy Duty', 'Durable', 'Peace of Mind'],
+        applications: ['Double Doors', 'Main Entrances', 'Security Doors', 'Commercial Buildings', 'Villas'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
+        types: ['Double Door'],
+        images: ['images/security-screen-double.jpg', 'images/security-screen-double-2.jpg', 'images/security-screen-double-3.jpg'],
+        faqs: [
+            { q: 'Is this suitable for double doors?', a: 'Yes, it is specifically designed for double door configurations with enhanced security.' },
+            { q: 'What is the warranty period?', a: 'Security Screens come with a 3-year warranty against manufacturing defects.' }
+        ],
+        related: ['security-screen-single-door', 'double-sliding-economic', 'honeycomb-mesh-double-door']
+    },
+    // ===== ALUMINIUM FRAME PRODUCTS =====
+    'aluminium-frame-colour-mesh': {
+        id: 'aluminium-frame-colour-mesh',
+        name: 'Aluminium Frame + Colour Mesh',
+        category: 'Aluminium',
+        variant: 'Colour Mesh',
+        price: '420',
+        displayPrice: 420,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'frame',
+        description: 'Durable aluminium frame with colour-coated mesh for windows and doors.',
+        longDescription: 'Aluminium Frame with Colour Mesh combines durability with aesthetic appeal. The aluminium frame provides strength and longevity while the colour-coated mesh adds visual appeal. Available in multiple colours to match your home decor.',
+        specs: {
+            'Product Type': 'Aluminium Frame',
+            'Mesh': 'Colour Coated Mesh',
+            'Frame': 'Aluminium',
+            'Colours': 'Ivory, Honey Gold, Brown, Black, White',
+            'Custom Size': 'Yes',
+            'Warranty': '5 Years'
+        },
+        benefits: ['Durable Frame', 'Colour Options', 'Long Lasting', 'Strong Protection', 'Corrosion Resistant'],
+        applications: ['Windows', 'Doors', 'Commercial Buildings', 'Homes', 'Apartments'],
+        colours: ['Ivory', 'Honey Gold', 'Brown', 'Black', 'White'],
+        types: ['Single', 'Double'],
+        images: ['images/aluminium-colour-mesh.jpg', 'images/aluminium-colour-mesh-2.jpg', 'images/aluminium-colour-mesh-3.jpg'],
+        faqs: [
+            { q: 'What is the warranty on aluminium frames?', a: 'Aluminium frames come with a 5-year warranty against manufacturing defects.' },
+            { q: 'Can I choose the frame colour?', a: 'Yes, we offer multiple frame colours including Ivory, Honey Gold, Brown, Black, and White.' }
+        ],
+        related: ['woodgrain-ss-304-mesh', 'single-sliding-economic', 'pleated-economic']
+    },
+    'woodgrain-ss-304-mesh': {
+        id: 'woodgrain-ss-304-mesh',
+        name: 'Woodgrain + SS 304 Mesh',
+        category: 'Aluminium',
+        variant: 'Woodgrain + SS 304',
+        price: '580',
+        displayPrice: 580,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'premium',
+        description: 'Premium woodgrain finish aluminium frame with SS 304 mesh for superior durability.',
+        longDescription: 'Woodgrain + SS 304 Mesh combines premium aesthetics with superior protection. The woodgrain finish provides a natural wood appearance while the SS 304 mesh offers enhanced durability and corrosion resistance. Perfect for premium homes and commercial spaces.',
+        specs: {
+            'Product Type': 'Premium Aluminium Frame',
+            'Mesh': 'SS 304 Mesh',
+            'Frame': 'Aluminium with Woodgrain Finish',
+            'Colours': 'Teakwood, Honey Gold, Brown',
+            'Custom Size': 'Yes',
+            'Warranty': '5 Years'
+        },
+        benefits: ['Woodgrain Finish', 'SS 304 Mesh', 'Premium Quality', 'Durable', 'Corrosion Resistant'],
+        applications: ['Premium Windows', 'Luxury Doors', 'Villas', 'Apartments', 'High-end Homes'],
+        colours: ['Teakwood', 'Honey Gold', 'Brown'],
+        types: ['Single', 'Double'],
+        images: ['images/woodgrain-ss304.jpg', 'images/woodgrain-ss304-2.jpg', 'images/woodgrain-ss304-3.jpg'],
+        faqs: [
+            { q: 'What is SS 304 mesh?', a: 'SS 304 is a high-grade stainless steel mesh that is rust-resistant and durable.' },
+            { q: 'Is this suitable for coastal areas?', a: 'Yes, SS 304 mesh is rust-resistant and ideal for coastal areas.' }
+        ],
+        related: ['aluminium-frame-colour-mesh', 'ss-black-304g-0.5mm', 'economic-woodgrain-pleated']
+    },
+    // ===== MESH PRODUCTS =====
+    'ss-black-mesh-0.18mm': {
+        id: 'ss-black-mesh-0.18mm',
+        name: 'SS Black Mesh 0.18mm',
+        category: 'Mesh',
+        variant: '0.18mm Black',
+        price: '36',
+        displayPrice: 36,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'mesh',
+        description: 'Stainless steel black mesh 0.18mm for durable mosquito protection.',
+        longDescription: 'SS Black Mesh 0.18mm offers durable mosquito protection with stainless steel construction. The black coating provides corrosion resistance and a sleek appearance. Perfect for windows and doors where durability is important.',
+        specs: {
+            'Product Type': 'SS Mesh',
+            'Material': 'Stainless Steel',
+            'Thickness': '0.18mm',
+            'Colour': 'Black',
+            'Width': 'Standard',
+            'Custom Size': 'Yes'
+        },
+        benefits: ['SS Construction', 'Durable', 'Corrosion Resistant', 'Sleek Appearance', 'Long Lasting'],
+        applications: ['Windows', 'Doors', 'Balcony', 'Commercial Buildings', 'Homes'],
+        colours: ['Black'],
+        types: ['Standard'],
+        images: ['images/ss-black-mesh.jpg', 'images/ss-black-mesh-2.jpg', 'images/ss-black-mesh-3.jpg'],
+        faqs: [
+            { q: 'What is the thickness of this mesh?', a: 'This mesh is 0.18mm thick stainless steel black coated mesh.' },
+            { q: 'Is this suitable for windows?', a: 'Yes, it is perfect for windows and doors requiring mosquito protection.' }
+        ],
+        related: ['ss-black-mesh', 'ss-black-mesh-3ft', 'ss-bright-mesh-0.24mm-4ft']
+    },
+    'ss-black-mesh': {
+        id: 'ss-black-mesh',
+        name: 'SS Black Mesh',
+        category: 'Mesh',
+        variant: 'Black',
+        price: '38',
+        displayPrice: 38,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'mesh',
+        description: 'Stainless steel black mesh standard grade for mosquito protection.',
+        longDescription: 'Standard SS Black Mesh provides reliable mosquito protection with stainless steel construction. The black coating offers corrosion resistance and a clean appearance. Suitable for various applications including windows, doors, and balconies.',
+        specs: {
+            'Product Type': 'SS Mesh',
+            'Material': 'Stainless Steel',
+            'Colour': 'Black',
+            'Width': 'Standard',
+            'Custom Size': 'Yes'
+        },
+        benefits: ['SS Construction', 'Durable', 'Corrosion Resistant', 'Affordable', 'Reliable'],
+        applications: ['Windows', 'Doors', 'Balcony', 'Homes', 'Apartments'],
+        colours: ['Black'],
+        types: ['Standard'],
+        images: ['images/ss-black-mesh-standard.jpg', 'images/ss-black-mesh-standard-2.jpg', 'images/ss-black-mesh-standard-3.jpg'],
+        faqs: [
+            { q: 'What is the difference between standard and 0.18mm?', a: 'Standard mesh is slightly thicker and more durable than 0.18mm mesh.' },
+            { q: 'Is this suitable for commercial use?', a: 'Yes, it is suitable for both residential and commercial applications.' }
+        ],
+        related: ['ss-black-mesh-0.18mm', 'ss-black-mesh-3ft', 'fiber-touflex-mesh']
+    },
+    'ss-black-mesh-3ft': {
+        id: 'ss-black-mesh-3ft',
+        name: 'SS Black Mesh 3 ft',
+        category: 'Mesh',
+        variant: '3 ft Black',
+        price: '42',
+        displayPrice: 42,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'mesh',
+        description: 'Stainless steel black mesh 3 ft width for larger installations.',
+        longDescription: 'SS Black Mesh 3 ft provides wider coverage for larger installations. The stainless steel construction with black coating ensures durability and corrosion resistance. Perfect for wide windows, large doors, and balcony installations.',
+        specs: {
+            'Product Type': 'SS Mesh',
+            'Material': 'Stainless Steel',
+            'Colour': 'Black',
+            'Width': '3 ft',
+            'Custom Size': 'Yes'
+        },
+        benefits: ['Wide Coverage', 'SS Construction', 'Durable', 'Corrosion Resistant', 'Versatile'],
+        applications: ['Large Windows', 'Wide Doors', 'Balcony', 'Commercial Buildings', 'Villas'],
+        colours: ['Black'],
+        types: ['3 ft Width'],
+        images: ['images/ss-black-mesh-3ft.jpg', 'images/ss-black-mesh-3ft-2.jpg', 'images/ss-black-mesh-3ft-3.jpg'],
+        faqs: [
+            { q: 'What is the width of this mesh?', a: 'This mesh is 3 ft wide, suitable for larger installations.' },
+            { q: 'Is this stronger than standard mesh?', a: 'Yes, 3 ft mesh is designed for larger openings with enhanced durability.' }
+        ],
+        related: ['ss-black-mesh', 'ss-bright-mesh-0.24mm-4ft', 'aluminium-frame-colour-mesh']
+    },
+    'ss-bright-mesh-0.24mm-4ft': {
+        id: 'ss-bright-mesh-0.24mm-4ft',
+        name: 'SS Bright Mesh 0.24mm, 4 ft',
+        category: 'Mesh',
+        variant: '0.24mm Bright 4ft',
+        price: '48',
+        displayPrice: 48,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'mesh',
+        description: 'Stainless steel bright mesh 0.24mm, 4 ft width for premium installations.',
+        longDescription: 'Premium SS Bright Mesh offers superior protection with bright finish. The 0.24mm thickness provides enhanced durability while the 4 ft width covers larger openings. Perfect for premium residential and commercial installations.',
+        specs: {
+            'Product Type': 'SS Mesh',
+            'Material': 'Stainless Steel',
+            'Thickness': '0.24mm',
+            'Colour': 'Bright',
+            'Width': '4 ft',
+            'Custom Size': 'Yes'
+        },
+        benefits: ['Premium Quality', 'Bright Finish', '0.24mm Thickness', 'Wide Coverage', 'Superior Durability'],
+        applications: ['Premium Windows', 'Large Doors', 'Commercial Buildings', 'Villas', 'Coastal Areas'],
+        colours: ['Bright'],
+        types: ['4 ft Width'],
+        images: ['images/ss-bright-mesh.jpg', 'images/ss-bright-mesh-2.jpg', 'images/ss-bright-mesh-3.jpg'],
+        faqs: [
+            { q: 'What is the advantage of bright mesh?', a: 'Bright mesh offers a premium appearance with excellent corrosion resistance.' },
+            { q: 'Is this suitable for coastal areas?', a: 'Yes, SS mesh is corrosion-resistant and ideal for coastal areas.' }
+        ],
+        related: ['ss-black-mesh-3ft', 'ss-black-304g-0.5mm', 'woodgrain-ss-304-mesh']
+    },
+    'ss-black-304g-0.5mm': {
+        id: 'ss-black-304g-0.5mm',
+        name: 'SS Black 304G 0.5mm',
+        category: 'Mesh',
+        variant: '304G 0.5mm',
+        price: '550',
+        displayPrice: 550,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'mesh',
+        description: 'Premium stainless steel black 304G 0.5mm heavy-duty mesh.',
+        longDescription: 'SS Black 304G 0.5mm is the premium choice for heavy-duty applications. The 304G grade provides superior corrosion resistance while the 0.5mm thickness offers maximum durability. Perfect for high-security areas, coastal installations, and premium projects.',
+        specs: {
+            'Product Type': 'Premium SS Mesh',
+            'Material': 'SS 304G',
+            'Thickness': '0.5mm',
+            'Colour': 'Black',
+            'Width': 'Standard',
+            'Custom Size': 'Yes'
+        },
+        benefits: ['Premium 304G Grade', 'Heavy Duty 0.5mm', 'Superior Corrosion Resistance', 'Maximum Durability', 'Premium Quality'],
+        applications: ['High Security Areas', 'Coastal Installations', 'Premium Projects', 'Commercial Buildings', 'Villas'],
+        colours: ['Black'],
+        types: ['Heavy Duty'],
+        images: ['images/ss-black-304g.jpg', 'images/ss-black-304g-2.jpg', 'images/ss-black-304g-3.jpg'],
+        faqs: [
+            { q: 'What is 304G grade?', a: '304G is a high-grade stainless steel with superior corrosion resistance and durability.' },
+            { q: 'Is this suitable for high-security applications?', a: 'Yes, 0.5mm thickness provides maximum protection for security applications.' }
+        ],
+        related: ['security-screen-single-door', 'ss-bright-mesh-0.24mm-4ft', 'woodgrain-ss-304-mesh']
+    },
+    'fiber-touflex-mesh': {
+        id: 'fiber-touflex-mesh',
+        name: 'Fiber/Touflex Mesh',
+        category: 'Mesh',
+        variant: 'Fiber Mesh',
+        price: '8',
+        displayPrice: 8,
+        originalPrice: null,
+        discount: null,
+        unit: 'sq.ft',
+        onlinePurchase: false,
+        badge: 'mesh',
+        description: 'Economical fiber/Touflex mesh for basic mosquito protection.',
+        longDescription: 'Fiber/Touflex Mesh is the most economical option for basic mosquito protection. Lightweight and easy to install, this mesh is perfect for budget-conscious projects, temporary installations, and areas with low mosquito activity.',
+        specs: {
+            'Product Type': 'Fiber Mesh',
+            'Material': 'Fiber/Touflex',
+            'Width': 'Standard',
+            'Custom Size': 'Yes'
+        },
+        benefits: ['Economical', 'Lightweight', 'Easy Installation', 'Basic Protection', 'Budget Friendly'],
+        applications: ['Windows', 'Doors', 'Temporary Installations', 'Budget Projects', 'Basic Protection'],
+        colours: ['White', 'Grey'],
+        types: ['Standard'],
+        images: ['images/fiber-mesh.jpg', 'images/fiber-mesh-2.jpg', 'images/fiber-mesh-3.jpg'],
+        faqs: [
+            { q: 'What is the difference between fiber and SS mesh?', a: 'Fiber mesh is lighter and more economical, while SS mesh offers superior durability.' },
+            { q: 'Is this suitable for long-term use?', a: 'Fiber mesh is suitable for basic protection but may not last as long as SS mesh.' }
+        ],
+        related: ['ss-black-mesh', 'pleated-economic', 'aluminium-frame-colour-mesh']
+    }
+};
+```
 
+    
         // ============================================================
         // GLOBALS
         // ============================================================
