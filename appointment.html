@@ -12,6 +12,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body { background: #f0f4f8; min-height: 100vh; padding: 0 16px; padding-top: 80px; padding-bottom: 90px; display: flex; justify-content: center; }
     .app-container { max-width: 520px; width: 100%; margin: 0 auto; }
+
+    /* HEADER */
     .fixed-header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 540px; margin: 0 auto; width: 100%;
       background: #ffffff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
@@ -19,11 +21,10 @@
     }
     .fixed-header .logo-area { display: flex; align-items: center; gap: 12px; }
     .fixed-header .logo-icon {
-      width: 42px; height: 42px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 12px;
-      display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px;
-      box-shadow: 0 4px 12px rgba(14,165,233,0.3); overflow: hidden;
+      width: 42px; height: 42px; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(14,165,233,0.3);
     }
-    .fixed-header .logo-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
+    .fixed-header .logo-icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .fixed-header .logo-text { font-weight: 800; font-size: 18px; color: #0f172a; line-height: 1.1; letter-spacing: -0.3px; }
     .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 10px; color: #64748b; letter-spacing: 0.5px; }
     .fixed-header .header-actions { display: flex; gap: 4px; align-items: center; }
@@ -47,6 +48,8 @@
       color: #64748b; cursor: pointer; transition: 0.2s; font-family: 'Poppins', sans-serif;
     }
     .mode-switch button.active { background: #0ea5e9; color: #fff; box-shadow: 0 2px 12px rgba(14,165,233,0.25); }
+
+    /* FOOTER */
     .fixed-footer {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 540px; margin: 0 auto; width: 100%;
       background: #ffffff; padding: 8px 12px 12px; display: flex; justify-content: space-around; align-items: center;
@@ -61,6 +64,8 @@
     .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
     .fixed-footer .nav-item:hover { color: #0ea5e9; }
     .fixed-footer .nav-item:hover i { color: #0ea5e9; transform: translateY(-2px); }
+
+    /* PAGE HEADER */
     .page-header { text-align: center; padding: 4px 0 10px 0; }
     .page-header h1 { font-weight: 800; font-size: 24px; color: #0f172a; }
     .page-header h1 i { color: #0ea5e9; }
@@ -71,6 +76,8 @@
       box-shadow: 0 4px 12px rgba(37,211,102,0.2); animation: pulse 2s infinite;
     }
     @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.3); } 70% { box-shadow: 0 0 0 10px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+
+    /* CARDS */
     .card {
       background: #ffffff; border-radius: 24px; padding: 20px 18px; margin: 14px 0;
       border: 1px solid #e2e8f0; box-shadow: 0 2px 12px rgba(0,0,0,0.03); transition: 0.3s;
@@ -78,32 +85,51 @@
     .card:hover { border-color: #0ea5e9; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
     .card-title { font-weight: 700; font-size: 16px; color: #0f172a; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
     .card-title i { color: #0ea5e9; font-size: 18px; }
+
+    /* CHAT CONTAINER */
     .chat-container { max-height: 380px; overflow-y: auto; padding: 4px 0 12px 0; scroll-behavior: smooth; }
     .chat-container::-webkit-scrollbar { width: 4px; }
     .chat-container::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
     .chat-container::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 20px; }
+
+    /* CHAT BUBBLES - AI: White background, dark text, shadow; User: Sky Blue */
     .chat-bubble {
       max-width: 88%; padding: 14px 18px; border-radius: 18px; margin-bottom: 14px; font-size: 14px; line-height: 1.7;
-      animation: fadeIn 0.4s ease; position: relative; box-shadow: 0 1px 4px rgba(0,0,0,0.03); font-family: 'Poppins', sans-serif;
+      animation: fadeIn 0.4s ease; position: relative; font-family: 'Poppins', sans-serif;
     }
-    .chat-bubble.ai { background: #0f172a; color: #ffffff; border-bottom-left-radius: 4px; align-self: flex-start; margin-right: auto; }
-    .chat-bubble.ai .time { color: rgba(255,255,255,0.4); }
-    .chat-bubble.user { background: #38bdf8; color: #ffffff; margin-left: auto; border-bottom-right-radius: 4px; align-self: flex-end; box-shadow: 0 4px 12px rgba(56,189,248,0.2); }
+    .chat-bubble.ai {
+      background: #ffffff; color: #0f172a; border-bottom-left-radius: 4px; align-self: flex-start; margin-right: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04); border: 1px solid #e2e8f0;
+    }
+    .chat-bubble.ai .time { color: #94a3b8; }
+    .chat-bubble.user {
+      background: #38bdf8; color: #ffffff; margin-left: auto; border-bottom-right-radius: 4px; align-self: flex-end;
+      box-shadow: 0 4px 12px rgba(56,189,248,0.2);
+    }
     .chat-bubble.user .time { color: rgba(255,255,255,0.6); }
     .chat-bubble .time { font-size: 9px; opacity: 0.5; margin-top: 6px; display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    /* TYPING INDICATOR with AI icon animation */
     .typing-indicator {
-      display: none; padding: 12px 18px; background: #0f172a; border-radius: 18px; border-bottom-left-radius: 4px;
-      max-width: 70px; margin-bottom: 14px;
+      display: none; padding: 12px 18px; background: #ffffff; border-radius: 18px; border-bottom-left-radius: 4px;
+      max-width: 80px; margin-bottom: 14px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      align-items: center; gap: 8px;
     }
-    .typing-indicator.show { display: inline-block; }
-    .typing-indicator span {
+    .typing-indicator.show { display: inline-flex; }
+    .typing-indicator .ai-avatar {
+      width: 28px; height: 28px; background: #0ea5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 14px; animation: pulse-avatar 1.2s infinite;
+    }
+    @keyframes pulse-avatar { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    .typing-indicator .dots span {
       display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8;
       margin: 0 2px; animation: typing 1.4s infinite;
     }
-    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    .typing-indicator .dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator .dots span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-6px); opacity: 1; } }
+
     .chat-options { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px 0; justify-content: flex-start; }
     .chat-options button {
       background: #f1f5f9; border: 1.5px solid #e2e8f0; border-radius: 40px; padding: 10px 18px; font-size: 13px;
@@ -111,6 +137,7 @@
     }
     .chat-options button:hover { background: #0ea5e9; color: #fff; border-color: #0ea5e9; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.2); }
     .chat-options button.selected { background: #0ea5e9; color: #fff; border-color: #0ea5e9; box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
+
     .chat-input { display: flex; gap: 10px; margin-top: 8px; }
     .chat-input input {
       flex: 1; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 40px; padding: 12px 20px;
@@ -123,12 +150,15 @@
       cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(14,165,233,0.2); font-family: 'Poppins', sans-serif;
     }
     .chat-input button:hover { background: #0284c7; transform: scale(1.02); }
+
     #questionArea { background: #f8fafc; border-radius: 20px; padding: 18px 16px; margin-top: 8px; border: 1px solid #e2e8f0; }
     #questionText { font-weight: 600; color: #0f172a; font-size: 15px; margin-bottom: 10px; line-height: 1.5; }
+
     .summary-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
     .summary-item:last-child { border-bottom: none; }
     .summary-item .label { color: #64748b; font-weight: 500; }
     .summary-item .value { font-weight: 600; color: #0f172a; text-align: right; max-width: 60%; }
+
     .form-group { margin-bottom: 16px; }
     .form-group label { font-size: 12px; font-weight: 600; color: #475569; display: block; margin-bottom: 6px; letter-spacing: 0.3px; }
     .form-group label .required { color: #dc2626; }
@@ -138,6 +168,7 @@
     }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #0ea5e9; box-shadow: 0 0 0 4px rgba(14,165,233,0.08); }
     .form-group textarea { resize: vertical; min-height: 70px; }
+
     .btn-primary {
       background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; border: none; padding: 16px 28px;
       border-radius: 50px; font-weight: 700; font-size: 16px; width: 100%; cursor: pointer;
@@ -157,6 +188,7 @@
     .btn-success:hover { box-shadow: 0 6px 28px rgba(34,197,94,0.4); transform: translateY(-2px); }
     .flex { display: flex; gap: 12px; }
     .flex .btn-secondary, .flex .btn-primary { flex: 1; padding: 12px; font-size: 14px; }
+
     .hidden { display: none !important; }
     .success-card { text-align: center; padding: 30px 20px; }
     .success-card .icon-circle {
@@ -168,11 +200,13 @@
     .success-card p { color: #64748b; margin: 8px 0 16px 0; }
     .wa-card { background: linear-gradient(135deg, #f0faf0, #e6f5e6); border-color: #25D366 !important; }
     .wa-card .wa-icon { font-size: 36px; color: #25D366; }
+
+    /* RESPONSIVE */
     @media (max-width: 420px) {
       body { padding: 0 10px; padding-top: 72px; padding-bottom: 80px; }
       .fixed-header { height: 64px; padding: 8px 14px; }
       .fixed-header .logo-text { font-size: 15px; }
-      .fixed-header .logo-icon { width: 34px; height: 34px; font-size: 16px; }
+      .fixed-header .logo-icon { width: 34px; height: 34px; }
       .fixed-header .header-btn { min-width: 36px; padding: 2px 4px; }
       .fixed-header .header-btn i { font-size: 15px; }
       .fixed-header .back-btn { padding: 6px 10px; font-size: 15px; }
@@ -199,7 +233,7 @@
   <header class="fixed-header">
     <div class="logo-area">
       <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-      <div class="logo-icon"><img src="image/logo.png' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230ea5e9'/%3E%3Ctext x='18' y='68' font-family='Arial' font-size='52' fill='white' font-weight='bold'%3ERM%3C/text%3E%3C/svg%3E" alt="Raj Marketing" /></div>
+      <div class="logo-icon"><img src="images/logo.png" alt="Raj Marketing Mysore" /></div>
       <div class="logo-text">Raj Marketing<span>Mysore</span></div>
     </div>
     <div class="header-actions">
@@ -228,7 +262,11 @@
           </span>
         </div>
         <div class="chat-container" id="chatContainer"></div>
-        <div class="typing-indicator" id="typingIndicator"><span></span><span></span><span></span></div>
+        <!-- Typing Indicator with AI avatar -->
+        <div class="typing-indicator" id="typingIndicator">
+          <div class="ai-avatar"><i class="fas fa-robot"></i></div>
+          <div class="dots"><span></span><span></span><span></span></div>
+        </div>
         <div id="questionArea">
           <div id="questionText">👋 Welcome! May I know your name?</div>
           <div class="chat-options" id="optionsContainer"></div>
@@ -292,7 +330,7 @@
       <div class="card">
         <div class="card-title"><i class="fas fa-th-large"></i> Requirement</div>
         <div class="form-group"><label>Net Type <span class="required">*</span></label>
-                    <select id="manualProduct"><option value="Velcro System">Velcro System</option><option value="Aluminium Frame System">Aluminium Frame System</option><option value="Pleated Net">Pleated Net</option><option value="Mesh Door">Mesh Door</option><option value="Not Sure">Not Sure</option></select>
+          <select id="manualProduct"><option value="Velcro System">Velcro System</option><option value="Aluminium Frame System">Aluminium Frame System</option><option value="Pleated Net">Pleated Net</option><option value="Mesh Door">Mesh Door</option><option value="Not Sure">Not Sure</option></select>
         </div>
         <div class="form-group"><label>Quantity (approx.)</label><input type="number" id="manualQty" placeholder="5" /></div>
         <div class="form-group"><label>Location</label>
@@ -351,8 +389,7 @@
     <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
     <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
   </footer>
-
-  <script>
+<script>
     // ================================================================
     // CONFIGURATION
     // ================================================================
@@ -363,12 +400,10 @@
       freeServiceCity: "Mysore",
       travelChargePerKm: 15,
       gstRate: 18,
-      // business location for distance calculation
       businessLat: 12.2958,
       businessLng: 76.6394
     };
 
-    // Product knowledge
     const RAJ_PRODUCTS = {
       velcro: { name: "Velcro System", description: "Easy to install & remove, perfect for windows." },
       aluminiumFrame: { name: "Aluminium Frame System", description: "Strong & durable, stainless steel mesh." },
@@ -376,7 +411,6 @@
       meshDoor: { name: "Mesh Door", description: "Heavy-duty protection for doorways." }
     };
 
-    // Nearby cities (for quick reference, actual distance via API/fallback)
     const SERVICE_LOCATIONS = {
       "Mysore": { type: "free", distanceKm: 0 },
       "Mandya": { type: "distance" },
@@ -391,27 +425,12 @@
     // STATE
     // ================================================================
     let conversationState = {
-      customerName: "",
-      mobile: "",
-      city: "",
-      area: "",
-      address: "",
-      pincode: "",
-      distanceKm: null,
-      travelCharge: 0,
-      netType: "",
-      quantity: null,
-      measurements: [],
-      appointmentDate: "",
-      appointmentTime: "",
-      notes: "",
-      leadStatus: "NEW",
-      currentStep: "name",
-      completedFields: [],
+      customerName: "", mobile: "", city: "", area: "", address: "", pincode: "",
+      distanceKm: null, travelCharge: 0, netType: "", quantity: null,
+      measurements: [], appointmentDate: "", appointmentTime: "", notes: "",
+      leadStatus: "NEW", currentStep: "name", completedFields: [],
       conversationHistory: []
     };
-
-    let currentQuestionIndex = 0;
     let answers = {};
     let conversation = [];
 
@@ -450,209 +469,119 @@
       }, delay);
     }
 
-    function getCustomerName() {
-      return conversationState.customerName || "there";
-    }
+    function getCustomerName() { return conversationState.customerName || "there"; }
 
     // ================================================================
-    // SMART EXTRACTION (simulated AI parsing)
+    // EXTRACTION
     // ================================================================
     function extractDetails(text) {
       const lower = text.toLowerCase();
       const result = {};
-      // Name: usually first word if not a known city/product
       if (!conversationState.customerName) {
-        // try to extract name (simple heuristic)
         const words = text.split(' ');
         if (words.length > 0 && words[0].length > 1 && !['hi','hello','hey','i','need','want','my','name','is'].includes(words[0].toLowerCase())) {
           result.customerName = words[0];
         }
-        // check for "my name is X"
         const nameMatch = text.match(/my name is ([a-zA-Z]+)/i);
         if (nameMatch) result.customerName = nameMatch[1];
       }
-      // City
       const cityMatch = text.match(/\b(Mysore|Mysuru|Mandya|Srirangapatna|Nanjangud|Hunsur|T Narsipur|Krishnarajanagara)\b/i);
       if (cityMatch) result.city = cityMatch[0].charAt(0).toUpperCase() + cityMatch[0].slice(1);
-      // Net type
       if (lower.includes('velcro')) result.netType = 'Velcro System';
       else if (lower.includes('aluminium') || lower.includes('frame')) result.netType = 'Aluminium Frame System';
       else if (lower.includes('pleated')) result.netType = 'Pleated Net';
       else if (lower.includes('mesh door')) result.netType = 'Mesh Door';
-      // Quantity
       const qtyMatch = text.match(/(\d+)\s*(window|door|net|pc)/i);
       if (qtyMatch) result.quantity = parseInt(qtyMatch[1]);
-      // Mobile
       const mobileMatch = text.match(/(?:\+?91)?[6-9]\d{9}/);
       if (mobileMatch) result.mobile = mobileMatch[0];
       return result;
     }
 
     // ================================================================
-    // DISTANCE & CHARGE (simulated with fallback)
+    // DISTANCE & CHARGE
     // ================================================================
     function calculateTravelCharge(city) {
       if (!city) return { distanceKm: null, travelCharge: 0, isFree: true };
       const cityLower = city.toLowerCase();
-      // Check if it's Mysore
       if (cityLower.includes('mysore') || cityLower.includes('mysuru')) {
         return { distanceKm: 0, travelCharge: 0, isFree: true };
       }
-      // For other known cities, simulate distance (in reality, call API)
-      // Using a simple lookup + random for demo; in production use Google Maps API via backend
       const distances = {
-        'mandya': 43,
-        'srirangapatna': 16,
-        'nanjangud': 24,
-        'hunsur': 38,
-        't narsipur': 32,
-        'krishnarajanagara': 45
+        'mandya': 43, 'srirangapatna': 16, 'nanjangud': 24,
+        'hunsur': 38, 't narsipur': 32, 'krishnarajanagara': 45
       };
       let dist = distances[cityLower];
-      if (!dist) {
-        // Unknown city: return null to indicate need for confirmation
-        return { distanceKm: null, travelCharge: 0, isFree: false, unknown: true };
-      }
+      if (!dist) return { distanceKm: null, travelCharge: 0, isFree: false, unknown: true };
       const billableKm = Math.ceil(dist);
       const charge = billableKm * RAJ_CONFIG.travelChargePerKm;
       return { distanceKm: dist, travelCharge: charge, isFree: false, billableKm };
     }
 
     // ================================================================
-    // QUESTION FLOW ENGINE
+    // QUESTION ENGINE
     // ================================================================
     function getNextQuestion() {
-      const state = conversationState;
-      const name = state.customerName;
-
-      // Step 1: Name
-      if (!state.customerName) {
+      const s = conversationState;
+      const name = s.customerName;
+      if (!s.customerName) {
         return { text: "👋 Welcome to Raj Marketing Mysore! I'm your AI assistant for mosquito net solutions. May I know your name?", type: 'text', field: 'customerName' };
       }
-      // Step 2: Product
-      if (!state.netType) {
-        return {
-          text: `Nice to meet you, ${name}! 😊 What type of mosquito net are you looking for? We have Velcro, Aluminium Frame, Pleated Net, and Mesh Door.`,
-          type: 'choice',
-          options: ['🪟 Velcro System', '🖼️ Aluminium Frame', '🌀 Pleated Net', '🚪 Mesh Door'],
-          field: 'netType'
-        };
+      if (!s.netType) {
+        return { text: `Nice to meet you, ${name}! 😊 What type of mosquito net are you looking for?`, type: 'choice', options: ['🪟 Velcro System', '🖼️ Aluminium Frame', '🌀 Pleated Net', '🚪 Mesh Door'], field: 'netType' };
       }
-      // Step 3: Quantity
-      if (!state.quantity) {
-        return {
-          text: `${name}, how many windows or doors do you need to cover? (Approximate count helps us estimate)`,
-          type: 'number',
-          field: 'quantity'
-        };
+      if (!s.quantity) {
+        return { text: `${name}, how many windows or doors do you need to cover?`, type: 'number', field: 'quantity' };
       }
-      // Step 4: City
-      if (!state.city) {
-        return {
-          text: `${name}, which city are you located in? This helps us understand travel and demo availability.`,
-          type: 'text',
-          field: 'city'
-        };
+      if (!s.city) {
+        return { text: `${name}, which city are you located in?`, type: 'text', field: 'city' };
       }
-      // Step 5: Check distance & charge (if city known and not yet calculated)
-      if (state.city && state.distanceKm === null) {
-        const result = calculateTravelCharge(state.city);
-        state.distanceKm = result.distanceKm;
-        state.travelCharge = result.travelCharge;
+      if (s.city && s.distanceKm === null) {
+        const result = calculateTravelCharge(s.city);
+        s.distanceKm = result.distanceKm;
+        s.travelCharge = result.travelCharge;
         if (result.isFree) {
-          return {
-            text: `Great, ${name}! 😊 Since you're in ${state.city}, the site measurement visit is FREE. Now, please share your installation address.`,
-            type: 'text',
-            field: 'address'
-          };
+          return { text: `Great, ${name}! 😊 Since you're in ${s.city}, the site measurement visit is FREE. Now, please share your installation address.`, type: 'text', field: 'address' };
         } else if (result.unknown) {
-          return {
-            text: `📍 I couldn't verify the exact road distance for ${state.city} right now. Our team will confirm the travel distance before the visit. Please share your installation address.`,
-            type: 'text',
-            field: 'address'
-          };
+          return { text: `📍 I couldn't verify the exact road distance for ${s.city} right now. Our team will confirm before the visit. Please share your address.`, type: 'text', field: 'address' };
         } else {
           const km = result.billableKm || Math.ceil(result.distanceKm);
           const charge = km * RAJ_CONFIG.travelChargePerKm;
-          state.travelCharge = charge;
-          return {
-            text: `Thanks, ${name}! 📍 ${state.city} is outside Mysore. 🚗 Approx. distance: ${km} km. 💰 Site-visit travel charge: ₹${charge} at ₹15/km. Now, please share your installation address.`,
-            type: 'text',
-            field: 'address'
-          };
+          s.travelCharge = charge;
+          return { text: `Thanks, ${name}! 📍 ${s.city} is outside Mysore. 🚗 Approx. distance: ${km} km. 💰 Site-visit travel charge: ₹${charge} (₹15/km). Now, share your installation address.`, type: 'text', field: 'address' };
         }
       }
-      // Step 6: Address
-      if (!state.address) {
-        return {
-          text: `${name}, please share your area/locality and house/building address so our team can locate the site.`,
-          type: 'text',
-          field: 'address'
-        };
+      if (!s.address) {
+        return { text: `${name}, please share your area/locality and house/building address.`, type: 'text', field: 'address' };
       }
-      // Step 7: Measurements
-      if (state.measurements.length === 0) {
-        return {
-          text: `${name}, do you already have the measurements for your windows/doors? (We can also do on-site measurement)`,
-          type: 'choice',
-          options: ['✅ Yes, I have exact measurements', '❌ No, I need help measuring', '📏 I have partial measurements'],
-          field: 'measurements'
-        };
+      if (s.measurements.length === 0) {
+        return { text: `${name}, do you have the measurements for your windows/doors?`, type: 'choice', options: ['✅ Yes, I have exact measurements', '❌ No, I need help measuring', '📏 I have partial measurements'], field: 'measurements' };
       }
-              // Step 8: Mobile
-      if (!state.mobile) {
-        return {
-          text: `${name}, please enter your WhatsApp number for appointment confirmation and updates.`,
-          type: 'text',
-          field: 'mobile'
-        };
+      if (!s.mobile) {
+        return { text: `${name}, please enter your WhatsApp number for confirmation.`, type: 'text', field: 'mobile' };
       }
-      // Step 9: Date
-      if (!state.appointmentDate) {
-        return {
-          text: `${name}, which date would be convenient for our team to visit?`,
-          type: 'date',
-          field: 'date'
-        };
+      if (!s.appointmentDate) {
+        return { text: `${name}, which date would be convenient for our team to visit?`, type: 'date', field: 'date' };
       }
-      // Step 10: Time
-      if (!state.appointmentTime) {
-        return {
-          text: `${name}, what time slot works best for you?`,
-          type: 'choice',
-          options: ['🌅 Morning (9AM-12PM)', '☀️ Afternoon (12PM-4PM)', '🌆 Evening (4PM-7PM)'],
-          field: 'time'
-        };
+      if (!s.appointmentTime) {
+        return { text: `${name}, what time slot works best for you?`, type: 'choice', options: ['🌅 Morning (9AM-12PM)', '☀️ Afternoon (12PM-4PM)', '🌆 Evening (4PM-7PM)'], field: 'time' };
       }
-      // Step 11: Notes
-      if (!state.notes) {
-        return {
-          text: `${name}, anything else you'd like us to know? (Optional) — colour, design, special requirements.`,
-          type: 'text',
-          field: 'notes',
-          required: false
-        };
+      if (!s.notes) {
+        return { text: `${name}, anything else you'd like us to know? (Optional)`, type: 'text', field: 'notes', required: false };
       }
-      // Done
       return null;
     }
 
     function showQuestion() {
       const q = getNextQuestion();
-      if (!q) {
-        showSummary();
-        return;
-      }
+      if (!q) { showSummary(); return; }
       const questionText = document.getElementById('questionText');
       const optionsContainer = document.getElementById('optionsContainer');
       const inputContainer = document.getElementById('inputContainer');
-
       optionsContainer.innerHTML = '';
       optionsContainer.classList.remove('hidden');
       inputContainer.classList.add('hidden');
-
       questionText.textContent = q.text;
-
       if (q.type === 'choice' || q.type === 'multichoice') {
         optionsContainer.classList.remove('hidden');
         (q.options || []).forEach(opt => {
@@ -679,7 +608,6 @@
     }
 
     function handleChoice(value, field) {
-      // Clean emojis
       const clean = value.replace(/[🪟🖼️🌀🚪✅❌📏🌅☀️🌆]/g, '').trim();
       answers[field] = clean || value;
       addChatMessage('user', value);
@@ -692,10 +620,7 @@
       const value = input.value.trim();
       const field = input.dataset.field || 'text';
       const required = input.dataset.required !== 'false';
-      if (required && !value) {
-        alert('Please provide an answer.');
-        return;
-      }
+      if (required && !value) { alert('Please provide an answer.'); return; }
       answers[field] = value;
       addChatMessage('user', value);
       updateState(field, value);
@@ -703,51 +628,46 @@
     }
 
     function updateState(field, value) {
-      const state = conversationState;
+      const s = conversationState;
       switch (field) {
-        case 'customerName': state.customerName = value; break;
-        case 'netType': state.netType = value; break;
-        case 'quantity': state.quantity = parseInt(value) || value; break;
-        case 'city': state.city = value; break;
-        case 'address': state.address = value; break;
-        case 'mobile': state.mobile = value.replace(/\D/g,''); break;
-        case 'date': state.appointmentDate = value; break;
-        case 'time': state.appointmentTime = value; break;
-        case 'notes': state.notes = value; break;
+        case 'customerName': s.customerName = value; break;
+        case 'netType': s.netType = value; break;
+        case 'quantity': s.quantity = parseInt(value) || value; break;
+        case 'city': s.city = value; break;
+        case 'address': s.address = value; break;
+        case 'mobile': s.mobile = value.replace(/\D/g,''); break;
+        case 'date': s.appointmentDate = value; break;
+        case 'time': s.appointmentTime = value; break;
+        case 'notes': s.notes = value; break;
         case 'measurements':
           if (value.includes('Yes')) {
-            // Ask for details
-            state.measurements = [{ pending: true }];
-            // We'll handle this in a special way
+            s.measurements = [{ pending: true }];
             setTimeout(() => {
-              addAIResponse("📏 Please share your measurements as Width × Height × Quantity (e.g., 36×48×2). You can also type 'no' if you don't have them.", true);
+              addAIResponse("📏 Please share your measurements as Width × Height × Quantity (e.g., 36×48×2). You can type 'no' if you don't have them.", true);
             }, 500);
             return;
           } else if (value.includes('No')) {
-            state.measurements = [{ siteMeasurement: true }];
+            s.measurements = [{ siteMeasurement: true }];
           } else {
-            state.measurements = [{ partial: true }];
+            s.measurements = [{ partial: true }];
           }
           break;
         default:
-          // try to extract from message
           const extracted = extractDetails(value);
-          if (extracted.customerName) state.customerName = extracted.customerName;
-          if (extracted.city) state.city = extracted.city;
-          if (extracted.netType) state.netType = extracted.netType;
-          if (extracted.quantity) state.quantity = extracted.quantity;
-          if (extracted.mobile) state.mobile = extracted.mobile;
+          if (extracted.customerName) s.customerName = extracted.customerName;
+          if (extracted.city) s.city = extracted.city;
+          if (extracted.netType) s.netType = extracted.netType;
+          if (extracted.quantity) s.quantity = extracted.quantity;
+          if (extracted.mobile) s.mobile = extracted.mobile;
           break;
       }
-      // If city updated, recalc distance
-      if (field === 'city' && state.city) {
-        const result = calculateTravelCharge(state.city);
-        state.distanceKm = result.distanceKm;
-        state.travelCharge = result.travelCharge;
+      if (field === 'city' && s.city) {
+        const result = calculateTravelCharge(s.city);
+        s.distanceKm = result.distanceKm;
+        s.travelCharge = result.travelCharge;
       }
     }
-
-    // ================================================================
+      // ================================================================
     // SUMMARY & CONFIRM
     // ================================================================
     function showSummary() {
@@ -755,7 +675,6 @@
       document.getElementById('aiSummary').style.display = 'block';
       const content = document.getElementById('summaryContent');
       const s = conversationState;
-
       const fields = [
         { label: '👤 Customer', value: s.customerName || '—' },
         { label: '📱 WhatsApp', value: s.mobile || '—' },
@@ -772,9 +691,7 @@
         fields.push({ label: '💰 Travel Charge', value: RAJ_CONFIG.currency + (s.travelCharge || 0) });
       }
       let html = '';
-      fields.forEach(f => {
-        html += `<div class="summary-item"><span class="label">${f.label}</span><span class="value">${f.value}</span></div>`;
-      });
+      fields.forEach(f => { html += `<div class="summary-item"><span class="label">${f.label}</span><span class="value">${f.value}</span></div>`; });
       content.innerHTML = html;
       addChatMessage('ai', `✅ Please review the details, ${s.customerName}. Would you like to confirm this appointment?`, false);
     }
@@ -783,31 +700,22 @@
       document.getElementById('aiSummary').style.display = 'none';
       document.getElementById('questionArea').style.display = 'block';
       document.getElementById('chatContainer').innerHTML = '';
-      // Reset to last incomplete step
       startAI();
     }
 
     function confirmAppointment() {
       const s = conversationState;
-      if (!s.customerName || !s.mobile) {
-        alert('⚠️ Please provide at least name and mobile number.');
-        return;
-      }
+      if (!s.customerName || !s.mobile) { alert('⚠️ Please provide name and mobile number.'); return; }
       const enqId = 'RM-ENQ-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 10000)).padStart(4,'0');
       const leadId = 'RM-LEAD-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 10000)).padStart(4,'0');
-
       document.getElementById('aiMode').classList.add('hidden');
       document.getElementById('successState').classList.remove('hidden');
       document.getElementById('successEnquiryId').textContent = enqId;
       document.getElementById('successLeadId').textContent = leadId;
       document.getElementById('successAppointment').textContent = `${s.appointmentDate || 'N/A'}, ${s.appointmentTime || 'N/A'}`;
-      document.getElementById('successMessage').textContent = `Thank you, ${s.customerName}. Your enquiry has been registered. Our team will contact you shortly.`;
-
-      // Build WhatsApp message
+      document.getElementById('successMessage').textContent = `Thank you, ${s.customerName}. Your enquiry has been registered.`;
       let msg = `🔔 NEW AI APPOINTMENT\nEnquiry ID: ${enqId}\nLead ID: ${leadId}\n👤 Customer: ${s.customerName}\n📱 WhatsApp: ${s.mobile}\n🪟 Product: ${s.netType}\n🔢 Quantity: ${s.quantity}\n📍 City: ${s.city}\n🏠 Address: ${s.address}`;
-      if (s.distanceKm !== null) {
-        msg += `\n🚗 Distance: ${s.distanceKm} km\n💰 Travel Charge: ₹${s.travelCharge}`;
-      }
+      if (s.distanceKm !== null) msg += `\n🚗 Distance: ${s.distanceKm} km\n💰 Travel Charge: ₹${s.travelCharge}`;
       msg += `\n📅 Appointment: ${s.appointmentDate}\n⏰ Time: ${s.appointmentTime}\n📝 Notes: ${s.notes || 'None'}\nStatus: NEW\nSource: AI Appointment`;
       console.log('📤 WhatsApp Notification:\n' + msg);
       alert('✅ Appointment Confirmed!\n\nEnquiry ID: ' + enqId + '\nLead ID: ' + leadId + '\n\n' + (s.distanceKm !== null ? '📍 Travel Charge: ₹' + s.travelCharge : '📍 Free Demo'));
