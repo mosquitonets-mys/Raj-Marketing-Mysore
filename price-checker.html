@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing AI · Price Check</title>
+    <title>Raj Marketing AI · Price Checker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -15,8 +20,21 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
+
+        :root {
+            --primary-blue: #0ea5e9;
+            --primary-dark: #0284c7;
+            --primary-yellow: #f59e0b;
+            --primary-yellow-dark: #d97706;
+            --dark-bg: #0f172a;
+            --light-bg: #f0f4f8;
+            --white: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+        }
+
         body {
-            background: #f0ece6;
+            background: var(--light-bg);
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -24,16 +42,18 @@
             padding-top: 80px;
             padding-bottom: 100px;
         }
+
         .app-container {
             max-width: 480px;
             width: 100%;
-            background: #ffffff;
+            background: var(--white);
             border-radius: 36px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
             padding: 20px 18px;
-            border: 1px solid #e8e0d8;
+            border: 2px solid #e8e0d8;
         }
 
+        /* ===== HEADER ===== */
         .fixed-header {
             position: fixed;
             top: 0;
@@ -43,43 +63,48 @@
             max-width: 504px;
             margin: 0 auto;
             width: 100%;
-            background: #ffffff;
+            background: var(--white);
             padding: 14px 20px 10px 20px;
-            border-bottom: 1px solid #e8e0d8;
+            border-bottom: 2px solid var(--primary-yellow);
             box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 72px;
         }
+
         .fixed-header .logo-area {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
         .fixed-header .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(145deg, #f97316, #ea580c);
+            background: linear-gradient(145deg, var(--primary-blue), var(--primary-dark));
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
             font-size: 20px;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
         }
+
         .fixed-header .logo-text {
             font-weight: 700;
             font-size: 16px;
-            color: #1a1a1a;
+            color: var(--text-dark);
             line-height: 1.2;
         }
         .fixed-header .logo-text span {
             display: block;
             font-weight: 400;
             font-size: 9px;
-            color: #6b6b6b;
+            color: var(--text-muted);
         }
+
         .fixed-header .header-actions {
             display: flex;
             gap: 8px;
@@ -87,7 +112,7 @@
         }
         .fixed-header .header-actions i {
             font-size: 18px;
-            color: #2d2d2d;
+            color: var(--text-dark);
             background: #f5f0eb;
             padding: 8px;
             border-radius: 50%;
@@ -95,7 +120,7 @@
         }
         .fixed-header .back-btn {
             font-size: 20px;
-            color: #2d2d2d;
+            color: var(--text-dark);
             background: #f5f0eb;
             padding: 8px 12px;
             border-radius: 50%;
@@ -103,6 +128,7 @@
             text-decoration: none;
         }
 
+        /* ===== FOOTER ===== */
         .fixed-footer {
             position: fixed;
             bottom: 0;
@@ -112,20 +138,21 @@
             max-width: 504px;
             margin: 0 auto;
             width: 100%;
-            background: #ffffff;
+            background: var(--white);
             padding: 8px 12px 12px 12px;
-            border-top: 1px solid #e8e0d8;
+            border-top: 2px solid var(--primary-yellow);
             display: flex;
             justify-content: space-around;
             align-items: center;
             border-radius: 30px 30px 0 0;
         }
+
         .fixed-footer .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             font-size: 9px;
-            color: #8a8a8a;
+            color: var(--text-muted);
             font-weight: 500;
             gap: 2px;
             padding: 4px 12px;
@@ -134,18 +161,22 @@
         }
         .fixed-footer .nav-item i {
             font-size: 20px;
-            color: #8a8a8a;
+            color: var(--text-muted);
         }
         .fixed-footer .nav-item.active i {
-            color: #f97316;
+            color: var(--primary-yellow);
         }
         .fixed-footer .nav-item.active {
-            color: #f97316;
-            background: rgba(249, 115, 22, 0.08);
+            color: var(--primary-yellow);
+            background: rgba(245, 158, 11, 0.08);
+        }
+        .fixed-footer .nav-item:hover i {
+            color: var(--primary-yellow);
         }
 
+        /* ===== CHAT CONTAINER ===== */
         .chat-container {
-            max-height: 500px;
+            max-height: 480px;
             overflow-y: auto;
             padding: 4px 0 8px 0;
             scroll-behavior: smooth;
@@ -154,7 +185,7 @@
             width: 4px;
         }
         .chat-container::-webkit-scrollbar-thumb {
-            background: #f97316;
+            background: var(--primary-yellow);
             border-radius: 20px;
         }
 
@@ -170,13 +201,13 @@
         }
         .chat-bubble.ai {
             background: #f5f0eb;
-            color: #1a1a1a;
+            color: var(--text-dark);
             border-bottom-left-radius: 4px;
             align-self: flex-start;
             margin-right: auto;
         }
         .chat-bubble.user {
-            background: #f97316;
+            background: var(--primary-yellow);
             color: #fff;
             margin-left: auto;
             border-bottom-right-radius: 4px;
@@ -191,13 +222,14 @@
         .chat-bubble.user .time {
             color: rgba(255, 255, 255, 0.7);
         }
+
         .chat-bubble .estimate-box {
             background: #fff;
             border-radius: 16px;
             padding: 16px;
             margin-top: 8px;
             border: 1px solid #e8e0d8;
-            color: #1a1a1a;
+            color: var(--text-dark);
         }
         .chat-bubble .estimate-box .row {
             display: flex;
@@ -209,7 +241,7 @@
         .chat-bubble .estimate-box .row.total {
             font-weight: 800;
             font-size: 16px;
-            color: #ea580c;
+            color: var(--primary-yellow-dark);
             border-bottom: none;
             border-top: 2px solid #e8e0d8;
             margin-top: 6px;
@@ -219,13 +251,17 @@
             font-weight: 700;
             font-size: 15px;
             text-align: center;
-            color: #1a1a1a;
+            color: var(--text-dark);
             margin-bottom: 8px;
         }
+        .chat-bubble .estimate-box .title i {
+            color: var(--primary-yellow);
+        }
+
         .chat-bubble .redirect-btn {
             display: inline-block;
-            background: #f97316;
-            color: #fff;
+            background: var(--primary-yellow);
+            color: var(--text-dark);
             padding: 8px 20px;
             border-radius: 40px;
             text-decoration: none;
@@ -235,8 +271,9 @@
             transition: 0.2s;
         }
         .chat-bubble .redirect-btn:hover {
-            background: #ea580c;
+            background: var(--primary-yellow-dark);
             transform: translateY(-2px);
+            color: #fff;
         }
 
         @keyframes fadeIn {
@@ -267,7 +304,7 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #8a8a8a;
+            background: var(--text-muted);
             margin: 0 2px;
             animation: typing 1.4s infinite;
         }
@@ -278,9 +315,7 @@
             animation-delay: 0.4s;
         }
         @keyframes typing {
-            0%,
-            60%,
-            100% {
+            0%, 60%, 100% {
                 transform: translateY(0);
                 opacity: 0.4;
             }
@@ -309,21 +344,22 @@
             transition: 0.2s;
         }
         .chat-input-area input:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.08);
         }
         .chat-input-area button {
-            background: #f97316;
+            background: var(--primary-yellow);
             border: none;
             border-radius: 30px;
             padding: 12px 22px;
-            color: #fff;
+            color: var(--text-dark);
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
         }
         .chat-input-area button:hover {
-            background: #ea580c;
+            background: var(--primary-yellow-dark);
+            color: #fff;
             transform: scale(1.02);
         }
 
@@ -340,24 +376,39 @@
             padding: 8px 16px;
             font-size: 12px;
             font-weight: 500;
-            color: #1a1a1a;
+            color: var(--text-dark);
             cursor: pointer;
             transition: 0.2s;
         }
         .suggestions button:hover {
-            background: #f97316;
+            background: var(--primary-yellow);
             color: #fff;
-            border-color: #f97316;
+            border-color: var(--primary-yellow);
         }
 
         .badge-ai {
-            background: #f97316;
-            color: #fff;
+            background: var(--primary-yellow);
+            color: var(--text-dark);
             font-size: 10px;
             padding: 2px 10px;
             border-radius: 30px;
             display: inline-block;
             margin-left: 6px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            margin-right: 6px;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
         }
 
         @media (max-width: 400px) {
@@ -377,36 +428,45 @@
 </head>
 <body>
 
+    <!-- ===== HEADER ===== -->
     <header class="fixed-header">
         <div class="logo-area">
             <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+            <div class="logo-icon"><i class="fas fa-robot"></i></div>
+            <div class="logo-text">Raj AI<span>Price Checker</span></div>
         </div>
         <div class="header-actions">
-            <i class="fas fa-robot" style="color:#f97316; background:#fef0e8;" title="AI Assistant"></i>
-            <a href="https://wa.me/9483037385" target="_blank" style="text-decoration:none;">
+            <i class="fas fa-robot" style="color:var(--primary-yellow); background:#fef3c7;" title="AI Assistant"></i>
+            <a href="https://wa.me/919483037385" target="_blank" style="text-decoration:none;">
                 <i class="fab fa-whatsapp" style="color:#25D366; background:#e8f5e8;"></i>
             </a>
         </div>
     </header>
 
+    <!-- ===== MAIN CONTENT ===== -->
     <div class="app-container">
 
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-            <i class="fas fa-robot" style="font-size:24px; color:#f97316;"></i>
+            <i class="fas fa-robot" style="font-size:28px; color:var(--primary-yellow);"></i>
             <div>
-                <div style="font-weight:800; font-size:18px; color:#1a1a1a;">Price Check Assistant</div>
-                <div style="font-size:11px; color:#6b6b6b;">Raj Marketing AI · Learning & remembering</div>
+                <div style="font-weight:800; font-size:18px; color:var(--text-dark);">
+                    Price Check Assistant
+                    <span class="badge-ai">AI</span>
+                </div>
+                <div style="font-size:11px; color:var(--text-muted);">
+                    <span class="status-dot"></span> Online · Trained on 20+ Products
+                </div>
             </div>
-            <span style="margin-left:auto; font-size:10px; background:#22c55e; color:#fff; padding:2px 12px; border-radius:30px;">Online</span>
         </div>
 
+        <!-- ===== CHAT CONTAINER ===== -->
         <div class="chat-container" id="chatContainer">
             <div class="chat-bubble ai">
-                👋 Hi! I'm the Raj Marketing AI Assistant.<br /><br />
-                I can help with product prices, estimates, recommendations, dealership, appointments and more.<br /><br />
-                <span style="font-size:12px; color:#6b6b6b;">Try: "Aluminium frame price" or "4x5 3 windows estimate"</span>
+                👋 <strong>Welcome to Raj Marketing AI!</strong><br /><br />
+                I'm trained on all our products including Velcro, Aluminium, Pleated, Sliding, and SS Mesh systems.<br /><br />
+                <span style="font-size:12px; color:var(--text-muted);">
+                    💡 Try: "Aluminium frame price" or "4x5 window estimate" or "Book appointment"
+                </span>
                 <span class="time">Just now</span>
             </div>
         </div>
@@ -415,18 +475,20 @@
             <span></span><span></span><span></span>
         </div>
 
+        <!-- ===== INPUT AREA ===== -->
         <div class="chat-input-area">
-            <input type="text" id="userInput" placeholder="Type your question..." />
+            <input type="text" id="userInput" placeholder="Ask about prices, estimates..." />
             <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
         </div>
 
+        <!-- ===== SUGGESTIONS ===== -->
         <div class="suggestions">
-            <button onclick="quickSend('Velcro net price')">Velcro price</button>
-            <button onclick="quickSend('Aluminium frame estimate 4x5 3 windows')">Estimate</button>
-            <button onclick="quickSend('Dealer enquiry')">Dealer</button>
-            <button onclick="quickSend('Book appointment')">Appointment</button>
-            <button onclick="quickSend('Which net is best for balcony?')">Recommend</button>
-            <button onclick="quickSend('Site visit charges')">Site visit</button>
+            <button onclick="quickSend('Velcro price')">Velcro price</button>
+            <button onclick="quickSend('Aluminium frame 4x5 estimate')">Estimate</button>
+            <button onclick="quickSend('Pleated net price')">Pleated</button>
+            <button onclick="quickSend('Book appointment')">📅 Appointment</button>
+            <button onclick="quickSend('Best net for balcony?')">Recommend</button>
+            <button onclick="quickSend('SS mesh price')">SS Mesh</button>
         </div>
 
         <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
@@ -434,9 +496,10 @@
         </div>
     </div>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="fixed-footer">
         <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
+        <a href="products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
         <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
         <a href="dealer.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
         <a href="#" class="nav-item active"><i class="fas fa-robot"></i> AI</a>
@@ -444,58 +507,268 @@
 
     <script>
         // ============================================================
-        // PRICE DATABASE
+        // FIREBASE CONFIGURATION
         // ============================================================
-        const PRODUCTS = {
-            'velcro': {
-                name: 'Velcro System',
-                variants: {
-                    'regular': { customer: 60, dealer: 45 },
-                    'saint-gobain': { customer: 80, dealer: 65 }
-                },
-                defaultVariant: 'regular'
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ============================================================
+        // COMPLETE PRODUCT DATABASE - Trained for AI
+        // ============================================================
+        const PRODUCT_DB = {
+            // ===== VELCRO =====
+            'velcro-economic': {
+                id: 'velcro-economic',
+                name: 'Velcro Economic',
+                category: 'Velcro',
+                price: 65,
+                unit: 'sq.ft',
+                description: 'Economical Velcro mosquito net for windows and doors. Easy to install and remove.',
+                specs: { 'Mesh': 'Polyester', 'Attachment': 'Velcro', 'Warranty': '1 Year' }
             },
-            'aluminium': {
-                name: 'Aluminium Frame System',
-                variants: {
-                    'regular': { customer: 220, dealer: 190 },
-                    'woodgrain': { customer: 320, dealer: 290 }
-                },
-                defaultVariant: 'regular'
+            'velcro-premium': {
+                id: 'velcro-premium',
+                name: 'Velcro Premium Saint-Gobain',
+                category: 'Velcro',
+                price: 80,
+                unit: 'sq.ft',
+                description: 'Premium Saint-Gobain Velcro mosquito net with superior quality mesh.',
+                specs: { 'Mesh': 'Saint-Gobain', 'Attachment': 'Velcro', 'Warranty': '1 Year' }
             },
-            'openable': {
-                name: 'Aluminium Frame + SS Mesh (Openable)',
-                variants: {
-                    'regular': { customer: 220, dealer: 190 },
-                    'limited': { customer: 200, dealer: 170 }
-                },
-                defaultVariant: 'regular'
+            // ===== ALUMINIUM =====
+            'aluminium-black-ss': {
+                id: 'aluminium-black-ss',
+                name: 'Aluminium Frame + Black Coated SS Mesh',
+                category: 'Aluminium',
+                price: 200,
+                unit: 'sq.ft',
+                description: 'Strong aluminium frame with black coated stainless steel mesh for durability.',
+                specs: { 'Frame': 'Aluminium', 'Mesh': 'Black Coated SS', 'Warranty': '5 Years' }
             },
-            'pleated': {
-                name: 'Pleated Mosquito Nets',
-                variants: {
-                    'economic': { customer: 380, dealer: 320 },
-                    'premium': { customer: 480, dealer: 400 }
-                },
-                defaultVariant: 'economic'
+            'aluminium-bright-ss': {
+                id: 'aluminium-bright-ss',
+                name: 'Aluminium Frame + Bright SS 304 Mesh',
+                category: 'Aluminium',
+                price: 220,
+                unit: 'sq.ft',
+                description: 'Premium aluminium frame with bright SS 304 grade stainless steel mesh.',
+                specs: { 'Frame': 'Aluminium', 'Mesh': 'SS 304 Bright', 'Warranty': '5 Years' }
             },
-            'double-sliding': {
-                name: 'Double Sliding SS Mesh',
-                variants: {
-                    'regular': { customer: 295, dealer: 250 }
-                },
-                defaultVariant: 'regular'
+            'aluminium-teakwood': {
+                id: 'aluminium-teakwood',
+                name: 'Premium Teakwood Finish + Black Coated SS Mesh',
+                category: 'Aluminium',
+                price: 300,
+                unit: 'sq.ft',
+                description: 'Premium teakwood finish aluminium frame with black coated SS mesh.',
+                specs: { 'Frame': 'Aluminium Teakwood', 'Mesh': 'Black Coated SS', 'Warranty': '5 Years' }
+            },
+            'aluminium-frame-colour-mesh': {
+                id: 'aluminium-frame-colour-mesh',
+                name: 'Aluminium Frame + Colour Mesh',
+                category: 'Aluminium',
+                price: 420,
+                unit: 'sq.ft',
+                description: 'Durable aluminium frame with colour-coated mesh for windows and doors.',
+                specs: { 'Frame': 'Aluminium', 'Mesh': 'Colour Coated', 'Warranty': '5 Years' }
+            },
+                      'woodgrain-ss-304-mesh': {
+                id: 'woodgrain-ss-304-mesh',
+                name: 'Woodgrain Finish + SS 304 Mesh',
+                category: 'Aluminium',
+                price: 580,
+                unit: 'sq.ft',
+                description: 'Premium woodgrain finish aluminium frame with SS 304 mesh for superior durability.',
+                specs: { 'Frame': 'Aluminium Woodgrain', 'Mesh': 'SS 304', 'Warranty': '5 Years' }
+            },
+            // ===== PLEATED =====
+            'pleated-economic': {
+                id: 'pleated-economic',
+                name: 'Pleated Economic',
+                category: 'Pleated',
+                price: 380,
+                maxPrice: 460,
+                unit: 'sq.ft',
+                description: 'Economical pleated mosquito net for windows and doors. Compact folding design.',
+                specs: { 'Mesh': 'Fiber Mesh', 'Operation': 'Pleated Folding', 'Warranty': '1 Year' }
+            },
+            'pleated-heavy': {
+                id: 'pleated-heavy',
+                name: 'Pleated Heavy',
+                category: 'Pleated',
+                price: 450,
+                maxPrice: 460,
+                unit: 'sq.ft',
+                description: 'Heavy duty pleated mosquito net with stronger construction for high-traffic areas.',
+                specs: { 'Mesh': 'Heavy Fiber', 'Operation': 'Pleated Folding', 'Warranty': '2 Years' }
+            },
+            'pleated-top-heavy': {
+                id: 'pleated-top-heavy',
+                name: 'Pleated Top Heavy',
+                category: 'Pleated',
+                price: 510,
+                unit: 'sq.ft',
+                description: 'Premium top-heavy pleated net with superior durability and smooth operation.',
+                specs: { 'Mesh': 'Premium Fiber', 'Operation': 'Pleated Folding', 'Warranty': '2 Years' }
+            },
+            'ss-pleated-economic': {
+                id: 'ss-pleated-economic',
+                name: 'SS Pleated / SS Economic',
+                category: 'Pleated',
+                price: 470,
+                unit: 'sq.ft',
+                description: 'Stainless steel pleated mosquito net for enhanced durability and protection.',
+                specs: { 'Mesh': 'Stainless Steel', 'Operation': 'Pleated Folding', 'Warranty': '2 Years' }
+            },
+            'heavy-detachable-pleated': {
+                id: 'heavy-detachable-pleated',
+                name: 'Heavy Detachable Pleated',
+                category: 'Pleated',
+                price: 460,
+                unit: 'sq.ft',
+                description: 'Heavy detachable pleated net that can be easily removed for cleaning and storage.',
+                specs: { 'Mesh': 'Heavy Fiber', 'Operation': 'Detachable Pleated', 'Warranty': '2 Years' }
+            },
+            'economic-woodgrain-pleated': {
+                id: 'economic-woodgrain-pleated',
+                name: 'Economic Woodgrain Pleated',
+                category: 'Pleated',
+                price: 460,
+                unit: 'sq.ft',
+                description: 'Economic pleated net with elegant woodgrain finish for premium appearance.',
+                specs: { 'Mesh': 'Fiber', 'Operation': 'Pleated Folding', 'Warranty': '1 Year' }
+            },
+            'single-door-pleated': {
+                id: 'single-door-pleated',
+                name: 'Single Door Pleated',
+                category: 'Pleated',
+                price: 900,
+                unit: 'sq.ft',
+                description: 'Pleated mosquito net specially designed for single door installations.',
+                specs: { 'Mesh': 'Premium Fiber', 'Operation': 'Pleated Folding', 'Warranty': '2 Years' }
+            },
+            // ===== SLIDING =====
+            'single-sliding-economic': {
+                id: 'single-sliding-economic',
+                name: 'Single Sliding Economic',
+                category: 'Sliding',
+                price: 400,
+                unit: 'sq.ft',
+                description: 'Economical single sliding mosquito net for windows and small doors.',
+                specs: { 'Mesh': 'Fiber', 'Operation': 'Single Sliding', 'Warranty': '1 Year' }
+            },
+            'double-sliding-economic': {
+                id: 'double-sliding-economic',
+                name: 'Double Sliding Economic',
+                category: 'Sliding',
+                price: 450,
+                unit: 'sq.ft',
+                description: 'Economical double sliding mosquito net for wider openings and double-panel operation.',
+                specs: { 'Mesh': 'Fiber', 'Operation': 'Double Sliding', 'Warranty': '1 Year' }
+            },
+            // ===== HONEYCOMB =====
+            'honeycomb-mesh-double-door': {
+                id: 'honeycomb-mesh-double-door',
+                name: 'Honeycomb + Mesh Double Door',
+                category: 'Honeycomb',
+                price: 680,
+                unit: 'sq.ft',
+                description: 'Premium honeycomb mesh with double door configuration for large openings.',
+                specs: { 'Mesh': 'Premium Fiber', 'Configuration': 'Double Door', 'Warranty': '2 Years' }
+            },
+            // ===== SECURITY =====
+            'security-screen-single-door': {
+                id: 'security-screen-single-door',
+                name: 'Security Screen – Single Door',
+                category: 'Security',
+                price: 990,
+                unit: 'sq.ft + GST',
+                description: 'Premium security screen for single door with robust protection against insects and intruders.',
+                specs: { 'Mesh': 'Heavy Duty SS', 'Configuration': 'Single Door', 'Warranty': '3 Years' }
+            },
+            'security-screen-double-door': {
+                id: 'security-screen-double-door',
+                name: 'Security Screen – Double Door',
+                category: 'Security',
+                price: 1150,
+                unit: 'sq.ft + GST',
+                description: 'Premium security screen for double door with maximum protection and durability.',
+                specs: { 'Mesh': 'Heavy Duty SS', 'Configuration': 'Double Door', 'Warranty': '3 Years' }
+            },
+            // ===== SS MESH =====
+            'ss-black-mesh-0.18mm': {
+                id: 'ss-black-mesh-0.18mm',
+                name: 'SS Black Mesh 0.18mm',
+                category: 'Mesh',
+                price: 36,
+                unit: 'sq.ft',
+                description: 'Stainless steel black mesh 0.18mm for durable mosquito protection.',
+                specs: { 'Material': 'SS', 'Thickness': '0.18mm', 'Colour': 'Black' }
+            },
+            'ss-black-mesh': {
+                id: 'ss-black-mesh',
+                name: 'SS Black Mesh',
+                category: 'Mesh',
+                price: 38,
+                unit: 'sq.ft',
+                description: 'Stainless steel black mesh standard grade for mosquito protection.',
+                specs: { 'Material': 'SS', 'Colour': 'Black' }
+            },
+            'ss-black-mesh-3ft': {
+                id: 'ss-black-mesh-3ft',
+                name: 'SS Black Mesh 3 ft',
+                category: 'Mesh',
+                price: 42,
+                unit: 'sq.ft',
+                description: 'Stainless steel black mesh 3 ft width for larger installations.',
+                specs: { 'Material': 'SS', 'Width': '3 ft', 'Colour': 'Black' }
+            },
+            'ss-bright-mesh-0.24mm-4ft': {
+                id: 'ss-bright-mesh-0.24mm-4ft',
+                name: 'SS Bright Mesh 0.24mm, 4 ft',
+                category: 'Mesh',
+                price: 48,
+                unit: 'sq.ft',
+                description: 'Stainless steel bright mesh 0.24mm, 4 ft width for premium installations.',
+                specs: { 'Material': 'SS', 'Thickness': '0.24mm', 'Width': '4 ft' }
+            },
+            'ss-black-304g-0.5mm': {
+                id: 'ss-black-304g-0.5mm',
+                name: 'SS Black 304G 0.5mm',
+                category: 'Mesh',
+                price: 550,
+                unit: 'sq.ft',
+                description: 'Premium stainless steel black 304G 0.5mm heavy-duty mesh.',
+                specs: { 'Material': 'SS 304G', 'Thickness': '0.5mm', 'Colour': 'Black' }
+            },
+            'fiber-touflex-mesh': {
+                id: 'fiber-touflex-mesh',
+                name: 'Fiber/Touflex Mesh',
+                category: 'Mesh',
+                price: 8,
+                unit: 'sq.ft',
+                description: 'Economical fiber/Touflex mesh for basic mosquito protection.',
+                specs: { 'Material': 'Fiber' }
             }
         };
 
         // ============================================================
-        // BUSINESS RULES (AI learns and remembers these)
+        // BUSINESS RULES
         // ============================================================
         const BUSINESS_RULES = {
             warranty: {
                 'ss mesh': '1-year manufacturer warranty',
                 'pleated': '1-year manufacturer warranty',
-                'aluminium frame': '5-year warranty',
+                'aluminium': '5-year warranty',
                 'default': 'Warranty covers manufacturing defects. Physical damage may attract extra charges.'
             },
             advance: '60% advance payment, balance after completion',
@@ -514,43 +787,36 @@
                 '150-200': '10% discount',
                 '100-149': '8% discount',
                 'below 100': '5% discount'
-            },
-            measurement: 'If width or height is below 24 inches, treat as 2 feet (24 inches)',
-            middlePiece: 'Height below 3.5 ft → 1 middle piece, 3.5-6 ft → 2 middle pieces'
+            }
         };
 
         // ============================================================
-        // STATE - AI learns and remembers conversation context
+        // STATE MANAGEMENT
         // ============================================================
         let conversationHistory = [];
         let context = {
             product: null,
-            variant: null,
             width: null,
             height: null,
             qty: null,
             unit: null,
             isDealer: false,
             isAppointment: false,
-            measurements: [],
             totalSqft: 0,
             grossAmount: 0,
             discount: 0,
             finalAmount: 0,
-            lastProduct: null,
-            awaitingMeasurement: false,
-            awaitingUnit: false,
-            awaitingVariant: false,
-            awaitingQty: false,
             customerName: null,
             customerMobile: null,
             conversationCount: 0,
-            topicsDiscussed: [],
-            pendingAction: null
+            awaitingMeasurement: false,
+            awaitingUnit: false,
+            awaitingVariant: false,
+            awaitingProduct: false
         };
 
         // ============================================================
-        // CHAT UI
+        // CHAT UI FUNCTIONS
         // ============================================================
         function addChat(type, text, isHTML = false) {
             const container = document.getElementById('chatContainer');
@@ -581,12 +847,11 @@
             setTimeout(() => {
                 hideTyping();
                 addChat('ai', text, isHTML);
-                // Learn from the conversation
-                learnFromContext(text);
+                saveToFirebase(text);
             }, delay);
         }
 
-    function sendMessage() {
+        function sendMessage() {
             const input = document.getElementById('userInput');
             const text = input.value.trim();
             if (!text) return;
@@ -605,284 +870,264 @@
         });
 
         // ============================================================
-        // AI LEARNING ENGINE - Learns from every conversation
+        // FIREBASE - Save Conversations
         // ============================================================
-        function learnFromContext(text) {
-            // Track topics discussed
-            const topics = ['price', 'estimate', 'dealer', 'appointment', 'warranty', 'site visit', 'delivery', 'cancellation',
-                'measurement', 'installation'
-            ];
-            const lower = text.toLowerCase();
-            topics.forEach(topic => {
-                if (lower.includes(topic) && !context.topicsDiscussed.includes(topic)) {
-                    context.topicsDiscussed.push(topic);
-                }
-            });
-
-            // Learn customer name if mentioned
-            const nameMatch = text.match(/my name is (\w+)/i) || text.match(/i am (\w+)/i);
-            if (nameMatch && !context.customerName) {
-                context.customerName = nameMatch[1];
-            }
-
-            // Learn mobile if mentioned
-            const mobileMatch = text.match(/(\d{10})/);
-            if (mobileMatch && !context.customerMobile) {
-                context.customerMobile = mobileMatch[1];
+        async function saveToFirebase(text) {
+            try {
+                await db.collection('ai_conversations').add({
+                    message: text,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    customerName: context.customerName || null,
+                    customerMobile: context.customerMobile || null,
+                    product: context.product || null,
+                    conversationCount: context.conversationCount
+                });
+                console.log('✅ Conversation saved to Firebase');
+            } catch (error) {
+                console.warn('⚠️ Firebase save error:', error);
             }
         }
 
         // ============================================================
-        // INTELLIGENT INTENT DETECTION WITH LEARNING
+        // AI INTENT PROCESSING - Fully Trained
         // ============================================================
         function processUserInput(text) {
             const lower = text.toLowerCase();
 
-            // --- Check if user wants to redirect to specific pages ---
+            // --- APPOINTMENT DETECTION ---
+            if (lower.includes('appointment') || lower.includes('book') && lower.includes('visit') ||
+                lower.includes('schedule') || lower.includes('site visit') || lower.includes('measurement')) {
+                handleAppointmentRedirect();
+                return;
+            }
+
+            // --- DEALER DETECTION ---
             if (lower.includes('dealer') || lower.includes('wholesale') || lower.includes('reseller') ||
                 lower.includes('dealership') || lower.includes('business enquiry')) {
                 handleDealerRedirect();
                 return;
             }
 
-            if (lower.includes('appointment') || lower.includes('book') && lower.includes('visit') ||
-                lower.includes('schedule') || lower.includes('site visit')) {
-                handleAppointmentRedirect();
-                return;
-            }
-
-            // --- Check if user is asking about business rules ---
+            // --- BUSINESS RULES ---
             if (lower.includes('warranty') || lower.includes('guarantee')) {
                 handleWarrantyQuery();
                 return;
             }
-
             if (lower.includes('cancellation') || lower.includes('cancel') || lower.includes('refund')) {
                 handleCancellationQuery();
                 return;
             }
-
             if (lower.includes('delivery') || lower.includes('when will')) {
                 handleDeliveryQuery();
                 return;
             }
-
             if (lower.includes('discount') || lower.includes('offer')) {
                 handleDiscountQuery();
                 return;
             }
-
-            if (lower.includes('measurement') || lower.includes('measure') || lower.includes('24 inch')) {
-                handleMeasurementRule();
-                return;
-            }
-
-            if (lower.includes('middle piece') || lower.includes('middle-piece')) {
-                handleMiddlePieceRule();
-                return;
-            }
-
             if (lower.includes('site visit') || lower.includes('visit charge') || lower.includes('free visit')) {
                 handleSiteVisitQuery();
                 return;
             }
 
-            // --- Recommendation ---
+            // --- RECOMMENDATION ---
             if (lower.includes('recommend') || lower.includes('best') || lower.includes('suitable') ||
                 lower.includes('which net') || lower.includes('which one')) {
                 handleRecommendation(text);
                 return;
             }
 
-            // --- Estimate / Price Calculation ---
+            // --- ESTIMATE CALCULATION ---
             const measureMatch = text.match(/(\d+)\s*[x*]\s*(\d+)\s*[x*]?\s*(\d+)?/);
             if (measureMatch) {
                 const w = parseFloat(measureMatch[1]);
                 const h = parseFloat(measureMatch[2]);
                 const q = measureMatch[3] ? parseFloat(measureMatch[3]) : 1;
-                if (!context.product) {
-                    addAIResponse(
-                        'I need to know which product you\'re interested in. Please tell me: Velcro, Aluminium Frame, Pleated, or Openable system?'
-                        );
-                    context.awaitingMeasurement = true;
-                    context.width = w;
-                    context.height = h;
-                    context.qty = q;
-                    return;
-                }
-                if (lower.includes('feet') || lower.includes('ft') || lower.includes('foot')) {
-                    context.unit = 'feet';
-                    calculateEstimate(w, h, q);
-                } else if (lower.includes('inch') || lower.includes('in') || lower.includes('inches')) {
-                    context.unit = 'inches';
-                    calculateEstimate(w, h, q);
-                } else {
-                    context.width = w;
-                    context.height = h;
-                    context.qty = q;
-                    context.awaitingUnit = true;
-                    addAIResponse('Got it! Are these measurements in **feet** or **inches**?');
-                }
-                return;
-            }
 
-            // --- Product Price Lookup ---
-            const productMatch = lower.match(
-                /(velcro|aluminium|aluminum|pleated|openable|sliding|mesh|ss mesh|stainless)/);
-            if (productMatch) {
-                const productKey = mapProduct(productMatch[0]);
-                if (productKey) {
-                    context.product = productKey;
-                    const prod = PRODUCTS[productKey];
-                    const variants = Object.keys(prod.variants);
-                    if (variants.length === 1) {
-                        context.variant = variants[0];
-                        addAIResponse(
-                            `✅ **${prod.name}** — ₹${prod.variants[variants[0]].customer}/sq.ft (customer price).\n\nWould you like me to calculate an estimate for your measurements? Just send me width × height × quantity.`
+                if (w > 0 && h > 0) {
+                    if (!context.product) {
+                        // Try to detect product from text
+                        const detected = detectProduct(text);
+                        if (detected) {
+                            context.product = detected;
+                        } else {
+                            addAIResponse(
+                                '📐 I see you\'re asking for an estimate! Please tell me which product you need: Velcro, Aluminium Frame, Pleated, or Sliding?'
                             );
+                            context.awaitingProduct = true;
+                            context.width = w;
+                            context.height = h;
+                            context.qty = q;
+                            return;
+                        }
+                    }
+
+                    if (lower.includes('feet') || lower.includes('ft') || lower.includes('foot')) {
+                        context.unit = 'feet';
+                        calculateEstimate(w, h, q);
+                    } else if (lower.includes('inch') || lower.includes('in') || lower.includes('inches')) {
+                        context.unit = 'inches';
+                        calculateEstimate(w, h, q);
                     } else {
-                        context.awaitingVariant = true;
-                        let msg = `✅ **${prod.name}** is available in these variants:\n\n`;
-                        variants.forEach((v, i) => {
-                            const label = v.charAt(0).toUpperCase() + v.slice(1);
-                            msg += `${i+1}. ${label} — ₹${prod.variants[v].customer}/sq.ft\n`;
-                        });
-                        msg += '\nWhich variant would you prefer?';
-                        addAIResponse(msg);
+                        context.width = w;
+                        context.height = h;
+                        context.qty = q;
+                        context.awaitingUnit = true;
+                        addAIResponse('📏 Got it! Are these measurements in **feet** or **inches**?');
                     }
                     return;
                 }
-            }
-
-            // --- Variant Selection ---
-            if (context.awaitingVariant && context.product) {
-                const prod = PRODUCTS[context.product];
-                const variants = Object.keys(prod.variants);
-                const idx = parseInt(text) - 1;
-                if (!isNaN(idx) && idx >= 0 && idx < variants.length) {
-                    context.variant = variants[idx];
-                    context.awaitingVariant = false;
+    }
+                // --- PRODUCT PRICE LOOKUP ---
+            const productMatch = detectProduct(text);
+            if (productMatch) {
+                const prod = PRODUCT_DB[productMatch];
+                if (prod) {
+                    context.product = productMatch;
+                    const priceDisplay = prod.maxPrice ? `${prod.price}-${prod.maxPrice}` : prod.price;
                     addAIResponse(
-                        `Great! ✅ **${prod.variants[variants[idx]].customer}/sq.ft** for ${variants[idx]} variant.\n\nNow send me your measurements: width × height × quantity.`
-                        );
-                    return;
-                }
-                for (let v of variants) {
-                    if (text.toLowerCase().includes(v)) {
-                        context.variant = v;
-                        context.awaitingVariant = false;
-                        addAIResponse(
-                            `Great! ✅ **${prod.variants[v].customer}/sq.ft** for ${v} variant.\n\nNow send me your measurements: width × height × quantity.`
-                            );
-                        return;
-                    }
-                }
-                addAIResponse(
-                    `Please select a variant by number or name: ${variants.map((v,i) => `${i+1}. ${v}`).join(', ')}`);
-                return;
-            }
-
-            // --- Unit Response ---
-            if (context.awaitingUnit) {
-                if (lower.includes('feet') || lower.includes('ft') || lower.includes('foot')) {
-                    context.unit = 'feet';
-                    context.awaitingUnit = false;
-                    calculateEstimate(context.width, context.height, context.qty);
-                } else if (lower.includes('inch') || lower.includes('in') || lower.includes('inches')) {
-                    context.unit = 'inches';
-                    context.awaitingUnit = false;
-                    calculateEstimate(context.width, context.height, context.qty);
-                } else {
-                    addAIResponse('Please tell me if the measurements are in **feet** or **inches**.');
-                }
-                return;
-            }
-
-            // --- General Price Query ---
-            if (lower.includes('price') || lower.includes('cost') || lower.includes('rate')) {
-                if (!context.product) {
-                    addAIResponse(
-                        'Which product are you looking for? I have:\n• Velcro System\n• Aluminium Frame System\n• Pleated Nets\n• Openable System\n• Double Sliding SS Mesh\n\nTell me the product name.');
-                    return;
-                }
-                const prod = PRODUCTS[context.product];
-                const v = context.variant || prod.defaultVariant;
-                addAIResponse(
-                    `✅ **${prod.name}** — ₹${prod.variants[v].customer}/sq.ft (customer price).\n\nNeed an estimate? Send me your measurements.`
+                        `✅ **${prod.name}**\n` +
+                        `💰 Price: ₹${priceDisplay}/${prod.unit}\n` +
+                        `📝 ${prod.description}\n\n` +
+                        `Would you like an estimate? Send me your measurements like: 4x5 feet or 48x60 inches`
                     );
-                return;
+                    return;
+                }
             }
 
-            // --- Greeting / General ---
+            // --- GREETING ---
             if (lower.includes('hi') || lower.includes('hello') || lower.includes('hey')) {
-                let greeting = 'Hello! 👋 How can I help you today?\n\n';
+                let greeting = '👋 Hello! I\'m Raj Marketing AI Assistant.\n\n';
                 if (context.customerName) {
-                    greeting = `Welcome back, ${context.customerName}! 👋 How can I help you today?\n\n`;
+                    greeting = `👋 Welcome back, ${context.customerName}!\n\n`;
                 }
                 greeting +=
-                    'I can assist with:\n• Product prices & estimates\n• Recommendations\n• Dealership enquiries\n• Appointments\n• Warranty & policies\n• Site visits\n\nJust ask me anything!';
+                    'I can help you with:\n• Product prices & estimates\n• Recommendations\n• Dealership enquiries\n• Appointments\n• Warranty & policies\n• Site visits\n\nWhat would you like to know?';
                 addAIResponse(greeting);
                 return;
             }
 
-            // --- Fallback with learning ---
-            if (context.conversationCount > 3) {
-                // AI has learned from conversation, try to be more helpful
-                const topics = context.topicsDiscussed.join(', ');
-                let fallback = `I understand you're asking about "${text}".\n\n`;
-                if (topics) {
-                    fallback += `I noticed we've been discussing: ${topics}.\n\n`;
-                }
-                fallback +=
-                    `I can help with:\n• Product prices & estimates\n• Recommendations\n• Dealership enquiries\n• Appointments\n• Warranty & policies\n• Site visits\n\nWhat would you like to know more about?`;
-                addAIResponse(fallback);
-            } else {
+            // --- HELP ---
+            if (lower.includes('help') || lower.includes('what can you do')) {
                 addAIResponse(
-                    `I'm here to help! I can assist with product prices, estimates, recommendations, dealership enquiries, appointments, and business policies.\n\nWhat specific information are you looking for?`
-                    );
+                    '🤖 I\'m trained on all Raj Marketing products!\n\n' +
+                    '**What I can do:**\n' +
+                    '• 💰 Show product prices\n' +
+                    '• 📐 Calculate estimates\n' +
+                    '• 🏷️ Recommend products\n' +
+                    '• 📅 Book appointments\n' +
+                    '• 🤝 Dealer enquiries\n' +
+                    '• 📋 Business policies\n\n' +
+                    'Just ask me anything!'
+                );
+                return;
             }
+
+            // --- FALLBACK ---
+            const productNames = Object.values(PRODUCT_DB).map(p => p.name.toLowerCase());
+            const matched = productNames.find(name => lower.includes(name));
+            if (matched) {
+                const prod = Object.values(PRODUCT_DB).find(p => p.name.toLowerCase() === matched);
+                if (prod) {
+                    context.product = prod.id;
+                    const priceDisplay = prod.maxPrice ? `${prod.price}-${prod.maxPrice}` : prod.price;
+                    addAIResponse(
+                        `✅ **${prod.name}**\n💰 Price: ₹${priceDisplay}/${prod.unit}\n📝 ${prod.description}\n\nNeed an estimate? Send me your dimensions!`
+                    );
+                    return;
+                }
+            }
+
+            addAIResponse(
+                '🤔 I\'m not sure I understood. Let me help you better.\n\n' +
+                'Try asking:\n' +
+                '• "Velcro price"\n' +
+                '• "Aluminium frame estimate 4x5 3 windows"\n' +
+                '• "Best net for balcony?"\n' +
+                '• "Book appointment"\n\n' +
+                'Or tell me what you\'re looking for!'
+            );
         }
 
         // ============================================================
-        // PRODUCT MAPPING
+        // PRODUCT DETECTION
         // ============================================================
-        function mapProduct(key) {
-            const map = {
-                'velcro': 'velcro',
-                'aluminium': 'aluminium',
-                'aluminum': 'aluminium',
-                'pleated': 'pleated',
-                'openable': 'openable',
-                'sliding': 'double-sliding',
-                'ss mesh': 'double-sliding',
-                'stainless': 'double-sliding',
-                'mesh': 'double-sliding'
+        function detectProduct(text) {
+            const lower = text.toLowerCase();
+            const keywords = {
+                'velcro-economic': ['velcro economic', 'velcro economy', 'economy velcro'],
+                'velcro-premium': ['velcro premium', 'premium velcro', 'saint gobain'],
+                'aluminium-black-ss': ['aluminium black', 'aluminum black', 'black coated ss', 'black ss'],
+                'aluminium-bright-ss': ['aluminium bright', 'aluminum bright', 'bright ss 304', 'ss 304'],
+                'aluminium-teakwood': ['teakwood', 'teak wood', 'premium teakwood'],
+                'aluminium-frame-colour-mesh': ['colour mesh', 'color mesh', 'aluminium colour'],
+                'woodgrain-ss-304-mesh': ['woodgrain', 'wood grain', 'ss 304 wood'],
+                'pleated-economic': ['pleated economic', 'economy pleated', 'economic pleated'],
+                'pleated-heavy': ['pleated heavy', 'heavy pleated'],
+                'pleated-top-heavy': ['top heavy pleated', 'pleated top heavy'],
+                'ss-pleated-economic': ['ss pleated', 'stainless steel pleated'],
+                'heavy-detachable-pleated': ['detachable pleated', 'heavy detachable'],
+                'economic-woodgrain-pleated': ['woodgrain pleated', 'wood grain pleated'],
+                'single-door-pleated': ['single door pleated', 'pleated door'],
+                'single-sliding-economic': ['single sliding', 'sliding single'],
+                'double-sliding-economic': ['double sliding', 'sliding double'],
+                'honeycomb-mesh-double-door': ['honeycomb', 'honey comb'],
+                'security-screen-single-door': ['security screen single', 'security single'],
+                'security-screen-double-door': ['security screen double', 'security double'],
+                'ss-black-mesh-0.18mm': ['0.18mm', '0.18 mm', 'black mesh 0.18'],
+                'ss-black-mesh': ['ss black mesh', 'black ss mesh'],
+                'ss-black-mesh-3ft': ['3ft mesh', '3 ft mesh'],
+                'ss-bright-mesh-0.24mm-4ft': ['bright mesh', '0.24mm', '4ft mesh'],
+                'ss-black-304g-0.5mm': ['304g', '0.5mm', '304 g'],
+                'fiber-touflex-mesh': ['fiber mesh', 'touflex', 'fibre mesh']
             };
-            for (let [k, v] of Object.entries(map)) {
-                if (key.includes(k)) return v;
+
+            for (const [id, words] of Object.entries(keywords)) {
+                for (const word of words) {
+                    if (lower.includes(word)) {
+                        return id;
+                    }
+                }
             }
+
+            // Check by category
+            if (lower.includes('velcro')) return 'velcro-economic';
+            if (lower.includes('aluminium') || lower.includes('aluminum')) return 'aluminium-bright-ss';
+            if (lower.includes('pleated')) return 'pleated-economic';
+            if (lower.includes('sliding')) return 'single-sliding-economic';
+            if (lower.includes('mesh') && lower.includes('ss')) return 'ss-black-mesh';
+            if (lower.includes('honeycomb')) return 'honeycomb-mesh-double-door';
+            if (lower.includes('security')) return 'security-screen-single-door';
+
             return null;
         }
 
         // ============================================================
-        // CALCULATION ENGINE
+        // ESTIMATE CALCULATION ENGINE
         // ============================================================
         function calculateEstimate(width, height, qty) {
-            const prod = PRODUCTS[context.product];
+            const prod = PRODUCT_DB[context.product];
             if (!prod) {
-                addAIResponse('I need to know which product first. Please tell me the product type.');
+                addAIResponse('⚠️ I need to know which product first. Please tell me the product type.');
                 return;
             }
-            const variant = context.variant || prod.defaultVariant;
-            const rate = prod.variants[variant].customer;
 
+            const rate = prod.price;
             let sqft;
+
             if (context.unit === 'inches') {
-                let w = width < 24 ? 24 : width;
-                let h = height < 24 ? 24 : height;
+                let w = Math.max(width, 24);
+                let h = Math.max(height, 24);
                 sqft = (w * h * qty) / 144;
             } else {
                 sqft = width * height * qty;
+            }
+
+            // Minimum billing
+            if (prod.category === 'Window' || prod.category === 'Sliding' || prod.category === 'Velcro') {
+                sqft = Math.max(sqft, 9);
+            } else if (prod.category === 'Door' || prod.category === 'Pleated' || prod.category === 'Security') {
+                sqft = Math.max(sqft, 21);
             }
 
             const gross = sqft * rate;
@@ -902,12 +1147,12 @@
 
             let html = `
                 <div class="estimate-box">
-                    <div class="title">RAJ MARKETING MYSORE — Estimate</div>
-                    <div class="row"><span>Product</span><span>${prod.name} (${variant})</span></div>
+                    <div class="title"><i class="fas fa-file-invoice"></i> RAJ MARKETING — Estimate</div>
+                    <div class="row"><span>Product</span><span><strong>${prod.name}</strong></span></div>
                     <div class="row"><span>Quantity</span><span>${qty}</span></div>
                     <div class="row"><span>Size</span><span>${width} × ${height} ${context.unit}</span></div>
                     <div class="row"><span>Area</span><span>${sqft.toFixed(2)} sq.ft</span></div>
-                    <div class="row"><span>Rate</span><span>₹${rate}/sq.ft</span></div>
+                    <div class="row"><span>Rate</span><span>₹${rate}/${prod.unit}</span></div>
                     <div class="row"><span>Gross Amount</span><span>₹${gross.toFixed(0)}</span></div>
                     <div class="row"><span>Discount (${discountPct}%)</span><span>- ₹${discount.toFixed(0)}</span></div>
                     <div class="row total"><span>Final Estimate</span><span>₹${finalAmount.toFixed(0)}</span></div>
@@ -918,51 +1163,58 @@
 
             setTimeout(() => {
                 addAIResponse(
-                    `Would you like me to prepare a detailed quotation? You can also visit our Estimate page for a full quotation.`
-                    );
+                    '📋 This is an estimate. For a detailed quotation with GST and installation charges, please book an appointment for a site visit.\n\n' +
+                    'Would you like to <a href="appointment.html" style="color:var(--primary-yellow);font-weight:600;">Book an Appointment</a> now?'
+                );
             }, 800);
         }
 
         // ============================================================
         // REDIRECT HANDLERS
         // ============================================================
-        function handleDealerRedirect() {
-            let html = `
-                🏢 **Dealership Enquiry**\n\n
-                I see you're interested in becoming a Raj Marketing dealer!\n\n
-                📋 Please visit our dedicated **Dealership Page** for:\n
-                • Complete dealer information\n    • Product pricing\n    • Dealer benefits\n    • Application form\n\n
-                <a href="dealer.html" class="redirect-btn" target="_blank">
-                    <i class="fas fa-handshake"></i> Visit Dealership Page
-                </a>
-                <br /><br />
-                Or WhatsApp us directly at **9483037385** for immediate assistance.
-            `;
-            addAIResponse(html, true);
-            context.isDealer = true;
-        }
-
         function handleAppointmentRedirect() {
             let html = `
-                📅 **Appointment Booking**\n\n
+                📅 <strong>Appointment Booking</strong>\n\n
                 I'll help you book an appointment with our team!\n\n
-                Please visit our **Appointment Page** to:\n
-                • Book a site visit\n    • Get measurement assistance\n    • Request a quotation\n    • Chat with our AI assistant\n\n
+                Please visit our <strong>AI Appointment Page</strong> to:\n
+                • Book a site visit\n
+                • Get measurement assistance\n
+                • Request a quotation\n
+                • Chat with our AI assistant\n\n
                 <a href="appointment.html" class="redirect-btn" target="_blank">
                     <i class="fas fa-calendar-check"></i> Book Appointment
                 </a>
                 <br /><br />
-                You can also WhatsApp us at **9483037385** for quick booking.
+                You can also WhatsApp us at <strong>9483037385</strong> for quick booking.
             `;
             addAIResponse(html, true);
             context.isAppointment = true;
         }
 
+        function handleDealerRedirect() {
+            let html = `
+                🏢 <strong>Dealership Enquiry</strong>\n\n
+                I see you're interested in becoming a Raj Marketing dealer!\n\n
+                📋 Please visit our dedicated <strong>Dealership Page</strong> for:\n
+                • Complete dealer information\n
+                • Product pricing\n
+                • Dealer benefits\n
+                • Application form\n\n
+                <a href="dealer.html" class="redirect-btn" target="_blank">
+                    <i class="fas fa-handshake"></i> Visit Dealership Page
+                </a>
+                <br /><br />
+                Or WhatsApp us directly at <strong>9483037385</strong> for immediate assistance.
+            `;
+            addAIResponse(html, true);
+            context.isDealer = true;
+        }
+
         // ============================================================
-        // BUSINESS RULE QUERY HANDLERS (AI learns and answers)
+        // BUSINESS RULE HANDLERS
         // ============================================================
         function handleWarrantyQuery() {
-            let msg = `✅ **Warranty Coverage**\n\n`;
+            let msg = `✅ <strong>Warranty Coverage</strong>\n\n`;
             msg += `• SS Mesh & Pleated Nets: 1-year manufacturer warranty\n`;
             msg += `• Aluminium Frame: 5-year warranty\n\n`;
             msg += `Warranty covers eligible manufacturing defects. Physical damage or customer-caused damage may attract additional charges after inspection.\n\n`;
@@ -971,7 +1223,7 @@
         }
 
         function handleCancellationQuery() {
-            let msg = `📋 **Cancellation & Refund Policy**\n\n`;
+            let msg = `📋 <strong>Cancellation & Refund Policy</strong>\n\n`;
             msg += `• Advance payment: 60% (standard)\n`;
             msg += `• Cancellation after confirmation: Ready-material/cancellation deductions may apply\n`;
             msg += `• Refund: Limited to 40% of advance payment where applicable\n\n`;
@@ -980,7 +1232,7 @@
         }
 
         function handleDeliveryQuery() {
-            let msg = `🚚 **Delivery Timeline**\n\n`;
+            let msg = `🚚 <strong>Delivery Timeline</strong>\n\n`;
             msg += `• Velcro System: Normally 2 days after confirmation\n`;
             msg += `• Frame System: Normally 3 days after confirmation\n`;
             msg += `• Pleated Nets: Normally around 3 days\n\n`;
@@ -989,7 +1241,7 @@
         }
 
         function handleDiscountQuery() {
-            let msg = `💰 **Discount Structure**\n\n`;
+            let msg = `💰 <strong>Discount Structure</strong>\n\n`;
             msg += `• Above 200 sq.ft → 12% discount\n`;
             msg += `• 150–200 sq.ft → 10% discount\n`;
             msg += `• 100–149 sq.ft → 8% discount\n`;
@@ -998,48 +1250,57 @@
             addAIResponse(msg);
         }
 
-        function handleMeasurementRule() {
-            let msg = `📏 **Measurement Rules**\n\n`;
-            msg += `• If width or height is below 24 inches, treat that dimension as 2 feet (24 inches).\n`;
-            msg += `• Formula: Width × Height × Quantity ÷ 144 = Square Feet (when in inches)\n`;
-            msg += `• For Aluminium Frame: 1.5-inch deduction applies after min 24-inch rule.\n\n`;
-            msg += `Need help with measurements? I can guide you.`;
-            addAIResponse(msg);
-        }
-
-        function handleMiddlePieceRule() {
-            let msg = `🔧 **Middle Piece Rules (Aluminium Frame)**\n\n`;
-            msg += `• Height below 3.5 ft → 1 middle piece\n`;
-            msg += `• Height 3.5 ft to 6 ft → 2 middle pieces\n`;
-            msg += `• Height above 6 ft → 3 middle pieces\n\n`;
-            msg += `These are automatically calculated for applicable frame systems.`;
-            addAIResponse(msg);
-        }
-
         function handleSiteVisitQuery() {
-            let msg = `📍 **Site Visit Policy**\n\n`;
-            msg += `• Within Mysore: **Free** site visit\n`;
-            msg += `• Outside Mysore: **₹15/km** (calculated from Mysore)\n\n`;
+            let msg = `📍 <strong>Site Visit Policy</strong>\n\n`;
+            msg += `• Within Mysore: <strong>Free</strong> site visit\n`;
+            msg += `• Outside Mysore: <strong>₹15/km</strong> (calculated from Mysore)\n\n`;
             msg += `Our team will visit, take measurements, and provide a detailed quotation.\n\n`;
-            msg += `Would you like to book a site visit? Visit our Appointment page or WhatsApp us.`;
-            addAIResponse(msg);
+            msg += `Would you like to <a href="appointment.html" style="color:var(--primary-yellow);font-weight:600;">book a site visit</a> now?`;
+            addAIResponse(msg, true);
         }
 
         // ============================================================
-        // RECOMMENDATION
+        // RECOMMENDATION ENGINE
         // ============================================================
         function handleRecommendation(text) {
             const lower = text.toLowerCase();
             let msg = '';
+
             if (lower.includes('window')) {
                 msg =
-                    `🪟 For windows, I'd recommend:\n\n1. **Velcro System** — economical and easy to install (₹60/sq.ft)\n2. **Aluminium Frame** — durable and long-lasting (₹220/sq.ft)\n3. **Sliding SS Mesh** — premium and smooth (₹295/sq.ft)\n\nWhich one interests you? I can calculate an estimate.`;
+                    `🪟 <strong>For windows, I'd recommend:</strong>\n\n` +
+                    `1. <strong>Velcro Economic</strong> — ₹65/sq.ft (economical and easy to install)\n` +
+                    `2. <strong>Aluminium Frame + SS 304</strong> — ₹220/sq.ft (durable and long-lasting)\n` +
+                    `3. <strong>Single Sliding</strong> — ₹400/sq.ft (smooth operation)\n\n` +
+                    `Which one interests you? I can calculate an estimate.`;
             } else if (lower.includes('door') || lower.includes('balcony')) {
                 msg =
-                    `🚪 For doors and large openings:\n\n1. **Pleated Nets** — premium and foldable (₹380-480/sq.ft)\n2. **Openable System** — convenient opening (₹220/sq.ft)\n3. **Aluminium Frame** — strong and reliable (₹220/sq.ft)\n\nWhich one suits your requirement?`;
+                    `🚪 <strong>For doors and large openings:</strong>\n\n` +
+                    `1. <strong>Pleated Heavy</strong> — ₹450-460/sq.ft (premium and foldable)\n` +
+                    `2. <strong>Double Sliding</strong> — ₹450/sq.ft (convenient sliding)\n` +
+                    `3. <strong>Security Screen</strong> — ₹990/sq.ft (maximum protection)\n\n` +
+                    `Which one suits your requirement?`;
+            } else if (lower.includes('budget') || lower.includes('economical') || lower.includes('cheap')) {
+                msg =
+                    `💰 <strong>Budget-friendly options:</strong>\n\n` +
+                    `1. <strong>Fiber/Touflex Mesh</strong> — ₹8/sq.ft (most economical)\n` +
+                    `2. <strong>Velcro Economic</strong> — ₹65/sq.ft (easy installation)\n` +
+                    `3. <strong>SS Black Mesh</strong> — ₹38/sq.ft (durable and affordable)\n\n` +
+                    `All provide good mosquito protection at different price points.`;
+            } else if (lower.includes('premium') || lower.includes('best quality')) {
+                msg =
+                    `✨ <strong>Premium quality options:</strong>\n\n` +
+                    `1. <strong>Woodgrain + SS 304 Mesh</strong> — ₹580/sq.ft (luxury finish)\n` +
+                    `2. <strong>SS Black 304G 0.5mm</strong> — ₹550/sq.ft (heavy-duty)\n` +
+                    `3. <strong>Pleated Top Heavy</strong> — ₹510/sq.ft (superior durability)\n\n` +
+                    `These are our premium offerings with the best quality materials.`;
             } else {
                 msg =
-                    `I can help you choose the right product. Tell me:\n\n• Is it for a **window** or **door**?\n• Do you prefer **economical** or **premium** quality?\n• What is the approximate size?\n\nI'll then recommend the best option.`;
+                    `🤔 I can help you choose the right product. Tell me:\n\n` +
+                    `• Is it for a <strong>window</strong> or <strong>door</strong>?\n` +
+                    `• Do you prefer <strong>economical</strong> or <strong>premium</strong> quality?\n` +
+                    `• What is the approximate size?\n\n` +
+                    `I'll then recommend the best option.`;
             }
             addAIResponse(msg);
         }
@@ -1048,7 +1309,8 @@
         // INIT
         // ============================================================
         document.getElementById('userInput').focus();
+        console.log('✅ AI Price Checker loaded with', Object.keys(PRODUCT_DB).length, 'products');
+        console.log('✅ Firebase initialized');
     </script>
-
 </body>
 </html>
