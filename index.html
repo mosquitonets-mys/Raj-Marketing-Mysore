@@ -53,7 +53,7 @@
         }
 
         /* ============================================================
-           HEADER - Blue & Yellow
+           HEADER - White Background, Black Text/Icons
         ============================================================ */
         .fixed-header {
             position: fixed;
@@ -64,7 +64,7 @@
             max-width: 540px;
             margin: 0 auto;
             width: 100%;
-            background: var(--white);
+            background: #ffffff;
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
@@ -94,17 +94,27 @@
             overflow: hidden;
         }
 
+        .fixed-header .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
         .fixed-header .logo-text {
             font-weight: 800;
             font-size: 18px;
-            color: var(--text-dark);
+            color: #0f172a;
             line-height: 1.1;
+            letter-spacing: -0.3px;
         }
+
         .fixed-header .logo-text span {
             display: block;
             font-weight: 400;
             font-size: 10px;
-            color: var(--text-muted);
+            color: #64748b;
+            letter-spacing: 0.5px;
         }
 
         .fixed-header .header-actions {
@@ -121,7 +131,7 @@
             border-radius: 10px;
             border: none;
             background: transparent;
-            color: var(--text-muted);
+            color: #64748b;
             font-size: 11px;
             cursor: pointer;
             text-decoration: none;
@@ -133,26 +143,29 @@
             font-size: 18px;
             display: block;
             margin-bottom: 1px;
-            color: var(--text-dark);
+            color: #0f172a;
             transition: 0.2s;
         }
+
         .fixed-header .header-btn .label {
             font-size: 7px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.4px;
-            color: var(--text-muted);
+            color: #64748b;
         }
+
         .fixed-header .header-btn:hover {
             background: #f0f9ff;
             color: var(--primary-blue);
         }
+
         .fixed-header .header-btn:hover i {
             color: var(--primary-blue);
         }
 
         /* ============================================================
-           FOOTER
+           FOOTER - White Background, Black Text/Icons
         ============================================================ */
         .fixed-footer {
             position: fixed;
@@ -163,7 +176,7 @@
             max-width: 540px;
             margin: 0 auto;
             width: 100%;
-            background: var(--white);
+            background: #ffffff;
             padding: 8px 12px 12px;
             display: flex;
             justify-content: space-around;
@@ -178,7 +191,7 @@
             flex-direction: column;
             align-items: center;
             font-size: 9px;
-            color: var(--text-muted);
+            color: #64748b;
             font-weight: 500;
             gap: 2px;
             padding: 6px 14px;
@@ -189,26 +202,30 @@
 
         .fixed-footer .nav-item i {
             font-size: 20px;
-            color: var(--text-dark);
+            color: #0f172a;
             transition: 0.2s;
         }
+
         .fixed-footer .nav-item.active i {
             color: var(--primary-blue);
         }
+
         .fixed-footer .nav-item.active {
             color: var(--primary-blue);
             background: #f0f9ff;
         }
+
         .fixed-footer .nav-item:hover {
             color: var(--primary-blue);
         }
+
         .fixed-footer .nav-item:hover i {
             color: var(--primary-blue);
             transform: translateY(-2px);
         }
 
         /* ============================================================
-           SLIDER
+           SLIDER - Image Slider with Text
         ============================================================ */
         .slider-container {
             margin: 0 0 16px 0;
@@ -267,15 +284,18 @@
             display: block;
             margin-bottom: 4px;
         }
+
         .slider-slide .slide-content .main-text {
             font-weight: 800;
             font-size: 24px;
             line-height: 1.2;
             display: block;
         }
+
         .slider-slide .slide-content .main-text.large {
             font-size: 30px;
         }
+
         .slider-slide .slide-content .sub-text {
             font-size: 13px;
             font-weight: 300;
@@ -284,6 +304,7 @@
             opacity: 0.9;
         }
 
+        /* Slider Animation - 10 slides */
         @keyframes sliderAnimation {
             0%, 8% { transform: translateX(0) }
             10%, 18% { transform: translateX(-10%) }
@@ -298,6 +319,7 @@
             100% { transform: translateX(0) }
         }
 
+        /* Slider Dots */
         .slider-dots {
             position: absolute;
             bottom: 12px;
@@ -307,6 +329,7 @@
             gap: 8px;
             z-index: 3;
         }
+
         .slider-dots .dot {
             width: 8px;
             height: 8px;
@@ -316,6 +339,7 @@
             border: none;
             transition: 0.3s;
         }
+
         .slider-dots .dot.active {
             background: var(--primary-yellow);
             transform: scale(1.2);
@@ -323,12 +347,12 @@
         }
 
         /* ============================================================
-           WELCOME SECTION - Blue & Yellow
+           WELCOME SECTION - Animated
         ============================================================ */
         .welcome-section {
             margin: 0 0 14px 0;
             padding: 20px 18px;
-            background: linear-gradient(135deg, var(--dark-bg), #1e293b);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             border-radius: 20px;
             color: #ffffff;
             position: relative;
@@ -342,12 +366,23 @@
             50% { box-shadow: 0 4px 32px rgba(14, 165, 233, 0.15); }
         }
 
+        .welcome-section::after {
+            content: "🦟";
+            position: absolute;
+            right: -4px;
+            bottom: -14px;
+            font-size: 72px;
+            opacity: 0.04;
+            transform: rotate(12deg);
+        }
+
         .welcome-section .welcome-text {
             font-size: 20px;
             font-weight: 300;
             color: #94a3b8;
             letter-spacing: 1px;
         }
+
         .welcome-section .brand-name {
             font-size: 34px;
             font-weight: 900;
@@ -355,6 +390,7 @@
             animation: blinkBrand 2s ease-in-out infinite;
             display: inline-block;
         }
+
         .welcome-section .brand-name .blue { color: var(--primary-blue); }
         .welcome-section .brand-name .yellow { color: var(--primary-yellow); }
 
@@ -372,90 +408,9 @@
             align-items: center;
             gap: 8px;
         }
+
         .welcome-section .tagline i {
             color: var(--primary-yellow);
-        }
-
-        /* ============================================================
-           SEARCH BAR
-        ============================================================ */
-        .search-bar {
-            background: #ffffff;
-            border-radius: 50px;
-            padding: 10px 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 6px 0 14px 0;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-        }
-        .search-bar:focus-within {
-            border-color: var(--primary-yellow);
-            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
-        }
-        .search-bar input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            font-size: 14px;
-            outline: none;
-            padding: 4px 0;
-            color: var(--text-dark);
-        }
-        .search-bar input::placeholder {
-            color: #94a3b8;
-        }
-        .search-bar i {
-            color: #94a3b8;
-            font-size: 16px;
-        }
-
-        .search-results {
-            background: #ffffff;
-            border-radius: 16px;
-            margin-top: -8px;
-            margin-bottom: 14px;
-            border: 1px solid #e2e8f0;
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-        }
-        .search-results.active {
-            display: block;
-        }
-        .search-results .result-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid #f1f5f9;
-            cursor: pointer;
-            transition: 0.2s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-dark);
-        }
-        .search-results .result-item:last-child {
-            border-bottom: none;
-        }
-        .search-results .result-item:hover {
-            background: #f0f9ff;
-        }
-        .search-results .result-item .icon {
-            font-size: 20px;
-            color: var(--primary-blue);
-            width: 32px;
-            text-align: center;
-        }
-        .search-results .result-item .info .name {
-            font-weight: 600;
-            font-size: 13px;
-        }
-        .search-results .result-item .info .category {
-            font-size: 11px;
-            color: #94a3b8;
         }
 
         /* ============================================================
@@ -477,7 +432,101 @@
         }
 
         /* ============================================================
-           CONTACT CARD
+           SEARCH BAR
+        ============================================================ */
+        .search-bar {
+            background: #ffffff;
+            border-radius: 50px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 6px 0 14px 0;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .search-bar:focus-within {
+            border-color: var(--primary-yellow);
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            outline: none;
+            padding: 4px 0;
+            color: #0f172a;
+            font-weight: 400;
+        }
+
+        .search-bar input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-bar i {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        .search-results {
+            background: #ffffff;
+            border-radius: 16px;
+            margin-top: -8px;
+            margin-bottom: 14px;
+            border: 1px solid #e2e8f0;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-results .result-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #0f172a;
+        }
+
+        .search-results .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-results .result-item:hover {
+            background: #f0f9ff;
+        }
+
+        .search-results .result-item .icon {
+            font-size: 20px;
+            color: var(--primary-blue);
+            width: 32px;
+            text-align: center;
+        }
+
+        .search-results .result-item .info .name {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .search-results .result-item .info .category {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        /* ============================================================
+           CONTACT CARD - Upgraded
         ============================================================ */
         .contact-card {
             background: #ffffff;
@@ -491,10 +540,12 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
             transition: 0.3s;
         }
+
         .contact-card:hover {
             border-color: var(--primary-yellow);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
         }
+
         .contact-card .icon-wrap {
             background: #fef3c7;
             padding: 12px;
@@ -505,13 +556,16 @@
             width: 52px;
             height: 52px;
         }
+
         .contact-card .icon-wrap i {
             font-size: 26px;
             color: var(--primary-yellow);
         }
+
         .contact-card .contact-info {
             flex: 1;
         }
+
         .contact-card .contact-info .label {
             font-size: 10px;
             color: #94a3b8;
@@ -519,20 +573,24 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
         .contact-card .contact-info .number {
             font-size: 18px;
             font-weight: 800;
-            color: var(--text-dark);
+            color: #0f172a;
         }
+
         .contact-card .contact-info .number i {
             font-size: 16px;
             color: var(--primary-yellow);
             margin-left: 4px;
         }
+
         .contact-card .contact-actions {
             display: flex;
             gap: 8px;
         }
+
         .contact-card .contact-actions a {
             padding: 8px 16px;
             border-radius: 30px;
@@ -544,26 +602,30 @@
             align-items: center;
             gap: 6px;
         }
+
         .contact-card .contact-actions .call-btn {
             background: #f0f9ff;
             color: var(--primary-blue);
         }
+
         .contact-card .contact-actions .call-btn:hover {
             background: var(--primary-blue);
             color: #fff;
             transform: translateY(-2px);
         }
+
         .contact-card .contact-actions .wa-btn {
             background: #25D366;
             color: #fff;
         }
+
         .contact-card .contact-actions .wa-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
         }
 
         /* ============================================================
-           QUICK GRID
+           QUICK GRID - Icons Bigger, Two Lines
         ============================================================ */
         .quick-grid {
             display: grid;
@@ -583,11 +645,13 @@
             display: block;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
+
         .quick-card:hover {
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             border-color: var(--primary-yellow);
             transform: translateY(-4px);
         }
+
         .quick-card i {
             font-size: 32px;
             color: var(--primary-yellow);
@@ -601,19 +665,23 @@
             margin-right: auto;
             transition: 0.3s;
         }
+
         .quick-card:hover i {
             background: var(--primary-yellow);
             color: #fff;
             transform: scale(1.05);
         }
+
         .quick-card .card-title {
             font-weight: 700;
             font-size: 13px;
-            color: var(--text-dark);
+            color: #0f172a;
             display: block;
             line-height: 1.3;
         }
-        .quick-card .card-sub {
+
+        
+         .quick-card .card-sub {
             font-size: 10px;
             color: #94a3b8;
             display: block;
@@ -629,13 +697,15 @@
             align-items: baseline;
             margin: 18px 0 12px 0;
         }
+
         .section-title h3 {
             font-weight: 700;
             font-size: 17px;
-            color: var(--text-dark);
+            color: #0f172a;
             border-left: 4px solid var(--primary-yellow);
             padding-left: 10px;
         }
+
         .section-title a {
             font-size: 12px;
             color: var(--primary-blue);
@@ -643,13 +713,14 @@
             text-decoration: none;
             transition: 0.2s;
         }
+
         .section-title a:hover {
             color: var(--primary-dark);
             text-decoration: underline;
         }
 
         /* ============================================================
-           CATEGORY SCROLL
+           CATEGORY SCROLL - With Real Images
         ============================================================ */
         .category-scroll {
             display: flex;
@@ -660,13 +731,16 @@
             scrollbar-color: var(--primary-yellow) #e2e8f0;
             -webkit-overflow-scrolling: touch;
         }
+
         .category-scroll::-webkit-scrollbar {
             height: 4px;
         }
+
         .category-scroll::-webkit-scrollbar-thumb {
             background: var(--primary-yellow);
             border-radius: 20px;
         }
+
         .category-scroll::-webkit-scrollbar-track {
             background: #e2e8f0;
             border-radius: 20px;
@@ -686,11 +760,13 @@
             display: block;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
+
         .category-card:hover {
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             border-color: var(--primary-yellow);
             transform: translateY(-4px);
         }
+
         .category-card .product-img {
             width: 80px;
             height: 80px;
@@ -700,19 +776,22 @@
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
         }
+
         .category-card .product-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: 0.3s;
         }
+
         .category-card:hover .product-img img {
             transform: scale(1.05);
         }
+
         .category-card .product-name {
             font-weight: 700;
             font-size: 13px;
-            color: var(--text-dark);
+            color: #0f172a;
             margin-bottom: 2px;
             line-height: 1.2;
             display: -webkit-box;
@@ -720,11 +799,13 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .category-card .product-price {
             font-size: 13px;
             font-weight: 600;
             color: var(--primary-blue);
         }
+
         .category-card .view-btn {
             color: var(--primary-blue);
             font-weight: 600;
@@ -736,13 +817,14 @@
             margin-top: 4px;
             transition: 0.3s;
         }
+
         .category-card:hover .view-btn {
             background: var(--primary-yellow);
             color: #fff;
         }
 
         /* ============================================================
-           PROMO BANNER - Yellow
+           PROMO BANNER
         ============================================================ */
         .promo-banner {
             margin: 12px 0 16px 0;
@@ -756,20 +838,24 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
         }
+
         .promo-banner:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4);
         }
+
         .promo-banner h4 {
             font-weight: 800;
             font-size: 18px;
         }
+
         .promo-banner p {
             font-weight: 300;
             font-size: 13px;
             margin: 2px 0 10px 0;
             opacity: 0.9;
         }
+
         .promo-banner .btn-explore {
             background: #ffffff;
             border: none;
@@ -781,9 +867,11 @@
             cursor: pointer;
             transition: 0.3s;
         }
+
         .promo-banner .btn-explore:hover {
             transform: scale(1.04);
         }
+
         .promo-banner .banner-icon {
             position: absolute;
             right: 4px;
@@ -814,11 +902,13 @@
             text-decoration: none;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
+
         .feature-card:hover {
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             border-color: var(--primary-yellow);
             transform: translateX(4px);
         }
+
         .feature-card i {
             font-size: 22px;
             color: var(--primary-yellow);
@@ -829,16 +919,19 @@
             border-radius: 12px;
             transition: 0.3s;
         }
+
         .feature-card:hover i {
             background: var(--primary-yellow);
             color: #fff;
         }
+
         .feature-card .feature-text {
             font-weight: 600;
             font-size: 13px;
-            color: var(--text-dark);
+            color: #0f172a;
             line-height: 1.2;
         }
+
         .feature-card .feature-text small {
             display: block;
             font-weight: 300;
@@ -864,7 +957,7 @@
             border: 2px solid #e2e8f0;
             font-size: 10px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: #0f172a;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -873,16 +966,19 @@
             text-decoration: none;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
+
         .service-btn:hover {
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             border-color: var(--primary-yellow);
             transform: translateY(-3px);
         }
+
         .service-btn i {
             font-size: 20px;
             color: var(--primary-yellow);
             transition: 0.3s;
         }
+
         .service-btn:hover i {
             transform: scale(1.1);
         }
@@ -891,7 +987,7 @@
            DEALER BANNER
         ============================================================ */
         .dealer-banner {
-            background: linear-gradient(135deg, var(--dark-bg), #1e293b);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             border-radius: 20px;
             padding: 18px 20px;
             color: #ffffff;
@@ -899,25 +995,30 @@
             margin: 12px 0 10px 0;
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
+
         .dealer-banner h4 {
             font-weight: 800;
             font-size: 16px;
         }
+
         .dealer-banner h4 i {
             color: var(--primary-yellow);
         }
+
         .dealer-banner p {
             font-weight: 300;
             font-size: 12px;
             opacity: 0.8;
             margin: 2px 0 12px 0;
         }
+
         .dealer-banner .dealer-actions {
             display: flex;
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
         }
+
         .dealer-banner .btn-dealer {
             background: var(--primary-yellow);
             color: var(--text-dark);
@@ -931,10 +1032,12 @@
             gap: 8px;
             transition: 0.3s;
         }
+
         .dealer-banner .btn-dealer:hover {
             transform: scale(1.04);
             box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
         }
+
         .dealer-banner .btn-dealer-outline {
             background: transparent;
             color: #fff;
@@ -949,13 +1052,14 @@
             border: 1.5px solid rgba(255, 255, 255, 0.2);
             transition: 0.3s;
         }
+
         .dealer-banner .btn-dealer-outline:hover {
             border-color: var(--primary-yellow);
             background: rgba(245, 158, 11, 0.1);
         }
 
         /* ============================================================
-           CTA SECTION - Blue
+           CTA SECTION
         ============================================================ */
         .cta-section {
             background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
@@ -968,26 +1072,31 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
         }
+
         .cta-section:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 32px rgba(14, 165, 233, 0.35);
         }
+
         .cta-section h3 {
             font-weight: 800;
             font-size: 20px;
         }
+
         .cta-section p {
             font-weight: 300;
             font-size: 13px;
             margin: 2px 0 12px 0;
             opacity: 0.9;
         }
+
         .cta-actions {
             display: flex;
             justify-content: center;
             gap: 12px;
             flex-wrap: wrap;
         }
+
         .cta-actions .btn-primary {
             background: var(--primary-yellow);
             border: none;
@@ -1002,9 +1111,11 @@
             cursor: pointer;
             transition: 0.3s;
         }
+
         .cta-actions .btn-primary:hover {
             transform: scale(1.04);
         }
+
         .cta-actions .btn-secondary {
             background: rgba(255, 255, 255, 0.15);
             border: 1.5px solid rgba(255, 255, 255, 0.25);
@@ -1019,6 +1130,7 @@
             cursor: pointer;
             transition: 0.3s;
         }
+
         .cta-actions .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.25);
         }
@@ -1035,6 +1147,7 @@
             justify-content: center;
             gap: 4px 12px;
         }
+
         .footer-links a {
             font-size: 10px;
             color: #94a3b8;
@@ -1042,13 +1155,16 @@
             font-weight: 500;
             transition: 0.2s;
         }
+
         .footer-links a:hover {
             color: var(--primary-blue);
         }
+
         .footer-links .separator {
             color: #e2e8f0;
             font-size: 10px;
         }
+
         .footer-copyright {
             font-size: 10px;
             color: #94a3b8;
@@ -1056,6 +1172,7 @@
             margin-top: 8px;
             font-weight: 400;
         }
+
         .footer-copyright span {
             color: var(--primary-yellow);
         }
@@ -1081,13 +1198,147 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
+
         .whatsapp-float:hover {
             transform: scale(1.1) translateY(-2px);
             box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
-    }
-    
+        }
+
         /* ============================================================
-           RESPONSIVE
+           RESPONSIVE - Desktop Support
+        ============================================================ */
+        @media (min-width: 768px) {
+            body {
+                padding: 0 20px;
+                padding-top: 88px;
+                padding-bottom: 100px;
+            }
+
+            .app-container {
+                max-width: 768px;
+            }
+
+            .fixed-header {
+                max-width: 800px;
+                height: 80px;
+                padding: 12px 28px;
+            }
+
+            .fixed-header .logo-text {
+                font-size: 22px;
+            }
+
+            .fixed-header .logo-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .fixed-footer {
+                max-width: 800px;
+                padding: 10px 16px 14px;
+            }
+
+            .fixed-footer .nav-item {
+                font-size: 11px;
+                padding: 8px 20px;
+            }
+
+            .fixed-footer .nav-item i {
+                font-size: 22px;
+            }
+
+            .slider-container {
+                height: 280px;
+                border-radius: 24px;
+            }
+
+            .slider-slide .slide-content .main-text {
+                font-size: 32px;
+            }
+
+            .slider-slide .slide-content .main-text.large {
+                font-size: 40px;
+            }
+
+            .slider-slide .slide-content .sub-text {
+                font-size: 16px;
+            }
+
+            .welcome-section .brand-name {
+                font-size: 42px;
+            }
+
+            .welcome-section .welcome-text {
+                font-size: 22px;
+            }
+
+            .welcome-section .tagline {
+                font-size: 16px;
+            }
+
+            .quick-grid {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            }
+
+            .category-scroll {
+                gap: 18px;
+            }
+
+            .category-card {
+                min-width: 180px;
+                padding: 18px 16px;
+            }
+
+            .category-card .product-img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .category-card .product-name {
+                font-size: 15px;
+            }
+
+            .contact-card {
+                padding: 16px 20px;
+            }
+
+            .contact-card .contact-info .number {
+                font-size: 22px;
+            }
+
+            .whatsapp-float {
+                width: 64px;
+                height: 64px;
+                font-size: 32px;
+                bottom: 110px;
+                right: 28px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .app-container {
+                max-width: 960px;
+            }
+
+            .fixed-header {
+                max-width: 1000px;
+            }
+
+            .fixed-footer {
+                max-width: 1000px;
+            }
+        }
+
+        /* ============================================================
+           RESPONSIVE - Mobile
         ============================================================ */
         @media (max-width: 420px) {
             body {
@@ -1095,65 +1346,149 @@
                 padding-top: 72px;
                 padding-bottom: 80px;
             }
+
             .fixed-header {
                 height: 64px;
                 padding: 8px 14px;
             }
+
             .fixed-header .logo-text {
                 font-size: 15px;
             }
+
             .fixed-header .logo-icon {
                 width: 34px;
                 height: 34px;
                 font-size: 16px;
             }
+
+            .fixed-header .header-btn {
+                min-width: 36px;
+                padding: 2px 4px;
+            }
+
+            .fixed-header .header-btn i {
+                font-size: 15px;
+            }
+
             .slider-container {
                 height: 150px;
             }
+
             .slider-slide .slide-content .main-text {
                 font-size: 18px;
             }
+
             .slider-slide .slide-content .main-text.large {
                 font-size: 22px;
             }
+
             .slider-slide .slide-content .sub-text {
                 font-size: 11px;
             }
+
+            .slider-slide .slide-content .emoji {
+                font-size: 28px;
+            }
+
             .welcome-section .brand-name {
                 font-size: 26px;
             }
+
             .welcome-section .welcome-text {
                 font-size: 16px;
             }
+
+            .welcome-section .tagline {
+                font-size: 12px;
+            }
+
             .quick-grid {
                 gap: 8px;
             }
+
             .quick-card {
                 padding: 14px 8px;
             }
+
             .quick-card i {
                 font-size: 24px;
                 padding: 10px;
                 width: 48px;
             }
+
+            .quick-card .card-title {
+                font-size: 11px;
+            }
+
+            .quick-card .card-sub {
+                font-size: 9px;
+            }
+
             .service-grid {
                 grid-template-columns: 1fr 1fr 1fr;
             }
+
             .category-card {
                 min-width: 120px;
                 padding: 10px 8px;
             }
+
             .category-card .product-img {
                 width: 60px;
                 height: 60px;
             }
+
+            .category-card .product-name {
+                font-size: 11px;
+            }
+
+            .category-card .product-price {
+                font-size: 11px;
+            }
+
             .feature-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
+            .feature-card {
+                padding: 10px 10px;
+            }
+
+            .feature-card i {
+                font-size: 18px;
+                width: 30px;
+                padding: 6px;
+            }
+
+            .feature-card .feature-text {
+                font-size: 11px;
+            }
+
+            .contact-card {
+                padding: 10px 14px;
+                flex-wrap: wrap;
+            }
+
+            .contact-card .icon-wrap {
+                width: 40px;
+                height: 40px;
+                padding: 8px;
+            }
+
+            .contact-card .icon-wrap i {
+                font-size: 20px;
+            }
+
+            .contact-card .contact-info .number {
+                font-size: 15px;
+            }
+
             .contact-card .contact-actions a {
                 padding: 6px 12px;
                 font-size: 10px;
             }
+
             .whatsapp-float {
                 width: 48px;
                 height: 48px;
@@ -1161,20 +1496,75 @@
                 bottom: 85px;
                 right: 14px;
             }
+
+            .cta-section h3 {
+                font-size: 17px;
+            }
+
+            .cta-section p {
+                font-size: 12px;
+            }
+
+            .cta-actions .btn-primary,
+            .cta-actions .btn-secondary {
+                font-size: 11px;
+                padding: 8px 16px;
+            }
+
+            .dealer-banner h4 {
+                font-size: 14px;
+            }
+
+            .dealer-banner .btn-dealer,
+            .dealer-banner .btn-dealer-outline {
+                font-size: 11px;
+                padding: 8px 16px;
+            }
+
+            .promo-banner h4 {
+                font-size: 15px;
+            }
+
+            .promo-banner p {
+                font-size: 12px;
+            }
+
+            .fixed-footer .nav-item {
+                font-size: 7px;
+                padding: 4px 8px;
+            }
+
+            .fixed-footer .nav-item i {
+                font-size: 16px;
+            }
         }
 
         @media (max-width: 360px) {
+            .quick-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
             .service-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
             .feature-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .contact-card .contact-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .contact-card .contact-actions a {
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    
+
     <!-- ===== WHATSAPP FLOAT ===== -->
     <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
@@ -1186,7 +1576,7 @@
             <div class="logo-icon">
                 <i class="fas fa-shield-alt"></i>
             </div>
-            <div class="logo-text">Raj <span>Marketing · Mysore</span></div>
+            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
         </div>
         <div class="header-actions">
             <a href="customer-login.html" class="header-btn">
@@ -1210,6 +1600,7 @@
         <!-- ===== SLIDER ===== -->
         <div class="slider-container">
             <div class="slider-track">
+                <!-- Slide 1 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1218,6 +1609,7 @@
                         <span class="sub-text">100% Protection · Quality Guaranteed</span>
                     </div>
                 </div>
+                <!-- Slide 2 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1226,6 +1618,7 @@
                         <span class="sub-text">Perfect Fit for Every Window</span>
                     </div>
                 </div>
+                <!-- Slide 3 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1234,6 +1627,7 @@
                         <span class="sub-text">500+ Happy Customers</span>
                     </div>
                 </div>
+                <!-- Slide 4 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1242,6 +1636,7 @@
                         <span class="sub-text">Premium materials · Expert craftsmanship</span>
                     </div>
                 </div>
+                <!-- Slide 5 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1250,6 +1645,7 @@
                         <span class="sub-text">Safe · Reliable · Affordable</span>
                     </div>
                 </div>
+                <!-- Slide 6 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1258,6 +1654,7 @@
                         <span class="sub-text">Quality · Trust · Excellence</span>
                     </div>
                 </div>
+                <!-- Slide 7 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1266,6 +1663,7 @@
                         <span class="sub-text">Expert team · Hassle-free service</span>
                     </div>
                 </div>
+                <!-- Slide 8 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1274,6 +1672,7 @@
                         <span class="sub-text">Velcro · Aluminium · Pleated · Mesh</span>
                     </div>
                 </div>
+                <!-- Slide 9 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1282,6 +1681,7 @@
                         <span class="sub-text">Join our network · Grow your business</span>
                     </div>
                 </div>
+                <!-- Slide 10 -->
                 <div class="slider-slide">
                     <div class="overlay"></div>
                     <div class="slide-content">
@@ -1291,10 +1691,17 @@
                     </div>
                 </div>
             </div>
+            <!-- Slider Dots -->
             <div class="slider-dots" id="sliderDots">
-                <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
-                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
                 <span class="dot"></span>
             </div>
         </div>
@@ -1499,10 +1906,10 @@
             <i class="fas fa-handshake"></i> Dealer
         </a>
     </footer>
-
+    
     <script>
         // ============================================================
-        // COMPLETE PRODUCT DATABASE
+        // COMPLETE PRODUCT DATABASE - All 20 Products from Original
         // ============================================================
         const PRODUCTS = [
             { id: 'pleated-economic', name: 'Pleated Economic', category: 'Pleated', price: '₹380-460', image: 'images/pleated-economic.jpg', badge: 'pleated', online: false },
@@ -1528,7 +1935,7 @@
         ];
 
         // ============================================================
-        // LOAD PRODUCTS
+        // PRODUCT SCROLL - Show first 5 products
         // ============================================================
         function loadProducts() {
             const scroll = document.getElementById('productScroll');
@@ -1563,7 +1970,6 @@
                 p.price.toLowerCase().includes(searchTerm)
             );
 
-            
             if (results.length === 0) {
                 resultsContainer.innerHTML = `
                     <div style="padding:16px; text-align:center; color:#94a3b8; font-size:13px;">
@@ -1588,6 +1994,7 @@
             resultsContainer.classList.add('active');
         }
 
+        // Close search results on outside click
         document.addEventListener('click', function(e) {
             const searchBar = document.querySelector('.search-bar');
             const results = document.getElementById('searchResults');
@@ -1597,7 +2004,7 @@
         });
 
         // ============================================================
-        // SLIDER DOTS
+        // SLIDER DOTS - Auto update active dot
         // ============================================================
         function updateSliderDots() {
             const track = document.querySelector('.slider-track');
