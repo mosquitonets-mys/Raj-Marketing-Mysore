@@ -1,0 +1,2386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Raj Marketing · Estimate Generator</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    
+    <style>
+        /* ============================================================
+           COMPLETE STYLING
+        ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-blue: #0ea5e9;
+            --primary-dark: #0284c7;
+            --primary-green: #22c55e;
+            --primary-green-dark: #16a34a;
+            --primary-orange: #f59e0b;
+            --primary-orange-dark: #d97706;
+            --dark-bg: #0f172a;
+            --light-bg: #f0f4f8;
+            --white: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --radius: 16px;
+        }
+
+        body {
+            background: var(--light-bg);
+            min-height: 100vh;
+            padding: 0 12px;
+            padding-top: 76px;
+            padding-bottom: 90px;
+        }
+
+        /* ===== HEADER ===== */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 540px;
+            margin: 0 auto;
+            width: 100%;
+            background: var(--white);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+            border-bottom: 3px solid var(--primary-orange);
+            height: 68px;
+        }
+
+        .fixed-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fixed-header .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(145deg, var(--primary-blue), var(--primary-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .fixed-header .logo-text {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--text-dark);
+            line-height: 1.1;
+        }
+        .fixed-header .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+
+        .fixed-header .header-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .fixed-header .header-btn {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.2s;
+        }
+        .fixed-header .header-btn i {
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+        .fixed-header .header-btn:hover {
+            background: #f0f9ff;
+            color: var(--primary-blue);
+        }
+        .fixed-header .header-btn:hover i {
+            color: var(--primary-blue);
+        }
+
+        /* ===== FOOTER ===== */
+        .fixed-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 540px;
+            margin: 0 auto;
+            width: 100%;
+            background: var(--white);
+            padding: 6px 8px 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 2px solid var(--primary-orange);
+            box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .fixed-footer .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 8px;
+            color: var(--text-muted);
+            font-weight: 500;
+            gap: 1px;
+            padding: 4px 10px;
+            border-radius: 16px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .fixed-footer .nav-item i {
+            font-size: 18px;
+            color: var(--text-dark);
+        }
+        .fixed-footer .nav-item.active i {
+            color: var(--primary-orange);
+        }
+        .fixed-footer .nav-item.active {
+            color: var(--primary-orange);
+            background: rgba(245, 158, 11, 0.08);
+        }
+        .fixed-footer .nav-item:hover i {
+            color: var(--primary-orange);
+        }
+
+        /* ===== APP CONTAINER ===== */
+        .app-container {
+            max-width: 520px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ===== PAGE SECTIONS ===== */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 18px 16px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title i {
+            color: var(--primary-orange);
+        }
+        .card-title .badge {
+            background: var(--primary-orange);
+            color: #fff;
+            font-size: 9px;
+            padding: 2px 10px;
+            border-radius: 30px;
+            margin-left: auto;
+        }
+
+        /* ===== FORM ELEMENTS ===== */
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+        .form-group label .required {
+            color: #dc2626;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            background: #fafbfc;
+            transition: 0.2s;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.08);
+            background: var(--white);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 50px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            justify-content: center;
+        }
+        .btn-primary {
+            background: linear-gradient(145deg, var(--primary-blue), var(--primary-dark));
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.35);
+        }
+        .btn-success {
+            background: linear-gradient(145deg, var(--primary-green), var(--primary-green-dark));
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(34, 197, 94, 0.25);
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(34, 197, 94, 0.35);
+        }
+        .btn-warning {
+            background: linear-gradient(145deg, var(--primary-orange), var(--primary-orange-dark));
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+        }
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(245, 158, 11, 0.35);
+        }
+        .btn-danger {
+            background: #dc2626;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 1.5px solid var(--primary-blue);
+        }
+        .btn-outline:hover {
+            background: #f0f9ff;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--text-dark);
+            border: 1.5px solid var(--border-color);
+        }
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 11px;
+        }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-whatsapp {
+            background: #25D366;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.25);
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        /* ===== TABLE ===== */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 6px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        table th {
+            background: #f1f5f9;
+            padding: 8px 6px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
+        }
+        table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        table td input,
+        table td select {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 12px;
+            outline: none;
+            background: #fafbfc;
+            min-width: 50px;
+        }
+        table td input:focus,
+        table td select:focus {
+            border-color: var(--primary-blue);
+        }
+        table .row-total {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        .table-actions {
+            display: flex;
+            gap: 4px;
+        }
+        .table-actions button {
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .table-actions .btn-add {
+            background: var(--primary-green);
+            color: #fff;
+        }
+        .table-actions .btn-add:hover {
+            background: var(--primary-green-dark);
+        }
+        .table-actions .btn-remove {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .table-actions .btn-remove:hover {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        /* ===== SUMMARY ===== */
+        .summary-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 13px;
+        }
+        .summary-row.total {
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--primary-blue);
+            border-top: 2px solid var(--border-color);
+            padding-top: 8px;
+            margin-top: 4px;
+        }
+        .summary-row.discount {
+            color: var(--primary-green);
+        }
+        .summary-row .label {
+            color: var(--text-muted);
+        }
+
+        /* ===== DASHBOARD ===== */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 14px 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        .stat-card .number {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+        .stat-card .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .stat-card .icon {
+            font-size: 20px;
+            color: var(--primary-orange);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* ===== PREVIEW ===== */
+        .preview-container {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            max-width: 100%;
+        }
+        .preview-container .header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-orange);
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+        }
+        .preview-container .header h1 {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--text-dark);
+        }
+        .preview-container .header h1 span {
+            color: var(--primary-orange);
+        }
+        .preview-container .header p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .preview-container .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 16px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+        .preview-container .details-grid .item {
+            display: flex;
+            gap: 4px;
+        }
+        .preview-container .details-grid .item .lbl {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .preview-container .details-grid .item .val {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .preview-container table {
+            font-size: 11px;
+        }
+        .preview-container table th {
+            background: #f1f5f9;
+            padding: 6px 4px;
+        }
+        .preview-container table td {
+            padding: 4px 4px;
+        }
+
+        .preview-container .terms {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+        .preview-container .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 14px;
+            font-size: 12px;
+        }
+        .preview-container .signatures .sig-line {
+            border-top: 1px solid var(--text-dark);
+            width: 150px;
+            padding-top: 4px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* ===== HISTORY ===== */
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .history-item:hover {
+            background: #f8fafc;
+        }
+        .history-item .info .name {
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .history-item .info .meta {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .history-item .amount {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        .history-item .status {
+            font-size: 9px;
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .status-draft { background: #f1f5f9; color: var(--text-muted); }
+        .status-quotation { background: #dbeafe; color: var(--primary-blue); }
+        .status-confirmed { background: #d1fae5; color: var(--primary-green); }
+        .status-progress { background: #fef3c7; color: var(--primary-orange); }
+        .status-completed { background: #d1fae5; color: #059669; }
+        .status-cancelled { background: #fee2e2; color: #dc2626; }
+        .status-paid { background: #d1fae5; color: #059669; }
+
+        /* ===== SETTINGS ===== */
+        .settings-group {
+            margin-bottom: 16px;
+        }
+        .settings-group h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            border-left: 3px solid var(--primary-orange);
+            padding-left: 10px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-dark);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 2000;
+            display: none;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .toast.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+                .toast.success { background: var(--primary-green-dark); }
+        .toast.error { background: #dc2626; }
+        .toast.warning { background: var(--primary-orange-dark); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-row-3 { grid-template-columns: 1fr 1fr; }
+            .dashboard-stats { grid-template-columns: 1fr 1fr; }
+            .fixed-header .logo-text { font-size: 14px; }
+            .fixed-header .header-btn { font-size: 8px; padding: 4px 6px; }
+            .fixed-header .header-btn i { font-size: 14px; }
+            .preview-container .details-grid { grid-template-columns: 1fr; }
+            .btn-group .btn { font-size: 11px; padding: 8px 14px; }
+            table { font-size: 10px; }
+            table td input, table td select { font-size: 10px; padding: 4px 6px; }
+            .card { padding: 12px 10px; }
+        }
+
+        @media (max-width: 360px) {
+            .dashboard-stats { grid-template-columns: 1fr 1fr; }
+            .form-row-3 { grid-template-columns: 1fr; }
+            .fixed-footer .nav-item { font-size: 7px; padding: 2px 6px; }
+            .fixed-footer .nav-item i { font-size: 14px; }
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary-orange); border-radius: 20px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 20px; }
+
+        /* ===== UTILITY ===== */
+        .text-center { text-align: center; }
+        .text-muted { color: var(--text-muted); }
+        .mt-8 { margin-top: 8px; }
+        .mt-12 { margin-top: 12px; }
+        .mb-8 { margin-bottom: 8px; }
+        .flex { display: flex; gap: 8px; align-items: center; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-4 { gap: 4px; }
+        .hidden { display: none; }
+        .w-full { width: 100%; }
+
+        /* ===== STICKY BOTTOM ===== */
+        .sticky-actions {
+            position: sticky;
+            bottom: 0;
+            background: var(--white);
+            padding: 12px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 12px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="fixed-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-calculator"></i></div>
+            <div class="logo-text">Raj Marketing<span>Estimate Pro</span></div>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" onclick="navigateTo('dashboard')">
+                <i class="fas fa-home"></i> Home
+            </button>
+            <button class="header-btn" onclick="navigateTo('settings')">
+                <i class="fas fa-cog"></i> Settings
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="app-container">
+
+        <!-- ===== DASHBOARD ===== -->
+        <div class="page active" id="page-dashboard">
+            <div class="dashboard-stats" id="dashboardStats">
+                <div class="stat-card">
+                    <span class="icon"><i class="fas fa-file-invoice"></i></span>
+                    <div class="number" id="statTotal">0</div>
+                    <div class="label">Total Estimates</div>
+                </div>
+                <div class="stat-card">
+                    <span class="icon"><i class="fas fa-calendar-day"></i></span>
+                    <div class="number" id="statToday">0</div>
+                    <div class="label">Today's Estimates</div>
+                </div>
+                <div class="stat-card">
+                    <span class="icon"><i class="fas fa-rupee-sign"></i></span>
+                    <div class="number" id="statValue">₹0</div>
+                    <div class="label">Total Sales Value</div>
+                </div>
+                <div class="stat-card">
+                    <span class="icon"><i class="fas fa-clock"></i></span>
+                    <div class="number" id="statPending">0</div>
+                    <div class="label">Pending</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-plus-circle"></i> Quick Actions
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="newEstimate()"><i class="fas fa-plus"></i> New Estimate</button>
+                    <button class="btn btn-success" onclick="navigateTo('history')"><i class="fas fa-history"></i> History</button>
+                    <button class="btn btn-warning" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> Settings</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-clock"></i> Recent Estimates
+                    <span class="badge">Latest</span>
+                </div>
+                <div id="recentEstimates">
+                    <div class="text-center text-muted" style="padding:20px;font-size:13px;">No estimates yet. Create your first estimate!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ESTIMATE FORM ===== -->
+        <div class="page" id="page-estimate">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-file-invoice"></i> Estimate Details
+                    <span class="badge" id="estimateNumberBadge">#000</span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Estimate No.</label>
+                        <input type="text" id="estNo" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="estDate" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Customer Name <span class="required">*</span></label>
+                        <input type="text" id="customerName" placeholder="Enter customer name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile <span class="required">*</span></label>
+                        <input type="tel" id="customerMobile" placeholder="10-digit mobile" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="tel" id="customerWhatsapp" placeholder="If different" />
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" id="customerCity" placeholder="Mysore" value="Mysore" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea id="customerAddress" placeholder="Enter address"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Landmark</label>
+                        <input type="text" id="customerLandmark" placeholder="Near..." />
+                    </div>
+                    <div class="form-group">
+                        <label>Google Map Location</label>
+                        <input type="text" id="customerMap" placeholder="Google Maps link" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Site Visit Required</label>
+                        <select id="siteVisit">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="estimateStatus">
+                            <option value="Draft">Draft</option>
+                            <option value="Quotation">Quotation</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Paid">Paid</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="estimateNotes" placeholder="Any special notes..." rows="2"></textarea>
+                </div>
+            </div>
+
+            <!-- ===== PRODUCT SELECTION ===== -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-box"></i> Product Selection
+                </div>
+
+                <div class="form-group">
+                    <label>Product Category <span class="required">*</span></label>
+                    <select id="productCategory" onchange="onCategoryChange()">
+                        <option value="">-- Select Category --</option>
+                        <option value="velcro">Velcro System</option>
+                        <option value="aluminium">Aluminium Frame System</option>
+                        <option value="openable">Openable System</option>
+                        <option value="pleated">Pleated Nets</option>
+                        <option value="pleated_ss">Pleated SS Mesh</option>
+                        <option value="sliding">Sliding Mosquito Nets</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Product Model <span class="required">*</span></label>
+                    <select id="productModel" onchange="onModelChange()">
+                        <option value="">-- Select Model --</option>
+                    </select>
+                </div>
+
+                <div id="productOptions" class="hidden">
+                    <div class="form-row" id="optionColour">
+                        <div class="form-group">
+                            <label>Frame Colour</label>
+                            <select id="frameColour">
+                                <option value="Ivory">Ivory</option>
+                                <option value="White">White</option>
+                                <option value="Black">Black</option>
+                                <option value="Honey Gold">Honey Gold</option>
+                                <option value="Brown">Brown</option>
+                                <option value="Woodgrain/Teakwood">Woodgrain/Teakwood</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mesh Type</label>
+                            <select id="meshType">
+                                <option value="Black Coated SS">Black Coated SS</option>
+                                <option value="SS 304 Bright">SS 304 Bright</option>
+                                <option value="Fiber Mesh">Fiber Mesh</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" id="optionShutter">
+                        <div class="form-group">
+                            <label>Shutter Type</label>
+                            <select id="shutterType">
+                                <option value="Single">Single</option>
+                                <option value="Double">Double</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Price Option</label>
+                            <select id="priceOption">
+                                <option value="regular">Regular Price</option>
+                                <option value="offer">Offer Price</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" id="optionPleatedType">
+                        <div class="form-group">
+                            <label>Pleated Type</label>
+                            <select id="pleatedType">
+                                <option value="economic">Economic</option>
+                                <option value="premium">Premium</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Pleated Style</label>
+                            <select id="pleatedStyle">
+                                <option value="regular">Regular</option>
+                                <option value="woodgrain">Woodgrain</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" id="optionSlidingType">
+                        <div class="form-group">
+                            <label>Sliding Type</label>
+                            <select id="slidingType">
+                                <option value="single">Single Sliding</option>
+                                <option value="double">Double Sliding</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sliding Frame</label>
+                            <select id="slidingFrame">
+                                <option value="aluminium">Aluminium</option>
+                                <option value="woodgrain">Woodgrain</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="priceDisplay">
+                    <label>Current Price</label>
+                    <input type="text" id="productPriceDisplay" readonly style="background:#f1f5f9;font-weight:700;color:var(--primary-blue);" value="₹0/sq.ft" />
+                </div>
+            </div>
+            
+            <!-- ===== MEASUREMENT TABLE ===== -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-ruler-combined"></i> Measurements
+                    <span class="badge" id="rowCount">0 rows</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table id="measurementTable">
+                        <thead>
+                            <tr>
+                                <th style="width:30px;">#</th>
+                                <th>Floor</th>
+                                <th>Room/Location</th>
+                                <th style="width:65px;">Width (in)</th>
+                                <th style="width:65px;">Height (in)</th>
+                                <th style="width:50px;">Qty</th>
+                                <th style="width:65px;">Sq.Ft</th>
+                                <th style="width:60px;">Rate</th>
+                                <th style="width:65px;">Amount</th>
+                                <th style="width:40px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="measurementBody">
+                            <tr id="rowTemplate" style="display:none;">
+                                <td class="row-index">1</td>
+                                <td><input type="text" class="floor" placeholder="Ground" /></td>
+                                <td><input type="text" class="location" placeholder="Hall Window" /></td>
+                                <td><input type="number" class="width" step="0.5" min="0" oninput="calculateRow(this)" /></td>
+                                <td><input type="number" class="height" step="0.5" min="0" oninput="calculateRow(this)" /></td>
+                                <td><input type="number" class="qty" value="1" min="1" oninput="calculateRow(this)" /></td>
+                                <td class="sqft" style="font-weight:600;color:var(--primary-blue);">0.00</td>
+                                <td class="rate">0</td>
+                                <td class="amount" style="font-weight:600;">₹0</td>
+                                <td><button class="btn-remove" onclick="removeRow(this)"><i class="fas fa-times"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="btn btn-success btn-sm" onclick="addRow()">
+                    <i class="fas fa-plus"></i> Add Measurement
+                </button>
+            </div>
+
+            <!-- ===== SUMMARY ===== -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-calculator"></i> Estimate Summary
+                </div>
+
+                <div class="summary-box" id="summaryBox">
+                    <div class="summary-row">
+                        <span class="label">Total Items</span>
+                        <span id="totalItems">0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Total Quantity</span>
+                        <span id="totalQuantity">0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Total Square Feet</span>
+                        <span id="totalSqft">0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Subtotal</span>
+                        <span id="subtotal">₹0</span>
+                    </div>
+                    <div class="summary-row discount">
+                        <span class="label">Discount (<span id="discountPercent">0</span>%)</span>
+                        <span id="discountAmount">- ₹0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span class="label">Final Estimate</span>
+                        <span id="finalAmount">₹0</span>
+                    </div>
+                </div>
+
+                <div class="form-row" style="margin-top:10px;">
+                    <div class="form-group">
+                        <label>Advance %</label>
+                        <input type="number" id="advancePercent" value="60" min="0" max="100" oninput="calculatePayment()" />
+                    </div>
+                    <div class="form-group">
+                        <label>Advance Amount</label>
+                        <input type="text" id="advanceAmount" readonly style="background:#f1f5f9;font-weight:700;color:var(--primary-green);" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Balance Amount</label>
+                    <input type="text" id="balanceAmount" readonly style="background:#f1f5f9;font-weight:700;color:var(--primary-blue);" />
+                </div>
+                <div class="form-group">
+                    <label>Amount in Words</label>
+                    <input type="text" id="amountWords" readonly style="background:#f1f5f9;font-weight:600;" />
+                </div>
+            </div>
+
+            <!-- ===== ACCESSORIES ===== -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-tools"></i> Accessories <span class="badge">Optional</span>
+                </div>
+                <div id="accessoriesContainer">
+                    <!-- Dynamically generated -->
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="addAccessory()"><i class="fas fa-plus"></i> Add Accessory</button>
+            </div>
+
+            <!-- ===== ACTIONS ===== -->
+            <div class="sticky-actions">
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="saveEstimate()"><i class="fas fa-save"></i> Save</button>
+                    <button class="btn btn-warning" onclick="previewEstimate()"><i class="fas fa-eye"></i> Preview</button>
+                    <button class="btn btn-success" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+                    <button class="btn btn-whatsapp" onclick="sendWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                    <button class="btn btn-danger" onclick="clearEstimate()"><i class="fas fa-trash"></i> Clear</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PREVIEW ===== -->
+        <div class="page" id="page-preview">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-eye"></i> Estimate Preview
+                    <span class="badge">Review</span>
+                </div>
+                <div id="previewContent" class="preview-container"></div>
+                <div class="btn-group mt-12">
+                    <button class="btn btn-secondary" onclick="navigateTo('estimate')"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="btn btn-success" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Generate PDF</button>
+                    <button class="btn btn-warning" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+                    <button class="btn btn-whatsapp" onclick="sendWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== HISTORY ===== -->
+        <div class="page" id="page-history">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-history"></i> Estimate History
+                    <span class="badge" id="historyCount">0</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="historySearch" placeholder="Search by name, mobile, or estimate no..." oninput="renderHistory()" />
+                </div>
+                <div id="historyList"></div>
+            </div>
+        </div>
+
+        <!-- ===== SETTINGS ===== -->
+        <div class="page" id="page-settings">
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+
+                <div class="settings-group">
+                    <h4>Business Information</h4>
+                    <div class="form-group">
+                        <label>Business Name</label>
+                        <input type="text" id="settingBusinessName" value="Raj Marketing Mysore" />
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="settingAddress">#38/2, 2nd Cross Road, Kuvempunagar, Mysore – 570023</textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" id="settingPhone" value="9483037385" />
+                        </div>
+                        <div class="form-group">
+                            <label>GSTIN</label>
+                            <input type="text" id="settingGST" value="29CHKPR1962H1ZT" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Pricing</h4>
+                    <div id="pricingSettings">
+                        <!-- Dynamically generated -->
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="savePricing()"><i class="fas fa-save"></i> Save Prices</button>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Discount Slabs</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Above 200 sq.ft</label>
+                            <input type="number" id="discount200" value="12" min="0" max="100" />
+                        </div>
+                        <div class="form-group">
+                            <label>150-199 sq.ft</label>
+                            <input type="number" id="discount150" value="10" min="0" max="100" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>100-149 sq.ft</label>
+                            <input type="number" id="discount100" value="8" min="0" max="100" />
+                        </div>
+                        <div class="form-group">
+                            <label>Below 100 sq.ft</label>
+                            <input type="number" id="discountBelow" value="5" min="0" max="100" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Estimate Settings</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Starting Estimate Number</label>
+                            <input type="number" id="settingStartNumber" value="1" min="1" />
+                        </div>
+                        <div class="form-group">
+                            <label>Default Advance %</label>
+                            <input type="number" id="settingAdvance" value="60" min="0" max="100" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Data Management</h4>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">
+                            <i class="fas fa-upload"></i> Import Data
+                        </button>
+                        <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(event)" />
+                        <button class="btn btn-danger" onclick="clearAllData()"><i class="fas fa-trash"></i> Clear All Data</button>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Terms & Conditions</h4>
+                    <div class="form-group">
+                        <label>Terms Text</label>
+                        <textarea id="settingTerms" rows="4">1. Warranty: SS Mesh & Pleated Nets - 1 year, Aluminium Frame - 5 years against manufacturing defects. Physical/customer damage is chargeable after site verification.
+2. Payment: 60% advance for order confirmation. Balance after completion of work on site.
+3. Cancellation: Cancellation after confirmation may have deductions as per policy.
+4. Site Visit: Free within Mysore. Outside Mysore: ₹15/km.
+5. Installation: No hidden charges unless specifically mentioned.
+6. Delivery: Velcro - 2 days, Frame - 3 days, Pleated - 3 days (subject to availability).</textarea>
+                    </div>
+                </div>
+
+                <button class="btn btn-success btn-block" onclick="saveSettings()"><i class="fas fa-save"></i> Save All Settings</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== FOOTER NAV ===== -->
+    <footer class="fixed-footer">
+        <a href="#" class="nav-item active" onclick="navigateTo('dashboard')">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="#" class="nav-item" onclick="newEstimate()">
+            <i class="fas fa-plus-circle"></i> New
+        </a>
+        <a href="#" class="nav-item" onclick="navigateTo('history')">
+            <i class="fas fa-history"></i> History
+        </a>
+        <a href="#" class="nav-item" onclick="navigateTo('settings')">
+            <i class="fas fa-cog"></i> Settings
+        </a>
+    </footer>
+
+    <script>
+        // ============================================================
+        // COMPLETE APPLICATION JAVASCRIPT
+        // ============================================================
+
+        // ===== PRICE CONFIGURATION =====
+        const DEFAULT_PRICES = {
+            velcro_regular: 60,
+            velcro_saint_gobain: 80,
+            frame_regular: 220,
+            frame_woodgrain: 320,
+            openable_regular: 220,
+            openable_offer: 200,
+            pleated_economic: 380,
+            pleated_premium: 480,
+            pleated_ss_single: 470,
+            pleated_ss_double: 590,
+            sliding_single: 400,
+            sliding_double: 450,
+            // Accessories
+            fibre_corner: 6,
+            middle_clip: 4,
+            rubber_beading: 12,
+            hinges: 6,
+            stopper_lock: 3
+        };
+
+        // ===== STATE =====
+        let appState = {
+            estimates: [],
+            currentEstimate: null,
+            editingIndex: -1,
+            nextEstNo: 1,
+            prices: { ...DEFAULT_PRICES },
+            settings: {
+                businessName: 'Raj Marketing Mysore',
+                address: '#38/2, 2nd Cross Road, Kuvempunagar, Mysore – 570023',
+                phone: '9483037385',
+                gst: '29CHKPR1962H1ZT',
+                advancePercent: 60,
+                terms: `1. Warranty: SS Mesh & Pleated Nets - 1 year, Aluminium Frame - 5 years against manufacturing defects. Physical/customer damage is chargeable after site verification.\n2. Payment: 60% advance for order confirmation. Balance after completion of work on site.\n3. Cancellation: Cancellation after confirmation may have deductions as per policy.\n4. Site Visit: Free within Mysore. Outside Mysore: ₹15/km.\n5. Installation: No hidden charges unless specifically mentioned.\n6. Delivery: Velcro - 2 days, Frame - 3 days, Pleated - 3 days (subject to availability).`,
+                discounts: { above200: 12, range150: 10, range100: 8, below100: 5 }
+            }
+        };
+
+        // ===== INITIALIZATION =====
+        function init() {
+            loadFromStorage();
+            updateDashboard();
+            renderPricingSettings();
+            renderAccessories();
+            setTodayDate();
+            document.getElementById('importFile').addEventListener('change', importData);
+            console.log('✅ Raj Marketing Estimator initialized');
+        }
+
+        // ===== STORAGE =====
+        function loadFromStorage() {
+            try {
+                const saved = localStorage.getItem('raj_estimator_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    appState.estimates = data.estimates || [];
+                    appState.nextEstNo = data.nextEstNo || 1;
+                    appState.prices = { ...DEFAULT_PRICES, ...(data.prices || {}) };
+                    appState.settings = { ...appState.settings, ...(data.settings || {}) };
+                }
+            } catch (e) { console.warn('Storage load error:', e); }
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem('raj_estimator_data', JSON.stringify({
+                    estimates: appState.estimates,
+                    nextEstNo: appState.nextEstNo,
+                    prices: appState.prices,
+                    settings: appState.settings
+                }));
+            } catch (e) { console.warn('Storage save error:', e); }
+        }
+
+        // ===== NAVIGATION =====
+        function navigateTo(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            if (page === 'dashboard') updateDashboard();
+            if (page === 'history') renderHistory();
+            if (page === 'settings') renderPricingSettings();
+            // Update footer
+            document.querySelectorAll('.fixed-footer .nav-item').forEach(item => item.classList.remove('active'));
+            const map = { dashboard: 0, estimate: 1, history: 2, settings: 3 };
+            const idx = map[page] || 0;
+            document.querySelectorAll('.fixed-footer .nav-item')[idx]?.classList.add('active');
+        }
+
+        // ===== TOAST =====
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ===== DATE =====
+        function setTodayDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('estDate').value = today;
+        }
+ 
+        // ===== NUMBER FORMATTING =====
+        function formatCurrency(amount) {
+            if (amount === undefined || amount === null) return '₹0';
+            const num = Math.round(amount);
+            return '₹' + num.toLocaleString('en-IN');
+        }
+
+        function numberToWords(num) {
+            if (num === 0) return 'Zero';
+            const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve',
+                'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'
+            ];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+            const n = Math.round(num);
+            if (n < 20) return a[n];
+
+            const crore = Math.floor(n / 10000000);
+            const lakh = Math.floor((n % 10000000) / 100000);
+            const thousand = Math.floor((n % 100000) / 1000);
+            const hundred = Math.floor((n % 1000) / 100);
+            const remainder = n % 100;
+
+            let words = '';
+            if (crore > 0) words += a[crore] + ' Crore ';
+            if (lakh > 0) words += a[lakh] + ' Lakh ';
+            if (thousand > 0) words += a[thousand] + ' Thousand ';
+            if (hundred > 0) words += a[hundred] + ' Hundred ';
+            if (remainder > 0) {
+                if (words.length > 0) words += 'and ';
+                if (remainder < 20) words += a[remainder];
+                else words += b[Math.floor(remainder / 10)] + (remainder % 10 > 0 ? ' ' + a[remainder % 10] : '');
+            }
+            return words.trim() + ' Rupees Only';
+        }
+
+        // ===== PRODUCT DATA =====
+        const PRODUCTS = {
+            velcro: {
+                label: 'Velcro System',
+                models: {
+                    velcro_regular: { label: 'Regular Velcro System', priceKey: 'velcro_regular' },
+                    velcro_saint_gobain: { label: 'Saint-Gobain Velcro System', priceKey: 'velcro_saint_gobain' }
+                },
+                options: ['colour', 'mesh']
+            },
+            aluminium: {
+                label: 'Aluminium Frame System',
+                models: {
+                    frame_regular: { label: 'Regular Aluminium Frame + SS Mesh', priceKey: 'frame_regular' },
+                    frame_woodgrain: { label: 'Woodgrain/Teakwood Frame + SS Mesh', priceKey: 'frame_woodgrain' }
+                },
+                options: ['colour', 'mesh', 'shutter']
+            },
+            openable: {
+                label: 'Openable System',
+                models: {
+                    openable_regular: { label: 'Openable System (Regular)', priceKey: 'openable_regular' },
+                    openable_offer: { label: 'Openable System (Offer)', priceKey: 'openable_offer' }
+                },
+                options: ['shutter']
+            },
+            pleated: {
+                label: 'Pleated Nets',
+                models: {
+                    pleated_economic: { label: 'Pleated Economic', priceKey: 'pleated_economic' },
+                    pleated_premium: { label: 'Pleated Premium', priceKey: 'pleated_premium' }
+                },
+                options: ['pleated_type', 'pleated_style']
+            },
+            pleated_ss: {
+                label: 'Pleated SS Mesh',
+                models: {
+                    pleated_ss_single: { label: 'Pleated SS Mesh - Single Sliding', priceKey: 'pleated_ss_single' },
+                    pleated_ss_double: { label: 'Pleated SS Mesh - Double Sliding', priceKey: 'pleated_ss_double' }
+                },
+                options: []
+            },
+            sliding: {
+                label: 'Sliding Mosquito Nets',
+                models: {
+                    sliding_single: { label: 'Single Sliding', priceKey: 'sliding_single' },
+                    sliding_double: { label: 'Double Sliding', priceKey: 'sliding_double' }
+                },
+                options: ['sliding_type', 'sliding_frame', 'colour', 'mesh']
+            }
+        };
+
+        // ===== CATEGORY CHANGE =====
+        function onCategoryChange() {
+            const cat = document.getElementById('productCategory').value;
+            const modelSelect = document.getElementById('productModel');
+            modelSelect.innerHTML = '<option value="">-- Select Model --</option>';
+
+            // Hide all options
+            document.getElementById('productOptions').classList.add('hidden');
+            document.querySelectorAll('#productOptions .form-row').forEach(el => el.style.display = 'none');
+
+            if (cat && PRODUCTS[cat]) {
+                const data = PRODUCTS[cat];
+                Object.entries(data.models).forEach(([key, val]) => {
+                    const opt = document.createElement('option');
+                    opt.value = key;
+                    opt.textContent = val.label;
+                    modelSelect.appendChild(opt);
+                });
+
+                // Show relevant options
+                if (data.options) {
+                    document.getElementById('productOptions').classList.remove('hidden');
+                    data.options.forEach(opt => {
+                        const el = document.getElementById('option' + opt.charAt(0).toUpperCase() + opt.slice(1));
+                        if (el) el.style.display = 'grid';
+                    });
+                }
+            }
+            onModelChange();
+        }
+
+        // ===== MODEL CHANGE =====
+        function onModelChange() {
+            const model = document.getElementById('productModel').value;
+            const cat = document.getElementById('productCategory').value;
+            const priceDisplay = document.getElementById('productPriceDisplay');
+
+            if (model && cat && PRODUCTS[cat] && PRODUCTS[cat].models[model]) {
+                const data = PRODUCTS[cat].models[model];
+                const price = appState.prices[data.priceKey] || 0;
+                priceDisplay.value = '₹' + price + '/sq.ft';
+                // Update rate in rows
+                document.querySelectorAll('#measurementBody tr:not(#rowTemplate)').forEach(row => {
+                    row.querySelector('.rate').textContent = price;
+                    calculateRow(row);
+                });
+                updateSummary();
+            } else {
+                priceDisplay.value = '₹0/sq.ft';
+            }
+        }
+
+        // ===== MEASUREMENT ROWS =====
+        function addRow(data) {
+            const tbody = document.getElementById('measurementBody');
+            const template = document.getElementById('rowTemplate');
+            const newRow = template.cloneNode(true);
+            newRow.style.display = '';
+            newRow.id = '';
+
+            if (data) {
+                newRow.querySelector('.floor').value = data.floor || '';
+                newRow.querySelector('.location').value = data.location || '';
+                newRow.querySelector('.width').value = data.width || '';
+                newRow.querySelector('.height').value = data.height || '';
+                newRow.querySelector('.qty').value = data.qty || 1;
+            }
+
+            // Set rate
+            const cat = document.getElementById('productCategory').value;
+            const model = document.getElementById('productModel').value;
+            if (cat && model && PRODUCTS[cat] && PRODUCTS[cat].models[model]) {
+                const price = appState.prices[PRODUCTS[cat].models[model].priceKey] || 0;
+                newRow.querySelector('.rate').textContent = price;
+            }
+
+            // Add remove button
+            const removeBtn = newRow.querySelector('.btn-remove');
+            if (removeBtn) {
+                removeBtn.onclick = function() { removeRow(this); };
+            }
+
+            // Add input listeners
+            newRow.querySelectorAll('.width, .height, .qty').forEach(inp => {
+                inp.oninput = function() { calculateRow(this); };
+            });
+
+            tbody.appendChild(newRow);
+            updateRowIndices();
+            updateSummary();
+            document.getElementById('rowCount').textContent = (tbody.children.length - 1) + ' rows';
+        }
+
+        function removeRow(btn) {
+            const row = btn.closest('tr');
+            if (document.querySelectorAll('#measurementBody tr:not(#rowTemplate)').length > 1) {
+                row.remove();
+                updateRowIndices();
+                updateSummary();
+                document.getElementById('rowCount').textContent = document.querySelectorAll('#measurementBody tr:not(#rowTemplate)')
+                    .length + ' rows';
+            } else {
+                showToast('Need at least one measurement row', 'warning');
+            }
+        }
+
+        function calculateRow(input) {
+            const row = input.closest('tr');
+            const width = parseFloat(row.querySelector('.width').value) || 0;
+            const height = parseFloat(row.querySelector('.height').value) || 0;
+            const qty = parseInt(row.querySelector('.qty').value) || 1;
+            const rate = parseFloat(row.querySelector('.rate').textContent) || 0;
+
+            let sqft = 0;
+            if (width > 0 && height > 0) {
+                sqft = (width * height * qty) / 144;
+                // Apply min 24 inch rule
+                if (width < 24 || height < 24) {
+                    // Small opening rule - dimension below 24 inches treated as 24 inches
+                    const w = Math.max(width, 24);
+                    const h = Math.max(height, 24);
+                    sqft = (w * h * qty) / 144;
+                }
+                sqft = Math.round(sqft * 100) / 100;
+            }
+
+            row.querySelector('.sqft').textContent = sqft.toFixed(2);
+            const amount = sqft * rate;
+            row.querySelector('.amount').textContent = formatCurrency(amount);
+
+            updateSummary();
+            return { sqft, amount };
+        }
+
+        function updateRowIndices() {
+            const rows = document.querySelectorAll('#measurementBody tr:not(#rowTemplate)');
+            rows.forEach((row, i) => {
+                row.querySelector('.row-index').textContent = i + 1;
+            });
+        }
+
+        // ===== UPDATE SUMMARY =====
+        function updateSummary() {
+            const rows = document.querySelectorAll('#measurementBody tr:not(#rowTemplate)');
+            let totalItems = rows.length;
+            let totalQty = 0;
+            let totalSqft = 0;
+            let subtotal = 0;
+
+            rows.forEach(row => {
+                const qty = parseInt(row.querySelector('.qty').value) || 0;
+                const sqft = parseFloat(row.querySelector('.sqft').textContent) || 0;
+                const rate = parseFloat(row.querySelector('.rate').textContent) || 0;
+                totalQty += qty;
+                totalSqft += sqft;
+                subtotal += sqft * rate;
+            });
+
+            // Apply discount
+            const discount = calculateDiscount(totalSqft);
+            const discountAmount = (subtotal * discount) / 100;
+            const finalAmount = subtotal - discountAmount;
+
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalQuantity').textContent = totalQty;
+            document.getElementById('totalSqft').textContent = totalSqft.toFixed(2);
+            document.getElementById('subtotal').textContent = formatCurrency(subtotal);
+            document.getElementById('discountPercent').textContent = discount.toFixed(0);
+            document.getElementById('discountAmount').textContent = '- ' + formatCurrency(discountAmount);
+            document.getElementById('finalAmount').textContent = formatCurrency(finalAmount);
+
+            // Payment
+            calculatePayment();
+
+            return { totalSqft, subtotal, discount, discountAmount, finalAmount };
+        }
+
+        // ===== DISCOUNT CALCULATION =====
+        function calculateDiscount(sqft) {
+            const d = appState.settings.discounts;
+            if (sqft > 200) return d.above200 || 12;
+            if (sqft >= 150) return d.range150 || 10;
+            if (sqft >= 100) return d.range100 || 8;
+            return d.below100 || 5;
+        }
+
+        // ===== PAYMENT CALCULATION =====
+        function calculatePayment() {
+            const finalText = document.getElementById('finalAmount').textContent;
+            const finalAmount = parseFloat(finalText.replace(/[₹,]/g, '')) || 0;
+            const advancePercent = parseFloat(document.getElementById('advancePercent').value) || 60;
+            const advance = (finalAmount * advancePercent) / 100;
+            const balance = finalAmount - advance;
+
+            document.getElementById('advanceAmount').value = formatCurrency(advance);
+            document.getElementById('balanceAmount').value = formatCurrency(balance);
+            document.getElementById('amountWords').value = numberToWords(finalAmount);
+        }
+
+        // ===== ACCESSORIES =====
+        function renderAccessories() {
+            const container = document.getElementById('accessoriesContainer');
+            // Show saved accessories or empty
+            if (!container._accessories) {
+                container._accessories = [];
+            }
+            renderAccessoryList();
+        }
+
+        function renderAccessoryList() {
+            const container = document.getElementById('accessoriesContainer');
+            const list = container._accessories || [];
+            if (list.length === 0) {
+                container.innerHTML =
+                    '<div class="text-center text-muted" style="padding:10px;font-size:12px;">No accessories added</div>';
+                return;
+            }
+            let html =
+                '<div class="table-wrap"><table><thead><tr><th>Accessory</th><th>Qty</th><th>Rate</th><th>Amount</th><th></th></tr></thead><tbody>';
+            let total = 0;
+            list.forEach((item, i) => {
+                const amount = (item.qty || 0) * (item.rate || 0);
+                total += amount;
+                html += `<tr>
+                    <td><input type="text" value="${item.name}" style="width:100px;" onchange="updateAccessory(${i},'name',this.value)" /></td>
+                    <td><input type="number" value="${item.qty}" min="0" style="width:60px;" onchange="updateAccessory(${i},'qty',parseInt(this.value)||0)" /></td>
+                    <td><input type="number" value="${item.rate}" min="0" style="width:60px;" onchange="updateAccessory(${i},'rate',parseFloat(this.value)||0)" /></td>
+                    <td>${formatCurrency(amount)}</td>
+                    <td><button class="btn-remove" onclick="removeAccessory(${i})"><i class="fas fa-times"></i></button></td>
+                </tr>`;
+            });
+            html += `</tbody>
+                <tfoot>
+                    <tr><td colspan="3" style="text-align:right;font-weight:700;">Total Accessories</td><td style="font-weight:700;">${formatCurrency(total)}</td><td></td></tr>
+                </tfoot>
+            </table></div>`;
+            container.innerHTML = html;
+            // Store total for summary
+            container._total = total;
+        }
+
+        function addAccessory() {
+            const container = document.getElementById('accessoriesContainer');
+            if (!container._accessories) container._accessories = [];
+            container._accessories.push({ name: 'New Accessory', qty: 1, rate: 10 });
+            renderAccessoryList();
+        }
+
+        function updateAccessory(index, field, value) {
+            const container = document.getElementById('accessoriesContainer');
+            if (container._accessories && container._accessories[index]) {
+                container._accessories[index][field] = value;
+                renderAccessoryList();
+            }
+        }
+
+        function removeAccessory(index) {
+            const container = document.getElementById('accessoriesContainer');
+            if (container._accessories) {
+                container._accessories.splice(index, 1);
+                renderAccessoryList();
+            }
+        }
+
+        function getAccessoriesTotal() {
+            const container = document.getElementById('accessoriesContainer');
+            return container._total || 0;
+        }
+
+        // ===== SAVE ESTIMATE =====
+        function saveEstimate() {
+            // Validation
+            const name = document.getElementById('customerName').value.trim();
+            const mobile = document.getElementById('customerMobile').value.trim();
+            const category = document.getElementById('productCategory').value;
+            const model = document.getElementById('productModel').value;
+
+            if (!name) { showToast('Please enter customer name', 'error'); return; }
+            if (!mobile || mobile.length < 10) { showToast('Please enter valid mobile number', 'error'); return; }
+            if (!category) { showToast('Please select a product category', 'error'); return; }
+            if (!model) { showToast('Please select a product model', 'error'); return; }
+
+            const rows = document.querySelectorAll('#measurementBody tr:not(#rowTemplate)');
+            if (rows.length === 0) { showToast('Please add at least one measurement', 'error'); return; }
+
+            // Collect measurements
+            const measurements = [];
+            let totalSqft = 0;
+            rows.forEach(row => {
+                const floor = row.querySelector('.floor').value || '';
+                const location = row.querySelector('.location').value || '';
+                const width = parseFloat(row.querySelector('.width').value) || 0;
+                const height = parseFloat(row.querySelector('.height').value) || 0;
+                const qty = parseInt(row.querySelector('.qty').value) || 1;
+                const sqft = parseFloat(row.querySelector('.sqft').textContent) || 0;
+                const rate = parseFloat(row.querySelector('.rate').textContent) || 0;
+                totalSqft += sqft;
+                measurements.push({ floor, location, width, height, qty, sqft, rate });
+            });
+
+            // Get summary
+            const finalText = document.getElementById('finalAmount').textContent;
+            const finalAmount = parseFloat(finalText.replace(/[₹,]/g, '')) || 0;
+            const subtotalText = document.getElementById('subtotal').textContent;
+            const subtotal = parseFloat(subtotalText.replace(/[₹,]/g, '')) || 0;
+            const discountText = document.getElementById('discountPercent').textContent;
+            const discount = parseFloat(discountText) || 0;
+
+            const estimate = {
+                estNo: document.getElementById('estNo').value || '000',
+                date: document.getElementById('estDate').value || new Date().toISOString().split('T')[0],
+                customerName: name,
+                customerMobile: mobile,
+                customerWhatsapp: document.getElementById('customerWhatsapp').value || '',
+                customerAddress: document.getElementById('customerAddress').value || '',
+                customerLandmark: document.getElementById('customerLandmark').value || '',
+                customerCity: document.getElementById('customerCity').value || 'Mysore',
+                customerMap: document.getElementById('customerMap').value || '',
+                siteVisit: document.getElementById('siteVisit').value || 'Yes',
+                status: document.getElementById('estimateStatus').value || 'Draft',
+                notes: document.getElementById('estimateNotes').value || '',
+                category: category,
+                model: model,
+                frameColour: document.getElementById('frameColour').value || '',
+                meshType: document.getElementById('meshType').value || '',
+                shutterType: document.getElementById('shutterType').value || 'Single',
+                priceOption: document.getElementById('priceOption').value || 'regular',
+                pleatedType: document.getElementById('pleatedType').value || 'economic',
+                pleatedStyle: document.getElementById('pleatedStyle').value || 'regular',
+                slidingType: document.getElementById('slidingType').value || 'single',
+                slidingFrame: document.getElementById('slidingFrame').value || 'aluminium',
+                measurements: measurements,
+                totalSqft: totalSqft,
+                subtotal: subtotal,
+                discountPercent: discount,
+                discountAmount: (subtotal * discount) / 100,
+                finalAmount: finalAmount,
+                advancePercent: parseFloat(document.getElementById('advancePercent').value) || 60,
+                advanceAmount: (finalAmount * (parseFloat(document.getElementById('advancePercent').value) || 60)) / 100,
+                balanceAmount: finalAmount - ((finalAmount * (parseFloat(document.getElementById('advancePercent').value) ||
+                    60)) / 100),
+                accessories: document.getElementById('accessoriesContainer')._accessories || [],
+                accessoriesTotal: getAccessoriesTotal(),
+                amountWords: document.getElementById('amountWords').value || ''
+            };
+
+            // Save
+            if (appState.editingIndex >= 0) {
+                appState.estimates[appState.editingIndex] = estimate;
+                appState.editingIndex = -1;
+                showToast('Estimate updated successfully!', 'success');
+            } else {
+                appState.estimates.push(estimate);
+                appState.nextEstNo++;
+                document.getElementById('estNo').value = String(appState.nextEstNo).padStart(3, '0');
+                showToast('Estimate saved successfully!', 'success');
+            }
+
+            saveToStorage();
+            updateDashboard();
+        }
+
+        // ===== NEW ESTIMATE =====
+        function newEstimate() {
+            appState.editingIndex = -1;
+            document.getElementById('estNo').value = String(appState.nextEstNo).padStart(3, '0');
+            document.getElementById('estimateNumberBadge').textContent = '#' + String(appState.nextEstNo).padStart(3, '0');
+            setTodayDate();
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerMobile').value = '';
+            document.getElementById('customerWhatsapp').value = '';
+            document.getElementById('customerAddress').value = '';
+            document.getElementById('customerLandmark').value = '';
+            document.getElementById('customerCity').value = 'Mysore';
+            document.getElementById('customerMap').value = '';
+            document.getElementById('siteVisit').value = 'Yes';
+            document.getElementById('estimateStatus').value = 'Draft';
+            document.getElementById('estimateNotes').value = '';
+            document.getElementById('productCategory').value = '';
+            document.getElementById('productModel').innerHTML = '<option value="">-- Select Model --</option>';
+            document.getElementById('productPriceDisplay').value = '₹0/sq.ft';
+            document.getElementById('productOptions').classList.add('hidden');
+            document.querySelectorAll('#productOptions .form-row').forEach(el => el.style.display = 'none');
+            document.getElementById('advancePercent').value = appState.settings.advancePercent || 60;
+
+            // Clear rows
+            const tbody = document.getElementById('measurementBody');
+            tbody.innerHTML = '';
+            const template = document.getElementById('rowTemplate');
+            tbody.appendChild(template);
+            addRow();
+
+            // Clear accessories
+            document.getElementById('accessoriesContainer')._accessories = [];
+            renderAccessories();
+
+            updateSummary();
+            navigateTo('estimate');
+        }
+
+        // ===== PREVIEW ESTIMATE =====
+        function previewEstimate() {
+            // First save to get latest data
+            saveEstimate();
+            // Get the last saved estimate
+            const estimates = appState.estimates;
+            if (estimates.length === 0) {
+                showToast('No estimate to preview', 'error');
+                return;
+            }
+            const est = estimates[estimates.length - 1];
+            renderPreview(est);
+            navigateTo('preview');
+        }
+
+        function renderPreview(est) {
+            const container = document.getElementById('previewContent');
+            const settings = appState.settings;
+
+            let rowsHtml = '';
+            est.measurements.forEach((m, i) => {
+                rowsHtml += `<tr>
+                    <td>${i+1}</td>
+                    <td>${m.floor}</td>
+                    <td>${m.location}</td>
+                    <td>${m.width}</td>
+                    <td>${m.height}</td>
+                    <td>${m.qty}</td>
+                    <td>${m.sqft.toFixed(2)}</td>
+                    <td>₹${m.rate}</td>
+                    <td>₹${(m.sqft * m.rate).toFixed(0)}</td>
+                </tr>`;
+            });
+
+            const productName = PRODUCTS[est.category]?.models[est.model]?.label || est.model;
+
+            container.innerHTML = `
+                <div class="header">
+                    <h1><span>Raj</span> Marketing</h1>
+                    <p>${settings.address || ''}</p>
+                    <p>📞 ${settings.phone || ''} · GST: ${settings.gst || ''}</p>
+                    <p style="font-weight:600;color:var(--primary-orange);">Mosquito Nets for Windows & Doors</p>
+                </div>
+
+                <div class="details-grid">
+                    <div class="item"><span class="lbl">Estimate No:</span><span class="val">${est.estNo}</span></div>
+                    <div class="item"><span class="lbl">Date:</span><span class="val">${est.date}</span></div>
+                    <div class="item"><span class="lbl">Customer:</span><span class="val">${est.customerName}</span></div>
+                    <div class="item"><span class="lbl">Mobile:</span><span class="val">${est.customerMobile}</span></div>
+                    <div class="item"><span class="lbl">Address:</span><span class="val">${est.customerAddress}${est.customerLandmark ? ', ' + est.customerLandmark : ''}</span></div>
+                    <div class="item"><span class="lbl">Product:</span><span class="val">${productName}</span></div>
+                    <div class="item"><span class="lbl">Colour:</span><span class="val">${est.frameColour || '-'}</span></div>
+                    <div class="item"><span class="lbl">Mesh:</span><span class="val">${est.meshType || '-'}</span></div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th><th>Floor</th><th>Room/Location</th>
+                                <th>Width</th><th>Height</th><th>Qty</th>
+                                <th>Sq.Ft</th><th>Rate</th><th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHtml}</tbody>
+                        <tfoot>
+                            <tr style="font-weight:700;background:#f8fafc;">
+                                <td colspan="6" style="text-align:right;">Total</td>
+                                <td>${est.totalSqft.toFixed(2)}</td>
+                                <td></td>
+                                <td>${formatCurrency(est.subtotal)}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                ${est.accessories && est.accessories.length > 0 ? `
+                <div style="margin-top:8px;">
+                    <p style="font-weight:600;font-size:12px;">Accessories:</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead>
+                            <tbody>
+                                ${est.accessories.map(a => `<tr><td>${a.name}</td><td>${a.qty}</td><td>₹${a.rate}</td><td>₹${(a.qty * a.rate).toFixed(0)}</td></tr>`).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                ` : ''}
+
+                <div class="summary-box" style="margin-top:10px;">
+                    <div class="summary-row"><span class="label">Subtotal</span><span>${formatCurrency(est.subtotal)}</span></div>
+                    <div class="summary-row discount"><span class="label">Discount (${est.discountPercent}%)</span><span>- ${formatCurrency(est.discountAmount)}</span></div>
+                    ${est.accessoriesTotal > 0 ? `<div class="summary-row"><span class="label">Accessories</span><span>${formatCurrency(est.accessoriesTotal)}</span></div>` : ''}
+                    <div class="summary-row total"><span class="label">Final Estimate</span><span>${formatCurrency(est.finalAmount)}</span></div>
+                </div>
+
+                <div style="margin-top:8px;font-size:12px;">
+                    <p><strong>Advance:</strong> ${est.advancePercent}% = ${formatCurrency(est.advanceAmount)}</p>
+                    <p><strong>Balance:</strong> ${formatCurrency(est.balanceAmount)}</p>
+                    <p><strong>Amount in Words:</strong> ${est.amountWords}</p>
+                </div>
+
+                <div class="terms">
+                    <p><strong>Terms & Conditions:</strong></p>
+                    <p style="white-space:pre-line;font-size:10px;">${settings.terms || ''}</p>
+                </div>
+
+                <div class="signatures">
+                    <div><span class="sig-line">Customer Signature</span></div>
+                    <div><span class="sig-line">Authorized Signatory</span></div>
+                </div>
+
+                <div style="text-align:center;font-size:9px;color:var(--text-muted);margin-top:10px;border-top:1px solid var(--border-color);padding-top:8px;">
+                    Thank you for choosing Raj Marketing Mysore · ${new Date().getFullYear()}
+                </div>
+            `;
+        }
+
+        // ===== GENERATE PDF =====
+        function generatePDF() {
+            const est = appState.estimates[appState.estimates.length - 1];
+            if (!est) { showToast('No estimate to generate PDF', 'error'); return; }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const settings = appState.settings;
+
+            // Header
+            doc.setFontSize(18);
+            doc.setTextColor(14, 165, 233);
+            doc.text('Raj Marketing', 105, 20, { align: 'center' });
+            doc.setFontSize(10);
+            doc.setTextColor(100, 116, 139);
+            doc.text(settings.address || '', 105, 27, { align: 'center' });
+            doc.text('📞 ' + (settings.phone || '') + ' · GST: ' + (settings.gst || ''), 105, 33, { align: 'center' });
+            doc.setFontSize(9);
+            doc.setTextColor(245, 158, 11);
+            doc.text('Mosquito Nets for Windows & Doors', 105, 39, { align: 'center' });
+
+            // Line
+            doc.setDrawColor(245, 158, 11);
+            doc.line(20, 43, 190, 43);
+
+            // Customer Details
+            doc.setFontSize(10);
+            doc.setTextColor(15, 23, 42);
+            const details = [
+                ['Estimate No:', est.estNo, 'Date:', est.date],
+                ['Customer:', est.customerName, 'Mobile:', est.customerMobile],
+                ['Address:', est.customerAddress || '-', 'City:', est.customerCity || 'Mysore'],
+                ['Product:', PRODUCTS[est.category]?.models[est.model]?.label || est.model, 'Colour:', est.frameColour || '-']
+            ];
+            let yPos = 50;
+            details.forEach(row => {
+                doc.text(row[0] + ' ' + row[1], 20, yPos);
+                doc.text(row[2] + ' ' + row[3], 110, yPos);
+                yPos += 6;
+            });
+            yPos += 4;
+
+            // Table
+            const tableData = est.measurements.map((m, i) => [
+                (i + 1).toString(),
+                m.floor || '',
+                m.location || '',
+                m.width.toString(),
+                m.height.toString(),
+                m.qty.toString(),
+                m.sqft.toFixed(2),
+                '₹' + m.rate,
+                '₹' + (m.sqft * m.rate).toFixed(0)
+            ]);
+
+            doc.autoTable({
+                startY: yPos,
+                head: [
+                    ['#', 'Floor', 'Room/Location', 'Width', 'Height', 'Qty', 'Sq.Ft', 'Rate', 'Amount']
+                ],
+                body: tableData,
+                foot: [
+                    ['', '', '', '', '', 'Total', est.totalSqft.toFixed(2), '', '₹' + est.subtotal.toFixed(0)]
+                ],
+                theme: 'striped',
+                headStyles: { fillColor: [241, 245, 249], textColor: [15, 23, 42], fontSize: 8 },
+                bodyStyles: { fontSize: 8 },
+                footStyles: { fillColor: [248, 250, 252], textColor: [15, 23, 42], fontSize: 8, fontStyle: 'bold' },
+                columnStyles: {
+                    0: { cellWidth: 8 },
+                    1: { cellWidth: 20 },
+                    2: { cellWidth: 30 },
+                    3: { cellWidth: 15 },
+                    4: { cellWidth: 15 },
+                    5: { cellWidth: 12 },
+                    6: { cellWidth: 18 },
+                    7: { cellWidth: 18 },
+                    8: { cellWidth: 22 }
+                },
+                margin: { left: 20, right: 20 },
+                didDrawPage: function(data) {
+                    // Page number
+                    doc.setFontSize(8);
+                    doc.setTextColor(148, 163, 184);
+                    doc.text('Page ' + data.pageNumber, 190, 285, { align: 'right' });
+                }
+            });
+
+            // Summary
+            let finalY = doc.lastAutoTable.finalY + 10;
+            doc.setFontSize(10);
+            doc.setTextColor(15, 23, 42);
+
+            doc.text('Subtotal: ' + formatCurrency(est.subtotal), 140, finalY);
+            finalY += 6;
+            doc.text('Discount (' + est.discountPercent + '%): -' + formatCurrency(est.discountAmount), 140, finalY);
+            finalY += 6;
+            if (est.accessoriesTotal > 0) {
+                doc.text('Accessories: ' + formatCurrency(est.accessoriesTotal), 140, finalY);
+                finalY += 6;
+            }
+            doc.setFontSize(12);
+            doc.setTextColor(14, 165, 233);
+            doc.text('Final Estimate: ' + formatCurrency(est.finalAmount), 140, finalY);
+            finalY += 8;
+
+            doc.setFontSize(9);
+            doc.setTextColor(15, 23, 42);
+            doc.text('Advance: ' + est.advancePercent + '% = ' + formatCurrency(est.advanceAmount), 20, finalY);
+            finalY += 5;
+            doc.text('Balance: ' + formatCurrency(est.balanceAmount), 20, finalY);
+            finalY += 5;
+            doc.text('Amount in Words: ' + est.amountWords, 20, finalY);
+
+            // Terms
+            if (settings.terms) {
+                finalY += 8;
+                doc.setFontSize(8);
+                doc.setTextColor(100, 116, 139);
+                const termsLines = doc.splitTextToSize(settings.terms, 170);
+                doc.text(termsLines, 20, finalY);
+                finalY += termsLines.length * 4 + 6;
+            }
+
+            // Signatures
+            doc.setFontSize(9);
+            doc.setTextColor(15, 23, 42);
+            doc.text('_________________________', 30, finalY + 10);
+            doc.text('Customer Signature', 30, finalY + 16);
+            doc.text('_________________________', 130, finalY + 10);
+            doc.text('Authorized Signatory', 130, finalY + 16);
+
+            // Footer
+            doc.setFontSize(8);
+            doc.setTextColor(148, 163, 184);
+            doc.text('Thank you for choosing Raj Marketing Mysore · ' + new Date().getFullYear(), 105, 285, { align: 'center' });
+
+            // Save PDF
+            const filename = 'Estimate-' + est.estNo + '-' + est.customerName.replace(/[^a-zA-Z0-9]/g, '') + '.pdf';
+            doc.save(filename);
+            showToast('PDF generated successfully!', 'success');
+        }
+
+        // ===== SEND WHATSAPP =====
+        function sendWhatsApp() {
+            const est = appState.estimates[appState.estimates.length - 1];
+            if (!est) { showToast('No estimate to send', 'error'); return; }
+
+            const msg = `Dear ${est.customerName},
+
+Thank you for choosing Raj Marketing Mysore.
+
+Estimate No: ${est.estNo}
+Total Area: ${est.totalSqft.toFixed(2)} Sq.Ft
+Final Estimate: ${formatCurrency(est.finalAmount)}
+
+Please find your detailed estimate attached.
+
+Raj Marketing Mysore
+${appState.settings.phone || '9483037385'}`;
+
+            const encoded = encodeURIComponent(msg);
+            const mobile = est.customerWhatsapp || est.customerMobile;
+            window.open('https://wa.me/91' + mobile + '?text=' + encoded, '_blank');
+        }
+
+        // ===== HISTORY =====
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            const search = document.getElementById('historySearch').value.toLowerCase().trim();
+            let estimates = appState.estimates;
+
+            if (search) {
+                estimates = estimates.filter(e =>
+                    e.estNo.includes(search) ||
+                    e.customerName.toLowerCase().includes(search) ||
+                    e.customerMobile.includes(search)
+                );
+            }
+
+            document.getElementById('historyCount').textContent = estimates.length;
+
+            if (estimates.length === 0) {
+                list.innerHTML =
+                    '<div class="text-center text-muted" style="padding:20px;font-size:13px;">No estimates found</div>';
+                return;
+            }
+
+            list.innerHTML = estimates.slice().reverse().map((e, i) => `
+                <div class="history-item" onclick="viewEstimate(${estimates.length - 1 - i})">
+                    <div class="info">
+                        <div class="name">${e.customerName}</div>
+                        <div class="meta">#${e.estNo} · ${e.date} · ${e.totalSqft.toFixed(1)} sq.ft</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="amount">${formatCurrency(e.finalAmount)}</div>
+                        <span class="status status-${e.status?.toLowerCase() || 'draft'}">${e.status || 'Draft'}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewEstimate(index) {
+            const est = appState.estimates[index];
+            if (!est) return;
+            renderPreview(est);
+            navigateTo('preview');
+        }
+              // ===== DASHBOARD =====
+        function updateDashboard() {
+            const estimates = appState.estimates;
+            const today = new Date().toISOString().split('T')[0];
+
+            const total = estimates.length;
+            const todayCount = estimates.filter(e => e.date === today).length;
+            const totalValue = estimates.reduce((sum, e) => sum + (e.finalAmount || 0), 0);
+            const pending = estimates.filter(e => e.status === 'Draft' || e.status === 'Quotation').length;
+
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statToday').textContent = todayCount;
+            document.getElementById('statValue').textContent = formatCurrency(totalValue);
+            document.getElementById('statPending').textContent = pending;
+
+            // Recent
+            const recent = document.getElementById('recentEstimates');
+            const recentList = estimates.slice(-5).reverse();
+            if (recentList.length === 0) {
+                recent.innerHTML =
+                    '<div class="text-center text-muted" style="padding:20px;font-size:13px;">No estimates yet. Create your first estimate!</div>';
+                return;
+            }
+            recent.innerHTML = recentList.map(e => `
+                <div class="history-item" onclick="viewEstimate(${appState.estimates.indexOf(e)})">
+                    <div class="info">
+                        <div class="name">${e.customerName}</div>
+                        <div class="meta">#${e.estNo} · ${e.date}</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="amount">${formatCurrency(e.finalAmount)}</div>
+                        <span class="status status-${e.status?.toLowerCase() || 'draft'}">${e.status || 'Draft'}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===== SETTINGS =====
+        function renderPricingSettings() {
+            const container = document.getElementById('pricingSettings');
+            let html = '';
+            const priceKeys = [
+                ['velcro_regular', 'Velcro Regular'],
+                ['velcro_saint_gobain', 'Velcro Saint-Gobain'],
+                ['frame_regular', 'Frame Regular'],
+                ['frame_woodgrain', 'Frame Woodgrain'],
+                ['openable_regular', 'Openable Regular'],
+                ['openable_offer', 'Openable Offer'],
+                ['pleated_economic', 'Pleated Economic'],
+                ['pleated_premium', 'Pleated Premium'],
+                ['pleated_ss_single', 'Pleated SS Single'],
+                ['pleated_ss_double', 'Pleated SS Double'],
+                ['sliding_single', 'Sliding Single'],
+                ['sliding_double', 'Sliding Double'],
+                ['fibre_corner', 'Fibre Corner (each)'],
+                ['middle_clip', 'Middle Clip (each)'],
+                ['rubber_beading', 'Rubber Beading (meter)'],
+                ['hinges', 'Hinges (each)'],
+                ['stopper_lock', 'Stopper Lock (each)']
+            ];
+
+            priceKeys.forEach(([key, label]) => {
+                html += `<div class="form-row">
+                    <div class="form-group">
+                        <label>${label}</label>
+                        <input type="number" id="price_${key}" value="${appState.prices[key] || 0}" min="0" step="0.5" />
+                    </div>
+                </div>`;
+            });
+
+            container.innerHTML = html;
+
+            // Load settings values
+            document.getElementById('settingBusinessName').value = appState.settings.businessName || 'Raj Marketing Mysore';
+            document.getElementById('settingAddress').value = appState.settings.address ||
+                '#38/2, 2nd Cross Road, Kuvempunagar, Mysore – 570023';
+            document.getElementById('settingPhone').value = appState.settings.phone || '9483037385';
+            document.getElementById('settingGST').value = appState.settings.gst || '29CHKPR1962H1ZT';
+            document.getElementById('settingTerms').value = appState.settings.terms || '';
+            document.getElementById('settingStartNumber').value = appState.nextEstNo || 1;
+            document.getElementById('settingAdvance').value = appState.settings.advancePercent || 60;
+            document.getElementById('discount200').value = appState.settings.discounts?.above200 || 12;
+            document.getElementById('discount150').value = appState.settings.discounts?.range150 || 10;
+            document.getElementById('discount100').value = appState.settings.discounts?.range100 || 8;
+            document.getElementById('discountBelow').value = appState.settings.discounts?.below100 || 5;
+        }
+
+        function savePricing() {
+            const priceKeys = ['velcro_regular', 'velcro_saint_gobain', 'frame_regular', 'frame_woodgrain',
+                'openable_regular', 'openable_offer', 'pleated_economic', 'pleated_premium',
+                'pleated_ss_single', 'pleated_ss_double', 'sliding_single', 'sliding_double',
+                'fibre_corner', 'middle_clip', 'rubber_beading', 'hinges', 'stopper_lock'
+            ];
+
+            priceKeys.forEach(key => {
+                const val = parseFloat(document.getElementById('price_' + key)?.value);
+                if (!isNaN(val) && val >= 0) {
+                    appState.prices[key] = val;
+                }
+            });
+
+            saveToStorage();
+            showToast('Prices saved successfully!', 'success');
+            renderPricingSettings();
+        }
+
+        function saveSettings() {
+            appState.settings.businessName = document.getElementById('settingBusinessName').value || 'Raj Marketing Mysore';
+            appState.settings.address = document.getElementById('settingAddress').value || '';
+            appState.settings.phone = document.getElementById('settingPhone').value || '9483037385';
+            appState.settings.gst = document.getElementById('settingGST').value || '';
+            appState.settings.terms = document.getElementById('settingTerms').value || '';
+            appState.settings.advancePercent = parseFloat(document.getElementById('settingAdvance').value) || 60;
+            appState.settings.discounts = {
+                above200: parseFloat(document.getElementById('discount200').value) || 12,
+                range150: parseFloat(document.getElementById('discount150').value) || 10,
+                range100: parseFloat(document.getElementById('discount100').value) || 8,
+                below100: parseFloat(document.getElementById('discountBelow').value) || 5
+            };
+
+            const startNo = parseInt(document.getElementById('settingStartNumber').value) || 1;
+            if (startNo > 0) {
+                appState.nextEstNo = startNo;
+            }
+
+            saveToStorage();
+            showToast('Settings saved successfully!', 'success');
+        }
+
+        // ===== EXPORT/IMPORT =====
+        function exportData() {
+            const data = {
+                estimates: appState.estimates,
+                nextEstNo: appState.nextEstNo,
+                prices: appState.prices,
+                settings: appState.settings,
+                exportedAt: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'raj_marketing_data_backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Data exported successfully!', 'success');
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.estimates) appState.estimates = data.estimates;
+                    if (data.nextEstNo) appState.nextEstNo = data.nextEstNo;
+                    if (data.prices) appState.prices = { ...appState.prices, ...data.prices };
+                    if (data.settings) appState.settings = { ...appState.settings, ...data.settings };
+                    saveToStorage();
+                    updateDashboard();
+                    renderPricingSettings();
+                    showToast('Data imported successfully!', 'success');
+                } catch (err) {
+                    showToast('Invalid data file', 'error');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ Are you sure you want to delete ALL data? This cannot be undone!')) {
+                if (confirm('Really delete everything?')) {
+                    appState.estimates = [];
+                    appState.nextEstNo = 1;
+                    appState.prices = { ...DEFAULT_PRICES };
+                    saveToStorage();
+                    updateDashboard();
+                    renderPricingSettings();
+                    showToast('All data cleared', 'warning');
+                }
+            }
+        }
+
+        function clearEstimate() {
+            if (confirm('Clear current estimate form?')) {
+                newEstimate();
+                showToast('Form cleared', 'warning');
+            }
+        }
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveEstimate();
+            }
+        });
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
