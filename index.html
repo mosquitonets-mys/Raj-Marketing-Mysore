@@ -2129,770 +2129,755 @@
          JAVASCRIPT
     ============================================================ -->
     <script>
-        // ============================================================
-        // BUSINESS INFO
-        // ============================================================
-        const BUSINESS_INFO = {
-            name: 'Raj Marketing Mysore',
-            phone: '9483037385',
-            whatsapp: '919483037385',
-            email: 'info@rajmarketingmysore.info',
-            address: '#45, Devraj Urs Road, Mysore – 570001',
-            city: 'Mysore',
-            pincode: '570001',
-            mapsUrl: 'https://maps.google.com',
-            website: 'https://rajmarketingmysore.info',
-            businessHours: 'Mon–Sat: 9:30 AM – 6:30 PM | Sun: Closed',
-            gstin: '29CHKPR1962H1ZT'
-        };
+    // ============================================================
+    // BUSINESS INFO
+    // ============================================================
+    const BUSINESS_INFO = {
+        name: 'Raj Marketing Mysore',
+        phone: '9483037385',
+        whatsapp: '919483037385',
+        email: 'info@rajmarketingmysore.info',
+        address: '#45, Devraj Urs Road, Mysore – 570001',
+        city: 'Mysore',
+        pincode: '570001',
+        mapsUrl: 'https://maps.google.com',
+        website: 'https://rajmarketingmysore.info',
+        businessHours: 'Mon–Sat: 9:30 AM – 6:30 PM | Sun: Closed',
+        gstin: '29CHKPR1962H1ZT'
+    };
 
-        // ============================================================
-        // PRODUCT DATABASE
-        // ============================================================
-        const PRODUCTS = [
-            { id: 'pleated-economic', name: 'Pleated Economic', category: 'Pleated', price: '₹380-460', image: 'images/pleated-economic.jpg', badge: 'pleated', online: false },
-            { id: 'pleated-heavy', name: 'Pleated Heavy', category: 'Pleated', price: '₹450-460', image: 'images/pleated-heavy.jpg', badge: 'pleated', online: false },
-            { id: 'pleated-top-heavy', name: 'Pleated Top Heavy', category: 'Pleated', price: '₹510', image: 'images/pleated-top-heavy.jpg', badge: 'pleated', online: false },
-            { id: 'ss-pleated-economic', name: 'SS Pleated / SS Economic', category: 'Pleated', price: '₹470', image: 'images/ss-pleated.jpg', badge: 'pleated', online: false },
-            { id: 'heavy-detachable-pleated', name: 'Heavy Detachable Pleated', category: 'Pleated', price: '₹460', image: 'images/heavy-detachable-pleated.jpg', badge: 'pleated', online: false },
-            { id: 'economic-woodgrain-pleated', name: 'Economic Woodgrain Pleated', category: 'Pleated', price: '₹460', image: 'images/woodgrain-pleated.jpg', badge: 'pleated', online: false },
-            { id: 'honeycomb-mesh-double-door', name: 'Honeycomb + Mesh Double Door', category: 'Honeycomb', price: '₹680', image: 'images/honeycomb-double-door.jpg', badge: 'honeycomb', online: false },
-            { id: 'single-sliding-economic', name: 'Single Sliding Economic', category: 'Sliding', price: '₹400', image: 'images/single-sliding.jpg', badge: 'sliding', online: false },
-            { id: 'double-sliding-economic', name: 'Double Sliding Economic', category: 'Sliding', price: '₹450', image: 'images/double-sliding.jpg', badge: 'sliding', online: false },
-            { id: 'single-door-pleated', name: 'Single Door Pleated', category: 'Pleated', price: '₹900', image: 'images/single-door-pleated.jpg', badge: 'pleated', online: false },
-            { id: 'security-screen-single-door', name: 'Security Screen – Single Door', category: 'Security', price: '₹990 + GST', image: 'images/security-screen-single.jpg', badge: 'security', online: false },
-            { id: 'security-screen-double-door', name: 'Security Screen – Double Door', category: 'Security', price: '₹1,150 + GST', image: 'images/security-screen-double.jpg', badge: 'security', online: false },
-            { id: 'aluminium-frame-colour-mesh', name: 'Aluminium Frame + Colour Mesh', category: 'Aluminium', price: '₹420', image: 'images/aluminium-colour-mesh.jpg', badge: 'frame', online: false },
-            { id: 'woodgrain-ss-304-mesh', name: 'Woodgrain + SS 304 Mesh', category: 'Aluminium', price: '₹580', image: 'images/woodgrain-ss304.jpg', badge: 'premium', online: false },
-            { id: 'ss-black-mesh-0.18mm', name: 'SS Black Mesh 0.18mm', category: 'Mesh', price: '₹36', image: 'images/ss-black-mesh.jpg', badge: 'mesh', online: false },
-            { id: 'ss-black-mesh', name: 'SS Black Mesh', category: 'Mesh', price: '₹38', image: 'images/ss-black-mesh-standard.jpg', badge: 'mesh', online: false },
-            { id: 'ss-black-mesh-3ft', name: 'SS Black Mesh 3 ft', category: 'Mesh', price: '₹42', image: 'images/ss-black-mesh-3ft.jpg', badge: 'mesh', online: false },
-            { id: 'ss-bright-mesh-0.24mm-4ft', name: 'SS Bright Mesh 0.24mm, 4 ft', category: 'Mesh', price: '₹48', image: 'images/ss-bright-mesh.jpg', badge: 'mesh', online: false },
-            { id: 'ss-black-304g-0.5mm', name: 'SS Black 304G 0.5mm', category: 'Mesh', price: '₹550', image: 'images/ss-black-304g.jpg', badge: 'mesh', online: false },
-            { id: 'fiber-touflex-mesh', name: 'Fiber/Touflex Mesh', category: 'Mesh', price: '₹8', image: 'images/fiber-mesh.jpg', badge: 'mesh', online: false }
-        ];
+    // ============================================================
+    // PRODUCT DATABASE
+    // ============================================================
+    const PRODUCTS = [
+        { id: 'pleated-economic', name: 'Pleated Economic', category: 'Pleated', price: '₹380-460', image: 'images/pleated-economic.jpg', badge: 'pleated', online: false },
+        { id: 'pleated-heavy', name: 'Pleated Heavy', category: 'Pleated', price: '₹450-460', image: 'images/pleated-heavy.jpg', badge: 'pleated', online: false },
+        { id: 'pleated-top-heavy', name: 'Pleated Top Heavy', category: 'Pleated', price: '₹510', image: 'images/pleated-top-heavy.jpg', badge: 'pleated', online: false },
+        { id: 'ss-pleated-economic', name: 'SS Pleated / SS Economic', category: 'Pleated', price: '₹470', image: 'images/ss-pleated.jpg', badge: 'pleated', online: false },
+        { id: 'heavy-detachable-pleated', name: 'Heavy Detachable Pleated', category: 'Pleated', price: '₹460', image: 'images/heavy-detachable-pleated.jpg', badge: 'pleated', online: false },
+        { id: 'economic-woodgrain-pleated', name: 'Economic Woodgrain Pleated', category: 'Pleated', price: '₹460', image: 'images/woodgrain-pleated.jpg', badge: 'pleated', online: false },
+        { id: 'honeycomb-mesh-double-door', name: 'Honeycomb + Mesh Double Door', category: 'Honeycomb', price: '₹680', image: 'images/honeycomb-double-door.jpg', badge: 'honeycomb', online: false },
+        { id: 'single-sliding-economic', name: 'Single Sliding Economic', category: 'Sliding', price: '₹400', image: 'images/single-sliding.jpg', badge: 'sliding', online: false },
+        { id: 'double-sliding-economic', name: 'Double Sliding Economic', category: 'Sliding', price: '₹450', image: 'images/double-sliding.jpg', badge: 'sliding', online: false },
+        { id: 'single-door-pleated', name: 'Single Door Pleated', category: 'Pleated', price: '₹900', image: 'images/single-door-pleated.jpg', badge: 'pleated', online: false },
+        { id: 'security-screen-single-door', name: 'Security Screen – Single Door', category: 'Security', price: '₹990 + GST', image: 'images/security-screen-single.jpg', badge: 'security', online: false },
+        { id: 'security-screen-double-door', name: 'Security Screen – Double Door', category: 'Security', price: '₹1,150 + GST', image: 'images/security-screen-double.jpg', badge: 'security', online: false },
+        { id: 'aluminium-frame-colour-mesh', name: 'Aluminium Frame + Colour Mesh', category: 'Aluminium', price: '₹420', image: 'images/aluminium-colour-mesh.jpg', badge: 'frame', online: false },
+        { id: 'woodgrain-ss-304-mesh', name: 'Woodgrain + SS 304 Mesh', category: 'Aluminium', price: '₹580', image: 'images/woodgrain-ss304.jpg', badge: 'premium', online: false },
+        { id: 'ss-black-mesh-0.18mm', name: 'SS Black Mesh 0.18mm', category: 'Mesh', price: '₹36', image: 'images/ss-black-mesh.jpg', badge: 'mesh', online: false },
+        { id: 'ss-black-mesh', name: 'SS Black Mesh', category: 'Mesh', price: '₹38', image: 'images/ss-black-mesh-standard.jpg', badge: 'mesh', online: false },
+        { id: 'ss-black-mesh-3ft', name: 'SS Black Mesh 3 ft', category: 'Mesh', price: '₹42', image: 'images/ss-black-mesh-3ft.jpg', badge: 'mesh', online: false },
+        { id: 'ss-bright-mesh-0.24mm-4ft', name: 'SS Bright Mesh 0.24mm, 4 ft', category: 'Mesh', price: '₹48', image: 'images/ss-bright-mesh.jpg', badge: 'mesh', online: false },
+        { id: 'ss-black-304g-0.5mm', name: 'SS Black 304G 0.5mm', category: 'Mesh', price: '₹550', image: 'images/ss-black-304g.jpg', badge: 'mesh', online: false },
+        { id: 'fiber-touflex-mesh', name: 'Fiber/Touflex Mesh', category: 'Mesh', price: '₹8', image: 'images/fiber-mesh.jpg', badge: 'mesh', online: false }
+    ];
 
-        // ============================================================
-        // SLIDER
-        // ============================================================
-        const sliderContainer = document.getElementById('sliderTrack');
-        const dotContainer = document.getElementById('sliderDots');
+    // ============================================================
+    // SLIDER
+    // ============================================================
+    const sliderContainer = document.getElementById('sliderTrack');
+    const dotContainer = document.getElementById('sliderDots');
 
-        const slideTexts = [
-            { main: 'Premium Mosquito Nets', sub: '100% Protection · Quality Guaranteed' },
-            { main: 'Custom Window Screens', sub: 'Perfect Fit for Every Window' },
-            { main: 'Trusted Since 2016', sub: '500+ Happy Customers' },
-            { main: 'Quality You Can Trust', sub: 'Premium materials · Expert craftsmanship' },
-            { main: 'Protect Your Family', sub: 'Safe · Reliable · Affordable' },
-            { main: 'Why Raj Marketing?', sub: 'Quality · Trust · Excellence' },
-            { main: 'Professional Installation', sub: 'Expert team · Hassle-free service' },
-            { main: 'Premium Quality Nets', sub: 'Velcro · Aluminium · Pleated · Mesh' },
-            { main: 'Dealer Opportunities', sub: 'Join our network · Grow your business' },
-            { main: 'New Offers Coming!', sub: 'Stay tuned for exclusive deals' }
-        ];
+    const slideTexts = [
+        { main: 'Premium Mosquito Nets', sub: '100% Protection · Quality Guaranteed' },
+        { main: 'Custom Window Screens', sub: 'Perfect Fit for Every Window' },
+        { main: 'Trusted Since 2016', sub: '500+ Happy Customers' },
+        { main: 'Quality You Can Trust', sub: 'Premium materials · Expert craftsmanship' },
+        { main: 'Protect Your Family', sub: 'Safe · Reliable · Affordable' },
+        { main: 'Why Raj Marketing?', sub: 'Quality · Trust · Excellence' },
+        { main: 'Professional Installation', sub: 'Expert team · Hassle-free service' },
+        { main: 'Premium Quality Nets', sub: 'Velcro · Aluminium · Pleated · Mesh' },
+        { main: 'Dealer Opportunities', sub: 'Join our network · Grow your business' },
+        { main: 'New Offers Coming!', sub: 'Stay tuned for exclusive deals' }
+    ];
 
-        for (let i = 1; i <= 10; i++) {
-            const slide = document.createElement('div');
-            slide.className = 'slider-slide';
-            slide.innerHTML = `
-                <img src="images/slider-${String(i).padStart(2, '0')}.jpg" alt="Slide ${i}" onerror="this.style.display='none'">
-                <div class="overlay"></div>
-                <div class="slide-content">
-                    <span class="main-text">${slideTexts[i-1].main}</span>
-                    <span class="sub-text">${slideTexts[i-1].sub}</span>
+    for (let i = 1; i <= 10; i++) {
+        const slide = document.createElement('div');
+        slide.className = 'slider-slide';
+        slide.innerHTML = `
+            <img src="images/slider-${String(i).padStart(2, '0')}.jpg" alt="Slide ${i}" onerror="this.style.display='none'">
+            <div class="overlay"></div>
+            <div class="slide-content">
+                <span class="main-text">${slideTexts[i-1].main}</span>
+                <span class="sub-text">${slideTexts[i-1].sub}</span>
+            </div>
+        `;
+        sliderContainer.appendChild(slide);
+        const dot = document.createElement('span');
+        dot.className = 'dot' + (i === 1 ? ' active' : '');
+        dotContainer.appendChild(dot);
+    }
+
+    setInterval(() => {
+        const track = document.querySelector('.slider-track');
+        const dots = document.querySelectorAll('.slider-dots .dot');
+        if (!track) return;
+        const pos = Math.abs(parseFloat(track.style.transform?.replace('translateX(', '').replace('%)', '')) || 0);
+        const idx = Math.round(pos / 10);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }, 1000);
+
+    // ============================================================
+    // LOAD PRODUCTS
+    // ============================================================
+    function loadProducts() {
+        const scroll = document.getElementById('productScroll');
+        const display = PRODUCTS.slice(0, 6);
+        scroll.innerHTML = display.map(p => `
+            <a href="product-detail.html?id=${p.id}" class="product-card">
+                <div class="img">
+                    <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-box\\' style=\\'font-size:32px;color:#9ca3af;\\'></i>'" />
+                </div>
+                <div class="name">${p.name}</div>
+                <div class="price">${p.price}</div>
+                <span class="view-btn">${p.online ? 'Buy Online' : 'View Details'}</span>
+            </a>
+        `).join('');
+    }
+    loadProducts();
+
+    // ============================================================
+    // SEARCH
+    // ============================================================
+    function handleSearch(query) {
+        const container = document.getElementById('searchResults');
+        if (!query || query.length < 1) {
+            container.classList.remove('active');
+            container.innerHTML = '';
+            return;
+        }
+        const term = query.toLowerCase().trim();
+        const results = PRODUCTS.filter(p =>
+            p.name.toLowerCase().includes(term) ||
+            p.category.toLowerCase().includes(term) ||
+            p.price.toLowerCase().includes(term)
+        );
+        if (results.length === 0) {
+            container.innerHTML = `<div style="padding:16px;text-align:center;color:var(--muted-text);font-size:13px;"><i class="fas fa-search" style="display:block;font-size:24px;margin-bottom:4px;"></i>No products found for "<strong>${query}</strong>"</div>`;
+            container.classList.add('active');
+            return;
+        }
+        container.innerHTML = results.map(p => `
+            <a href="product-detail.html?id=${p.id}" class="result-item">
+                <span class="icon"><i class="fas fa-box"></i></span>
+                <div class="info"><div class="name">${p.name}</div><div class="category">${p.category} · ${p.price}</div></div>
+            </a>
+        `).join('');
+        container.classList.add('active');
+    }
+
+    document.addEventListener('click', function(e) {
+        const searchBar = document.querySelector('.search-bar');
+        const results = document.getElementById('searchResults');
+        if (!searchBar.contains(e.target) && !results.contains(e.target)) {
+            results.classList.remove('active');
+        }
+    });
+
+    // ============================================================
+    // MOBILE MENU
+    // ============================================================
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburgerBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('open');
+        this.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+    });
+
+    // ============================================================
+    // FAQ TOGGLE
+    // ============================================================
+    function toggleFaq(el) {
+        const answer = el.nextElementSibling;
+        const isOpen = answer.classList.contains('open');
+        document.querySelectorAll('.faq-item .a').forEach(a => a.classList.remove('open'));
+        document.querySelectorAll('.faq-item .q').forEach(q => q.classList.remove('open'));
+        if (!isOpen) {
+            answer.classList.add('open');
+            el.classList.add('open');
+        }
+    }
+
+    // ============================================================
+    // RAJ AI CONSULTATION - COMPLETE WORKING VERSION
+    // ============================================================
+    let aiState = {
+        currentStep: 0,
+        answers: {},
+        sizes: [],
+        currentSize: { width: 2, height: 4, quantity: 1 },
+        totalSteps: 12,
+        isComplete: false
+    };
+
+    const AI_STEPS = [
+        {
+            id: 'purpose',
+            question: 'First, tell me where you need mosquito protection.',
+            options: [
+                { value: 'home', label: '🏠 Home', desc: 'For bedrooms, living rooms, kitchens, balconies and other residential areas.' },
+                { value: 'office', label: '🏢 Office', desc: 'For office windows, cabins, workspaces and commercial areas.' },
+                { value: 'apartment', label: '🏬 Apartment', desc: 'For apartment windows, balconies and doors.' },
+                { value: 'other', label: '✏️ Other', desc: 'For shops, clinics, schools, hotels or other requirements.' }
+            ],
+            response: (val) => {
+                const labels = { home: 'Home', office: 'Office', apartment: 'Apartment', other: 'Other' };
+                return `Excellent. I've noted that you need mosquito-net protection for your ${labels[val] || val}.`;
+            }
+        },
+        {
+            id: 'propertyType',
+            question: 'Is this your own house or a rented house?',
+            options: [
+                { value: 'own', label: '🏠 Own House' },
+                { value: 'rented', label: '🔑 Rented House' }
+            ],
+            condition: (state) => state.answers.purpose === 'home',
+            response: () => 'Thank you. This helps me understand whether you may prefer a long-term installation or a more flexible solution.'
+        },
+        {
+            id: 'windowType',
+            question: 'What type of windows or openings do you currently have?',
+            options: [
+                { value: 'wooden', label: '🪟 Wooden Windows' },
+                { value: 'aluminium', label: '▣ Aluminium Sliding Windows' },
+                { value: 'upvc', label: '⬜ UPVC Windows' },
+                { value: 'metal', label: '🔲 Metal Windows' },
+                { value: 'door', label: '🚪 Door / Large Opening' },
+                { value: 'other', label: '✏️ Other' }
+            ],
+            condition: (state) => ['home', 'office', 'apartment'].includes(state.answers.purpose),
+            response: () => 'Perfect. That helps me understand your window type.'
+        },
+        {
+            id: 'openings',
+            question: 'Which openings do you want to protect?',
+            options: [
+                { value: 'windows', label: '🪟 Windows' },
+                { value: 'doors', label: '🚪 Doors' },
+                { value: 'balcony', label: '🏠 Balcony' },
+                { value: 'both', label: '🪟 + 🚪 Windows & Doors' },
+                { value: 'large', label: '🔲 Large Opening' },
+                { value: 'other', label: '✏️ Other' }
+            ],
+            response: () => 'Good choice. I\'ll include these openings in your requirement.'
+        },
+        {
+            id: 'priority',
+            question: 'What matters most to you?',
+            options: [
+                { value: 'economy', label: '💰 Economy', desc: 'Practical mosquito protection at an affordable budget.' },
+                { value: 'premium', label: '⭐ Premium', desc: 'Better appearance, operation and overall finish.' },
+                { value: 'supreme', label: '👑 Supreme', desc: 'For customers looking for a higher-end solution and premium experience.' }
+            ],
+            response: (val) => {
+                const labels = { economy: 'Economic', premium: 'Premium', supreme: 'Supreme' };
+                const descs = {
+                    economy: 'The Economic range focuses on practical mosquito protection while keeping the overall cost controlled.',
+                    premium: 'The Premium range is designed for customers who want a balance of appearance, convenience, durability and value.',
+                    supreme: 'The Supreme range is intended for customers who want a more premium finish, convenience and long-term experience.'
+                };
+                return `${descs[val] || ''} Now let's check the size of your openings.`;
+            }
+        },
+        {
+            id: 'sizeSelect',
+            question: 'What is the approximate size?',
+            desc: "Don't worry if you don't know the exact measurement. Choose the closest size. Our site-visit team will take the final measurement.",
+            type: 'size'
+        },
+        {
+            id: 'sizeQuantity',
+            question: 'How many openings are approximately this size?',
+            type: 'quantity'
+        },
+        {
+            id: 'sizeAddMore',
+            question: 'Would you like to add another size?',
+            type: 'addMore',
+            options: [
+                { value: 'yes', label: '➕ Add Another Size' },
+                { value: 'no', label: '✅ No, that\'s all' }
+            ]
+        },
+        {
+            id: 'systemType',
+            question: 'Which type of mosquito net would you like?',
+            options: [
+                { value: 'velcro', label: '🔗 Velcro', desc: 'Simple and practical fixed mosquito protection.' },
+                { value: 'openable', label: '🚪 Openable', desc: 'Convenient for openings that need regular access.' },
+                { value: 'sliding', label: '↔️ Sliding', desc: 'Suitable for sliding windows and doors where smooth operation is preferred.' },
+                { value: 'pleated', label: '🪗 Pleated', desc: 'Premium folding system suitable for many door and large-opening applications.' }
+            ],
+            response: (val) => {
+                const labels = { velcro: 'Velcro', openable: 'Openable', sliding: 'Sliding', pleated: 'Pleated' };
+                return `Great choice! ${labels[val]} mosquito net can be a good option for your requirement.`;
+            }
+        },
+        {
+            id: 'meshPref',
+            question: 'Do you have a preferred mesh?',
+            options: [
+                { value: 'standard', label: 'Standard Mesh' },
+                { value: 'ss', label: 'Stainless Steel Mesh' },
+                { value: 'unsure', label: 'Not Sure — Recommend for Me' }
+            ],
+            response: (val) => {
+                if (val === 'unsure') return 'No problem. Our team can recommend the appropriate mesh based on your opening, usage and budget.';
+                return 'Excellent. I\'ve noted your mesh preference.';
+            }
+        },
+        {
+            id: 'frameColour',
+            question: 'Do you have a preferred frame colour?',
+            options: [
+                { value: 'white', label: 'White' },
+                { value: 'ivory', label: 'Ivory' },
+                { value: 'black', label: 'Black' },
+                { value: 'brown', label: 'Brown' },
+                { value: 'gold', label: 'Honey Gold' },
+                { value: 'woodgrain', label: 'Woodgrain' },
+                { value: 'unsure', label: 'Not Sure' }
+            ],
+            condition: (state) => ['velcro', 'openable', 'sliding', 'pleated'].includes(state.answers.systemType),
+            response: (val) => {
+                if (val === 'woodgrain') return 'Woodgrain finish can give the installation a more premium appearance.';
+                if (val === 'unsure') return 'No problem. Our team can recommend the suitable colour during the site visit.';
+                return 'Great! I\'ve noted your colour preference.';
+            }
+        },
+        {
+            id: 'estimate',
+            question: 'Your Raj AI Estimate',
+            type: 'estimate'
+        },
+        {
+            id: 'customerDetails',
+            question: 'Would you like our team to help you with the next step?',
+            type: 'details'
+        },
+        {
+            id: 'final',
+            question: '🎉 Thank You!',
+            type: 'final'
+        }
+    ];
+
+    // --- Core Functions ---
+
+    function startConsultation() {
+        document.getElementById('aiStartWrap').style.display = 'none';
+        aiState.currentStep = 0;
+        aiState.answers = {};
+        aiState.sizes = [];
+        aiState.currentSize = { width: 2, height: 4, quantity: 1 };
+        aiState.isComplete = false;
+        renderStep();
+    }
+
+    function renderStep() {
+        const container = document.getElementById('aiStepContainer');
+        const progress = document.getElementById('aiProgress');
+        const counter = document.getElementById('aiStepCounter');
+
+        // Update progress
+        const total = AI_STEPS.length;
+        progress.innerHTML = AI_STEPS.map((s, i) => {
+            let cls = 'step-dot';
+            if (i < aiState.currentStep) cls += ' done';
+            else if (i === aiState.currentStep) cls += ' active';
+            return `<span class="${cls}"></span>`;
+        }).join('');
+
+        counter.textContent = `Step ${aiState.currentStep + 1} of ${total}`;
+
+        const step = AI_STEPS[aiState.currentStep];
+        if (!step) return;
+
+        // Check condition
+        if (step.condition && !step.condition(aiState.answers)) {
+            aiState.currentStep++;
+            renderStep();
+            return;
+        }
+
+        // Build step HTML
+        let html = `<div class="ai-step active">`;
+
+        // Chat bubble
+        html += `<div class="ai-chat"><div class="ai-name"><i class="fas fa-sparkles"></i> Raj AI</div><div class="ai-msg">${step.question}`;
+        if (step.desc) html += `<br><span style="font-size:13px;color:var(--muted-text);">${step.desc}</span>`;
+        html += `</div></div>`;
+
+        // Options
+        if (step.options && step.type !== 'addMore') {
+            html += `<div class="ai-options">`;
+            step.options.forEach(opt => {
+                const selected = aiState.answers[step.id] === opt.value ? 'selected' : '';
+                html += `<div class="opt-card ${selected}" onclick="selectOption('${step.id}', '${opt.value}')">
+                    <span class="icon">${opt.label.split(' ')[0]}</span>
+                    ${opt.label}
+                    ${opt.desc ? `<span class="sub-desc">${opt.desc}</span>` : ''}
+                </div>`;
+            });
+            html += `</div>`;
+        }
+
+        // Size selection
+        if (step.type === 'size') {
+            html += `
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px 0;">
+                    <div><label style="font-size:12px;color:var(--muted-text);">Width (ft)</label>
+                    <select class="ai-input" id="sizeWidth" onchange="updateCurrentSize()">
+                        ${[2,3,4,5,6].map(w => `<option value="${w}" ${w===aiState.currentSize.width?'selected':''}>${w} ft</option>`).join('')}
+                    </select></div>
+                    <div><label style="font-size:12px;color:var(--muted-text);">Height (ft)</label>
+                    <select class="ai-input" id="sizeHeight" onchange="updateCurrentSize()">
+                        ${[2,3,4,5,6].map(h => `<option value="${h}" ${h===aiState.currentSize.height?'selected':''}>${h} ft</option>`).join('')}
+                    </select></div>
+                    <div><label style="font-size:12px;color:var(--muted-text);">Quantity</label>
+                    <div class="ai-qty">
+                        <button onclick="adjustQty(-1)">−</button>
+                        <span class="qty-val" id="qtyDisplay">${aiState.currentSize.quantity}</span>
+                        <button onclick="adjustQty(1)">+</button>
+                    </div></div>
+                </div>
+                <button class="btn-primary" onclick="addSize()" style="width:100%;padding:12px;">Add to List ➕</button>
+                <div class="ai-size-list" id="sizeList">
+                    ${aiState.sizes.length === 0 ? '<div style="text-align:center;color:var(--muted-text);font-size:13px;padding:8px;">No sizes added yet</div>' : 
+                    aiState.sizes.map(s => `<div class="item"><span>${s.width} × ${s.height} ft</span><span>${s.quantity} Nos</span></div>`).join('')}
                 </div>
             `;
-            sliderContainer.appendChild(slide);
-            const dot = document.createElement('span');
-            dot.className = 'dot' + (i === 1 ? ' active' : '');
-            dotContainer.appendChild(dot);
         }
 
-        setInterval(() => {
-            const track = document.querySelector('.slider-track');
-            const dots = document.querySelectorAll('.slider-dots .dot');
-            if (!track) return;
-            const pos = Math.abs(parseFloat(track.style.transform?.replace('translateX(', '').replace('%)', '')) || 0);
-            const idx = Math.round(pos / 10);
-            dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-        }, 1000);
-
-        // ============================================================
-        // LOAD PRODUCTS
-        // ============================================================
-        function loadProducts() {
-            const scroll = document.getElementById('productScroll');
-            const display = PRODUCTS.slice(0, 6);
-            scroll.innerHTML = display.map(p => `
-                <a href="product-detail.html?id=${p.id}" class="product-card">
-                    <div class="img">
-                        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-box\\' style=\\'font-size:32px;color:#9ca3af;\\'></i>'" />
+        // Quantity
+        if (step.type === 'quantity') {
+            html += `
+                <div style="text-align:center;padding:10px 0;">
+                    <div class="ai-qty">
+                        <button onclick="adjustQty(-1)">−</button>
+                        <span class="qty-val" id="qtyDisplay">${aiState.currentSize.quantity}</span>
+                        <button onclick="adjustQty(1)">+</button>
                     </div>
-                    <div class="name">${p.name}</div>
-                    <div class="price">${p.price}</div>
-                    <span class="view-btn">${p.online ? 'Buy Online' : 'View Details'}</span>
-                </a>
-            `).join('');
-        }
-        loadProducts();
-
-        // ============================================================
-        // SEARCH
-        // ============================================================
-        function handleSearch(query) {
-            const container = document.getElementById('searchResults');
-            if (!query || query.length < 1) {
-                container.classList.remove('active');
-                container.innerHTML = '';
-                return;
-            }
-            const term = query.toLowerCase().trim();
-            const results = PRODUCTS.filter(p =>
-                p.name.toLowerCase().includes(term) ||
-                p.category.toLowerCase().includes(term) ||
-                p.price.toLowerCase().includes(term)
-            );
-            if (results.length === 0) {
-                container.innerHTML = `<div style="padding:16px;text-align:center;color:var(--muted-text);font-size:13px;"><i class="fas fa-search" style="display:block;font-size:24px;margin-bottom:4px;"></i>No products found for "<strong>${query}</strong>"</div>`;
-                container.classList.add('active');
-                return;
-            }
-            container.innerHTML = results.map(p => `
-                <a href="product-detail.html?id=${p.id}" class="result-item">
-                    <span class="icon"><i class="fas fa-box"></i></span>
-                    <div class="info"><div class="name">${p.name}</div><div class="category">${p.category} · ${p.price}</div></div>
-                </a>
-            `).join('');
-            container.classList.add('active');
+                    <button class="btn-primary" onclick="confirmQuantity()" style="margin-top:10px;">Confirm Quantity ✅</button>
+                </div>
+            `;
         }
 
-        document.addEventListener('click', function(e) {
-            const searchBar = document.querySelector('.search-bar');
-            const results = document.getElementById('searchResults');
-            if (!searchBar.contains(e.target) && !results.contains(e.target)) {
-                results.classList.remove('active');
+        // Add More
+        if (step.type === 'addMore') {
+            html += `<div class="ai-options">`;
+            step.options.forEach(opt => {
+                html += `<div class="opt-card" onclick="selectOption('${step.id}', '${opt.value}')">
+                    <span style="font-size:20px;">${opt.label.split(' ')[0]}</span>
+                    ${opt.label}
+                </div>`;
+            });
+            html += `</div>`;
+        }
+
+        // Estimate
+        if (step.type === 'estimate') {
+            const est = calculateEstimate();
+            html += `
+                <div class="ai-summary">
+                    <div class="row"><span class="label">Purpose</span><span class="value">${aiState.answers.purpose || '-'}</span></div>
+                    <div class="row"><span class="label">Property</span><span class="value">${aiState.answers.propertyType || '-'}</span></div>
+                    <div class="row"><span class="label">Window Type</span><span class="value">${aiState.answers.windowType || '-'}</span></div>
+                    <div class="row"><span class="label">Priority</span><span class="value">${aiState.answers.priority || '-'}</span></div>
+                    <div class="row"><span class="label">Net Type</span><span class="value">${aiState.answers.systemType || '-'}</span></div>
+                    <div class="row"><span class="label">Mesh</span><span class="value">${aiState.answers.meshPref || '-'}</span></div>
+                    <div style="margin:10px 0;border-top:1px solid #e5e7eb;padding-top:10px;">
+                        <strong style="font-size:13px;">Approximate Sizes</strong>
+                        ${aiState.sizes.map(s => `<div style="font-size:13px;">${s.width} × ${s.height} ft — ${s.quantity} Nos</div>`).join('')}
+                    </div>
+                    <div class="estimate">Approximate Estimate: ${est}</div>
+                    <div class="estimate-note">
+                        <strong>⚠️ Approximate Estimate Only</strong><br>
+                        This estimate is calculated using the information provided by you and the approximate sizes selected. The final price may change after our site-visit team checks the actual measurements, window/door condition, installation requirements, selected product, mesh and finish.<br>
+                        <strong>Our team will confirm the exact price after site verification.</strong>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="goToStep(${AI_STEPS.length - 2})" style="width:100%;padding:12px;">Continue →</button>
+            `;
+        }
+            
+        // Customer Details
+        if (step.type === 'details') {
+            html += `
+                <div style="padding:10px 0;">
+                    <input class="ai-input" id="custName" placeholder="Your Name" />
+                    <input class="ai-input" id="custMobile" placeholder="Mobile Number" type="tel" />
+                    <input class="ai-input" id="custWhatsapp" placeholder="WhatsApp Number" type="tel" />
+                    <input class="ai-input" id="custLocation" placeholder="Location" />
+                    <input class="ai-input" id="custLandmark" placeholder="Landmark" />
+                    <div class="file-input" style="border:1px dashed #d1d5db;padding:16px;text-align:center;border-radius:10px;margin-bottom:10px;cursor:pointer;">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload Window/Door Photo (Optional)
+                    </div>
+                    <p style="font-size:12px;color:var(--muted-text);margin-bottom:10px;">Sharing a photo can help our team understand your requirement before the visit.</p>
+                    <button class="btn-primary" onclick="submitDetails()" style="width:100%;padding:12px;">Submit & Get Estimate →</button>
+                </div>
+            `;
+        }
+
+        // Final
+        if (step.type === 'final') {
+            const est = calculateEstimate();
+            const id = 'RM-AI-' + Date.now().toString().slice(-6);
+            const name = document.getElementById('custName')?.value || '—';
+            html += `
+                <div class="ai-receipt">
+                    <div class="receipt-header">
+                        <h3>🏠 Raj Marketing Mysore</h3>
+                        <div class="id">Raj AI Requirement Summary</div>
+                    </div>
+                    <div class="receipt-row"><span class="label">Customer</span><span class="value">${name}</span></div>
+                    <div class="receipt-row"><span class="label">Requirement</span><span class="value">${aiState.answers.purpose || '-'}</span></div>
+                    <div class="receipt-row"><span class="label">Property</span><span class="value">${aiState.answers.propertyType || '-'}</span></div>
+                    <div class="receipt-row"><span class="label">Existing Windows</span><span class="value">${aiState.answers.windowType || '-'}</span></div>
+                    <div class="receipt-row"><span class="label">Priority</span><span class="value">${aiState.answers.priority || '-'}</span></div>
+                    <div class="receipt-row"><span class="label">Net System</span><span class="value">${aiState.answers.systemType || '-'}</span></div>
+                    <div class="receipt-row"><span class="label">Mesh</span><span class="value">${aiState.answers.meshPref || '-'}</span></div>
+                    <div style="margin:10px 0;border-top:1px solid #e5e7eb;padding-top:10px;">
+                        <strong style="font-size:13px;">Measurements</strong>
+                        ${aiState.sizes.map(s => `<div style="font-size:13px;">${s.width} × ${s.height} ft — ${s.quantity} Nos</div>`).join('')}
+                    </div>
+                    <div class="receipt-total">
+                        <div style="font-size:13px;color:var(--muted-text);">Approximate Estimate</div>
+                        <div class="amount">${est}</div>
+                        <div style="font-size:11px;color:var(--muted-text);margin-top:4px;">Estimate ID: ${id}</div>
+                        <div style="font-size:11px;color:var(--muted-text);">${new Date().toLocaleString()}</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:16px;">
+                    <p style="font-size:14px;color:var(--muted-text);margin-bottom:12px;">🎉 Thank you for choosing Raj Marketing Mysore. Our team can verify the actual measurements and requirements during the site visit and provide the final quotation.</p>
+                </div>
+                <div class="ai-actions" style="justify-content:center;">
+                    <a href="appointment.html" class="btn-primary"><i class="fas fa-calendar-check"></i> Book Site Visit</a>
+                    <a href="https://wa.me/919483037385?text=${encodeURIComponent('Hello Raj Marketing Mysore,%0A%0AI would like a mosquito-net estimate.%0A%0ARequirement: ' + (aiState.answers.purpose || '') + '%0AProperty: ' + (aiState.answers.propertyType || '') + '%0AWindow Type: ' + (aiState.answers.windowType || '') + '%0APriority: ' + (aiState.answers.priority || '') + '%0ANet Type: ' + (aiState.answers.systemType || '') + '%0ASizes: ' + aiState.sizes.map(s => s.width + '×' + s.height + 'ft – ' + s.quantity + ' Nos').join('%0A') + '%0A%0AApproximate Estimate: ' + est + '%0A%0APlease arrange a site visit for final measurement and quotation.')}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Send on WhatsApp</a>
+                </div>
+                <div style="display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap;">
+                    <button class="btn-secondary" onclick="goToStep(${AI_STEPS.length - 3})" style="font-size:12px;padding:6px 18px;">✏️ Modify Requirement</button>
+                    <button class="btn-secondary" onclick="resetConsultation()" style="font-size:12px;padding:6px 18px;">🔄 Start Again</button>
+                </div>
+            `;
+            aiState.isComplete = true;
+        }
+
+        // Navigation buttons
+        if (step.type !== 'estimate' && step.type !== 'details' && step.type !== 'final' && step.type !== 'size' && step.type !== 'quantity' && step.type !== 'addMore') {
+            html += `<div class="ai-actions">
+                ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+                <button class="btn-next" onclick="nextStep()" ${!aiState.answers[step.id] ? 'disabled' : ''}>Continue →</button>
+            </div>`;
+        }
+
+        if (step.type === 'size' || step.type === 'quantity') {
+            html += `<div class="ai-actions">
+                ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+            </div>`;
+        }
+
+        if (step.type === 'addMore') {
+            html += `<div class="ai-actions">
+                ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+            </div>`;
+        }
+
+        html += `</div>`;
+        container.innerHTML = html;
+
+        updateLiveReq();
+        document.getElementById('aiConsultWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // --- Action Functions ---
+
+    function selectOption(stepId, value) {
+        aiState.answers[stepId] = value;
+
+        const step = AI_STEPS.find(s => s.id === stepId);
+        if (step && step.response) {
+            const msg = step.response(value);
+            const chat = document.querySelector('.ai-chat .ai-msg');
+            if (chat) {
+                chat.innerHTML = step.question + '<br><span style="color:var(--royal-blue);font-weight:bold;">' + msg + '</span>';
+            }
+        }
+
+        document.querySelectorAll('.opt-card').forEach(el => el.classList.remove('selected'));
+        const selected = document.querySelector(`.opt-card[onclick*="'${stepId}'"]`);
+        if (selected) selected.classList.add('selected');
+
+        const btn = document.querySelector('.btn-next');
+        if (btn) btn.disabled = false;
+
+        if (stepId === 'sizeAddMore') {
+            if (value === 'no') {
+                setTimeout(() => goToStep(aiState.currentStep + 1), 400);
+            } else {
+                aiState.currentSize = { width: 2, height: 4, quantity: 1 };
+                goToStep(aiState.currentStep - 2);
+            }
+        }
+    }
+
+    function nextStep() {
+        const step = AI_STEPS[aiState.currentStep];
+        if (step && !aiState.answers[step.id]) return;
+        aiState.currentStep++;
+        renderStep();
+    }
+
+    function goToStep(index) {
+        aiState.currentStep = index;
+        renderStep();
+    }
+
+    function updateCurrentSize() {
+        const w = parseInt(document.getElementById('sizeWidth')?.value) || 2;
+        const h = parseInt(document.getElementById('sizeHeight')?.value) || 4;
+        aiState.currentSize.width = w;
+        aiState.currentSize.height = h;
+    }
+
+    function adjustQty(delta) {
+        const qty = aiState.currentSize.quantity + delta;
+        if (qty < 1) return;
+        aiState.currentSize.quantity = qty;
+        const display = document.getElementById('qtyDisplay');
+        if (display) display.textContent = qty;
+    }
+
+    function addSize() {
+        const w = parseInt(document.getElementById('sizeWidth')?.value) || 2;
+        const h = parseInt(document.getElementById('sizeHeight')?.value) || 4;
+        const qty = aiState.currentSize.quantity;
+        aiState.sizes.push({ width: w, height: h, quantity: qty });
+        aiState.currentSize.quantity = 1;
+
+        const list = document.getElementById('sizeList');
+        if (list) {
+            list.innerHTML = aiState.sizes.map(s => 
+                `<div class="item"><span>${s.width} × ${s.height} ft</span><span>${s.quantity} Nos</span></div>`
+            ).join('');
+        }
+        
+        // Go to "Add More" step
+        const step = AI_STEPS[aiState.currentStep];
+        if (step && step.id === 'sizeSelect') {
+            const nextIdx = aiState.currentStep + 2;
+            if (nextIdx < AI_STEPS.length) {
+                goToStep(nextIdx);
+            }
+        }
+    }
+
+    function confirmQuantity() {
+        const w = parseInt(document.getElementById('sizeWidth')?.value) || 2;
+        const h = parseInt(document.getElementById('sizeHeight')?.value) || 4;
+        const qty = aiState.currentSize.quantity;
+        aiState.sizes.push({ width: w, height: h, quantity: qty });
+        aiState.currentSize.quantity = 1;
+        const nextIdx = aiState.currentStep + 1;
+        goToStep(nextIdx);
+    }
+
+    function calculateEstimate() {
+        let totalArea = 0;
+        aiState.sizes.forEach(s => {
+            totalArea += s.width * s.height * s.quantity;
+        });
+        
+        let basePrice = 0;
+        if (aiState.answers.priority === 'economy') basePrice = 8;
+        else if (aiState.answers.priority === 'premium') basePrice = 14;
+        else if (aiState.answers.priority === 'supreme') basePrice = 20;
+        else basePrice = 12;
+
+        let est = Math.round(totalArea * basePrice * 10);
+        if (est < 500) est = 500;
+        return '₹' + est.toLocaleString();
+    }
+
+    function submitDetails() {
+        const name = document.getElementById('custName')?.value || '—';
+        const mobile = document.getElementById('custMobile')?.value || '—';
+        const whatsapp = document.getElementById('custWhatsapp')?.value || mobile;
+        const location = document.getElementById('custLocation')?.value || '—';
+        
+        aiState.answers.customerName = name;
+        aiState.answers.customerMobile = mobile;
+        aiState.answers.customerWhatsapp = whatsapp;
+        aiState.answers.customerLocation = location;
+        
+        goToStep(AI_STEPS.length - 1);
+    }
+
+    function updateLiveReq() {
+        const container = document.getElementById('aiLiveReq');
+        const items = document.getElementById('aiLiveReqItems');
+        
+        const hasAnswers = Object.keys(aiState.answers).length > 0 || aiState.sizes.length > 0;
+        if (!hasAnswers) {
+            container.classList.remove('active');
+            return;
+        }
+        
+        container.classList.add('active');
+        let html = '';
+        
+        const labels = {
+            purpose: 'Purpose',
+            propertyType: 'Property',
+            windowType: 'Window Type',
+            openings: 'Openings',
+            priority: 'Priority',
+            systemType: 'Net System',
+            meshPref: 'Mesh',
+            frameColour: 'Frame Colour'
+        };
+        
+        Object.keys(labels).forEach(key => {
+            if (aiState.answers[key]) {
+                html += `<div class="item"><i class="fas fa-check-circle"></i> ${labels[key]}: ${aiState.answers[key]}</div>`;
             }
         });
         
-        // ============================================================
-        // MOBILE MENU
-        // ============================================================
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        hamburgerBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('open');
-            this.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        aiState.sizes.forEach(s => {
+            html += `<div class="item"><i class="fas fa-ruler"></i> ${s.width}×${s.height}ft — ${s.quantity} Nos</div>`;
         });
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
+        
+        items.innerHTML = html || '<div class="item">No selections yet</div>';
+    }
 
-        // ============================================================
-        // FAQ TOGGLE
-        // ============================================================
-        function toggleFaq(el) {
-            const answer = el.nextElementSibling;
-            const isOpen = answer.classList.contains('open');
-            document.querySelectorAll('.faq-item .a').forEach(a => a.classList.remove('open'));
-            document.querySelectorAll('.faq-item .q').forEach(q => q.classList.remove('open'));
-            if (!isOpen) {
-                answer.classList.add('open');
-                el.classList.add('open');
-            }
-        }
-
-        // ============================================================
-        // RAJ AI CONSULTATION - Complete Implementation
-        // ============================================================
-        let aiState = {
+    function resetConsultation() {
+        aiState = {
             currentStep: 0,
             answers: {},
             sizes: [],
             currentSize: { width: 2, height: 4, quantity: 1 },
             totalSteps: 12,
-            isComplete: false,
-            estimateId: ''
+            isComplete: false
         };
+        document.getElementById('aiStartWrap').style.display = 'block';
+        document.getElementById('aiStepContainer').innerHTML = '';
+        document.getElementById('aiProgress').innerHTML = '';
+        document.getElementById('aiStepCounter').textContent = '';
+        document.getElementById('aiLiveReq').classList.remove('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-        const AI_STEPS = [
-            {
-                id: 'purpose',
-                question: 'First, tell me where you need mosquito protection.',
-                options: [
-                    { value: 'home', label: '🏠 Home', desc: 'For bedrooms, living rooms, kitchens, balconies and other residential areas.' },
-                    { value: 'office', label: '🏢 Office', desc: 'For office windows, cabins, workspaces and commercial areas.' },
-                    { value: 'apartment', label: '🏬 Apartment', desc: 'For apartment windows, balconies and doors.' },
-                    { value: 'other', label: '✏️ Other', desc: 'For shops, clinics, schools, hotels or other requirements.' }
-                ],
-                response: (val) => {
-                    const labels = { home: 'Home', office: 'Office', apartment: 'Apartment', other: 'Other' };
-                    return `Excellent. I've noted that you need mosquito-net protection for your ${labels[val] || val}.`;
-                }
-            },
-            {
-                id: 'propertyType',
-                question: 'Is this your own house or a rented house?',
-                options: [
-                    { value: 'own', label: '🏠 Own House' },
-                    { value: 'rented', label: '🔑 Rented House' }
-                ],
-                condition: (state) => state.answers.purpose === 'home',
-                response: () => 'Thank you. This helps me understand whether you may prefer a long-term installation or a more flexible solution.'
-            },
-            {
-                id: 'windowType',
-                question: 'What type of windows or openings do you currently have?',
-                options: [
-                    { value: 'wooden', label: '🪟 Wooden Windows' },
-                    { value: 'aluminium', label: '▣ Aluminium Sliding Windows' },
-                    { value: 'upvc', label: '⬜ UPVC Windows' },
-                    { value: 'metal', label: '🔲 Metal Windows' },
-                    { value: 'door', label: '🚪 Door / Large Opening' },
-                    { value: 'other', label: '✏️ Other' }
-                ],
-                condition: (state) => ['home', 'office', 'apartment'].includes(state.answers.purpose),
-                response: (val) => {
-                    const labels = { wooden: 'Wooden', aluminium: 'Aluminium Sliding', upvc: 'UPVC', metal: 'Metal', door: 'Door/Large Opening', other: 'Other' };
-                    return `Perfect. That helps me understand your window type.`;
-                }
-            },
-            {
-                id: 'openings',
-                question: 'Which openings do you want to protect?',
-                options: [
-                    { value: 'windows', label: '🪟 Windows' },
-                    { value: 'doors', label: '🚪 Doors' },
-                    { value: 'balcony', label: '🏠 Balcony' },
-                    { value: 'both', label: '🪟 + 🚪 Windows & Doors' },
-                    { value: 'large', label: '🔲 Large Opening' },
-                    { value: 'other', label: '✏️ Other' }
-                ],
-                response: () => 'Good choice. I\'ll include these openings in your requirement.'
-            },
-            {
-                id: 'priority',
-                question: 'What matters most to you?',
-                options: [
-                    { value: 'economy', label: '💰 Economy', desc: 'Practical mosquito protection at an affordable budget.' },
-                    { value: 'premium', label: '⭐ Premium', desc: 'Better appearance, operation and overall finish.' },
-                    { value: 'supreme', label: '👑 Supreme', desc: 'For customers looking for a higher-end solution and premium experience.' }
-                ],
-                response: (val) => {
-                    const labels = { economy: 'Economic', premium: 'Premium', supreme: 'Supreme' };
-                    const descs = {
-                        economy: 'The Economic range focuses on practical mosquito protection while keeping the overall cost controlled.',
-                        premium: 'The Premium range is designed for customers who want a balance of appearance, convenience, durability and value.',
-                        supreme: 'The Supreme range is intended for customers who want a more premium finish, convenience and long-term experience.'
-                    };
-                    return `${descs[val] || ''} Now let's check the size of your openings.`;
-                }
-            },
-            {
-                id: 'sizeSelect',
-                question: 'What is the approximate size?',
-                desc: "Don't worry if you don't know the exact measurement. Choose the closest size. Our site-visit team will take the final measurement.",
-                type: 'size'
-            },
-            {
-                id: 'sizeQuantity',
-                question: 'How many openings are approximately this size?',
-                type: 'quantity'
-            },
-            {
-                id: 'sizeAddMore',
-                question: 'Would you like to add another size?',
-                type: 'addMore',
-                options: [
-                    { value: 'yes', label: '➕ Add Another Size' },
-                    { value: 'no', label: '✅ No, that\'s all' }
-                ]
-            },
-            {
-                id: 'systemType',
-                question: 'Which type of mosquito net would you like?',
-                options: [
-                    { value: 'velcro', label: '🔗 Velcro', desc: 'Simple and practical fixed mosquito protection.' },
-                    { value: 'openable', label: '🚪 Openable', desc: 'Convenient for openings that need regular access.' },
-                    { value: 'sliding', label: '↔️ Sliding', desc: 'Suitable for sliding windows and doors where smooth operation is preferred.' },
-                    { value: 'pleated', label: '🪗 Pleated', desc: 'Premium folding system suitable for many door and large-opening applications.' }
-                ],
-                response: (val) => {
-                    const labels = { velcro: 'Velcro', openable: 'Openable', sliding: 'Sliding', pleated: 'Pleated' };
-                    return `Great choice! ${labels[val]} mosquito net can be a good option for your requirement.`;
-                }
-            },
-            {
-                id: 'meshPref',
-                question: 'Do you have a preferred mesh?',
-                options: [
-                    { value: 'standard', label: 'Standard Mesh' },
-                    { value: 'ss', label: 'Stainless Steel Mesh' },
-                    { value: 'unsure', label: 'Not Sure — Recommend for Me' }
-                ],
-                response: (val) => {
-                    if (val === 'unsure') return 'No problem. Our team can recommend the appropriate mesh based on your opening, usage and budget.';
-                    return 'Excellent. I\'ve noted your mesh preference.';
-                }
-            },
-            {
-                id: 'frameColour',
-                question: 'Do you have a preferred frame colour?',
-                options: [
-                    { value: 'white', label: 'White' },
-                    { value: 'ivory', label: 'Ivory' },
-                    { value: 'black', label: 'Black' },
-                    { value: 'brown', label: 'Brown' },
-                    { value: 'gold', label: 'Honey Gold' },
-                    { value: 'woodgrain', label: 'Woodgrain' },
-                    { value: 'unsure', label: 'Not Sure' }
-                ],
-                condition: (state) => ['velcro', 'openable', 'sliding', 'pleated'].includes(state.answers.systemType),
-                response: (val) => {
-                    if (val === 'woodgrain') return 'Woodgrain finish can give the installation a more premium appearance.';
-                    if (val === 'unsure') return 'No problem. Our team can recommend the suitable colour during the site visit.';
-                    return 'Great! I\'ve noted your colour preference.';
-                }
-            },
-            {
-                id: 'estimate',
-                question: 'Your Raj AI Estimate',
-                type: 'estimate'
-            },
-            {
-                id: 'customerDetails',
-                question: 'Would you like our team to help you with the next step?',
-                type: 'details'
-            },
-            {
-                id: 'final',
-                question: '🎉 Thank You!',
-                type: 'final'
-            }
-        ];
+    console.log('✅ Raj Marketing homepage loaded with', PRODUCTS.length, 'products');
+    console.log('✅ Raj AI Consultation ready');
+</script>
 
-        function startConsultation() {
-            document.getElementById('aiStartWrap').style.display = 'none';
-            aiState.currentStep = 0;
-            aiState.answers = {};
-            aiState.sizes = [];
-            aiState.currentSize = { width: 2, height: 4, quantity: 1 };
-            aiState.isComplete = false;
-            renderStep();
-        }
-
-        function renderStep() {
-            const container = document.getElementById('aiStepContainer');
-            const progress = document.getElementById('aiProgress');
-            const counter = document.getElementById('aiStepCounter');
-
-            // Update progress
-            const total = AI_STEPS.length;
-            progress.innerHTML = AI_STEPS.map((s, i) => {
-                let cls = 'step-dot';
-                if (i < aiState.currentStep) cls += ' done';
-                else if (i === aiState.currentStep) cls += ' active';
-                return `<span class="${cls}"></span>`;
-            }).join('');
-
-            counter.textContent = `Step ${aiState.currentStep + 1} of ${total}`;
-
-            const step = AI_STEPS[aiState.currentStep];
-            if (!step) return;
-
-            // Check condition
-            if (step.condition && !step.condition(aiState.answers)) {
-                aiState.currentStep++;
-                renderStep();
-                return;
-            }
-
-            // Build step HTML
-            let html = `<div class="ai-step active">`;
-
-            // Chat bubble
-            html += `<div class="ai-chat"><div class="ai-name"><i class="fas fa-sparkles"></i> Raj AI</div><div class="ai-msg">${step.question}</div>`;
-            if (step.desc) html += `<div class="ai-msg" style="font-size:13px;color:var(--muted-text);margin-top:4px;">${step.desc}</div>`;
-            html += `</div>`;
-
-            // Options
-            if (step.options && step.type !== 'addMore') {
-                html += `<div class="ai-options">`;
-                step.options.forEach(opt => {
-                    const selected = aiState.answers[step.id] === opt.value ? 'selected' : '';
-                    html += `<div class="opt-card ${selected}" onclick="selectOption('${step.id}', '${opt.value}')">
-                        <span class="icon">${opt.label.split(' ')[0]}</span>
-                        ${opt.label}
-                        ${opt.desc ? `<span class="sub-desc">${opt.desc}</span>` : ''}
-                    </div>`;
-                });
-                html += `</div>`;
-            }
-
-            // Size selection
-            if (step.type === 'size') {
-                html += `
-                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px 0;">
-                        <div><label style="font-size:12px;color:var(--muted-text);">Width (ft)</label>
-                        <select class="ai-input" id="sizeWidth" onchange="updateCurrentSize()">
-                            ${[2,3,4,5,6].map(w => `<option value="${w}" ${w===aiState.currentSize.width?'selected':''}>${w} ft</option>`).join('')}
-                        </select></div>
-                        <div><label style="font-size:12px;color:var(--muted-text);">Height (ft)</label>
-                        <select class="ai-input" id="sizeHeight" onchange="updateCurrentSize()">
-                            ${[2,3,4,5,6].map(h => `<option value="${h}" ${h===aiState.currentSize.height?'selected':''}>${h} ft</option>`).join('')}
-                        </select></div>
-                        <div><label style="font-size:12px;color:var(--muted-text);">Quantity</label>
-                        <div class="ai-qty">
-                            <button onclick="adjustQty(-1)">−</button>
-                            <span class="qty-val" id="qtyDisplay">${aiState.currentSize.quantity}</span>
-                            <button onclick="adjustQty(1)">+</button>
-                        </div></div>
-                    </div>
-                    <button class="btn-primary" onclick="addSize()" style="width:100%;padding:12px;">Add to List ➕</button>
-                    <div class="ai-size-list" id="sizeList">
-                        ${aiState.sizes.length === 0 ? '<div style="text-align:center;color:var(--muted-text);font-size:13px;padding:8px;">No sizes added yet</div>' : 
-                        aiState.sizes.map(s => `<div class="item"><span>${s.width} × ${s.height} ft</span><span>${s.quantity} Nos</span></div>`).join('')}
-                    </div>
-                `;
-            }
     
-            // Add More
-            if (step.type === 'addMore') {
-                html += `<div class="ai-options">`;
-                step.options.forEach(opt => {
-                    html += `<div class="opt-card" onclick="selectOption('${step.id}', '${opt.value}')">
-                        <span style="font-size:20px;">${opt.label.split(' ')[0]}</span>
-                        ${opt.label}
-                    </div>`;
-                });
-                html += `</div>`;
-            }
-
-            // Quantity
-            if (step.type === 'quantity') {
-                html += `
-                    <div style="text-align:center;padding:10px 0;">
-                        <div class="ai-qty">
-                            <button onclick="adjustQty(-1)">−</button>
-                            <span class="qty-val" id="qtyDisplay">${aiState.currentSize.quantity}</span>
-                            <button onclick="adjustQty(1)">+</button>
-                        </div>
-                        <button class="btn-primary" onclick="confirmQuantity()" style="margin-top:10px;">Confirm Quantity ✅</button>
-                    </div>
-                `;
-            }
-
-            // Estimate
-            if (step.type === 'estimate') {
-                const est = calculateEstimate();
-                html += `
-                    <div class="ai-summary">
-                        <div class="row"><span class="label">Purpose</span><span class="value">${aiState.answers.purpose || '-'}</span></div>
-                        <div class="row"><span class="label">Property</span><span class="value">${aiState.answers.propertyType || '-'}</span></div>
-                        <div class="row"><span class="label">Window Type</span><span class="value">${aiState.answers.windowType || '-'}</span></div>
-                        <div class="row"><span class="label">Priority</span><span class="value">${aiState.answers.priority || '-'}</span></div>
-                        <div class="row"><span class="label">Net Type</span><span class="value">${aiState.answers.systemType || '-'}</span></div>
-                        <div class="row"><span class="label">Mesh</span><span class="value">${aiState.answers.meshPref || '-'}</span></div>
-                        <div style="margin:10px 0;border-top:1px solid #e5e7eb;padding-top:10px;">
-                            <strong style="font-size:13px;">Approximate Sizes</strong>
-                            ${aiState.sizes.map(s => `<div style="font-size:13px;">${s.width} × ${s.height} ft — ${s.quantity} Nos</div>`).join('')}
-                        </div>
-                        <div class="estimate">Approximate Estimate: ${est}</div>
-                        <div class="estimate-note">
-                            <strong>⚠️ Approximate Estimate Only</strong><br>
-                            This estimate is calculated using the information provided by you and the approximate sizes selected. The final price may change after our site-visit team checks the actual measurements, window/door condition, installation requirements, selected product, mesh and finish.<br>
-                            <strong>Our team will confirm the exact price after site verification.</strong>
-                        </div>
-                    </div>
-                    <button class="btn-primary" onclick="goToStep('customerDetails')" style="width:100%;padding:12px;">Continue →</button>
-                `;
-            }
-
-            // Customer Details
-            if (step.type === 'details') {
-                html += `
-                    <div style="padding:10px 0;">
-                        <input class="ai-input" id="custName" placeholder="Your Name" />
-                        <input class="ai-input" id="custMobile" placeholder="Mobile Number" type="tel" />
-                        <input class="ai-input" id="custWhatsapp" placeholder="WhatsApp Number" type="tel" />
-                        <input class="ai-input" id="custLocation" placeholder="Location" />
-                        <input class="ai-input" id="custLandmark" placeholder="Landmark" />
-                        <div class="file-input" style="border:1px dashed #d1d5db;padding:16px;text-align:center;border-radius:10px;margin-bottom:10px;cursor:pointer;">
-                            <i class="fas fa-cloud-upload-alt"></i> Upload Window/Door Photo (Optional)
-                        </div>
-                        <p style="font-size:12px;color:var(--muted-text);margin-bottom:10px;">Sharing a photo can help our team understand your requirement before the visit.</p>
-                        <button class="btn-primary" onclick="submitDetails()" style="width:100%;padding:12px;">Submit & Get Estimate →</button>
-                    </div>
-                `;
-            }
-
-            // Final
-            if (step.type === 'final') {
-                const est = calculateEstimate();
-                const id = 'RM-AI-' + Date.now().toString().slice(-6);
-                html += `
-                    <div class="ai-receipt">
-                        <div class="receipt-header">
-                            <h3>🏠 Raj Marketing Mysore</h3>
-                            <div class="id">Raj AI Requirement Summary</div>
-                        </div>
-                        <div class="receipt-row"><span class="label">Customer</span><span class="value">${document.getElementById('custName')?.value || '—'}</span></div>
-                        <div class="receipt-row"><span class="label">Requirement</span><span class="value">${aiState.answers.purpose || '-'}</span></div>
-                        <div class="receipt-row"><span class="label">Property</span><span class="value">${aiState.answers.propertyType || '-'}</span></div>
-                        <div class="receipt-row"><span class="label">Existing Windows</span><span class="value">${aiState.answers.windowType || '-'}</span></div>
-                        <div class="receipt-row"><span class="label">Priority</span><span class="value">${aiState.answers.priority || '-'}</span></div>
-                        <div class="receipt-row"><span class="label">Net System</span><span class="value">${aiState.answers.systemType || '-'}</span></div>
-                        <div class="receipt-row"><span class="label">Mesh</span><span class="value">${aiState.answers.meshPref || '-'}</span></div>
-                        <div style="margin:10px 0;border-top:1px solid #e5e7eb;padding-top:10px;">
-                            <strong style="font-size:13px;">Measurements</strong>
-                            ${aiState.sizes.map(s => `<div style="font-size:13px;">${s.width} × ${s.height} ft — ${s.quantity} Nos</div>`).join('')}
-                        </div>
-                        <div class="receipt-total">
-                            <div style="font-size:13px;color:var(--muted-text);">Approximate Estimate</div>
-                            <div class="amount">${est}</div>
-                            <div style="font-size:11px;color:var(--muted-text);margin-top:4px;">Estimate ID: ${id}</div>
-                            <div style="font-size:11px;color:var(--muted-text);">${new Date().toLocaleString()}</div>
-                        </div>
-                    </div>
-                    <div style="text-align:center;margin-top:16px;">
-                        <p style="font-size:14px;color:var(--muted-text);margin-bottom:12px;">🎉 Thank you for choosing Raj Marketing Mysore. Our team can verify the actual measurements and requirements during the site visit and provide the final quotation.</p>
-                    </div>
-                    <div class="ai-actions" style="justify-content:center;">
-                        <a href="appointment.html" class="btn-primary"><i class="fas fa-calendar-check"></i> Book Site Visit</a>
-                        <a href="https://wa.me/919483037385?text=${encodeURIComponent('Hello Raj Marketing Mysore,%0A%0AI would like a mosquito-net estimate.%0A%0ARequirement: ' + (aiState.answers.purpose || '') + '%0AProperty: ' + (aiState.answers.propertyType || '') + '%0AWindow Type: ' + (aiState.answers.windowType || '') + '%0APriority: ' + (aiState.answers.priority || '') + '%0ANet Type: ' + (aiState.answers.systemType || '') + '%0ASizes: ' + aiState.sizes.map(s => s.width + '×' + s.height + 'ft – ' + s.quantity + ' Nos').join('%0A') + '%0A%0AApproximate Estimate: ' + est + '%0A%0APlease arrange a site visit for final measurement and quotation.')}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Send on WhatsApp</a>
-                    </div>
-                    <div style="display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap;">
-                        <button class="btn-secondary" onclick="goToStep('estimate')" style="font-size:12px;padding:6px 18px;">✏️ Modify Requirement</button>
-                        <button class="btn-secondary" onclick="resetConsultation()" style="font-size:12px;padding:6px 18px;">🔄 Start Again</button>
-                    </div>
-                `;
-                aiState.isComplete = true;
-            }
-
-            // Back/Next buttons
-            if (step.type !== 'estimate' && step.type !== 'details' && step.type !== 'final' && step.type !== 'size' && step.type !== 'quantity' && step.type !== 'addMore') {
-                html += `<div class="ai-actions">
-                    ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
-                    <button class="btn-next" onclick="nextStep()" ${!aiState.answers[step.id] ? 'disabled' : ''}>Continue →</button>
-                </div>`;
-            }
-
-            if (step.type === 'size' || step.type === 'quantity') {
-                html += `<div class="ai-actions">
-                    ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
-                </div>`;
-            }
-
-            if (step.type === 'addMore') {
-                html += `<div class="ai-actions">
-                    ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
-                </div>`;
-            }
-
-            html += `</div>`;
-            container.innerHTML = html;
-
-            // Update live requirement
-            updateLiveReq();
-
-            // Scroll to top of consultation
-            document.getElementById('aiConsultWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function selectOption(stepId, value) {
-            aiState.answers[stepId] = value;
-            
-            // Handle response
-            const step = AI_STEPS.find(s => s.id === stepId);
-            if (step && step.response) {
-                const msg = step.response(value);
-                const chat = document.querySelector('.ai-chat .ai-msg');
-                if (chat) {
-                    chat.innerHTML = step.question + `<br><span style="color:var(--royal-blue);font-weight:500;">${msg}</span>`;
-                }
-            }
-
-            // Update UI
-            document.querySelectorAll('.opt-card').forEach(el => el.classList.remove('selected'));
-            const selected = document.querySelector(`.opt-card[onclick*="'${stepId}', '${value}'"]`);
-            if (selected) selected.classList.add('selected');
-
-            // Enable continue button
-            const btn = document.querySelector('.btn-next');
-            if (btn) btn.disabled = false;
-
-            // Auto advance for certain steps
-            if (stepId === 'sizeAddMore') {
-                if (value === 'no') {
-                    setTimeout(() => goToStep(aiState.currentStep + 1), 400);
-                } else {
-                    // Add another size - go back to size selection
-                    aiState.currentSize = { width: 2, height: 4, quantity: 1 };
-                    goToStep(aiState.currentStep - 2);
-                }
-            }
-        }
-
-        function nextStep() {
-            const step = AI_STEPS[aiState.currentStep];
-            if (step && !aiState.answers[step.id]) return;
-            aiState.currentStep++;
-            renderStep();
-        }
-
-        function goToStep(index) {
-            aiState.currentStep = index;
-            renderStep();
-        }
-
-        function updateCurrentSize() {
-            const w = parseInt(document.getElementById('sizeWidth')?.value) || 2;
-            const h = parseInt(document.getElementById('sizeHeight')?.value) || 4;
-            aiState.currentSize.width = w;
-            aiState.currentSize.height = h;
-        }
-
-        function adjustQty(delta) {
-            const qty = aiState.currentSize.quantity + delta;
-            if (qty < 1) return;
-            aiState.currentSize.quantity = qty;
-            const display = document.getElementById('qtyDisplay');
-            if (display) display.textContent = qty;
-        }
-
-        function addSize() {
-            const w = parseInt(document.getElementById('sizeWidth')?.value) || 2;
-            const h = parseInt(document.getElementById('sizeHeight')?.value) || 4;
-            const qty = aiState.currentSize.quantity;
-            aiState.sizes.push({ width: w, height: h, quantity: qty });
-            aiState.currentSize.quantity = 1;
-            // Update size list
-            const list = document.getElementById('sizeList');
-            if (list) {
-                if (aiState.sizes.length === 0) {
-                    list.innerHTML = '<div style="text-align:center;color:var(--muted-text);font-size:13px;padding:8px;">No sizes added yet</div>';
-                } else {
-                    list.innerHTML = aiState.sizes.map(s => 
-                        `<div class="item"><span>${s.width} × ${s.height} ft</span><span>${s.quantity} Nos</span></div>`
-                    ).join('');
-                }
-            }
-            // Move to quantity or add more
-            const step = AI_STEPS[aiState.currentStep];
-            if (step && step.id === 'sizeSelect') {
-                // Check if we have sizes
-                if (aiState.sizes.length > 0) {
-                    // Go to add more
-                    const nextIdx = aiState.currentStep + 2; // skip quantity step if we already added
-                    goToStep(nextIdx);
-                }
-            }
-        }
-
-        function confirmQuantity() {
-            const qty = aiState.currentSize.quantity;
-            // This would add the size with the confirmed quantity
-            const w = parseInt(document.getElementById('sizeWidth')?.value) || 2;
-            const h = parseInt(document.getElementById('sizeHeight')?.value) || 4;
-            aiState.sizes.push({ width: w, height: h, quantity: qty });
-            aiState.currentSize.quantity = 1;
-            // Go to add more
-            const nextIdx = aiState.currentStep + 1;
-            goToStep(nextIdx);
-        }
-
-        function calculateEstimate() {
-            // Simple estimate calculation based on sizes and priority
-            let totalArea = 0;
-            aiState.sizes.forEach(s => {
-                totalArea += s.width * s.height * s.quantity;
-            });
-            
-            let basePrice = 0;
-            if (aiState.answers.priority === 'economy') basePrice = 8;
-            else if (aiState.answers.priority === 'premium') basePrice = 14;
-            else if (aiState.answers.priority === 'supreme') basePrice = 20;
-            else basePrice = 12;
-
-            let est = Math.round(totalArea * basePrice * 10);
-            if (est < 500) est = 500;
-            return '₹' + est.toLocaleString();
-        }
-
-        function submitDetails() {
-            const name = document.getElementById('custName')?.value || '—';
-            const mobile = document.getElementById('custMobile')?.value || '—';
-            const whatsapp = document.getElementById('custWhatsapp')?.value || mobile;
-            const location = document.getElementById('custLocation')?.value || '—';
-            
-            aiState.answers.customerName = name;
-            aiState.answers.customerMobile = mobile;
-            aiState.answers.customerWhatsapp = whatsapp;
-            aiState.answers.customerLocation = location;
-            
-            goToStep(AI_STEPS.length - 1);
-        }
-
-        function updateLiveReq() {
-            const container = document.getElementById('aiLiveReq');
-            const items = document.getElementById('aiLiveReqItems');
-            
-            const hasAnswers = Object.keys(aiState.answers).length > 0 || aiState.sizes.length > 0;
-            if (!hasAnswers) {
-                container.classList.remove('active');
-                return;
-            }
-            
-            container.classList.add('active');
-            let html = '';
-            
-            const labels = {
-                purpose: 'Purpose',
-                propertyType: 'Property',
-                windowType: 'Window Type',
-                openings: 'Openings',
-                priority: 'Priority',
-                systemType: 'Net System',
-                meshPref: 'Mesh',
-                frameColour: 'Frame Colour'
-            };
-            
-            Object.keys(labels).forEach(key => {
-                if (aiState.answers[key]) {
-                    html += `<div class="item"><i class="fas fa-check-circle"></i> ${labels[key]}: ${aiState.answers[key]}</div>`;
-                }
-            });
-            
-            aiState.sizes.forEach(s => {
-                html += `<div class="item"><i class="fas fa-ruler"></i> ${s.width}×${s.height}ft — ${s.quantity} Nos</div>`;
-            });
-            
-            items.innerHTML = html || '<div class="item">No selections yet</div>';
-        }
-
-        function resetConsultation() {
-            aiState = {
-                currentStep: 0,
-                answers: {},
-                sizes: [],
-                currentSize: { width: 2, height: 4, quantity: 1 },
-                totalSteps: 12,
-                isComplete: false,
-                estimateId: ''
-            };
-            document.getElementById('aiStartWrap').style.display = 'block';
-            document.getElementById('aiStepContainer').innerHTML = '';
-            document.getElementById('aiProgress').innerHTML = '';
-            document.getElementById('aiStepCounter').textContent = '';
-            document.getElementById('aiLiveReq').classList.remove('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        console.log('✅ Raj Marketing homepage loaded with', PRODUCTS.length, 'products');
-        console.log('✅ Raj AI Consultation ready');
-    </script>
-
 </body>
 </html>
