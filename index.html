@@ -335,114 +335,125 @@
         }
 
         /* ============================================================
-           HERO - Sky Blue theme
-        ============================================================ */
-        .hero {
-            padding: 32px 0 24px;
-            background: linear-gradient(135deg, var(--primary-sky), var(--primary-sky-dark));
-            color: var(--white);
-            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-            margin-bottom: 24px;
-        }
-        .hero-grid {
-            display: grid;
-            gap: 24px;
-            align-items: center;
-        }
-        .hero-content h1 {
-            font-size: 28px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 8px;
-        }
-        .hero-content h1 .highlight {
-            color: #fff;
-            text-decoration: underline;
-        }
-        .hero-content p {
-            font-size: 15px;
-            color: #f0f9ff;
-            max-width: 500px;
-            margin-bottom: 18px;
-        }
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .btn-primary {
-            background: var(--white);
-            color: var(--primary-sky-dark);
-            border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 1.5px solid rgba(255,255,255,0.4);
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--white);
-        }
-        .btn-wa {
-            background: var(--whatsapp-green);
-            color: var(--white);
-            border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-        .btn-wa:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
-        }
+   HERO - LIGHT PROFESSIONAL CARD STYLE
+============================================================ */
+.hero {
+    padding: 28px 20px;
+    background: #f0f9ff;
+    border-radius: var(--radius-lg);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e2e8f0;
+}
+.hero-grid {
+    display: grid;
+    gap: 20px;
+    align-items: center;
+}
+.hero-content h1 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+.hero-content h1 .highlight {
+    color: var(--primary-sky-dark);
+}
+.hero-content p {
+    font-size: 15px;
+    color: var(--text-grey);
+    max-width: 500px;
+    margin-bottom: 16px;
+}
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.btn-primary {
+    background: var(--primary-sky);
+    color: var(--white);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background: var(--primary-sky-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+}
+.btn-secondary {
+    background: var(--white);
+    color: var(--text-dark);
+    border: 1.5px solid #e2e8f0;
+    padding: 10px 24px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+.btn-secondary:hover {
+    border-color: var(--primary-sky);
+    color: var(--primary-sky);
+    transform: translateY(-2px);
+}
+.btn-wa {
+    background: var(--whatsapp-green);
+    color: var(--white);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+.btn-wa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+}
+.hero-image {
+    display: none;
+    background: #e6f7ff;
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    border: 1px dashed var(--primary-sky);
+}
+.hero-image i {
+    font-size: 56px;
+    color: var(--primary-sky);
+    opacity: 0.7;
+}
+.hero-image p {
+    color: var(--text-grey);
+    font-size: 13px;
+    margin-top: 6px;
+    font-weight: 500;
+}
 
-        .hero-image {
-            display: none;
-            background: rgba(255,255,255,0.1);
-            border-radius: var(--radius);
-            padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .hero-image i {
-            font-size: 72px;
-            color: rgba(255,255,255,0.6);
-        }
-        .hero-image p {
-            color: #f0f9ff;
-            font-size: 13px;
-            margin-top: 8px;
-        }
+@media (min-width: 768px) {
+    .hero { padding: 40px 36px; }
+    .hero-grid { grid-template-columns: 1fr 1fr; }
+    .hero-image { display: block; }
+    .hero-content h1 { font-size: 34px; }
+}
 
         /* ============================================================
            TRUST BAR
@@ -1273,24 +1284,24 @@
                 <div class="slider-dots" id="sliderDots"></div>
             </div>
 
-            <!-- ===== HERO ===== -->
-            <section class="hero">
-                <div class="hero-grid">
-                    <div class="hero-content">
-                        <h1>Premium <span class="highlight">Mosquito Protection</span> for Every Home</h1>
-                        <p>Custom mosquito nets for windows and doors with professional measurement and installation in Mysore.</p>
-                        <div class="hero-buttons">
-                            <a href="estimate.html" class="btn-primary"><i class="fas fa-file-invoice"></i> Get Free Estimate</a>
-                            <a href="products.html" class="btn-secondary"><i class="fas fa-th-large"></i> View Products</a>
-                            <a href="https://wa.me/919483037385" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
-                        </div>
-                    </div>
-                    <div class="hero-image">
-                        <i class="fas fa-shield-alt"></i>
-                        <p>Quality Mosquito Nets for Your Home</p>
-                    </div>
-                </div>
-            </section>
+            <!-- ===== HERO - LIGHT PROFESSIONAL CARD STYLE ===== -->
+<section class="hero">
+    <div class="hero-grid">
+        <div class="hero-content">
+            <h1>Premium <span class="highlight">Mosquito Protection</span></h1>
+            <p>Custom nets for windows & doors. Professional measurement & installation in Mysore.</p>
+            <div class="hero-buttons">
+                <a href="estimate.html" class="btn-primary"><i class="fas fa-file-invoice"></i> Get Estimate</a>
+                <a href="products.html" class="btn-secondary"><i class="fas fa-th-large"></i> Products</a>
+                <a href="https://wa.me/919483037385" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-shield-alt"></i>
+            <p>Quality Nets · Mysore</p>
+        </div>
+    </div>
+</section>
 
             <!-- ===== TRUST BAR ===== -->
             <div class="trust-bar">
