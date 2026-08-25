@@ -1,25 +1,37 @@
-RAJ MARKETING MYSORE — COMPLETE WEBSITE IMAGE PACKAGE
+RAJ MARKETING MYSORE — COMPLETE IMAGE INVENTORY
 
-Generated asset set:
-- 10 Slider images: 1920x800 desktop / 768x320 mobile
-- 20 Product images: 400x400 desktop / 300x300 mobile
-- 8 Category images: 600x400 desktop / 400x300 mobile
-- 4 Gallery images: 800x600 desktop / 500x400 mobile
+Exact requested inventory:
+Products: 93
+Categories: 8
+Gallery: 4
+Sliders: 10
+Placeholder: 1
+TOTAL CONCEPTS: 116
 
-TOTAL: 42 image concepts, 84 responsive JPG files.
+Responsive files:
+Desktop: 116 JPG files
+Mobile: 116 JPG files
+TOTAL JPG FILES: 232
 
-Folders:
-images/slider/desktop/
-images/slider/mobile/
-images/products/desktop/
-images/products/mobile/
-images/categories/desktop/
-images/categories/mobile/
-images/gallery/desktop/
-images/gallery/mobile/
+Desktop sizes:
+Products 400x400
+Categories 600x400
+Gallery 800x600
+Sliders 1920x800
+Placeholder 400x400
 
-Important:
-These are original generated, reference-inspired starter visuals created for Raj Marketing Mysore.
-They are not copies of the third-party reference photos found during web research.
-Replace individual product images with Raj Marketing Mysore's actual product photographs when available,
-especially for exact product specifications such as SS 304 grade, thickness and mesh size.
+Mobile sizes:
+Products 300x300
+Categories 400x300
+Gallery 500x400
+Sliders 768x320
+Placeholder 300x300
+
+Folder structure:
+images/<filename>.jpg
+images/mobile/<filename>.jpg
+
+All filenames use lowercase and hyphens exactly as supplied.
+Images are original generated/reference-inspired website starter visuals.
+Third-party web images were used only as visual references; they were not copied into this package.
+For exact Raj Marketing Mysore product representation, replace product visuals with your own actual product photographs when available.
