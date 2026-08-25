@@ -30,12 +30,7 @@
         /* ============================================================
            ROOT VARIABLES & RESET
         ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         :root {
             --deep-navy: #0F172A;
@@ -56,242 +51,57 @@
             --transition: 0.3s ease;
         }
 
-        body {
-            background: var(--white);
-            color: var(--dark-text);
-            padding-top: 80px;
-            padding-bottom: 80px;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-        }
+        body { background: var(--white); color: var(--dark-text); padding-top: 80px; padding-bottom: 80px; font-weight: 400; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
         /* ============================================================
-           HEADER - Deep Navy with Royal Blue accent
+           HEADER
         ============================================================ */
         .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: var(--deep-navy);
-            color: var(--white);
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--shadow-md);
-            height: 72px;
-            border-bottom: 3px solid var(--royal-blue);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: var(--deep-navy); color: var(--white);
+            padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: var(--shadow-md); height: 72px; border-bottom: 3px solid var(--royal-blue);
         }
+        .header-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--white); }
+        .logo-icon { width: 40px; height: 40px; background: var(--royal-blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--white); }
+        .logo-text { font-weight: 800; font-size: 18px; line-height: 1.1; }
+        .logo-text span { display: block; font-weight: 400; font-size: 10px; color: var(--muted-text); letter-spacing: 0.5px; }
 
-        .header-inner {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .desktop-nav { display: none; align-items: center; gap: 6px; }
+        .desktop-nav a { color: var(--white); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 30px; transition: var(--transition); }
+        .desktop-nav a:hover, .desktop-nav a.active { background: var(--royal-blue); color: var(--white); }
+        .desktop-nav .btn-outline { border: 1.5px solid var(--royal-blue); color: var(--royal-blue); }
+        .desktop-nav .btn-outline:hover { background: var(--royal-blue); color: var(--white); }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--white);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--royal-blue);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: var(--white);
-        }
-
-        .logo-text {
-            font-weight: 800;
-            font-size: 18px;
-            line-height: 1.1;
-        }
-        .logo-text span {
-            display: block;
-            font-weight: 400;
-            font-size: 10px;
-            color: var(--muted-text);
-            letter-spacing: 0.5px;
-        }
-
-        .desktop-nav {
-            display: none;
-            align-items: center;
-            gap: 6px;
-        }
-        .desktop-nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            padding: 6px 14px;
-            border-radius: 30px;
-            transition: var(--transition);
-        }
-        .desktop-nav a:hover,
-        .desktop-nav a.active {
-            background: var(--royal-blue);
-            color: var(--white);
-        }
-
-        .desktop-nav .btn-outline {
-            border: 1.5px solid var(--royal-blue);
-            color: var(--royal-blue);
-        }
-        .desktop-nav .btn-outline:hover {
-            background: var(--royal-blue);
-            color: var(--white);
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .header-right a {
-            color: var(--white);
-            font-size: 18px;
-            padding: 6px;
-            transition: var(--transition);
-        }
-        .header-right a:hover {
-            color: var(--royal-blue);
-        }
-
-        .hamburger {
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 24px;
-            cursor: pointer;
-            display: block;
-        }
+        .header-right { display: flex; align-items: center; gap: 8px; }
+        .header-right a { color: var(--white); font-size: 18px; padding: 6px; transition: var(--transition); }
+        .header-right a:hover { color: var(--royal-blue); }
+        .hamburger { background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; display: block; }
 
         .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 72px;
-            left: 0;
-            right: 0;
-            background: var(--deep-navy);
-            padding: 20px 16px;
-            z-index: 999;
-            flex-direction: column;
-            gap: 4px;
-            border-bottom: 2px solid var(--royal-blue);
+            display: none; position: fixed; top: 72px; left: 0; right: 0;
+            background: var(--deep-navy); padding: 20px 16px; z-index: 999;
+            flex-direction: column; gap: 4px; border-bottom: 2px solid var(--royal-blue);
         }
-        .mobile-menu.open {
-            display: flex;
-        }
-        .mobile-menu a {
-            color: var(--white);
-            text-decoration: none;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-weight: 500;
-            font-size: 14px;
-            transition: var(--transition);
-        }
-        .mobile-menu a:hover {
-            background: var(--royal-blue);
-        }
-        .mobile-menu .btn-sky {
-            background: var(--royal-blue);
-            text-align: center;
-            margin-top: 6px;
-        }
-        .mobile-menu .btn-sky:hover {
-            background: var(--orange);
-        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { color: var(--white); text-decoration: none; padding: 10px 14px; border-radius: 10px; font-weight: 500; font-size: 14px; transition: var(--transition); }
+        .mobile-menu a:hover { background: var(--royal-blue); }
+        .mobile-menu .btn-sky { background: var(--royal-blue); text-align: center; margin-top: 6px; }
+        .mobile-menu .btn-sky:hover { background: var(--orange); }
 
         /* ============================================================
            SLIDER
         ============================================================ */
-        .slider-container {
-            margin: 0 0 16px 0;
-            border-radius: var(--radius);
-            overflow: hidden;
-            position: relative;
-            box-shadow: var(--shadow-md);
-            height: 200px;
-            background: var(--light-grey);
-        }
-
-        .slider-track {
-            display: flex;
-            width: 1000%;
-            height: 100%;
-            animation: sliderAnimation 30s infinite ease-in-out;
-        }
-
-        .slider-slide {
-            flex: 1;
-            height: 100%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .slider-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            inset: 0;
-        }
-
-        .slider-slide .overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.3);
-            z-index: 1;
-        }
-
-        .slider-slide .slide-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #ffffff;
-            padding: 16px 24px;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-            max-width: 90%;
-        }
-
-        .slider-slide .slide-content .main-text {
-            font-weight: 800;
-            font-size: 22px;
-            line-height: 1.2;
-            display: block;
-        }
-
-        .slider-slide .slide-content .sub-text {
-            font-size: 13px;
-            font-weight: 300;
-            display: block;
-            margin-top: 2px;
-            opacity: 0.9;
-        }
+        .slider-container { margin: 0 0 16px 0; border-radius: var(--radius); overflow: hidden; position: relative; box-shadow: var(--shadow-md); height: 200px; background: var(--light-grey); }
+        .slider-track { display: flex; width: 1000%; height: 100%; animation: sliderAnimation 30s infinite ease-in-out; }
+        .slider-slide { flex: 1; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .slider-slide img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+        .slider-slide .overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.3); z-index: 1; }
+        .slider-slide .slide-content { position: relative; z-index: 2; text-align: center; color: #fff; padding: 16px 24px; text-shadow: 0 2px 12px rgba(0,0,0,0.4); max-width: 90%; }
+        .slider-slide .slide-content .main-text { font-weight: 800; font-size: 22px; line-height: 1.2; display: block; }
+        .slider-slide .slide-content .sub-text { font-size: 13px; font-weight: 300; display: block; margin-top: 2px; opacity: 0.9; }
 
         @keyframes sliderAnimation {
             0%, 8% { transform: translateX(0) }
@@ -307,1420 +117,325 @@
             100% { transform: translateX(0) }
         }
 
-        .slider-dots {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 3;
-        }
+        .slider-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 3; }
+        .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; border: none; transition: 0.3s; }
+        .slider-dots .dot.active { background: var(--royal-blue); transform: scale(1.2); box-shadow: 0 2px 8px rgba(37,99,235,0.5); }
 
-        .slider-dots .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            border: none;
-            transition: 0.3s;
-        }
-
-        .slider-dots .dot.active {
-            background: var(--royal-blue);
-            transform: scale(1.2);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.5);
-        }
-
-        @media (min-width: 768px) {
-            .slider-container { height: 320px; }
-            .slider-slide .slide-content .main-text { font-size: 32px; }
-            .slider-slide .slide-content .sub-text { font-size: 16px; }
-        }
-
-        @media (max-width: 420px) {
-            .slider-container { height: 160px; }
-            .slider-slide .slide-content .main-text { font-size: 18px; }
-            .slider-slide .slide-content .sub-text { font-size: 11px; }
-        }
+        @media (min-width: 768px) { .slider-container { height: 320px; } .slider-slide .slide-content .main-text { font-size: 32px; } .slider-slide .slide-content .sub-text { font-size: 16px; } }
+        @media (max-width: 420px) { .slider-container { height: 160px; } .slider-slide .slide-content .main-text { font-size: 18px; } .slider-slide .slide-content .sub-text { font-size: 11px; } }
 
         /* ============================================================
-           HERO - White background, professional simple
+           HERO
         ============================================================ */
-        .hero {
-            background: var(--white);
-            color: var(--dark-text);
-            border-radius: var(--radius-lg);
-            padding: 32px 20px;
-            margin-bottom: 24px;
-            border: 1px solid #e5e7eb;
-            box-shadow: var(--shadow-sm);
-        }
-        .hero-content h1 {
-            font-size: 28px;
-            font-weight: 800;
-            line-height: 1.2;
-            color: var(--deep-navy);
-            margin-bottom: 6px;
-        }
-        .hero-content h1 .highlight {
-            color: var(--royal-blue);
-        }
-        .hero-content p {
-            font-size: 15px;
-            color: var(--muted-text);
-            margin-bottom: 16px;
-        }
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .btn-primary {
-            background: var(--royal-blue);
-            color: var(--white);
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            background: var(--deep-navy);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.2);
-        }
-        .btn-secondary {
-            background: var(--white);
-            color: var(--dark-text);
-            border: 1.5px solid #e5e7eb;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-        .btn-secondary:hover {
-            border-color: var(--royal-blue);
-            color: var(--royal-blue);
-            transform: translateY(-2px);
-        }
-        .btn-wa {
-            background: var(--whatsapp-green);
-            color: var(--white);
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-        .btn-wa:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
-        }
-        .hero-trust {
-            margin-top: 16px;
-            font-size: 13px;
-            color: var(--muted-text);
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .hero-trust span {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .hero-trust i {
-            color: var(--royal-blue);
-            font-size: 14px;
-        }
+        .hero { background: var(--white); color: var(--dark-text); border-radius: var(--radius-lg); padding: 32px 20px; margin-bottom: 24px; border: 1px solid #e5e7eb; box-shadow: var(--shadow-sm); }
+        .hero-content h1 { font-size: 28px; font-weight: 800; line-height: 1.2; color: var(--deep-navy); margin-bottom: 6px; }
+        .hero-content h1 .highlight { color: var(--royal-blue); }
+        .hero-content p { font-size: 15px; color: var(--muted-text); margin-bottom: 16px; }
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+        .btn-primary { background: var(--royal-blue); color: var(--white); border: none; padding: 10px 24px; border-radius: 40px; font-weight: 700; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); cursor: pointer; }
+        .btn-primary:hover { background: var(--deep-navy); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(15,23,42,0.2); }
+        .btn-secondary { background: var(--white); color: var(--dark-text); border: 1.5px solid #e5e7eb; padding: 10px 24px; border-radius: 40px; font-weight: 600; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); }
+        .btn-secondary:hover { border-color: var(--royal-blue); color: var(--royal-blue); transform: translateY(-2px); }
+        .btn-wa { background: var(--whatsapp-green); color: var(--white); border: none; padding: 10px 24px; border-radius: 40px; font-weight: 700; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); }
+        .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.35); }
+        .hero-trust { margin-top: 16px; font-size: 13px; color: var(--muted-text); display: flex; gap: 16px; flex-wrap: wrap; }
+        .hero-trust span { display: inline-flex; align-items: center; gap: 4px; }
+        .hero-trust i { color: var(--royal-blue); font-size: 14px; }
 
-        @media (min-width: 768px) {
-            .hero { padding: 40px 36px; }
-            .hero-content h1 { font-size: 36px; }
-            .hero-content p { font-size: 17px; }
-        }
+        @media (min-width: 768px) { .hero { padding: 40px 36px; } .hero-content h1 { font-size: 36px; } .hero-content p { font-size: 17px; } }
 
         /* ============================================================
            TRUST BAR
         ============================================================ */
-        .trust-bar {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 16px 12px;
-            box-shadow: var(--shadow-sm);
-            margin: -16px 0 24px 0;
-            border: 1px solid #e5e7eb;
-        }
-        .trust-item {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--muted-text);
-        }
-        .trust-item i {
-            font-size: 20px;
-            color: var(--royal-blue);
-            display: block;
-            margin-bottom: 2px;
-        }
-        .trust-item strong {
-            display: block;
-            color: var(--dark-text);
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        @media (min-width: 768px) {
-            .trust-bar { grid-template-columns: repeat(6, 1fr); }
-        }
+        .trust-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; background: var(--white); border-radius: var(--radius); padding: 16px 12px; box-shadow: var(--shadow-sm); margin: -16px 0 24px 0; border: 1px solid #e5e7eb; }
+        .trust-item { text-align: center; font-size: 11px; font-weight: 500; color: var(--muted-text); }
+        .trust-item i { font-size: 20px; color: var(--royal-blue); display: block; margin-bottom: 2px; }
+        .trust-item strong { display: block; color: var(--dark-text); font-weight: 700; font-size: 12px; }
+        @media (min-width: 768px) { .trust-bar { grid-template-columns: repeat(6, 1fr); } }
 
         /* ============================================================
            QUICK ACTIONS
         ============================================================ */
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 28px;
-        }
-        .quick-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 16px 8px;
-            text-align: center;
-            border: 1px solid #e5e7eb;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-        .quick-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--royal-blue);
-            box-shadow: var(--shadow-md);
-        }
-        .quick-card i {
-            font-size: 24px;
-            color: var(--royal-blue);
-            display: block;
-            margin-bottom: 4px;
-        }
-        .quick-card .label {
-            font-weight: 600;
-            font-size: 12px;
-            color: var(--dark-text);
-        }
-
-        @media (min-width: 768px) {
-            .quick-grid { grid-template-columns: repeat(4, 1fr); }
-        }
+        .quick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 28px; }
+        .quick-card { background: var(--white); border-radius: var(--radius); padding: 16px 8px; text-align: center; border: 1px solid #e5e7eb; text-decoration: none; transition: var(--transition); box-shadow: var(--shadow-sm); }
+        .quick-card:hover { transform: translateY(-4px); border-color: var(--royal-blue); box-shadow: var(--shadow-md); }
+        .quick-card i { font-size: 24px; color: var(--royal-blue); display: block; margin-bottom: 4px; }
+        .quick-card .label { font-weight: 600; font-size: 12px; color: var(--dark-text); }
+        @media (min-width: 768px) { .quick-grid { grid-template-columns: repeat(4, 1fr); } }
 
         /* ============================================================
            SECTION COMMON
         ============================================================ */
-        .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin: 28px 0 14px 0;
-        }
-        .section-title h2 {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--dark-text);
-            border-left: 4px solid var(--royal-blue);
-            padding-left: 12px;
-        }
-        .section-title a {
-            font-size: 13px;
-            color: var(--royal-blue);
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .section-title a:hover {
-            text-decoration: underline;
-        }
-
-        .section-bg {
-            background: var(--light-grey);
-            border-radius: var(--radius-lg);
-            padding: 20px 16px;
-            margin-bottom: 20px;
-        }
+        .section-title { display: flex; justify-content: space-between; align-items: baseline; margin: 28px 0 14px 0; }
+        .section-title h2 { font-size: 20px; font-weight: 800; color: var(--dark-text); border-left: 4px solid var(--royal-blue); padding-left: 12px; }
+        .section-title a { font-size: 13px; color: var(--royal-blue); font-weight: 600; text-decoration: none; }
+        .section-title a:hover { text-decoration: underline; }
+        .section-bg { background: var(--light-grey); border-radius: var(--radius-lg); padding: 20px 16px; margin-bottom: 20px; }
 
         /* ============================================================
-           RAJ AI CONSULTATION - Complete replacement
+           RAJ AI CONSULTATION - Clean & Minimal
         ============================================================ */
-        .ai-consult-wrap {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 24px 20px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid #e5e7eb;
-            margin-bottom: 20px;
-        }
+        .ai-consult-wrap { background: var(--white); border-radius: var(--radius-lg); padding: 24px 20px; box-shadow: var(--shadow-md); border: 1px solid #e5e7eb; margin-bottom: 20px; }
+        .ai-consult-wrap .header-area { text-align: center; margin-bottom: 16px; }
+        .ai-consult-wrap .header-area h2 { font-size: 22px; font-weight: 800; color: var(--deep-navy); }
+        .ai-consult-wrap .header-area h2 span { color: var(--royal-blue); }
+        .ai-consult-wrap .header-area .ai-badge { display: inline-block; background: var(--blue-light); color: var(--royal-blue); padding: 2px 14px; border-radius: 30px; font-size: 11px; font-weight: 600; margin-top: 2px; }
+        .ai-consult-wrap .header-area .subtitle { color: var(--muted-text); font-size: 13px; margin-top: 4px; }
+        .ai-consult-wrap .header-area .trust-msg { font-size: 12px; color: var(--muted-text); margin-top: 2px; }
+        .ai-consult-wrap .header-area .trust-msg i { color: var(--orange); }
 
-        .ai-consult-wrap .header-area {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        .ai-progress { display: flex; gap: 6px; margin: 12px 0 16px; justify-content: center; }
+        .ai-progress .step-dot { width: 24px; height: 4px; border-radius: 4px; background: #e5e7eb; transition: 0.3s; }
+        .ai-progress .step-dot.active { background: var(--royal-blue); }
+        .ai-progress .step-dot.done { background: var(--orange); }
+        .ai-step-counter { text-align: center; font-size: 12px; color: var(--muted-text); font-weight: 500; margin-bottom: 10px; }
 
-        .ai-consult-wrap .header-area h2 {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--deep-navy);
-        }
-        .ai-consult-wrap .header-area h2 span {
-            color: var(--royal-blue);
-        }
-        .ai-consult-wrap .header-area .ai-badge {
-            display: inline-block;
-            background: var(--blue-light);
-            color: var(--royal-blue);
-            padding: 4px 16px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-        .ai-consult-wrap .header-area .subtitle {
-            color: var(--muted-text);
-            font-size: 14px;
-            margin-top: 6px;
-        }
-        .ai-consult-wrap .header-area .trust-msg {
-            font-size: 13px;
-            color: var(--muted-text);
-            margin-top: 4px;
-        }
-        .ai-consult-wrap .header-area .trust-msg i {
-            color: var(--orange);
-        }
+        .ai-chat { background: var(--blue-light); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 14px; border-left: 4px solid var(--royal-blue); }
+        .ai-chat .ai-name { font-weight: 700; color: var(--deep-navy); font-size: 13px; }
+        .ai-chat .ai-name i { color: var(--royal-blue); margin-right: 4px; }
+        .ai-chat .ai-msg { font-size: 13px; color: var(--dark-text); margin-top: 2px; }
 
-        /* Progress */
-        .ai-progress {
-            display: flex;
-            gap: 6px;
-            margin: 16px 0 20px;
-            justify-content: center;
-        }
-        .ai-progress .step-dot {
-            width: 30px;
-            height: 4px;
-            border-radius: 4px;
-            background: #e5e7eb;
-            transition: 0.3s;
-        }
-        .ai-progress .step-dot.active {
-            background: var(--royal-blue);
-        }
-        .ai-progress .step-dot.done {
-            background: var(--orange);
-                    }
+        .ai-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+        .ai-options .opt-card { background: var(--white); border: 2px solid #e5e7eb; border-radius: var(--radius); padding: 12px 10px; text-align: center; cursor: pointer; transition: 0.3s; font-weight: 600; font-size: 12px; color: var(--dark-text); }
+        .ai-options .opt-card:hover { border-color: var(--royal-blue); transform: translateY(-2px); }
+        .ai-options .opt-card.selected { border-color: var(--royal-blue); background: var(--blue-light); }
+        .ai-options .opt-card .icon { font-size: 24px; display: block; margin-bottom: 2px; }
+        .ai-options .opt-card .desc { font-weight: 400; font-size: 10px; color: var(--muted-text); display: block; margin-top: 2px; }
 
-        .ai-step-counter {
-            text-align: center;
-            font-size: 13px;
-            color: var(--muted-text);
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
+        @media (max-width: 480px) { .ai-options { grid-template-columns: 1fr 1fr; } }
 
-        /* Chat bubble */
-        .ai-chat {
-            background: var(--blue-light);
-            border-radius: var(--radius);
-            padding: 16px 20px;
-            margin-bottom: 16px;
-            border-left: 4px solid var(--royal-blue);
-        }
-        .ai-chat .ai-name {
-            font-weight: 700;
-            color: var(--deep-navy);
-            font-size: 14px;
-        }
-        .ai-chat .ai-name i {
-            color: var(--royal-blue);
-            margin-right: 4px;
-        }
-        .ai-chat .ai-msg {
-            font-size: 14px;
-            color: var(--dark-text);
-            margin-top: 2px;
-        }
-        .ai-chat .ai-msg .highlight {
-            color: var(--royal-blue);
-            font-weight: 600;
-        }
+        .ai-input { width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 2px solid #e5e7eb; font-size: 13px; margin-bottom: 10px; transition: 0.3s; }
+        .ai-input:focus { outline: none; border-color: var(--royal-blue); }
 
-        /* Option cards */
-        .ai-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-        .ai-options .opt-card {
-            background: var(--white);
-            border: 2px solid #e5e7eb;
-            border-radius: var(--radius);
-            padding: 14px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--dark-text);
-        }
-        .ai-options .opt-card:hover {
-            border-color: var(--royal-blue);
-            transform: translateY(-2px);
-        }
-        .ai-options .opt-card.selected {
-            border-color: var(--royal-blue);
-            background: var(--blue-light);
-        }
-        .ai-options .opt-card .icon {
-            font-size: 28px;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .ai-options .opt-card .desc {
-            font-weight: 400;
-            font-size: 11px;
-            color: var(--muted-text);
-            display: block;
-            margin-top: 2px;
-        }
-        .ai-options .opt-card .sub-desc {
-            font-weight: 400;
-            font-size: 10px;
-            color: var(--muted-text);
-            display: block;
-            margin-top: 2px;
-        }
+        .ai-qty { display: flex; align-items: center; gap: 12px; justify-content: center; margin: 8px 0; }
+        .ai-qty button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #e5e7eb; background: var(--white); font-size: 18px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .ai-qty button:hover { border-color: var(--royal-blue); color: var(--royal-blue); }
+        .ai-qty .qty-val { font-size: 20px; font-weight: 700; min-width: 30px; text-align: center; }
 
-        @media (max-width: 480px) {
-            .ai-options { grid-template-columns: 1fr 1fr; }
-        }
+        .ai-size-list { background: var(--light-grey); border-radius: var(--radius); padding: 10px 14px; margin: 10px 0; }
+        .ai-size-list .item { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; border-bottom: 1px solid #e5e7eb; }
+        .ai-size-list .item:last-child { border-bottom: none; }
 
-        /* Input fields */
-        .ai-input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            border: 2px solid #e5e7eb;
-            font-size: 14px;
-            margin-bottom: 12px;
-            transition: 0.3s;
-        }
-        .ai-input:focus {
-            outline: none;
-            border-color: var(--royal-blue);
-        }
+        .ai-summary { background: var(--light-grey); border-radius: var(--radius); padding: 14px; margin: 10px 0; border: 1px solid #e5e7eb; }
+        .ai-summary .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; }
+        .ai-summary .row .label { color: var(--muted-text); }
+        .ai-summary .row .value { font-weight: 600; color: var(--dark-text); }
+        .ai-summary .estimate { font-size: 20px; font-weight: 800; color: var(--royal-blue); text-align: center; padding: 8px 0; }
+        .ai-summary .estimate-note { font-size: 11px; color: var(--muted-text); text-align: center; background: #fef3c7; padding: 8px; border-radius: 8px; margin-top: 6px; border-left: 3px solid var(--orange); }
 
-        /* Quantity selector */
-        .ai-qty {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            justify-content: center;
-            margin: 10px 0;
-        }
-        .ai-qty button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #e5e7eb;
-            background: var(--white);
-            font-size: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .ai-qty button:hover {
-            border-color: var(--royal-blue);
-            color: var(--royal-blue);
-        }
-        .ai-qty .qty-val {
-            font-size: 22px;
-            font-weight: 700;
-            min-width: 30px;
-            text-align: center;
-        }
+        .ai-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .ai-actions .btn-back { background: var(--white); color: var(--dark-text); border: 1.5px solid #e5e7eb; padding: 8px 18px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 12px; }
+        .ai-actions .btn-back:hover { border-color: var(--royal-blue); }
+        .ai-actions .btn-next { background: var(--royal-blue); color: var(--white); border: none; padding: 8px 24px; border-radius: 40px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 12px; }
+        .ai-actions .btn-next:hover { background: var(--deep-navy); }
+        .ai-actions .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Size list */
-        .ai-size-list {
-            background: var(--light-grey);
-            border-radius: var(--radius);
-            padding: 12px 16px;
-            margin: 10px 0;
-        }
-        .ai-size-list .item {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            font-size: 13px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .ai-size-list .item:last-child {
-            border-bottom: none;
-        }
+        .ai-step { display: none; }
+        .ai-step.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Summary card */
-        .ai-summary {
-            background: var(--light-grey);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin: 12px 0;
-            border: 1px solid #e5e7eb;
-        }
-        .ai-summary .row {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            font-size: 13px;
-        }
-        .ai-summary .row .label {
-            color: var(--muted-text);
-        }
-        .ai-summary .row .value {
-            font-weight: 600;
-            color: var(--dark-text);
-        }
-        .ai-summary .estimate {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--royal-blue);
-            text-align: center;
-            padding: 10px 0;
-        }
-        .ai-summary .estimate-note {
-            font-size: 12px;
-            color: var(--muted-text);
-            text-align: center;
-            background: #fef3c7;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 8px;
-            border-left: 3px solid var(--orange);
-        }
+        .ai-live-req { background: var(--light-grey); border-radius: var(--radius); padding: 10px 14px; margin-top: 14px; border: 1px solid #e5e7eb; display: none; }
+        .ai-live-req.active { display: block; }
+        .ai-live-req .title { font-weight: 700; font-size: 12px; color: var(--deep-navy); margin-bottom: 3px; }
+        .ai-live-req .item { font-size: 11px; color: var(--muted-text); padding: 2px 0; }
+        .ai-live-req .item i { color: var(--royal-blue); margin-right: 4px; }
 
-        /* Buttons */
-        .ai-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .ai-actions .btn-back {
-            background: var(--white);
-            color: var(--dark-text);
-            border: 1.5px solid #e5e7eb;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .ai-actions .btn-back:hover {
-            border-color: var(--royal-blue);
-        }
-        .ai-actions .btn-next {
-            background: var(--royal-blue);
-            color: var(--white);
-            border: none;
-            padding: 10px 28px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .ai-actions .btn-next:hover {
-            background: var(--deep-navy);
-        }
-        .ai-actions .btn-next:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .ai-actions .btn-wa {
-            background: var(--whatsapp-green);
-            color: var(--white);
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-        }
-        .ai-actions .btn-wa:hover {
-            opacity: 0.9;
-        }
-
-        /* Hide/show */
-        .ai-step {
-            display: none;
-        }
-        .ai-step.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Live requirement panel */
-        .ai-live-req {
-            background: var(--light-grey);
-            border-radius: var(--radius);
-            padding: 12px 16px;
-            margin-top: 16px;
-            border: 1px solid #e5e7eb;
-            display: none;
-        }
-        .ai-live-req.active {
-            display: block;
-        }
-        .ai-live-req .title {
-            font-weight: 700;
-            font-size: 13px;
-            color: var(--deep-navy);
-            margin-bottom: 4px;
-        }
-        .ai-live-req .item {
-            font-size: 12px;
-            color: var(--muted-text);
-            padding: 2px 0;
-        }
-        .ai-live-req .item i {
-            color: var(--royal-blue);
-            margin-right: 4px;
-        }
-
-        /* Final receipt */
-        .ai-receipt {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 20px;
-            border: 2px solid var(--royal-blue);
-            box-shadow: var(--shadow-md);
-        }
-        .ai-receipt .receipt-header {
-            text-align: center;
-            border-bottom: 2px dashed #e5e7eb;
-            padding-bottom: 12px;
-            margin-bottom: 12px;
-        }
-        .ai-receipt .receipt-header h3 {
-            font-size: 18px;
-            color: var(--deep-navy);
-        }
-        .ai-receipt .receipt-header .id {
-            font-size: 12px;
-            color: var(--muted-text);
-        }
-        .ai-receipt .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            font-size: 13px;
-        }
-        .ai-receipt .receipt-row .label {
-            color: var(--muted-text);
-        }
-        .ai-receipt .receipt-row .value {
-            font-weight: 600;
-        }
-        .ai-receipt .receipt-total {
-            border-top: 2px solid var(--royal-blue);
-            padding-top: 10px;
-            margin-top: 10px;
-            text-align: center;
-        }
-        .ai-receipt .receipt-total .amount {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--royal-blue);
-        }
+        .ai-receipt { background: var(--white); border-radius: var(--radius); padding: 16px; border: 2px solid var(--royal-blue); box-shadow: var(--shadow-md); }
+        .ai-receipt .receipt-header { text-align: center; border-bottom: 2px dashed #e5e7eb; padding-bottom: 10px; margin-bottom: 10px; }
+                .ai-receipt .receipt-header h3 { font-size: 16px; color: var(--deep-navy); }
+        .ai-receipt .receipt-header .id { font-size: 11px; color: var(--muted-text); }
+        .ai-receipt .receipt-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; }
+        .ai-receipt .receipt-row .label { color: var(--muted-text); }
+        .ai-receipt .receipt-row .value { font-weight: 600; }
+        .ai-receipt .receipt-total { border-top: 2px solid var(--royal-blue); padding-top: 8px; margin-top: 8px; text-align: center; }
+        .ai-receipt .receipt-total .amount { font-size: 20px; font-weight: 800; color: var(--royal-blue); }
 
         /* ============================================================
-           PRODUCT CATEGORIES (with sample images)
+           PRODUCT CATEGORIES
         ============================================================ */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        .category-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid #e5e7eb;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-        }
-        .category-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--royal-blue);
-            box-shadow: var(--shadow-md);
-        }
-        .category-card .img {
-            height: 120px;
-            background: var(--light-grey);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: var(--royal-blue);
-            overflow: hidden;
-        }
-        .category-card .img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .category-card .info {
-            padding: 12px;
-            text-align: center;
-        }
-        .category-card .info .name {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--dark-text);
-        }
-
-        @media (min-width: 768px) {
-            .category-grid { grid-template-columns: repeat(4, 1fr); }
-            .category-card .img { height: 160px; }
-        }
+        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .category-card { background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid #e5e7eb; text-decoration: none; transition: var(--transition); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+        .category-card:hover { transform: translateY(-4px); border-color: var(--royal-blue); box-shadow: var(--shadow-md); }
+        .category-card .img { height: 120px; background: var(--light-grey); display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--royal-blue); overflow: hidden; }
+        .category-card .img img { width: 100%; height: 100%; object-fit: cover; }
+        .category-card .info { padding: 10px; text-align: center; }
+        .category-card .info .name { font-weight: 600; font-size: 12px; color: var(--dark-text); }
+        @media (min-width: 768px) { .category-grid { grid-template-columns: repeat(4, 1fr); } .category-card .img { height: 160px; } }
 
         /* ============================================================
            PRODUCT SCROLL
         ============================================================ */
-        .product-scroll {
-            display: flex;
-            gap: 14px;
-            overflow-x: auto;
-            padding: 4px 2px 16px 2px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--royal-blue) #e5e7eb;
-        }
+        .product-scroll { display: flex; gap: 14px; overflow-x: auto; padding: 4px 2px 16px 2px; scrollbar-width: thin; scrollbar-color: var(--royal-blue) #e5e7eb; }
         .product-scroll::-webkit-scrollbar { height: 4px; }
         .product-scroll::-webkit-scrollbar-thumb { background: var(--royal-blue); border-radius: 20px; }
+        .product-card { min-width: 150px; background: var(--white); border-radius: var(--radius); padding: 14px 12px; border: 1px solid #e5e7eb; text-align: center; flex-shrink: 0; text-decoration: none; transition: var(--transition); box-shadow: var(--shadow-sm); }
+        .product-card:hover { transform: translateY(-4px); border-color: var(--royal-blue); box-shadow: var(--shadow-md); }
+        .product-card .img { width: 80px; height: 80px; margin: 0 auto 8px; border-radius: 12px; overflow: hidden; background: var(--light-grey); display: flex; align-items: center; justify-content: center; }
+        .product-card .img img { width: 100%; height: 100%; object-fit: cover; }
+        .product-card .name { font-weight: 700; font-size: 12px; color: var(--dark-text); margin-bottom: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-card .price { font-size: 12px; font-weight: 600; color: var(--royal-blue); }
+        .product-card .view-btn { font-size: 10px; font-weight: 600; color: var(--white); background: var(--royal-blue); padding: 4px 16px; border-radius: 30px; display: inline-block; margin-top: 6px; transition: var(--transition); }
+        .product-card:hover .view-btn { background: var(--orange); }
+        @media (min-width: 768px) { .product-card { min-width: 180px; } }
 
-        .product-card {
-            min-width: 150px;
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 14px 12px;
-            border: 1px solid #e5e7eb;
-            text-align: center;
-            flex-shrink: 0;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-        .product-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--royal-blue);
-            box-shadow: var(--shadow-md);
-        }
-        .product-card .img {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 8px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: var(--light-grey);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .product-card .img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .product-card .name {
-            font-weight: 700;
-            font-size: 13px;
-            color: var(--dark-text);
-            margin-bottom: 2px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .product-card .price {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--royal-blue);
-        }
-        .product-card .view-btn {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--white);
-            background: var(--royal-blue);
-            padding: 4px 16px;
-            border-radius: 30px;
-            display: inline-block;
-            margin-top: 6px;
-            transition: var(--transition);
-        }
-        .product-card:hover .view-btn {
-            background: var(--orange);
-        }
-
-        @media (min-width: 768px) {
-            .product-card { min-width: 180px; }
-    }
-            /* ============================================================
+        /* ============================================================
            ESTIMATE CTA
         ============================================================ */
-        .estimate-cta {
-            background: var(--deep-navy);
-            border-radius: var(--radius-lg);
-            padding: 28px 20px;
-            color: var(--white);
-            text-align: center;
-            margin: 16px 0 24px 0;
-            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.3);
-        }
-        .estimate-cta h2 {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-        .estimate-cta p {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 16px;
-        }
-        .estimate-cta .btn-white {
-            background: var(--white);
-            color: var(--deep-navy);
-            border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-        .estimate-cta .btn-white:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-        .estimate-cta .btn-outline-white {
-            background: transparent;
-            color: var(--white);
-            border: 1.5px solid rgba(255, 255, 255, 0.4);
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-        .estimate-cta .btn-outline-white:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--white);
-        }
-        .estimate-cta .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
+        .estimate-cta { background: var(--deep-navy); border-radius: var(--radius-lg); padding: 28px 20px; color: var(--white); text-align: center; margin: 16px 0 24px 0; box-shadow: 0 8px 32px rgba(15,23,42,0.3); }
+        .estimate-cta h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+        .estimate-cta p { font-size: 14px; opacity: 0.9; margin-bottom: 16px; }
+        .estimate-cta .btn-white { background: var(--white); color: var(--deep-navy); border: none; padding: 12px 28px; border-radius: 40px; font-weight: 700; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); }
+        .estimate-cta .btn-white:hover { transform: scale(1.04); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+        .estimate-cta .btn-outline-white { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.4); padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); }
+        .estimate-cta .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+        .estimate-cta .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
 
         /* ============================================================
            HOW IT WORKS
         ============================================================ */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 12px;
-        }
-        .step-item {
-            text-align: center;
-            background: var(--white);
-            padding: 16px 8px;
-            border-radius: var(--radius);
-            border: 1px solid #e5e7eb;
-        }
-        .step-item .num {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--royal-blue);
-            background: var(--blue-light);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 6px;
-        }
-        .step-item .label {
-            font-weight: 600;
-            font-size: 12px;
-            color: var(--dark-text);
-        }
-        .step-item .desc {
-            font-size: 10px;
-            color: var(--muted-text);
-        }
-
-        @media (max-width: 480px) {
-            .steps-grid { grid-template-columns: 1fr 1fr; }
-        }
+        .steps-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .step-item { text-align: center; background: var(--white); padding: 14px 8px; border-radius: var(--radius); border: 1px solid #e5e7eb; }
+        .step-item .num { font-size: 20px; font-weight: 800; color: var(--royal-blue); background: var(--blue-light); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; }
+        .step-item .label { font-weight: 600; font-size: 11px; color: var(--dark-text); }
+        .step-item .desc { font-size: 10px; color: var(--muted-text); }
+        @media (max-width: 480px) { .steps-grid { grid-template-columns: 1fr 1fr; } }
 
         /* ============================================================
            WHY CHOOSE
         ============================================================ */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .feature-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 16px 12px;
-            border: 1px solid #e5e7eb;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .feature-card:hover {
-            transform: translateX(4px);
-            border-color: var(--royal-blue);
-            box-shadow: var(--shadow-md);
-        }
-        .feature-card i {
-            font-size: 22px;
-            color: var(--royal-blue);
-            background: var(--blue-light);
-            padding: 10px;
-            border-radius: 12px;
-            min-width: 44px;
-            text-align: center;
-        }
-        .feature-card .text {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--dark-text);
-        }
-        .feature-card .text small {
-            display: block;
-            font-weight: 400;
-            font-size: 10px;
-            color: var(--muted-text);
-        }
-
-        @media (min-width: 768px) {
-            .feature-grid { grid-template-columns: repeat(4, 1fr); }
-        }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .feature-card { background: var(--white); border-radius: var(--radius); padding: 14px 12px; border: 1px solid #e5e7eb; text-decoration: none; transition: var(--transition); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 12px; }
+        .feature-card:hover { transform: translateX(4px); border-color: var(--royal-blue); box-shadow: var(--shadow-md); }
+        .feature-card i { font-size: 20px; color: var(--royal-blue); background: var(--blue-light); padding: 10px; border-radius: 12px; min-width: 40px; text-align: center; }
+        .feature-card .text { font-weight: 600; font-size: 12px; color: var(--dark-text); }
+        .feature-card .text small { display: block; font-weight: 400; font-size: 10px; color: var(--muted-text); }
+        @media (min-width: 768px) { .feature-grid { grid-template-columns: repeat(4, 1fr); } }
 
         /* ============================================================
            GALLERY
         ============================================================ */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .gallery-grid .item {
-            border-radius: var(--radius);
-            overflow: hidden;
-            aspect-ratio: 1/0.8;
-            background: var(--light-grey);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: var(--royal-blue);
-            border: 1px solid #e5e7eb;
-        }
-        .gallery-grid .item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        @media (min-width: 768px) {
-            .gallery-grid { grid-template-columns: repeat(4, 1fr); }
-        }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .gallery-grid .item { border-radius: var(--radius); overflow: hidden; aspect-ratio: 1/0.8; background: var(--light-grey); display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--royal-blue); border: 1px solid #e5e7eb; }
+        .gallery-grid .item img { width: 100%; height: 100%; object-fit: cover; }
+        @media (min-width: 768px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
 
         /* ============================================================
            SERVICE AREAS
         ============================================================ */
-        .areas-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .areas-list .tag {
-            background: var(--blue-light);
-            color: var(--royal-blue);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 500;
-        }
+        .areas-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .areas-list .tag { background: var(--blue-light); color: var(--royal-blue); padding: 5px 14px; border-radius: 30px; font-size: 12px; font-weight: 500; }
 
         /* ============================================================
            WARRANTY & DELIVERY
         ============================================================ */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .info-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 16px;
-            border: 1px solid #e5e7eb;
-        }
-        .info-card h4 {
-            font-weight: 700;
-            color: var(--deep-navy);
-            margin-bottom: 4px;
-        }
-        .info-card p {
-            font-size: 13px;
-            color: var(--muted-text);
-        }
-
-        @media (max-width: 480px) {
-            .info-grid { grid-template-columns: 1fr; }
-        }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .info-card { background: var(--white); border-radius: var(--radius); padding: 14px; border: 1px solid #e5e7eb; }
+        .info-card h4 { font-weight: 700; color: var(--deep-navy); margin-bottom: 4px; font-size: 14px; }
+        .info-card p { font-size: 12px; color: var(--muted-text); }
+        @media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
 
         /* ============================================================
            FAQ
         ============================================================ */
-        .faq-item {
-            border-bottom: 1px solid #e5e7eb;
-            padding: 12px 0;
-        }
-        .faq-item .q {
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-        }
-        .faq-item .q i {
-            transition: 0.3s;
-            color: var(--royal-blue);
-        }
-        .faq-item .q.open i {
-            transform: rotate(180deg);
-        }
-        .faq-item .a {
-            display: none;
-            padding-top: 8px;
-            font-size: 13px;
-            color: var(--muted-text);
-        }
-        .faq-item .a.open {
-            display: block;
-        }
+        .faq-item { border-bottom: 1px solid #e5e7eb; padding: 10px 0; }
+        .faq-item .q { font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+        .faq-item .q i { transition: 0.3s; color: var(--royal-blue); }
+        .faq-item .q.open i { transform: rotate(180deg); }
+        .faq-item .a { display: none; padding-top: 6px; font-size: 12px; color: var(--muted-text); }
+        .faq-item .a.open { display: block; }
 
         /* ============================================================
-           CUSTOMER / DEALER CARDS
+           ACCOUNT CARDS
         ============================================================ */
-        .account-card {
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin: 14px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid #e5e7eb;
-        }
-        .account-card .label {
-            font-weight: 700;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .account-card .label i {
-            font-size: 24px;
-        }
-        .account-card .actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .account-card .actions a {
-            padding: 6px 18px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 12px;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        .account-card .actions a:hover {
-            transform: scale(1.04);
-        }
+        .account-card { border-radius: var(--radius-lg); padding: 18px; margin: 14px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: var(--shadow-sm); border: 1px solid #e5e7eb; }
+        .account-card .label { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+        .account-card .label i { font-size: 22px; }
+        .account-card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .account-card .actions a { padding: 6px 16px; border-radius: 40px; font-weight: 600; font-size: 11px; text-decoration: none; transition: var(--transition); }
+        .account-card .actions a:hover { transform: scale(1.04); }
 
-        .customer-card {
-            background: var(--blue-light);
-            color: var(--deep-navy);
-        }
+        .customer-card { background: var(--blue-light); color: var(--deep-navy); }
         .customer-card .label i { color: var(--royal-blue); }
-        .customer-card .actions .btn-blue {
-            background: var(--royal-blue);
-            color: var(--white);
-        }
-        .customer-card .actions .btn-outline {
-            background: transparent;
-            color: var(--royal-blue);
-            border: 1px solid var(--royal-blue);
-        }
+        .customer-card .actions .btn-blue { background: var(--royal-blue); color: var(--white); }
+        .customer-card .actions .btn-outline { background: transparent; color: var(--royal-blue); border: 1px solid var(--royal-blue); }
 
-        .dealer-card {
-            background: var(--deep-navy);
-            color: var(--white);
-        }
+        .dealer-card { background: var(--deep-navy); color: var(--white); }
         .dealer-card .label i { color: var(--orange); }
-        .dealer-card .actions .btn-gold {
-            background: var(--orange);
-            color: var(--deep-navy);
-        }
-        .dealer-card .actions .btn-outline {
-            background: transparent;
-            color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .dealer-card .actions .btn-outline:hover {
-            border-color: var(--orange);
-        }
+        .dealer-card .actions .btn-gold { background: var(--orange); color: var(--deep-navy); }
+        .dealer-card .actions .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); }
+        .dealer-card .actions .btn-outline:hover { border-color: var(--orange); }
 
         /* ============================================================
            CONTACT
         ============================================================ */
-        .contact-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 16px 20px;
-            border: 1px solid #e5e7eb;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin: 14px 0;
-        }
-        .contact-card .icon {
-            background: var(--blue-light);
-            padding: 12px;
-            border-radius: 14px;
-            color: var(--royal-blue);
-            font-size: 24px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .contact-card .info .label {
-            font-size: 11px;
-            color: var(--muted-text);
-            font-weight: 500;
-        }
-        .contact-card .info .number {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--dark-text);
-        }
-        .contact-card .actions {
-            display: flex;
-            gap: 8px;
-            margin-left: auto;
-        }
-        .contact-card .actions a {
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 12px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: var(--transition);
-        }
-        .contact-card .actions .call {
-            background: var(--blue-light);
-            color: var(--royal-blue);
-        }
-        .contact-card .actions .call:hover {
-            background: var(--royal-blue);
-            color: var(--white);
-        }
-        .contact-card .actions .wa {
-            background: var(--whatsapp-green);
-            color: var(--white);
-        }
-        .contact-card .actions .wa:hover {
-            opacity: 0.9;
-    }
-            /* ============================================================
-           FOOTER
-        ============================================================ */
-        .footer {
-            background: var(--deep-navy);
-            color: #d1d5db;
-            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-            padding: 32px 20px 20px;
-            margin-top: 24px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .footer-col h4 {
-            color: var(--white);
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .footer-col a {
-            display: block;
-            color: #9ca3af;
-            text-decoration: none;
-            font-size: 12px;
-            padding: 3px 0;
-            transition: var(--transition);
-        }
-        .footer-col a:hover {
-            color: var(--orange);
-        }
-        .footer-col .brand {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--white);
-        }
-        .footer-col .brand span {
-            color: var(--orange);
-        }
-        .footer-bottom {
-            border-top: 1px solid #374151;
-            margin-top: 20px;
-            padding-top: 16px;
-            text-align: center;
-            font-size: 11px;
-            color: #6b7280;
-        }
-        .footer-bottom span {
-            color: var(--orange);
-        }
+        .contact-card { background: var(--white); border-radius: var(--radius); padding: 14px 18px; border: 1px solid #e5e7eb; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
+        .contact-card .icon { background: var(--blue-light); padding: 10px; border-radius: 12px; color: var(--royal-blue); font-size: 20px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+        .contact-card .info .label { font-size: 10px; color: var(--muted-text); font-weight: 500; }
+        .contact-card .info .number { font-size: 16px; font-weight: 800; color: var(--dark-text); }
+        .contact-card .actions { display: flex; gap: 8px; margin-left: auto; }
+        .contact-card .actions a { padding: 6px 14px; border-radius: 40px; font-weight: 600; font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: var(--transition); }
+        .contact-card .actions .call { background: var(--blue-light); color: var(--royal-blue); }
+        .contact-card .actions .call:hover { background: var(--royal-blue); color: var(--white); }
+        .contact-card .actions .wa { background: var(--whatsapp-green); color: var(--white); }
+        .contact-card .actions .wa:hover { opacity: 0.9; }
 
-        @media (min-width: 768px) {
-            .footer-grid { grid-template-columns: repeat(4, 1fr); }
-        }
+        /* ============================================================
+           FOOTER - Professional White Background
+        ============================================================ */
+        .footer { background: var(--white); color: var(--muted-text); border-top: 1px solid #e5e7eb; padding: 32px 20px 20px; margin-top: 24px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .footer-col h4 { color: var(--dark-text); font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+        .footer-col a { display: block; color: var(--muted-text); text-decoration: none; font-size: 12px; padding: 3px 0; transition: var(--transition); }
+        .footer-col a:hover { color: var(--royal-blue); }
+        .footer-col .brand { font-size: 16px; font-weight: 800; color: var(--deep-navy); }
+        .footer-col .brand span { color: var(--royal-blue); }
+        .footer-col p { font-size: 12px; color: var(--muted-text); margin-top: 4px; }
+        .footer-col .contact-info { font-size: 12px; color: var(--muted-text); margin-top: 6px; }
+        .footer-col .contact-info i { color: var(--royal-blue); width: 18px; }
+        .footer-bottom { border-top: 1px solid #e5e7eb; margin-top: 20px; padding-top: 16px; text-align: center; font-size: 11px; color: var(--muted-text); }
+        .footer-bottom span { color: var(--royal-blue); font-weight: 600; }
+        .footer-legal { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+        .footer-legal a { color: var(--muted-text); text-decoration: none; font-size: 11px; }
+        .footer-legal a:hover { color: var(--royal-blue); }
+
+        @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 420px) { .footer-grid { grid-template-columns: 1fr; } }
 
         /* ============================================================
            WHATSAPP FLOAT
         ============================================================ */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 90px;
-            right: 16px;
-            background: var(--whatsapp-green);
-            color: var(--white);
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
-            z-index: 999;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-
-        @media (min-width: 768px) {
-            .whatsapp-float { bottom: 40px; right: 32px; width: 64px; height: 64px; font-size: 32px; }
-        }
+        .whatsapp-float { position: fixed; bottom: 90px; right: 16px; background: var(--whatsapp-green); color: var(--white); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 24px rgba(37,211,102,0.35); z-index: 999; text-decoration: none; transition: var(--transition); }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        @media (min-width: 768px) { .whatsapp-float { bottom: 40px; right: 32px; width: 64px; height: 64px; font-size: 32px; } }
 
         /* ============================================================
            BOTTOM NAV
         ============================================================ */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: var(--white);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 6px 8px 10px;
-            border-top: 1px solid #e5e7eb;
-            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
-        }
-        .bottom-nav a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 9px;
-            color: var(--muted-text);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 4px 12px;
-            border-radius: 30px;
-            transition: var(--transition);
-        }
-        .bottom-nav a i {
-            font-size: 20px;
-            margin-bottom: 1px;
-            color: var(--muted-text);
-        }
-        .bottom-nav a.active {
-            color: var(--royal-blue);
-        }
-        .bottom-nav a.active i {
-            color: var(--royal-blue);
-        }
-        .bottom-nav a:hover {
-            color: var(--royal-blue);
-        }
-        .bottom-nav a:hover i {
-            color: var(--royal-blue);
-        }
-
-        @media (min-width: 768px) {
-            .bottom-nav { display: none; }
-        }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; background: var(--white); display: flex; justify-content: space-around; align-items: center; padding: 6px 8px 10px; border-top: 1px solid #e5e7eb; box-shadow: 0 -4px 16px rgba(0,0,0,0.06); }
+        .bottom-nav a { display: flex; flex-direction: column; align-items: center; font-size: 9px; color: var(--muted-text); text-decoration: none; font-weight: 500; padding: 4px 12px; border-radius: 30px; transition: var(--transition); }
+        .bottom-nav a i { font-size: 20px; margin-bottom: 1px; color: var(--muted-text); }
+        .bottom-nav a.active { color: var(--royal-blue); }
+        .bottom-nav a.active i { color: var(--royal-blue); }
+        .bottom-nav a:hover { color: var(--royal-blue); }
+        .bottom-nav a:hover i { color: var(--royal-blue); }
+        @media (min-width: 768px) { .bottom-nav { display: none; } }
 
         /* ============================================================
            SEARCH
         ============================================================ */
-        .search-bar {
-            background: var(--white);
-            border-radius: 60px;
-            padding: 10px 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 6px 0 14px 0;
-            border: 1.5px solid #e5e7eb;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-        .search-bar:focus-within {
-            border-color: var(--royal-blue);
-            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
-        }
-        .search-bar input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            font-size: 14px;
-            outline: none;
-            color: var(--dark-text);
-        }
-        .search-bar input::placeholder {
-            color: var(--muted-text);
-        }
-        .search-bar i {
-            color: var(--muted-text);
-            font-size: 16px;
-        }
+        .search-bar { background: var(--white); border-radius: 60px; padding: 10px 18px; display: flex; align-items: center; gap: 10px; margin: 6px 0 14px 0; border: 1.5px solid #e5e7eb; transition: var(--transition); box-shadow: var(--shadow-sm); }
+        .search-bar:focus-within { border-color: var(--royal-blue); box-shadow: 0 4px 16px rgba(37,99,235,0.15); }
+        .search-bar input { flex: 1; border: none; background: transparent; font-size: 14px; outline: none; color: var(--dark-text); }
+        .search-bar input::placeholder { color: var(--muted-text); }
+        .search-bar i { color: var(--muted-text); font-size: 16px; }
 
-        .search-results {
-            background: var(--white);
-            border-radius: var(--radius);
-            margin-top: -8px;
-            margin-bottom: 14px;
-            border: 1px solid #e5e7eb;
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            box-shadow: var(--shadow-md);
-        }
+        .search-results { background: var(--white); border-radius: var(--radius); margin-top: -8px; margin-bottom: 14px; border: 1px solid #e5e7eb; max-height: 300px; overflow-y: auto; display: none; box-shadow: var(--shadow-md); }
         .search-results.active { display: block; }
-        .search-results .result-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--dark-text);
-            transition: var(--transition);
-        }
-        .search-results .result-item:hover {
-            background: var(--blue-light);
-        }
-        .search-results .result-item .icon {
-            font-size: 20px;
-            color: var(--royal-blue);
-            width: 32px;
-            text-align: center;
-        }
-        .search-results .result-item .info .name {
-            font-weight: 600;
-            font-size: 13px;
-        }
-        .search-results .result-item .info .category {
-            font-size: 11px;
-            color: var(--muted-text);
-        }
+        .search-results .result-item { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--dark-text); transition: var(--transition); }
+        .search-results .result-item:hover { background: var(--blue-light); }
+        .search-results .result-item .icon { font-size: 20px; color: var(--royal-blue); width: 32px; text-align: center; }
+        .search-results .result-item .info .name { font-weight: 600; font-size: 13px; }
+        .search-results .result-item .info .category { font-size: 11px; color: var(--muted-text); }
 
         /* ============================================================
            RESPONSIVE
@@ -1731,7 +446,6 @@
             .category-grid { grid-template-columns: 1fr 1fr; }
             .feature-grid { grid-template-columns: 1fr; }
             .steps-grid { grid-template-columns: 1fr 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
             .contact-card .actions { margin-left: 0; width: 100%; }
             .account-card { flex-direction: column; text-align: center; }
             .account-card .actions { justify-content: center; width: 100%; }
@@ -1799,7 +513,7 @@
                 <div class="slider-dots" id="sliderDots"></div>
             </div>
 
-            <!-- ===== HERO - White background, simple professional ===== -->
+            <!-- ===== HERO ===== -->
             <section class="hero">
                 <div class="hero-content">
                     <h1>Premium <span class="highlight">Mosquito Nets</span> for Windows &amp; Doors</h1>
@@ -1825,7 +539,7 @@
                 <div class="trust-item"><i class="fas fa-tools"></i><strong>Professional Installation</strong></div>
                 <div class="trust-item"><i class="fas fa-shield-alt"></i><strong>Warranty Support</strong></div>
                 <div class="trust-item"><i class="fas fa-map-marker-alt"></i><strong>Mysore Service</strong></div>
-             </div>
+            </div>
 
             <!-- ===== QUICK ACTIONS ===== -->
             <div class="quick-grid">
@@ -1844,62 +558,59 @@
             <div class="search-results" id="searchResults"></div>
 
             <!-- ============================================================
-                 RAJ AI CONSULTATION - Premium Interactive Experience
+                 RAJ AI CONSULTATION - Clean & Accurate
             ============================================================ -->
             <div class="ai-consult-wrap" id="aiConsultWrap">
-            <div class="header-area">
-             <h2>Which Mosquito Net Is Right For Your Home <span>🏠</span>? Check Here!</h2>
-        <div class="ai-badge"><i class="fas fa-sparkles"></i> RAJ AI • Smart Mosquito-Net Assistant</div>
-        <p class="subtitle">I'll ask you a few simple questions about your home, windows and requirements. Based on your answers, I'll suggest suitable mosquito-net options and prepare an approximate estimate.</p>
-        <p class="trust-msg"><i class="fas fa-check-circle"></i> No technical knowledge required. Just choose the options that match your requirement.</p>
-    </div>
+                <div class="header-area">
+                    <h2>Which Mosquito Net Is Right For Your Home <span>🏠</span>?</h2>
+                    <div class="ai-badge"><i class="fas fa-sparkles"></i> RAJ AI • Smart Assistant</div>
+                    <p class="subtitle">Answer a few quick questions and get a recommendation + estimate.</p>
+                    <p class="trust-msg"><i class="fas fa-check-circle"></i> No technical knowledge needed</p>
+                </div>
 
-    <!-- Progress -->
-    <div class="ai-progress" id="aiProgress"></div>
-    <div class="ai-step-counter" id="aiStepCounter">Step 1 of 12</div>
+                <div class="ai-progress" id="aiProgress"></div>
+                <div class="ai-step-counter" id="aiStepCounter">Step 1 of 12</div>
 
-    <!-- Step Container - THIS WAS MISSING! -->
-    <div id="aiStepContainer"></div>
+                <div id="aiStepContainer"></div>
 
-    <!-- Live Requirement Summary -->
-    <div class="ai-live-req" id="aiLiveReq">
-        <div class="title">📋 Your Requirement</div>
-        <div id="aiLiveReqItems"></div>
-    </div>
+                <div class="ai-live-req" id="aiLiveReq">
+                    <div class="title">📋 Your Requirement</div>
+                    <div id="aiLiveReqItems"></div>
+                </div>
 
-    <!-- Start Button -->
-    <div id="aiStartWrap" style="text-align:center;padding:20px 0;">
-        <button class="btn-primary" onclick="startConsultation()" style="font-size:18px;padding:14px 40px;">
-            <i class="fas fa-play-circle"></i> Start Raj AI Consultation →
-        </button>
-    </div>
-          </div>
-                <!-- ===== PRODUCT CATEGORIES (with images) ===== -->
+                <div id="aiStartWrap" style="text-align:center;padding:16px 0;">
+                    <button class="btn-primary" onclick="startConsultation()" style="font-size:16px;padding:12px 36px;">
+                        <i class="fas fa-play-circle"></i> Start Consultation →
+                    </button>
+                </div>
+            </div>
+
+            <!-- ===== PRODUCT CATEGORIES ===== -->
             <div class="section-title"><h2>Product Categories</h2><a href="products.html">View All →</a></div>
             <div class="category-grid">
                 <a href="products.html?cat=velcro" class="category-card">
                     <div class="img"><img src="images/category-velcro.jpg" alt="Velcro Mosquito Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-link\\'></i>'"></div>
-                    <div class="info"><div class="name">Velcro Mosquito Nets</div></div>
+                    <div class="info"><div class="name">Velcro Nets</div></div>
                 </a>
                 <a href="products.html?cat=aluminium" class="category-card">
                     <div class="img"><img src="images/category-aluminium.jpg" alt="Aluminium Frame Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-border-all\\'></i>'"></div>
-                    <div class="info"><div class="name">Aluminium Frame Nets</div></div>
+                    <div class="info"><div class="name">Aluminium Frame</div></div>
                 </a>
                 <a href="products.html?cat=sliding" class="category-card">
                     <div class="img"><img src="images/category-sliding.jpg" alt="Sliding Mosquito Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-arrows-alt-h\\'></i>'"></div>
-                    <div class="info"><div class="name">Sliding Mosquito Nets</div></div>
+                    <div class="info"><div class="name">Sliding Nets</div></div>
                 </a>
                 <a href="products.html?cat=pleated" class="category-card">
                     <div class="img"><img src="images/category-pleated.jpg" alt="Pleated Mosquito Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-wind\\'></i>'"></div>
-                    <div class="info"><div class="name">Pleated Mosquito Nets</div></div>
+                    <div class="info"><div class="name">Pleated Nets</div></div>
                 </a>
                 <a href="products.html?cat=openable" class="category-card">
                     <div class="img"><img src="images/category-openable.jpg" alt="Openable Mosquito Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-door-open\\'></i>'"></div>
-                    <div class="info"><div class="name">Openable Mosquito Nets</div></div>
+                    <div class="info"><div class="name">Openable Nets</div></div>
                 </a>
                 <a href="products.html?cat=ss" class="category-card">
                     <div class="img"><img src="images/category-ss-mesh.jpg" alt="Stainless Steel Mesh" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-circle\\'></i>'"></div>
-                    <div class="info"><div class="name">Stainless Steel Mesh</div></div>
+                    <div class="info"><div class="name">SS Mesh</div></div>
                 </a>
                 <a href="products.html?cat=fibre" class="category-card">
                     <div class="img"><img src="images/category-fibre.jpg" alt="Fibre Mesh" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-circle-notch\\'></i>'"></div>
@@ -1967,50 +678,50 @@
                 <span class="tag">Gundlupet</span>
                 <span class="tag">H.D. Kote</span>
                 <span class="tag">Kollegala</span>
-                <span class="tag" style="background:var(--light-grey);color:var(--muted-text);">+ nearby locations</span>
+                <span class="tag" style="background:var(--light-grey);color:var(--muted-text);">+ nearby</span>
             </div>
 
             <!-- ===== MEASUREMENT CARD ===== -->
-            <div style="background:var(--blue-light);border-radius:var(--radius);padding:20px;margin:16px 0;border:1px solid #bfdbfe;">
-                <h3 style="font-size:18px;font-weight:700;color:var(--deep-navy);">Need a Measurement?</h3>
-                <p style="font-size:14px;color:var(--muted-text);">Book a measurement appointment and let us recommend the right system for your window or door.</p>
-                <p style="font-size:13px;font-weight:500;color:var(--deep-navy);">Free site visit within Mysore. Outside Mysore: ₹15/km travel charge.</p>
+            <div style="background:var(--blue-light);border-radius:var(--radius);padding:18px;margin:16px 0;border:1px solid #bfdbfe;">
+                <h3 style="font-size:17px;font-weight:700;color:var(--deep-navy);">Need a Measurement?</h3>
+                <p style="font-size:13px;color:var(--muted-text);">Book a measurement appointment and let us recommend the right system.</p>
+                <p style="font-size:12px;font-weight:500;color:var(--deep-navy);">Free site visit within Mysore. Outside: ₹15/km travel charge.</p>
                 <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
-                    <a href="appointment.html" class="btn-primary" style="font-size:13px;padding:8px 20px;">Book Measurement</a>
-                    <a href="https://wa.me/919483037385" target="_blank" class="btn-wa" style="font-size:13px;padding:8px 20px;">WhatsApp</a>
+                    <a href="appointment.html" class="btn-primary" style="font-size:12px;padding:8px 18px;">Book Measurement</a>
+                    <a href="https://wa.me/919483037385" target="_blank" class="btn-wa" style="font-size:12px;padding:8px 18px;">WhatsApp</a>
                 </div>
             </div>
 
             <!-- ===== WARRANTY & DELIVERY ===== -->
             <div class="section-title"><h2>Warranty &amp; Delivery</h2></div>
             <div class="info-grid">
-                <div class="info-card"><h4>Warranty</h4><p>SS Mesh &amp; Pleated Nets: 1-year manufacturer warranty.<br>Aluminium Frame: 5-year warranty.<br>Warranty applies to manufacturing defects. Physical damage may attract charges.</p><a href="terms.html" style="color:var(--royal-blue);font-size:13px;">View Full Warranty & Terms →</a></div>
-                <div class="info-card"><h4>Typical Delivery Time</h4><p>Velcro System: 2 days after confirmation<br>Frame System: 3 days after confirmation<br>Pleated Nets: ~3 days<br><span style="font-size:12px;color:var(--muted-text);">Subject to workload, factory availability and transport.</span></p></div>
-            </div>
-
+                <div class="info-card"><h4>Warranty</h4><p>SS Mesh &amp; Pleated: 1-year warranty.<br>Aluminium Frame: 5-year warranty.<br>Warranty applies to manufacturing defects.</p><a href="terms.html" style="color:var(--royal-blue);font-size:12px;">View Full Warranty →</a></div>
+                <div class="info-card"><h4>Typical Delivery Time</h4><p>Velcro: 2 days after confirmation<br>Frame System: 3 days<br>Pleated Nets: ~3 days<br><span style="font-size:11px;color:var(--muted-text);">Subject to workload &amp; transport.</span></p></div>
+                            </div>
+    
             <!-- ===== REVIEWS ===== -->
             <div class="section-title"><h2>What Our Customers Say</h2><a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank">View Google Reviews</a></div>
             <div style="text-align:center;padding:20px;color:var(--muted-text);background:var(--white);border-radius:var(--radius);border:1px dashed #d1d5db;">
                 <i class="fas fa-star" style="color:var(--orange);font-size:24px;"></i>
-                <p>Customer reviews coming soon. We value your feedback!</p>
-                <a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank" style="color:var(--royal-blue);font-weight:600;">Leave a review on Google</a>
+                <p style="font-size:13px;margin-top:4px;">Customer reviews coming soon. We value your feedback!</p>
+                <a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank" style="color:var(--royal-blue);font-weight:600;font-size:13px;">Leave a review on Google</a>
             </div>
 
             <!-- ===== FAQ ===== -->
             <div class="section-title"><h2>Frequently Asked Questions</h2></div>
             <div id="faqContainer">
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What mosquito net is best for sliding doors? <i class="fas fa-chevron-down"></i></div><div class="a">Sliding mosquito nets or aluminium frame nets are ideal for sliding doors. They provide easy operation and a tight seal.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What mosquito net is best for windows? <i class="fas fa-chevron-down"></i></div><div class="a">Velcro nets, aluminium frame nets, and pleated nets all work well for windows depending on your space and budget.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What is the difference between Velcro and Aluminium Frame? <i class="fas fa-chevron-down"></i></div><div class="a">Velcro nets are adhesive-based, flexible and ideal for temporary or renters. Aluminium frames are permanent, durable and provide a premium finish.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Are Pleated Nets suitable for large doors? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, pleated nets are designed for large openings and fold away neatly when not in use.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you provide measurement? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, we provide professional on-site measurement. Free within Mysore, outside Mysore ₹15/km travel charge.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you provide installation? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, we provide professional installation for all our mosquito net systems.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">How long does installation take? <i class="fas fa-chevron-down"></i></div><div class="a">Installation typically takes 1-3 hours depending on the number of windows/doors.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What mesh options are available? <i class="fas fa-chevron-down"></i></div><div class="a">We offer stainless steel (SS) mesh and fibre (Touflex) mesh in various grades and thicknesses.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What is the warranty? <i class="fas fa-chevron-down"></i></div><div class="a">SS Mesh & Pleated: 1-year warranty. Aluminium Frame: 5-year warranty against manufacturing defects.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you provide service outside Mysore? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, we serve Mysore, Mandya, Chamrajanagar, Gundlupet, H.D. Kote, Kollegala and nearby areas. Contact us for availability.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">How do I get an estimate? <i class="fas fa-chevron-down"></i></div><div class="a">You can use our online estimate form, AI price checker, or contact us directly via call or WhatsApp.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Can I send a photo of my window or door on WhatsApp? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, you can send photos to our WhatsApp number and we'll provide guidance and a preliminary estimate.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Best net for sliding doors? <i class="fas fa-chevron-down"></i></div><div class="a">Sliding mosquito nets or aluminium frame nets are ideal for sliding doors.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Best net for windows? <i class="fas fa-chevron-down"></i></div><div class="a">Velcro, aluminium frame, and pleated nets all work well for windows.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Velcro vs Aluminium Frame? <i class="fas fa-chevron-down"></i></div><div class="a">Velcro is adhesive-based and flexible. Aluminium frames are permanent and durable.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Are Pleated Nets good for large doors? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, pleated nets are designed for large openings and fold away neatly.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you provide measurement? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, professional on-site measurement. Free within Mysore.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you provide installation? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, professional installation for all our mosquito net systems.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">How long does installation take? <i class="fas fa-chevron-down"></i></div><div class="a">Typically 1-3 hours depending on the number of windows/doors.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What mesh options are available? <i class="fas fa-chevron-down"></i></div><div class="a">Stainless steel (SS) and fibre (Touflex) mesh in various grades.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What is the warranty? <i class="fas fa-chevron-down"></i></div><div class="a">SS Mesh & Pleated: 1-year. Aluminium Frame: 5-year against defects.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you serve outside Mysore? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, we serve Mysore, Mandya, Chamrajanagar, Gundlupet, H.D. Kote, Kollegala and nearby.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">How do I get an estimate? <i class="fas fa-chevron-down"></i></div><div class="a">Use our online estimate form, AI price checker, or contact us directly.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Can I send a photo on WhatsApp? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, send photos to our WhatsApp number for guidance and a preliminary estimate.</div></div>
             </div>
 
             <!-- ===== CUSTOMER ZONE ===== -->
@@ -2056,28 +767,28 @@
                     <a href="https://wa.me/919483037385" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                 </div>
             </div>
-            <div style="background:var(--light-grey);border-radius:var(--radius);padding:16px;margin:14px 0;border:1px solid #e5e7eb;">
-                <p style="font-size:13px;color:var(--muted-text);"><i class="fas fa-map-marker-alt" style="color:var(--royal-blue);"></i> <strong>Raj Marketing Mysore</strong><br>
+            <div style="background:var(--light-grey);border-radius:var(--radius);padding:14px;margin:14px 0;border:1px solid #e5e7eb;">
+                <p style="font-size:12px;color:var(--muted-text);"><i class="fas fa-map-marker-alt" style="color:var(--royal-blue);"></i> <strong>Raj Marketing Mysore</strong><br>
                 <span>#45, Devraj Urs Road, Mysore – 570001</span><br>
                 <span>info@rajmarketingmysore.info</span><br>
                 <span>Mon–Sat: 9:30 AM – 6:30 PM | Sun: Closed</span><br>
                 GST: 29CHKPR1962H1ZT</p>
-                <a href="https://maps.google.com" target="_blank" style="color:var(--royal-blue);font-size:13px;">View on Google Maps →</a>
+                <a href="https://maps.google.com" target="_blank" style="color:var(--royal-blue);font-size:12px;">View on Google Maps →</a>
             </div>
 
         </div>
-     </main>
- 
-    <!-- ===== FOOTER ===== -->
+    </main>
+
+    <!-- ===== FOOTER - Professional White Background ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="brand">Raj <span>Marketing</span> Mysore</div>
-                    <p style="font-size:12px;color:#9ca3af;margin-top:4px;">Quality mosquito nets since 2016.</p>
-                    <p style="font-size:12px;color:#9ca3af;margin-top:4px;"><i class="fas fa-phone" style="color:var(--orange);"></i> 9483037385</p>
-                    <p style="font-size:12px;color:#9ca3af;"><i class="fas fa-envelope" style="color:var(--orange);"></i> info@rajmarketingmysore.info</p>
-                    <p style="font-size:12px;color:#9ca3af;"><i class="fas fa-map-marker-alt" style="color:var(--orange);"></i> #45, Devraj Urs Road, Mysore – 570001</p>
+                    <p style="color:var(--muted-text);">Quality mosquito nets since 2016.</p>
+                    <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
+                    <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
+                    <div class="contact-info"><i class="fas fa-map-marker-alt"></i> #45, Devraj Urs Road, Mysore</div>
                 </div>
                 <div class="footer-col">
                     <h4>Products</h4>
@@ -2099,17 +810,18 @@
                     <h4>Company</h4>
                     <a href="about.html">About Us</a>
                     <a href="contact.html">Contact</a>
-                    <a href="products.html">Products</a>
                     <a href="customer-login.html">Customer Login</a>
                     <a href="dealer-login.html">Dealer Login</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved · GST: 29CHKPR1962H1ZT
+                <div class="footer-legal">
                     <a href="privacy.html">Privacy Policy</a>
                     <a href="terms.html">Terms &amp; Conditions</a>
                     <a href="refund.html">Refund Policy</a>
                     <a href="disclaimer.html">Disclaimer</a>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                © 2026 <span>Raj Marketing</span> Mysore · All Rights Reserved · GST: 29CHKPR1962H1ZT
             </div>
         </div>
     </footer>
@@ -2126,7 +838,7 @@
     <!-- ============================================================
          JAVASCRIPT
     ============================================================ -->
-    <script>
+        <script>
     // ============================================================
     // BUSINESS INFO
     // ============================================================
@@ -2267,7 +979,7 @@
     document.addEventListener('click', function(e) {
         const searchBar = document.querySelector('.search-bar');
         const results = document.getElementById('searchResults');
-        if (!searchBar.contains(e.target) && !results.contains(e.target)) {
+        if (searchBar && results && !searchBar.contains(e.target) && !results.contains(e.target)) {
             results.classList.remove('active');
         }
     });
@@ -2277,16 +989,18 @@
     // ============================================================
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    hamburgerBtn.addEventListener('click', function() {
-        mobileMenu.classList.toggle('open');
-        this.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-            hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    if (hamburgerBtn && mobileMenu) {
+        hamburgerBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('open');
+            this.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
-    });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+    }
 
     // ============================================================
     // FAQ TOGGLE
@@ -2303,7 +1017,7 @@
     }
 
     // ============================================================
-    // RAJ AI CONSULTATION - COMPLETE WORKING VERSION
+    // RAJ AI CONSULTATION - Complete Working Version
     // ============================================================
     let aiState = {
         currentStep: 0,
@@ -2317,123 +1031,109 @@
     const AI_STEPS = [
         {
             id: 'purpose',
-            question: 'First, tell me where you need mosquito protection.',
+            question: 'Where do you need mosquito protection?',
             options: [
-                { value: 'home', label: '🏠 Home', desc: 'For bedrooms, living rooms, kitchens, balconies and other residential areas.' },
-                { value: 'office', label: '🏢 Office', desc: 'For office windows, cabins, workspaces and commercial areas.' },
-                { value: 'apartment', label: '🏬 Apartment', desc: 'For apartment windows, balconies and doors.' },
-                { value: 'other', label: '✏️ Other', desc: 'For shops, clinics, schools, hotels or other requirements.' }
+                { value: 'home', label: '🏠 Home' },
+                { value: 'office', label: '🏢 Office' },
+                { value: 'apartment', label: '🏬 Apartment' },
+                { value: 'other', label: '✏️ Other' }
             ],
-            response: (val) => {
-                const labels = { home: 'Home', office: 'Office', apartment: 'Apartment', other: 'Other' };
-                return `Excellent. I've noted that you need mosquito-net protection for your ${labels[val] || val}.`;
-            }
+            response: (val) => `Great! I've noted your requirement for ${val}.`
         },
         {
             id: 'propertyType',
-            question: 'Is this your own house or a rented house?',
+            question: 'Is this your own house or rented?',
             options: [
                 { value: 'own', label: '🏠 Own House' },
                 { value: 'rented', label: '🔑 Rented House' }
             ],
             condition: (state) => state.answers.purpose === 'home',
-            response: () => 'Thank you. This helps me understand whether you may prefer a long-term installation or a more flexible solution.'
+            response: () => 'Thanks! This helps me suggest the right solution.'
         },
         {
             id: 'windowType',
-            question: 'What type of windows or openings do you currently have?',
+            question: 'What type of windows do you have?',
             options: [
-                { value: 'wooden', label: '🪟 Wooden Windows' },
-                { value: 'aluminium', label: '▣ Aluminium Sliding Windows' },
-                { value: 'upvc', label: '⬜ UPVC Windows' },
-                { value: 'metal', label: '🔲 Metal Windows' },
-                { value: 'door', label: '🚪 Door / Large Opening' },
+                { value: 'wooden', label: '🪟 Wooden' },
+                { value: 'aluminium', label: '▣ Aluminium Sliding' },
+                { value: 'upvc', label: '⬜ UPVC' },
+                { value: 'metal', label: '🔲 Metal' },
+                { value: 'door', label: '🚪 Door/Large' },
                 { value: 'other', label: '✏️ Other' }
             ],
             condition: (state) => ['home', 'office', 'apartment'].includes(state.answers.purpose),
-            response: () => 'Perfect. That helps me understand your window type.'
+            response: () => 'Perfect. I understand your window type.'
         },
         {
             id: 'openings',
-            question: 'Which openings do you want to protect?',
+            question: 'What do you want to protect?',
             options: [
                 { value: 'windows', label: '🪟 Windows' },
                 { value: 'doors', label: '🚪 Doors' },
                 { value: 'balcony', label: '🏠 Balcony' },
-                { value: 'both', label: '🪟 + 🚪 Windows & Doors' },
+                { value: 'both', label: '🪟+🚪 Both' },
                 { value: 'large', label: '🔲 Large Opening' },
                 { value: 'other', label: '✏️ Other' }
             ],
-            response: () => 'Good choice. I\'ll include these openings in your requirement.'
+            response: () => 'Good choice. I\'ve included these in your requirement.'
         },
         {
             id: 'priority',
             question: 'What matters most to you?',
             options: [
-                { value: 'economy', label: '💰 Economy', desc: 'Practical mosquito protection at an affordable budget.' },
-                { value: 'premium', label: '⭐ Premium', desc: 'Better appearance, operation and overall finish.' },
-                { value: 'supreme', label: '👑 Supreme', desc: 'For customers looking for a higher-end solution and premium experience.' }
+                { value: 'economy', label: '💰 Economy' },
+                { value: 'premium', label: '⭐ Premium' },
+                { value: 'supreme', label: '👑 Supreme' }
             ],
-            response: (val) => {
-                const labels = { economy: 'Economic', premium: 'Premium', supreme: 'Supreme' };
-                const descs = {
-                    economy: 'The Economic range focuses on practical mosquito protection while keeping the overall cost controlled.',
-                    premium: 'The Premium range is designed for customers who want a balance of appearance, convenience, durability and value.',
-                    supreme: 'The Supreme range is intended for customers who want a more premium finish, convenience and long-term experience.'
-                };
-                return `${descs[val] || ''} Now let's check the size of your openings.`;
-            }
+            response: (val) => `Great! I'll focus on ${val} options. Now let's check sizes.`
         },
         {
             id: 'sizeSelect',
             question: 'What is the approximate size?',
-            desc: "Don't worry if you don't know the exact measurement. Choose the closest size. Our site-visit team will take the final measurement.",
+            desc: "Don't worry if you're not sure. Our team will verify during site visit.",
             type: 'size'
         },
         {
             id: 'sizeQuantity',
-            question: 'How many openings are approximately this size?',
+            question: 'How many openings of this size?',
             type: 'quantity'
         },
         {
             id: 'sizeAddMore',
-            question: 'Would you like to add another size?',
+            question: 'Add another size?',
             type: 'addMore',
             options: [
-                { value: 'yes', label: '➕ Add Another Size' },
+                { value: 'yes', label: '➕ Add Another' },
                 { value: 'no', label: '✅ No, that\'s all' }
             ]
         },
         {
             id: 'systemType',
-            question: 'Which type of mosquito net would you like?',
+            question: 'Which type of mosquito net do you prefer?',
             options: [
-                { value: 'velcro', label: '🔗 Velcro', desc: 'Simple and practical fixed mosquito protection.' },
-                { value: 'openable', label: '🚪 Openable', desc: 'Convenient for openings that need regular access.' },
-                { value: 'sliding', label: '↔️ Sliding', desc: 'Suitable for sliding windows and doors where smooth operation is preferred.' },
-                { value: 'pleated', label: '🪗 Pleated', desc: 'Premium folding system suitable for many door and large-opening applications.' }
+                { value: 'velcro', label: '🔗 Velcro' },
+                { value: 'openable', label: '🚪 Openable' },
+                { value: 'sliding', label: '↔️ Sliding' },
+                { value: 'pleated', label: '🪗 Pleated' }
             ],
-            response: (val) => {
-                const labels = { velcro: 'Velcro', openable: 'Openable', sliding: 'Sliding', pleated: 'Pleated' };
-                return `Great choice! ${labels[val]} mosquito net can be a good option for your requirement.`;
-            }
+            response: (val) => `Good choice! ${val} nets are a great option.`
         },
         {
             id: 'meshPref',
-            question: 'Do you have a preferred mesh?',
+            question: 'Preferred mesh type?',
             options: [
                 { value: 'standard', label: 'Standard Mesh' },
-                { value: 'ss', label: 'Stainless Steel Mesh' },
-                { value: 'unsure', label: 'Not Sure — Recommend for Me' }
+                { value: 'ss', label: 'Stainless Steel' },
+                { value: 'unsure', label: 'Not Sure — Recommend' }
             ],
             response: (val) => {
-                if (val === 'unsure') return 'No problem. Our team can recommend the appropriate mesh based on your opening, usage and budget.';
+                if (val === 'unsure') return 'No problem. Our team will recommend the best mesh.';
                 return 'Excellent. I\'ve noted your mesh preference.';
             }
         },
         {
             id: 'frameColour',
-            question: 'Do you have a preferred frame colour?',
+            question: 'Preferred frame colour?',
             options: [
                 { value: 'white', label: 'White' },
                 { value: 'ivory', label: 'Ivory' },
@@ -2445,9 +1145,9 @@
             ],
             condition: (state) => ['velcro', 'openable', 'sliding', 'pleated'].includes(state.answers.systemType),
             response: (val) => {
-                if (val === 'woodgrain') return 'Woodgrain finish can give the installation a more premium appearance.';
-                if (val === 'unsure') return 'No problem. Our team can recommend the suitable colour during the site visit.';
-                return 'Great! I\'ve noted your colour preference.';
+                if (val === 'woodgrain') return 'Woodgrain finish looks premium!';
+                if (val === 'unsure') return 'No problem. Our team can recommend a colour.';
+                return 'Great! Colour noted.';
             }
         },
         {
@@ -2457,7 +1157,7 @@
         },
         {
             id: 'customerDetails',
-            question: 'Would you like our team to help you with the next step?',
+            question: 'Almost done! Please share your details.',
             type: 'details'
         },
         {
@@ -2484,7 +1184,8 @@
         const progress = document.getElementById('aiProgress');
         const counter = document.getElementById('aiStepCounter');
 
-        // Update progress
+        if (!container) return;
+
         const total = AI_STEPS.length;
         progress.innerHTML = AI_STEPS.map((s, i) => {
             let cls = 'step-dot';
@@ -2498,22 +1199,17 @@
         const step = AI_STEPS[aiState.currentStep];
         if (!step) return;
 
-        // Check condition
         if (step.condition && !step.condition(aiState.answers)) {
             aiState.currentStep++;
             renderStep();
             return;
         }
 
-        // Build step HTML
         let html = `<div class="ai-step active">`;
-
-        // Chat bubble
         html += `<div class="ai-chat"><div class="ai-name"><i class="fas fa-sparkles"></i> Raj AI</div><div class="ai-msg">${step.question}`;
-        if (step.desc) html += `<br><span style="font-size:13px;color:var(--muted-text);">${step.desc}</span>`;
+        if (step.desc) html += `<br><span style="font-size:12px;color:var(--muted-text);">${step.desc}</span>`;
         html += `</div></div>`;
 
-        // Options
         if (step.options && step.type !== 'addMore') {
             html += `<div class="ai-options">`;
             step.options.forEach(opt => {
@@ -2521,66 +1217,65 @@
                 html += `<div class="opt-card ${selected}" onclick="selectOption('${step.id}', '${opt.value}')">
                     <span class="icon">${opt.label.split(' ')[0]}</span>
                     ${opt.label}
-                    ${opt.desc ? `<span class="sub-desc">${opt.desc}</span>` : ''}
                 </div>`;
             });
             html += `</div>`;
         }
 
-        // Size selection
         if (step.type === 'size') {
             html += `
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px 0;">
-                    <div><label style="font-size:12px;color:var(--muted-text);">Width (ft)</label>
-                    <select class="ai-input" id="sizeWidth" onchange="updateCurrentSize()">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0;">
+                    <div><label style="font-size:11px;color:var(--muted-text);">Width (ft)</label>
+                    <select class="ai-input" id="sizeWidth" onchange="updateCurrentSize()" style="padding:8px 10px;font-size:12px;">
                         ${[2,3,4,5,6].map(w => `<option value="${w}" ${w===aiState.currentSize.width?'selected':''}>${w} ft</option>`).join('')}
                     </select></div>
-                    <div><label style="font-size:12px;color:var(--muted-text);">Height (ft)</label>
-                    <select class="ai-input" id="sizeHeight" onchange="updateCurrentSize()">
+                    <div><label style="font-size:11px;color:var(--muted-text);">Height (ft)</label>
+                    <select class="ai-input" id="sizeHeight" onchange="updateCurrentSize()" style="padding:8px 10px;font-size:12px;">
+                        ${[2,3,4,5,6].map(h => `<option value="${h}" ${h===aiState.currentSize.height?'selected':''}>${h} ft</option>`).join('')}
+                                        </select></div>
+                    <div><label style="font-size:11px;color:var(--muted-text);">Height (ft)</label>
+                    <select class="ai-input" id="sizeHeight" onchange="updateCurrentSize()" style="padding:8px 10px;font-size:12px;">
                         ${[2,3,4,5,6].map(h => `<option value="${h}" ${h===aiState.currentSize.height?'selected':''}>${h} ft</option>`).join('')}
                     </select></div>
-                    <div><label style="font-size:12px;color:var(--muted-text);">Quantity</label>
-                    <div class="ai-qty">
-                        <button onclick="adjustQty(-1)">−</button>
-                        <span class="qty-val" id="qtyDisplay">${aiState.currentSize.quantity}</span>
-                        <button onclick="adjustQty(1)">+</button>
+                    <div><label style="font-size:11px;color:var(--muted-text);">Qty</label>
+                    <div class="ai-qty" style="margin:0;">
+                        <button onclick="adjustQty(-1)" style="width:32px;height:32px;font-size:16px;">−</button>
+                        <span class="qty-val" id="qtyDisplay" style="font-size:18px;">${aiState.currentSize.quantity}</span>
+                        <button onclick="adjustQty(1)" style="width:32px;height:32px;font-size:16px;">+</button>
                     </div></div>
                 </div>
-                <button class="btn-primary" onclick="addSize()" style="width:100%;padding:12px;">Add to List ➕</button>
+                <button class="btn-primary" onclick="addSize()" style="width:100%;padding:10px;font-size:13px;">Add to List ➕</button>
                 <div class="ai-size-list" id="sizeList">
-                    ${aiState.sizes.length === 0 ? '<div style="text-align:center;color:var(--muted-text);font-size:13px;padding:8px;">No sizes added yet</div>' : 
+                    ${aiState.sizes.length === 0 ? '<div style="text-align:center;color:var(--muted-text);font-size:12px;padding:6px;">No sizes added</div>' : 
                     aiState.sizes.map(s => `<div class="item"><span>${s.width} × ${s.height} ft</span><span>${s.quantity} Nos</span></div>`).join('')}
                 </div>
             `;
         }
 
-        // Quantity
         if (step.type === 'quantity') {
             html += `
-                <div style="text-align:center;padding:10px 0;">
+                <div style="text-align:center;padding:8px 0;">
                     <div class="ai-qty">
                         <button onclick="adjustQty(-1)">−</button>
                         <span class="qty-val" id="qtyDisplay">${aiState.currentSize.quantity}</span>
                         <button onclick="adjustQty(1)">+</button>
                     </div>
-                    <button class="btn-primary" onclick="confirmQuantity()" style="margin-top:10px;">Confirm Quantity ✅</button>
+                    <button class="btn-primary" onclick="confirmQuantity()" style="margin-top:8px;padding:8px 24px;font-size:13px;">Confirm ✅</button>
                 </div>
             `;
         }
 
-        // Add More
         if (step.type === 'addMore') {
             html += `<div class="ai-options">`;
             step.options.forEach(opt => {
                 html += `<div class="opt-card" onclick="selectOption('${step.id}', '${opt.value}')">
-                    <span style="font-size:20px;">${opt.label.split(' ')[0]}</span>
+                    <span style="font-size:18px;">${opt.label.split(' ')[0]}</span>
                     ${opt.label}
                 </div>`;
             });
             html += `</div>`;
         }
 
-        // Estimate
         if (step.type === 'estimate') {
             const est = calculateEstimate();
             html += `
@@ -2591,40 +1286,31 @@
                     <div class="row"><span class="label">Priority</span><span class="value">${aiState.answers.priority || '-'}</span></div>
                     <div class="row"><span class="label">Net Type</span><span class="value">${aiState.answers.systemType || '-'}</span></div>
                     <div class="row"><span class="label">Mesh</span><span class="value">${aiState.answers.meshPref || '-'}</span></div>
-                    <div style="margin:10px 0;border-top:1px solid #e5e7eb;padding-top:10px;">
-                        <strong style="font-size:13px;">Approximate Sizes</strong>
-                        ${aiState.sizes.map(s => `<div style="font-size:13px;">${s.width} × ${s.height} ft — ${s.quantity} Nos</div>`).join('')}
+                    <div style="margin:8px 0;border-top:1px solid #e5e7eb;padding-top:8px;">
+                        <strong style="font-size:12px;">Sizes</strong>
+                        ${aiState.sizes.map(s => `<div style="font-size:12px;">${s.width} × ${s.height} ft — ${s.quantity} Nos</div>`).join('')}
                     </div>
-                    <div class="estimate">Approximate Estimate: ${est}</div>
+                    <div class="estimate">Estimate: ${est}</div>
                     <div class="estimate-note">
-                        <strong>⚠️ Approximate Estimate Only</strong><br>
-                        This estimate is calculated using the information provided by you and the approximate sizes selected. The final price may change after our site-visit team checks the actual measurements, window/door condition, installation requirements, selected product, mesh and finish.<br>
-                        <strong>Our team will confirm the exact price after site verification.</strong>
+                        <strong>⚠️ Approximate Only</strong><br>
+                        Final price confirmed after site verification.
                     </div>
                 </div>
-                <button class="btn-primary" onclick="goToStep(${AI_STEPS.length - 2})" style="width:100%;padding:12px;">Continue →</button>
+                <button class="btn-primary" onclick="goToStep(${AI_STEPS.length - 2})" style="width:100%;padding:10px;font-size:13px;">Continue →</button>
             `;
         }
-            
-        // Customer Details
+
         if (step.type === 'details') {
             html += `
-                <div style="padding:10px 0;">
-                    <input class="ai-input" id="custName" placeholder="Your Name" />
-                    <input class="ai-input" id="custMobile" placeholder="Mobile Number" type="tel" />
-                    <input class="ai-input" id="custWhatsapp" placeholder="WhatsApp Number" type="tel" />
-                    <input class="ai-input" id="custLocation" placeholder="Location" />
-                    <input class="ai-input" id="custLandmark" placeholder="Landmark" />
-                    <div class="file-input" style="border:1px dashed #d1d5db;padding:16px;text-align:center;border-radius:10px;margin-bottom:10px;cursor:pointer;">
-                        <i class="fas fa-cloud-upload-alt"></i> Upload Window/Door Photo (Optional)
-                    </div>
-                    <p style="font-size:12px;color:var(--muted-text);margin-bottom:10px;">Sharing a photo can help our team understand your requirement before the visit.</p>
-                    <button class="btn-primary" onclick="submitDetails()" style="width:100%;padding:12px;">Submit & Get Estimate →</button>
+                <div style="padding:8px 0;">
+                    <input class="ai-input" id="custName" placeholder="Your Name" style="padding:8px 12px;font-size:13px;" />
+                    <input class="ai-input" id="custMobile" placeholder="Mobile Number" type="tel" style="padding:8px 12px;font-size:13px;" />
+                    <input class="ai-input" id="custLocation" placeholder="Location" style="padding:8px 12px;font-size:13px;" />
+                    <button class="btn-primary" onclick="submitDetails()" style="width:100%;padding:10px;font-size:13px;">Submit & Get Estimate →</button>
                 </div>
             `;
         }
 
-        // Final
         if (step.type === 'final') {
             const est = calculateEstimate();
             const id = 'RM-AI-' + Date.now().toString().slice(-6);
@@ -2633,42 +1319,36 @@
                 <div class="ai-receipt">
                     <div class="receipt-header">
                         <h3>🏠 Raj Marketing Mysore</h3>
-                        <div class="id">Raj AI Requirement Summary</div>
+                        <div class="id">Requirement Summary</div>
                     </div>
                     <div class="receipt-row"><span class="label">Customer</span><span class="value">${name}</span></div>
                     <div class="receipt-row"><span class="label">Requirement</span><span class="value">${aiState.answers.purpose || '-'}</span></div>
-                    <div class="receipt-row"><span class="label">Property</span><span class="value">${aiState.answers.propertyType || '-'}</span></div>
-                    <div class="receipt-row"><span class="label">Existing Windows</span><span class="value">${aiState.answers.windowType || '-'}</span></div>
-                    <div class="receipt-row"><span class="label">Priority</span><span class="value">${aiState.answers.priority || '-'}</span></div>
                     <div class="receipt-row"><span class="label">Net System</span><span class="value">${aiState.answers.systemType || '-'}</span></div>
-                    <div class="receipt-row"><span class="label">Mesh</span><span class="value">${aiState.answers.meshPref || '-'}</span></div>
-                    <div style="margin:10px 0;border-top:1px solid #e5e7eb;padding-top:10px;">
-                        <strong style="font-size:13px;">Measurements</strong>
-                        ${aiState.sizes.map(s => `<div style="font-size:13px;">${s.width} × ${s.height} ft — ${s.quantity} Nos</div>`).join('')}
+                    <div style="margin:8px 0;border-top:1px solid #e5e7eb;padding-top:8px;">
+                        <strong style="font-size:12px;">Sizes</strong>
+                        ${aiState.sizes.map(s => `<div style="font-size:12px;">${s.width} × ${s.height} ft — ${s.quantity} Nos</div>`).join('')}
                     </div>
                     <div class="receipt-total">
-                        <div style="font-size:13px;color:var(--muted-text);">Approximate Estimate</div>
+                        <div style="font-size:12px;color:var(--muted-text);">Approximate Estimate</div>
                         <div class="amount">${est}</div>
-                        <div style="font-size:11px;color:var(--muted-text);margin-top:4px;">Estimate ID: ${id}</div>
-                        <div style="font-size:11px;color:var(--muted-text);">${new Date().toLocaleString()}</div>
+                        <div style="font-size:10px;color:var(--muted-text);margin-top:4px;">ID: ${id}</div>
                     </div>
                 </div>
-                <div style="text-align:center;margin-top:16px;">
-                    <p style="font-size:14px;color:var(--muted-text);margin-bottom:12px;">🎉 Thank you for choosing Raj Marketing Mysore. Our team can verify the actual measurements and requirements during the site visit and provide the final quotation.</p>
+                <div style="text-align:center;margin-top:12px;">
+                    <p style="font-size:13px;color:var(--muted-text);margin-bottom:10px;">🎉 Thank you! Our team will verify measurements and provide final quotation.</p>
                 </div>
                 <div class="ai-actions" style="justify-content:center;">
-                    <a href="appointment.html" class="btn-primary"><i class="fas fa-calendar-check"></i> Book Site Visit</a>
-                    <a href="https://wa.me/919483037385?text=${encodeURIComponent('Hello Raj Marketing Mysore,%0A%0AI would like a mosquito-net estimate.%0A%0ARequirement: ' + (aiState.answers.purpose || '') + '%0AProperty: ' + (aiState.answers.propertyType || '') + '%0AWindow Type: ' + (aiState.answers.windowType || '') + '%0APriority: ' + (aiState.answers.priority || '') + '%0ANet Type: ' + (aiState.answers.systemType || '') + '%0ASizes: ' + aiState.sizes.map(s => s.width + '×' + s.height + 'ft – ' + s.quantity + ' Nos').join('%0A') + '%0A%0AApproximate Estimate: ' + est + '%0A%0APlease arrange a site visit for final measurement and quotation.')}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Send on WhatsApp</a>
+                    <a href="appointment.html" class="btn-primary" style="font-size:12px;padding:8px 18px;"><i class="fas fa-calendar-check"></i> Book Site Visit</a>
+                    <a href="https://wa.me/919483037385?text=${encodeURIComponent('Hello Raj Marketing Mysore,%0A%0ARequirement Summary:%0A' + (aiState.answers.purpose || '') + '%0ANet: ' + (aiState.answers.systemType || '') + '%0ASizes: ' + aiState.sizes.map(s => s.width + '×' + s.height + 'ft – ' + s.quantity + ' Nos').join('%0A') + '%0AEstimate: ' + est + '%0A%0APlease arrange a site visit.')}" target="_blank" class="btn-wa" style="font-size:12px;padding:8px 18px;"><i class="fab fa-whatsapp"></i> Send on WhatsApp</a>
                 </div>
-                <div style="display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap;">
-                    <button class="btn-secondary" onclick="goToStep(${AI_STEPS.length - 3})" style="font-size:12px;padding:6px 18px;">✏️ Modify Requirement</button>
-                    <button class="btn-secondary" onclick="resetConsultation()" style="font-size:12px;padding:6px 18px;">🔄 Start Again</button>
+                <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;flex-wrap:wrap;">
+                    <button class="btn-secondary" onclick="goToStep(${AI_STEPS.length - 3})" style="font-size:11px;padding:4px 14px;">✏️ Modify</button>
+                    <button class="btn-secondary" onclick="resetConsultation()" style="font-size:11px;padding:4px 14px;">🔄 Start Again</button>
                 </div>
             `;
             aiState.isComplete = true;
         }
 
-        // Navigation buttons
         if (step.type !== 'estimate' && step.type !== 'details' && step.type !== 'final' && step.type !== 'size' && step.type !== 'quantity' && step.type !== 'addMore') {
             html += `<div class="ai-actions">
                 ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
@@ -2766,8 +1446,7 @@
                 `<div class="item"><span>${s.width} × ${s.height} ft</span><span>${s.quantity} Nos</span></div>`
             ).join('');
         }
-        
-        // Go to "Add More" step
+
         const step = AI_STEPS[aiState.currentStep];
         if (step && step.id === 'sizeSelect') {
             const nextIdx = aiState.currentStep + 2;
@@ -2807,12 +1486,10 @@
     function submitDetails() {
         const name = document.getElementById('custName')?.value || '—';
         const mobile = document.getElementById('custMobile')?.value || '—';
-        const whatsapp = document.getElementById('custWhatsapp')?.value || mobile;
         const location = document.getElementById('custLocation')?.value || '—';
         
         aiState.answers.customerName = name;
         aiState.answers.customerMobile = mobile;
-        aiState.answers.customerWhatsapp = whatsapp;
         aiState.answers.customerLocation = location;
         
         goToStep(AI_STEPS.length - 1);
@@ -2821,6 +1498,8 @@
     function updateLiveReq() {
         const container = document.getElementById('aiLiveReq');
         const items = document.getElementById('aiLiveReqItems');
+        
+        if (!container || !items) return;
         
         const hasAnswers = Object.keys(aiState.answers).length > 0 || aiState.sizes.length > 0;
         if (!hasAnswers) {
@@ -2834,12 +1513,10 @@
         const labels = {
             purpose: 'Purpose',
             propertyType: 'Property',
-            windowType: 'Window Type',
-            openings: 'Openings',
+            windowType: 'Window',
             priority: 'Priority',
             systemType: 'Net System',
-            meshPref: 'Mesh',
-            frameColour: 'Frame Colour'
+            meshPref: 'Mesh'
         };
         
         Object.keys(labels).forEach(key => {
@@ -2874,8 +1551,7 @@
 
     console.log('✅ Raj Marketing homepage loaded with', PRODUCTS.length, 'products');
     console.log('✅ Raj AI Consultation ready');
-</script>
+    </script>
 
-    
 </body>
 </html>
