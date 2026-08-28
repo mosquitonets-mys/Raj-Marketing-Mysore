@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery | Raj Marketing Mysore</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        .gallery-hero {
+            text-align: center;
+            padding: 30px 20px;
+            background: #F8FAFC;
+            border-radius: 24px;
+            margin-bottom: 30px;
+        }
+        .gallery-hero h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0F172A;
+        }
+        .gallery-hero p {
+            color: #64748B;
+            font-size: 14px;
+        }
+        .gallery-grid-full {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .gallery-grid-full .item {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: #F8FAFC;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #2563EB;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .gallery-grid-full .item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        .gallery-grid-full .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-grid-full .item .placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: #64748B;
+        }
+        .gallery-grid-full .item .placeholder i {
+            font-size: 48px;
+            color: #2563EB;
+        }
+        .gallery-grid-full .item .placeholder span {
+            font-size: 12px;
+        }
+        @media (max-width: 768px) {
+            .gallery-grid-full {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid-full {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #FFFFFF;
+            font-size: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .lightbox .close:hover {
+            color: #2563EB;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="fixed-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo-area">
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+            </a>
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="gallery.html" class="active">Gallery</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="customer-login.html" class="btn-outline">Customer</a>
+                <a href="dealer-login.html" class="btn-outline">Dealer</a>
+            </nav>
+            <div class="header-right">
+                <a href="https://wa.me/919483037385" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:9483037385"><i class="fas fa-phone"></i></a>
+                <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="gallery.html" class="active">Gallery</a>
+        <a href="estimate.html">Get Estimate</a>
+        <a href="appointment.html">Book Measurement</a>
+        <a href="customer-login.html">Customer Login</a>
+        <a href="dealer-login.html">Dealer Login</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="gallery-hero">
+                <h1>🖼️ Our Work Gallery</h1>
+                <p>Browse through our recent installations and see the quality of our work.</p>
+            </div>
+
+            <div class="gallery-grid-full" id="galleryGrid">
+                <!-- Images will be loaded dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImg" src="" alt="Gallery image" />
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="brand">Raj <span>Marketing</span> Mysore</div>
+                    <p>Quality mosquito nets since 2016.</p>
+                    <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
+                    <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="products.html">Products</a>
+                    <a href="estimate.html">Get Estimate</a>
+                    <a href="gallery.html">Gallery</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://wa.me/919483037385"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="products.html"><i class="fas fa-th-large"></i> Products</a>
+        <a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a>
+        <a href="estimate.html"><i class="fas fa-file-invoice"></i> Estimate</a>
+        <a href="customer-login.html"><i class="fas fa-user"></i> Account</a>
+    </nav>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="main.js"></script>
+    <script>
+        // Gallery images
+        const galleryImages = [
+            { src: 'images/gallery-window.jpg', alt: 'Window Mosquito Net Installation' },
+            { src: 'images/gallery-door.jpg', alt: 'Door Mosquito Net Installation' },
+            { src: 'images/gallery-pleated.jpg', alt: 'Pleated Mosquito Net' },
+            { src: 'images/gallery-sliding.jpg', alt: 'Sliding Mosquito Net' },
+            { src: 'images/gallery-velcro.jpg', alt: 'Velcro Mosquito Net' },
+            { src: 'images/gallery-aluminium.jpg', alt: 'Aluminium Frame Net' },
+            { src: 'images/gallery-ss-mesh.jpg', alt: 'Stainless Steel Mesh' },
+            { src: 'images/gallery-woodgrain.jpg', alt: 'Woodgrain Finish Net' },
+            { src: 'images/gallery-commercial.jpg', alt: 'Commercial Installation' }
+        ];
+
+        const grid = document.getElementById('galleryGrid');
+        
+        galleryImages.forEach(img => {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.innerHTML = `
+                <img src="${img.src}" alt="${img.alt}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'placeholder\\'><i class=\\'fas fa-image\\'></i><span>${img.alt}</span></div>'" />
+            `;
+            div.addEventListener('click', () => openLightbox(img.src));
+            grid.appendChild(div);
+        });
+
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            img.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
