@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Order | Raj Marketing Mysore</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        .track-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #FFFFFF;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border: 1px solid #e5e7eb;
+        }
+        .track-container h1 {
+            font-size: 24px;
+            color: #0F172A;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .track-container .sub {
+            text-align: center;
+            color: #64748B;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        .track-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .track-input-group input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .track-input-group input:focus {
+            outline: none;
+            border-color: #2563EB;
+        }
+        .track-input-group button {
+            padding: 12px 24px;
+            background: #2563EB;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .track-input-group button:hover {
+            background: #0F172A;
+        }
+        .order-status {
+            display: none;
+            padding: 20px;
+            background: #F8FAFC;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+        }
+        .order-status.active {
+            display: block;
+        }
+        .order-status .status-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .order-status .status-item:last-child {
+            border-bottom: none;
+        }
+        .order-status .status-item .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e5e7eb;
+        }
+        .order-status .status-item .dot.completed {
+            background: #2563EB;
+        }
+        .order-status .status-item .dot.active {
+            background: #F59E0B;
+            animation: pulse 1.5s infinite;
+        }
+        .order-status .status-item .text {
+            flex: 1;
+            font-size: 13px;
+        }
+        .order-status .status-item .text .time {
+            font-size: 11px;
+            color: #64748B;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        .not-found {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #64748B;
+        }
+        .not-found.active {
+            display: block;
+        }
+        .not-found i {
+            font-size: 48px;
+            color: #F59E0B;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .order-details {
+            margin: 16px 0;
+            padding: 16px;
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        .order-details .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 13px;
+        }
+        .order-details .row .label {
+            color: #64748B;
+        }
+        .order-details .row .value {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="fixed-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo-area">
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+            </a>
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="estimate.html">Estimate</a>
+                <a href="track-order.html" class="active">Track Order</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="customer-login.html" class="btn-outline">Customer</a>
+                <a href="dealer-login.html" class="btn-outline">Dealer</a>
+            </nav>
+            <div class="header-right">
+                <a href="https://wa.me/919483037385" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:9483037385"><i class="fas fa-phone"></i></a>
+                <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="estimate.html">Get Estimate</a>
+        <a href="track-order.html" class="active">Track Order</a>
+        <a href="appointment.html">Book Measurement</a>
+        <a href="customer-login.html">Customer Login</a>
+        <a href="dealer-login.html">Dealer Login</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="track-container">
+                <h1>Track Your Order</h1>
+                <p class="sub">Enter your order ID to track the status</p>
+                
+                <div class="track-input-group">
+                    <input type="text" id="orderInput" placeholder="e.g., RM-2026-001" />
+                    <button onclick="trackOrder()"><i class="fas fa-search"></i> Track</button>
+                </div>
+
+                <!-- Order Details -->
+                <div class="order-status" id="orderStatus">
+                    <div class="order-details" id="orderDetails"></div>
+                    <div id="statusTimeline"></div>
+                </div>
+
+                <!-- Not Found -->
+                <div class="not-found" id="notFound">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Order Not Found</h3>
+                    <p>Please check your order ID and try again.</p>
+                    <a href="tel:9483037385" class="btn-primary" style="margin-top:12px;display:inline-block;">
+                        <i class="fas fa-phone"></i> Contact Support
+                    </a>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div style="text-align:center;padding:20px;color:#64748B;font-size:13px;">
+                <p>Need help? <a href="https://wa.me/919483037385" style="color:#2563EB;font-weight:600;">Chat on WhatsApp</a> or call <a href="tel:9483037385" style="color:#2563EB;font-weight:600;">9483037385</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="brand">Raj <span>Marketing</span> Mysore</div>
+                    <p>Quality mosquito nets since 2016.</p>
+                    <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
+                    <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="products.html">Products</a>
+                    <a href="estimate.html">Get Estimate</a>
+                    <a href="track-order.html">Track Order</a>
+                    <a href="appointment.html">Book Measurement</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://wa.me/919483037385"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://g.page/r/Cd4VqO0Z0WjtEAI"><i class="fab fa-google"></i> Google Reviews</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="products.html"><i class="fas fa-th-large"></i> Products</a>
+        <a href="estimate.html"><i class="fas fa-file-invoice"></i> Estimate</a>
+        <a href="track-order.html" class="active"><i class="fas fa-box"></i> Track</a>
+        <a href="customer-login.html"><i class="fas fa-user"></i> Account</a>
+    </nav>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="main.js"></script>
+    <script>
+        // Sample order data (in production, this would come from a database)
+        const orders = {
+            'RM-2026-001': {
+                id: 'RM-2026-001',
+                date: '2026-08-25',
+                customer: 'Rajesh Kumar',
+                items: 'Pleated Nets x 2, Aluminium Frame x 1',
+                total: '₹2,450',
+                status: 'delivered',
+                timeline: [
+                    { status: 'Order Placed', time: '2026-08-25 10:00 AM', completed: true },
+                    { status: 'Measurement Done', time: '2026-08-26 09:30 AM', completed: true },
+                    { status: 'Manufacturing', time: '2026-08-27 02:00 PM', completed: true },
+                    { status: 'Out for Delivery', time: '2026-08-28 10:00 AM', completed: true },
+                    { status: 'Delivered', time: '2026-08-28 03:30 PM', completed: true }
+                ]
+            },
+            'RM-2026-002': {
+                id: 'RM-2026-002',
+                date: '2026-08-26',
+                customer: 'Priya Sharma',
+                items: 'Sliding Nets x 3',
+                total: '₹1,800',
+                status: 'manufacturing',
+                timeline: [
+                    { status: 'Order Placed', time: '2026-08-26 11:00 AM', completed: true },
+                    { status: 'Measurement Done', time: '2026-08-27 10:00 AM', completed: true },
+                    { status: 'Manufacturing', time: '2026-08-28 09:00 AM', completed: false },
+                    { status: 'Out for Delivery', time: 'Pending', completed: false },
+                    { status: 'Delivered', time: 'Pending', completed: false }
+                ]
+            },
+            'RM-2026-003': {
+                id: 'RM-2026-003',
+                date: '2026-08-27',
+                customer: 'Suresh Reddy',
+                items: 'SS Mesh x 5 (Roll)',
+                total: '₹3,200',
+                status: 'processing',
+                timeline: [
+                    { status: 'Order Placed', time: '2026-08-27 03:00 PM', completed: true },
+                    { status: 'Measurement Done', time: 'Pending', completed: false },
+                    { status: 'Manufacturing', time: 'Pending', completed: false },
+                    { status: 'Out for Delivery', time: 'Pending', completed: false },
+                    { status: 'Delivered', time: 'Pending', completed: false }
+                ]
+            }
+        };
+
+        function trackOrder() {
+            const input = document.getElementById('orderInput');
+            const orderId = input.value.trim().toUpperCase();
+            const statusDiv = document.getElementById('orderStatus');
+            const notFoundDiv = document.getElementById('notFound');
+            const detailsDiv = document.getElementById('orderDetails');
+            const timelineDiv = document.getElementById('statusTimeline');
+
+            // Hide both initially
+            statusDiv.classList.remove('active');
+            notFoundDiv.classList.remove('active');
+
+            if (!orderId) {
+                alert('Please enter an order ID');
+                return;
+            }
+
+            const order = orders[orderId];
+            if (!order) {
+                notFoundDiv.classList.add('active');
+                return;
+            }
+
+            // Show order details
+            detailsDiv.innerHTML = `
+                <div class="row"><span class="label">Order ID</span><span class="value">${order.id}</span></div>
+                <div class="row"><span class="label">Date</span><span class="value">${order.date}</span></div>
+                <div class="row"><span class="label">Customer</span><span class="value">${order.customer}</span></div>
+                <div class="row"><span class="label">Items</span><span class="value">${order.items}</span></div>
+                <div class="row"><span class="label">Total</span><span class="value">${order.total}</span></div>
+                <div class="row"><span class="label">Status</span><span class="value" style="color:${order.status === 'delivered' ? '#2563EB' : '#F59E0B'}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></div>
+            `;
+
+            // Build timeline
+            timelineDiv.innerHTML = order.timeline.map((item, index) => {
+                let dotClass = 'dot';
+                if (item.completed) dotClass += ' completed';
+                else if (index === order.timeline.findIndex(t => !t.completed)) dotClass += ' active';
+                return `
+                    <div class="status-item">
+                        <span class="${dotClass}"></span>
+                        <div class="text">
+                            ${item.status}
+                            <div class="time">${item.time}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            statusDiv.classList.add('active');
+            input.value = '';
+        }
+
+        // Allow Enter key
+        document.getElementById('orderInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') trackOrder();
+        });
+    </script>
+</body>
+                  </html>
