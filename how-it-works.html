@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How It Works | Raj Marketing Mysore</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        .hiw-hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: #F8FAFC;
+            border-radius: 24px;
+            margin-bottom: 30px;
+        }
+        .hiw-hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0F172A;
+        }
+        .hiw-hero p {
+            color: #64748B;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+        .step-large {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 30px;
+            background: #FFFFFF;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .step-large:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+        .step-large .step-num {
+            font-size: 48px;
+            font-weight: 800;
+            color: #2563EB;
+            min-width: 70px;
+            text-align: center;
+        }
+        .step-large .step-content {
+            flex: 1;
+        }
+        .step-large .step-content h3 {
+            font-size: 20px;
+            color: #0F172A;
+            margin-bottom: 4px;
+        }
+        .step-large .step-content p {
+            font-size: 14px;
+            color: #64748B;
+        }
+        .step-large .step-icon {
+            font-size: 48px;
+            color: #2563EB;
+        }
+        @media (max-width: 768px) {
+            .step-large {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .step-large .step-num {
+                font-size: 36px;
+                min-width: auto;
+            }
+            .step-large .step-icon {
+                font-size: 36px;
+            }
+        }
+        .timeline-dots {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            position: relative;
+        }
+        .timeline-dots::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: #e5e7eb;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        .timeline-dots .dot-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+        .timeline-dots .dot-item .circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2563EB;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .timeline-dots .dot-item .label {
+            font-size: 11px;
+            color: #64748B;
+            margin-top: 6px;
+            text-align: center;
+            max-width: 80px;
+        }
+        @media (max-width: 600px) {
+            .timeline-dots .dot-item .label {
+                font-size: 9px;
+                max-width: 60px;
+            }
+            .timeline-dots .dot-item .circle {
+                width: 30px;
+                height: 30px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="fixed-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo-area">
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+            </a>
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="solutions.html">Solutions</a>
+                <a href="how-it-works.html" class="active">How It Works</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="customer-login.html" class="btn-outline">Customer</a>
+                <a href="dealer-login.html" class="btn-outline">Dealer</a>
+            </nav>
+            <div class="header-right">
+                <a href="https://wa.me/919483037385" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:9483037385"><i class="fas fa-phone"></i></a>
+                <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="solutions.html">Solutions</a>
+        <a href="how-it-works.html" class="active">How It Works</a>
+        <a href="estimate.html">Get Estimate</a>
+        <a href="appointment.html">Book Measurement</a>
+        <a href="customer-login.html">Customer Login</a>
+        <a href="dealer-login.html">Dealer Login</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+
+            <div class="hiw-hero">
+                <h1>How It Works</h1>
+                <p>Simple, transparent process to get the perfect mosquito net solution for your home.</p>
+            </div>
+
+            <!-- Timeline Dots -->
+            <div class="timeline-dots">
+                <div class="dot-item"><div class="circle">1</div><div class="label">Contact Us</div></div>
+                <div class="dot-item"><div class="circle">2</div><div class="label">Book Measurement</div></div>
+                <div class="dot-item"><div class="circle">3</div><div class="label">Site Visit</div></div>
+                <div class="dot-item"><div class="circle">4</div><div class="label">Recommendation</div></div>
+                <div class="dot-item"><div class="circle">5</div><div class="label">Estimate</div></div>
+                <div class="dot-item"><div class="circle">6</div><div class="label">Installation</div></div>
+            </div>
+
+            <!-- Detailed Steps -->
+            <div class="step-large">
+                <div class="step-num">01</div>
+                <div class="step-icon"><i class="fas fa-phone-alt"></i></div>
+                <div class="step-content">
+                    <h3>Contact Us</h3>
+                    <p>Reach out to us via phone, WhatsApp, or our website. Share your requirement and we'll guide you through the process.</p>
+                    <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;">
+                        <a href="tel:9483037385" class="btn-secondary" style="font-size:12px;padding:6px 16px;"><i class="fas fa-phone"></i> Call</a>
+                        <a href="https://wa.me/919483037385" target="_blank" class="btn-wa" style="font-size:12px;padding:6px 16px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="estimate.html" class="btn-primary" style="font-size:12px;padding:6px 16px;"><i class="fas fa-file-invoice"></i> Get Estimate</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-large">
+                <div class="step-num">02</div>
+                <div class="step-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="step-content">
+                    <h3>Book Measurement</h3>
+                    <p>Schedule a free site measurement appointment. Our team will visit your location at your convenience.</p>
+                    <a href="appointment.html" class="btn-primary" style="font-size:12px;padding:6px 16px;margin-top:8px;display:inline-block;"><i class="fas fa-calendar-check"></i> Book Now</a>
+                </div>
+            </div>
+
+            <div class="step-large">
+                <div class="step-num">03</div>
+                <div class="step-icon"><i class="fas fa-ruler"></i></div>
+                <div class="step-content">
+                    <h3>Site Measurement</h3>
+                    <p>Our expert team visits your location to take accurate measurements of all windows and doors. We ensure precise dimensions for a perfect fit.</p>
+                </div>
+            </div>
+
+            <div class="step-large">
+                <div class="step-num">04</div>
+                <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="step-content">
+                    <h3>Product Recommendation</h3>
+                    <p>Based on your requirements and measurements, we recommend the best mosquito net solution - Velcro, Aluminium Frame, Sliding, or Pleated.</p>
+                </div>
+            </div>
+
+            <div class="step-large">
+                <div class="step-num">05</div>
+                <div class="step-icon"><i class="fas fa-file-invoice"></i></div>
+                <div class="step-content">
+                    <h3>Estimate &amp; Confirmation</h3>
+                    <p>We provide a transparent, detailed estimate with no hidden charges. Upon your confirmation, we proceed with manufacturing.</p>
+                </div>
+            </div>
+
+            <div class="step-large">
+                <div class="step-num">06</div>
+                <div class="step-icon"><i class="fas fa-tools"></i></div>
+                <div class="step-content">
+                    <h3>Manufacturing &amp; Installation</h3>
+                    <p>Our skilled team manufactures your custom mosquito nets and professionally installs them at your location.</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <section class="estimate-cta">
+                <h2>Ready to Get Started?</h2>
+                <p>Contact us today for a free consultation and estimate.</p>
+                <div class="actions">
+                    <a href="contact.html" class="btn-white"><i class="fas fa-envelope"></i> Contact Us</a>
+                    <a href="https://wa.me/919483037385" target="_blank" class="btn-outline-white"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="brand">Raj <span>Marketing</span> Mysore</div>
+                    <p>Quality mosquito nets since 2016.</p>
+                    <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
+                    <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="products.html">Products</a>
+                    <a href="estimate.html">Get Estimate</a>
+                    <a href="appointment.html">Book Measurement</a>
+                    <a href="how-it-works.html">How It Works</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://wa.me/919483037385"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://g.page/r/Cd4VqO0Z0WjtEAI"><i class="fab fa-google"></i> Google Reviews</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="products.html"><i class="fas fa-th-large"></i> Products</a>
+        <a href="how-it-works.html" class="active"><i class="fas fa-info-circle"></i> How It Works</a>
+        <a href="estimate.html"><i class="fas fa-file-invoice"></i> Estimate</a>
+        <a href="customer-login.html"><i class="fas fa-user"></i> Account</a>
+    </nav>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="main.js"></script>
+</body>
+              </html>
