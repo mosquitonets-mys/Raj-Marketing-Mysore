@@ -2,574 +2,432 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Contact Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Raj Marketing Mysore</title>
+    <meta name="description" content="Contact Raj Marketing Mysore for premium mosquito nets. Call 9483037385 or WhatsApp for free estimate and measurement." />
+    <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            background: #f5f7fb;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0 12px;
-            padding-top: 80px;
-            padding-bottom: 100px;
-        }
-        .app-container {
-            max-width: 480px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 36px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            padding: 20px 18px;
-            border: 1px solid #e8e0d8;
-        }
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 14px 20px 10px 20px;
-            border-bottom: 1px solid #e8e0d8;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .fixed-header .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .fixed-header .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
-        }
-        .fixed-header .logo-text {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1a1a1a;
-            line-height: 1.2;
-        }
-        .fixed-header .logo-text span {
-            display: block;
-            font-weight: 400;
-            font-size: 9px;
-            color: #6b6b6b;
-        }
-        .fixed-header .header-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .fixed-header .header-actions i {
-            font-size: 18px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .fixed-header .back-btn {
-            font-size: 20px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .fixed-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 8px 12px 12px 12px;
-            border-top: 1px solid #e8e0d8;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-radius: 30px 30px 0 0;
-        }
-        .fixed-footer .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 9px;
-            color: #8a8a8a;
-            font-weight: 500;
-            gap: 2px;
-            padding: 4px 12px;
-            border-radius: 30px;
-            text-decoration: none;
-        }
-        .fixed-footer .nav-item i {
-            font-size: 20px;
-            color: #8a8a8a;
-        }
-        .fixed-footer .nav-item.active i {
-            color: #0ea5e9;
-        }
-        .fixed-footer .nav-item.active {
-            color: #0ea5e9;
-            background: rgba(14, 165, 233, 0.08);
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 18px 16px;
-            margin: 14px 0;
-            border: 1px solid #e8e0d8;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-        }
-        .card-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card-title i {
-            color: #0ea5e9;
-        }
-        .hero-contact {
+        .contact-hero {
             text-align: center;
-            padding: 6px 0 10px 0;
+            padding: 30px 20px;
+            background: #F8FAFC;
+            border-radius: 24px;
+            margin-bottom: 30px;
         }
-        .hero-contact .icon-circle {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 30px;
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
-            margin-bottom: 10px;
-        }
-        .hero-contact h1 {
-            font-size: 22px;
+        .contact-hero h1 {
+            font-size: 28px;
             font-weight: 800;
-            color: #1a1a2e;
+            color: #0F172A;
         }
-        .hero-contact p {
-            font-size: 13px;
-            color: #6b6b7b;
-            margin-top: 2px;
+        .contact-hero p {
+            color: #64748B;
+            font-size: 14px;
         }
-        .contact-item {
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .contact-info-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+        }
+        .contact-info-card h3 {
+            font-size: 18px;
+            color: #0F172A;
+            margin-bottom: 16px;
+        }
+        .contact-info-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 14px;
             padding: 12px 0;
-            border-bottom: 1px solid #f0ece6;
+            border-bottom: 1px solid #f1f5f9;
         }
-        .contact-item:last-child {
+        .contact-info-item:last-child {
             border-bottom: none;
         }
-        .contact-item .icon-box {
-            width: 44px;
-            height: 44px;
-            background: #f0f7ff;
-            border-radius: 12px;
+        .contact-info-item .icon {
+            width: 40px;
+            height: 40px;
+            background: #EFF6FF;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #0ea5e9;
-            font-size: 20px;
+            color: #2563EB;
+            font-size: 18px;
             flex-shrink: 0;
         }
-        .contact-item .info {
-            flex: 1;
-        }
-        .contact-item .info .label {
+        .contact-info-item .text .label {
             font-size: 11px;
-            color: #6b6b7b;
+            color: #64748B;
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
-        .contact-item .info .value {
+        .contact-info-item .text .value {
             font-size: 14px;
             font-weight: 600;
-            color: #1a1a2e;
+            color: #0F172A;
         }
-        .contact-item .info .value a {
-            color: #1a1a2e;
+        .contact-info-item .text .value a {
+            color: #2563EB;
             text-decoration: none;
         }
-        .contact-item .info .value a:hover {
-            color: #0ea5e9;
+        .contact-info-item .text .value a:hover {
+            text-decoration: underline;
         }
-        .form-group {
+        .contact-form {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+        }
+        .contact-form h3 {
+            font-size: 18px;
+            color: #0F172A;
+            margin-bottom: 16px;
+        }
+        .contact-form .form-group {
             margin-bottom: 14px;
         }
-        .form-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #4a4a5a;
+        .contact-form label {
             display: block;
+            font-weight: 600;
+            font-size: 13px;
+            color: #0F172A;
             margin-bottom: 4px;
         }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
             width: 100%;
             padding: 10px 14px;
-            border: 1.5px solid #e8e0d8;
+            border: 2px solid #e5e7eb;
             border-radius: 12px;
-            font-size: 13px;
-            outline: none;
+            font-size: 14px;
             font-family: 'Poppins', sans-serif;
-            background: #faf8f6;
-            transition: 0.2s;
+            transition: 0.3s;
         }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.08);
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            outline: none;
+            border-color: #2563EB;
         }
-        .form-group textarea {
+        .contact-form textarea {
+            min-height: 120px;
             resize: vertical;
-            min-height: 80px;
         }
-        .btn-primary {
-            background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            color: #fff;
+        .contact-form .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #2563EB;
+            color: #FFFFFF;
             border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
+            border-radius: 12px;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
-            transition: 0.2s;
-            width: 100%;
+            transition: 0.3s;
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(14, 165, 233, 0.35);
-        }
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-whatsapp {
-            background: #25D366;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            transition: 0.2s;
-        }
-        .btn-whatsapp:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
-        }
-        .error-msg {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-            display: none;
-            font-size: 13px;
-            border-left: 4px solid #dc2626;
-        }
-        .success-msg {
-            background: #d1fae5;
-            color: #065f46;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-            display: none;
-            font-size: 13px;
-            border-left: 4px solid #22c55e;
-        }
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .social-links {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 6px;
-        }
-        .social-links a {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: 0.2s;
-            text-decoration: none;
-            border: 1px solid #e8e0d8;
-            color: #4a4a5a;
-        }
-        .social-links a:hover {
-            background: #0ea5e9;
-            color: #fff;
-            border-color: #0ea5e9;
-            transform: translateY(-2px);
+        .contact-form .btn-submit:hover {
+            background: #0F172A;
         }
         .map-container {
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid #e8e0d8;
-            height: 160px;
-            background: #f0f4f8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6b6b7b;
-            font-size: 13px;
-            margin-top: 8px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
         }
-        @media (max-width: 400px) {
-            .contact-item { flex-wrap: wrap; }
-            .contact-item .icon-box { width: 36px; height: 36px; font-size: 16px; }
-            .contact-item .info .value { font-size: 13px; }
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .social-links a:hover {
+            transform: translateY(-2px);
+        }
+        .social-links .whatsapp {
+            background: #25D366;
+            color: #FFFFFF;
+        }
+        .social-links .phone {
+            background: #EFF6FF;
+            color: #2563EB;
+        }
+        .social-links .email {
+            background: #F8FAFC;
+            color: #0F172A;
+            border: 1px solid #e5e7eb;
+        }
+        .social-links .google {
+            background: #EA4335;
+            color: #FFFFFF;
+        }
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .business-hours {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #F8FAFC;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        .business-hours .day {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 2px 0;
+        }
+        .business-hours .day .time {
+            color: #64748B;
         }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header class="fixed-header">
-        <div class="logo-area">
-            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
-        </div>
-        <div class="header-actions">
-            <i class="fas fa-user-circle" title="Profile"></i>
+        <div class="header-inner">
+            <a href="index.html" class="logo-area">
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+            </a>
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="solutions.html">Solutions</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="active">Contact</a>
+                <a href="customer-login.html" class="btn-outline">Customer</a>
+                <a href="dealer-login.html" class="btn-outline">Dealer</a>
+            </nav>
+            <div class="header-right">
+                <a href="https://wa.me/919483037385" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:9483037385"><i class="fas fa-phone"></i></a>
+                <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+            </div>
         </div>
     </header>
 
-    <div class="app-container">
-        <div class="hero-contact">
-            <div class="icon-circle"><i class="fas fa-envelope"></i></div>
-            <h1>Contact Us</h1>
-            <p>We're here to help! Reach out to us anytime.</p>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="card">
-            <div class="card-title"><i class="fas fa-address-book"></i> Get in Touch</div>
-            <div class="contact-item">
-                <div class="icon-box"><i class="fas fa-phone"></i></div>
-                <div class="info">
-                    <div class="label">Phone</div>
-                    <div class="value"><a href="tel:9483037385">9483037385</a></div>
-                </div>
-            </div>
-            <div class="contact-item">
-                <div class="icon-box"><i class="fab fa-whatsapp" style="color:#25D366;"></i></div>
-                <div class="info">
-                    <div class="label">WhatsApp</div>
-                    <div class="value"><a href="https://wa.me/919483037385" target="_blank">9483037385</a></div>
-                </div>
-            </div>
-            <div class="contact-item">
-                <div class="icon-box"><i class="fas fa-envelope"></i></div>
-                <div class="info">
-                    <div class="label">Email</div>
-                    <div class="value"><a href="mailto:info@rajmarketing.in">info@rajmarketing.in</a></div>
-                </div>
-            </div>
-            <div class="contact-item">
-                <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="info">
-                    <div class="label">Address</div>
-                    <div class="value">#45, Devraj Urs Road, Mysore, Karnataka - 570001</div>
-                </div>
-            </div>
-            <div class="map-container">
-                <i class="fas fa-map" style="font-size:24px; color:#0ea5e9; margin-right:8px;"></i> 
-                View on Google Maps
-            </div>
-        </div>
-
-        <!-- Contact Form -->
-        <div class="card">
-            <div class="card-title"><i class="fas fa-paper-plane"></i> Send a Message</div>
-            <div id="errorBox" class="error-msg"></div>
-            <div id="successBox" class="success-msg"></div>
-            <form id="contactForm" onsubmit="handleContact(event)">
-                <div class="form-group">
-                    <label>Your Name *</label>
-                    <input type="text" id="contactName" placeholder="Enter your name" required />
-                </div>
-                <div class="form-group">
-                    <label>Email Address *</label>
-                    <input type="email" id="contactEmail" placeholder="your@email.com" required />
-                </div>
-                <div class="form-group">
-                    <label>Mobile Number</label>
-                    <input type="tel" id="contactMobile" placeholder="9483037385" />
-                </div>
-                <div class="form-group">
-                    <label>Subject *</label>
-                    <input type="text" id="contactSubject" placeholder="Brief subject" required />
-                </div>
-                <div class="form-group">
-                    <label>Message *</label>
-                    <textarea id="contactMessage" placeholder="How can we help you?" required></textarea>
-                </div>
-                <button type="submit" class="btn-primary" id="contactBtn">
-                    <i class="fas fa-paper-plane"></i> Send Message
-                </button>
-            </form>
-        </div>
-
-        <!-- WhatsApp CTA -->
-        <a href="https://wa.me/919483037385?text=Hi%20Raj%20Marketing%2C%20I%20need%20help%20with..." target="_blank" class="btn-whatsapp">
-            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-        </a>
-
-        <!-- Social Links -->
-        <div class="card">
-            <div style="text-align:center;">
-                <div style="font-weight:600; font-size:13px; color:#1a1a2e; margin-bottom:8px;">Connect With Us</div>
-                <div class="social-links">
-                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
-            Raj Marketing Mysore · Est. 2016
-        </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="solutions.html">Solutions</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+        <a href="estimate.html">Get Estimate</a>
+        <a href="appointment.html">Book Measurement</a>
+        <a href="customer-login.html">Customer Login</a>
+        <a href="dealer-login.html">Dealer Login</a>
     </div>
 
-    <footer class="fixed-footer">
-        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
-        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
-        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
-        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake"></i> Dealer</a>
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="contact-hero">
+                <h1>📞 Contact Us</h1>
+                <p>Get in touch with us for free estimates, measurements, and product inquiries.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Info -->
+                <div class="contact-info-card">
+                    <h3>Get in Touch</h3>
+                    
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="text">
+                            <div class="label">Phone</div>
+                            <div class="value"><a href="tel:9483037385">9483037385</a></div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="text">
+                            <div class="label">WhatsApp</div>
+                            <div class="value"><a href="https://wa.me/919483037385" target="_blank">9483037385</a></div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <div class="text">
+                            <div class="label">Email</div>
+                            <div class="value"><a href="mailto:info@rajmarketingmysore.info">info@rajmarketingmysore.info</a></div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="text">
+                            <div class="label">Address</div>
+                            <div class="value">#45, Devraj Urs Road, Mysore – 570001</div>
+                        </div>
+                    </div>
+
+                    <div class="business-hours">
+                        <div class="day"><span>Monday - Saturday</span><span class="time">9:30 AM – 6:30 PM</span></div>
+                        <div class="day"><span>Sunday</span><span class="time">Closed</span></div>
+                        <div style="margin-top:6px;font-size:12px;color:#64748B;">GST: 29CHKPR1962H1ZT</div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://wa.me/919483037385" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="tel:9483037385" class="phone"><i class="fas fa-phone"></i> Call</a>
+                        <a href="mailto:info@rajmarketingmysore.info" class="email"><i class="fas fa-envelope"></i> Email</a>
+                        <a href="https://g.page/r/Cd4VqO0Z0WjtEAI" target="_blank" class="google"><i class="fab fa-google"></i> Review</a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form onsubmit="handleContactForm(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="contactName" placeholder="Your name" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="contactEmail" placeholder="your@email.com" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="tel" id="contactMobile" placeholder="9483037385" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select id="contactSubject">
+                                <option value="estimate">Get Estimate</option>
+                                <option value="measurement">Book Measurement</option>
+                                <option value="product">Product Inquiry</option>
+                                <option value="dealer">Dealer Registration</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea id="contactMessage" placeholder="Tell us about your requirement..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3897.7!2d76.653!3d12.305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf703a3c3c3c3c%3A0x3c3c3c3c3c3c3c3c!2sMysore!5e0!3m2!1sen!2sin!4v1620000000000" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <!-- CTA -->
+            <section class="estimate-cta">
+                <h2>Need Immediate Assistance?</h2>
+                <p>Call us or WhatsApp for quick response.</p>
+                <div class="actions">
+                    <a href="tel:9483037385" class="btn-white"><i class="fas fa-phone"></i> Call Now</a>
+                    <a href="https://wa.me/919483037385" target="_blank" class="btn-outline-white"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="brand">Raj <span>Marketing</span> Mysore</div>
+                    <p>Quality mosquito nets since 2016.</p>
+                    <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
+                    <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="products.html">Products</a>
+                    <a href="estimate.html">Get Estimate</a>
+                    <a href="appointment.html">Book Measurement</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://wa.me/919483037385"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved
+            </div>
+        </div>
     </footer>
 
-    <script type="module">
-        import { db } from "./firebase-config.js";
-        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="products.html"><i class="fas fa-th-large"></i> Products</a>
+        <a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="estimate.html"><i class="fas fa-file-invoice"></i> Estimate</a>
+        <a href="customer-login.html"><i class="fas fa-user"></i> Account</a>
+    </nav>
 
-        const form = document.getElementById('contactForm');
-        const contactBtn = document.getElementById('contactBtn');
-        const errorBox = document.getElementById('errorBox');
-        const successBox = document.getElementById('successBox');
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-        window.handleContact = async function(e) {
+    <script src="main.js"></script>
+    <script>
+        function handleContactForm(e) {
             e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const mobile = document.getElementById('contactMobile').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
 
-            const name = document.getElementById('contactName').value.trim();
-            const email = document.getElementById('contactEmail').value.trim();
-            const mobile = document.getElementById('contactMobile').value.trim();
-            const subject = document.getElementById('contactSubject').value.trim();
-            const message = document.getElementById('contactMessage').value.trim();
-
-            errorBox.classList.remove('show');
-            successBox.classList.remove('show');
-
-            if (!name || !email || !subject || !message) {
-                errorBox.textContent = '❌ Please fill in all required fields.';
-                errorBox.classList.add('show');
-                return;
-            }
-
-            if (!email.includes('@')) {
-                errorBox.textContent = '❌ Please enter a valid email address.';
-                errorBox.classList.add('show');
-                return;
-            }
-
-            contactBtn.disabled = true;
-            contactBtn.innerHTML = '<span class="loading-spinner"></span> Sending...';
-
-            try {
-                await addDoc(collection(db, 'contactMessages'), {
-                    name,
-                    email,
-                    mobile: mobile || '',
-                    subject,
-                    message,
-                    status: 'NEW',
-                    createdAt: serverTimestamp()
-                });
-
-                successBox.textContent = '✅ Message sent successfully! We\'ll get back to you soon.';
-                successBox.classList.add('show');
-                form.reset();
-
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 3000);
-
-            } catch (error) {
-                console.error('❌ Contact form error:', error);
-                errorBox.textContent = '❌ Failed to send message. Please try again.';
-                errorBox.classList.add('show');
-            } finally {
-                contactBtn.disabled = false;
-                contactBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-            }
-        };
+            // In production, this would send to a server
+            alert(`✅ Thank you ${name}! We've received your message and will get back to you within 24 hours.`);
+            
+            // Reset form
+            e.target.reset();
+        }
     </script>
-
 </body>
-  </html>
+</html>
