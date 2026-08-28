@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Registration | Raj Marketing Mysore</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        .register-container {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #FFFFFF;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border: 1px solid #e5e7eb;
+        }
+        .register-container h1 {
+            font-size: 24px;
+            color: #0F172A;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .register-container .sub {
+            text-align: center;
+            color: #64748B;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .register-container .form-group {
+            margin-bottom: 16px;
+        }
+        .register-container label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            color: #0F172A;
+            margin-bottom: 4px;
+        }
+        .register-container input,
+        .register-container select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .register-container input:focus,
+        .register-container select:focus {
+            outline: none;
+            border-color: #2563EB;
+        }
+        .register-container .btn-register {
+            width: 100%;
+            padding: 12px;
+            background: #2563EB;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .register-container .btn-register:hover {
+            background: #0F172A;
+        }
+        .register-container .login-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #64748B;
+        }
+        .register-container .login-link a {
+            color: #2563EB;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .register-container .login-link a:hover {
+            text-decoration: underline;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        .terms-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #64748B;
+        }
+        .terms-check input {
+            width: auto;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="fixed-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo-area">
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+            </a>
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="customer-login.html" class="btn-outline">Login</a>
+                <a href="customer-register.html" class="btn-outline" style="background:#2563EB;color:#FFFFFF;">Register</a>
+            </nav>
+            <div class="header-right">
+                <a href="https://wa.me/919483037385" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:9483037385"><i class="fas fa-phone"></i></a>
+                <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="customer-login.html">Login</a>
+        <a href="customer-register.html" class="active">Register</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="register-container">
+                <h1>Create Account</h1>
+                <p class="sub">Register to track orders, get estimates, and more.</p>
+
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="firstName" placeholder="First name" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="lastName" placeholder="Last name" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mobile Number</label>
+                        <input type="tel" id="mobile" placeholder="9483037385" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" placeholder="Minimum 6 characters" required minlength="6" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm password" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="Mysore, Karnataka" />
+                    </div>
+
+                    <div class="form-group terms-check">
+                        <input type="checkbox" id="terms" required />
+                        <label for="terms" style="font-weight:400;font-size:12px;">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></label>
+                    </div>
+
+                    <button type="submit" class="btn-register"><i class="fas fa-user-plus"></i> Create Account</button>
+                </form>
+
+                <div class="login-link">
+                    Already have an account? <a href="customer-login.html">Login here</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="brand">Raj <span>Marketing</span> Mysore</div>
+                    <p>Quality mosquito nets since 2016.</p>
+                    <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
+                    <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="products.html">Products</a>
+                    <a href="estimate.html">Get Estimate</a>
+                    <a href="appointment.html">Book Measurement</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://wa.me/919483037385"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="main.js"></script>
+    <script>
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirm) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // In production, this would send data to a server
+            alert('✅ Registration successful! Please check your email for verification.');
+            window.location.href = 'customer-login.html';
+        }
+    </script>
+</body>
+  </html>
