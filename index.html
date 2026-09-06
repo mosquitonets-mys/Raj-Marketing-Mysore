@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing Mysore | Mosquito Nets for Windows & Doors</title>
+    <title>Raj Marketing Mysore | Premium Mosquito Nets for Windows & Doors</title>
     <meta name="description" content="Raj Marketing Mysore provides premium mosquito nets for windows and doors including pleated nets, sliding nets, frame systems and stainless steel mesh solutions with professional measurement and installation." />
     <link rel="canonical" href="https://rajmarketingmysore.info/" />
     
@@ -27,7 +27,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -37,14 +37,272 @@
     
     <style>
         /* ============================================================
-           SLIDER STYLES (Inline for performance)
+           ROOT VARIABLES
+        ============================================================ */
+        :root {
+            --royal-blue: #1a56db;
+            --deep-navy: #0f1b33;
+            --light-blue: #e8f0fe;
+            --orange: #f59e0b;
+            --whatsapp-green: #25d366;
+            --dark-text: #1a1a2e;
+            --muted-text: #6b7280;
+            --light-grey: #f3f4f6;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: var(--dark-text); line-height: 1.6; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+        a { text-decoration: none; }
+
+        /* ============================================================
+           BUTTONS
+        ============================================================ */
+        .btn-primary {
+            background: var(--royal-blue);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover { background: var(--deep-navy); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(26,86,219,0.35); }
+
+        .btn-secondary {
+            background: var(--light-grey);
+            color: var(--dark-text);
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid #e5e7eb;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary:hover { border-color: var(--royal-blue); background: var(--light-blue); }
+
+        .btn-wa {
+            background: var(--whatsapp-green);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-wa:hover { opacity: 0.9; transform: scale(1.02); }
+
+        /* ============================================================
+           HEADER
+        ============================================================ */
+        .fixed-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 0 16px;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .logo-area .logo-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            object-fit: contain;
+            background: var(--light-blue);
+            padding: 4px;
+        }
+        .logo-area .logo-text {
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--deep-navy);
+            line-height: 1.1;
+        }
+        .logo-area .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 11px;
+            color: var(--royal-blue);
+            letter-spacing: 1px;
+        }
+        /* Business Name Animation */
+        .brand-animation {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--royal-blue), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .desktop-nav {
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        .desktop-nav a {
+            color: var(--muted-text);
+            font-weight: 500;
+            font-size: 13px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+        .desktop-nav a:hover,
+        .desktop-nav a.active {
+            color: var(--royal-blue);
+            background: var(--light-blue);
+        }
+        .desktop-nav .btn-outline {
+            border: 2px solid var(--royal-blue);
+            color: var(--royal-blue);
+            background: transparent;
+            padding: 4px 16px;
+            font-size: 12px;
+        }
+        .desktop-nav .btn-outline:hover {
+            background: var(--royal-blue);
+            color: var(--white);
+        }
+        .desktop-nav .admin-link {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .desktop-nav .admin-link:hover {
+            background: #f59e0b;
+            color: var(--white);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-right a {
+            color: var(--muted-text);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        .header-right a:hover { color: var(--royal-blue); }
+        .header-right .wa-link { color: var(--whatsapp-green); }
+        .header-right .wa-link:hover { opacity: 0.8; }
+
+        .hamburger {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--dark-text);
+            cursor: pointer;
+            padding: 4px 8px;
+            display: block;
+        }
+
+        @media (min-width: 992px) {
+            .desktop-nav { display: flex; }
+            .hamburger { display: none; }
+            .header-right a { font-size: 20px; }
+        }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu {
+            display: none;
+            background: var(--white);
+            padding: 16px 20px 30px;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: var(--shadow-md);
+            position: absolute;
+            top: 68px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            max-height: calc(100vh - 68px);
+            overflow-y: auto;
+        }
+        .mobile-menu.open { display: block; animation: slideDown 0.3s ease; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .mobile-menu a {
+            display: block;
+            padding: 10px 0;
+            color: var(--dark-text);
+            font-weight: 500;
+            font-size: 14px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: var(--transition);
+        }
+        .mobile-menu a:hover,
+        .mobile-menu a.active { color: var(--royal-blue); }
+        .mobile-menu .btn-sky {
+            background: var(--royal-blue);
+            color: var(--white);
+            text-align: center;
+            border-radius: var(--radius);
+            padding: 10px;
+            margin-top: 8px;
+            border: none;
+        }
+        .mobile-menu .btn-sky:hover { background: var(--deep-navy); }
+
+        /* ============================================================
+           SLIDER
         ============================================================ */
         .slider-container { margin: 0 0 16px 0; border-radius: var(--radius); overflow: hidden; position: relative; box-shadow: var(--shadow-md); height: 200px; background: var(--light-grey); }
         .slider-track { display: flex; width: 1000%; height: 100%; animation: sliderAnimation 30s infinite ease-in-out; }
         .slider-slide { flex: 1; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .slider-slide img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-        .slider-slide .overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.3); z-index: 1; }
-        .slider-slide .slide-content { position: relative; z-index: 2; text-align: center; color: #fff; padding: 16px 24px; text-shadow: 0 2px 12px rgba(0,0,0,0.4); max-width: 90%; }
+        .slider-slide .overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.35); z-index: 1; }
+        .slider-slide .slide-content { position: relative; z-index: 2; text-align: center; color: #fff; padding: 16px 24px; text-shadow: 0 2px 12px rgba(0,0,0,0.5); max-width: 90%; }
         .slider-slide .slide-content .main-text { font-weight: 800; font-size: 22px; line-height: 1.2; display: block; }
         .slider-slide .slide-content .sub-text { font-size: 13px; font-weight: 300; display: block; margin-top: 2px; opacity: 0.9; }
 
@@ -72,7 +330,19 @@
         /* ============================================================
            HERO
         ============================================================ */
-        .hero { background: var(--white); color: var(--dark-text); border-radius: var(--radius-lg); padding: 32px 20px; margin-bottom: 24px; border: 1px solid #e5e7eb; box-shadow: var(--shadow-sm); }
+        .hero { background: var(--white); color: var(--dark-text); border-radius: var(--radius-lg); padding: 32px 20px; margin-bottom: 24px; border: 1px solid #e5e7eb; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(26,86,219,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; }
         .hero-content h1 { font-size: 28px; font-weight: 800; line-height: 1.2; color: var(--deep-navy); margin-bottom: 6px; }
         .hero-content h1 .highlight { color: var(--royal-blue); }
         .hero-content p { font-size: 15px; color: var(--muted-text); margin-bottom: 16px; }
@@ -133,7 +403,7 @@
         .product-card .img { width: 80px; height: 80px; margin: 0 auto 8px; border-radius: 12px; overflow: hidden; background: var(--light-grey); display: flex; align-items: center; justify-content: center; }
         .product-card .img img { width: 100%; height: 100%; object-fit: cover; }
         .product-card .name { font-weight: 700; font-size: 12px; color: var(--dark-text); margin-bottom: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .product-card .price { font-size: 12px; font-weight: 600; color: var(--royal-blue); }
+                .product-card .price { font-size: 12px; font-weight: 600; color: var(--royal-blue); }
         .product-card .view-btn { font-size: 10px; font-weight: 600; color: var(--white); background: var(--royal-blue); padding: 4px 16px; border-radius: 30px; display: inline-block; margin-top: 6px; transition: var(--transition); }
         .product-card:hover .view-btn { background: var(--orange); }
         @media (min-width: 768px) { .product-card { min-width: 180px; } }
@@ -143,7 +413,7 @@
         ============================================================ */
         .steps-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
         .step-item { text-align: center; background: var(--white); padding: 14px 8px; border-radius: var(--radius); border: 1px solid #e5e7eb; }
-        .step-item .num { font-size: 20px; font-weight: 800; color: var(--royal-blue); background: var(--blue-light); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; }
+        .step-item .num { font-size: 20px; font-weight: 800; color: var(--royal-blue); background: var(--light-blue); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; }
         .step-item .label { font-weight: 600; font-size: 11px; color: var(--dark-text); }
         .step-item .desc { font-size: 10px; color: var(--muted-text); }
         @media (max-width: 480px) { .steps-grid { grid-template-columns: 1fr 1fr; } }
@@ -154,7 +424,7 @@
         .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .feature-card { background: var(--white); border-radius: var(--radius); padding: 14px 12px; border: 1px solid #e5e7eb; text-decoration: none; transition: var(--transition); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 12px; }
         .feature-card:hover { transform: translateX(4px); border-color: var(--royal-blue); box-shadow: var(--shadow-md); }
-        .feature-card i { font-size: 20px; color: var(--royal-blue); background: var(--blue-light); padding: 10px; border-radius: 12px; min-width: 40px; text-align: center; }
+        .feature-card i { font-size: 20px; color: var(--royal-blue); background: var(--light-blue); padding: 10px; border-radius: 12px; min-width: 40px; text-align: center; }
         .feature-card .text { font-weight: 600; font-size: 12px; color: var(--dark-text); }
         .feature-card .text small { display: block; font-weight: 400; font-size: 10px; color: var(--muted-text); }
         @media (min-width: 768px) { .feature-grid { grid-template-columns: repeat(4, 1fr); } }
@@ -177,7 +447,7 @@
         .account-card .actions a { padding: 6px 16px; border-radius: 40px; font-weight: 600; font-size: 11px; text-decoration: none; transition: var(--transition); }
         .account-card .actions a:hover { transform: scale(1.04); }
 
-        .customer-card { background: var(--blue-light); color: var(--deep-navy); }
+        .customer-card { background: var(--light-blue); color: var(--deep-navy); }
         .customer-card .label i { color: var(--royal-blue); }
         .customer-card .actions .btn-blue { background: var(--royal-blue); color: var(--white); }
         .customer-card .actions .btn-outline { background: transparent; color: var(--royal-blue); border: 1px solid var(--royal-blue); }
@@ -192,7 +462,7 @@
            AREAS
         ============================================================ */
         .areas-list { display: flex; flex-wrap: wrap; gap: 8px; }
-        .areas-list .tag { background: var(--blue-light); color: var(--royal-blue); padding: 5px 14px; border-radius: 30px; font-size: 12px; font-weight: 500; }
+        .areas-list .tag { background: var(--light-blue); color: var(--royal-blue); padding: 5px 14px; border-radius: 30px; font-size: 12px; font-weight: 500; }
 
         /* ============================================================
            ESTIMATE CTA
@@ -210,12 +480,12 @@
            CONTACT CARD
         ============================================================ */
         .contact-card { background: var(--white); border-radius: var(--radius); padding: 14px 18px; border: 1px solid #e5e7eb; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
-        .contact-card .icon { background: var(--blue-light); padding: 10px; border-radius: 12px; color: var(--royal-blue); font-size: 20px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+        .contact-card .icon { background: var(--light-blue); padding: 10px; border-radius: 12px; color: var(--royal-blue); font-size: 20px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
         .contact-card .info .label { font-size: 10px; color: var(--muted-text); font-weight: 500; }
         .contact-card .info .number { font-size: 16px; font-weight: 800; color: var(--dark-text); }
         .contact-card .actions { display: flex; gap: 8px; margin-left: auto; }
         .contact-card .actions a { padding: 6px 14px; border-radius: 40px; font-weight: 600; font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: var(--transition); }
-        .contact-card .actions .call { background: var(--blue-light); color: var(--royal-blue); }
+        .contact-card .actions .call { background: var(--light-blue); color: var(--royal-blue); }
         .contact-card .actions .call:hover { background: var(--royal-blue); color: var(--white); }
         .contact-card .actions .wa { background: var(--whatsapp-green); color: var(--white); }
         .contact-card .actions .wa:hover { opacity: 0.9; }
@@ -231,7 +501,6 @@
         .faq-item .a { display: none; padding-top: 6px; font-size: 12px; color: var(--muted-text); }
         .faq-item .a.open { display: block; }
 
-        
         /* ============================================================
            SEARCH
         ============================================================ */
@@ -244,19 +513,19 @@
         .search-results { background: var(--white); border-radius: var(--radius); margin-top: -8px; margin-bottom: 14px; border: 1px solid #e5e7eb; max-height: 300px; overflow-y: auto; display: none; box-shadow: var(--shadow-md); }
         .search-results.active { display: block; }
         .search-results .result-item { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--dark-text); transition: var(--transition); }
-        .search-results .result-item:hover { background: var(--blue-light); }
+        .search-results .result-item:hover { background: var(--light-blue); }
         .search-results .result-item .icon { font-size: 20px; color: var(--royal-blue); width: 32px; text-align: center; }
         .search-results .result-item .info .name { font-weight: 600; font-size: 13px; }
         .search-results .result-item .info .category { font-size: 11px; color: var(--muted-text); }
 
         /* ============================================================
-           AI CONSULTATION
+           AI CONSULTATION - FIXED VERSION
         ============================================================ */
         .ai-consult-wrap { background: var(--white); border-radius: var(--radius-lg); padding: 24px 20px; box-shadow: var(--shadow-md); border: 1px solid #e5e7eb; margin-bottom: 20px; }
         .ai-consult-wrap .header-area { text-align: center; margin-bottom: 16px; }
         .ai-consult-wrap .header-area h2 { font-size: 22px; font-weight: 800; color: var(--deep-navy); }
         .ai-consult-wrap .header-area h2 span { color: var(--royal-blue); }
-        .ai-consult-wrap .header-area .ai-badge { display: inline-block; background: var(--blue-light); color: var(--royal-blue); padding: 2px 14px; border-radius: 30px; font-size: 11px; font-weight: 600; margin-top: 2px; }
+        .ai-consult-wrap .header-area .ai-badge { display: inline-block; background: var(--light-blue); color: var(--royal-blue); padding: 2px 14px; border-radius: 30px; font-size: 11px; font-weight: 600; margin-top: 2px; }
         .ai-consult-wrap .header-area .subtitle { color: var(--muted-text); font-size: 13px; margin-top: 4px; }
         .ai-consult-wrap .header-area .trust-msg { font-size: 12px; color: var(--muted-text); margin-top: 2px; }
         .ai-consult-wrap .header-area .trust-msg i { color: var(--orange); }
@@ -267,7 +536,7 @@
         .ai-progress .step-dot.done { background: var(--orange); }
         .ai-step-counter { text-align: center; font-size: 12px; color: var(--muted-text); font-weight: 500; margin-bottom: 10px; }
 
-        .ai-chat { background: var(--blue-light); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 14px; border-left: 4px solid var(--royal-blue); }
+        .ai-chat { background: var(--light-blue); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 14px; border-left: 4px solid var(--royal-blue); }
         .ai-chat .ai-name { font-weight: 700; color: var(--deep-navy); font-size: 13px; }
         .ai-chat .ai-name i { color: var(--royal-blue); margin-right: 4px; }
         .ai-chat .ai-msg { font-size: 13px; color: var(--dark-text); margin-top: 2px; }
@@ -275,7 +544,7 @@
         .ai-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
         .ai-options .opt-card { background: var(--white); border: 2px solid #e5e7eb; border-radius: var(--radius); padding: 12px 10px; text-align: center; cursor: pointer; transition: 0.3s; font-weight: 600; font-size: 12px; color: var(--dark-text); }
         .ai-options .opt-card:hover { border-color: var(--royal-blue); transform: translateY(-2px); }
-        .ai-options .opt-card.selected { border-color: var(--royal-blue); background: var(--blue-light); }
+        .ai-options .opt-card.selected { border-color: var(--royal-blue); background: var(--light-blue); }
         .ai-options .opt-card .icon { font-size: 24px; display: block; margin-bottom: 2px; }
         .ai-options .opt-card .desc { font-weight: 400; font-size: 10px; color: var(--muted-text); display: block; margin-top: 2px; }
         @media (max-width: 480px) { .ai-options { grid-template-columns: 1fr 1fr; } }
@@ -325,13 +594,158 @@
         .ai-receipt .receipt-row .value { font-weight: 600; }
         .ai-receipt .receipt-total { border-top: 2px solid var(--royal-blue); padding-top: 8px; margin-top: 8px; text-align: center; }
         .ai-receipt .receipt-total .amount { font-size: 20px; font-weight: 800; color: var(--royal-blue); }
+        
+        /* ============================================================
+           FOOTER - 3 LINE LINKS
+        ============================================================ */
+        .footer {
+            background: var(--deep-navy);
+            color: var(--white);
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+            }
+        }
+        .footer-col .brand {
+            font-size: 22px;
+            font-weight: 800;
+        }
+        .footer-col .brand span {
+            color: var(--royal-blue);
+        }
+        .footer-col p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+        .footer-col .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+            font-size: 13px;
+            margin: 4px 0;
+        }
+        .footer-col .contact-info i {
+            color: var(--royal-blue);
+            width: 20px;
+        }
+        .footer-col h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+        .footer-col a {
+            display: block;
+            color: #94a3b8;
+            font-size: 13px;
+            padding: 3px 0;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .footer-col a:hover {
+            color: var(--white);
+            padding-left: 4px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 16px;
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .footer-bottom span {
+            color: var(--royal-blue);
+        }
+        .footer-legal {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 16px;
+            margin-top: 8px;
+        }
+        .footer-legal a {
+            color: #94a3b8;
+            font-size: 11px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .footer-legal a:hover {
+            color: var(--white);
+        }
 
         /* ============================================================
            WHATSAPP FLOAT
         ============================================================ */
-        .whatsapp-float { position: fixed; bottom: 90px; right: 16px; background: var(--whatsapp-green); color: var(--white); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 24px rgba(37,211,102,0.35); z-index: 999; text-decoration: none; transition: var(--transition); }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 90px;
+            right: 16px;
+            background: var(--whatsapp-green);
+            color: var(--white);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+            z-index: 999;
+            text-decoration: none;
+            transition: var(--transition);
+        }
         .whatsapp-float:hover { transform: scale(1.1); }
         @media (min-width: 768px) { .whatsapp-float { bottom: 40px; right: 32px; width: 64px; height: 64px; font-size: 32px; } }
+
+        /* ============================================================
+           BOTTOM NAV
+        ============================================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 999;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+        }
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: var(--muted-text);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 4px 8px;
+        }
+        .bottom-nav a i {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+        .bottom-nav a:hover,
+        .bottom-nav a.active {
+            color: var(--royal-blue);
+        }
+        @media (min-width: 768px) {
+            .bottom-nav { display: none; }
+        }
 
         /* ============================================================
            RESPONSIVE FIXES
@@ -360,8 +774,12 @@
     <header class="fixed-header">
         <div class="header-inner">
             <a href="index.html" class="logo-area">
-                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+                <img src="images/logo.png" alt="Raj Marketing Mysore" class="logo-img" onerror="this.style.display='none';this.parentElement.querySelector('.logo-icon').style.display='flex'">
+                <div class="logo-icon" style="display:none;width:44px;height:44px;border-radius:10px;background:var(--light-blue);align-items:center;justify-content:center;font-size:22px;color:var(--royal-blue);"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-text">
+                    <span class="brand-animation">Raj Marketing</span>
+                    <span>Mysore</span>
+                </div>
             </a>
 
             <nav class="desktop-nav">
@@ -371,13 +789,13 @@
                 <a href="how-it-works.html">How It Works</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
-                <!-- Customer & Dealer Links -->
                 <a href="customer/customer-login.html" class="btn-outline">Customer</a>
                 <a href="dealer/dealer-login.html" class="btn-outline">Dealer</a>
+                <a href="admin/dashboard.html" class="admin-link"><i class="fas fa-crown"></i> Admin</a>
             </nav>
 
             <div class="header-right">
-                <a href="https://wa.me/919483037385" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://wa.me/919483037385" target="_blank" aria-label="WhatsApp" class="wa-link"><i class="fab fa-whatsapp"></i></a>
                 <a href="tel:9483037385" aria-label="Call"><i class="fas fa-phone"></i></a>
                 <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
             </div>
@@ -392,13 +810,13 @@
         <a href="estimate.html">Get Estimate</a>
         <a href="appointment.html">Book Measurement</a>
         <a href="track-order.html">Track Order</a>
-        <!-- Customer & Dealer Links -->
         <a href="customer/customer-login.html">Customer Login</a>
         <a href="customer/customer-registration.html">Customer Register</a>
         <a href="dealer/dealer-login.html">Dealer Login</a>
         <a href="dealer/dealer-registration.html" class="btn-sky">Become a Dealer</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+        <a href="admin/dashboard.html" style="background:#fef3c7;color:#92400e;border-radius:8px;padding:8px 16px;margin-top:4px;"><i class="fas fa-crown"></i> Admin Dashboard</a>
     </div>
 
     <!-- ===== MAIN ===== -->
@@ -456,7 +874,7 @@
             <div class="search-results" id="searchResults"></div>
 
             <!-- ============================================================
-                 RAJ AI CONSULTATION - Clean & Accurate
+                 RAJ AI CONSULTATION - FIXED
             ============================================================ -->
             <div class="ai-consult-wrap" id="aiConsultWrap">
                 <div class="header-area">
@@ -535,7 +953,7 @@
                     <a href="estimate.html" class="btn-outline-white"><i class="fas fa-file-invoice"></i> Get Estimate</a>
                 </div>
             </section>
-
+    
             <!-- ===== HOW IT WORKS ===== -->
             <div class="section-title"><h2>How It Works</h2></div>
             <div class="steps-grid">
@@ -580,7 +998,7 @@
             </div>
 
             <!-- ===== MEASUREMENT CARD ===== -->
-            <div style="background:var(--blue-light);border-radius:var(--radius);padding:18px;margin:16px 0;border:1px solid #bfdbfe;">
+            <div style="background:var(--light-blue);border-radius:var(--radius);padding:18px;margin:16px 0;border:1px solid #bfdbfe;">
                 <h3 style="font-size:17px;font-weight:700;color:var(--deep-navy);">Need a Measurement?</h3>
                 <p style="font-size:13px;color:var(--muted-text);">Book a measurement appointment and let us recommend the right system.</p>
                 <p style="font-size:12px;font-weight:500;color:var(--deep-navy);">Free site visit within Mysore. Outside: ₹15/km travel charge.</p>
@@ -627,7 +1045,7 @@
                 <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you serve outside Mysore? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, we serve Mysore, Mandya, Chamrajanagar, Gundlupet, H.D. Kote, Kollegala and nearby.</div></div>
                 <div class="faq-item"><div class="q" onclick="toggleFaq(this)">How do I get an estimate? <i class="fas fa-chevron-down"></i></div><div class="a">Use our online estimate form, AI price checker, or contact us directly.</div></div>
                 <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Can I send a photo on WhatsApp? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, send photos to our WhatsApp number for guidance and a preliminary estimate.</div></div>
-    </div>
+            </div>
     
             <!-- ===== CUSTOMER ZONE ===== -->
             <div class="account-card customer-card">
@@ -690,7 +1108,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="brand">Raj <span>Marketing</span> Mysore</div>
-                    <p style="color:var(--muted-text);">Quality mosquito nets since 2016.</p>
+                    <p>Quality mosquito nets since 2016.</p>
                     <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
                     <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
                     <div class="contact-info"><i class="fas fa-map-marker-alt"></i> #45, Devraj Urs Road, Mysore</div>
@@ -779,7 +1197,7 @@
         { id: 'single-door-pleated', name: 'Single Door Pleated', category: 'Pleated', price: '₹900', image: 'images/single-door-pleated.jpg', badge: 'pleated', online: false },
         { id: 'security-screen-single-door', name: 'Security Screen – Single Door', category: 'Security', price: '₹990 + GST', image: 'images/security-screen-single.jpg', badge: 'security', online: false },
         { id: 'security-screen-double-door', name: 'Security Screen – Double Door', category: 'Security', price: '₹1,150 + GST', image: 'images/security-screen-double.jpg', badge: 'security', online: false },
-        { id: 'aluminium-frame-colour-mesh', name: 'Aluminium Frame + Colour Mesh', category: 'Aluminium', price: '₹420', image: 'images/aluminium-colour-mesh.jpg', badge: 'frame', online: false },
+               { id: 'aluminium-frame-colour-mesh', name: 'Aluminium Frame + Colour Mesh', category: 'Aluminium', price: '₹420', image: 'images/aluminium-colour-mesh.jpg', badge: 'frame', online: false },
         { id: 'woodgrain-ss-304-mesh', name: 'Woodgrain + SS 304 Mesh', category: 'Aluminium', price: '₹580', image: 'images/woodgrain-ss304.jpg', badge: 'premium', online: false },
         { id: 'ss-black-mesh-0.18mm', name: 'SS Black Mesh 0.18mm', category: 'Mesh', price: '₹36', image: 'images/ss-black-mesh.jpg', badge: 'mesh', online: false },
         { id: 'ss-black-mesh', name: 'SS Black Mesh', category: 'Mesh', price: '₹38', image: 'images/ss-black-mesh-standard.jpg', badge: 'mesh', online: false },
@@ -924,7 +1342,7 @@
     }
 
     // ============================================================
-    // RAJ AI CONSULTATION - Complete Working Version
+    // RAJ AI CONSULTATION - FIXED VERSION
     // ============================================================
     let aiState = {
         currentStep: 0,
@@ -1091,22 +1509,44 @@
 
         if (!container) return;
 
-        const total = AI_STEPS.length;
-        progress.innerHTML = AI_STEPS.map((s, i) => {
+        // Filter out steps that don't apply based on conditions
+        let filteredSteps = AI_STEPS.filter((step, index) => {
+            if (step.condition && !step.condition(aiState.answers)) {
+                return false;
+            }
+            return true;
+        });
+
+        // Find current step in filtered list
+        let currentFilteredIndex = 0;
+        let currentStepIndex = 0;
+        for (let i = 0; i < AI_STEPS.length; i++) {
+            const step = AI_STEPS[i];
+            if (step.condition && !step.condition(aiState.answers)) {
+                continue;
+            }
+            if (i === aiState.currentStep) {
+                currentFilteredIndex = currentStepIndex;
+                break;
+            }
+            currentStepIndex++;
+        }
+
+        const total = filteredSteps.length;
+        
+        // Update progress dots
+        progress.innerHTML = filteredSteps.map((s, i) => {
             let cls = 'step-dot';
-            if (i < aiState.currentStep) cls += ' done';
-            else if (i === aiState.currentStep) cls += ' active';
+            if (i < currentFilteredIndex) cls += ' done';
+            else if (i === currentFilteredIndex) cls += ' active';
             return `<span class="${cls}"></span>`;
         }).join('');
 
-        counter.textContent = `Step ${aiState.currentStep + 1} of ${total}`;
+        counter.textContent = `Step ${currentFilteredIndex + 1} of ${total}`;
 
-        const step = AI_STEPS[aiState.currentStep];
-        if (!step) return;
-
-        if (step.condition && !step.condition(aiState.answers)) {
-            aiState.currentStep++;
-            renderStep();
+        const step = filteredSteps[currentFilteredIndex];
+        if (!step) {
+            container.innerHTML = '<div style="text-align:center;padding:20px;">Loading...</div>';
             return;
         }
 
@@ -1197,10 +1637,10 @@
                         Final price confirmed after site verification.
                     </div>
                 </div>
-                <button class="btn-primary" onclick="goToStep(${AI_STEPS.length - 2})" style="width:100%;padding:10px;font-size:13px;">Continue →</button>
+                <button class="btn-primary" onclick="goToStepByIndex(${aiState.currentStep + 1})" style="width:100%;padding:10px;font-size:13px;">Continue →</button>
             `;
-    }
-    
+        }
+
         if (step.type === 'details') {
             html += `
                 <div style="padding:8px 0;">
@@ -1243,7 +1683,7 @@
                     <a href="https://wa.me/919483037385?text=${encodeURIComponent('Hello Raj Marketing Mysore,%0A%0ARequirement Summary:%0A' + (aiState.answers.purpose || '') + '%0ANet: ' + (aiState.answers.systemType || '') + '%0ASizes: ' + aiState.sizes.map(s => s.width + '×' + s.height + 'ft – ' + s.quantity + ' Nos').join('%0A') + '%0AEstimate: ' + est + '%0A%0APlease arrange a site visit.')}" target="_blank" class="btn-wa" style="font-size:12px;padding:8px 18px;"><i class="fab fa-whatsapp"></i> Send on WhatsApp</a>
                 </div>
                 <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;flex-wrap:wrap;">
-                    <button class="btn-secondary" onclick="goToStep(${AI_STEPS.length - 3})" style="font-size:11px;padding:4px 14px;">✏️ Modify</button>
+                    <button class="btn-secondary" onclick="goToStepByIndex(${aiState.currentStep - 1})" style="font-size:11px;padding:4px 14px;">✏️ Modify</button>
                     <button class="btn-secondary" onclick="resetConsultation()" style="font-size:11px;padding:4px 14px;">🔄 Start Again</button>
                 </div>
             `;
@@ -1252,20 +1692,20 @@
 
         if (step.type !== 'estimate' && step.type !== 'details' && step.type !== 'final' && step.type !== 'size' && step.type !== 'quantity' && step.type !== 'addMore') {
             html += `<div class="ai-actions">
-                ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
                 <button class="btn-next" onclick="nextStep()" ${!aiState.answers[step.id] ? 'disabled' : ''}>Continue →</button>
             </div>`;
         }
 
         if (step.type === 'size' || step.type === 'quantity') {
             html += `<div class="ai-actions">
-                ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
             </div>`;
         }
 
         if (step.type === 'addMore') {
             html += `<div class="ai-actions">
-                ${aiState.currentStep > 0 ? `<button class="btn-back" onclick="goToStep(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
             </div>`;
         }
 
@@ -1295,12 +1735,29 @@
         const btn = document.querySelector('.btn-next');
         if (btn) btn.disabled = false;
 
+        // Handle addMore step specially
         if (stepId === 'sizeAddMore') {
             if (value === 'no') {
-                setTimeout(() => goToStep(aiState.currentStep + 1), 400);
+                // Move to next step after a short delay
+                setTimeout(() => {
+                    aiState.currentStep++;
+                    renderStep();
+                }, 400);
             } else {
+                // Reset size and go back to size step
                 aiState.currentSize = { width: 2, height: 4, quantity: 1 };
-                goToStep(aiState.currentStep - 2);
+                // Find the size step index
+                let sizeStepIndex = -1;
+                for (let i = 0; i < AI_STEPS.length; i++) {
+                    if (AI_STEPS[i].id === 'sizeSelect') {
+                        sizeStepIndex = i;
+                        break;
+                    }
+                }
+                if (sizeStepIndex !== -1) {
+                    aiState.currentStep = sizeStepIndex;
+                    renderStep();
+                }
             }
         }
     }
@@ -1312,7 +1769,7 @@
         renderStep();
     }
 
-    function goToStep(index) {
+    function goToStepByIndex(index) {
         aiState.currentStep = index;
         renderStep();
     }
@@ -1346,12 +1803,11 @@
             ).join('');
         }
 
-        const step = AI_STEPS[aiState.currentStep];
-        if (step && step.id === 'sizeSelect') {
-            const nextIdx = aiState.currentStep + 2;
-            if (nextIdx < AI_STEPS.length) {
-                goToStep(nextIdx);
-            }
+        // Move to addMore step or next step
+        const addMoreStepIndex = AI_STEPS.findIndex(s => s.id === 'sizeAddMore');
+        if (addMoreStepIndex !== -1) {
+            aiState.currentStep = addMoreStepIndex;
+            renderStep();
         }
     }
 
@@ -1361,8 +1817,12 @@
         const qty = aiState.currentSize.quantity;
         aiState.sizes.push({ width: w, height: h, quantity: qty });
         aiState.currentSize.quantity = 1;
-        const nextIdx = aiState.currentStep + 1;
-        goToStep(nextIdx);
+        
+        const addMoreStepIndex = AI_STEPS.findIndex(s => s.id === 'sizeAddMore');
+        if (addMoreStepIndex !== -1) {
+            aiState.currentStep = addMoreStepIndex;
+            renderStep();
+        }
     }
 
     function calculateEstimate() {
@@ -1391,7 +1851,12 @@
         aiState.answers.customerMobile = mobile;
         aiState.answers.customerLocation = location;
         
-        goToStep(AI_STEPS.length - 1);
+        // Move to final step
+        const finalStepIndex = AI_STEPS.findIndex(s => s.id === 'final');
+        if (finalStepIndex !== -1) {
+            aiState.currentStep = finalStepIndex;
+            renderStep();
+        }
     }
 
     function updateLiveReq() {
@@ -1454,4 +1919,3 @@
 
 </body>
 </html>
-    
