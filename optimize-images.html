@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Optimization Guide - Raj Marketing</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { color: #0f1b33; font-size: 32px; margin-bottom: 8px; }
+        h1 span { color: #1a56db; }
+        .subtitle { color: #6b7280; margin-bottom: 30px; font-size: 18px; }
+        
+        .section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #e5e7eb; }
+        .section:last-child { border-bottom: none; }
+        .section h2 { color: #0f1b33; font-size: 22px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .section h2 .badge { background: #1a56db; color: white; font-size: 12px; padding: 2px 12px; border-radius: 20px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e5e7eb; }
+        .card h3 { font-size: 14px; color: #0f1b33; margin-bottom: 4px; }
+        .card p { font-size: 13px; color: #6b7280; }
+        .card .code { background: #0f1b33; color: #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 12px; margin-top: 6px; overflow-x: auto; }
+        
+        .tool-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+        .tool-item { background: #f8fafc; padding: 12px 16px; border-radius: 8px; border: 1px solid #e5e7eb; display: flex; align-items: center; gap: 12px; }
+        .tool-item .icon { font-size: 24px; }
+        .tool-item .info .name { font-weight: 600; color: #0f1b33; }
+        .tool-item .info .desc { font-size: 12px; color: #6b7280; }
+        .tool-item .info .link { color: #1a56db; font-size: 12px; text-decoration: none; }
+        .tool-item .info .link:hover { text-decoration: underline; }
+        
+        .steps { padding-left: 20px; }
+        .steps li { margin-bottom: 8px; color: #1a1a2e; }
+        .steps li strong { color: #0f1b33; }
+        
+        .code-block { background: #1e293b; color: #e5e7eb; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 13px; overflow-x: auto; }
+        
+        .btn-primary { background: #1a56db; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+        .btn-primary:hover { background: #0f1b33; }
+        .btn-secondary { background: #f3f4f6; color: #0f1b33; border: 1px solid #e5e7eb; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Raj <span>Marketing</span> Mysore</h1>
+        <p class="subtitle">Complete Image Optimization Guide</p>
+        
+        <!-- Section 1: Image Specs -->
+        <div class="section">
+            <h2>📊 Image Specifications <span class="badge">Required</span></h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🖼️ Logo Images</h3>
+                    <p>PNG format with transparency</p>
+                    <div class="code">logo.png • 200×200px</div>
+                    <div class="code">logo-wide.png • 600×200px</div>
+                    <div class="code">apple-touch-icon.png • 180×180px</div>
+                </div>
+                <div class="card">
+                    <h3>🎠 Slider Images</h3>
+                    <p>JPG format, progressive</p>
+                    <div class="code">slider-01.jpg to slider-10.jpg</div>
+                    <div class="code">1200×400px • Quality: 75%</div>
+                </div>
+                <div class="card">
+                    <h3>📁 Category Images</h3>
+                    <p>JPG format</p>
+                    <div class="code">category-*.jpg • 400×300px</div>
+                    <div class="code">Quality: 70%</div>
+                </div>
+                <div class="card">
+                    <h3>📦 Product Images</h3>
+                    <p>JPG format, square</p>
+                    <div class="code">products/*.jpg • 400×400px</div>
+                    <div class="code">Quality: 75%</div>
+                </div>
+                <div class="card">
+                    <h3>🖼️ Gallery Images</h3>
+                    <p>JPG format</p>
+                    <div class="code">gallery-*.jpg • 600×480px</div>
+                    <div class="code">Quality: 80%</div>
+                </div>
+                <div class="card">
+                    <h3>📱 Social Images</h3>
+                    <p>JPG format</p>
+                    <div class="code">og-image.jpg • 1200×630px</div>
+                    <div class="code">Quality: 80%</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 2: Tools -->
+        <div class="section">
+            <h2>🛠️ Image Optimization Tools</h2>
+            <div class="tool-list">
+                <div class="tool-item">
+                    <span class="icon">🌐</span>
+                    <div class="info">
+                        <div class="name">TinyPNG</div>
+                        <div class="desc">Web-based compression</div>
+                        <a href="https://tinypng.com" target="_blank" class="link">tinypng.com →</a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <span class="icon">💻</span>
+                    <div class="info">
+                        <div class="name">ImageOptim</div>
+                        <div class="desc">Mac app for compression</div>
+                        <a href="https://imageoptim.com" target="_blank" class="link">imageoptim.com →</a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <span class="icon">🔧</span>
+                    <div class="info">
+                        <div class="name">Squoosh</div>
+                        <div class="desc">Google's image optimizer</div>
+                        <a href="https://squoosh.app" target="_blank" class="link">squoosh.app →</a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <span class="icon">📦</span>
+                    <div class="info">
+                        <div class="name">ImageMagick</div>
+                        <div class="desc">Command-line toolkit</div>
+                        <a href="https://imagemagick.org" target="_blank" class="link">imagemagick.org →</a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <span class="icon">🐍</span>
+                    <div class="info">
+                        <div class="name">Pillow</div>
+                        <div class="desc">Python imaging library</div>
+                        <a href="https://python-pillow.org" target="_blank" class="link">python-pillow.org →</a>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <span class="icon">⚡</span>
+                    <div class="info">
+                        <div class="name">Cloudinary</div>
+                        <div class="desc">Cloud image optimization</div>
+                        <a href="https://cloudinary.com" target="_blank" class="link">cloudinary.com →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 3: Optimization Commands -->
+        <div class="section">
+            <h2>💻 Optimization Commands</h2>
+            
+            <h3 style="margin:12px 0 6px;">Using ImageMagick</h3>
+            <div class="code-block">
+# Optimize all JPG images
+for img in images/**/*.jpg; do
+    convert "$img" -strip -interlace Plane -quality 75 "$img"
+done
+
+# Resize all images to max width
+for img in images/**/*.jpg; do
+    convert "$img" -resize 1200x1200\> -quality 75 "$img"
+done
+
+# Create WebP versions
+for img in images/**/*.jpg; do
+    cwebp -q 75 "$img" -o "${img%.jpg}.webp"
+done
+            </div>
+            
+            <h3 style="margin:12px 0 6px;">Using Python (Pillow)</h3>
+            <div class="code-block">
+from PIL import Image
+import os
+
+def optimize_image(path, quality=75):
+    img = Image.open(path)
+    if img.mode in ('RGBA', 'P'):
+        img = img.convert('RGB')
+    img.save(path, 'JPEG', quality=quality, optimize=True, progressive=True)
+
+for root, dirs, files in os.walk('images'):
+    for file in files:
+        if file.endswith(('.jpg', '.jpeg')):
+            path = os.path.join(root, file)
+            optimize_image(path)
+            </div>
+        </div>
+        
+        <!-- Section 4: Lazy Loading -->
+        <div class="section">
+            <h2>⚡ Lazy Loading Implementation</h2>
+            <p style="color:#6b7280;margin-bottom:12px;">Add to your HTML for faster page load</p>
+            <div class="code-block">
+&lt;!-- Lazy loading attribute --&gt;
+&lt;img src="image.jpg" alt="Description" loading="lazy"&gt;
+
+&lt;!-- With fallback --&gt;
+&lt;img src="image.jpg" alt="Description" loading="lazy" 
+     onerror="this.src='fallback.jpg'"&gt;
+
+&lt;!-- Responsive with srcset --&gt;
+&lt;img src="image-small.jpg" 
+     srcset="image-small.jpg 400w, image-medium.jpg 800w, image-large.jpg 1200w"
+     sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px"
+     alt="Description" loading="lazy"&gt;
+            </div>
+        </div>
+        
+        <!-- Section 5: Performance Tips -->
+        <div class="section">
+            <h2>🚀 Performance Optimization Tips</h2>
+            <ol class="steps">
+                <li><strong>Use WebP format</strong> - 30% smaller than JPG</li>
+                <li><strong>Progressive JPG</strong> - Better perceived load time</li>
+                <li><strong>Lazy loading</strong> - Load images only when needed</li>
+                <li><strong>Responsive images</strong> - Use srcset for different screen sizes</li>
+                <li><strong>CDN</strong> - Serve images from a CDN</li>
+                <li><strong>Cache headers</strong> - Set proper cache control</li>
+                <li><strong>Image sprites</strong> - Combine small images</li>
+                <li><strong>SVG for icons</strong> - Scalable and small size</li>
+            </ol>
+        </div>
+        
+        <!-- Section 6: Checklist -->
+        <div class="section">
+            <h2>✅ Pre-Launch Checklist</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div style="background:#f0fdf4;padding:12px;border-radius:8px;border:1px solid #bbf7d0;">
+                    ✅ All images generated
+                </div>
+                <div style="background:#f0fdf4;padding:12px;border-radius:8px;border:1px solid #bbf7d0;">
+                    ✅ Images optimized for web
+                </div>
+                <div style="background:#f0fdf4;padding:12px;border-radius:8px;border:1px solid #bbf7d0;">
+                    ✅ Lazy loading implemented
+                </div>
+                <div style="background:#f0fdf4;padding:12px;border-radius:8px;border:1px solid #bbf7d0;">
+                    ✅ Alt tags added
+                </div>
+                <div style="background:#f0fdf4;padding:12px;border-radius:8px;border:1px solid #bbf7d0;">
+                    ✅ Fallback images ready
+                </div>
+                <div style="background:#f0fdf4;padding:12px;border-radius:8px;border:1px solid #bbf7d0;">
+                    ✅ Responsive images tested
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 7: Quick Commands -->
+        <div class="section" style="border-bottom: none;">
+            <h2>📋 Quick Reference</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div class="card">
+                    <h3>Generate Images</h3>
+                    <div class="code">./generate-images.sh</div>
+                    <div class="code">python3 generate_images.py</div>
+                </div>
+                <div class="card">
+                    <h3>Optimize Images</h3>
+                    <div class="code">find . -name "*.jpg" -exec jpegoptim -m75 {} \;</div>
+                </div>
+                <div class="card">
+                    <h3>Convert to WebP</h3>
+                    <div class="code">for f in *.jpg; do cwebp -q 75 $f -o ${f%.jpg}.webp; done</div>
+                </div>
+                <div class="card">
+                    <h3>Check Image Sizes</h3>
+                    <div class="code">find . -name "*.jpg" -exec du -sh {} \; | sort -h</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="margin-top:30px;padding-top:20px;border-top:1px solid #e5e7eb;text-align:center;color:#6b7280;font-size:14px;">
+            🚀 Raj Marketing Mysore • Complete Image Solution v2.0
+        </div>
+    </div>
+</body>
+</html>
