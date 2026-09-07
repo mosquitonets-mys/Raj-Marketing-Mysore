@@ -4,22 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Raj Marketing Mysore | Premium Mosquito Nets for Windows & Doors</title>
-    <meta name="description" content="Raj Marketing Mysore provides premium mosquito nets for windows and doors including pleated nets, sliding nets, frame systems and stainless steel mesh solutions with professional measurement and installation." />
+    <meta name="description" content="Raj Marketing Mysore provides premium mosquito nets for windows and doors including pleated nets, sliding nets, frame systems and stainless steel mesh solutions with professional measurement and installation in Mysore." />
     <link rel="canonical" href="https://rajmarketingmysore.info/" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="mosquito nets Mysore, window mosquito nets, door mosquito nets, pleated nets, sliding nets, aluminium frame nets, stainless steel mesh, mosquito net installation, Raj Marketing Mysore" />
+    <meta name="author" content="Raj Marketing Mysore" />
+    <meta name="geo.region" content="IN-KA" />
+    <meta name="geo.placename" content="Mysore" />
+    <meta name="geo.position" content="12.2958;76.6394" />
+    <meta name="ICBM" content="12.2958, 76.6394" />
     
     <!-- Open Graph -->
     <meta property="og:title" content="Raj Marketing Mysore | Premium Mosquito Nets for Windows & Doors" />
     <meta property="og:description" content="Quality mosquito nets for windows and doors. Custom measurement, professional installation in Mysore." />
     <meta property="og:url" content="https://rajmarketingmysore.info/" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content="Raj Marketing Mysore" />
+    <meta property="og:image" content="https://rajmarketingmysore.info/images/og-image.jpg" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Raj Marketing Mysore | Premium Mosquito Nets" />
     <meta name="twitter:description" content="Quality mosquito nets for windows and doors. Custom measurement, professional installation in Mysore." />
+    <meta name="twitter:image" content="https://rajmarketingmysore.info/images/og-image.jpg" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8046183818815057" crossorigin="anonymous"></script>
@@ -403,7 +418,7 @@
         .product-card .img { width: 80px; height: 80px; margin: 0 auto 8px; border-radius: 12px; overflow: hidden; background: var(--light-grey); display: flex; align-items: center; justify-content: center; }
         .product-card .img img { width: 100%; height: 100%; object-fit: cover; }
         .product-card .name { font-weight: 700; font-size: 12px; color: var(--dark-text); margin-bottom: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-                .product-card .price { font-size: 12px; font-weight: 600; color: var(--royal-blue); }
+        .product-card .price { font-size: 12px; font-weight: 600; color: var(--royal-blue); }
         .product-card .view-btn { font-size: 10px; font-weight: 600; color: var(--white); background: var(--royal-blue); padding: 4px 16px; border-radius: 30px; display: inline-block; margin-top: 6px; transition: var(--transition); }
         .product-card:hover .view-btn { background: var(--orange); }
         @media (min-width: 768px) { .product-card { min-width: 180px; } }
@@ -594,7 +609,7 @@
         .ai-receipt .receipt-row .value { font-weight: 600; }
         .ai-receipt .receipt-total { border-top: 2px solid var(--royal-blue); padding-top: 8px; margin-top: 8px; text-align: center; }
         .ai-receipt .receipt-total .amount { font-size: 20px; font-weight: 800; color: var(--royal-blue); }
-        
+
         /* ============================================================
            FOOTER - 3 LINE LINKS
         ============================================================ */
@@ -748,6 +763,26 @@
         }
 
         /* ============================================================
+           TESTING - VISUAL INDICATORS
+        ============================================================ */
+        .test-badge {
+            position: fixed;
+            bottom: 160px;
+            left: 16px;
+            background: rgba(26,86,219,0.9);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            z-index: 9999;
+            display: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .test-badge.visible { display: block; }
+        @media (min-width: 768px) { .test-badge { display: none; } }
+
+        /* ============================================================
            RESPONSIVE FIXES
         ============================================================ */
         @media (max-width: 420px) {
@@ -765,6 +800,9 @@
 </head>
 <body>
   
+    <!-- ===== TEST BADGE ===== -->
+    <div class="test-badge visible" id="testBadge">✅ v2.0 · Live</div>
+
     <!-- ===== WHATSAPP FLOAT ===== -->
     <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
@@ -774,7 +812,7 @@
     <header class="fixed-header">
         <div class="header-inner">
             <a href="index.html" class="logo-area">
-                <img src="images/logo.png" alt="Raj Marketing Mysore" class="logo-img" onerror="this.style.display='none';this.parentElement.querySelector('.logo-icon').style.display='flex'">
+                <img src="images/logo.png" alt="Raj Marketing Mysore - Premium Mosquito Nets" class="logo-img" onerror="this.style.display='none';this.parentElement.querySelector('.logo-icon').style.display='flex'">
                 <div class="logo-icon" style="display:none;width:44px;height:44px;border-radius:10px;background:var(--light-blue);align-items:center;justify-content:center;font-size:22px;color:var(--royal-blue);"><i class="fas fa-shield-alt"></i></div>
                 <div class="logo-text">
                     <span class="brand-animation">Raj Marketing</span>
@@ -782,7 +820,7 @@
                 </div>
             </a>
 
-            <nav class="desktop-nav">
+            <nav class="desktop-nav" aria-label="Main Navigation">
                 <a href="index.html" class="active">Home</a>
                 <a href="products.html">Products</a>
                 <a href="solutions.html">Solutions</a>
@@ -796,14 +834,14 @@
 
             <div class="header-right">
                 <a href="https://wa.me/919483037385" target="_blank" aria-label="WhatsApp" class="wa-link"><i class="fab fa-whatsapp"></i></a>
-                <a href="tel:9483037385" aria-label="Call"><i class="fas fa-phone"></i></a>
-                <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+                <a href="tel:9483037385" aria-label="Call Raj Marketing"><i class="fas fa-phone"></i></a>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
             </div>
         </div>
     </header>
 
     <!-- ===== MOBILE MENU ===== -->
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile Navigation">
         <a href="index.html" class="active">Home</a>
         <a href="products.html">Products</a>
         <a href="solutions.html">Solutions</a>
@@ -830,61 +868,61 @@
             </div>
 
             <!-- ===== HERO ===== -->
-            <section class="hero">
+            <section class="hero" aria-labelledby="hero-title">
                 <div class="hero-content">
-                    <h1>Premium <span class="highlight">Mosquito Nets</span> for Windows &amp; Doors</h1>
+                    <h1 id="hero-title">Premium <span class="highlight">Mosquito Nets</span> for Windows &amp; Doors</h1>
                     <p>Custom-made mosquito protection with professional measurement and installation in Mysore.</p>
                     <div class="hero-buttons">
-                        <a href="estimate.html" class="btn-primary"><i class="fas fa-file-invoice"></i> Get Free Estimate</a>
-                        <a href="appointment.html" class="btn-secondary"><i class="fas fa-calendar-check"></i> Book Measurement</a>
-                        <a href="https://wa.me/919483037385" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                        <a href="estimate.html" class="btn-primary" aria-label="Get free estimate"><i class="fas fa-file-invoice"></i> Get Free Estimate</a>
+                        <a href="appointment.html" class="btn-secondary" aria-label="Book measurement appointment"><i class="fas fa-calendar-check"></i> Book Measurement</a>
+                        <a href="https://wa.me/919483037385" target="_blank" class="btn-wa" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
                     </div>
                     <div class="hero-trust">
-                        <span><i class="fas fa-check-circle"></i> Established 2016</span>
-                        <span><i class="fas fa-check-circle"></i> Custom Made</span>
-                        <span><i class="fas fa-check-circle"></i> Professional Installation</span>
+                        <span><i class="fas fa-check-circle" aria-hidden="true"></i> Established 2016</span>
+                        <span><i class="fas fa-check-circle" aria-hidden="true"></i> Custom Made</span>
+                        <span><i class="fas fa-check-circle" aria-hidden="true"></i> Professional Installation</span>
                     </div>
                 </div>
             </section>
             
             <!-- ===== TRUST BAR ===== -->
-            <div class="trust-bar">
-                <div class="trust-item"><i class="fas fa-calendar-alt"></i><strong>Est. 2016</strong></div>
-                <div class="trust-item"><i class="fas fa-smile"></i><strong>500+ Happy Customers</strong></div>
-                <div class="trust-item"><i class="fas fa-ruler"></i><strong>Custom Measurement</strong></div>
-                <div class="trust-item"><i class="fas fa-tools"></i><strong>Professional Installation</strong></div>
-                <div class="trust-item"><i class="fas fa-shield-alt"></i><strong>Warranty Support</strong></div>
-                <div class="trust-item"><i class="fas fa-map-marker-alt"></i><strong>Mysore Service</strong></div>
+            <div class="trust-bar" aria-label="Trust indicators">
+                <div class="trust-item"><i class="fas fa-calendar-alt" aria-hidden="true"></i><strong>Est. 2016</strong></div>
+                <div class="trust-item"><i class="fas fa-smile" aria-hidden="true"></i><strong>500+ Happy Customers</strong></div>
+                <div class="trust-item"><i class="fas fa-ruler" aria-hidden="true"></i><strong>Custom Measurement</strong></div>
+                <div class="trust-item"><i class="fas fa-tools" aria-hidden="true"></i><strong>Professional Installation</strong></div>
+                <div class="trust-item"><i class="fas fa-shield-alt" aria-hidden="true"></i><strong>Warranty Support</strong></div>
+                <div class="trust-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><strong>Mysore Service</strong></div>
             </div>
 
             <!-- ===== QUICK ACTIONS ===== -->
-            <div class="quick-grid">
-                <a href="estimate.html" class="quick-card"><i class="fas fa-file-invoice"></i><span class="label">Get Estimate</span></a>
-                <a href="appointment.html" class="quick-card"><i class="fas fa-calendar-check"></i><span class="label">Book Measurement</span></a>
-                <a href="products.html" class="quick-card"><i class="fas fa-th-large"></i><span class="label">View Products</span></a>
-                <a href="track-order.html" class="quick-card"><i class="fas fa-truck"></i><span class="label">Track Order</span></a>
+            <div class="quick-grid" aria-label="Quick actions">
+                <a href="estimate.html" class="quick-card"><i class="fas fa-file-invoice" aria-hidden="true"></i><span class="label">Get Estimate</span></a>
+                <a href="appointment.html" class="quick-card"><i class="fas fa-calendar-check" aria-hidden="true"></i><span class="label">Book Measurement</span></a>
+                <a href="products.html" class="quick-card"><i class="fas fa-th-large" aria-hidden="true"></i><span class="label">View Products</span></a>
+                <a href="track-order.html" class="quick-card"><i class="fas fa-truck" aria-hidden="true"></i><span class="label">Track Order</span></a>
             </div>
 
             <!-- ===== SEARCH ===== -->
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search products, categories, services..." oninput="handleSearch(this.value)" />
-                <i class="fas fa-microphone"></i>
+            <div class="search-bar" role="search">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input type="text" id="searchInput" placeholder="Search products, categories, services..." oninput="handleSearch(this.value)" aria-label="Search products" />
+                <i class="fas fa-microphone" aria-hidden="true"></i>
             </div>
-            <div class="search-results" id="searchResults"></div>
+            <div class="search-results" id="searchResults" role="listbox"></div>
 
             <!-- ============================================================
                  RAJ AI CONSULTATION - FIXED
             ============================================================ -->
-            <div class="ai-consult-wrap" id="aiConsultWrap">
+            <div class="ai-consult-wrap" id="aiConsultWrap" aria-label="AI Consultation Assistant">
                 <div class="header-area">
                     <h2>Which Mosquito Net Is Right For Your Home <span>🏠</span>?</h2>
-                    <div class="ai-badge"><i class="fas fa-sparkles"></i> RAJ AI • Smart Assistant</div>
+                    <div class="ai-badge"><i class="fas fa-sparkles" aria-hidden="true"></i> RAJ AI • Smart Assistant</div>
                     <p class="subtitle">Answer a few quick questions and get a recommendation + estimate.</p>
-                    <p class="trust-msg"><i class="fas fa-check-circle"></i> No technical knowledge needed</p>
+                    <p class="trust-msg"><i class="fas fa-check-circle" aria-hidden="true"></i> No technical knowledge needed</p>
                 </div>
 
-                <div class="ai-progress" id="aiProgress"></div>
+                <div class="ai-progress" id="aiProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 <div class="ai-step-counter" id="aiStepCounter">Step 1 of 12</div>
 
                 <div id="aiStepContainer"></div>
@@ -895,8 +933,8 @@
                 </div>
 
                 <div id="aiStartWrap" style="text-align:center;padding:16px 0;">
-                    <button class="btn-primary" onclick="startConsultation()" style="font-size:16px;padding:12px 36px;">
-                        <i class="fas fa-play-circle"></i> Start Consultation →
+                    <button class="btn-primary" onclick="startConsultation()" style="font-size:16px;padding:12px 36px;" aria-label="Start AI consultation">
+                        <i class="fas fa-play-circle" aria-hidden="true"></i> Start Consultation →
                     </button>
                 </div>
             </div>
@@ -905,89 +943,89 @@
             <div class="section-title"><h2>Product Categories</h2><a href="products.html">View All →</a></div>
             <div class="category-grid">
                 <a href="products.html?cat=velcro" class="category-card">
-                    <div class="img"><img src="images/category-velcro.jpg" alt="Velcro Mosquito Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-link\\'></i>'"></div>
+                    <div class="img"><img src="images/category-velcro.jpg" alt="Velcro Mosquito Nets" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-link\\'></i>'"></div>
                     <div class="info"><div class="name">Velcro Nets</div></div>
                 </a>
                 <a href="products.html?cat=aluminium" class="category-card">
-                    <div class="img"><img src="images/category-aluminium.jpg" alt="Aluminium Frame Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-border-all\\'></i>'"></div>
+                    <div class="img"><img src="images/category-aluminium.jpg" alt="Aluminium Frame Nets" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-border-all\\'></i>'"></div>
                     <div class="info"><div class="name">Aluminium Frame</div></div>
                 </a>
                 <a href="products.html?cat=sliding" class="category-card">
-                    <div class="img"><img src="images/category-sliding.jpg" alt="Sliding Mosquito Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-arrows-alt-h\\'></i>'"></div>
+                    <div class="img"><img src="images/category-sliding.jpg" alt="Sliding Mosquito Nets" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-arrows-alt-h\\'></i>'"></div>
                     <div class="info"><div class="name">Sliding Nets</div></div>
                 </a>
                 <a href="products.html?cat=pleated" class="category-card">
-                    <div class="img"><img src="images/category-pleated.jpg" alt="Pleated Mosquito Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-wind\\'></i>'"></div>
+                    <div class="img"><img src="images/category-pleated.jpg" alt="Pleated Mosquito Nets" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-wind\\'></i>'"></div>
                     <div class="info"><div class="name">Pleated Nets</div></div>
                 </a>
                 <a href="products.html?cat=openable" class="category-card">
-                    <div class="img"><img src="images/category-openable.jpg" alt="Openable Mosquito Nets" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-door-open\\'></i>'"></div>
+                    <div class="img"><img src="images/category-openable.jpg" alt="Openable Mosquito Nets" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-door-open\\'></i>'"></div>
                     <div class="info"><div class="name">Openable Nets</div></div>
                 </a>
                 <a href="products.html?cat=ss" class="category-card">
-                    <div class="img"><img src="images/category-ss-mesh.jpg" alt="Stainless Steel Mesh" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-circle\\'></i>'"></div>
+                    <div class="img"><img src="images/category-ss-mesh.jpg" alt="Stainless Steel Mesh" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-circle\\'></i>'"></div>
                     <div class="info"><div class="name">SS Mesh</div></div>
                 </a>
                 <a href="products.html?cat=fibre" class="category-card">
-                    <div class="img"><img src="images/category-fibre.jpg" alt="Fibre Mesh" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-circle-notch\\'></i>'"></div>
+                    <div class="img"><img src="images/category-fibre.jpg" alt="Fibre Mesh" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-circle-notch\\'></i>'"></div>
                     <div class="info"><div class="name">Fibre Mesh</div></div>
                 </a>
                 <a href="products.html" class="category-card">
-                    <div class="img"><img src="images/category-all.jpg" alt="All Products" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-th-large\\'></i>'"></div>
+                    <div class="img"><img src="images/category-all.jpg" alt="All Products" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-th-large\\'></i>'"></div>
                     <div class="info"><div class="name">All Products</div></div>
                 </a>
             </div>
 
             <!-- ===== POPULAR PRODUCTS ===== -->
             <div class="section-title"><h2>Popular Products</h2><a href="products.html">See all →</a></div>
-            <div class="product-scroll" id="productScroll">
+            <div class="product-scroll" id="productScroll" role="list">
                 <div style="text-align:center; padding:20px; color:var(--muted-text); width:100%;">Loading products...</div>
             </div>
 
             <!-- ===== ESTIMATE CTA ===== -->
-            <section class="estimate-cta">
-                <h2>Get an Exact Price for Your Window or Door</h2>
+            <section class="estimate-cta" aria-labelledby="estimate-title">
+                <h2 id="estimate-title">Get an Exact Price for Your Window or Door</h2>
                 <p>Prices depend on size, product type, mesh and frame finish.</p>
                 <div class="actions">
-                    <a href="price-checker.html" class="btn-white"><i class="fas fa-calculator"></i> Calculate My Price</a>
-                    <a href="estimate.html" class="btn-outline-white"><i class="fas fa-file-invoice"></i> Get Estimate</a>
+                    <a href="price-checker.html" class="btn-white" aria-label="Calculate price"><i class="fas fa-calculator" aria-hidden="true"></i> Calculate My Price</a>
+                    <a href="estimate.html" class="btn-outline-white" aria-label="Get estimate"><i class="fas fa-file-invoice" aria-hidden="true"></i> Get Estimate</a>
                 </div>
             </section>
-    
+
             <!-- ===== HOW IT WORKS ===== -->
             <div class="section-title"><h2>How It Works</h2></div>
-            <div class="steps-grid">
-                <div class="step-item"><div class="num">1</div><div class="label">Contact Us</div><div class="desc">Call, WhatsApp or enquiry</div></div>
-                <div class="step-item"><div class="num">2</div><div class="label">Book Measurement</div><div class="desc">Schedule a site visit</div></div>
-                <div class="step-item"><div class="num">3</div><div class="label">Site Measurement</div><div class="desc">We measure accurately</div></div>
-                <div class="step-item"><div class="num">4</div><div class="label">Product Recommendation</div><div class="desc">Choose the best net</div></div>
-                <div class="step-item"><div class="num">5</div><div class="label">Estimate &amp; Confirmation</div><div class="desc">Transparent pricing</div></div>
-                <div class="step-item"><div class="num">6</div><div class="label">Manufacturing &amp; Installation</div><div class="desc">Quality fitment</div></div>
+            <div class="steps-grid" aria-label="Process steps">
+                <div class="step-item"><div class="num" aria-hidden="true">1</div><div class="label">Contact Us</div><div class="desc">Call, WhatsApp or enquiry</div></div>
+                <div class="step-item"><div class="num" aria-hidden="true">2</div><div class="label">Book Measurement</div><div class="desc">Schedule a site visit</div></div>
+                <div class="step-item"><div class="num" aria-hidden="true">3</div><div class="label">Site Measurement</div><div class="desc">We measure accurately</div></div>
+                <div class="step-item"><div class="num" aria-hidden="true">4</div><div class="label">Product Recommendation</div><div class="desc">Choose the best net</div></div>
+                <div class="step-item"><div class="num" aria-hidden="true">5</div><div class="label">Estimate &amp; Confirmation</div><div class="desc">Transparent pricing</div></div>
+                <div class="step-item"><div class="num" aria-hidden="true">6</div><div class="label">Manufacturing &amp; Installation</div><div class="desc">Quality fitment</div></div>
             </div>
 
             <!-- ===== WHY CHOOSE ===== -->
             <div class="section-title"><h2>Why Choose Raj Marketing</h2><a href="about.html">Learn more</a></div>
             <div class="feature-grid">
-                <a href="products.html" class="feature-card"><i class="fas fa-check-circle"></i><div class="text">Quality Materials <small>Durable & reliable</small></div></a>
-                <a href="price-checker.html" class="feature-card"><i class="fas fa-ruler"></i><div class="text">Custom Measurements <small>Perfect fit</small></div></a>
-                <a href="appointment.html" class="feature-card"><i class="fas fa-tools"></i><div class="text">Professional Installation <small>Expert team</small></div></a>
-                <a href="about.html" class="feature-card"><i class="fas fa-star"></i><div class="text">Established Since 2016 <small>Trusted</small></div></a>
-                <a href="contact.html" class="feature-card"><i class="fas fa-headset"></i><div class="text">Warranty Support <small>Customer care</small></div></a>
-                <a href="contact.html" class="feature-card"><i class="fas fa-comments"></i><div class="text">Customer Support <small>Quick response</small></div></a>
+                <a href="products.html" class="feature-card"><i class="fas fa-check-circle" aria-hidden="true"></i><div class="text">Quality Materials <small>Durable & reliable</small></div></a>
+                <a href="price-checker.html" class="feature-card"><i class="fas fa-ruler" aria-hidden="true"></i><div class="text">Custom Measurements <small>Perfect fit</small></div></a>
+                <a href="appointment.html" class="feature-card"><i class="fas fa-tools" aria-hidden="true"></i><div class="text">Professional Installation <small>Expert team</small></div></a>
+                <a href="about.html" class="feature-card"><i class="fas fa-star" aria-hidden="true"></i><div class="text">Established Since 2016 <small>Trusted</small></div></a>
+                <a href="contact.html" class="feature-card"><i class="fas fa-headset" aria-hidden="true"></i><div class="text">Warranty Support <small>Customer care</small></div></a>
+                <a href="contact.html" class="feature-card"><i class="fas fa-comments" aria-hidden="true"></i><div class="text">Customer Support <small>Quick response</small></div></a>
             </div>
 
             <!-- ===== GALLERY ===== -->
             <div class="section-title"><h2>Our Recent Work</h2><a href="gallery.html">View gallery →</a></div>
-            <div class="gallery-grid">
-                <div class="item"><img src="images/gallery-window.jpg" alt="Window installation" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-door-open\\'></i>'"></div>
-                <div class="item"><img src="images/gallery-door.jpg" alt="Door installation" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-window-maximize\\'></i>'"></div>
-                <div class="item"><img src="images/gallery-pleated.jpg" alt="Pleated net" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-border-all\\'></i>'"></div>
-                <div class="item"><img src="images/gallery-sliding.jpg" alt="Sliding net" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-wind\\'></i>'"></div>
+            <div class="gallery-grid" aria-label="Project gallery">
+                <div class="item"><img src="images/gallery-window.jpg" alt="Window mosquito net installation" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-door-open\\'></i>'"></div>
+                <div class="item"><img src="images/gallery-door.jpg" alt="Door mosquito net installation" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-window-maximize\\'></i>'"></div>
+                <div class="item"><img src="images/gallery-pleated.jpg" alt="Pleated mosquito net installation" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-border-all\\'></i>'"></div>
+                <div class="item"><img src="images/gallery-sliding.jpg" alt="Sliding mosquito net installation" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-wind\\'></i>'"></div>
             </div>
 
             <!-- ===== SERVICE AREAS ===== -->
             <div class="section-title"><h2>Areas We Serve</h2></div>
-            <div class="areas-list">
+            <div class="areas-list" aria-label="Service areas">
                 <span class="tag">Mysore</span>
                 <span class="tag">Mandya</span>
                 <span class="tag">Chamrajanagar</span>
@@ -1003,8 +1041,8 @@
                 <p style="font-size:13px;color:var(--muted-text);">Book a measurement appointment and let us recommend the right system.</p>
                 <p style="font-size:12px;font-weight:500;color:var(--deep-navy);">Free site visit within Mysore. Outside: ₹15/km travel charge.</p>
                 <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
-                    <a href="appointment.html" class="btn-primary" style="font-size:12px;padding:8px 18px;">Book Measurement</a>
-                    <a href="https://wa.me/919483037385" target="_blank" class="btn-wa" style="font-size:12px;padding:8px 18px;">WhatsApp</a>
+                    <a href="appointment.html" class="btn-primary" style="font-size:12px;padding:8px 18px;" aria-label="Book measurement appointment">Book Measurement</a>
+                    <a href="https://wa.me/919483037385" target="_blank" class="btn-wa" style="font-size:12px;padding:8px 18px;" aria-label="Chat on WhatsApp">WhatsApp</a>
                 </div>
             </div>
 
@@ -1023,53 +1061,53 @@
             </div>
     
             <!-- ===== REVIEWS ===== -->
-            <div class="section-title"><h2>What Our Customers Say</h2><a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank">View Google Reviews</a></div>
+            <div class="section-title"><h2>What Our Customers Say</h2><a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank" rel="noopener noreferrer">View Google Reviews</a></div>
             <div style="text-align:center;padding:20px;color:var(--muted-text);background:var(--white);border-radius:var(--radius);border:1px dashed #d1d5db;">
-                <i class="fas fa-star" style="color:var(--orange);font-size:24px;"></i>
+                <i class="fas fa-star" style="color:var(--orange);font-size:24px;" aria-hidden="true"></i>
                 <p style="font-size:13px;margin-top:4px;">Customer reviews coming soon. We value your feedback!</p>
-                <a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank" style="color:var(--royal-blue);font-weight:600;font-size:13px;">Leave a review on Google</a>
+                <a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank" rel="noopener noreferrer" style="color:var(--royal-blue);font-weight:600;font-size:13px;">Leave a review on Google</a>
             </div>
 
             <!-- ===== FAQ ===== -->
             <div class="section-title"><h2>Frequently Asked Questions</h2></div>
-            <div id="faqContainer">
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Best net for sliding doors? <i class="fas fa-chevron-down"></i></div><div class="a">Sliding mosquito nets or aluminium frame nets are ideal for sliding doors.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Best net for windows? <i class="fas fa-chevron-down"></i></div><div class="a">Velcro, aluminium frame, and pleated nets all work well for windows.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Velcro vs Aluminium Frame? <i class="fas fa-chevron-down"></i></div><div class="a">Velcro is adhesive-based and flexible. Aluminium frames are permanent and durable.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Are Pleated Nets good for large doors? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, pleated nets are designed for large openings and fold away neatly.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you provide measurement? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, professional on-site measurement. Free within Mysore.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you provide installation? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, professional installation for all our mosquito net systems.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">How long does installation take? <i class="fas fa-chevron-down"></i></div><div class="a">Typically 1-3 hours depending on the number of windows/doors.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What mesh options are available? <i class="fas fa-chevron-down"></i></div><div class="a">Stainless steel (SS) and fibre (Touflex) mesh in various grades.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">What is the warranty? <i class="fas fa-chevron-down"></i></div><div class="a">SS Mesh & Pleated: 1-year. Aluminium Frame: 5-year against defects.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Do you serve outside Mysore? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, we serve Mysore, Mandya, Chamrajanagar, Gundlupet, H.D. Kote, Kollegala and nearby.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">How do I get an estimate? <i class="fas fa-chevron-down"></i></div><div class="a">Use our online estimate form, AI price checker, or contact us directly.</div></div>
-                <div class="faq-item"><div class="q" onclick="toggleFaq(this)">Can I send a photo on WhatsApp? <i class="fas fa-chevron-down"></i></div><div class="a">Yes, send photos to our WhatsApp number for guidance and a preliminary estimate.</div></div>
+            <div id="faqContainer" aria-label="Frequently asked questions">
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Best net for sliding doors? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Sliding mosquito nets or aluminium frame nets are ideal for sliding doors.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Best net for windows? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Velcro, aluminium frame, and pleated nets all work well for windows.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Velcro vs Aluminium Frame? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Velcro is adhesive-based and flexible. Aluminium frames are permanent and durable.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Are Pleated Nets good for large doors? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Yes, pleated nets are designed for large openings and fold away neatly.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Do you provide measurement? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Yes, professional on-site measurement. Free within Mysore.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Do you provide installation? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Yes, professional installation for all our mosquito net systems.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">How long does installation take? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Typically 1-3 hours depending on the number of windows/doors.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">What mesh options are available? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Stainless steel (SS) and fibre (Touflex) mesh in various grades.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">What is the warranty? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">SS Mesh & Pleated: 1-year. Aluminium Frame: 5-year against defects.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Do you serve outside Mysore? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Yes, we serve Mysore, Mandya, Chamrajanagar, Gundlupet, H.D. Kote, Kollegala and nearby.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">How do I get an estimate? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Use our online estimate form, AI price checker, or contact us directly.</div></div>
+                <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Can I send a photo on WhatsApp? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Yes, send photos to our WhatsApp number for guidance and a preliminary estimate.</div></div>
             </div>
     
             <!-- ===== CUSTOMER ZONE ===== -->
             <div class="account-card customer-card">
-                <div class="label"><i class="fas fa-user-circle"></i> Already a Customer?</div>
+                <div class="label"><i class="fas fa-user-circle" aria-hidden="true"></i> Already a Customer?</div>
                 <div class="actions">
-                    <a href="customer/customer-login.html" class="btn-blue"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    <a href="customer/customer-registration.html" class="btn-outline"><i class="fas fa-user-plus"></i> Create Account</a>
-                    <a href="track-order.html" class="btn-outline"><i class="fas fa-box"></i> Track Order</a>
-                    <a href="estimate.html" class="btn-outline"><i class="fas fa-file-invoice"></i> View Estimates</a>
+                    <a href="customer/customer-login.html" class="btn-blue"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</a>
+                    <a href="customer/customer-registration.html" class="btn-outline"><i class="fas fa-user-plus" aria-hidden="true"></i> Create Account</a>
+                    <a href="track-order.html" class="btn-outline"><i class="fas fa-box" aria-hidden="true"></i> Track Order</a>
+                    <a href="estimate.html" class="btn-outline"><i class="fas fa-file-invoice" aria-hidden="true"></i> View Estimates</a>
                 </div>
             </div>
 
             <!-- ===== DEALER NETWORK ===== -->
             <div class="account-card dealer-card">
-                <div class="label"><i class="fas fa-handshake"></i> Join Raj Marketing Dealer Network</div>
+                <div class="label"><i class="fas fa-handshake" aria-hidden="true"></i> Join Raj Marketing Dealer Network</div>
                 <div class="actions">
-                    <a href="dealer/dealer-registration.html" class="btn-gold"><i class="fas fa-handshake"></i> Become a Dealer</a>
-                    <a href="dealer/dealer-login.html" class="btn-outline"><i class="fas fa-sign-in-alt"></i> Dealer Login</a>
+                    <a href="dealer/dealer-registration.html" class="btn-gold"><i class="fas fa-handshake" aria-hidden="true"></i> Become a Dealer</a>
+                    <a href="dealer/dealer-login.html" class="btn-outline"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Dealer Login</a>
                 </div>
             </div>
 
             <!-- ===== FINAL CTA ===== -->
-            <section class="estimate-cta" style="background:var(--royal-blue);">
-                <h2>Ready to Protect Your Home?</h2>
+            <section class="estimate-cta" style="background:var(--royal-blue);" aria-labelledby="final-cta-title">
+                <h2 id="final-cta-title">Ready to Protect Your Home?</h2>
                 <p>Get a free estimate and professional mosquito net solution today.</p>
                 <div class="actions">
                     <a href="estimate.html" class="btn-white" style="color:var(--royal-blue);">Get Free Estimate</a>
@@ -1080,23 +1118,23 @@
             <!-- ===== CONTACT ===== -->
             <div class="section-title"><h2>Contact Raj Marketing Mysore</h2></div>
             <div class="contact-card">
-                <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                <div class="icon"><i class="fas fa-phone-alt" aria-hidden="true"></i></div>
                 <div class="info">
                     <div class="label">Phone / WhatsApp</div>
                     <div class="number">9483037385</div>
                 </div>
                 <div class="actions">
-                    <a href="tel:9483037385" class="call"><i class="fas fa-phone"></i> Call</a>
-                    <a href="https://wa.me/919483037385" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="tel:9483037385" class="call" aria-label="Call Raj Marketing"><i class="fas fa-phone" aria-hidden="true"></i> Call</a>
+                    <a href="https://wa.me/919483037385" target="_blank" class="wa" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
                 </div>
             </div>
             <div style="background:var(--light-grey);border-radius:var(--radius);padding:14px;margin:14px 0;border:1px solid #e5e7eb;">
-                <p style="font-size:12px;color:var(--muted-text);"><i class="fas fa-map-marker-alt" style="color:var(--royal-blue);"></i> <strong>Raj Marketing Mysore</strong><br>
+                <p style="font-size:12px;color:var(--muted-text);"><i class="fas fa-map-marker-alt" style="color:var(--royal-blue);" aria-hidden="true"></i> <strong>Raj Marketing Mysore</strong><br>
                 <span>#45, Devraj Urs Road, Mysore – 570001</span><br>
                 <span>info@rajmarketingmysore.info</span><br>
                 <span>Mon–Sat: 9:30 AM – 6:30 PM | Sun: Closed</span><br>
                 GST: 29CHKPR1962H1ZT</p>
-                <a href="https://maps.google.com" target="_blank" style="color:var(--royal-blue);font-size:12px;">View on Google Maps →</a>
+                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" style="color:var(--royal-blue);font-size:12px;">View on Google Maps →</a>
             </div>
 
         </div>
@@ -1109,9 +1147,9 @@
                 <div class="footer-col">
                     <div class="brand">Raj <span>Marketing</span> Mysore</div>
                     <p>Quality mosquito nets since 2016.</p>
-                    <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
-                    <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
-                    <div class="contact-info"><i class="fas fa-map-marker-alt"></i> #45, Devraj Urs Road, Mysore</div>
+                    <div class="contact-info"><i class="fas fa-phone" aria-hidden="true"></i> 9483037385</div>
+                    <div class="contact-info"><i class="fas fa-envelope" aria-hidden="true"></i> info@rajmarketingmysore.info</div>
+                    <div class="contact-info"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> #45, Devraj Urs Road, Mysore</div>
                 </div>
                 <div class="footer-col">
                     <h4>Products</h4>
@@ -1152,12 +1190,12 @@
     </footer>
 
     <!-- ===== BOTTOM NAV ===== -->
-    <nav class="bottom-nav">
-        <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
-        <a href="products.html"><i class="fas fa-th-large"></i> Products</a>
-        <a href="estimate.html"><i class="fas fa-file-invoice"></i> Estimate</a>
-        <a href="track-order.html"><i class="fas fa-box"></i> Orders</a>
-        <a href="customer/customer-login.html"><i class="fas fa-user"></i> Account</a>
+    <nav class="bottom-nav" aria-label="Bottom navigation">
+        <a href="index.html" class="active"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+        <a href="products.html"><i class="fas fa-th-large" aria-hidden="true"></i> Products</a>
+        <a href="estimate.html"><i class="fas fa-file-invoice" aria-hidden="true"></i> Estimate</a>
+        <a href="track-order.html"><i class="fas fa-box" aria-hidden="true"></i> Orders</a>
+        <a href="customer/customer-login.html"><i class="fas fa-user" aria-hidden="true"></i> Account</a>
     </nav>
 
     <!-- ============================================================
@@ -1197,7 +1235,7 @@
         { id: 'single-door-pleated', name: 'Single Door Pleated', category: 'Pleated', price: '₹900', image: 'images/single-door-pleated.jpg', badge: 'pleated', online: false },
         { id: 'security-screen-single-door', name: 'Security Screen – Single Door', category: 'Security', price: '₹990 + GST', image: 'images/security-screen-single.jpg', badge: 'security', online: false },
         { id: 'security-screen-double-door', name: 'Security Screen – Double Door', category: 'Security', price: '₹1,150 + GST', image: 'images/security-screen-double.jpg', badge: 'security', online: false },
-               { id: 'aluminium-frame-colour-mesh', name: 'Aluminium Frame + Colour Mesh', category: 'Aluminium', price: '₹420', image: 'images/aluminium-colour-mesh.jpg', badge: 'frame', online: false },
+        { id: 'aluminium-frame-colour-mesh', name: 'Aluminium Frame + Colour Mesh', category: 'Aluminium', price: '₹420', image: 'images/aluminium-colour-mesh.jpg', badge: 'frame', online: false },
         { id: 'woodgrain-ss-304-mesh', name: 'Woodgrain + SS 304 Mesh', category: 'Aluminium', price: '₹580', image: 'images/woodgrain-ss304.jpg', badge: 'premium', online: false },
         { id: 'ss-black-mesh-0.18mm', name: 'SS Black Mesh 0.18mm', category: 'Mesh', price: '₹36', image: 'images/ss-black-mesh.jpg', badge: 'mesh', online: false },
         { id: 'ss-black-mesh', name: 'SS Black Mesh', category: 'Mesh', price: '₹38', image: 'images/ss-black-mesh-standard.jpg', badge: 'mesh', online: false },
@@ -1230,7 +1268,7 @@
         const slide = document.createElement('div');
         slide.className = 'slider-slide';
         slide.innerHTML = `
-            <img src="images/slider/slider-${String(i).padStart(2, '0')}.jpg" alt="Slide ${i}" onerror="this.style.display='none'">
+            <img src="images/slider/slider-${String(i).padStart(2, '0')}.jpg" alt="Slide ${i}" loading="lazy" onerror="this.style.display='none'">
             <div class="overlay"></div>
             <div class="slide-content">
                 <span class="main-text">${slideTexts[i-1].main}</span>
@@ -1259,7 +1297,7 @@
         const scroll = document.getElementById('productScroll');
         const display = PRODUCTS.slice(0, 6);
         scroll.innerHTML = display.map(p => `
-            <a href="product-detail.html?id=${p.id}" class="product-card">
+            <a href="product-detail.html?id=${p.id}" class="product-card" role="listitem">
                 <div class="img">
                     <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-box\\' style=\\'font-size:32px;color:#9ca3af;\\'></i>'" />
                 </div>
@@ -1288,13 +1326,13 @@
             p.price.toLowerCase().includes(term)
         );
         if (results.length === 0) {
-            container.innerHTML = `<div style="padding:16px;text-align:center;color:var(--muted-text);font-size:13px;"><i class="fas fa-search" style="display:block;font-size:24px;margin-bottom:4px;"></i>No products found for "<strong>${query}</strong>"</div>`;
+            container.innerHTML = `<div style="padding:16px;text-align:center;color:var(--muted-text);font-size:13px;"><i class="fas fa-search" style="display:block;font-size:24px;margin-bottom:4px;" aria-hidden="true"></i>No products found for "<strong>${query}</strong>"</div>`;
             container.classList.add('active');
             return;
         }
         container.innerHTML = results.map(p => `
-            <a href="product-detail.html?id=${p.id}" class="result-item">
-                <span class="icon"><i class="fas fa-box"></i></span>
+            <a href="product-detail.html?id=${p.id}" class="result-item" role="option">
+                <span class="icon"><i class="fas fa-box" aria-hidden="true"></i></span>
                 <div class="info"><div class="name">${p.name}</div><div class="category">${p.category} · ${p.price}</div></div>
             </a>
         `).join('');
@@ -1318,11 +1356,13 @@
         hamburgerBtn.addEventListener('click', function() {
             mobileMenu.classList.toggle('open');
             this.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            this.setAttribute('aria-label', mobileMenu.classList.contains('open') ? 'Close menu' : 'Open menu');
         });
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('open');
                 hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                hamburgerBtn.setAttribute('aria-label', 'Open menu');
             });
         });
     }
@@ -1334,10 +1374,14 @@
         const answer = el.nextElementSibling;
         const isOpen = answer.classList.contains('open');
         document.querySelectorAll('.faq-item .a').forEach(a => a.classList.remove('open'));
-        document.querySelectorAll('.faq-item .q').forEach(q => q.classList.remove('open'));
+        document.querySelectorAll('.faq-item .q').forEach(q => {
+            q.classList.remove('open');
+            q.setAttribute('aria-expanded', 'false');
+        });
         if (!isOpen) {
             answer.classList.add('open');
             el.classList.add('open');
+            el.setAttribute('aria-expanded', 'true');
         }
     }
 
@@ -1542,6 +1586,9 @@
             return `<span class="${cls}"></span>`;
         }).join('');
 
+        // Update progress bar aria values
+        progress.setAttribute('aria-valuenow', Math.round((currentFilteredIndex / total) * 100));
+
         counter.textContent = `Step ${currentFilteredIndex + 1} of ${total}`;
 
         const step = filteredSteps[currentFilteredIndex];
@@ -1551,7 +1598,7 @@
         }
 
         let html = `<div class="ai-step active">`;
-        html += `<div class="ai-chat"><div class="ai-name"><i class="fas fa-sparkles"></i> Raj AI</div><div class="ai-msg">${step.question}`;
+        html += `<div class="ai-chat"><div class="ai-name"><i class="fas fa-sparkles" aria-hidden="true"></i> Raj AI</div><div class="ai-msg">${step.question}`;
         if (step.desc) html += `<br><span style="font-size:12px;color:var(--muted-text);">${step.desc}</span>`;
         html += `</div></div>`;
 
@@ -1559,7 +1606,7 @@
             html += `<div class="ai-options">`;
             step.options.forEach(opt => {
                 const selected = aiState.answers[step.id] === opt.value ? 'selected' : '';
-                html += `<div class="opt-card ${selected}" onclick="selectOption('${step.id}', '${opt.value}')">
+                html += `<div class="opt-card ${selected}" onclick="selectOption('${step.id}', '${opt.value}')" role="button" tabindex="0">
                     <span class="icon">${opt.label.split(' ')[0]}</span>
                     ${opt.label}
                 </div>`;
@@ -1570,19 +1617,19 @@
         if (step.type === 'size') {
             html += `
                 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0;">
-                    <div><label style="font-size:11px;color:var(--muted-text);">Width (ft)</label>
+                    <div><label style="font-size:11px;color:var(--muted-text);" for="sizeWidth">Width (ft)</label>
                     <select class="ai-input" id="sizeWidth" onchange="updateCurrentSize()" style="padding:8px 10px;font-size:12px;">
                         ${[2,3,4,5,6].map(w => `<option value="${w}" ${w===aiState.currentSize.width?'selected':''}>${w} ft</option>`).join('')}
                     </select></div>
-                    <div><label style="font-size:11px;color:var(--muted-text);">Height (ft)</label>
+                    <div><label style="font-size:11px;color:var(--muted-text);" for="sizeHeight">Height (ft)</label>
                     <select class="ai-input" id="sizeHeight" onchange="updateCurrentSize()" style="padding:8px 10px;font-size:12px;">
                         ${[2,3,4,5,6].map(h => `<option value="${h}" ${h===aiState.currentSize.height?'selected':''}>${h} ft</option>`).join('')}
                     </select></div>
                     <div><label style="font-size:11px;color:var(--muted-text);">Qty</label>
                     <div class="ai-qty" style="margin:0;">
-                        <button onclick="adjustQty(-1)" style="width:32px;height:32px;font-size:16px;">−</button>
+                        <button onclick="adjustQty(-1)" aria-label="Decrease quantity" style="width:32px;height:32px;font-size:16px;">−</button>
                         <span class="qty-val" id="qtyDisplay" style="font-size:18px;">${aiState.currentSize.quantity}</span>
-                        <button onclick="adjustQty(1)" style="width:32px;height:32px;font-size:16px;">+</button>
+                        <button onclick="adjustQty(1)" aria-label="Increase quantity" style="width:32px;height:32px;font-size:16px;">+</button>
                     </div></div>
                 </div>
                 <button class="btn-primary" onclick="addSize()" style="width:100%;padding:10px;font-size:13px;">Add to List ➕</button>
@@ -1597,9 +1644,9 @@
             html += `
                 <div style="text-align:center;padding:8px 0;">
                     <div class="ai-qty">
-                        <button onclick="adjustQty(-1)">−</button>
+                        <button onclick="adjustQty(-1)" aria-label="Decrease quantity">−</button>
                         <span class="qty-val" id="qtyDisplay">${aiState.currentSize.quantity}</span>
-                        <button onclick="adjustQty(1)">+</button>
+                        <button onclick="adjustQty(1)" aria-label="Increase quantity">+</button>
                     </div>
                     <button class="btn-primary" onclick="confirmQuantity()" style="margin-top:8px;padding:8px 24px;font-size:13px;">Confirm ✅</button>
                 </div>
@@ -1609,7 +1656,7 @@
         if (step.type === 'addMore') {
             html += `<div class="ai-options">`;
             step.options.forEach(opt => {
-                html += `<div class="opt-card" onclick="selectOption('${step.id}', '${opt.value}')">
+                html += `<div class="opt-card" onclick="selectOption('${step.id}', '${opt.value}')" role="button" tabindex="0">
                     <span style="font-size:18px;">${opt.label.split(' ')[0]}</span>
                     ${opt.label}
                 </div>`;
@@ -1644,9 +1691,9 @@
         if (step.type === 'details') {
             html += `
                 <div style="padding:8px 0;">
-                    <input class="ai-input" id="custName" placeholder="Your Name" style="padding:8px 12px;font-size:13px;" />
-                    <input class="ai-input" id="custMobile" placeholder="Mobile Number" type="tel" style="padding:8px 12px;font-size:13px;" />
-                    <input class="ai-input" id="custLocation" placeholder="Location" style="padding:8px 12px;font-size:13px;" />
+                    <input class="ai-input" id="custName" placeholder="Your Name" style="padding:8px 12px;font-size:13px;" aria-label="Your name" />
+                    <input class="ai-input" id="custMobile" placeholder="Mobile Number" type="tel" style="padding:8px 12px;font-size:13px;" aria-label="Mobile number" />
+                    <input class="ai-input" id="custLocation" placeholder="Location" style="padding:8px 12px;font-size:13px;" aria-label="Your location" />
                     <button class="btn-primary" onclick="submitDetails()" style="width:100%;padding:10px;font-size:13px;">Submit & Get Estimate →</button>
                 </div>
             `;
@@ -1679,8 +1726,8 @@
                     <p style="font-size:13px;color:var(--muted-text);margin-bottom:10px;">🎉 Thank you! Our team will verify measurements and provide final quotation.</p>
                 </div>
                 <div class="ai-actions" style="justify-content:center;">
-                    <a href="appointment.html" class="btn-primary" style="font-size:12px;padding:8px 18px;"><i class="fas fa-calendar-check"></i> Book Site Visit</a>
-                    <a href="https://wa.me/919483037385?text=${encodeURIComponent('Hello Raj Marketing Mysore,%0A%0ARequirement Summary:%0A' + (aiState.answers.purpose || '') + '%0ANet: ' + (aiState.answers.systemType || '') + '%0ASizes: ' + aiState.sizes.map(s => s.width + '×' + s.height + 'ft – ' + s.quantity + ' Nos').join('%0A') + '%0AEstimate: ' + est + '%0A%0APlease arrange a site visit.')}" target="_blank" class="btn-wa" style="font-size:12px;padding:8px 18px;"><i class="fab fa-whatsapp"></i> Send on WhatsApp</a>
+                    <a href="appointment.html" class="btn-primary" style="font-size:12px;padding:8px 18px;"><i class="fas fa-calendar-check" aria-hidden="true"></i> Book Site Visit</a>
+                    <a href="https://wa.me/919483037385?text=${encodeURIComponent('Hello Raj Marketing Mysore,%0A%0ARequirement Summary:%0A' + (aiState.answers.purpose || '') + '%0ANet: ' + (aiState.answers.systemType || '') + '%0ASizes: ' + aiState.sizes.map(s => s.width + '×' + s.height + 'ft – ' + s.quantity + ' Nos').join('%0A') + '%0AEstimate: ' + est + '%0A%0APlease arrange a site visit.')}" target="_blank" class="btn-wa" style="font-size:12px;padding:8px 18px;"><i class="fab fa-whatsapp" aria-hidden="true"></i> Send on WhatsApp</a>
                 </div>
                 <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;flex-wrap:wrap;">
                     <button class="btn-secondary" onclick="goToStepByIndex(${aiState.currentStep - 1})" style="font-size:11px;padding:4px 14px;">✏️ Modify</button>
@@ -1692,20 +1739,20 @@
 
         if (step.type !== 'estimate' && step.type !== 'details' && step.type !== 'final' && step.type !== 'size' && step.type !== 'quantity' && step.type !== 'addMore') {
             html += `<div class="ai-actions">
-                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back</button>` : ''}
                 <button class="btn-next" onclick="nextStep()" ${!aiState.answers[step.id] ? 'disabled' : ''}>Continue →</button>
             </div>`;
         }
 
         if (step.type === 'size' || step.type === 'quantity') {
             html += `<div class="ai-actions">
-                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back</button>` : ''}
             </div>`;
         }
 
         if (step.type === 'addMore') {
             html += `<div class="ai-actions">
-                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left"></i> Back</button>` : ''}
+                ${currentFilteredIndex > 0 ? `<button class="btn-back" onclick="goToStepByIndex(${aiState.currentStep - 1})"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back</button>` : ''}
             </div>`;
         }
 
@@ -1738,15 +1785,12 @@
         // Handle addMore step specially
         if (stepId === 'sizeAddMore') {
             if (value === 'no') {
-                // Move to next step after a short delay
                 setTimeout(() => {
                     aiState.currentStep++;
                     renderStep();
                 }, 400);
             } else {
-                // Reset size and go back to size step
                 aiState.currentSize = { width: 2, height: 4, quantity: 1 };
-                // Find the size step index
                 let sizeStepIndex = -1;
                 for (let i = 0; i < AI_STEPS.length; i++) {
                     if (AI_STEPS[i].id === 'sizeSelect') {
@@ -1803,7 +1847,6 @@
             ).join('');
         }
 
-        // Move to addMore step or next step
         const addMoreStepIndex = AI_STEPS.findIndex(s => s.id === 'sizeAddMore');
         if (addMoreStepIndex !== -1) {
             aiState.currentStep = addMoreStepIndex;
@@ -1851,7 +1894,6 @@
         aiState.answers.customerMobile = mobile;
         aiState.answers.customerLocation = location;
         
-        // Move to final step
         const finalStepIndex = AI_STEPS.findIndex(s => s.id === 'final');
         if (finalStepIndex !== -1) {
             aiState.currentStep = finalStepIndex;
@@ -1885,12 +1927,12 @@
         
         Object.keys(labels).forEach(key => {
             if (aiState.answers[key]) {
-                html += `<div class="item"><i class="fas fa-check-circle"></i> ${labels[key]}: ${aiState.answers[key]}</div>`;
+                html += `<div class="item"><i class="fas fa-check-circle" aria-hidden="true"></i> ${labels[key]}: ${aiState.answers[key]}</div>`;
             }
         });
         
         aiState.sizes.forEach(s => {
-            html += `<div class="item"><i class="fas fa-ruler"></i> ${s.width}×${s.height}ft — ${s.quantity} Nos</div>`;
+            html += `<div class="item"><i class="fas fa-ruler" aria-hidden="true"></i> ${s.width}×${s.height}ft — ${s.quantity} Nos</div>`;
         });
         
         items.innerHTML = html || '<div class="item">No selections yet</div>';
@@ -1915,6 +1957,81 @@
 
     console.log('✅ Raj Marketing homepage loaded with', PRODUCTS.length, 'products');
     console.log('✅ Raj AI Consultation ready');
+    console.log('✅ SEO and Testing improvements applied');
+    </script>
+
+    <!-- ============================================================
+         STRUCTURED DATA (JSON-LD)
+    ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Raj Marketing Mysore",
+        "image": "https://rajmarketingmysore.info/images/logo.png",
+        "url": "https://rajmarketingmysore.info",
+        "telephone": "+919483037385",
+        "email": "info@rajmarketingmysore.info",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "#45, Devraj Urs Road",
+            "addressLocality": "Mysore",
+            "addressRegion": "Karnataka",
+            "postalCode": "570001",
+            "addressCountry": "IN"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 12.2958,
+            "longitude": 76.6394
+        },
+        "openingHours": "Mo-Sa 09:30-18:30",
+        "priceRange": "₹500-₹5000",
+        "description": "Premium mosquito nets for windows and doors in Mysore. Custom measurement and professional installation.",
+        "sameAs": [
+            "https://wa.me/919483037385",
+            "https://g.page/r/Cd4VqO0Z0WjtEAI/review",
+            "https://rajmarketingmysore.info"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Mosquito Nets Products",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Velcro Mosquito Nets",
+                        "description": "Adhesive-based flexible mosquito nets for windows"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Aluminium Frame Mosquito Nets",
+                        "description": "Permanent and durable frame mosquito nets"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Pleated Mosquito Nets",
+                        "description": "Foldable mosquito nets for large openings"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Stainless Steel Mesh",
+                        "description": "Premium stainless steel mosquito mesh"
+                    }
+                }
+            ]
+        }
+    }
     </script>
 
 </body>
