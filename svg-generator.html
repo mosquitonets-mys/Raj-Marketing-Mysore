@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVG Icon Generator - Raj Marketing</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #0f1b33; margin-bottom: 20px; }
+        h1 span { color: #1a56db; }
+        .subtitle { color: #6b7280; margin-bottom: 30px; }
+        
+        .controls { background: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .controls label { display: inline-block; margin-right: 15px; font-weight: 600; color: #0f1b33; }
+        .controls input, .controls select { padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; margin-right: 15px; }
+        .controls input:focus, .controls select:focus { border-color: #1a56db; outline: none; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+        .icon-card { background: white; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e5e7eb; transition: all 0.3s; }
+        .icon-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-color: #1a56db; }
+        .icon-card svg { width: 80px; height: 80px; margin-bottom: 10px; }
+        .icon-card .name { font-size: 12px; color: #6b7280; margin-bottom: 8px; }
+        .icon-card .download-btn { background: #1a56db; color: white; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: all 0.3s; }
+        .icon-card .download-btn:hover { background: #0f1b33; transform: scale(1.05); }
+        .icon-card .copy-btn { background: #f3f4f6; color: #0f1b33; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; margin-left: 4px; transition: all 0.3s; }
+        .icon-card .copy-btn:hover { background: #e5e7eb; }
+        
+        .bulk-download { background: white; border-radius: 12px; padding: 20px; margin-top: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .bulk-download h3 { color: #0f1b33; margin-bottom: 10px; }
+        .bulk-download .btn-primary { background: #1a56db; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s; }
+        .bulk-download .btn-primary:hover { background: #0f1b33; transform: scale(1.02); }
+        
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; display: none; }
+        .toast.show { display: block; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Raj <span>Marketing</span> Mysore</h1>
+        <p class="subtitle">SVG Icon Generator • Click download to save each icon</p>
+        
+        <div class="controls">
+            <label>Color:</label>
+            <input type="color" id="iconColor" value="#1a56db">
+            <label>Size:</label>
+            <select id="iconSize">
+                <option value="64">Small (64px)</option>
+                <option value="80" selected>Medium (80px)</option>
+                <option value="128">Large (128px)</option>
+            </select>
+            <button onclick="updateAllIcons()" style="background:#0f1b33;color:white;border:none;padding:8px 20px;border-radius:8px;cursor:pointer;">Update All</button>
+        </div>
+        
+        <div class="grid" id="iconGrid"></div>
+        
+        <div class="bulk-download">
+            <h3>📦 Bulk Download</h3>
+            <p style="color:#6b7280;margin-bottom:12px;">Download all icons as a ZIP file (browser will handle this)</p>
+            <button class="btn-primary" onclick="downloadAllIcons()">📥 Download All Icons (ZIP)</button>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================
+        // ICON DEFINITIONS
+        // ============================================
+        const ICONS = [
+            { id: 'shield', name: 'Shield', path: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4' },
+            { id: 'star', name: 'Star', path: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' },
+            { id: 'check', name: 'Check', path: 'M22 11.08V12a10 10 0 1 1-5.93-9.14 M22 4L12 14.01l-3-3' },
+            { id: 'phone', name: 'Phone', path: 'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z' },
+            { id: 'envelope', name: 'Envelope', path: 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6' },
+            { id: 'map-pin', name: 'Map Pin', path: 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z' },
+            { id: 'whatsapp', name: 'WhatsApp', path: 'M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z' },
+            { id: 'home', name: 'Home', path: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+            { id: 'user', name: 'User', path: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' },
+            { id: 'settings', name: 'Settings', path: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9z' }
+        ];
+
+        // ============================================
+        // RENDER ICONS
+        // ============================================
+        const grid = document.getElementById('iconGrid');
+
+        function renderIcons(color, size) {
+            grid.innerHTML = '';
+            ICONS.forEach(icon => {
+                const card = document.createElement('div');
+                card.className = 'icon-card';
+                
+                const svg = createSVG(icon.path, color, size);
+                
+                const name = document.createElement('div');
+                name.className = 'name';
+                name.textContent = icon.name;
+                
+                const btnGroup = document.createElement('div');
+                
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'download-btn';
+                downloadBtn.textContent = '📥 Download';
+                downloadBtn.onclick = () => downloadSVG(svg, icon.id);
+                
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn';
+                copyBtn.textContent = '📋 Copy';
+                copyBtn.onclick = () => copySVG(svg, icon.id);
+                
+                btnGroup.appendChild(downloadBtn);
+                btnGroup.appendChild(copyBtn);
+                
+                card.appendChild(svg);
+                card.appendChild(name);
+                card.appendChild(btnGroup);
+                grid.appendChild(card);
+            });
+        }
+
+        function createSVG(path, color = '#1a56db', size = 80) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('width', size);
+            svg.setAttribute('height', size);
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', color);
+            svg.setAttribute('stroke-width', '2');
+            svg.setAttribute('stroke-linecap', 'round');
+            svg.setAttribute('stroke-linejoin', 'round');
+            
+            const paths = path.split(' ');
+            paths.forEach(p => {
+                if (p.trim()) {
+                    const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    pathEl.setAttribute('d', p);
+                    svg.appendChild(pathEl);
+                }
+            });
+            
+            return svg;
+        }
+
+        function updateAllIcons() {
+            const color = document.getElementById('iconColor').value;
+            const size = parseInt(document.getElementById('iconSize').value);
+            renderIcons(color, size);
+            showToast('🎨 Icons updated!');
+        }
+
+        // ============================================
+        // DOWNLOAD FUNCTIONS
+        // ============================================
+        function downloadSVG(svgElement, filename) {
+            const source = new XMLSerializer().serializeToString(svgElement);
+            const blob = new Blob([source], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}.svg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`✅ Downloaded ${filename}.svg`);
+        }
+
+        function copySVG(svgElement, filename) {
+            const source = new XMLSerializer().serializeToString(svgElement);
+            navigator.clipboard.writeText(source).then(() => {
+                showToast(`📋 Copied ${filename}.svg to clipboard!`);
+            }).catch(() => {
+                showToast('❌ Failed to copy. Try downloading instead.');
+            });
+        }
+
+        function downloadAllIcons() {
+            showToast('📦 Preparing download...');
+            
+            // Create a zip file with all icons
+            const zip = new JSZip();
+            
+            const color = document.getElementById('iconColor').value;
+            const size = parseInt(document.getElementById('iconSize').value);
+            
+            ICONS.forEach(icon => {
+                const svg = createSVG(icon.path, color, size);
+                const source = new XMLSerializer().serializeToString(svg);
+                zip.file(`${icon.id}.svg`, source);
+            });
+            
+            zip.generateAsync({ type: 'blob' }).then(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'raj-marketing-icons.zip';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('✅ All icons downloaded!');
+            });
+        }
+
+        // ============================================
+        // TOAST NOTIFICATION
+        // ============================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ============================================
+        // LOAD JSZIP (for bulk download)
+        // ============================================
+        function loadJSZip() {
+            if (typeof JSZip === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+                document.head.appendChild(script);
+            }
+        }
+
+        // ============================================
+        // INIT
+        // ============================================
+        renderIcons('#1a56db', 80);
+        loadJSZip();
+    </script>
+</body>
+</html>
