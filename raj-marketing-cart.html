@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raj Marketing Mysore - Cart</title>
+    <style>
+        /* --- Global Reset & Variables --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --primary-red: #d32f2f;
+            --primary-green: #2e7d32;
+            --light-green: #e8f5e9;
+            --bg-color: #f4f4f4;
+            --card-bg: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-muted: #757575;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding-bottom: 80px; /* Space for sticky footer */
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--card-bg);
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* --- Main Container --- */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* --- General Card Style --- */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- Address Section --- */
+        .address-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+
+        .address-icon {
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+        .address-details strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .address-details span {
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* --- Coupon Section --- */
+        .coupon-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: background 0.2s;
+        }
+
+        .coupon-section:hover {
+            background-color: #f9f9f9;
+        }
+
+        .coupon-icon {
+            font-size: 1.5rem;
+        }
+
+        .coupon-section .arrow {
+            margin-left: auto;
+            color: var(--text-muted);
+        }
+
+        /* --- Rewards Section --- */
+        .rewards-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .rewards-header span:last-child {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .rewards-points {
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            background: var(--light-green);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        /* --- Product List --- */
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .product-info h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .product-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .product-info .saving-tag {
+            font-size: 0.8rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .product-price-action {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .product-price .strike {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-right: 6px;
+            font-weight: 400;
+        }
+
+        /* Quantity Selector */
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            padding: 4px 8px;
+        }
+
+        .qty-selector button {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        .qty-selector span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 16px;
+            text-align: center;
+        }
+
+        .add-more-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            margin-top: 12px;
+            background: #f9f9f9;
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-more-btn:hover {
+            background: #f0f0f0;
+        }
+
+        /* --- Bill Details --- */
+        .bill-title {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            position: relative;
+            margin: 4px 0 12px;
+        }
+
+        .bill-title::before,
+        .bill-title::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 35%;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .bill-title::before { left: 0; }
+        .bill-title::after { right: 0; }
+
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .bill-row.discount {
+            color: var(--primary-green);
+        }
+
+        .bill-row.discount .amount {
+            font-weight: 700;
+        }
+
+        .bill-row .sub-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-left: 12px;
+        }
+
+        .bill-row.total {
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+
+        .bill-row.total .strike-total {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-right: 8px;
+            font-weight: 400;
+        }
+
+        .free-delivery-tag {
+            background: #e8f5e9;
+            color: var(--primary-green);
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* --- Savings Banner --- */
+        .savings-banner {
+            background: linear-gradient(90deg, #fff8e1, #ffffff);
+            border-left: 4px solid #fbc02d;
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .savings-banner i {
+            font-size: 1.2rem;
+        }
+
+        /* --- Sticky Footer --- */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 20;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .payment-method {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .payment-method strong {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pay-btn {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .pay-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        .pay-btn .old-price {
+            font-size: 0.85rem;
+            text-decoration: line-through;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        /* --- Toast Notification --- */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <button class="back-btn">←</button>
+        <h1>Raj Marketing Mysore</h1>
+        <span style="font-size: 0.9rem; color: var(--text-muted);">Offers</span>
+    </header>
+
+    <div class="container">
+        <!-- Address Section -->
+        <div class="card address-section">
+            <div class="address-icon">📍</div>
+            <div class="address-details">
+                <strong>Deliver to Home</strong>
+                <span>123, 1st Main Road, Vijayanagar, Mysore, Karnataka 570017</span>
+            </div>
+        </div>
+
+        <!-- Coupon Section -->
+        <div class="card coupon-section" onclick="applyCoupon()">
+            <div class="coupon-icon" style="color: var(--primary-green);">%</div>
+            <span>Apply Coupon</span>
+            <span class="arrow">›</span>
+        </div>
+
+        <!-- Rewards Section -->
+        <div class="card">
+            <div class="rewards-header">
+                <span>Raj Rewards ℹ️</span>
+                <span>Your Points: 100</span>
+            </div>
+            <div class="rewards-points">
+                Congrats! You will get 100 Reward Points on this order
+            </div>
+        </div>
+
+        <!-- Product List -->
+        <div class="card">
+            <div class="product-list" id="productList">
+                <!-- Products will be injected by JavaScript -->
+            </div>
+            <button class="add-more-btn" onclick="addMoreItems()">+ Add more items</button>
+        </div>
+
+        <!-- Bill Details -->
+        <div class="card">
+            <div class="bill-title">Bill Details</div>
+            
+            <div class="bill-row">
+                <span>Item(s) Total</span>
+                <span id="itemTotal">₹0</span>
+            </div>
+            
+            <div class="bill-row discount" id="discountRow">
+                <span>Discount Applied</span>
+                <span class="amount" id="discountAmount">-₹0</span>
+            </div>
+            <div class="bill-row sub-text" id="discountDetailRow" style="display: none;">
+                <span>Menu @ Raj Marketing</span>
+                <span id="discountDetailAmount">-₹0</span>
+            </div>
+
+            <div class="bill-row">
+                <span>Delivery Charges</span>
+                <span><span style="text-decoration: line-through; color: var(--text-muted); margin-right: 5px;">₹45</span> <span class="free-delivery-tag">FREE</span></span>
+            </div>
+
+            <div class="bill-row">
+                <span>Taxes & Charges</span>
+                <span id="taxes">₹0</span>
+            </div>
+
+            <div class="bill-row total">
+                <span>Total</span>
+                <span>
+                    <span class="strike-total" id="totalStrike">₹0</span>
+                    <span id="finalTotal">₹0</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Savings Banner -->
+        <div class="savings-banner">
+            <span>🎉</span>
+            <span>You saved <strong id="savingsTotal">₹0</strong> (FREE Delivery) + earned 100 Reward Points</span>
+        </div>
+    </div>
+
+    <!-- Sticky Footer -->
+    <div class="sticky-footer">
+        <div class="payment-method">
+            <strong>💳 Pay by Any UPI App</strong>
+            <span>UPI_WALLET</span>
+        </div>
+        <button class="pay-btn" onclick="processPayment()">
+            Pay <span id="payBtnAmount">₹0</span> 
+            <span class="old-price" id="payBtnStrike">₹0</span> ›
+        </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Coupon Applied!</div>
+
+    <script>
+        // --- State Data ---
+        // Raj Marketing Mysore product catalog (Adapted from the pizza screenshot)
+        const products = [
+            {
+                id: 1,
+                name: "Raj Premium Marketing Package",
+                description: "Regular | Digital Marketing Bundle",
+                originalPrice: 499,
+                price: 369,
+                qty: 1,
+                saving: 130
+            },
+            {
+                id: 2,
+                name: "Raj Social Media Booster",
+                description: "Regular | Social Media Strategy",
+                originalPrice: 399,
+                price: 319,
+                qty: 1,
+                saving: 80
+            }
+        ];
+
+        // --- DOM Elements ---
+        const productListEl = document.getElementById('productList');
+        const itemTotalEl = document.getElementById('itemTotal');
+        const discountAmountEl = document.getElementById('discountAmount');
+        const discountDetailAmountEl = document.getElementById('discountDetailAmount');
+        const discountRowEl = document.getElementById('discountRow');
+        const discountDetailRowEl = document.getElementById('discountDetailRow');
+        const taxesEl = document.getElementById('taxes');
+        const totalStrikeEl = document.getElementById('totalStrike');
+        const finalTotalEl = document.getElementById('finalTotal');
+        const savingsTotalEl = document.getElementById('savingsTotal');
+        const payBtnAmountEl = document.getElementById('payBtnAmount');
+        const payBtnStrikeEl = document.getElementById('payBtnStrike');
+        const toastEl = document.getElementById('toast');
+
+        // --- Helper Functions ---
+        const formatCurrency = (amount) => `₹${amount}`;
+
+        // --- Render Logic ---
+        function renderCart() {
+            // 1. Render Products
+            productListEl.innerHTML = products.map(product => `
+                <div class="product-item">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <div class="saving-tag">Saving ₹${product.saving} with this Product!</div>
+                    </div>
+                    <div class="product-price-action">
+                        <div class="product-price">
+                            <span class="strike">₹${product.originalPrice}</span>
+                            ₹${product.price}
+                        </div>
+                        <div class="qty-selector">
+                            <button onclick="updateQty(${product.id}, -1)">−</button>
+                            <span>${product.qty}</span>
+                            <button onclick="updateQty(${product.id}, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // 2. Calculate Totals
+            let itemTotal = products.reduce((sum, p) => sum + (p.price * p.qty), 0);
+            let totalDiscount = 0; // In screenshot, discount is applied via Menu @ DCB (₹210)
+            
+            // Simulate a static discount if items are present (Matching the screenshot)
+            if (itemTotal > 0) {
+                totalDiscount = 210; // Flat discount as shown in the screenshot
+                // Prevent negative totals
+                totalDiscount = Math.min(totalDiscount, itemTotal);
+            }
+
+            // Subtotal after discount
+            let subtotal = itemTotal - totalDiscount;
+
+            // Taxes & Charges (Matching screenshot: Taxes ₹35.55 + Packaging ₹23 = ₹58.55)
+            // In a real app, this would be calculated dynamically. 
+            // Here we approximate it as ~6.5% of subtotal to mirror the numbers.
+            let taxesAndCharges = subtotal > 0 ? Math.round(subtotal * 0.0785) : 0; 
+            
+            // Final Total
+            let finalTotal = subtotal + taxesAndCharges;
+
+            // 3. Update DOM
+            itemTotalEl.textContent = formatCurrency(itemTotal);
+            
+            if (totalDiscount > 0) {
+                discountRowEl.style.display = 'flex';
+                discountAmountEl.textContent = `-₹${totalDiscount}`;
+                discountDetailRowEl.style.display = 'flex';
+                discountDetailAmountEl.textContent = `-₹${totalDiscount}`;
+            } else {
+                discountRowEl.style.display = 'none';
+                discountDetailRowEl.style.display = 'none';
+            }
+
+            taxesEl.textContent = formatCurrency(taxesAndCharges);
+            totalStrikeEl.textContent = formatCurrency(itemTotal + taxesAndCharges);
+            finalTotalEl.textContent = formatCurrency(finalTotal);
+            
+            payBtnAmountEl.textContent = formatCurrency(finalTotal);
+            payBtnStrikeEl.textContent = formatCurrency(itemTotal + taxesAndCharges);
+
+            // Update Savings
+            let totalSavings = totalDiscount + 45; // 45 is the FREE delivery saving
+            savingsTotalEl.textContent = formatCurrency(totalSavings);
+        }
+
+        // --- Action Functions ---
+
+        // Update Quantity
+        window.updateQty = (id, change) => {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                product.qty += change;
+                if (product.qty < 1) product.qty = 1; // Prevent going below 1
+                renderCart();
+            }
+        };
+
+        // Add More Items (Placeholder)
+        window.addMoreItems = () => {
+                        // Add a new dummy item to simulate adding to cart
+            const newId = products.length + 1;
+            products.push({
+                id: newId,
+                name: `Raj Business Consulting Service ${newId}`,
+                description: "Regular | Consulting",
+                originalPrice: 599,
+                price: 499,
+                qty: 1,
+                saving: 100
+            });
+            renderCart();
+            showToast("Item added to cart!");
+        };
+
+        // Apply Coupon (Placeholder)
+        window.applyCoupon = () => {
+            showToast("Coupon 'RAJ2024' applied! Discount updated.");
+            // In a real app, this would trigger a discount recalculation
+        };
+
+        // Process Payment
+        window.processPayment = () => {
+            alert(`Payment of ${finalTotalEl.textContent} successful! Thank you for choosing Raj Marketing Mysore.`);
+        };
+
+        // Toast Notification Helper
+        function showToast(message) {
+            toastEl.textContent = message;
+            toastEl.classList.add('show');
+            setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 3000);
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+        });
+
+    </script>
+</body>
+</html>
