@@ -1,80 +1,83 @@
 /* ============================================================
    FOOTER COMPONENT LOADER
+   Loads components/footer.html via fetch()
    Raj Marketing Mysore
 ============================================================ */
 
 (function() {
     'use strict';
 
-    function loadFooter() {
-        const footerPlaceholder = document.getElementById('footer-placeholder');
-        if (!footerPlaceholder) return;
-
-        const footerHTML = `
-        <footer class="site-footer" id="siteFooter">
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-col">
-                        <div class="brand">Raj <span>Marketing</span> Mysore</div>
-                        <p>Quality mosquito nets since 2016.</p>
-                        <div class="contact-info"><i class="fas fa-phone" aria-hidden="true"></i> 9483037385</div>
-                        <div class="contact-info"><i class="fas fa-envelope" aria-hidden="true"></i> info@rajmarketingmysore.info</div>
-                        <div class="contact-info"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> #45, Devraj Urs Road, Mysore</div>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Products</h4>
-                        <a href="products.html">Velcro Nets</a>
-                        <a href="products.html">Aluminium Frame</a>
-                        <a href="products.html">Sliding Nets</a>
-                        <a href="products.html">Pleated Nets</a>
-                        <a href="products.html">SS Mesh</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Services</h4>
-                        <a href="estimate.html">Get Estimate</a>
-                        <a href="appointment.html">Book Measurement</a>
-                        <a href="price-checker.html">AI Price Checker</a>
-                        <a href="track-order.html">Track Order</a>
-                        <a href="dealer/dealer-registration.html">Dealer Registration</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Company</h4>
-                        <a href="about.html">About Us</a>
-                        <a href="contact.html">Contact</a>
-                        <a href="customer/customer-login.html">Customer Login</a>
-                        <a href="dealer/dealer-login.html">Dealer Login</a>
-                        <a href="privacy.html">Privacy Policy</a>
-                        <a href="terms.html">Terms</a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved · GST: 29CHKPR1962H1ZT
-                    <div class="footer-legal">
-                        <a href="privacy.html">Privacy Policy</a>
-                        <a href="terms.html">Terms &amp; Conditions</a>
-                        <a href="refund.html">Refund Policy</a>
-                        <a href="disclaimer.html">Disclaimer</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-
-        <nav class="bottom-nav" aria-label="Bottom navigation">
-            <a href="index.html" class="active"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
-            <a href="products.html"><i class="fas fa-th-large" aria-hidden="true"></i> Products</a>
-            <a href="estimate.html"><i class="fas fa-file-invoice" aria-hidden="true"></i> Estimate</a>
-            <a href="track-order.html"><i class="fas fa-box" aria-hidden="true"></i> Orders</a>
-            <a href="customer/customer-login.html"><i class="fas fa-user" aria-hidden="true"></i> Account</a>
-        </nav>
-        `;
-
-        footerPlaceholder.innerHTML = footerHTML;
+    // ============================================================
+    // Detect current page for bottom nav highlighting
+    // ============================================================
+    function getCurrentNavKey() {
+        const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+        if (file === '' || file === 'index.html') return 'home';
+        if (file.includes('products')) return 'products';
+        if (file.includes('estimate') || file.includes('price-checker')) return 'estimate';
+        if (file.includes('track-order') || file.includes('orders')) return 'orders';
+        if (file.includes('customer-login') || file.includes('customer-registration') || file.includes('account')) return 'account';
+        return '';
     }
 
+    // ============================================================
+    // Apply active state to bottom nav
+    // ============================================================
+    function applyActiveState() {
+        const currentNav = getCurrentNavKey();
+        if (!currentNav) return;
+
+        document.querySelectorAll('.bottom-nav [data-nav]').forEach(link => {
+            if (link.getAttribute('data-nav') === currentNav) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // ============================================================
+    // Load footer.html into #footer-placeholder
+    // ============================================================
+    function loadFooter() {
+        const placeholder = document.getElementById('footer-placeholder');
+        if (!placeholder) return;
+
+        // Determine base path for nested pages
+        const depth = (window.location.pathname.match(/\//g) || []).length;
+        const isNested = depth > 1 && !window.location.pathname.endsWith('/');
+        const basePath = isNested ? '../' : '';
+
+        fetch(basePath + 'components/footer.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Footer not found');
+                return response.text();
+            })
+            .then(html => {
+                // Fix relative paths for nested pages
+                if (isNested) {
+                    html = html.replace(/href="(?!http|https|#|mailto|tel|javascript)/g, `href="${basePath}`);
+                    html = html.replace(/src="(?!http|https|data)/g, `src="${basePath}`);
+                }
+                placeholder.innerHTML = html;
+                applyActiveState();
+            })
+            .catch(err => {
+                console.warn('Footer component failed to load:', err);
+                // Fallback: minimal footer
+                placeholder.innerHTML = `
+                    <footer class="site-footer">
+                        <div class="container">
+                            <div class="footer-bottom">
+                                © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved
+                            </div>
+                        </div>
+                    </footer>
+                `;
+            });
+    }
+
+    // ============================================================
+    // Boot
+    // ============================================================
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', loadFooter);
     } else {
