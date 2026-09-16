@@ -1,0 +1,90 @@
+<!-- ============================================================
+     HEADER COMPONENT
+     Raj Marketing Mysore
+     Usage: Include this file via JS loader (header.js)
+============================================================ -->
+<header class="site-header" id="siteHeader">
+    <div class="header-inner">
+
+        <!-- ===== LOGO ===== -->
+        <a href="index.html" class="logo-area">
+            <img src="images/logo.png"
+                 alt="Raj Marketing Mysore - Premium Mosquito Nets"
+                 class="logo-img"
+                 onerror="this.style.display='none';this.parentElement.querySelector('.logo-icon').style.display='flex'">
+            <div class="logo-icon" style="display:none;width:44px;height:44px;border-radius:10px;background:var(--light-blue);align-items:center;justify-content:center;font-size:22px;color:var(--royal-blue);">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="logo-text">
+                <span class="brand-animation">Raj Marketing</span>
+                <span>Mysore</span>
+            </div>
+        </a>
+
+        <!-- ===== DESKTOP NAVIGATION ===== -->
+        <nav class="desktop-nav" aria-label="Main Navigation">
+            <a href="index.html" data-nav="home">Home</a>
+            <a href="products.html" data-nav="products">Products</a>
+            <a href="solutions.html" data-nav="solutions">Solutions</a>
+            <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
+            <a href="about.html" data-nav="about">About</a>
+            <a href="contact.html" data-nav="contact">Contact</a>
+            <a href="customer/customer-login.html" class="btn-outline">Customer</a>
+            <a href="dealer/dealer-login.html" class="btn-outline">Dealer</a>
+            <a href="admin/dashboard.html" class="admin-link">
+                <i class="fas fa-crown"></i> Admin
+            </a>
+        </nav>
+
+        <!-- ===== HEADER RIGHT (ICONS + HAMBURGER) ===== -->
+        <div class="header-right">
+            <a href="https://wa.me/919483037385" target="_blank" aria-label="WhatsApp" class="wa-link">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="tel:9483037385" aria-label="Call Raj Marketing">
+                <i class="fas fa-phone"></i>
+            </a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+    </div>
+</header>
+
+<!-- ============================================================
+     MOBILE MENU COMPONENT
+============================================================ -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile Navigation">
+
+    <!-- Primary -->
+    <a href="index.html" data-nav="home">Home</a>
+    <a href="products.html" data-nav="products">Products</a>
+    <a href="solutions.html" data-nav="solutions">Solutions</a>
+    <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
+
+    <!-- Services -->
+    <a href="estimate.html">Get Estimate</a>
+    <a href="appointment.html">Book Measurement</a>
+    <a href="price-checker.html">AI Price Checker</a>
+    <a href="track-order.html">Track Order</a>
+
+    <!-- Customer -->
+    <a href="customer/customer-login.html">Customer Login</a>
+    <a href="customer/customer-registration.html">Customer Register</a>
+
+    <!-- Dealer -->
+    <a href="dealer/dealer-login.html">Dealer Login</a>
+    <a href="dealer/dealer-registration.html" class="btn-sky">Become a Dealer</a>
+
+    <!-- Info -->
+    <a href="about.html" data-nav="about">About</a>
+    <a href="contact.html" data-nav="contact">Contact</a>
+
+    <!-- Admin -->
+    <a href="admin/dashboard.html"
+       style="background:#fef3c7;color:#92400e;border-radius:8px;padding:8px 16px;margin-top:4px;">
+        <i class="fas fa-crown"></i> Admin Dashboard
+    </a>
+
+</div>
