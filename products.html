@@ -467,4 +467,91 @@
             const grid = document.getElementById('productGrid');
 
             if (!products || !products.length) {
-                g
+                               grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <h3>No products found</h3>
+                        <p style="font-size:13px; margin-top:4px;">Try adjusting your search or filter</p>
+                    </div>
+                `;
+                document.getElementById('productCount').textContent = '0 Products';
+                return;
+            }
+
+            grid.innerHTML = products.map(p => {
+                const badgeClass = p.badge || 'velcro';
+                const isOnline = p.onlinePurchase !== false;
+                const discountHtml = p.discount ? `<span class="discount-badge">${p.discount}% OFF</span>` : '';
+                const originalHtml = p.originalPrice ? `<span class="original">₹${p.originalPrice}</span>` : '';
+                const availabilityBadge = isOnline
+                    ? `<span class="online-badge"><i class="fas fa-shopping-cart"></i> Buy Online</span>`
+                    : `<span class="appointment-badge"><i class="fas fa-calendar-check"></i> Book Appointment</span>`;
+
+                const imgSrc = p.image || 'images/placeholder.jpg';
+
+                return `
+                    <a href="product-detail.html?id=${p.id}" class="product-card">
+                        <div class="img-wrap">
+                            <img src="${imgSrc}" alt="${p.name}" loading="lazy" onerror="this.src='images/placeholder.jpg'" />
+                            <span class="badge badge-${badgeClass}">${p.category || 'Product'}</span>
+                        </div>
+                        <div class="name">${p.name}</div>
+                        <div class="variant">${p.variant || ''}</div>
+                        <div class="price-row">
+                            <span class="price">₹${p.price} ${originalHtml}</span>
+                            <span class="cta-tag">${isOnline ? 'Buy' : 'Book'}</span>
+                        </div>
+                        <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-top:6px;">
+                            ${discountHtml}
+                            ${availabilityBadge}
+                        </div>
+                    </a>
+                `;
+            }).join('');
+
+            document.getElementById('productCount').textContent = products.length + ' Products';
+        }
+
+        // ============================================================
+        // FILTER PRODUCTS
+        // ============================================================
+        function filterProducts() {
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            let filtered = allProducts;
+
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
+
+            if (search) {
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(search) ||
+                    (p.variant && p.variant.toLowerCase().includes(search)) ||
+                    (p.category && p.category.toLowerCase().includes(search))
+                );
+            }
+
+            renderProducts(filtered);
+        }
+
+        // ============================================================
+        // SET FILTER
+        // ============================================================
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-chips .chip').forEach(c => {
+                c.classList.toggle('active', c.dataset.filter === filter);
+            });
+            filterProducts();
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        renderProducts(allProducts);
+        console.log('✅ Products page loaded with', allProducts.length, 'products');
+    </script>
+
+</body>
+</html>
+```
