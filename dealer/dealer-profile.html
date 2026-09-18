@@ -2,672 +2,267 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Dealer Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Dealer Profile - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            background: #f0ece6;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0 12px;
-            padding-top: 80px;
-            padding-bottom: 100px;
-        }
-        .app-container {
-            max-width: 480px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 36px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            padding: 20px 18px;
-            border: 1px solid #e8e0d8;
-        }
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 14px 20px 10px 20px;
-            border-bottom: 1px solid #e8e0d8;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .fixed-header .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .fixed-header .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(145deg, #f97316, #ea580c);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
-        }
-        .fixed-header .logo-text {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1a1a1a;
-            line-height: 1.2;
-        }
-        .fixed-header .logo-text span {
-            display: block;
-            font-weight: 400;
-            font-size: 9px;
-            color: #6b6b6b;
-        }
-        .fixed-header .header-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .fixed-header .header-actions i {
-            font-size: 18px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .fixed-header .back-btn {
-            font-size: 20px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .fixed-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 8px 12px 12px 12px;
-            border-top: 1px solid #e8e0d8;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-radius: 30px 30px 0 0;
-        }
-        .fixed-footer .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 9px;
-            color: #8a8a8a;
-            font-weight: 500;
-            gap: 2px;
-            padding: 4px 12px;
-            border-radius: 30px;
-            text-decoration: none;
-        }
-        .fixed-footer .nav-item i {
-            font-size: 20px;
-            color: #8a8a8a;
-        }
-        .fixed-footer .nav-item.active i {
-            color: #f97316;
-        }
-        .fixed-footer .nav-item.active {
-            color: #f97316;
-            background: rgba(249, 115, 22, 0.08);
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 18px 16px;
-            margin: 14px 0;
-            border: 1px solid #e8e0d8;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-        }
-        .card-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card-title i {
-            color: #f97316;
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #f97316, #ea580c);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 32px;
-            margin: 0 auto 12px;
-            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
-        }
-
-        .form-group {
-            margin-bottom: 14px;
-        }
-        .form-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #4a4a4a;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1.5px solid #e8e0d8;
-            border-radius: 12px;
-            font-size: 13px;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
-            background: #faf8f6;
-            transition: 0.2s;
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
-        }
-        .form-group input:disabled {
-            background: #f0f2f5;
-            color: #6b6b6b;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(145deg, #f97316, #ea580c);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
-            transition: 0.2s;
-            width: 100%;
-        }
-        .btn-primary:hover {
-            box-shadow: 0 6px 24px rgba(249, 115, 22, 0.35);
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: #f5f0eb;
-            color: #1a1a1a;
-            border: 1px solid #e8e0d8;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-secondary:hover {
-            background: #e8e0d8;
-        }
-
-        .status-badge {
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .status-approved {
-            background: #d1fae5;
-            color: #059669;
-        }
-        .status-pending {
-            background: #fef3c7;
-            color: #d97706;
-        }
-        .status-rejected {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-        .status-suspended {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-
-        .error-box {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-            font-size: 14px;
-        }
-        .success-box {
-            background: #d1fae5;
-            color: #065f46;
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-            font-size: 14px;
-        }
-
-        .document-status {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0ece6;
-            font-size: 13px;
-        }
-        .document-status:last-child {
-            border-bottom: none;
-        }
-        .document-status .doc-name {
-            font-weight: 500;
-            color: #4a4a4a;
-        }
-        .document-status .doc-status {
-            font-weight: 600;
-        }
-        .doc-uploaded {
-            color: #059669;
-        }
-        .doc-pending {
-            color: #f97316;
-        }
-        .doc-missing {
-            color: #dc2626;
-        }
-
-        .logout-btn {
-            background: #fee2e2;
-            color: #dc2626;
-            border: 1px solid #fca5a5;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-        }
-        .logout-btn:hover {
-            background: #fecaca;
-        }
-
-        @media (max-width: 400px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
-    <!-- Fixed Header -->
-    <header class="fixed-header">
-        <div class="logo-area">
-            <a href="dealer-dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+    <div id="header-placeholder"></div>
+
+    <main class="page-container">
+
+        <div class="page-header">
+            <h1><i class="fas fa-user-tie"></i> Dealer Profile</h1>
+            <a href="dealer-dashboard.html" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
         </div>
-        <div class="header-actions">
-            <i class="fas fa-user-circle" title="Profile"></i>
-        </div>
-    </header>
 
-    <!-- App Container -->
-    <div class="app-container">
-
-        <h2 style="font-size:20px; font-weight:800; color:#1a1a1a; margin-bottom:4px;">👤 My Profile</h2>
-        <p style="font-size:13px; color:#6b6b6b; margin-bottom:12px;">View and update your dealer profile</p>
-
-        <div id="errorBox" class="error-box"></div>
-        <div id="successBox" class="success-box"></div>
-
-        <!-- Profile Header -->
-        <div class="card" style="text-align:center;">
-            <div class="profile-avatar"><i class="fas fa-user"></i></div>
-            <h3 id="profileName" style="font-size:18px; font-weight:700; color:#1a1a1a;">Loading...</h3>
-            <p id="profileBusiness" style="font-size:13px; color:#6b6b6b;">—</p>
-            <div style="margin-top:6px;">
-                <span class="status-badge status-pending" id="profileStatus">Loading...</span>
-                <span style="font-size:11px; color:#6b6b6b; margin-left:8px;" id="profileId">Dealer ID: —</span>
+        <!-- Dealer ID Card -->
+        <div class="dealer-id-card">
+            <div class="id-label">Dealer ID</div>
+            <div class="id-value" id="profileDealerId">DLR-000000</div>
+            <div class="business-name" id="profileBusiness">Business Name</div>
+            <div class="business-meta" id="profileOwner">
+                <i class="fas fa-user"></i> Owner Name
+            </div>
+            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                <span class="tier-badge tier-bronze" id="profileTier">
+                    <i class="fas fa-award"></i> Bronze Dealer
+                </span>
+                <span class="status-badge status-active" id="profileStatus">Active</span>
             </div>
         </div>
 
-        <!-- Edit Profile Form -->
+        <!-- Business Info -->
         <div class="card">
-            <div class="card-title"><i class="fas fa-edit"></i> Edit Profile</div>
-            <form id="profileForm" onsubmit="updateProfile(event)">
+            <div class="card-title">
+                <i class="fas fa-building"></i> Business Information
+            </div>
+
+            <form id="profileForm" onsubmit="saveProfile(event)">
+                <div class="form-group">
+                    <label>Owner Name <span class="required">*</span></label>
+                    <input type="text" id="pOwnerName" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Business Name <span class="required">*</span></label>
+                    <input type="text" id="pBusinessName" required />
+                </div>
+
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" id="pName" required />
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" id="pEmail" required />
                     </div>
                     <div class="form-group">
-                        <label>Business Name *</label>
-                        <input type="text" id="pBusiness" required />
+                        <label>Mobile <span class="required">*</span></label>
+                        <input type="tel" id="pMobile" required maxlength="10" />
                     </div>
                 </div>
+
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Mobile *</label>
-                        <input type="text" id="pMobile" required />
-                    </div>
                     <div class="form-group">
                         <label>WhatsApp</label>
-                        <input type="text" id="pWhatsapp" />
+                        <input type="tel" id="pWhatsapp" maxlength="10" />
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="pEmail" />
-                </div>
-                <div class="form-row">
                     <div class="form-group">
-                        <label>Business Type</label>
-                        <select id="pBusinessType">
-                            <option value="">Select</option>
-                            <option value="Aluminium Fabricator">Aluminium Fabricator</option>
-                            <option value="Interior Designer">Interior Designer</option>
-                            <option value="Hardware Dealer">Hardware Dealer</option>
-                            <option value="Window & Door Dealer">Window & Door Dealer</option>
-                            <option value="Contractor">Contractor</option>
-                            <option value="Architect">Architect</option>
-                            <option value="Existing Mosquito Net Dealer">Existing Mosquito Net Dealer</option>
-                            <option value="New Entrepreneur">New Entrepreneur</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <label>GSTIN</label>
+                        <input type="text" id="pGST" maxlength="15" />
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Business Address</label>
+                    <textarea id="pAddress" rows="2"></textarea>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group">
                         <label>City</label>
                         <input type="text" id="pCity" />
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
-                        <label>District</label>
-                        <input type="text" id="pDistrict" />
-                    </div>
-                    <div class="form-group">
-                        <label>State</label>
-                        <input type="text" id="pState" value="Karnataka" />
+                        <label>Pincode</label>
+                        <input type="text" id="pPincode" maxlength="6" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <textarea id="pAddress" rows="2"></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>GST Number</label>
-                        <input type="text" id="pGst" />
-                    </div>
-                    <div class="form-group">
-                        <label>PIN Code</label>
-                        <input type="text" id="pPin" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Products Interested</label>
-                    <select id="pProducts" multiple style="height:80px;">
-                        <option value="Velcro">Velcro System</option>
-                        <option value="Aluminium">Aluminium Frame</option>
-                        <option value="Pleated">Pleated Net</option>
-                        <option value="Openable">Openable System</option>
-                        <option value="Sliding">Double Sliding SS Mesh</option>
-                    </select>
-                    <small style="color:#6b6b6b; font-size:10px;">Hold Ctrl/Cmd to select multiple</small>
-                </div>
-                <div class="form-group">
-                    <label>Monthly Requirement (₹)</label>
-                    <input type="text" id="pMonthly" placeholder="e.g. 100000" />
-                </div>
-                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Update Profile</button>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg" style="background:linear-gradient(145deg,#f59e0b,#d97706);box-shadow:0 4px 14px rgba(245,158,11,0.3);">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
             </form>
         </div>
 
-        <!-- Document Status -->
+        <!-- Account Actions -->
         <div class="card">
-            <div class="card-title"><i class="fas fa-file-alt"></i> Document Status</div>
-            <div class="document-status">
-                <span class="doc-name">📄 GST Certificate</span>
-                <span class="doc-status doc-pending" id="docGst">Not Uploaded</span>
+            <div class="card-title">
+                <i class="fas fa-cog"></i> Account Actions
             </div>
-            <div class="document-status">
-                <span class="doc-name">📄 PAN Card</span>
-                <span class="doc-status doc-pending" id="docPan">Not Uploaded</span>
-            </div>
-            <div class="document-status">
-                <span class="doc-name">📄 Business Proof</span>
-                <span class="doc-status doc-pending" id="docBusiness">Not Uploaded</span>
-            </div>
-            <div class="document-status">
-                <span class="doc-name">📄 ID Proof</span>
-                <span class="doc-status doc-pending" id="docId">Not Uploaded</span>
-            </div>
-            <div style="margin-top:10px; font-size:11px; color:#6b6b6b; text-align:center;">
-                <i class="fas fa-info-circle"></i> Contact admin to upload documents
-            </div>
+
+            <a href="dealer-payments.html" class="list-item">
+                <div class="icon" style="background:#fef3c7;color:#f59e0b;">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="info">
+                    <div class="title">Payment Methods</div>
+                    <div class="subtitle">Manage payment options</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+
+            <a href="dealer-support.html" class="list-item">
+                <div class="icon" style="background:#fef3c7;color:#f59e0b;">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="info">
+                    <div class="title">Help & Support</div>
+                    <div class="subtitle">Get help from our team</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+
+            <button class="list-item" onclick="logout()" style="width:100%;border:none;cursor:pointer;text-align:left;font-family:inherit;">
+                <div class="icon" style="background:#fee2e2;color:#dc2626;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <div class="info">
+                    <div class="title" style="color:#dc2626;">Logout</div>
+                    <div class="subtitle">Sign out of dealer portal</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </button>
         </div>
 
-        <!-- Logout -->
-        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </main>
 
-        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
-            Raj Marketing Mysore · Dealer Profile
-        </div>
-    </div>
+    <div id="footer-placeholder"></div>
 
-    <!-- Fixed Footer -->
-    <footer class="fixed-footer">
-        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="dealer-prices.html" class="nav-item"><i class="fas fa-tag"></i> Prices</a>
-        <a href="dealer-enquiries.html" class="nav-item"><i class="fas fa-phone"></i> Enquiries</a>
-        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-        <a href="dealer-profile.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
-    </footer>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { collection, getDocs, query, where, updateDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+    <script>
+    (function() {
+        'use strict';
 
-        let dealerData = null;
-        let dealerId = null;
-        let dealerUid = null;
+        function init() {
+            loadProfile();
+        }
 
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = "dealer-login.html";
-                return;
-            }
-            dealerUid = user.uid;
-            await loadDealerData();
-        });
-
-        async function loadDealerData() {
+        function loadProfile() {
             try {
-                const dealersRef = collection(db, "dealers");
-                const q = query(dealersRef, where("uid", "==", dealerUid));
-                const snapshot = await getDocs(q);
-
-                if (snapshot.empty) {
-                    showError("Dealer profile not found.");
+                const dealer = JSON.parse(localStorage.getItem('raj_dealer') || '{}');
+                if (!dealer.id) {
+                    window.location.href = 'dealer-login.html';
                     return;
                 }
 
-                const doc = snapshot.docs[0];
-                dealerId = doc.id;
-                dealerData = { id: dealerId, ...doc.data() };
+                const dealers = JSON.parse(localStorage.getItem('raj_dealers') || '[]');
+                const fullDealer = dealers.find(d => d.id === dealer.id) || dealer;
 
-                // Fill form
-                document.getElementById("pName").value = dealerData.ownerName || dealerData.name || "";
-                document.getElementById("pBusiness").value = dealerData.businessName || "";
-                document.getElementById("pMobile").value = dealerData.mobile || dealerData.phone || "";
-                document.getElementById("pWhatsapp").value = dealerData.whatsapp || "";
-                document.getElementById("pEmail").value = dealerData.email || "";
-                document.getElementById("pBusinessType").value = dealerData.businessType || "";
-                document.getElementById("pCity").value = dealerData.city || "";
-                document.getElementById("pDistrict").value = dealerData.district || "";
-                document.getElementById("pState").value = dealerData.state || "Karnataka";
-                document.getElementById("pAddress").value = dealerData.address || "";
-                document.getElementById("pGst").value = dealerData.gstNumber || "";
-                document.getElementById("pPin").value = dealerData.pin || "";
-                document.getElementById("pMonthly").value = dealerData.monthlyRequirement || "";
+                document.getElementById('profileDealerId').textContent = fullDealer.dealerId || fullDealer.id || 'DLR-000000';
+                document.getElementById('profileBusiness').textContent = fullDealer.businessName || 'Your Business';
+                document.getElementById('profileOwner').innerHTML = `<i class="fas fa-user"></i> ${fullDealer.ownerName || 'Owner'}`;
+                document.getElementById('profileStatus').textContent = fullDealer.status || 'Active';
 
-                // Products interested
-                const products = dealerData.productsInterested || [];
-                const select = document.getElementById("pProducts");
-                for (let opt of select.options) {
-                    opt.selected = products.includes(opt.value);
-                }
+                const tier = (fullDealer.tier || 'Bronze').toLowerCase();
+                const tierEl = document.getElementById('profileTier');
+                tierEl.className = `tier-badge tier-${tier}`;
+                tierEl.innerHTML = `<i class="fas fa-award"></i> ${fullDealer.tier || 'Bronze'} Dealer`;
 
-                // Profile header
-                document.getElementById("profileName").textContent = dealerData.ownerName || dealerData.name || "Dealer";
-                document.getElementById("profileBusiness").textContent = dealerData.businessName || "";
-                const status = dealerData.status || "Pending";
-                const badge = document.getElementById("profileStatus");
-                badge.textContent = status;
-                badge.className = `status-badge status-${status.toLowerCase()}`;
-                document.getElementById("profileId").textContent = `Dealer ID: ${dealerData.dealerId || dealerId}`;
-
-                // Document status
-                const docStatus = dealerData.documents || {};
-                updateDocStatus("docGst", docStatus.gst);
-                updateDocStatus("docPan", docStatus.pan);
-                updateDocStatus("docBusiness", docStatus.businessProof);
-                updateDocStatus("docId", docStatus.idProof);
-
-            } catch (error) {
-                console.error("❌ Load error:", error);
-                showError("Unable to load profile: " + error.message);
+                document.getElementById('pOwnerName').value = fullDealer.ownerName || '';
+                document.getElementById('pBusinessName').value = fullDealer.businessName || '';
+                document.getElementById('pEmail').value = fullDealer.email || '';
+                document.getElementById('pMobile').value = fullDealer.mobile || '';
+                document.getElementById('pWhatsapp').value = fullDealer.whatsapp || '';
+                document.getElementById('pGST').value = fullDealer.gst || '';
+                document.getElementById('pAddress').value = fullDealer.address || '';
+                document.getElementById('pCity').value = fullDealer.city || 'Mysore';
+                document.getElementById('pPincode').value = fullDealer.pincode || '';
+            } catch (e) {
+                console.error(e);
             }
         }
 
-        function updateDocStatus(elementId, status) {
-            const el = document.getElementById(elementId);
-            if (status) {
-                el.textContent = "✅ Uploaded";
-                el.className = "doc-status doc-uploaded";
-            } else {
-                el.textContent = "Not Uploaded";
-                el.className = "doc-status doc-pending";
-            }
-        }
-
-        window.updateProfile = async function(e) {
+        window.saveProfile = function(e) {
             e.preventDefault();
+            const ownerName = document.getElementById('pOwnerName').value.trim();
+            const businessName = document.getElementById('pBusinessName').value.trim();
+            const email = document.getElementById('pEmail').value.trim();
+            const mobile = document.getElementById('pMobile').value.trim();
 
-            const productsSelect = document.getElementById("pProducts");
-            const productsInterested = [];
-            for (let opt of productsSelect.options) {
-                if (opt.selected) productsInterested.push(opt.value);
+            if (!ownerName || !businessName || !email || !mobile) {
+                showToast('Please fill required fields', 'error');
+                return;
             }
 
-            const updates = {
-                ownerName: document.getElementById("pName").value.trim(),
-                businessName: document.getElementById("pBusiness").value.trim(),
-                mobile: document.getElementById("pMobile").value.trim(),
-                whatsapp: document.getElementById("pWhatsapp").value.trim(),
-                email: document.getElementById("pEmail").value.trim(),
-                businessType: document.getElementById("pBusinessType").value,
-                city: document.getElementById("pCity").value.trim(),
-                district: document.getElementById("pDistrict").value.trim(),
-                state: document.getElementById("pState").value.trim(),
-                address: document.getElementById("pAddress").value.trim(),
-                gstNumber: document.getElementById("pGst").value.trim(),
-                pin: document.getElementById("pPin").value.trim(),
-                productsInterested: productsInterested,
-                monthlyRequirement: document.getElementById("pMonthly").value.trim(),
-                updatedAt: serverTimestamp()
-            };
-
-            // Remove empty fields to keep clean
-            Object.keys(updates).forEach(key => {
-                if (updates[key] === "" || updates[key] === null || updates[key] === undefined) {
-                    delete updates[key];
-                }
-            });
-
             try {
-                await updateDoc(doc(db, "dealers", dealerId), updates);
-                showSuccess("✅ Profile updated successfully!");
-                await loadDealerData();
-            } catch (error) {
-                showError("Failed to update profile: " + error.message);
+                const dealer = JSON.parse(localStorage.getItem('raj_dealer') || '{}');
+                const dealers = JSON.parse(localStorage.getItem('raj_dealers') || '[]');
+                const idx = dealers.findIndex(d => d.id === dealer.id);
+
+                const updated = {
+                    ...(idx >= 0 ? dealers[idx] : dealer),
+                    ownerName,
+                    businessName,
+                    email,
+                    mobile,
+                    whatsapp: document.getElementById('pWhatsapp').value.trim(),
+                    gst: document.getElementById('pGST').value.trim().toUpperCase(),
+                    address: document.getElementById('pAddress').value.trim(),
+                    city: document.getElementById('pCity').value.trim(),
+                    pincode: document.getElementById('pPincode').value.trim(),
+                    updatedAt: new Date().toISOString()
+                };
+
+                if (idx >= 0) dealers[idx] = updated;
+                else dealers.push(updated);
+
+                localStorage.setItem('raj_dealers', JSON.stringify(dealers));
+                localStorage.setItem('raj_dealer', JSON.stringify({
+                    ...dealer,
+                    name: ownerName,
+                    businessName,
+                    email,
+                    mobile
+                }));
+
+                document.getElementById('profileBusiness').textContent = businessName;
+                document.getElementById('profileOwner').innerHTML = `<i class="fas fa-user"></i> ${ownerName}`;
+
+                showToast('✅ Profile updated successfully!', 'success');
+            } catch (err) {
+                showToast('Failed to save profile', 'error');
             }
         };
 
-        window.logout = async function() {
-            if (!confirm("Are you sure you want to logout?")) return;
-            try {
-                await signOut(auth);
-                window.location.href = "dealer-login.html";
-            } catch (error) {
-                showError("Logout failed: " + error.message);
-            }
+        window.logout = function() {
+            if (!confirm('Are you sure you want to logout?')) return;
+            localStorage.removeItem('raj_dealer');
+            window.location.href = 'dealer-login.html';
         };
 
-        function showError(msg) {
-            const box = document.getElementById("errorBox");
-            box.textContent = "❌ " + msg;
-            box.style.display = "block";
-            box.style.background = "#fee2e2";
-            box.style.color = "#991b1b";
-            document.getElementById("successBox").style.display = "none";
+        function showToast(msg, type = 'info') {
+            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+            const t = document.createElement('div');
+            t.className = 'rm-toast';
+            t.textContent = msg;
+            t.style.background = colors[type] || colors.info;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => t.classList.add('show'));
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
         }
 
-        function showSuccess(msg) {
-            const box = document.getElementById("successBox");
-            box.textContent = "✅ " + msg;
-            box.style.display = "block";
-            box.style.background = "#d1fae5";
-            box.style.color = "#065f46";
-            document.getElementById("errorBox").style.display = "none";
-            setTimeout(() => { box.style.display = "none"; }, 5000);
-        }
+        document.addEventListener('DOMContentLoaded', init);
+    })();
     </script>
-
 </body>
 </html>
