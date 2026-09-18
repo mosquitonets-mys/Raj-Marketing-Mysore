@@ -2,122 +2,129 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Customer Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Customer Login - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .login-container { max-width: 420px; width: 100%; background: #fff; border-radius: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); padding: 40px 30px; border: 1px solid #e8ecf0; }
-        .login-logo { text-align: center; margin-bottom: 28px; }
-        .login-logo .logo-icon { width: 72px; height: 72px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 20px; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 34px; box-shadow: 0 4px 20px rgba(14,165,233,0.3); }
-        .login-logo h1 { font-size: 24px; font-weight: 800; color: #1a1a2e; margin-top: 12px; }
-        .login-logo p { font-size: 13px; color: #6b6b7b; margin-top: 2px; }
-        .form-group { margin-bottom: 18px; }
-        .form-group label { font-size: 12px; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 6px; }
-        .form-group input { width: 100%; padding: 12px 16px; border: 1.5px solid #e8ecf0; border-radius: 14px; font-size: 14px; outline: none; background: #f8fafc; transition: 0.2s; }
-        .form-group input:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.08); }
-        .btn-login { width: 100%; padding: 14px; background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; border: none; border-radius: 40px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 16px rgba(14,165,233,0.25); margin-top: 6px; }
-        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.35); }
-        .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .btn-login .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .login-footer { text-align: center; margin-top: 20px; font-size: 13px; color: #6b6b7b; }
-        .login-footer a { color: #0ea5e9; text-decoration: none; font-weight: 600; }
-        .error-msg { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 13px; display: none; border-left: 4px solid #dc2626; }
-        .error-msg.show { display: block; }
-        .quick-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
-        .quick-actions a { font-size: 12px; color: #0ea5e9; text-decoration: none; padding: 6px 14px; border-radius: 20px; background: #f0f9ff; transition: 0.2s; }
-        .quick-actions a:hover { background: #dbeafe; }
-        @media (max-width: 400px) { .login-container { padding: 30px 20px; } }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
-    <div class="login-container">
-        <div class="login-logo">
-            <div class="logo-icon"><i class="fas fa-user-circle"></i></div>
-            <h1>Customer Login</h1>
-            <p>Access your orders, estimates and appointments</p>
-        </div>
+    <div id="header-placeholder"></div>
 
-        <div id="errorBox" class="error-msg"></div>
+    <main class="auth-container">
 
-        <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="emailInput" placeholder="your@email.com" required />
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="icon-wrap"><i class="fas fa-user-shield"></i></div>
+                <h1>Customer Login</h1>
+                <p>Sign in to access your dashboard</p>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="passwordInput" placeholder="Enter your password" required />
-            </div>
-            <button type="submit" class="btn-login" id="loginBtn">
-                <i class="fas fa-sign-in-alt"></i> Login
-            </button>
-        </form>
 
-        <div class="login-footer">
-            <p>New customer? <a href="customer-register.html">Create Account</a></p>
-            <p style="margin-top:4px;"><a href="customer-forgot-password.html">Forgot Password?</a></p>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email or Mobile <span class="required">*</span></label>
+                    <input type="text" id="loginEmail" required placeholder="Enter email or 10-digit mobile" />
+                </div>
+
+                <div class="form-group">
+                    <label>Password <span class="required">*</span></label>
+                    <input type="password" id="loginPassword" required placeholder="Enter password" minlength="6" />
+                    <div class="form-hint" style="text-align:right;">
+                        <a href="#" onclick="forgotPassword(event)" style="color:var(--royal-blue);text-decoration:none;font-weight:700;">Forgot password?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+
+                <div style="text-align:center;margin:16px 0;color:var(--muted-text);font-size:12px;position:relative;">
+                    <hr style="border:none;border-top:1px solid var(--border);margin:0;" />
+                    <span style="background:var(--white);padding:0 12px;position:relative;top:-9px;font-weight:600;">OR</span>
+                </div>
+
+                <a href="customer-registration.html" class="btn btn-secondary btn-block btn-lg">
+                    <i class="fas fa-user-plus"></i> Create New Account
+                </a>
+            </form>
         </div>
 
-        <div class="quick-actions">
-            <a href="index.html"><i class="fas fa-home"></i> Home</a>
-            <a href="appointment.html"><i class="fas fa-calendar-check"></i> Book Appointment</a>
-            <a href="price-checker.html"><i class="fas fa-tag"></i> Check Price</a>
-            <a href="https://wa.me/919483037385" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--muted-text);">
+            <p>By continuing, you agree to our</p>
+            <p>
+                <a href="../terms.html" style="color:var(--royal-blue);text-decoration:none;font-weight:700;">Terms</a>
+                ·
+                <a href="../privacy.html" style="color:var(--royal-blue);text-decoration:none;font-weight:700;">Privacy Policy</a>
+            </p>
         </div>
-    </div>
 
-    <script type="module">
-        import { auth } from "./firebase-config.js";
-        import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+    </main>
 
-        const emailInput = document.getElementById('emailInput');
-        const passwordInput = document.getElementById('passwordInput');
-        const loginBtn = document.getElementById('loginBtn');
-        const errorBox = document.getElementById('errorBox');
+    <div id="footer-placeholder"></div>
 
-        window.handleLogin = async function(e) {
-            e.preventDefault();
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
-            errorBox.classList.remove('show');
+    <script>
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
 
-            if (!email || !password) {
-                errorBox.textContent = '❌ Please enter both email and password.';
-                errorBox.classList.add('show');
+        if (!email) { showToast('Please enter email or mobile', 'error'); return; }
+        if (!password || password.length < 6) { showToast('Password must be at least 6 characters', 'error'); return; }
+
+        // Check existing users
+        try {
+            const users = JSON.parse(localStorage.getItem('raj_customers') || '[]');
+            const found = users.find(u =>
+                (u.email === email || u.mobile === email) && u.password === password
+            );
+
+            if (!found) {
+                showToast('Invalid credentials. Please register first.', 'error');
                 return;
             }
 
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="spinner"></span> Logging in...';
+            // Save session
+            localStorage.setItem('raj_customer', JSON.stringify({
+                id: found.id,
+                name: found.name,
+                email: found.email,
+                mobile: found.mobile,
+                loggedInAt: new Date().toISOString()
+            }));
 
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log('✅ Customer logged in:', userCredential.user.email);
-                window.location.href = 'customer-dashboard.html';
-            } catch (error) {
-                let msg = 'Login failed. Please check your credentials.';
-                if (error.code === 'auth/user-not-found') msg = 'No account found with this email.';
-                else if (error.code === 'auth/wrong-password') msg = 'Incorrect password. Please try again.';
-                else if (error.code === 'auth/too-many-requests') msg = 'Too many failed attempts. Please try again later.';
-                errorBox.textContent = '❌ ' + msg;
-                errorBox.classList.add('show');
-            } finally {
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-            }
-        };
+            showToast('✅ Login successful!', 'success');
+            setTimeout(() => window.location.href = 'customer-dashboard.html', 800);
+        } catch (err) {
+            showToast('Login failed. Try again.', 'error');
+        }
+    }
 
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') document.getElementById('loginBtn').click();
-        });
+    function forgotPassword(e) {
+        e.preventDefault();
+        const email = prompt('Enter your registered email or mobile:');
+        if (email) {
+            showToast('Password reset link sent to ' + email, 'info');
+        }
+    }
+
+    function showToast(msg, type = 'info') {
+        document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+        const colors = { success: '#10b981', error: '#ef4444', info: '#1a56db' };
+        const t = document.createElement('div');
+        t.className = 'rm-toast';
+        t.textContent = msg;
+        t.style.background = colors[type] || colors.info;
+        document.body.appendChild(t);
+        requestAnimationFrame(() => t.classList.add('show'));
+        setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+    }
     </script>
 </body>
     </html>
