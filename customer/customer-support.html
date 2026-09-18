@@ -2,368 +2,285 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Support</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Help & Support - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
-        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
-
-        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
-        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
-        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
-        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
-        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
-        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
-        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; }
-        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
-        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
-        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
-
-        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
-        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b7b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
-        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b7b; }
-        .fixed-footer .nav-item.active i { color: #0ea5e9; }
-        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
-
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .page-header h1 { font-size: 20px; font-weight: 800; color: #1a1a2e; }
-
-        .card { background: #fff; border-radius: 20px; padding: 18px 16px; border: 1px solid #e8ecf0; margin-bottom: 12px; }
-        .card-title { font-weight: 700; font-size: 15px; color: #1a1a2e; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .card-title i { color: #0ea5e9; }
-
-        .support-option { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
-        .support-option:last-child { border-bottom: none; }
-        .support-option .icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; flex-shrink: 0; }
-        .support-option .icon.whatsapp { background: #25D366; }
-        .support-option .icon.call { background: #0ea5e9; }
-        .support-option .icon.email { background: #ea580c; }
-        .support-option .icon.map { background: #8b5cf6; }
-        .support-option .icon.ticket { background: #1a1a2e; }
-        .support-option .info { flex: 1; }
-        .support-option .info .title { font-weight: 600; font-size: 14px; color: #1a1a2e; }
-        .support-option .info .sub { font-size: 11px; color: #6b6b7b; }
-        .support-option a { color: #0ea5e9; text-decoration: none; font-weight: 600; font-size: 13px; }
-
-        .form-group { margin-bottom: 14px; }
-        .form-group label { font-size: 12px; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 4px; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 10px 14px;
-            border: 1.5px solid #e8ecf0; border-radius: 12px;
-            font-size: 13px; outline: none;
-            background: #f8fafc; font-family: 'Poppins', sans-serif;
-            transition: 0.2s;
+        .faq-item {
+            border-bottom: 1px solid var(--border-light);
+            padding: 4px 0;
         }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.08);
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 4px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--highlight-grey);
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 12px;
         }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-
-        .btn-primary { width: 100%; padding: 12px; background: linear-gradient(145deg, #0ea5e9, #0284c7); color: #fff; border: none; border-radius: 40px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.25); }
-        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-        .error-msg { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 12px; margin-bottom: 14px; display: none; font-size: 13px; border-left: 4px solid #dc2626; }
-        .success-msg { background: #d1fae5; color: #065f46; padding: 12px 16px; border-radius: 12px; margin-bottom: 14px; display: none; font-size: 13px; border-left: 4px solid #22c55e; }
-        .error-msg.show, .success-msg.show { display: block; }
-
-        .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
-        .whatsapp-float:hover { transform: scale(1.08); }
-
-        @media (max-width: 400px) { .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; } }
+        .faq-question:hover { color: var(--royal-blue); padding-left: 10px; }
+        .faq-question i {
+            color: var(--royal-blue);
+            transition: var(--transition);
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        .faq-item.open .faq-question i { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            font-size: 13px;
+            color: var(--muted-text);
+            line-height: 1.7;
+            padding: 0 4px;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+            padding: 0 4px 14px 4px;
+        }
     </style>
 </head>
 <body>
 
-    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <div id="header-placeholder"></div>
 
-    <header class="fixed-header">
-        <div class="logo-area">
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
-        </div>
-        <div class="header-actions">
-            <a href="customer-dashboard.html" class="header-btn"><i class="fas fa-arrow-left"></i><span class="label">Back</span></a>
-        </div>
-    </header>
+    <main class="page-container">
 
-    <div class="app-container">
         <div class="page-header">
-            <h1>🛟 Support Center</h1>
+            <h1><i class="fas fa-headset"></i> Help & Support</h1>
         </div>
 
-        <div id="errorBox" class="error-msg"></div>
-        <div id="successBox" class="success-msg"></div>
-
-        <!-- Quick Support Options -->
+        <!-- Contact Options -->
         <div class="card">
-            <div class="card-title"><i class="fas fa-phone-alt"></i> Quick Support</div>
-            <div class="support-option">
-                <div class="icon whatsapp"><i class="fab fa-whatsapp"></i></div>
-                <div class="info">
-                    <div class="title">WhatsApp Support</div>
-                    <div class="sub">Chat with us on WhatsApp</div>
-                </div>
-                <a href="https://wa.me/919483037385" target="_blank">Chat Now →</a>
+            <div class="card-title">
+                <i class="fas fa-comments"></i> Get in Touch
             </div>
-            <div class="support-option">
-                <div class="icon call"><i class="fas fa-phone"></i></div>
-                <div class="info">
-                    <div class="title">Call Support</div>
-                    <div class="sub">Call us directly</div>
-                </div>
-                <a href="tel:9483037385">Call Now →</a>
-            </div>
-            <div class="support-option">
-                <div class="icon email"><i class="fas fa-envelope"></i></div>
-                <div class="info">
-                    <div class="title">Email Support</div>
-                    <div class="sub">Send us an email</div>
-                </div>
-                <a href="mailto:rajmarketingmys@gmail.com">Email →</a>
-            </div>
-            <div class="support-option">
-                <div class="icon map"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="info">
-                    <div class="title">Find Us</div>
-                    <div class="sub">Visit our office</div>
-                </div>
-                <a href="https://maps.google.com/maps?q=45+Devraj+Urs+Road+Mysore" target="_blank">Map →</a>
+
+            <div class="quick-grid">
+                <a href="tel:9483037385" class="quick-card">
+                    <i class="fas fa-phone"></i>
+                    <span class="label">Call Us</span>
+                </a>
+                <a href="https://wa.me/919483037385" target="_blank" class="quick-card">
+                    <i class="fab fa-whatsapp" style="color:#25D366;background:#dcfce7;"></i>
+                    <span class="label">WhatsApp</span>
+                </a>
+                <a href="mailto:info@rajmarketingmysore.info" class="quick-card">
+                    <i class="fas fa-envelope"></i>
+                    <span class="label">Email</span>
+                </a>
+                <a href="../contact.html" class="quick-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="label">Visit</span>
+                </a>
             </div>
         </div>
 
-        <!-- AI Support Chat -->
+        <!-- Business Info -->
         <div class="card">
-            <div class="card-title"><i class="fas fa-robot"></i> AI Support Assistant</div>
-            <div style="background:#f8fafc; border-radius:12px; padding:12px; margin-bottom:12px; max-height:200px; overflow-y:auto;" id="chatMessages">
-                <div style="background:#e8ecf0; border-radius:12px; padding:8px 12px; margin-bottom:8px; max-width:85%;">
-                    <strong>🤖 AI:</strong> Hello! I'm here to help. Ask me about:
-                    <br>• Product information
-                    <br>• Pricing & estimates
-                    <br>• Installation support
-                    <br>• Warranty claims
-                    <br>• Rework & charges
-                    <br>• Order status
-                </div>
+            <div class="card-title">
+                <i class="fas fa-building"></i> Business Info
             </div>
-            <div style="display:flex; gap:8px;">
-                <input type="text" id="chatInput" placeholder="Ask a question..." style="flex:1; padding:10px 14px; border:1.5px solid #e8ecf0; border-radius:12px; font-size:13px; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif;" />
-                <button onclick="sendChat()" style="padding:10px 18px; background:#0ea5e9; color:#fff; border:none; border-radius:12px; font-weight:600; cursor:pointer; transition:0.2s;">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
+
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-store"></i> Business</span>
+                <span class="value">Raj Marketing Mysore</span>
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-phone"></i> Phone</span>
+                <span class="value">9483037385</span>
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-envelope"></i> Email</span>
+                <span class="value">info@rajmarketingmysore.info</span>
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-map-marker-alt"></i> Address</span>
+                <span class="value">#45, Devraj Urs Road, Mysore – 570001</span>
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-clock"></i> Hours</span>
+                <span class="value">Mon–Sat: 9:30 AM – 6:30 PM</span>
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-receipt"></i> GST</span>
+                <span class="value">29CHKPR1962H1ZT</span>
             </div>
         </div>
 
-        <!-- Support Ticket -->
+        <!-- FAQs -->
         <div class="card">
-            <div class="card-title"><i class="fas fa-ticket-alt"></i> Raise a Support Ticket</div>
-            <form id="supportForm" onsubmit="submitTicket(event)">
+            <div class="card-title">
+                <i class="fas fa-question-circle"></i> Frequently Asked Questions
+            </div>
+
+            <div id="faqList">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>How do I book a measurement?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Click on "Book Measurement" from the dashboard or appointment page. Fill in your details and preferred date. Our team will confirm and visit your location.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>What is the delivery time?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Velcro: 2 days. Frame systems: 3 days. Pleated nets: ~3 days. Custom orders may take longer depending on workload and transport.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>What warranty do you provide?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        SS Mesh & Pleated Nets: 1-year warranty. Aluminium Frame: 5-year warranty. Warranty applies to manufacturing defects only. Physical damage is chargeable.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Do you serve outside Mysore?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we serve Mysore, Mandya, Chamarajanagar, Gundlupet, H.D. Kote, Kollegala and nearby areas. Outside Mysore: ₹15/km travel charge.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>How do I pay?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        We accept 60% advance for order confirmation and the balance after completion. Payment methods: Cash, UPI, Bank Transfer.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Can I cancel or modify my order?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, you can cancel or modify within 24 hours of order placement. Post-confirmation cancellations may have deductions as per policy.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>How do I track my order?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Go to "My Orders" from your dashboard, or use the Track Order page with your Order ID.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Do you provide free site visits?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we provide free site visits within Mysore city. Outside Mysore, a travel charge of ₹15/km applies.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-paper-plane"></i> Send Us a Message
+            </div>
+            <form onsubmit="submitSupport(event)">
                 <div class="form-group">
-                    <label>Subject *</label>
-                    <input type="text" id="ticketSubject" required placeholder="Brief subject" />
+                    <label>Subject</label>
+                    <input type="text" id="supSubject" required placeholder="Brief subject" />
                 </div>
                 <div class="form-group">
-                    <label>Category *</label>
-                    <select id="ticketCategory" required>
-                        <option value="">Select...</option>
-                        <option value="Order">Order Issue</option>
-                        <option value="Installation">Installation</option>
-                        <option value="Payment">Payment</option>
-                        <option value="Product">Product</option>
-                        <option value="Warranty">Warranty</option>
-                        <option value="Estimate">Estimate</option>
-                        <option value="Appointment">Appointment</option>
-                        <option value="Other">Other</option>
-                    </select>
+                    <label>Message</label>
+                    <textarea id="supMessage" required placeholder="Describe your issue..." rows="4"></textarea>
                 </div>
-                <div class="form-group">
-                    <label>Message *</label>
-                    <textarea id="ticketMessage" required placeholder="Describe your issue..." rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Priority</label>
-                    <select id="ticketPriority">
-                        <option value="Low">Low</option>
-                        <option value="Medium" selected>Medium</option>
-                        <option value="High">High</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-primary" id="ticketBtn">
-                    <i class="fas fa-paper-plane"></i> Submit Ticket
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-paper-plane"></i> Send Message
                 </button>
             </form>
         </div>
 
-        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
-            Raj Marketing Mysore · 24/7 Support
-        </div>
-    </div>
+    </main>
 
-    <footer class="fixed-footer">
-        <a href="customer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
-        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-        <a href="customer-appointments.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
-        <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
-        let customerId = null;
-        let customerName = '';
+    <script>
+    window.toggleFaq = function(el) {
+        const item = el.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+    };
 
-        // AI Knowledge Base
-        const AI_KNOWLEDGE = {
-            'warranty': 'Our warranty policy: SS Mesh and Pleated Nets have 1-year manufacturer warranty. Aluminium Frame has 5-year warranty. Warranty covers manufacturing defects. Physical damage may attract extra charges.',
-            'rework': 'If you need rework, please contact our team. Charges depend on the specific work required. We\'ll provide a quote before starting.',
-            'charges': 'Service charges: Site visit within Mysore is free. Outside Mysore ₹15/km. Installation charges are separate. Wood finish ₹20/sq.ft. Wall installation ₹30/sq.ft.',
-            'installation': 'Installation is professional and includes fitting, alignment, and quality check. Velcro: 2 days, Frame: 3 days, Pleated: 3 days after confirmation.',
-            'delivery': 'Delivery timelines: Velcro System - 2 days, Frame System - 3 days, Pleated Nets - 3 days (subject to availability).',
-            'order': 'You can track your order status from your dashboard. For specific queries, please contact our support team.',
-            'price': 'Prices vary by product and measurement. Check our Price Checker for accurate estimates.',
-            'estimate': 'You can get a free estimate through our Estimate page or AI Price Checker.',
-            'appointment': 'Book an appointment for site measurement and consultation through our Appointment page.',
-            'return': 'Refund policy: 60% advance required. Refund limited to 40% of advance where applicable. Cancellation deductions may apply.'
-        };
+    window.submitSupport = function(e) {
+        e.preventDefault();
+        const subject = document.getElementById('supSubject').value.trim();
+        const message = document.getElementById('supMessage').value.trim();
 
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) { window.location.href = "customer-login.html"; return; }
-            await loadCustomerData(user.uid);
-        });
-
-        async function loadCustomerData(uid) {
-            try {
-                const customersRef = collection(db, "customers");
-                const q = query(customersRef, where("uid", "==", uid));
-                const snapshot = await getDocs(q);
-                if (!snapshot.empty) {
-                    const data = snapshot.docs[0].data();
-                    customerId = snapshot.docs[0].id;
-                    customerName = data.name || '';
-                }
-            } catch (error) {
-                console.error("Load error:", error);
-            }
+        if (!subject || !message) {
+            showToast('Please fill all fields', 'error');
+            return;
         }
 
-        // Chat functions
-        window.sendChat = function() {
-            const input = document.getElementById('chatInput');
-            const msg = input.value.trim();
-            if (!msg) return;
+        // Save ticket
+        try {
+            const tickets = JSON.parse(localStorage.getItem('raj_support_tickets') || '[]');
+            tickets.push({
+                id: 'TKT-' + Date.now(),
+                subject,
+                message,
+                status: 'OPEN',
+                createdAt: new Date().toISOString()
+            });
+            localStorage.setItem('raj_support_tickets', JSON.stringify(tickets));
+        } catch (e) {}
 
-            const container = document.getElementById('chatMessages');
-            container.innerHTML += `<div style="background:#0ea5e9; color:#fff; border-radius:12px; padding:8px 12px; margin-bottom:8px; max-width:85%; margin-left:auto;">
-                <strong>👤 You:</strong> ${msg}
-            </div>`;
+        showToast('✅ Message sent! We will contact you soon.', 'success');
+        e.target.reset();
+    };
 
-            input.value = '';
-            container.scrollTop = container.scrollHeight;
-
-            // AI Response
-            setTimeout(() => {
-                let response = "I'm sorry, I don't have an answer for that. Please contact our support team for assistance.";
-                const lower = msg.toLowerCase();
-
-                for (const [key, value] of Object.entries(AI_KNOWLEDGE)) {
-                    if (lower.includes(key)) {
-                        response = value;
-                        break;
-                    }
-                }
-
-                container.innerHTML += `<div style="background:#e8ecf0; border-radius:12px; padding:8px 12px; margin-bottom:8px; max-width:85%;">
-                    <strong>🤖 AI:</strong> ${response}
-                </div>`;
-                container.scrollTop = container.scrollHeight;
-            }, 800);
-        };
-
-        // Enter key for chat
-        document.getElementById('chatInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') sendChat();
-        });
-
-        // Submit ticket
-        window.submitTicket = async function(e) {
-            e.preventDefault();
-            const subject = document.getElementById('ticketSubject').value.trim();
-            const category = document.getElementById('ticketCategory').value;
-            const message = document.getElementById('ticketMessage').value.trim();
-            const priority = document.getElementById('ticketPriority').value;
-
-            if (!subject || !category || !message) {
-                showError('Please fill in all required fields.');
-                return;
-            }
-
-            const btn = document.getElementById('ticketBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
-            showError('');
-            showSuccess('');
-
-            try {
-                await addDoc(collection(db, 'supportTickets'), {
-                    customerId: customerId || '',
-                    customerName: customerName || 'Unknown',
-                    subject,
-                    category,
-                    message,
-                    priority,
-                    status: 'OPEN',
-                    source: 'Customer Portal',
-                    createdAt: serverTimestamp()
-                });
-
-                document.getElementById('supportForm').reset();
-                showSuccess('✅ Support ticket submitted! We\'ll respond within 24 hours.');
-                // Also send email notification
-                const emailBody = `New Support Ticket\n\nCustomer: ${customerName || 'Unknown'}\nSubject: ${subject}\nCategory: ${category}\nPriority: ${priority}\n\nMessage:\n${message}`;
-                console.log('📧 Email to rajmarketingmys@gmail.com:', emailBody);
-
-            } catch (error) {
-                console.error('Ticket error:', error);
-                showError('Failed to submit ticket. Please try again.');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Ticket';
-            }
-        };
-
-        function showError(msg) {
-            const box = document.getElementById('errorBox');
-            if (!msg) { box.classList.remove('show'); box.textContent = ''; return; }
-            box.textContent = '❌ ' + msg;
-            box.classList.add('show');
-            document.getElementById('successBox').classList.remove('show');
-        }
-
-        function showSuccess(msg) {
-            const box = document.getElementById('successBox');
-            if (!msg) { box.classList.remove('show'); box.textContent = ''; return; }
-            box.textContent = '✅ ' + msg;
-            box.classList.add('show');
-            document.getElementById('errorBox').classList.remove('show');
-            setTimeout(() => box.classList.remove('show'), 5000);
-        }
-
-        // Auto-send welcome message
-        setTimeout(() => {
-            document.getElementById('chatInput').value = 'Hello, I need help with my order.';
-            sendChat();
-        }, 1500);
+    function showToast(msg, type = 'info') {
+        document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+        const colors = { success: '#10b981', error: '#ef4444', info: '#1a56db' };
+        const t = document.createElement('div');
+        t.className = 'rm-toast';
+        t.textContent = msg;
+        t.style.background = colors[type] || colors.info;
+        document.body.appendChild(t);
+        requestAnimationFrame(() => t.classList.add('show'));
+        setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+    }
     </script>
 </body>
 </html>
