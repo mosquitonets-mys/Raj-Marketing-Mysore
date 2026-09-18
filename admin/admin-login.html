@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Admin Login - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f1b33, #1a56db);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .admin-login-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 36px 28px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .admin-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #1a56db, #0f1b33);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 36px;
+            margin: 0 auto 20px;
+            box-shadow: 0 12px 32px rgba(26, 86, 219, 0.35);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .admin-login-card h1 {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--highlight-grey);
+            text-align: center;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .admin-login-card .subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-text);
+            margin-bottom: 28px;
+        }
+        .admin-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 auto 16px;
+            display: flex;
+            width: fit-content;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            color: var(--muted-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+        .step-dot.active {
+            background: linear-gradient(145deg, #1a56db, #0f1b33);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(26, 86, 219, 0.35);
+        }
+        .step-dot.completed {
+            background: #10b981;
+            color: #fff;
+        }
+        .step-line {
+            width: 40px;
+            height: 2px;
+            background: var(--border);
+        }
+        .step-line.completed { background: #10b981; }
+        .otp-input {
+            font-family: 'Courier New', monospace;
+            font-size: 28px;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 8px;
+            padding: 16px !important;
+            text-transform: uppercase;
+        }
+        .email-sent-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: #1e40af;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .email-sent-box i { color: #1a56db; font-size: 16px; margin-top: 2px; }
+        .email-sent-box strong { color: #0f1b33; font-weight: 800; }
+        .dev-otp-hint {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: var(--radius);
+            padding: 10px 14px;
+            margin-top: 12px;
+            font-size: 11px;
+            color: #92400e;
+            display: none;
+        }
+        .dev-otp-hint.show { display: block; }
+        .dev-otp-hint code {
+            background: #fff;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #dc2626;
+        }
+        .lockout-box {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            color: #991b1b;
+            font-weight: 700;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-login-card">
+        <div class="admin-badge">
+            <i class="fas fa-shield-alt"></i> Admin Access Only
+        </div>
+        <div class="admin-logo">
+            <i class="fas fa-crown"></i>
+        </div>
+        <h1>Admin Login</h1>
+        <p class="subtitle">Raj Marketing Mysore · Secure Portal</p>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step-dot active" id="stepDot1">1</div>
+            <div class="step-line" id="stepLine1"></div>
+            <div class="step-dot" id="stepDot2">2</div>
+        </div>
+
+        <!-- ===== STEP 1: PASSWORD ===== -->
+        <div id="passwordStep">
+            <form id="passwordForm" onsubmit="submitPassword(event)">
+                <div class="form-group">
+                    <label>Admin Password <span class="required">*</span></label>
+                    <input type="password" id="adminPassword" required placeholder="Enter admin password" autocomplete="off" />
+                    <div class="form-hint">
+                        <i class="fas fa-info-circle"></i>
+                        Default password: <code style="background:#f1f5f9;padding:1px 6px;border-radius:4px;font-weight:700;">admin123</code> (change in production)
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    <i class="fas fa-lock"></i> Continue
+                </button>
+            </form>
+
+            <div id="lockoutBox" class="lockout-box" style="display:none;margin-top:16px;">
+                <i class="fas fa-ban"></i> Too many attempts. Try again in <span id="lockoutTimer">15:00</span>
+            </div>
+        </div>
+
+        <!-- ===== STEP 2: OTP ===== -->
+        <div id="otpStep" style="display:none;">
+            <div class="email-sent-box">
+                <i class="fas fa-envelope-open-text"></i>
+                <div>
+                    A 6-character alphanumeric OTP has been sent to
+                    <strong>rajmarketingmys@gmail.com</strong>
+                </div>
+            </div>
+
+            <form id="otpForm" onsubmit="submitOTP(event)">
+                <div class="form-group">
+                    <label>Enter OTP <span class="required">*</span></label>
+                    <input type="text" id="otpInput" class="otp-input" required maxlength="6"
+                           placeholder="XXXXXX" autocomplete="off" autocapitalize="characters" />
+                    <div class="form-hint">
+                        <i class="fas fa-clock"></i> OTP valid for <strong>10 minutes</strong>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block btn-lg">
+                    <i class="fas fa-check-circle"></i> Verify &amp; Login
+                </button>
+            </form>
+
+            <button class="btn btn-secondary btn-block" onclick="backToPassword()" style="margin-top:10px;">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+
+            <button class="btn btn-link btn-block" onclick="resendOTP()" id="resendBtn" style="margin-top:8px;background:none;border:none;color:var(--royal-blue);font-weight:700;font-size:12px;cursor:pointer;padding:8px;">
+                <i class="fas fa-redo"></i> Resend OTP
+            </button>
+
+            <div id="devOTPHint" class="dev-otp-hint">
+                <i class="fas fa-code"></i> <strong>Development Mode:</strong> OTP is <code id="devOTPCode">------</code>
+                <br><small style="color:#78350f;">(Check browser console for the OTP. In production, this is sent via email.)</small>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:20px;font-size:11px;color:var(--muted-text);">
+            <i class="fas fa-shield-alt"></i> Secured with 256-bit encryption
+        </div>
+    </div>
+
+    <script src="js/admin-auth.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        let currentOTP = '';
+
+        function showToast(msg, type = 'info') {
+            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+            const t = document.createElement('div');
+            t.className = 'rm-toast';
+            t.textContent = msg;
+            t.style.background = colors[type] || colors.info;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => t.classList.add('show'));
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+        }
+
+        // Check if already logged in
+        if (AdminAuth.isAdminLoggedIn()) {
+            window.location.href = 'dashboard.html';
+            return;
+        }
+
+        // Check lockout
+        const lock = AdminAuth.isLockedOut();
+        if (lock.locked) {
+            showLockout(lock.remaining);
+        }
+
+        function showLockout(seconds) {
+            const box = document.getElementById('lockoutBox');
+            const timer = document.getElementById('lockoutTimer');
+            box.style.display = 'block';
+            document.querySelector('#passwordForm button[type="submit"]').disabled = true;
+
+            function update() {
+                if (seconds <= 0) {
+                    box.style.display = 'none';
+                    document.querySelector('#passwordForm button[type="submit"]').disabled = false;
+                    AdminAuth.resetAttempts();
+                    return;
+                }
+                const m = Math.floor(seconds / 60);
+                const s = seconds % 60;
+                timer.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+                seconds--;
+                setTimeout(update, 1000);
+            }
+            update();
+        }
+
+        // ============================================================
+        // STEP 1: PASSWORD
+        // ============================================================
+        window.submitPassword = async function(e) {
+            e.preventDefault();
+
+            const lock = AdminAuth.isLockedOut();
+            if (lock.locked) {
+                showToast('Account locked. Please wait.', 'error');
+                return;
+            }
+
+            const password = document.getElementById('adminPassword').value;
+
+            // Hash and compare
+            const hash = await AdminAuth.sha256(password);
+            const correctHash = AdminAuth.config.ADMIN_PASSWORD_HASH;
+
+            if (hash !== correctHash) {
+                const attempts = AdminAuth.incrementAttempts();
+                const remaining = AdminAuth.config.MAX_ATTEMPTS - attempts.count;
+                showToast(`❌ Invalid password. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`, 'error');
+
+                if (attempts.count >= AdminAuth.config.MAX_ATTEMPTS) {
+                    showLockout(Math.floor(AdminAuth.config.LOCKOUT_DURATION / 1000));
+                }
+                return;
+            }
+
+            // Password correct - generate OTP
+            currentOTP = AdminAuth.generateOTP();
+            AdminAuth.sendOTPByEmail(currentOTP);
+
+            // Show dev hint
+            const devHint = document.getElementById('devOTPHint');
+            document.getElementById('devOTPCode').textContent = currentOTP;
+            devHint.classList.add('show');
+
+            // Move to OTP step
+            document.getElementById('passwordStep').style.display = 'none';
+            document.getElementById('otpStep').style.display = 'block';
+            document.getElementById('stepDot1').classList.add('completed');
+            document.getElementById('stepLine1').classList.add('completed');
+            document.getElementById('stepDot2').classList.add('active');
+
+            showToast('✅ Password verified! OTP sent to admin email.', 'success');
+
+            // Focus OTP input
+            setTimeout(() => document.getElementById('otpInput').focus(), 300);
+        };
+
+        // ============================================================
+        // STEP 2: OTP
+        // ============================================================
+        window.submitOTP = function(e) {
+            e.preventDefault();
+
+            const inputOTP = document.getElementById('otpInput').value.toUpperCase().trim();
+
+            if (inputOTP.length !== 6) {
+                showToast('Please enter the complete 6-character OTP', 'error');
+                return;
+            }
+
+            const result = AdminAuth.verifyOTP(inputOTP);
+
+            if (!result.valid) {
+                showToast('❌ ' + result.error, 'error');
+                document.getElementById('otpInput').value = '';
+                document.getElementById('otpInput').focus();
+                return;
+            }
+
+            // Success!
+            AdminAuth.resetAttempts();
+            AdminAuth.createAdminSession();
+
+            document.getElementById('stepDot2').classList.add('completed');
+
+            showToast('🎉 Login successful! Redirecting...', 'success');
+
+            setTimeout(() => {
+                const redirect = sessionStorage.getItem('admin_redirect') || 'dashboard.html';
+                sessionStorage.removeItem('admin_redirect');
+                window.location.href = redirect;
+            }, 800);
+        };
+
+        // ============================================================
+        // UTILITIES
+        // ============================================================
+        window.backToPassword = function() {
+            document.getElementById('passwordStep').style.display = 'block';
+            document.getElementById('otpStep').style.display = 'none';
+            document.getElementById('stepDot1').classList.remove('completed');
+            document.getElementById('stepLine1').classList.remove('completed');
+            document.getElementById('stepDot2').classList.remove('active');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('otpInput').value = '';
+        };
+
+        window.resendOTP = function() {
+            currentOTP = AdminAuth.generateOTP();
+            AdminAuth.sendOTPByEmail(currentOTP);
+            document.getElementById('devOTPCode').textContent = currentOTP;
+            document.getElementById('devOTPHint').classList.add('show');
+            showToast('📧 New OTP sent to admin email', 'info');
+        };
+
+        // Auto-format OTP input
+        document.getElementById('otpInput').addEventListener('input', function() {
+            this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+        });
+
+        // Auto-submit when 6 chars entered
+        document.getElementById('otpInput').addEventListener('input', function() {
+            if (this.value.length === 6) {
+                setTimeout(() => submitOTP({ preventDefault: () => {} }), 300);
+            }
+        });
+    })();
+    </script>
+</body>
+  </html>
