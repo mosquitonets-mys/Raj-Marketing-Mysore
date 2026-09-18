@@ -2,271 +2,132 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Dealer Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Dealer Login - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            background: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .login-container {
-            max-width: 420px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
-            padding: 40px 30px;
-            border: 1px solid #e8ecf0;
-        }
-        .login-logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .login-logo .logo-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(145deg, #f97316, #ea580c);
-            border-radius: 18px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 32px;
-            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
-        }
-        .login-logo h1 {
-            font-size: 24px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-top: 12px;
-        }
-        .login-logo p {
-            font-size: 13px;
-            color: #6b6b7b;
-            margin-top: 4px;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #4a4a5a;
-            display: block;
-            margin-bottom: 6px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1.5px solid #e8ecf0;
-            border-radius: 14px;
-            font-size: 14px;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
-            background: #f8fafc;
-            transition: 0.2s;
-        }
-        .form-group input:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
-        }
-        .btn-login {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(145deg, #f97316, #ea580c);
-            color: #fff;
-            border: none;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
-            margin-top: 6px;
-        }
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(249, 115, 22, 0.35);
-        }
-        .btn-login:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .login-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6b6b7b;
-        }
-        .login-footer a {
-            color: #f97316;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .login-footer a:hover {
-            text-decoration: underline;
-        }
-        .error-msg {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            display: none;
-            border-left: 4px solid #dc2626;
-        }
-        .error-msg.show {
-            display: block;
-        }
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        @media (max-width: 400px) {
-            .login-container { padding: 30px 20px; }
-            .login-logo h1 { font-size: 20px; }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
-    <div class="login-container">
-        <div class="login-logo">
-            <div class="logo-icon"><i class="fas fa-handshake"></i></div>
-            <h1>Raj Marketing</h1>
-            <p>Dealer Login · Portal</p>
+    <div id="header-placeholder"></div>
+
+    <main class="auth-container">
+
+        <div class="dealer-auth-card">
+            <div class="auth-header">
+                <div class="dealer-auth-icon"><i class="fas fa-user-tie"></i></div>
+                <h1>Dealer Login</h1>
+                <p>Sign in to your dealer portal</p>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email or Dealer ID <span class="required">*</span></label>
+                    <input type="text" id="loginEmail" required placeholder="Enter email or dealer ID" />
+                </div>
+
+                <div class="form-group">
+                    <label>Password <span class="required">*</span></label>
+                    <input type="password" id="loginPassword" required placeholder="Enter password" minlength="6" />
+                    <div class="form-hint" style="text-align:right;">
+                        <a href="#" onclick="forgotPassword(event)" style="color:#f59e0b;text-decoration:none;font-weight:700;">Forgot password?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg" style="background:linear-gradient(145deg,#f59e0b,#d97706);box-shadow:0 4px 14px rgba(245,158,11,0.3);">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+
+                <div style="text-align:center;margin:16px 0;color:var(--muted-text);font-size:12px;position:relative;">
+                    <hr style="border:none;border-top:1px solid var(--border);margin:0;" />
+                    <span style="background:var(--white);padding:0 12px;position:relative;top:-9px;font-weight:600;">OR</span>
+                </div>
+
+                <a href="dealer-registration.html" class="btn btn-secondary btn-block btn-lg">
+                    <i class="fas fa-handshake"></i> Become a Dealer
+                </a>
+            </form>
         </div>
 
-        <div id="errorBox" class="error-msg"></div>
-
-        <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label>Email or Mobile</label>
-                <input type="text" id="emailInput" placeholder="your@email.com or 9483037385" required />
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="passwordInput" placeholder="Enter your password" required />
-            </div>
-            <button type="submit" class="btn-login" id="loginBtn">
-                <i class="fas fa-sign-in-alt"></i> Login
-            </button>
-        </form>
-
-        <div class="login-footer">
-            <p>New dealer? <a href="dealer-registration.html">Register Now</a></p>
-            <p style="margin-top:6px; font-size:12px; color:#8a8a9a;">
-                <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
+        <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--muted-text);">
+            <p>By continuing, you agree to our</p>
+            <p>
+                <a href="../terms.html" style="color:#f59e0b;text-decoration:none;font-weight:700;">Terms</a>
+                ·
+                <a href="../privacy.html" style="color:#f59e0b;text-decoration:none;font-weight:700;">Privacy Policy</a>
             </p>
         </div>
-    </div>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+    </main>
 
-        const emailInput = document.getElementById('emailInput');
-        const passwordInput = document.getElementById('passwordInput');
-        const loginBtn = document.getElementById('loginBtn');
-        const errorBox = document.getElementById('errorBox');
+    <div id="footer-placeholder"></div>
 
-        async function handleLogin(e) {
-            e.preventDefault();
-            const input = emailInput.value.trim();
-            const password = passwordInput.value.trim();
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
-            if (!input || !password) {
-                showError('Please enter both email/phone and password.');
+    <script>
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        if (!email) { showToast('Please enter email or dealer ID', 'error'); return; }
+        if (!password || password.length < 6) { showToast('Password must be at least 6 characters', 'error'); return; }
+
+        try {
+            const dealers = JSON.parse(localStorage.getItem('raj_dealers') || '[]');
+            const found = dealers.find(d =>
+                (d.email === email || d.dealerId === email || d.mobile === email) && d.password === password
+            );
+
+            if (!found) {
+                showToast('Invalid credentials. Please register first.', 'error');
                 return;
             }
 
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="loading-spinner"></span> Logging in...';
-            errorBox.classList.remove('show');
-
-            try {
-                // Determine if input is email or mobile
-                const isEmail = input.includes('@');
-                let email = input;
-
-                if (!isEmail) {
-                    // Find dealer by mobile to get email
-                    const dealersRef = collection(db, 'dealers');
-                    const q = query(dealersRef, where('mobile', '==', input));
-                    const snapshot = await getDocs(q);
-                    
-                    if (snapshot.empty) {
-                        showError('No dealer found with this mobile number.');
-                        loginBtn.disabled = false;
-                        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-                        return;
-                    }
-                    
-                    const dealerData = snapshot.docs[0].data();
-                    email = dealerData.email;
-                    
-                    if (!email) {
-                        showError('This dealer account does not have an email. Please contact admin.');
-                        loginBtn.disabled = false;
-                        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-                        return;
-                    }
-                }
-
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log('✅ Dealer logged in:', userCredential.user.email);
-                window.location.href = 'dealer-dashboard.html';
-            } catch (error) {
-                console.error('❌ Login error:', error);
-                let msg = 'Login failed. Please check your credentials.';
-                if (error.code === 'auth/user-not-found') {
-                    msg = 'No account found with this email.';
-                } else if (error.code === 'auth/wrong-password') {
-                    msg = 'Incorrect password. Please try again.';
-                } else if (error.code === 'auth/too-many-requests') {
-                    msg = 'Too many failed attempts. Please try again later.';
-                }
-                showError(msg);
-            } finally {
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            if (found.status !== 'Approved' && found.status !== 'Active') {
+                showToast('Your account is under review. Please wait for approval.', 'warning');
+                return;
             }
-        }
 
-        function showError(msg) {
-            errorBox.textContent = '❌ ' + msg;
-            errorBox.classList.add('show');
-        }
+            localStorage.setItem('raj_dealer', JSON.stringify({
+                id: found.id,
+                dealerId: found.dealerId,
+                name: found.ownerName || found.name,
+                email: found.email,
+                mobile: found.mobile,
+                status: found.status,
+                loggedInAt: new Date().toISOString()
+            }));
 
-        window.handleLogin = handleLogin;
+            showToast('✅ Login successful!', 'success');
+            setTimeout(() => window.location.href = 'dealer-dashboard.html', 800);
+        } catch (err) {
+            showToast('Login failed. Try again.', 'error');
+        }
+    }
+
+    function forgotPassword(e) {
+        e.preventDefault();
+        const email = prompt('Enter your registered email or dealer ID:');
+        if (email) showToast('Password reset link sent to ' + email, 'info');
+    }
+
+    function showToast(msg, type = 'info') {
+        document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+        const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+        const t = document.createElement('div');
+        t.className = 'rm-toast';
+        t.textContent = msg;
+        t.style.background = colors[type] || colors.info;
+        document.body.appendChild(t);
+        requestAnimationFrame(() => t.classList.add('show'));
+        setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+    }
     </script>
-
 </body>
 </html>
