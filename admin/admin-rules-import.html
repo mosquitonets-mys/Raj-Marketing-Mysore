@@ -1,239 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raj Marketing - Business Rules Import</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-      background: #f5f7fa;
-    }
-
-    .box {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.08);
-    }
-
-    input, button {
-      width: 100%;
-      padding: 13px;
-      margin-top: 10px;
-      box-sizing: border-box;
-      border-radius: 7px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      background: #1565c0;
-      color: white;
-      border: none;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    #result {
-      margin-top: 20px;
-      white-space: pre-wrap;
-      line-height: 1.6;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Rules Import - Raj Marketing Admin</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        body { background: #f0f4f8; padding-bottom: 20px; }
+        .admin-header {
+            background: linear-gradient(135deg, #0f1b33, #1a56db);
+            padding: 16px; color: #fff;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 4px 20px rgba(15, 27, 51, 0.2);
+        }
+        .admin-header-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; flex-wrap: wrap;
+        }
+        .admin-brand { display: flex; align-items: center; gap: 10px; }
+        .admin-brand .logo {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+        .admin-brand h1 { font-size: 16px; font-weight: 900; }
+        .admin-brand p { font-size: 10px; opacity: 0.75; }
+        .admin-header-actions { display: flex; gap: 8px; }
+        .admin-header-btn {
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; border: none; cursor: pointer;
+            font-size: 15px; text-decoration: none;
+        }
+        .admin-header-btn:hover { background: rgba(255,255,255,0.25); }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px; }
+        .page-title {
+            font-size: 22px; font-weight: 900;
+            color: var(--highlight-grey);
+            margin-bottom: 8px;
+            display: flex; align-items: center; gap: 10px;
+            letter-spacing: -0.5px;
+        }
+        .page-title i { color: #8b5cf6; }
+        .page-subtitle {
+            font-size: 13px; color: var(--muted-text);
+            margin-bottom: 20px;
+        }
+        .import-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+        .import-card h3 {
+            font-size: 15px; font-weight: 800;
+            color: var(--highlight-grey);
+            margin-bottom: 4px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .import-card h3 i { color: #8b5cf6; }
+        .import-card p {
+            font-size: 12px; color: var(--muted-text);
+            margin-bottom: 16px;
+        }
+        .rule-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-light);
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .rule-row:last-child { border-bottom: none; }
+        .rule-row .rule-info {
+            flex: 1;
+            min-width: 200px;
+        }
+        .rule-row .rule-info .title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--highlight-grey);
+            margin-bottom: 2px;
+        }
+        .rule-row .rule-info .desc {
+            font-size: 11px;
+            color: var(--muted-text);
+            font-weight: 500;
+        }
+        .rule-row .rule-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .rule-row .rule-input input {
+            width: 100px;
+            padding: 8px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--highlight-grey);
+            text-align: center;
+            font-family: inherit;
+            outline: none;
+        }
+        .rule-row .rule-input input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        .rule-row .rule-input .unit {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--muted-text);
+        }
+        .rule-row .toggle {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background: var(--border);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .rule-row .toggle.on {
+            background: #10b981;
+        }
+        .rule-row .toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            transition: var(--transition);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .rule-row .toggle.on::after {
+            left: 25px;
+        }
+        .import-log {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            padding: 14px;
+            border-radius: var(--radius);
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+        .log-success { color: #10b981; }
+        .log-error { color: #ef4444; }
+        .log-info { color: #60a5fa; }
+    </style>
 </head>
-
 <body>
 
-  <h1>Raj Marketing Mysore</h1>
-  <h2>Business Rules Importer</h2>
+    <header class="admin-header">
+        <div class="admin-header-inner">
+            <div class="admin-brand">
+                <div class="logo"><i class="fas fa-cog"></i></div>
+                <div>
+                    <h1>Business Rules</h1>
+                    <p>Pricing &amp; Discount Configuration</p>
+                </div>
+            </div>
+            <div class="admin-header-actions">
+                <a href="dashboard.html" class="admin-header-btn" title="Dashboard">
+                    <i class="fas fa-home"></i>
+                </a>
+                <button class="admin-header-btn" onclick="AdminAuth.logout()" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-  <div class="box">
+    <div class="container">
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Admin email"
-    >
+        <h1 class="page-title">
+            <i class="fas fa-cog"></i> Business Rules
+        </h1>
+        <p class="page-subtitle">
+            Configure global business rules, discounts, and pricing logic.
+        </p>
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Admin password"
-    >
+        <!-- Discount Rules -->
+        <div class="import-card">
+            <h3><i class="fas fa-percent"></i> Volume Discounts</h3>
+            <p>Auto-apply discounts based on order area.</p>
 
-    <button id="importBtn">
-      Login & Import Business Rules
-    </button>
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Above 200 sq.ft</div>
+                    <div class="desc">Applied to large orders</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="discount200" value="12" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
 
-    <div id="result">Ready...</div>
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">150 – 199 sq.ft</div>
+                    <div class="desc">Mid-large orders</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="discount150" value="10" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
 
-  </div>
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">100 – 149 sq.ft</div>
+                    <div class="desc">Medium orders</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="discount100" value="8" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
 
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Below 100 sq.ft</div>
+                    <div class="desc">Small orders</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="discountBelow" value="5" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
+        </div>
 
-  <script type="module">
+        <!-- Tier Discounts -->
+        <div class="import-card">
+            <h3><i class="fas fa-award"></i> Dealer Tier Discounts</h3>
+            <p>Discount % per dealer tier.</p>
 
-    import { auth, db }
-      from "./firebase-config.js";
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Bronze Tier</div>
+                    <div class="desc">Entry-level dealers</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="tierBronze" value="15" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
 
-    import {
-      signInWithEmailAndPassword
-    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Silver Tier</div>
+                    <div class="desc">Growing dealers</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="tierSilver" value="20" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
 
-    import {
-      doc,
-      setDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Gold Tier</div>
+                    <div class="desc">Established dealers</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="tierGold" value="25" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
 
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Platinum Tier</div>
+                    <div class="desc">Top performers</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="tierPlatinum" value="30" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
+        </div>
 
-    const businessRules = {
+        <!-- Tax & Fees -->
+        <div class="import-card">
+            <h3><i class="fas fa-receipt"></i> Tax &amp; Fees</h3>
+            <p>Global tax and fee configuration.</p>
 
-      currency: "INR",
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">GST Rate</div>
+                    <div class="desc">Applied to all taxable orders</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="gstRate" value="18" min="0" max="50" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
 
-      measurementFormula:
-        "Width × Height × Quantity ÷ 144 = Sqft",
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Site Visit Fee (Outside Mysore)</div>
+                    <div class="desc">Per km travel charge</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="siteVisitFee" value="15" min="0" />
+                    <span class="unit">₹/km</span>
+                </div>
+            </div>
 
-      minimumDimension:
-        "Below 24 inches considered as 2 feet",
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Advance Payment</div>
+                    <div class="desc">Default advance % on order confirmation</div>
+                </div>
+                <div class="rule-input">
+                    <input type="number" id="advancePercent" value="60" min="0" max="100" />
+                    <span class="unit">%</span>
+                </div>
+            </div>
+        </div>
 
-      advancePercent: 60,
+        <!-- Feature Toggles -->
+        <div class="import-card">
+            <h3><i class="fas fa-toggle-on"></i> Feature Toggles</h3>
+            <p>Enable or disable platform features.</p>
 
-      balancePercent: 40,
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Customer Registration</div>
+                    <div class="desc">Allow new customer signups</div>
+                </div>
+                <div class="toggle on" data-key="customerReg" onclick="toggleRule(this)"></div>
+            </div>
 
-      siteVisitMysore:
-        "Free",
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Dealer Registration</div>
+                    <div class="desc">Allow new dealer applications</div>
+                </div>
+                <div class="toggle on" data-key="dealerReg" onclick="toggleRule(this)"></div>
+            </div>
 
-      siteVisitOutsideMysore:
-        "₹15/km",
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Auto-Approval</div>
+                    <div class="desc">Auto-approve new registrations</div>
+                </div>
+                <div class="toggle" data-key="autoApprove" onclick="toggleRule(this)"></div>
+            </div>
 
-      installation:
-        "No hidden installation cost",
+            <div class="rule-row">
+                <div class="rule-info">
+                    <div class="title">Maintenance Mode</div>
+                    <div class="desc">Show maintenance message to users</div>
+                </div>
+                <div class="toggle" data-key="maintenance" onclick="toggleRule(this)"></div>
+            </div>
+        </div>
 
-      cancellationDeductionPercent: 20,
+        <!-- Save -->
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="saveRules()">
+                <i class="fas fa-save"></i> Save All Rules
+            </button>
+            <button class="btn btn-secondary" onclick="resetRules()">
+                <i class="fas fa-redo"></i> Reset to Defaults
+            </button>
+            <button class="btn btn-secondary" onclick="exportRules()">
+                <i class="fas fa-download"></i> Export
+            </button>
+        </div>
 
-      refundPercent: 40,
+        <div class="import-log" id="importLog" style="display:none;"></div>
 
-      aluminiumFrameWarrantyYears: 5,
+    </div>
 
-      ssMeshWarrantyYears: 1,
+    <script src="js/admin-auth.js"></script>
+    <script src="js/admin-notifications.js"></script>
 
-      pleatedWarrantyYears: 1,
+    <script>
+    (function() {
+        'use strict';
 
-      velcroDelivery:
-        "2 days after confirmation",
+        const DEFAULT_RULES = {
+            discount200: 12,
+            discount150: 10,
+            discount100: 8,
+            discountBelow: 5,
+            tierBronze: 15,
+            tierSilver: 20,
+            tierGold: 25,
+            tierPlatinum: 30,
+            gstRate: 18,
+            siteVisitFee: 15,
+            advancePercent: 60,
+            customerReg: true,
+            dealerReg: true,
+            autoApprove: false,
+            maintenance: false
+        };
 
-      frameDelivery:
-        "3 days after confirmation",
-
-      pleatedDelivery:
-        "3 days; imported from Coimbatore after booking",
-
-      discountBelow100Sqft: 5,
-
-      discount100Sqft: 8,
-
-      discount150Sqft: 10,
-
-      discountAbove200Sqft: 12,
-
-      updatedAt: serverTimestamp()
-
-    };
-
-
-    const result =
-      document.getElementById("result");
-
-
-    document
-      .getElementById("importBtn")
-      .addEventListener("click", async () => {
-
-        const email =
-          document.getElementById("email").value.trim();
-
-        const password =
-          document.getElementById("password").value;
-
-
-        if (!email || !password) {
-
-          result.textContent =
-            "Please enter your admin email and password.";
-
-          return;
+        function init() {
+            if (!AdminAuth.requireLogin()) return;
+            loadRules();
         }
 
+        // ============================================================
+        // LOAD
+        // ============================================================
+        function loadRules() {
+            const stored = JSON.parse(localStorage.getItem('raj_business_rules') || '{}');
+            const rules = { ...DEFAULT_RULES, ...stored };
 
-        try {
+            // Number inputs
+            ['discount200', 'discount150', 'discount100', 'discountBelow',
+             'tierBronze', 'tierSilver', 'tierGold', 'tierPlatinum',
+             'gstRate', 'siteVisitFee', 'advancePercent'].forEach(key => {
+                const el = document.getElementById(key);
+                if (el) el.value = rules[key];
+            });
 
-          result.textContent =
-            "Logging in to Firebase...\n";
-
-
-          await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-
-
-          result.textContent +=
-            "✅ Admin login successful.\n\n";
-
-
-          result.textContent +=
-            "Writing business rules...\n";
-
-
-          await setDoc(
-            doc(db, "rules", "business"),
-            businessRules
-          );
-
-
-          result.textContent +=
-            "✅ Business rules saved.\n\n";
-
-
-          result.textContent +=
-            "============================\n" +
-            "IMPORT COMPLETED\n" +
-            "============================\n\n" +
-
-            "Measurement rules      ✅\n" +
-            "Advance rules           ✅\n" +
-            "Cancellation rules      ✅\n" +
-            "Refund rules            ✅\n" +
-            "Warranty rules          ✅\n" +
-            "Site visit rules        ✅\n" +
-            "Installation rules      ✅\n" +
-            "Delivery rules          ✅\n" +
-            "Discount rules          ✅\n\n" +
-
-            "✅ Raj Marketing business rules are ready.";
-
-
-        } catch (error) {
-
-          console.error(error);
-
-          result.textContent =
-            "❌ IMPORT FAILED\n\n" +
-            error.code +
-            "\n\n" +
-            error.message;
-
+            // Toggles
+            document.querySelectorAll('.toggle[data-key]').forEach(el => {
+                const key = el.dataset.key;
+                el.classList.toggle('on', !!rules[key]);
+            });
         }
 
-      });
+        // ============================================================
+        // TOGGLE
+        // ============================================================
+        window.toggleRule = function(el) {
+            el.classList.toggle('on');
+        };
 
-  </script>
+        // ============================================================
+        // SAVE
+        // ============================================================
+        window.saveRules = function() {
+            try {
+                const rules = {};
 
+                ['discount200', 'discount150', 'discount100', 'discountBelow',
+                 'tierBronze', 'tierSilver', 'tierGold', 'tierPlatinum',
+                 'gstRate', 'siteVisitFee', 'advancePercent'].forEach(key => {
+                    const el = document.getElementById(key);
+                    if (el) rules[key] = parseFloat(el.value) || 0;
+                });
+
+                document.querySelectorAll('.toggle[data-key]').forEach(el => {
+                    rules[el.dataset.key] = el.classList.contains('on');
+                });
+
+                localStorage.setItem('raj_business_rules', JSON.stringify(rules));
+
+                log('✅ Business rules saved successfully.', 'success');
+                showToast('✅ Rules saved!', 'success');
+
+                AdminNotifications.add('SYSTEM',
+                    'Business Rules Updated',
+                    'Admin updated business configuration.',
+                    { rules }
+                );
+            } catch (e) {
+                log('❌ Failed to save: ' + e.message, 'error');
+            }
+        };
+
+        window.resetRules = function() {
+            if (!confirm('Reset all rules to defaults?')) return;
+            localStorage.removeItem('raj_business_rules');
+            loadRules();
+            log('🔄 Rules reset to defaults.', 'info');
+            showToast('Rules reset', 'warning');
+        };
+
+        window.exportRules = function() {
+            const rules = JSON.parse(localStorage.getItem('raj_business_rules') || JSON.stringify(DEFAULT_RULES));
+            const blob = new Blob([JSON.stringify({ rules }, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'business-rules-export.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Rules exported', 'success');
+        };
+
+        // ============================================================
+        // UTILS
+        // ============================================================
+        function log(msg, type = 'info') {
+            const el = document.getElementById('importLog');
+            el.style.display = 'block';
+            const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            el.innerHTML += `<div class="log-${type}">[${time}] ${msg}</div>`;
+            el.scrollTop = el.scrollHeight;
+        }
+
+        function showToast(msg, type = 'info') {
+            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+            const t = document.createElement('div');
+                        t.className = 'rm-toast';
+            t.textContent = msg;
+            t.style.background = colors[type] || colors.info;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => t.classList.add('show'));
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    })();
+    </script>
 </body>
 </html>
