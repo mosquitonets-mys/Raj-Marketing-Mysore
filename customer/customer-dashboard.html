@@ -2,682 +2,242 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Customer Dashboard</title>
-    <meta name="description" content="Customer dashboard for Raj Marketing Mysore" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Customer Dashboard - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #f0f2f5; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
-        .app-container { max-width: 480px; width: 100%; background: #ffffff; border-radius: 32px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
-
-        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #ffffff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
-        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
-        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
-        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
-        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
-        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
-        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; position: relative; }
-        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
-        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
-        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
-        .fixed-header .header-btn .badge { position: absolute; top: -4px; right: -4px; background: #ef4444; color: #fff; font-size: 8px; font-weight: 700; border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; }
-
-        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #ffffff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
-        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b7b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
-        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b7b; }
-        .fixed-footer .nav-item.active i { color: #0ea5e9; }
-        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
-
-        /* Cover + Profile */
-        .cover-container { position: relative; border-radius: 20px 20px 0 0; overflow: hidden; height: 160px; background: linear-gradient(135deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; text-align: center; }
-        .cover-container .cover-image { width: 100%; height: 100%; object-fit: cover; background: linear-gradient(135deg, #0ea5e9, #0284c7); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; position: relative; }
-        .cover-container .cover-image .cover-title { font-weight: 900; font-size: 24px; color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,0.3); letter-spacing: -0.5px; }
-        .cover-container .cover-image .cover-sub { font-size: 13px; color: rgba(255,255,255,0.85); text-shadow: 0 1px 6px rgba(0,0,0,0.2); margin-top: 2px; }
-        .cover-container .cover-image .cover-icon { font-size: 48px; opacity: 0.08; position: absolute; right: 16px; bottom: 16px; color: #fff; }
-
-        .profile-section { display: flex; align-items: flex-end; gap: 14px; padding: 0 16px 12px 16px; background: #ffffff; margin-top: -40px; position: relative; z-index: 2; border-bottom: 1px solid #e8ecf0; }
-        .profile-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(145deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 32px; flex-shrink: 0; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: -20px; position: relative; z-index: 3; overflow: hidden; cursor: pointer; }
-        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-avatar .upload-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: #fff; font-size: 10px; padding: 4px 0; text-align: center; opacity: 0; transition: 0.2s; }
-        .profile-avatar:hover .upload-overlay { opacity: 1; }
-        .profile-info { flex: 1; min-width: 0; padding-top: 8px; }
-        .profile-info .name { font-weight: 800; font-size: 18px; color: #1a1a2e; display: block; }
-        .profile-info .customer-id { font-size: 11px; color: #6b6b7b; display: block; }
-        .profile-info .phone { font-size: 13px; color: #1a1a2e; font-weight: 600; display: block; }
-        .profile-info .greeting { font-size: 13px; font-weight: 500; color: #059669; display: block; }
-
-        .error-box { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 12px; margin-bottom: 12px; display: none; font-size: 13px; border-left: 4px solid #dc2626; }
-        .error-box.show { display: block; }
-
-        .greeting-banner { background: linear-gradient(145deg, #f0f9ff, #e0f2fe); border-radius: 16px; padding: 12px 16px; margin: 10px 0; border: 1px solid rgba(14,165,233,0.1); }
-        .greeting-banner .main { font-weight: 700; font-size: 15px; color: #1a1a2e; }
-        .greeting-banner .sub { font-size: 12px; color: #6b6b7b; margin-top: 2px; }
-
-        .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; margin: 10px 0 14px 0; }
-        .quick-card { background: #ffffff; border-radius: 14px; padding: 10px 4px; text-align: center; border: 1px solid #e8ecf0; transition: 0.3s; text-decoration: none; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .quick-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-3px); }
-        .quick-card i { font-size: 20px; color: #0ea5e9; display: block; margin-bottom: 2px; }
-        .quick-card .title { font-size: 8px; font-weight: 600; color: #1a1a2e; display: block; line-height: 1.2; }
-
-        .section-title { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 0 10px 0; }
-        .section-title h3 { font-weight: 700; font-size: 15px; color: #1a1a2e; }
-        .section-title a { font-size: 11px; color: #0ea5e9; font-weight: 600; text-decoration: none; }
-
-        .product-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; -webkit-overflow-scrolling: touch; }
-        .product-scroll::-webkit-scrollbar { height: 3px; }
-        .product-scroll::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
-        .product-slide { min-width: 130px; background: #ffffff; border-radius: 16px; padding: 12px; border: 1px solid #e8ecf0; text-align: center; flex-shrink: 0; transition: 0.3s; text-decoration: none; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .product-slide:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); border-color: #0ea5e9; transform: translateY(-3px); }
-        .product-slide .icon { font-size: 28px; color: #0ea5e9; display: block; margin-bottom: 4px; }
-        .product-slide .name { font-weight: 600; font-size: 11px; color: #1a1a2e; }
-        .product-slide .price { font-weight: 700; font-size: 13px; color: #0ea5e9; display: block; margin-top: 2px; }
-        .product-slide .offer-tag { background: #d1fae5; color: #059669; font-size: 8px; font-weight: 700; padding: 1px 8px; border-radius: 12px; display: inline-block; }
-
-        .ad-slider { border-radius: 16px; overflow: hidden; height: 70px; position: relative; margin: 10px 0; }
-        .ad-slider .ad-slides { display: flex; width: 300%; height: 100%; transition: transform 0.6s ease; }
-        .ad-slider .ad-slide { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px 16px; color: #fff; text-align: center; gap: 10px; }
-        .ad-slider .ad-slide .ad-icon { font-size: 24px; }
-        .ad-slider .ad-slide .ad-text { font-weight: 700; font-size: 13px; }
-        .ad-slider .ad-slide .ad-sub { font-size: 10px; opacity: 0.85; }
-        .ad-slider .ad-slide:nth-child(1) { background: linear-gradient(135deg, #f97316, #fb923c); }
-        .ad-slider .ad-slide:nth-child(2) { background: linear-gradient(135deg, #22c55e, #4ade80); }
-        .ad-slider .ad-slide:nth-child(3) { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-        .ad-slider .ad-dots { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
-        .ad-slider .ad-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; border: none; }
-        .ad-slider .ad-dots .dot.active { background: #fff; transform: scale(1.2); }
-
-        .video-section { border-radius: 16px; overflow: hidden; background: #1a1a2e; margin: 4px 0 8px 0; aspect-ratio: 9/16; max-height: 320px; position: relative; }
-        .video-section iframe { width: 100%; height: 100%; border: none; }
-        .video-section .video-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 16px; background: linear-gradient(transparent, rgba(0,0,0,0.7)); color: #fff; }
-        .video-section .video-overlay .title { font-weight: 600; font-size: 13px; }
-        .video-section .video-overlay .sub { font-size: 10px; opacity: 0.7; }
-        .video-controls { display: flex; justify-content: center; align-items: center; gap: 12px; padding: 8px 0; }
-        .video-controls button { background: #1a1a2e; color: #fff; border: none; padding: 6px 16px; border-radius: 30px; font-weight: 600; font-size: 11px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
-        .video-controls button:hover { background: #0ea5e9; transform: scale(1.04); }
-        .video-controls .counter { color: #6b6b7b; font-size: 11px; }
-
-        .social-feed { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px 2px; scrollbar-width: thin; scrollbar-color: #0ea5e9 #e8ecf0; -webkit-overflow-scrolling: touch; }
-        .social-feed::-webkit-scrollbar { height: 3px; }
-        .social-feed::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 20px; }
-        .feed-card { min-width: 200px; background: #f8fafc; border-radius: 16px; padding: 14px; border: 1px solid #e8ecf0; flex-shrink: 0; transition: 0.3s; }
-        .feed-card:hover { border-color: #0ea5e9; transform: translateY(-2px); }
-        .feed-card .feed-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        .feed-card .feed-header .icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; }
-        .feed-card .feed-header .icon.facebook { background: #1877f2; }
-        .feed-card .feed-header .icon.twitter { background: #1DA1F2; }
-        .feed-card .feed-header .icon.pinterest { background: #E60023; }
-        .feed-card .feed-header .icon.youtube { background: #FF0000; }
-        .feed-card .feed-header .icon.instagram { background: #E4405F; }
-        .feed-card .feed-header .name { font-weight: 600; font-size: 12px; color: #1a1a2e; }
-        .feed-card .feed-header .handle { font-size: 10px; color: #6b6b7b; }
-        .feed-card .feed-content { font-size: 12px; color: #1a1a2e; line-height: 1.5; }
-        .feed-card .feed-content .hashtag { color: #0ea5e9; }
-        .feed-card .feed-footer { display: flex; gap: 12px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #e8ecf0; font-size: 10px; color: #6b6b7b; }
-
-        .promo-banner { background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 16px; padding: 14px 16px; color: #fff; margin: 12px 0; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 16px rgba(14,165,233,0.15); }
-        .promo-banner:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.25); }
-        .promo-banner .title { font-weight: 700; font-size: 14px; }
-        .promo-banner .desc { font-size: 11px; opacity: 0.9; margin-top: 2px; }
-        .promo-banner .btn { background: #fff; color: #0284c7; border: none; padding: 4px 14px; border-radius: 30px; font-weight: 700; font-size: 10px; margin-top: 6px; display: inline-block; transition: 0.2s; }
-        .promo-banner .btn:hover { transform: scale(1.04); }
-
-        .social-links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 8px 0; }
-        .social-links a { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #e8ecf0; display: flex; align-items: center; justify-content: center; color: #6b6b7b; transition: 0.3s; text-decoration: none; background: #ffffff; }
-        .social-links a:hover { border-color: #0ea5e9; color: #0ea5e9; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-
-        .support-section { background: linear-gradient(145deg, #ffffff, #f8fafc); border-radius: 16px; padding: 16px; margin: 12px 0; border: 1px solid #e8ecf0; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .support-section .top { display: flex; align-items: center; gap: 12px; }
-        .support-section .top .icon-box { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(145deg, #0ea5e9, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; flex-shrink: 0; }
-        .support-section .top .info { flex: 1; }
-        .support-section .top .info .title { font-weight: 700; font-size: 14px; color: #1a1a2e; }
-        .support-section .top .info .phone { font-size: 16px; font-weight: 800; color: #0ea5e9; }
-        .support-section .top .info .phone a { color: #0ea5e9; text-decoration: none; }
-        .support-section .actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px solid #e8ecf0; }
-        .support-section .actions a { padding: 6px 16px; border-radius: 30px; font-weight: 600; font-size: 11px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: 0.3s; }
-        .support-section .actions a:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .support-section .actions .whatsapp { background: #25D366; color: #fff; }
-        .support-section .actions .call { background: #0ea5e9; color: #fff; }
-        .support-section .actions .support { background: #1a1a2e; color: #fff; }
-
-        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; }
-        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; transition: 0.2s; }
-        .footer-links a:hover { color: #0ea5e9; }
-        .footer-links .sep { color: #e8ecf0; font-size: 9px; }
-        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
-
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; transition: 0.3s; }
-        .whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
-
-        .hidden { display: none !important; }
-        .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
-        .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
-        .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        @media (max-width: 400px) {
-            .quick-grid { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-            .quick-card { padding: 8px 2px; }
-            .quick-card i { font-size: 16px; }
-            .quick-card .title { font-size: 7px; }
-            .profile-section { padding: 0 12px 10px; }
-            .profile-avatar { width: 60px; height: 60px; font-size: 26px; }
-            .profile-info .name { font-size: 16px; }
-            .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; }
-            .product-slide { min-width: 110px; padding: 10px; }
-            .cover-container { height: 130px; }
-            .cover-container .cover-image .cover-title { font-size: 20px; }
-            .video-section { max-height: 240px; }
-            .feed-card { min-width: 160px; }
-            .ad-slider { height: 60px; }
-            .ad-slider .ad-slide .ad-text { font-size: 11px; }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
-    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <div id="header-placeholder"></div>
 
-    <!-- Fixed Header -->
-    <header class="fixed-header">
-        <div class="logo-area">
-        <div class="logo-icon">
-    <img src="images/logo.png" alt="Raj Marketing Mysore" style="width:33px; height:33px; object-fit:contain; border-radius:8px;" />
-     </div>
-   <div class="logo-text">Raj Marketing<span>Mysore</span></div>
-        </div>
-        <div class="header-actions">
-            <a href="customer-notifications.html" class="header-btn" style="position:relative;">
-                <i class="fas fa-bell"></i>
-                <span class="badge" id="notifBadge" style="display:none;">0</span>
-                <span class="label">Alerts</span>
+    <main class="page-container">
+
+        <!-- Welcome Hero -->
+        <section class="hero-card">
+            <div class="hero-top">
+                <div>
+                    <h2 id="welcomeName">Welcome back! 👋</h2>
+                    <p id="welcomeSub">Manage your mosquito net orders here</p>
+                </div>
+                <span class="hero-badge">
+                    <i class="fas fa-user"></i> Customer
+                </span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1;">
+                <a href="../estimate.html" class="btn" style="background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);color:#fff;">
+                    <i class="fas fa-plus"></i> New Estimate
+                </a>
+                <a href="customer-products.html" class="btn" style="background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);color:#fff;">
+                    <i class="fas fa-th-large"></i> Browse Products
+                </a>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <a href="customer-orders.html" class="stat-card">
+                <div class="icon"><i class="fas fa-shopping-bag"></i></div>
+                <div class="number" id="statOrders">0</div>
+                <div class="label">Orders</div>
             </a>
-            <button class="header-btn" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="label">Logout</span>
-            </button>
+            <a href="customer-estimate.html" class="stat-card">
+                <div class="icon"><i class="fas fa-file-invoice"></i></div>
+                <div class="number" id="statEstimates">0</div>
+                <div class="label">Estimates</div>
+            </a>
+            <a href="customer-appointments.html" class="stat-card">
+                <div class="icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="number" id="statAppointments">0</div>
+                <div class="label">Appointments</div>
+            </a>
+            <a href="customer-payments.html" class="stat-card">
+                <div class="icon"><i class="fas fa-rupee-sign"></i></div>
+                <div class="number" id="statPayments">₹0</div>
+                <div class="label">Payments</div>
+            </a>
         </div>
-    </header>
 
-    <!-- App Container -->
-    <div class="app-container">
-        <div id="loadingState" class="loading-text">
-            <i class="fas fa-spinner fa-spin"></i>
-            Loading dashboard...
+        <!-- Quick Actions -->
+        <h3 style="font-size:14px;font-weight:800;color:var(--highlight-grey);margin:8px 0 12px 4px;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-bolt" style="color:var(--royal-blue);"></i> Quick Actions
+        </h3>
+        <div class="quick-grid">
+            <a href="../estimate.html" class="quick-card">
+                <i class="fas fa-calculator"></i>
+                <span class="label">Get Estimate</span>
+            </a>
+            <a href="../appointment.html" class="quick-card">
+                <i class="fas fa-calendar-plus"></i>
+                <span class="label">Book Visit</span>
+            </a>
+            <a href="../track-order.html" class="quick-card">
+                <i class="fas fa-truck"></i>
+                <span class="label">Track Order</span>
+            </a>
+            <a href="customer-support.html" class="quick-card">
+                <i class="fas fa-headset"></i>
+                <span class="label">Support</span>
+            </a>
         </div>
 
-        <div id="dashboardContent" class="hidden">
-            <!-- Cover -->
-            <div class="cover-container">
-                <div class="cover-image">
-                    <div class="cover-title">Raj Marketing Mysore</div>
-                    <div class="cover-sub">Premium Mosquito Protection · Since 2016</div>
-                    <div class="cover-icon"><i class="fas fa-shield-alt"></i></div>
+        <!-- Recent Activity -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-history"></i> Recent Activity
+                <a href="customer-orders.html" style="margin-left:auto;font-size:11px;color:var(--royal-blue);text-decoration:none;font-weight:700;">View All →</a>
+            </div>
+            <div id="recentActivity">
+                <div class="loader">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading activity...</p>
                 </div>
             </div>
-
-            <!-- Profile Section -->
-            <div class="profile-section">
-                <div class="profile-avatar" id="profileAvatar" onclick="document.getElementById('photoInput').click()">
-                    <i class="fas fa-user" id="avatarIcon"></i>
-                    <div class="upload-overlay">📷 Change</div>
-                    <input type="file" id="photoInput" accept="image/*" style="display:none;" />
-                </div>
-                <div class="profile-info">
-                    <span class="name" id="customerName">Customer</span>
-                    <span class="greeting" id="greetingText">Welcome back! 👋</span>
-                    <span class="customer-id" id="customerIdDisplay">ID: —</span>
-                    <span class="phone" id="customerPhone">📱 —</span>
-                </div>
-            </div>
-
-            <!-- Error Box -->
-            <div id="errorBox" class="error-box"></div>
-
-            <!-- Greeting Banner -->
-            <div class="greeting-banner">
-                <div class="main" id="greetingMain">Good Morning, Customer 👋</div>
-                <div class="sub" id="greetingSub">Thank you for choosing Raj Marketing Mysore.</div>
-            </div>
-
-            <!-- Quick Grid - All Icons Connected -->
-            <div class="quick-grid">
-                <a href="customer-profile.html" class="quick-card"><i class="fas fa-user"></i><span class="title">Profile</span></a>
-                <a href="price-checker.html" class="quick-card"><i class="fas fa-tag"></i><span class="title">Price</span></a>
-                <a href="products.html" class="quick-card"><i class="fas fa-th-large"></i><span class="title">Products</span></a>
-                <a href="estimate.html" class="quick-card"><i class="fas fa-file-invoice"></i><span class="title">Estimate</span></a>
-                <a href="customer-orders.html" class="quick-card"><i class="fas fa-box"></i><span class="title">Orders</span></a>
-                <a href="appointment.html" class="quick-card"><i class="fas fa-calendar-check"></i><span class="title">Appointment</span></a>
-                <a href="customer-payments.html" class="quick-card"><i class="fas fa-credit-card"></i><span class="title">Payments</span></a>
-                <a href="invoice.html" class="quick-card"><i class="fas fa-receipt"></i><span class="title">Bills</span></a>
-                <a href="customer-offers.html" class="quick-card"><i class="fas fa-gift"></i><span class="title">Offers</span></a>
-                <a href="customer-measurements.html" class="quick-card"><i class="fas fa-ruler"></i><span class="title">Measurements</span></a>
-                <a href="customer-support.html" class="quick-card"><i class="fas fa-headset"></i><span class="title">Support</span></a>
-                <a href="customer-feedback.html" class="quick-card"><i class="fas fa-star"></i><span class="title">Feedback</span></a>
-                <a href="customer-refferal.html" class="quick-card"><i class="fas fa-share-alt"></i><span class="title">Referral</span></a>
-                <a href="#" class="quick-card" onclick="alert('Share this page with your friends!')"><i class="fas fa-share"></i><span class="title">Share</span></a>
-            </div>
-
-            <!-- Ad Slider -->
-            <div class="ad-slider" id="adSlider">
-                <div class="ad-slides" id="adSlides">
-                    <div class="ad-slide"><span class="ad-icon">🎯</span><div><div class="ad-text">Refer & Earn!</div><div class="ad-sub">Get 5% commission on referrals</div></div></div>
-                    <div class="ad-slide"><span class="ad-icon">🔥</span><div><div class="ad-text">Summer Special Offer</div><div class="ad-sub">20% off on all Pleated Nets</div></div></div>
-                    <div class="ad-slide"><span class="ad-icon">🎉</span><div><div class="ad-text">Free Installation!</div><div class="ad-sub">On orders above ₹10,000</div></div></div>
-                </div>
-                <div class="ad-dots" id="adDots">
-                    <span class="dot active" onclick="goToAdSlide(0)"></span>
-                    <span class="dot" onclick="goToAdSlide(1)"></span>
-                    <span class="dot" onclick="goToAdSlide(2)"></span>
-                </div>
-            </div>
-
-            <!-- Products Slider -->
-            <div class="section-title"><h3>🔥 Featured Products</h3><a href="customer-products.html">View all</a></div>
-            <div class="product-scroll" id="productSlider">
-                <div style="text-align:center; padding:20px; color:#6b6b7b; width:100%; font-size:13px;">Loading products...</div>
-            </div>
-
-            <!-- Promo Banner -->
-            <div class="promo-banner" onclick="window.location.href='customer-offers.html'">
-                <div class="title">🎉 Special Offers</div>
-                <div class="desc">Check out our latest deals on premium mosquito nets!</div>
-                <span class="btn">View Offers</span>
-            </div>
-
-            <!-- Social Media Feeds -->
-            <div class="section-title"><h3>📱 Latest from Social Media</h3></div>
-            <div class="social-feed" id="socialFeed"></div>
-
-            <!-- YouTube Shorts -->
-            <div class="section-title"><h3>📹 Raj Marketing Videos</h3></div>
-            <div class="video-section" id="videoPlayer">
-                <iframe id="youtubeFrame" src="https://www.youtube.com/embed/_CtBTE6Kgcc?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                <div class="video-overlay">
-                    <div class="title" id="videoTitle">Premium Mosquito Nets</div>
-                    <div class="sub" id="videoCounter">1 / 8</div>
-                </div>
-            </div>
-            <div class="video-controls">
-                <button onclick="prevVideo()"><i class="fas fa-chevron-left"></i> Prev</button>
-                <span class="counter" id="videoCounterText">1 / 8</span>
-                <button onclick="nextVideo()">Next <i class="fas fa-chevron-right"></i></button>
-            </div>
-
-            <!-- Social Links -->
-            <div class="section-title"><h3>📱 Follow Us</h3></div>
-            <div class="social-links">
-                <a href="https://x.com/Mosquito_Nets_" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
-                <a href="https://pin.it/6O3Iy7tIG" target="_blank" title="Pinterest"><i class="fab fa-pinterest"></i></a>
-                <a href="https://www.youtube.com/@RajMarketingMysore" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.facebook.com/share/r/1DQuFEj8E7/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/rajmarketingmysore/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-            </div>
-
-            <!-- Support Section -->
-            <div class="support-section">
-                <div class="top">
-                    <div class="icon-box"><i class="fas fa-headset"></i></div>
-                    <div class="info">
-                        <div class="title">Need Help? We're Here!</div>
-                        <div class="phone"><a href="tel:9483037385">📞 9483037385</a></div>
-                    </div>
-                </div>
-                <div class="actions">
-                    <a href="https://wa.me/919483037385" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    <a href="tel:9483037385" class="call"><i class="fas fa-phone"></i> Call</a>
-                    <a href="customer-support.html" class="support"><i class="fas fa-headset"></i> Support</a>
-                </div>
-                </div>
-                         <!-- Footer -->
-            <div class="footer-links">
-                <a href="index.html">Home</a><span class="sep">|</span>
-                <a href="about.html">About</a><span class="sep">|</span>
-                <a href="contact.html">Contact</a><span class="sep">|</span>
-                <a href="terms.html">Terms</a><span class="sep">|</span>
-                <a href="privacy.html">Privacy</a>
-            </div>
-            <div class="footer-copyright">© 2026 Raj Marketing Mysore · Customer Portal</div>
         </div>
-    </div>
 
-    <!-- Fixed Footer -->
-    <footer class="fixed-footer">
-        <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
-        <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
-        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
-        <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-    </footer>
+        <!-- Explore Menu -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-compass"></i> Explore
+            </div>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+            <a href="customer-products.html" class="list-item">
+                <div class="icon"><i class="fas fa-th-large"></i></div>
+                <div class="info">
+                    <div class="title">Browse Products</div>
+                    <div class="subtitle">Explore our premium mosquito nets</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
 
-        let customerData = null;
-        let customerId = null;
-        let customerUid = null;
-        let currentAdSlide = 0;
-        let currentVideoIndex = 0;
-        let dataLoaded = false;
+            <a href="customer-measurement.html" class="list-item">
+                <div class="icon"><i class="fas fa-ruler-combined"></i></div>
+                <div class="info">
+                    <div class="title">Measurements</div>
+                    <div class="subtitle">Your saved measurements</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
 
-        // ============================================================
-        // FALLBACK DATA (if Firebase is empty)
-        // ============================================================
-        const PRODUCTS = [
-            { id: 'velcro-economic', name: 'Velcro Economic', price: 65, image: 'fas fa-vector-square', offer: false },
-            { id: 'velcro-premium', name: 'Velcro Premium', price: 80, image: 'fas fa-vector-square', offer: false },
-            { id: 'aluminium-black-ss', name: 'Aluminium Black SS', price: 200, image: 'fas fa-border-all', offer: false },
-            { id: 'aluminium-bright-ss', name: 'Aluminium Bright SS', price: 220, image: 'fas fa-border-all', offer: false },
-            { id: 'aluminium-teakwood', name: 'Premium Teakwood', price: 300, image: 'fas fa-crown', offer: true },
-            { id: 'pleated-gold', name: 'Pleated Gold', price: 380, image: 'fas fa-wind', offer: true },
-            { id: 'pleated-platinum', name: 'Pleated Platinum', price: 500, image: 'fas fa-wind', offer: false },
-            { id: 'mesh-door-black', name: 'Mesh Door Black', price: 350, image: 'fas fa-door-open', offer: false },
-            { id: 'mesh-door-bright', name: 'Mesh Door Bright', price: 380, image: 'fas fa-door-open', offer: false }
-        ];
+            <a href="customer-bills.html" class="list-item">
+                <div class="icon"><i class="fas fa-receipt"></i></div>
+                <div class="info">
+                    <div class="title">Bills & Invoices</div>
+                    <div class="subtitle">View and download your bills</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
 
-        const VIDEOS = [
-            { id: '_CtBTE6Kgcc', title: 'Premium Mosquito Nets' },
-            { id: 'iHajLLF_018', title: 'Pleated Nets for Windows' },
-            { id: '6l4WIfANJgM', title: 'Pleated Nets for Doors' },
-            { id: 'IxGfFmwXgg4', title: 'Mosquito Net Installation' },
-            { id: 'hjadYyeV9CE', title: 'Window Screen Solutions' },
-            { id: 'L0WaHtLqyts', title: 'Door Mesh Solutions' },
-            { id: '6Rvfr29Sq34', title: 'Aluminium Frame Nets' },
-            { id: 'aSAoNgIsj_0', title: 'Velcro Net Installation' }
-        ];
+            <a href="customer-offers.html" class="list-item">
+                <div class="icon"><i class="fas fa-gift"></i></div>
+                <div class="info">
+                    <div class="title">Offers & Discounts</div>
+                    <div class="subtitle">Special deals just for you</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
 
-        const SOCIAL_FEEDS = [
-            { platform: 'Facebook', icon: 'facebook', bg: '#1877f2', name: 'Raj Marketing Mysore', handle: 'Facebook', content: '🚪 New Pleated Nets for Main Door! #pleatednet #mosquitonet', time: '2 days ago', likes: '12' },
-            { platform: 'Pinterest', icon: 'pinterest', bg: '#E60023', name: 'Raj Marketing Mysore', handle: 'Pinterest', content: '📌 Premium Window Mosquito Nets #windownets #mosquitoprotection', time: '3 days ago', likes: '8' },
-            { platform: 'Twitter', icon: 'twitter', bg: '#1DA1F2', name: 'Raj Marketing Mysore', handle: '@Mosquito_Nets_', content: '🏠 Protect your home with our premium mosquito nets! #mosquitonet', time: '5 hours ago', likes: '5' },
-            { platform: 'YouTube', icon: 'youtube', bg: '#FF0000', name: 'Raj Marketing Mysore', handle: 'YouTube', content: '📹 Watch our latest video on Pleated Nets installation! #DIY', time: '1 day ago', likes: '23' },
-            { platform: 'Instagram', icon: 'instagram', bg: '#E4405F', name: 'Raj Marketing Mysore', handle: '@rajmarketingmysore', content: '📸 Beautiful home with our premium mosquito nets! #homeliving', time: '12 hours ago', likes: '45' }
-        ];
+            <a href="customer-referral.html" class="list-item">
+                <div class="icon"><i class="fas fa-user-plus"></i></div>
+                <div class="info">
+                    <div class="title">Refer & Earn</div>
+                    <div class="subtitle">Invite friends, earn rewards</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
 
-        // ============================================================
-        // AD SLIDER
-        // ============================================================
-        window.goToAdSlide = function(index) {
-            currentAdSlide = index;
-            const slides = document.getElementById('adSlides');
-            slides.style.transform = `translateX(-${index * 33.33}%)`;
-            document.querySelectorAll('#adDots .dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        };
+            <a href="customer-feedback.html" class="list-item">
+                <div class="icon"><i class="fas fa-star"></i></div>
+                <div class="info">
+                    <div class="title">Feedback</div>
+                    <div class="subtitle">Share your experience</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+        </div>
 
-        setInterval(() => {
-            const next = (currentAdSlide + 1) % 3;
-            goToAdSlide(next);
-        }, 5000);
+    </main>
 
-        // ============================================================
-        // AUTHENTICATION - MAIN ENTRY POINT
-        // ============================================================
-        onAuthStateChanged(auth, async (user) => {
-            console.log("🔐 Auth state changed:", user ? user.email : 'No user');
+    <div id="footer-placeholder"></div>
 
-            if (!user) {
-                console.log("❌ No user, redirecting to login");
-                window.location.href = "customer-login.html";
-                return;
-            }
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
-            customerUid = user.uid;
-            console.log("✅ Customer authenticated:", user.uid, user.email);
+    <script>
+    (function() {
+        'use strict';
 
+        function init() {
+            loadUserData();
+            loadStats();
+            loadRecentActivity();
+        }
+
+        function loadUserData() {
             try {
-                await loadCustomerData(user.uid);
-                await loadDashboardData();
-                document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('dashboardContent').classList.remove('hidden');
-                dataLoaded = true;
-                console.log("✅ Dashboard loaded successfully!");
-            } catch (error) {
-                console.error("❌ Dashboard load error:", error);
-                document.getElementById('loadingState').innerHTML = `
-                    <i class="fas fa-exclamation-circle" style="color:#dc2626;"></i>
-                    <div style="margin-top:8px; font-size:14px;">Unable to load dashboard</div>
-                    <div style="font-size:12px; color:#6b6b7b; margin-top:4px;">${error.message}</div>
-                    <button onclick="location.reload()" style="margin-top:12px; background:#0ea5e9; color:#fff; border:none; padding:8px 24px; border-radius:30px; font-weight:600; cursor:pointer;">Retry</button>
-                `;
-            }
-        });
+                const user = JSON.parse(localStorage.getItem('raj_customer') || '{}');
+                const name = user.name || user.email?.split('@')[0] || 'Customer';
+                document.getElementById('welcomeName').textContent = `Welcome back, ${name}! 👋`;
+            } catch (e) {}
+        }
 
-        // ============================================================
-        // LOAD CUSTOMER DATA
-        // ============================================================
-        async function loadCustomerData(uid) {
+        function loadStats() {
             try {
-                const customersRef = collection(db, "customers");
-                const q = query(customersRef, where("uid", "==", uid));
-                const snapshot = await getDocs(q);
+                const data = JSON.parse(localStorage.getItem('raj_estimator_data') || '{}');
+                const estimates = data.estimates || [];
+                const orders = data.orders || [];
 
-                if (snapshot.empty) {
-                    console.warn("⚠️ No customer profile found, creating fallback");
-                    customerData = { name: 'Customer', id: '—', mobile: '—' };
-                    showError("Customer profile not found. Please contact support.");
+                document.getElementById('statOrders').textContent = orders.length;
+                document.getElementById('statEstimates').textContent = estimates.length;
+                document.getElementById('statAppointments').textContent = estimates.filter(e => e.siteVisit === 'Yes').length;
+
+                const totalPaid = orders.reduce((sum, o) => sum + (parseFloat(o.advanceAmount) || 0), 0);
+                document.getElementById('statPayments').textContent = '₹' + Math.round(totalPaid).toLocaleString('en-IN');
+            } catch (e) {}
+        }
+
+        function loadRecentActivity() {
+            const container = document.getElementById('recentActivity');
+            try {
+                const data = JSON.parse(localStorage.getItem('raj_estimator_data') || '{}');
+                const estimates = data.estimates || [];
+                const recent = estimates.slice(-3).reverse();
+
+                if (recent.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="padding:30px 20px;">
+                            <i class="fas fa-inbox"></i>
+                            <h3>No activity yet</h3>
+                            <p>Start by getting an estimate</p>
+                            <a href="../estimate.html" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus"></i> Get Estimate
+                            </a>
+                        </div>
+                    `;
                     return;
                 }
 
-                const doc = snapshot.docs[0];
-                customerData = { id: doc.id, ...doc.data() };
-                customerId = customerData.id;
-                console.log("✅ Customer data loaded:", customerData);
-
-                // Load profile image if exists
-                if (customerData.profileImageUrl) {
-                    document.getElementById('avatarIcon').innerHTML = `<img src="${customerData.profileImageUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
-                }
-
-            } catch (error) {
-                console.error("❌ Customer load error:", error);
-                customerData = { name: 'Customer', id: '—', mobile: '—' };
-                showError("Unable to load profile: " + error.message);
-            }
-        }
-            // ============================================================
-        // PHOTO UPLOAD
-        // ============================================================
-        document.getElementById('photoInput').addEventListener('change', async function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            if (file.size > 2 * 1024 * 1024) {
-                alert('❌ File size too large. Please choose an image under 2MB.');
-                this.value = '';
-                return;
-            }
-
-            if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-                alert('❌ Please upload a JPEG, PNG, or WebP image.');
-                this.value = '';
-                return;
-            }
-
-            try {
-                const { getStorage, ref, uploadBytes, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/12.17.1/firebase-storage.js");
-                const storage = getStorage();
-                const storageRef = ref(storage, `profile_images/${customerId}_${Date.now()}.jpg`);
-                await uploadBytes(storageRef, file);
-                const downloadURL = await getDownloadURL(storageRef);
-
-                await updateDoc(doc(db, "customers", customerId), {
-                    profileImageUrl: downloadURL,
-                    updatedAt: new Date().toISOString()
-                });
-
-                document.getElementById('avatarIcon').innerHTML = `<img src="${downloadURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
-                showSuccess('✅ Profile photo updated successfully!');
-
-            } catch (error) {
-                console.error("Photo upload error:", error);
-                showError('Failed to upload photo: ' + error.message);
-            }
-            this.value = '';
-        });
-
-        // ============================================================
-        // LOAD DASHBOARD DATA
-        // ============================================================
-        async function loadDashboardData() {
-            try {
-                const name = customerData?.name || 'Customer';
-                const mobile = customerData?.mobile || customerData?.phone || '—';
-                const customerIdDisplay = customerData?.customerId || customerData?.id || '—';
-
-                document.getElementById('customerName').textContent = name;
-                document.getElementById('customerPhone').textContent = `📱 ${mobile}`;
-                document.getElementById('customerIdDisplay').textContent = `ID: ${customerIdDisplay}`;
-
-                const hour = new Date().getHours();
-                let greeting = 'Good Morning';
-                if (hour >= 12 && hour < 17) greeting = 'Good Afternoon';
-                else if (hour >= 17 && hour < 21) greeting = 'Good Evening';
-                else if (hour >= 21 || hour < 5) greeting = 'Good Night';
-
-                document.getElementById('greetingMain').textContent = `${greeting}, ${name} 👋`;
-                document.getElementById('greetingText').textContent = `${greeting}! 👋`;
-
-                loadProducts();
-                loadSocialFeeds();
-                loadNotificationCount();
-
-            } catch (error) {
-                console.error("❌ Dashboard data error:", error);
-                // Still show basic UI even if data fails
-            }
-        }
-
-        // ============================================================
-        // LOAD PRODUCTS
-        // ============================================================
-        function loadProducts() {
-            const slider = document.getElementById('productSlider');
-            const display = PRODUCTS.slice(0, 5);
-            slider.innerHTML = display.map(p => `
-                <a href="customer-products.html?id=${p.id}" class="product-slide">
-                    <span class="icon"><i class="${p.image}"></i></span>
-                    <span class="name">${p.name}</span>
-                    <span class="price">₹${p.price}/sq.ft</span>
-                    ${p.offer ? `<span class="offer-tag">🔥 Offer</span>` : ''}
-                </a>
-            `).join('');
-        }
-
-        // ============================================================
-        // LOAD SOCIAL FEEDS
-        // ============================================================
-        function loadSocialFeeds() {
-            const feed = document.getElementById('socialFeed');
-            feed.innerHTML = SOCIAL_FEEDS.map(s => `
-                <div class="feed-card">
-                    <div class="feed-header">
-                        <div class="icon ${s.icon}"><i class="fab fa-${s.icon}"></i></div>
-                        <div>
-                            <div class="name">${s.name}</div>
-                            <div class="handle">${s.handle}</div>
+                container.innerHTML = recent.map(est => `
+                    <a href="customer-estimate.html?id=${est.id}" class="list-item">
+                        <div class="icon"><i class="fas fa-file-invoice"></i></div>
+                        <div class="info">
+                            <div class="title">${est.productName || est.category || 'Estimate'}</div>
+                            <div class="subtitle">#${est.estNo || est.id} · ₹${Math.round(est.finalAmount || 0).toLocaleString('en-IN')}</div>
                         </div>
-                    </div>
-                    <div class="feed-content">${s.content}</div>
-                    <div class="feed-footer">
-                        <span><i class="far fa-clock"></i> ${s.time}</span>
-                        <span><i class="far fa-heart"></i> ${s.likes}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ============================================================
-        // YOUTUBE VIDEO CONTROLS
-        // ============================================================
-        function loadVideo(index) {
-            const video = VIDEOS[index];
-            if (!video) return;
-            const frame = document.getElementById('youtubeFrame');
-            frame.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
-            document.getElementById('videoTitle').textContent = video.title;
-            document.getElementById('videoCounter').textContent = `${index + 1} / ${VIDEOS.length}`;
-            document.getElementById('videoCounterText').textContent = `${index + 1} / ${VIDEOS.length}`;
-            currentVideoIndex = index;
-        }
-
-        window.nextVideo = function() {
-            const next = (currentVideoIndex + 1) % VIDEOS.length;
-            loadVideo(next);
-        };
-
-        window.prevVideo = function() {
-            const prev = (currentVideoIndex - 1 + VIDEOS.length) % VIDEOS.length;
-            loadVideo(prev);
-        };
-
-        // Auto-play videos
-        setTimeout(() => {
-            loadVideo(0);
-            setInterval(() => {
-                const next = (currentVideoIndex + 1) % VIDEOS.length;
-                loadVideo(next);
-            }, 15000);
-        }, 2000);
-
-        // ============================================================
-        // NOTIFICATIONS
-        // ============================================================
-        async function loadNotificationCount() {
-            try {
-                if (!customerId) return;
-                const notifRef = collection(db, "notifications");
-                const q = query(notifRef, where("customerId", "==", customerId), where("read", "==", false));
-                const snapshot = await getDocs(q);
-                const badge = document.getElementById('notifBadge');
-                if (snapshot.size > 0) {
-                    badge.textContent = snapshot.size;
-                    badge.style.display = 'flex';
-                } else {
-                    badge.style.display = 'none';
-                }
-            } catch (error) {
-                console.error("❌ Notification count error:", error);
+                        <span class="status-badge status-${(est.status || 'draft').toLowerCase()}">${est.status || 'Draft'}</span>
+                    </a>
+                `).join('');
+            } catch (e) {
+                container.innerHTML = '<p style="text-align:center;padding:20px;color:var(--muted-text);font-size:13px;">No recent activity</p>';
             }
         }
-                // ============================================================
-        // HELPERS
-        // ============================================================
-        function showError(msg) {
-            const box = document.getElementById('errorBox');
-            if (!msg) { box.classList.remove('show'); box.textContent = ''; return; }
-            box.textContent = '❌ ' + msg;
-            box.classList.add('show');
-        }
 
-        function showSuccess(msg) {
-            const box = document.getElementById('errorBox');
-            box.textContent = '✅ ' + msg;
-            box.style.background = '#d1fae5';
-            box.style.color = '#065f46';
-            box.style.display = 'block';
-            setTimeout(() => {
-                box.style.display = 'none';
-            }, 4000);
-        }
-
-        window.logout = async function() {
-            if (!confirm("Are you sure you want to logout?")) return;
-            try {
-                await signOut(auth);
-                window.location.href = "customer-login.html";
-            } catch (error) {
-                showError("Logout failed: " + error.message);
-            }
-        };
-
-        console.log("✅ Customer dashboard script loaded");
+        document.addEventListener('DOMContentLoaded', init);
+    })();
     </script>
 </body>
-</html>
+    </html>
