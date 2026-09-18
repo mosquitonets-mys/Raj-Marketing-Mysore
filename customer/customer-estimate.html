@@ -2,204 +2,168 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · My Estimates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>My Estimates - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
-        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
-
-        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
-        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
-        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
-        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
-        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
-        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
-        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; }
-        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
-        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
-        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
-
-        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
-        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b7b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
-        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b7b; }
-        .fixed-footer .nav-item.active i { color: #0ea5e9; }
-        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
-
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .page-header h1 { font-size: 20px; font-weight: 800; color: #1a1a2e; }
-        .page-header .count { font-size: 12px; color: #6b6b7b; background: #f0f9ff; padding: 2px 12px; border-radius: 20px; }
-
-        .estimate-card { background: #fff; border-radius: 20px; padding: 16px; border: 1px solid #e8ecf0; margin-bottom: 12px; transition: 0.2s; }
-        .estimate-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.04); border-color: #0ea5e9; }
-        .estimate-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-        .estimate-header .id { font-weight: 700; font-size: 14px; color: #1a1a2e; }
-        .estimate-header .date { font-size: 11px; color: #6b6b7b; }
-        .estimate-status { padding: 2px 12px; border-radius: 20px; font-size: 10px; font-weight: 600; display: inline-block; }
-        .status-draft { background: #f3f4f6; color: #4b5563; }
-        .status-sent { background: #dbeafe; color: #1d4ed8; }
-        .status-accepted { background: #d1fae5; color: #059669; }
-        .status-converted { background: #d1fae5; color: #059669; }
-        .status-rejected { background: #fee2e2; color: #dc2626; }
-
-        .estimate-product { font-size: 13px; color: #4a4a5a; padding: 4px 0; }
-        .estimate-product .name { font-weight: 600; }
-        .estimate-details { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: #6b6b7b; margin-top: 6px; padding-top: 6px; border-top: 1px solid #f1f5f9; }
-        .estimate-details .item { display: flex; gap: 4px; }
-        .estimate-details .item .label { color: #6b6b7b; }
-        .estimate-details .item .value { font-weight: 600; color: #1a1a2e; }
-
-        .estimate-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f1f5f9; }
-        .estimate-actions .btn-sm { padding: 4px 14px; border-radius: 20px; font-size: 10px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; text-decoration: none; display: inline-block; }
-        .btn-sm-primary { background: #0ea5e9; color: #fff; }
-        .btn-sm-success { background: #22c55e; color: #fff; }
-        .btn-sm-whatsapp { background: #25D366; color: #fff; }
-        .btn-sm-outline { background: transparent; border: 1px solid #e8ecf0; color: #1a1a2e; }
-
-        .empty-state { text-align: center; padding: 40px 20px; color: #6b6b7b; }
-        .empty-state .icon { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.4; }
-
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
-        .whatsapp-float:hover { transform: scale(1.08); }
-
-        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
-        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
-        .footer-links a:hover { color: #0ea5e9; }
-        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
-        .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
-        .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
-
-        @media (max-width: 400px) { .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; } }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
-    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <div id="header-placeholder"></div>
 
-    <header class="fixed-header">
-        <div class="logo-area">
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
-        </div>
-        <div class="header-actions">
-            <a href="customer-dashboard.html" class="header-btn"><i class="fas fa-arrow-left"></i><span class="label">Back</span></a>
-        </div>
-    </header>
+    <main class="page-container">
 
-    <div class="app-container">
         <div class="page-header">
-            <h1>🧾 My Estimates</h1>
-            <span class="count" id="estimateCount">0 Estimates</span>
+            <h1><i class="fas fa-file-invoice"></i> My Estimates</h1>
+            <a href="../estimate.html" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> New Estimate
+            </a>
         </div>
 
-        <div id="loadingState" class="loading-text">
-            <i class="fas fa-spinner fa-spin"></i>
-            Loading estimates...
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by estimate no, customer..." oninput="render()" />
         </div>
 
-        <div id="estimateList" style="display:none;"></div>
-
-        <div class="footer-links">
-            <a href="index.html">Home</a>| <a href="about.html">About</a>| <a href="contact.html">Contact</a>| <a href="terms.html">Terms</a>| <a href="privacy.html">Privacy</a>
+        <div id="estimateList">
+            <div class="loader">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading estimates...</p>
+            </div>
         </div>
-        <div class="footer-copyright">© 2026 Raj Marketing Mysore</div>
-    </div>
 
-    <footer class="fixed-footer">
-        <a href="customer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
-        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-        <a href="customer-appointments.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
-        <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-    </footer>
+    </main>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+    <div id="footer-placeholder"></div>
 
-        let customerId = null;
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) { window.location.href = "customer-login.html"; return; }
-            await loadCustomerId(user.uid);
-            await loadEstimates();
-        });
+    <script>
+    (function() {
+        'use strict';
 
-        async function loadCustomerId(uid) {
+        let allEstimates = [];
+
+        function load() {
             try {
-                const customersRef = collection(db, "customers");
-                const q = query(customersRef, where("uid", "==", uid));
-                const snapshot = await getDocs(q);
-                if (!snapshot.empty) customerId = snapshot.docs[0].id;
-            } catch (error) { console.error("Customer ID load error:", error); }
+                const data = JSON.parse(localStorage.getItem('raj_estimator_data') || '{}');
+                allEstimates = (data.estimates || []).slice().reverse();
+                render();
+            } catch (e) {
+                document.getElementById('estimateList').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h3>Error loading</h3>
+                    </div>
+                `;
+            }
         }
 
-        async function loadEstimates() {
-            if (!customerId) {
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('estimateList').style.display = 'block';
-                document.getElementById('estimateList').innerHTML = `<div class="empty-state"><span class="icon">🧾</span><h3 style="font-size:16px; font-weight:700;">No Estimates Found</h3><p style="font-size:13px; margin-top:4px;">You haven't created any estimates yet.</p><a href="estimate.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Create Estimate →</a></div>`;
+        window.render = function() {
+            const container = document.getElementById('estimateList');
+            const q = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+            let list = allEstimates;
+            if (q) list = list.filter(e =>
+                (e.estNo || '').toLowerCase().includes(q) ||
+                (e.customerName || '').toLowerCase().includes(q) ||
+                (e.productName || '').toLowerCase().includes(q) ||
+                (e.category || '').toLowerCase().includes(q)
+            );
+
+            if (!list.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-invoice"></i>
+                        <h3>No estimates found</h3>
+                        <p>Create your first estimate</p>
+                        <a href="../estimate.html" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Get Estimate
+                        </a>
+                    </div>
+                `;
                 return;
             }
 
-            try {
-                const estimatesRef = collection(db, "estimates");
-                const q = query(estimatesRef, where("customerId", "==", customerId), orderBy("createdAt", "desc"));
-                const snapshot = await getDocs(q);
-
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('estimateList').style.display = 'block';
-
-                if (snapshot.empty) {
-                    document.getElementById('estimateList').innerHTML = `<div class="empty-state"><span class="icon">🧾</span><h3 style="font-size:16px; font-weight:700;">No Estimates Found</h3><p style="font-size:13px; margin-top:4px;">You haven't created any estimates yet.</p><a href="estimate.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Create Estimate →</a></div>`;
-                    document.getElementById('estimateCount').textContent = '0 Estimates';
-                    return;
-                }
-
-                const estimates = [];
-                snapshot.forEach(doc => estimates.push({ id: doc.id, ...doc.data() }));
-                document.getElementById('estimateCount').textContent = estimates.length + ' Estimates';
-
-                document.getElementById('estimateList').innerHTML = estimates.map(e => {
-                    const status = e.status || 'DRAFT';
-                    const statusClass = status.toLowerCase().replace(/ /g, '');
-                    const total = e.finalAmount || e.total || 0;
-                    const date = e.createdAt?.toDate?.() || new Date(e.createdAt);
-                    const dateStr = date ? date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
-
-                    return `
-                        <div class="estimate-card">
-                            <div class="estimate-header">
-                                <span class="id">${e.estimateId || e.id}</span>
-                                <span class="status status-${statusClass}">${status}</span>
+            container.innerHTML = list.map(est => {
+                const total = parseFloat(est.finalAmount || 0);
+                const status = (est.status || 'Draft').toLowerCase();
+                return `
+                    <div class="card">
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+                            <div style="flex:1;min-width:200px;">
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                                    <i class="fas fa-file-invoice" style="color:var(--royal-blue);font-size:18px;"></i>
+                                    <h3 style="font-size:15px;font-weight:800;color:var(--highlight-grey);">
+                                        ${est.productName || est.category || 'Estimate'}
+                                    </h3>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="label"><i class="fas fa-hashtag"></i> Estimate No</span>
+                                    <span class="value">${est.estNo || est.id || '—'}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="label"><i class="fas fa-calendar"></i> Date</span>
+                                    <span class="value">${est.date || '—'}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="label"><i class="fas fa-ruler-combined"></i> Area</span>
+                                    <span class="value">${(est.totalSqft || 0).toFixed(2)} sq.ft</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="label"><i class="fas fa-rupee-sign"></i> Total</span>
+                                    <span class="value emphasis">₹${Math.round(total).toLocaleString('en-IN')}</span>
+                                </div>
                             </div>
-                            <div style="font-size:11px; color:#6b6b7b; margin-top:-2px;">${dateStr}</div>
-                            <div class="estimate-product"><span class="name">${e.product || '—'}</span> ${e.sqft ? `· ${e.sqft} sq.ft` : ''}</div>
-                            <div class="estimate-details">
-                                <span class="item"><span class="label">Total:</span> <span class="value">₹${total.toFixed(2)}</span></span>
-                                ${e.discountAmount ? `<span class="item"><span class="label">Discount:</span> <span class="value">-₹${e.discountAmount.toFixed(2)}</span></span>` : ''}
-                            </div>
-                            <div class="estimate-actions">
-                                <a href="customer-estimate-detail.html?id=${e.id}" class="btn-sm btn-sm-primary">View Details</a>
-                                ${e.mobile ? `<a href="https://wa.me/91${String(e.mobile).replace(/\D/g,'')}" target="_blank" class="btn-sm btn-sm-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>` : ''}
-                                ${status === 'DRAFT' ? `<button class="btn-sm btn-sm-success" onclick="alert('Convert estimate ${e.id} to order')">📦 Convert</button>` : ''}
-                            </div>
+                            <span class="status-badge status-${status}">
+                                ${est.status || 'Draft'}
+                            </span>
                         </div>
-                    `;
-                }).join('');
+                        <div class="btn-group" style="margin-top:12px;">
+                            <a href="../estimate-details.html?id=${est.id}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="../estimate.html?id=${est.id}" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <button class="btn btn-secondary btn-sm" onclick="deleteEstimate('${est.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        };
 
-            } catch (error) {
-                console.error("❌ Estimates load error:", error);
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('estimateList').style.display = 'block';
-                document.getElementById('estimateList').innerHTML = `<div class="empty-state"><span class="icon">⚠️</span><h3 style="font-size:16px; font-weight:700;">Unable to Load Estimates</h3><p style="font-size:13px; margin-top:4px;">Please try again later.</p></div>`;
-            }
+        window.deleteEstimate = function(id) {
+            if (!confirm('Delete this estimate?')) return;
+            try {
+                const data = JSON.parse(localStorage.getItem('raj_estimator_data') || '{}');
+                data.estimates = (data.estimates || []).filter(e => e.id !== id);
+                localStorage.setItem('raj_estimator_data', JSON.stringify(data));
+                showToast('Estimate deleted', 'warning');
+                load();
+            } catch (e) {}
+        };
+
+        function showToast(msg, type = 'info') {
+            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+            const t = document.createElement('div');
+            t.className = 'rm-toast';
+            t.textContent = msg;
+            t.style.background = colors[type] || colors.info;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => t.classList.add('show'));
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
         }
+
+        document.addEventListener('DOMContentLoaded', load);
+    })();
     </script>
 </body>
     </html>
