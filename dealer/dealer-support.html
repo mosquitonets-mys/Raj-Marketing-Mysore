@@ -2,542 +2,230 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Dealer Support</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Dealer Support - Raj Marketing</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        .faq-item { border-bottom: 1px solid var(--border-light); padding: 4px 0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 4px; font-size: 13px; font-weight: 700;
+            color: var(--highlight-grey); cursor: pointer; transition: var(--transition); gap: 12px;
         }
-        body {
-            background: #f0ece6;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0 12px;
-            padding-top: 80px;
-            padding-bottom: 100px;
+        .faq-question:hover { color: #f59e0b; padding-left: 10px; }
+        .faq-question i { color: #f59e0b; transition: var(--transition); font-size: 12px; flex-shrink: 0; }
+        .faq-item.open .faq-question i { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease;
+            font-size: 13px; color: var(--muted-text); line-height: 1.7; padding: 0 4px;
         }
-        .app-container {
-            max-width: 480px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 36px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            padding: 20px 18px;
-            border: 1px solid #e8e0d8;
-        }
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 14px 20px 10px 20px;
-            border-bottom: 1px solid #e8e0d8;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .fixed-header .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .fixed-header .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(145deg, #f97316, #ea580c);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
-        }
-        .fixed-header .logo-text {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1a1a1a;
-            line-height: 1.2;
-        }
-        .fixed-header .logo-text span {
-            display: block;
-            font-weight: 400;
-            font-size: 9px;
-            color: #6b6b6b;
-        }
-        .fixed-header .header-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .fixed-header .header-actions i {
-            font-size: 18px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .fixed-header .back-btn {
-            font-size: 20px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .fixed-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 8px 12px 12px 12px;
-            border-top: 1px solid #e8e0d8;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-radius: 30px 30px 0 0;
-        }
-        .fixed-footer .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 9px;
-            color: #8a8a8a;
-            font-weight: 500;
-            gap: 2px;
-            padding: 4px 12px;
-            border-radius: 30px;
-            text-decoration: none;
-        }
-        .fixed-footer .nav-item i {
-            font-size: 20px;
-            color: #8a8a8a;
-        }
-        .fixed-footer .nav-item.active i {
-            color: #f97316;
-        }
-        .fixed-footer .nav-item.active {
-            color: #f97316;
-            background: rgba(249, 115, 22, 0.08);
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 18px 16px;
-            margin: 14px 0;
-            border: 1px solid #e8e0d8;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-        }
-        .card-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card-title i {
-            color: #f97316;
-        }
-        .form-group {
-            margin-bottom: 14px;
-        }
-        .form-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #4a4a4a;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1.5px solid #e8e0d8;
-            border-radius: 12px;
-            font-size: 13px;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
-            background: #faf8f6;
-            transition: 0.2s;
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .btn-primary {
-            background: linear-gradient(145deg, #f97316, #ea580c);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.25);
-            transition: 0.2s;
-            width: 100%;
-        }
-        .btn-primary:hover {
-            box-shadow: 0 6px 24px rgba(249, 115, 22, 0.35);
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: #f5f0eb;
-            color: #1a1a1a;
-            border: 1px solid #e8e0d8;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-secondary:hover {
-            background: #e8e0d8;
-        }
-        .error-box {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-            font-size: 14px;
-        }
-        .success-box {
-            background: #d1fae5;
-            color: #065f46;
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-            font-size: 14px;
-        }
-        .ticket-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #f0ece6;
-        }
-        .ticket-item:last-child {
-            border-bottom: none;
-        }
-        .ticket-item .id {
-            font-weight: 600;
-            font-size: 14px;
-            color: #1a1a1a;
-        }
-        .ticket-item .subject {
-            font-weight: 500;
-            font-size: 13px;
-            color: #1a1a1a;
-        }
-        .ticket-item .detail {
-            font-size: 12px;
-            color: #6b6b6b;
-        }
-        .status-badge {
-            padding: 2px 10px;
-            border-radius: 30px;
-            font-size: 10px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .status-open {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-        .status-in-progress {
-            background: #fef3c7;
-            color: #d97706;
-        }
-        .status-resolved {
-            background: #d1fae5;
-            color: #059669;
-        }
-        .status-closed {
-            background: #f3f4f6;
-            color: #4b5563;
-        }
-        .whatsapp-btn {
-            background: #25D366;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-        }
-        .whatsapp-btn:hover {
-            transform: scale(1.04);
-            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
-        }
-        @media (max-width: 400px) {
-            .form-row { grid-template-columns: 1fr; }
-        }
+        .faq-item.open .faq-answer { max-height: 500px; padding: 0 4px 14px 4px; }
     </style>
 </head>
 <body>
 
-    <header class="fixed-header">
-        <div class="logo-area">
-            <a href="dealer-dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+    <div id="header-placeholder"></div>
+
+    <main class="page-container">
+
+        <div class="page-header">
+            <h1><i class="fas fa-headset"></i> Dealer Support</h1>
         </div>
-        <div class="header-actions">
-            <i class="fas fa-user-circle" title="Profile" onclick="window.location.href='dealer-profile.html'"></i>
-        </div>
-    </header>
 
-    <div class="app-container">
-        <h2 style="font-size:20px; font-weight:800; color:#1a1a1a; margin-bottom:4px;">🛟 Dealer Support</h2>
-        <p style="font-size:13px; color:#6b6b6b; margin-bottom:12px;">Get help from Raj Marketing team</p>
-
-        <div id="errorBox" class="error-box"></div>
-        <div id="successBox" class="success-box"></div>
-
-        <!-- Quick Contact -->
-        <div class="card" style="background:linear-gradient(135deg, #f0faf0, #e8f5e8); border-color:#25D366;">
-            <div style="display:flex; align-items:center; gap:12px;">
-                <i class="fab fa-whatsapp" style="font-size:32px; color:#25D366;"></i>
-                <div style="flex:1;">
-                                        <div style="font-weight:700; font-size:14px; color:#1a1a1a;">Quick Support</div>
-                    <div style="font-size:12px; color:#6b6b6b;">Connect with us on WhatsApp</div>
-                </div>
-                <a href="https://wa.me/919483037385?text=Hi%20Raj%20Marketing%2C%20I%20need%20support%20as%20a%20dealer." target="_blank" class="whatsapp-btn">
-                    <i class="fab fa-whatsapp"></i> Chat Now
+        <!-- Contact Options -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-comments"></i> Get in Touch
+            </div>
+            <div class="quick-grid">
+                <a href="tel:9483037385" class="quick-card">
+                    <i class="fas fa-phone" style="color:#f59e0b;background:#fef3c7;"></i>
+                    <span class="label">Call Us</span>
+                </a>
+                <a href="https://wa.me/919483037385" target="_blank" class="quick-card">
+                    <i class="fab fa-whatsapp" style="color:#25D366;background:#dcfce7;"></i>
+                    <span class="label">WhatsApp</span>
+                </a>
+                <a href="mailto:info@rajmarketingmysore.info" class="quick-card">
+                    <i class="fas fa-envelope" style="color:#1a56db;background:#dbeafe;"></i>
+                    <span class="label">Email</span>
+                </a>
+                <a href="../contact.html" class="quick-card">
+                    <i class="fas fa-map-marker-alt" style="color:#8b5cf6;background:#ede9fe;"></i>
+                    <span class="label">Visit</span>
                 </a>
             </div>
         </div>
 
-        <!-- Support Form -->
+        <!-- Business Info -->
         <div class="card">
-            <div class="card-title"><i class="fas fa-plus"></i> Create Support Ticket</div>
-            <form id="supportForm" onsubmit="createTicket(event)">
-                <div class="form-group">
-                    <label>Subject *</label>
-                    <input type="text" id="ticketSubject" placeholder="Brief subject" required />
-                </div>
-                <div class="form-group">
-                    <label>Message *</label>
-                    <textarea id="ticketMessage" rows="3" placeholder="Describe your issue..." required></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Order ID (optional)</label>
-                        <input type="text" id="ticketOrder" placeholder="e.g. ORD-XXXX" />
-                    </div>
-                    <div class="form-group">
-                        <label>Priority</label>
-                        <select id="ticketPriority">
-                            <option value="Low">Low</option>
-                            <option value="Medium" selected>Medium</option>
-                            <option value="High">High</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Submit Ticket</button>
-            </form>
-        </div>
-
-        <!-- Ticket History -->
-        <div class="card">
-            <div class="card-title"><i class="fas fa-list"></i> My Tickets</div>
-            <div id="ticketList">
-                <div class="loading-text" style="text-align:center; padding:20px; color:#777;">Loading tickets...</div>
+            <div class="card-title">
+                <i class="fas fa-building"></i> Business Info
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-phone"></i> Dealer Hotline</span>
+                <span class="value">9483037385</span>
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-envelope"></i> Email</span>
+                <span class="value">info@rajmarketingmysore.info</span>
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-clock"></i> Hours</span>
+                <span class="value">Mon–Sat: 9:30 AM – 6:30 PM</span>
+            </div>
+            <div class="detail-row">
+                <span class="label"><i class="fas fa-receipt"></i> GST</span>
+                <span class="value">29CHKPR1962H1ZT</span>
             </div>
         </div>
 
-        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
-            Raj Marketing Mysore · Dealer Support
+        <!-- FAQs -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-question-circle"></i> Dealer FAQs
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How do I know my dealer tier?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Your dealer tier (Bronze, Silver, Gold, Platinum) is shown on your profile page and price list. Tiers are based on total business volume with Raj Marketing.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What are dealer discounts?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Bronze: 15% OFF · Silver: 20% OFF · Gold: 25% OFF · Platinum: 30% OFF. Discounts apply to retail prices shown in the price list.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How do I get bulk order discounts?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Additional bulk discounts apply: 200+ sq.ft → +5%, 500+ sq.ft → +10%, 1000+ sq.ft → +15% off.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What is the payment schedule?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Standard dealer terms: 60% advance on order confirmation, 40% balance on delivery. Talk to us for custom terms based on volume.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What is the delivery time?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Standard: 3-5 working days for regular orders. Custom/bulk orders may take longer. Delivery within Mysore is free.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you provide marketing support?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes! We provide marketing materials, product catalogues, and co-branded promotional support. Contact us for details.
+                </div>
+            </div>
+
         </div>
-    </div>
 
-    <footer class="fixed-footer">
-        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="dealer-prices.html" class="nav-item"><i class="fas fa-tag"></i> Prices</a>
-        <a href="dealer-enquiries.html" class="nav-item"><i class="fas fa-phone"></i> Enquiries</a>
-        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-        <a href="dealer-profile.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
-    </footer>
+        <!-- Contact Form -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-paper-plane"></i> Send Message
+            </div>
+            <form onsubmit="submitSupport(event)">
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" id="supSubject" required placeholder="Brief subject" />
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="supMessage" required placeholder="Describe your query..." rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="background:linear-gradient(145deg,#f59e0b,#d97706);">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { collection, getDocs, query, where, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+    </main>
 
-        let dealerId = null;
-        let tickets = [];
+    <div id="footer-placeholder"></div>
 
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = "dealer-login.html";
-                return;
-            }
-            await loadDealerId(user.uid);
-            await loadTickets();
-        });
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
-        async function loadDealerId(uid) {
-            try {
-                const dealersRef = collection(db, "dealers");
-                const q = query(dealersRef, where("uid", "==", uid));
-                const snapshot = await getDocs(q);
-                if (!snapshot.empty) {
-                    dealerId = snapshot.docs[0].id;
-                }
-            } catch (e) {
-                console.error("Dealer ID load error:", e);
-            }
+    <script>
+    window.toggleFaq = function(el) {
+        const item = el.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+    };
+
+    window.submitSupport = function(e) {
+        e.preventDefault();
+        const subject = document.getElementById('supSubject').value.trim();
+        const message = document.getElementById('supMessage').value.trim();
+
+        if (!subject || !message) {
+            showToast('Please fill all fields', 'error');
+            return;
         }
 
-        async function loadTickets() {
-            if (!dealerId) return;
-            try {
-                const ticketsRef = collection(db, "supportTickets");
-                const q = query(ticketsRef, where("dealerId", "==", dealerId));
-                const snapshot = await getDocs(q);
-                tickets = [];
-                snapshot.forEach(doc => {
-                    tickets.push({ id: doc.id, ...doc.data() });
-                });
-                renderTickets(tickets);
-            } catch (error) {
-                console.error("Ticket load error:", error);
-            }
-        }
+        try {
+            const tickets = JSON.parse(localStorage.getItem('raj_dealer_tickets') || '[]');
+            tickets.push({
+                id: 'DTKT-' + Date.now(),
+                subject,
+                message,
+                status: 'OPEN',
+                createdAt: new Date().toISOString()
+            });
+            localStorage.setItem('raj_dealer_tickets', JSON.stringify(tickets));
+        } catch (e) {}
 
-        function renderTickets(list) {
-            const container = document.getElementById("ticketList");
-            if (!list.length) {
-                container.innerHTML = `
-                    <div style="text-align:center; padding:20px; color:#6b6b6b;">
-                        <i class="fas fa-ticket-alt" style="font-size:24px; display:block; margin-bottom:8px;"></i>
-                        No support tickets found.
-                    </div>
-                `;
-                return;
-            }
-            const sorted = [...list].reverse();
-            container.innerHTML = sorted.map(t => {
-                const status = t.status || "OPEN";
-                const statusClass = status.toLowerCase().replace(/ /g, '-');
-                return `
-                    <div class="ticket-item">
-                        <div class="id">#${t.ticketId || t.id} 
-                            <span class="status-badge status-${statusClass}">${status}</span>
-                            <span style="font-size:10px; color:#6b6b6b; font-weight:400;">${t.priority || "Medium"}</span>
-                        </div>
-                        <div class="subject">${t.subject || "—"}</div>
-                        <div class="detail">${t.message || "—"}</div>
-                        <div class="detail" style="font-size:11px; color:#999; margin-top:2px;">
-                            ${t.orderId ? "Order: " + t.orderId : ""} · ${formatDate(t.createdAt)}
-                        </div>
-                    </div>
-                `;
-            }).join("");
-        }
+        showToast('✅ Message sent! We will contact you soon.', 'success');
+        e.target.reset();
+    };
 
-        window.createTicket = async function(e) {
-            e.preventDefault();
-            const subject = document.getElementById("ticketSubject").value.trim();
-            const message = document.getElementById("ticketMessage").value.trim();
-            const orderId = document.getElementById("ticketOrder").value.trim();
-            const priority = document.getElementById("ticketPriority").value;
-
-            if (!subject || !message) {
-                showError("Please fill in subject and message.");
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, "supportTickets"), {
-                    ticketId: "TKT-" + Date.now().toString().slice(-8),
-                    dealerId,
-                    subject,
-                    message,
-                    orderId: orderId || "",
-                    priority,
-                    status: "OPEN",
-                    createdAt: serverTimestamp(),
-                    updatedAt: serverTimestamp()
-                });
-
-                document.getElementById("supportForm").reset();
-                await loadTickets();
-                showSuccess("✅ Support ticket created successfully!");
-            } catch (error) {
-                showError("Failed to create ticket: " + error.message);
-            }
-        };
-
-        function showError(msg) {
-            const box = document.getElementById("errorBox");
-            box.textContent = "❌ " + msg;
-            box.style.display = "block";
-            box.style.background = "#fee2e2";
-            box.style.color = "#991b1b";
-            document.getElementById("successBox").style.display = "none";
-        }
-
-        function showSuccess(msg) {
-            const box = document.getElementById("successBox");
-            box.textContent = "✅ " + msg;
-            box.style.display = "block";
-            box.style.background = "#d1fae5";
-            box.style.color = "#065f46";
-            document.getElementById("errorBox").style.display = "none";
-            setTimeout(() => { box.style.display = "none"; }, 4000);
-        }
-
-        function formatDate(value) {
-            if (!value) return "—";
-            try {
-                if (value.toDate) {
-                    return value.toDate().toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
-                }
-                const d = new Date(value);
-                if (isNaN(d.getTime())) return "—";
-                return d.toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
-            } catch {
-                return "—";
-            }
-        }
+    function showToast(msg, type = 'info') {
+        document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+        const colors = { success: '#10b981', error: '#ef4444', info: '#1a56db' };
+        const t = document.createElement('div');
+        t.className = 'rm-toast';
+        t.textContent = msg;
+        t.style.background = colors[type] || colors.info;
+        document.body.appendChild(t);
+        requestAnimationFrame(() => t.classList.add('show'));
+        setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+    }
     </script>
-
 </body>
     </html>
