@@ -2,203 +2,180 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · My Appointments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>My Appointments - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #f8fafc; display: flex; justify-content: center; min-height: 100vh; padding: 0 12px; padding-top: 70px; padding-bottom: 100px; }
-        .app-container { max-width: 480px; width: 100%; background: #fff; border-radius: 32px; padding: 18px 16px 20px; border: 1px solid #e8ecf0; }
-
-        .fixed-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 8px 16px; border-bottom: 1px solid #e8ecf0; display: flex; justify-content: space-between; align-items: center; }
-        .fixed-header .logo-area { display: flex; align-items: center; gap: 8px; }
-        .fixed-header .logo-icon { width: 32px; height: 32px; background: linear-gradient(145deg, #0ea5e9, #0284c7); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
-        .fixed-header .logo-text { font-weight: 700; font-size: 14px; color: #1a1a2e; line-height: 1.1; }
-        .fixed-header .logo-text span { display: block; font-weight: 400; font-size: 8px; color: #6b6b7b; }
-        .fixed-header .header-actions { display: flex; gap: 6px; align-items: center; }
-        .fixed-header .header-btn { display: flex; flex-direction: column; align-items: center; padding: 4px 6px; border-radius: 8px; border: none; background: transparent; color: #6b6b7b; font-size: 11px; cursor: pointer; text-decoration: none; min-width: 40px; transition: 0.2s; }
-        .fixed-header .header-btn i { font-size: 16px; display: block; margin-bottom: 1px; }
-        .fixed-header .header-btn .label { font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; opacity: 0.7; }
-        .fixed-header .header-btn:hover { background: #f0f9ff; color: #0ea5e9; }
-
-        .fixed-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; max-width: 504px; margin: 0 auto; width: 100%; background: #fff; padding: 6px 12px 10px; border-top: 1px solid #e8ecf0; display: flex; justify-content: space-around; align-items: center; border-radius: 30px 30px 0 0; }
-        .fixed-footer .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 8px; color: #6b6b7b; font-weight: 500; gap: 1px; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: 0.2s; }
-        .fixed-footer .nav-item i { font-size: 18px; color: #6b6b7b; }
-        .fixed-footer .nav-item.active i { color: #0ea5e9; }
-        .fixed-footer .nav-item.active { color: #0ea5e9; background: #f0f9ff; }
-
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .page-header h1 { font-size: 20px; font-weight: 800; color: #1a1a2e; }
-        .page-header .count { font-size: 12px; color: #6b6b7b; background: #f0f9ff; padding: 2px 12px; border-radius: 20px; }
-
-        .appointment-card { background: #fff; border-radius: 20px; padding: 16px; border: 1px solid #e8ecf0; margin-bottom: 12px; transition: 0.2s; }
-        .appointment-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.04); border-color: #0ea5e9; }
-        .appointment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .appointment-header .id { font-weight: 700; font-size: 14px; color: #1a1a2e; }
-        .appointment-header .date { font-size: 11px; color: #6b6b7b; }
-        .appointment-status { padding: 2px 12px; border-radius: 20px; font-size: 10px; font-weight: 600; display: inline-block; }
-        .status-new { background: #fff7ed; color: #ea580c; }
-        .status-confirmed { background: #dbeafe; color: #1d4ed8; }
-        .status-measurement { background: #d1fae5; color: #059669; }
-        .status-completed { background: #d1fae5; color: #059669; }
-        .status-cancelled { background: #fee2e2; color: #dc2626; }
-
-        .appointment-details { font-size: 13px; color: #4a4a5a; margin-top: 4px; }
-        .appointment-details .row { display: flex; gap: 8px; padding: 2px 0; }
-        .appointment-details .row .label { color: #6b6b7b; min-width: 70px; }
-        .appointment-details .row .value { font-weight: 500; }
-
-        .appointment-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f1f5f9; }
-        .appointment-actions .btn-sm { padding: 4px 14px; border-radius: 20px; font-size: 10px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; text-decoration: none; display: inline-block; }
-        .btn-sm-primary { background: #0ea5e9; color: #fff; }
-        .btn-sm-danger { background: #ef4444; color: #fff; }
-        .btn-sm-whatsapp { background: #25D366; color: #fff; }
-
-        .empty-state { text-align: center; padding: 40px 20px; color: #6b6b7b; }
-        .empty-state .icon { font-size: 48px; display: block; margin-bottom: 12px; opacity: 0.4; }
-
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 16px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; }
-        .whatsapp-float:hover { transform: scale(1.08); }
-
-        .footer-links { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8ecf0; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
-        .footer-links a { font-size: 9px; color: #6b6b7b; text-decoration: none; }
-        .footer-links a:hover { color: #0ea5e9; }
-        .footer-copyright { font-size: 8px; color: #aaa; text-align: center; margin-top: 6px; }
-        .loading-text { text-align: center; padding: 40px; color: #6b6b7b; }
-        .loading-text i { font-size: 32px; display: block; margin-bottom: 12px; }
-
-        @media (max-width: 400px) { .whatsapp-float { width: 48px; height: 48px; font-size: 24px; bottom: 90px; right: 16px; } }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
-    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <div id="header-placeholder"></div>
 
-    <header class="fixed-header">
-        <div class="logo-area">
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
-        </div>
-        <div class="header-actions">
-            <a href="customer-dashboard.html" class="header-btn"><i class="fas fa-arrow-left"></i><span class="label">Back</span></a>
-        </div>
-    </header>
+    <main class="page-container">
 
-    <div class="app-container">
         <div class="page-header">
-            <h1>📅 My Appointments</h1>
-            <span class="count" id="appointmentCount">0 Appointments</span>
+            <h1><i class="fas fa-calendar-check"></i> Appointments</h1>
+            <a href="../appointment.html" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> Book New
+            </a>
         </div>
 
-        <div id="loadingState" class="loading-text">
-            <i class="fas fa-spinner fa-spin"></i>
-            Loading appointments...
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="upcoming" onclick="switchTab('upcoming')">Upcoming</button>
+            <button class="tab-btn" data-tab="past" onclick="switchTab('past')">Past</button>
+            <button class="tab-btn" data-tab="cancelled" onclick="switchTab('cancelled')">Cancelled</button>
         </div>
 
-        <div id="appointmentList" style="display:none;"></div>
-
-        <div class="footer-links">
-            <a href="index.html">Home</a>| <a href="about.html">About</a>| <a href="contact.html">Contact</a>| <a href="terms.html">Terms</a>| <a href="privacy.html">Privacy</a>
+        <div id="appointmentsList">
+            <div class="loader">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading appointments...</p>
+            </div>
         </div>
-        <div class="footer-copyright">© 2026 Raj Marketing Mysore</div>
-    </div>
 
-    <footer class="fixed-footer">
-        <a href="customer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="customer-products.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
-        <a href="customer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-        <a href="customer-appointments.html" class="nav-item active"><i class="fas fa-calendar-check"></i> Appointment</a>
-        <a href="customer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-    </footer>
+    </main>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+    <div id="footer-placeholder"></div>
 
-        let customerId = null;
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) { window.location.href = "customer-login.html"; return; }
-            await loadCustomerId(user.uid);
-            await loadAppointments();
-        });
+    <script>
+    (function() {
+        'use strict';
 
-        async function loadCustomerId(uid) {
-            try {
-                const customersRef = collection(db, "customers");
-                const q = query(customersRef, where("uid", "==", uid));
-                const snapshot = await getDocs(q);
-                if (!snapshot.empty) customerId = snapshot.docs[0].id;
-            } catch (error) { console.error("Customer ID load error:", error); }
-        }
+        let currentTab = 'upcoming';
 
-        async function loadAppointments() {
-            if (!customerId) {
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('appointmentList').style.display = 'block';
-                document.getElementById('appointmentList').innerHTML = `<div class="empty-state"><span class="icon">📅</span><h3 style="font-size:16px; font-weight:700;">No Appointments</h3><p style="font-size:13px; margin-top:4px;">You haven't booked any appointments yet.</p><a href="appointment.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Book Appointment →</a></div>`;
-                return;
-            }
+        function loadAppointments() {
+            const container = document.getElementById('appointmentsList');
 
             try {
-                const appointmentsRef = collection(db, "appointments");
-                const q = query(appointmentsRef, where("customerId", "==", customerId), orderBy("createdAt", "desc"));
-                const snapshot = await getDocs(q);
+                const data = JSON.parse(localStorage.getItem('raj_estimator_data') || '{}');
+                const estimates = data.estimates || [];
+                const appointments = estimates.filter(e => e.siteVisit === 'Yes' || e.appointmentDate);
 
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('appointmentList').style.display = 'block';
+                const now = new Date();
+                let filtered = [];
 
-                if (snapshot.empty) {
-                    document.getElementById('appointmentList').innerHTML = `<div class="empty-state"><span class="icon">📅</span><h3 style="font-size:16px; font-weight:700;">No Appointments</h3><p style="font-size:13px; margin-top:4px;">You haven't booked any appointments yet.</p><a href="appointment.html" style="color:#0ea5e9; text-decoration:none; font-weight:600; font-size:13px; display:inline-block; margin-top:8px;">Book Appointment →</a></div>`;
-                    document.getElementById('appointmentCount').textContent = '0 Appointments';
+                if (currentTab === 'upcoming') {
+                    filtered = appointments.filter(a => {
+                        const d = a.appointmentDate ? new Date(a.appointmentDate) : null;
+                        return !d || d >= now;
+                    });
+                } else if (currentTab === 'past') {
+                    filtered = appointments.filter(a => {
+                        const d = a.appointmentDate ? new Date(a.appointmentDate) : null;
+                        return d && d < now;
+                    });
+                } else {
+                    filtered = appointments.filter(a => a.status === 'Cancelled');
+                }
+
+                if (!filtered.length) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-calendar-times"></i>
+                            <h3>No ${currentTab} appointments</h3>
+                            <p>Book a site visit to get started</p>
+                            <a href="../appointment.html" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Book Appointment
+                            </a>
+                        </div>
+                    `;
                     return;
                 }
 
-                const appointments = [];
-                snapshot.forEach(doc => appointments.push({ id: doc.id, ...doc.data() }));
-                document.getElementById('appointmentCount').textContent = appointments.length + ' Appointments';
-
-                document.getElementById('appointmentList').innerHTML = appointments.map(a => {
-                    const status = a.status || 'NEW';
-                    const statusClass = status.toLowerCase().replace(/ /g, '');
-                    const date = a.date || '—';
-                    const time = a.time || '—';
-                    const createdAt = a.createdAt?.toDate?.() || new Date(a.createdAt);
-                    const dateStr = createdAt ? createdAt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
-
-                    return `
-                        <div class="appointment-card">
-                            <div class="appointment-header">
-                                <span class="id">${a.appointmentId || a.id}</span>
-                                <span class="status status-${statusClass}">${status}</span>
+                container.innerHTML = filtered.map(apt => `
+                    <div class="card">
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+                            <div style="flex:1;min-width:200px;">
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                                    <i class="fas fa-calendar-alt" style="color:var(--royal-blue);font-size:18px;"></i>
+                                    <h3 style="font-size:15px;font-weight:800;color:var(--highlight-grey);">
+                                        ${apt.productName || apt.category || 'Site Visit'}
+                                    </h3>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="label"><i class="fas fa-calendar"></i> Date</span>
+                                    <span class="value">${apt.appointmentDate || apt.date || '—'}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="label"><i class="fas fa-clock"></i> Time</span>
+                                    <span class="value">${apt.appointmentTime || 'Morning'}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="label"><i class="fas fa-map-marker-alt"></i> Address</span>
+                                    <span class="value">${apt.customerAddress || '—'}</span>
+                                </div>
                             </div>
-                            <div style="font-size:11px; color:#6b6b7b; margin-top:-2px;">Booked: ${dateStr}</div>
-                            <div class="appointment-details">
-                                <div class="row"><span class="label">Date</span><span class="value">${date}</span></div>
-                                <div class="row"><span class="label">Time</span><span class="value">${time}</span></div>
-                                ${a.product ? `<div class="row"><span class="label">Product</span><span class="value">${a.product}</span></div>` : ''}
-                                ${a.address ? `<div class="row"><span class="label">Address</span><span class="value">${a.address}</span></div>` : ''}
-                            </div>
-                            <div class="appointment-actions">
-                                <button class="btn-sm btn-sm-primary" onclick="alert('Appointment details for ${a.id}')">View Details</button>
-                                ${a.mobile ? `<a href="https://wa.me/91${String(a.mobile).replace(/\D/g,'')}" target="_blank" class="btn-sm btn-sm-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>` : ''}
-                                ${status !== 'CANCELLED' && status !== 'COMPLETED' ? `<button class="btn-sm btn-sm-danger" onclick="alert('Cancel appointment ${a.id}')">Cancel</button>` : ''}
-                            </div>
+                            <span class="status-badge status-${(apt.status || 'confirmed').toLowerCase()}">
+                                ${apt.status || 'Confirmed'}
+                            </span>
                         </div>
-                    `;
-                }).join('');
-
-            } catch (error) {
-                console.error("❌ Appointments load error:", error);
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('appointmentList').style.display = 'block';
-                document.getElementById('appointmentList').innerHTML = `<div class="empty-state"><span class="icon">⚠️</span><h3 style="font-size:16px; font-weight:700;">Unable to Load Appointments</h3><p style="font-size:13px; margin-top:4px;">Please try again later.</p></div>`;
+                        <div class="btn-group" style="margin-top:12px;">
+                            <a href="tel:9483037385" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-phone"></i> Call
+                            </a>
+                            <a href="https://wa.me/919483037385" target="_blank" class="btn btn-whatsapp btn-sm">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            <button class="btn btn-secondary btn-sm" onclick="cancelAppointment('${apt.id}')">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h3>Unable to load</h3>
+                        <p>Please try again later</p>
+                    </div>
+                `;
             }
         }
+
+        window.switchTab = function(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+            loadAppointments();
+        };
+
+        window.cancelAppointment = function(id) {
+            if (!confirm('Cancel this appointment?')) return;
+            try {
+                const data = JSON.parse(localStorage.getItem('raj_estimator_data') || '{}');
+                const estimates = data.estimates || [];
+                const idx = estimates.findIndex(e => e.id === id);
+                if (idx >= 0) {
+                    estimates[idx].status = 'Cancelled';
+                    data.estimates = estimates;
+                    localStorage.setItem('raj_estimator_data', JSON.stringify(data));
+                    showToast('Appointment cancelled', 'warning');
+                    loadAppointments();
+                }
+            } catch (e) {}
+        };
+
+        function showToast(msg, type = 'info') {
+            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+            const t = document.createElement('div');
+            t.className = 'rm-toast';
+            t.textContent = msg;
+            t.style.background = colors[type] || colors.info;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => t.classList.add('show'));
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', loadAppointments);
+    })();
     </script>
 </body>
-            </html>
+    </html>
