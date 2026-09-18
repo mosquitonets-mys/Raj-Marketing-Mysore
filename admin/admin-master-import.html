@@ -1,516 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raj Marketing - Firebase Master Setup</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Master Import - Raj Marketing Admin</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        body { background: #f0f4f8; padding-bottom: 20px; }
+        .admin-header {
+            background: linear-gradient(135deg, #0f1b33, #1a56db);
+            padding: 16px;
+            color: #fff;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 4px 20px rgba(15, 27, 51, 0.2);
+        }
+        .admin-header-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; flex-wrap: wrap;
+        }
+        .admin-brand { display: flex; align-items: center; gap: 10px; }
+        .admin-brand .logo {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+        .admin-brand h1 { font-size: 16px; font-weight: 900; }
+        .admin-brand p { font-size: 10px; opacity: 0.75; }
+        .admin-header-actions { display: flex; gap: 8px; }
+        .admin-header-btn {
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; border: none; cursor: pointer;
+            font-size: 15px; text-decoration: none;
+            transition: var(--transition);
+        }
+        .admin-header-btn:hover { background: rgba(255,255,255,0.25); }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px; }
+        .page-title {
+            font-size: 22px; font-weight: 900;
+            color: var(--highlight-grey);
+            margin-bottom: 8px;
+            display: flex; align-items: center; gap: 10px;
+            letter-spacing: -0.5px;
+        }
+        .page-title i { color: var(--royal-blue); }
+        .page-subtitle {
+            font-size: 13px; color: var(--muted-text);
+            margin-bottom: 20px;
+        }
+        .import-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+        .import-card h3 {
+            font-size: 15px; font-weight: 800;
+            color: var(--highlight-grey);
+            margin-bottom: 4px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .import-card h3 i { color: var(--royal-blue); }
+        .import-card p {
+            font-size: 12px; color: var(--muted-text);
+            margin-bottom: 16px;
+        }
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 32px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--bg-light);
+        }
+        .upload-zone:hover {
+            border-color: var(--royal-blue);
+            background: var(--light-blue);
+        }
+        .upload-zone.dragover {
+            border-color: var(--royal-blue);
+            background: var(--light-blue);
+            transform: scale(1.01);
+        }
+        .upload-zone i {
+            font-size: 42px;
+            color: var(--royal-blue);
+            display: block;
+            margin-bottom: 12px;
+        }
+        .upload-zone .label {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--highlight-grey);
+            margin-bottom: 4px;
+        }
+        .upload-zone .hint {
+            font-size: 11px;
+            color: var(--muted-text);
+            font-weight: 600;
+        }
+        .file-input {
+            display: none;
+        }
+        .file-selected {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            border-radius: var(--radius);
+            font-size: 12px;
+            font-weight: 700;
+            color: #065f46;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 12px;
+        }
+        .preview-table th {
+            background: var(--light-blue);
+            color: var(--royal-blue);
+            padding: 8px 10px;
+            text-align: left;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 10px;
+        }
+        .preview-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--highlight-grey);
+            font-weight: 600;
+        }
+        .import-log {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            padding: 14px;
+            border-radius: var(--radius);
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+        .import-log .log-success { color: #10b981; }
+        .import-log .log-error { color: #ef4444; }
+        .import-log .log-info { color: #60a5fa; }
+        .import-log .log-warn { color: #f59e0b; }
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-    background: #f5f7fa;
-}
-
-.box {
-    background: white;
-    padding: 22px;
-    border-radius: 14px;
-    box-shadow: 0 3px 15px rgba(0,0,0,.08);
-}
-
-input, button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 10px;
-    box-sizing: border-box;
-    border-radius: 7px;
-    border: 1px solid #ccc;
-}
-
-button {
-    background: #1565c0;
-    color: white;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-#result {
-    margin-top: 20px;
-    white-space: pre-wrap;
-    line-height: 1.6;
-}
-</style>
+        .sample-format {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--highlight-grey);
+            font-weight: 700;
+            overflow-x: auto;
+            white-space: pre;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="box">
+    <header class="admin-header">
+        <div class="admin-header-inner">
+            <div class="admin-brand">
+                <div class="logo"><i class="fas fa-database"></i></div>
+                <div>
+                    <h1>Master Import</h1>
+                    <p>Bulk Product Data Management</p>
+                </div>
+            </div>
+            <div class="admin-header-actions">
+                <a href="dashboard.html" class="admin-header-btn" title="Dashboard">
+                    <i class="fas fa-home"></i>
+                </a>
+                <button class="admin-header-btn" onclick="AdminAuth.logout()" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-<h1>Raj Marketing Mysore</h1>
+    <div class="container">
 
-<h2>Firebase Master Database Setup</h2>
+        <h1 class="page-title">
+            <i class="fas fa-database"></i> Master Data Import
+        </h1>
+        <p class="page-subtitle">
+            Import bulk product data via JSON. Existing data will be merged.
+        </p>
 
-<p>
-This creates the initial Raj Marketing database structure.
-No fake customer or dealer records will be created.
-</p>
+        <!-- Import Card -->
+        <div class="import-card">
+            <h3><i class="fas fa-upload"></i> Upload Master Data (JSON)</h3>
+            <p>Select a JSON file containing product master data.</p>
 
-<input
-    id="email"
-    type="email"
-    placeholder="Firebase admin email"
->
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <div class="label">Click to upload or drag &amp; drop</div>
+                <div class="hint">JSON file only · Max 5 MB</div>
+            </div>
+            <input type="file" id="fileInput" class="file-input" accept=".json,application/json" />
 
-<input
-    id="password"
-    type="password"
-    placeholder="Firebase admin password"
->
+            <div id="fileSelected" class="file-selected" style="display:none;">
+                <i class="fas fa-file-code"></i>
+                <span id="fileName">—</span>
+                <span style="margin-left:auto;color:#059669;" id="fileSize">0 KB</span>
+            </div>
 
-<button id="setupBtn">
-    Login & Create Master Database
-</button>
-
-<div id="result">
-Ready...
-</div>
-
-</div>
-
-
-<script type="module">
-
-import { auth, db }
-    from "./firebase-config.js";
-
-import {
-    signInWithEmailAndPassword
-}
-from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-import {
-    doc,
-    setDoc,
-    serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-
-
-const result =
-    document.getElementById("result");
-
-
-/* ============================================================
-   MASTER DATABASE STRUCTURE
-============================================================ */
-
-const databaseStructure = {
-
-    customers: {
-        purpose: "Customer master database",
-        fields: [
-            "customerId",
-            "name",
-            "phone",
-            "alternatePhone",
-            "email",
-            "address",
-            "landmark",
-            "googleMapLocation",
-            "source",
-            "status",
-            "notes",
-            "createdAt",
-            "updatedAt"
-        ]
-    },
-
-    dealers: {
-        purpose: "Dealer master database",
-        fields: [
-            "dealerId",
-            "businessName",
-            "ownerName",
-            "phone",
-            "whatsapp",
-            "email",
-            "address",
-            "city",
-            "gstNumber",
-            "dealerType",
-            "status",
-            "notes",
-            "createdAt",
-            "updatedAt"
-        ]
-    },
-
-    enquiries: {
-        purpose: "Customer and dealer enquiries",
-        fields: [
-            "enquiryId",
-            "customerId",
-            "dealerId",
-            "type",
-            "source",
-            "message",
-            "status",
-            "assignedTo",
-            "createdAt",
-            "updatedAt"
-        ]
-    },
-
-    measurements: {
-        purpose: "Window and door measurements",
-        fields: [
-            "measurementId",
-            "customerId",
-            "enquiryId",
-            "room",
-            "location",
-            "width",
-            "height",
-            "quantity",
-            "unit",
-            "sqft",
-            "productCode",
-            "notes",
-            "createdAt"
-        ]
-    },
-
-    estimates: {
-        purpose: "Customer quotations and estimates",
-        fields: [
-            "estimateId",
-            "customerId",
-            "enquiryId",
-            "items",
-            "subtotal",
-            "discountPercent",
-            "discountAmount",
-            "finalAmount",
-            "advancePercent",
-            "advanceAmount",
-            "balanceAmount",
-            "status",
-            "validUntil",
-            "createdAt",
-            "updatedAt"
-        ]
-    },
-
-    orders: {
-        purpose: "Confirmed customer orders",
-        fields: [
-            "orderId",
-            "customerId",
-            "estimateId",
-            "items",
-            "totalAmount",
-            "advanceAmount",
-            "balanceAmount",
-            "paymentStatus",
-            "productionStatus",
-            "installationStatus",
-            "orderStatus",
-            "expectedDate",
-            "createdAt",
-            "updatedAt"
-        ]
-    },
-
-    payments: {
-        purpose: "Customer payment records",
-        fields: [
-            "paymentId",
-            "customerId",
-            "orderId",
-            "amount",
-            "paymentType",
-            "paymentMethod",
-            "transactionReference",
-            "paymentDate",
-            "notes",
-            "createdAt"
-        ]
-    },
-
-    appointments: {
-        purpose: "Site visit and measurement appointments",
-        fields: [
-            "appointmentId",
-            "customerId",
-            "enquiryId",
-            "date",
-            "time",
-            "address",
-            "googleMapLocation",
-            "assignedPerson",
-            "status",
-            "notes",
-            "createdAt",
-            "updatedAt"
-        ]
-    },
-
-    offers: {
-        purpose: "Product offers and promotional pricing",
-        fields: [
-            "offerId",
-            "productCode",
-            "offerName",
-            "offerPrice",
-            "startDate",
-            "endDate",
-            "active",
-            "description",
-            "createdAt",
-            "updatedAt"
-        ]
-    },
-
-    products: {
-        purpose: "Detailed product catalogue",
-        fields: [
-            "productCode",
-            "productName",
-            "category",
-            "description",
-            "features",
-            "meshType",
-            "frameType",
-            "availableColors",
-            "warranty",
-            "active",
-            "createdAt",
-            "updatedAt"
-        ]
+            <div class="sample-format">
+{
+  "products": [
+    {
+      "id": "velcro-economic",
+      "name": "Velcro System - Economic",
+      "category": "Velcro",
+      "variant": "Economic",
+      "price": 65,
+      "unit": "sq.ft",
+      "onlinePurchase": true
     }
+  ]
+}
+            </div>
 
-};
+            <div class="btn-group" style="margin-top:16px;">
+                <button class="btn btn-primary" onclick="processImport()" id="importBtn" disabled>
+                    <i class="fas fa-file-import"></i> Import Data
+                </button>
+                <button class="btn btn-secondary" onclick="clearFile()">
+                    <i class="fas fa-redo"></i> Clear
+                </button>
+                <button class="btn btn-secondary" onclick="downloadSample()">
+                    <i class="fas fa-download"></i> Download Sample
+                </button>
+            </div>
 
+            <div class="import-log" id="importLog" style="display:none;"></div>
+        </div>
 
-/* ============================================================
-   SETUP
-============================================================ */
+        <!-- Preview -->
+        <div class="import-card" id="previewCard" style="display:none;">
+            <h3><i class="fas fa-eye"></i> Preview</h3>
+            <p>Preview of the first 5 records to be imported.</p>
+            <div style="overflow-x:auto;">
+                <table class="preview-table" id="previewTable"></table>
+            </div>
+        </div>
 
-document
-.getElementById("setupBtn")
-.addEventListener("click", async () => {
+        <!-- Stats -->
+        <div class="import-card">
+            <h3><i class="fas fa-chart-pie"></i> Current Data Stats</h3>
+            <div id="dataStats" style="font-size:13px;color:var(--muted-text);">
+                Loading...
+            </div>
+        </div>
 
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
+    </div>
 
-    const password =
-        document.getElementById("password")
-        .value;
+    <script src="js/admin-auth.js"></script>
+    <script src="js/admin-notifications.js"></script>
 
+    <script>
+    (function() {
+        'use strict';
 
-    if (!email || !password) {
+        let pendingData = null;
 
-        result.textContent =
-            "Please enter your Firebase admin email and password.";
-
-        return;
-    }
-
-
-    try {
-
-        result.textContent =
-            "Logging in to Firebase...\n";
-
-
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
-
-        result.textContent +=
-            "✅ Admin login successful.\n\n";
-
-
-        /* ------------------------------------------------------
-           SAVE DATABASE STRUCTURE
-        ------------------------------------------------------ */
-
-        await setDoc(
-            doc(db, "settings", "database"),
-            {
-                businessName:
-                    "Raj Marketing Mysore",
-
-                version:
-                    "1.0",
-
-                description:
-                    "Raj Marketing master Firebase database structure",
-
-                collections:
-                    databaseStructure,
-
-                createdAt:
-                    serverTimestamp(),
-
-                updatedAt:
-                    serverTimestamp()
-            },
-            { merge: true }
-        );
-
-
-        result.textContent +=
-            "✅ Database structure saved.\n\n";
-
-
-        /* ------------------------------------------------------
-           BUSINESS SETTINGS
-        ------------------------------------------------------ */
-
-        await setDoc(
-            doc(db, "settings", "business"),
-            {
-
-                businessName:
-                    "Raj Marketing Mysore",
-
-                businessType:
-                    "Mosquito Net Sales, Manufacturing & Installation",
-
-                location:
-                    "Mysore, Karnataka, India",
-
-                currency:
-                    "INR",
-
-                phone:
-                    "9483037385",
-
-                website:
-                    "rajmarketingmysore.online",
-
-                firebaseVersion:
-                    "1.0",
-
-                createdAt:
-                    serverTimestamp(),
-
-                updatedAt:
-                    serverTimestamp()
-
-            },
-            { merge: true }
-        );
-
-
-        result.textContent +=
-            "✅ Business settings saved.\n\n";
-
-
-        /* ------------------------------------------------------
-           COLLECTION INFORMATION DOCUMENTS
-           These are only structure markers.
-           NO customer/dealer data is created.
-        ------------------------------------------------------ */
-
-        for (
-            const [collectionName, info]
-            of Object.entries(databaseStructure)
-        ) {
-
-            await setDoc(
-
-                doc(
-                    db,
-                    collectionName,
-                    "_collectionInfo"
-                ),
-
-                {
-                    type:
-                        "system",
-
-                    purpose:
-                        info.purpose,
-
-                    fields:
-                        info.fields,
-
-                    note:
-                        "System structure document. Not a customer/dealer record.",
-
-                    createdAt:
-                        serverTimestamp()
-
-                },
-
-                { merge: true }
-
-            );
-
-
-            result.textContent +=
-                "✅ " +
-                collectionName +
-                "\n";
-
+        function init() {
+            if (!AdminAuth.requireLogin()) return;
+            setupUploadZone();
+            updateStats();
         }
 
+        // ============================================================
+        // UPLOAD
+        // ============================================================
+        function setupUploadZone() {
+            const zone = document.getElementById('uploadZone');
+            const input = document.getElementById('fileInput');
 
-        result.textContent += `
+            zone.addEventListener('dragover', e => {
+                e.preventDefault();
+                zone.classList.add('dragover');
+            });
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('dragover');
+            });
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                zone.classList.remove('dragover');
+                if (e.dataTransfer.files.length) {
+                    input.files = e.dataTransfer.files;
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
 
-================================
-MASTER SETUP COMPLETED
-================================
+            input.addEventListener('change', e => {
+                if (e.target.files.length) handleFile(e.target.files[0]);
+            });
+        }
 
-Customers          ✅
-Dealers             ✅
-Enquiries           ✅
-Measurements        ✅
-Estimates           ✅
-Orders              ✅
-Payments            ✅
-Appointments        ✅
-Offers              ✅
-Products            ✅
+        function handleFile(file) {
+            if (!file.name.endsWith('.json')) {
+                log('❌ Only JSON files are accepted.', 'error');
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                log('❌ File size exceeds 5 MB.', 'error');
+                return;
+            }
 
-Business Settings   ✅
-Database Settings   ✅
+            document.getElementById('fileSelected').style.display = 'flex';
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = (file.size / 1024).toFixed(1) + ' KB';
 
-No fake customer records created.
-No fake dealer records created.
+            const reader = new FileReader();
+            reader.onload = e => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    pendingData = data;
+                    document.getElementById('importBtn').disabled = false;
+                    showPreview(data);
+                    log('✅ File loaded: ' + file.name, 'success');
+                } catch (err) {
+                    log('❌ Invalid JSON: ' + err.message, 'error');
+                    pendingData = null;
+                    document.getElementById('importBtn').disabled = true;
+                }
+            };
+            reader.readAsText(file);
+        }
 
-Raj Marketing Firebase backend
-is ready for the next stage.
-`;
+        function clearFile() {
+            document.getElementById('fileInput').value = '';
+            document.getElementById('fileSelected').style.display = 'none';
+            document.getElementById('previewCard').style.display = 'none';
+            document.getElementById('importBtn').disabled = true;
+            pendingData = null;
+            log('🧹 Cleared.', 'info');
+        }
+        window.clearFile = clearFile;
 
+        // ============================================================
+        // PREVIEW
+        // ============================================================
+        function showPreview(data) {
+            const products = data.products || [];
+            if (!products.length) {
+                document.getElementById('previewCard').style.display = 'none';
+                return;
+            }
 
-    }
-    catch(error) {
+            const preview = products.slice(0, 5);
+            const cols = ['id', 'name', 'category', 'price', 'unit'];
 
-        console.error(error);
+            let html = '<thead><tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr></thead>';
+            html += '<tbody>' + preview.map(p =>
+                '<tr>' + cols.map(c => `<td>${p[c] !== undefined ? p[c] : '—'}</td>`).join('') + '</tr>'
+            ).join('') + '</tbody>';
 
-        result.textContent =
-            "❌ SETUP FAILED\n\n" +
-            error.code +
-            "\n\n" +
-            error.message;
+            document.getElementById('previewTable').innerHTML = html;
+            document.getElementById('previewCard').style.display = 'block';
+            log('📋 Preview: ' + products.length + ' product(s) found.', 'info');
+        }
 
-    }
+        // ============================================================
+        // PROCESS IMPORT
+        // ============================================================
+        window.processImport = function() {
+            if (!pendingData) {
+                log('❌ No data to import.', 'error');
+                return;
+            }
 
-});
+            const products = pendingData.products || [];
+            if (!products.length) {
+                log('❌ No products in data.', 'error');
+                return;
+            }
 
-</script>
+            try {
+                const existing = JSON.parse(localStorage.getItem('raj_master_products') || '[]');
+                const existingMap = {};
+                existing.forEach(p => existingMap[p.id] = p);
 
+                let added = 0, updated = 0;
+
+                products.forEach(p => {
+                    if (!p.id) {
+                        log('⚠️ Skipped product without ID: ' + JSON.stringify(p).substring(0, 50), 'warn');
+                        return;
+                    }
+                    if (existingMap[p.id]) {
+                        existingMap[p.id] = { ...existingMap[p.id], ...p, updatedAt: new Date().toISOString() };
+                        updated++;
+                    } else {
+                        existingMap[p.id] = { ...p, createdAt: new Date().toISOString() };
+                        added++;
+                    }
+                });
+
+                const finalList = Object.values(existingMap);
+                localStorage.setItem('raj_master_products', JSON.stringify(finalList));
+
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log('✅ Import Complete!', 'success');
+                log('  • Added: ' + added, 'success');
+                log('  • Updated: ' + updated, 'success');
+                log('  • Total: ' + finalList.length, 'success');
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+
+                AdminNotifications.add('SYSTEM',
+                    'Master Data Imported',
+                    `${added} added, ${updated} updated. Total: ${finalList.length} products.`,
+                    { added, updated, total: finalList.length }
+                );
+
+                updateStats();
+                pendingData = null;
+                document.getElementById('importBtn').disabled = true;
+                clearFile();
+            } catch (e) {
+                log('❌ Import failed: ' + e.message, 'error');
+            }
+        };
+
+        // ============================================================
+        // SAMPLE
+        // ============================================================
+        window.downloadSample = function() {
+            const sample = {
+                products: [
+                    { id: 'velcro-economic', name: 'Velcro System - Economic', category: 'Velcro', variant: 'Economic', price: 65, unit: 'sq.ft', onlinePurchase: true },
+                    { id: 'velcro-premium', name: 'Velcro System - Premium', category: 'Velcro', variant: 'Saint-Gobain', price: 80, unit: 'sq.ft', onlinePurchase: true },
+                    { id: 'aluminium-black-ss', name: 'Aluminium Frame - Black SS', category: 'Aluminium', variant: 'Black SS', price: 200, unit: 'sq.ft', onlinePurchase: false }
+                ]
+            };
+            const blob = new Blob([JSON.stringify(sample, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sample-master-import.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        // ============================================================
+        // STATS
+        // ============================================================
+        function updateStats() {
+            try {
+                const products = JSON.parse(localStorage.getItem('raj_master_products') || '[]');
+                const categories = {};
+                products.forEach(p => {
+                    categories[p.category] = (categories[p.category] || 0) + 1;
+                });
+
+                let html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                    <div><strong style="color:var(--highlight-grey);font-size:16px;">${products.length}</strong><br>Total Products</div>
+                    <div><strong style="color:var(--highlight-grey);font-size:16px;">${Object.keys(categories).length}</strong><br>Categories</div>
+                </div>`;
+
+                if (Object.keys(categories).length) {
+                    html += '<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">';
+                    Object.entries(categories).forEach(([cat, count]) => {
+                        html += `<span style="background:var(--light-blue);color:var(--royal-blue);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;">${cat}: ${count}</span>`;
+                    });
+                    html += '</div>';
+                }
+
+                document.getElementById('dataStats').innerHTML = html;
+            } catch (e) {
+                document.getElementById('dataStats').textContent = 'Error loading stats';
+            }
+        }
+
+        // ============================================================
+        // LOG
+        // ============================================================
+        function log(msg, type = 'info') {
+            const el = document.getElementById('importLog');
+            el.style.display = 'block';
+        const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const cls = 'log-' + type;
+            el.innerHTML += `<div class="${cls}">[${time}] ${msg}</div>`;
+            el.scrollTop = el.scrollHeight;
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    })();
+    </script>
 </body>
-  </html>
+</html>
