@@ -592,14 +592,3 @@
     </script>
 </body>
 </html>
-            try {
-                const key = type === 'dealer' ? 'raj_dealers' : 'raj_customers';
-                const list = JSON.parse(localStorage.getItem(key) || '[]');
-                const idx = list.findIndex(x => x.id === id);
-
-                if (idx < 0) {
-                    showToast('Record not found', 'error');
-                    return;
-                }
-
-     
