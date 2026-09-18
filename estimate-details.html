@@ -2,532 +2,1754 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Estimate Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Estimate Details - Raj Marketing Mysore</title>
+    <meta name="description" content="View your estimate details, download PDF, and convert to order." />
+    <link rel="canonical" href="https://rajmarketingmysore.info/estimate-details.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Page-specific -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            background: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0 12px;
-            padding-top: 80px;
-            padding-bottom: 100px;
-        }
+        /* ============================================================
+           ESTIMATE DETAILS PAGE
+        ============================================================ */
         .app-container {
-            max-width: 480px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 36px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            padding: 20px 18px;
-            border: 1px solid #e8ecf0;
-        }
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
+            max-width: 720px;
             margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 14px 20px 10px 20px;
-            border-bottom: 1px solid #e8ecf0;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            padding: 0 16px;
+        }
+
+        /* Page Header */
+        .page-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin: 20px 0 16px 0;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .fixed-header .logo-area {
+
+        .page-header h1 {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--highlight-grey);
+            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .fixed-header .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+
+        .page-header h1 i {
+            color: var(--royal-blue);
         }
-        .fixed-header .logo-text {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1a1a1a;
-            line-height: 1.2;
-        }
-        .fixed-header .logo-text span {
-            display: block;
-            font-weight: 400;
-            font-size: 9px;
-            color: #6b6b6b;
-        }
-        .fixed-header .header-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .fixed-header .header-actions i {
-            font-size: 18px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .fixed-header .back-btn {
-            font-size: 20px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .fixed-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 8px 12px 12px 12px;
-            border-top: 1px solid #e8ecf0;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-radius: 30px 30px 0 0;
-        }
-        .fixed-footer .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 9px;
-            color: #8a8a8a;
-            font-weight: 500;
-            gap: 2px;
-            padding: 4px 12px;
+
+        .page-header .est-id {
+            background: var(--light-blue);
+            color: var(--royal-blue);
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 14px;
             border-radius: 30px;
-            text-decoration: none;
+            letter-spacing: 0.3px;
         }
-        .fixed-footer .nav-item i {
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-draft { background: #f3f4f6; color: #4b5563; }
+        .status-quotation { background: #dbeafe; color: #1d4ed8; }
+        .status-sent { background: #dbeafe; color: #1d4ed8; }
+        .status-confirmed { background: #d1fae5; color: #059669; }
+        .status-progress { background: #fef3c7; color: #d97706; }
+        .status-completed { background: #d1fae5; color: #059669; }
+        .status-cancelled { background: #fee2e2; color: #dc2626; }
+        .status-accepted { background: #d1fae5; color: #059669; }
+        .status-rejected { background: #fee2e2; color: #dc2626; }
+        .status-paid { background: #d1fae5; color: #059669; }
+
+        /* Estimate Hero */
+        .estimate-hero {
+            background: linear-gradient(135deg, var(--royal-blue), var(--deep-navy));
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            color: #fff;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 32px rgba(26, 86, 219, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .estimate-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .estimate-hero .hero-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .estimate-hero .hero-top h2 {
             font-size: 20px;
-            color: #8a8a8a;
+            font-weight: 900;
+            letter-spacing: -0.3px;
         }
-        .fixed-footer .nav-item.active i {
-            color: #0ea5e9;
+
+        .estimate-hero .hero-top p {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 2px;
         }
-        .fixed-footer .nav-item.active {
-            color: #0ea5e9;
-            background: rgba(14, 165, 233, 0.08);
+
+        .estimate-hero .hero-status {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
+        .estimate-hero .hero-total {
+            position: relative;
+            z-index: 1;
+        }
+
+        .estimate-hero .hero-total .label {
+            font-size: 11px;
+            opacity: 0.75;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .estimate-hero .hero-total .amount {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-top: 4px;
+        }
+
+        /* Card */
         .card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 18px 16px;
-            margin: 14px 0;
-            border: 1px solid #e8ecf0;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
         }
+
         .card-title {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 15px;
-            color: #1a1a1a;
-            margin-bottom: 12px;
+            color: var(--highlight-grey);
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
+            letter-spacing: -0.2px;
         }
+
         .card-title i {
-            color: #0ea5e9;
+            color: var(--royal-blue);
+            font-size: 15px;
         }
+
+        .card-title .badge {
+            margin-left: auto;
+            background: var(--light-blue);
+            color: var(--royal-blue);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 12px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Detail Row */
         .detail-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0ece6;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-light);
             font-size: 13px;
+            gap: 12px;
         }
+
         .detail-row:last-child {
             border-bottom: none;
         }
+
         .detail-row .label {
-            color: #6b6b7b;
-        }
-        .detail-row .value {
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-        .detail-row .value.total {
-            font-size: 18px;
-            color: #0ea5e9;
-        }
-        .status-badge {
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .status-draft { background: #f3f4f6; color: #4b5563; }
-        .status-sent { background: #dbeafe; color: #1d4ed8; }
-        .status-accepted { background: #d1fae5; color: #059669; }
-        .status-converted { background: #d1fae5; color: #059669; }
-        .status-rejected { background: #fee2e2; color: #dc2626; }
-        .btn-primary {
-            background: linear-gradient(145deg, #0ea5e9, #0284c7);
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-            display: inline-flex;
+            color: var(--muted-text);
+            font-weight: 500;
+            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 6px;
+            flex-shrink: 0;
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
-        }
-        .btn-secondary {
-            background: #f5f0eb;
-            color: #1a1a1a;
-            border: 1px solid #e8ecf0;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
+
+        .detail-row .label i {
+            color: var(--royal-blue);
+            font-size: 12px;
+            width: 16px;
             text-align: center;
         }
-        .btn-secondary:hover {
-            background: #e8ecf0;
-        }
-        .btn-whatsapp {
-            background: #25D366;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 40px;
+
+        .detail-row .value {
             font-weight: 700;
-            font-size: 13px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--highlight-grey);
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .detail-row .value.emphasis {
+            font-size: 16px;
+            color: var(--royal-blue);
+            font-weight: 900;
+        }
+
+        .detail-row .value.green {
+            color: #059669;
+        }
+
+        /* Item List */
+        .items-list {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
-            width: 100%;
-            transition: 0.2s;
+            margin-top: 6px;
         }
-        .btn-whatsapp:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            font-size: 13px;
+            gap: 12px;
+            transition: var(--transition);
         }
-        .action-grid {
+
+        .item-row:hover {
+            background: var(--light-blue);
+        }
+
+        .item-row .item-name {
+            font-weight: 700;
+            color: var(--highlight-grey);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-row .item-name i {
+            color: var(--royal-blue);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .item-row .item-name span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .item-row .item-qty {
+            font-size: 11px;
+            color: var(--muted-text);
+            background: var(--white);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .item-row .item-amount {
+            font-weight: 800;
+            color: var(--royal-blue);
+            flex-shrink: 0;
+        }
+
+        /* Summary */
+        .summary-box {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            margin-top: 8px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 13px;
+            color: var(--bold-grey);
+        }
+
+        .summary-row .label {
+            color: var(--muted-text);
+            font-weight: 500;
+        }
+
+        .summary-row .value {
+            font-weight: 700;
+            color: var(--highlight-grey);
+        }
+
+        .summary-row.discount .value {
+            color: #059669;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid var(--border);
+            margin-top: 6px;
+            padding-top: 12px;
+            font-size: 15px;
+        }
+
+        .summary-row.total .label {
+            font-weight: 800;
+            color: var(--highlight-grey);
+            font-size: 14px;
+        }
+
+        .summary-row.total .value {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--royal-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .amount-words {
+            font-size: 12px;
+            color: var(--muted-text);
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            margin-top: 10px;
+            font-weight: 500;
+            border: 1px dashed var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.5;
+        }
+
+        .amount-words i {
+            color: var(--royal-blue);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* Payment Box */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .payment-item {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            padding: 14px;
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .payment-item.advance {
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+        }
+
+        .payment-item.balance {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+
+        .payment-item .payment-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted-text);
+            margin-bottom: 4px;
+        }
+
+        .payment-item.advance .payment-label {
+            color: #059669;
+        }
+
+        .payment-item.balance .payment-label {
+            color: var(--royal-blue);
+        }
+
+        .payment-item .payment-amount {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--highlight-grey);
+            letter-spacing: -0.5px;
+        }
+
+        .payment-item.advance .payment-amount {
+            color: #059669;
+        }
+
+        .payment-item.balance .payment-amount {
+            color: var(--royal-blue);
+        }
+
+        /* Actions */
+        .actions-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-top: 8px;
+            margin-top: 4px;
         }
-        .loading-text {
+
+        .actions-grid .btn {
+            padding: 14px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+        }
+
+        .actions-grid .btn-primary {
+            background: linear-gradient(145deg, var(--royal-blue), var(--deep-navy));
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(26, 86, 219, 0.3);
+        }
+
+        .actions-grid .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 86, 219, 0.4);
+        }
+
+        .actions-grid .btn-success {
+            background: linear-gradient(145deg, #22c55e, #16a34a);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
+        }
+
+        .actions-grid .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .actions-grid .btn-whatsapp {
+            background: #25D366;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+        }
+
+        .actions-grid .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .actions-grid .btn-secondary {
+            background: var(--white);
+            color: var(--bold-grey);
+            border: 1.5px solid var(--border);
+        }
+
+        .actions-grid .btn-secondary:hover {
+            background: var(--bg-light);
+            border-color: var(--royal-blue);
+            color: var(--royal-blue);
+            transform: translateY(-2px);
+        }
+
+        .actions-grid .btn-full {
+            grid-column: 1 / -1;
+        }
+
+        /* Loading & Error States */
+        .loading-state {
             text-align: center;
-            padding: 20px;
-            color: #777;
+            padding: 60px 20px;
+            color: var(--muted-text);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
         }
-        .estimate-items {
-            margin: 6px 0;
+
+        .loading-state i {
+            font-size: 40px;
+            color: var(--royal-blue);
+            margin-bottom: 12px;
+            display: block;
         }
-        .estimate-items .item {
-            padding: 6px 0;
-            border-bottom: 1px solid #f0ece6;
-            font-size: 12px;
-            display: flex;
-            justify-content: space-between;
+
+        .loading-state h3 {
+            font-weight: 700;
+            color: var(--highlight-grey);
+            margin-bottom: 4px;
         }
-        .estimate-items .item:last-child {
-            border-bottom: none;
+
+        .error-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid #fee2e2;
         }
-        @media (max-width: 400px) {
-            .action-grid { grid-template-columns: 1fr; }
+
+        .error-state i {
+            font-size: 48px;
+            color: #dc2626;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .error-state h3 {
+            font-weight: 800;
+            color: var(--highlight-grey);
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .error-state p {
+            font-size: 13px;
+            color: var(--muted-text);
+            margin-bottom: 20px;
+        }
+
+        .error-state .btn-primary {
+            display: inline-flex;
+            padding: 12px 24px;
+            background: var(--royal-blue);
+            color: #fff;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 20px;
+            }
+
+            .estimate-hero {
+                padding: 18px;
+            }
+
+            .estimate-hero .hero-total .amount {
+                font-size: 28px;
+            }
+
+            .estimate-hero .hero-top h2 {
+                font-size: 17px;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .detail-row .value {
+                text-align: left;
+                width: 100%;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .site-header, .site-footer, .bottom-nav, .whatsapp-float, .actions-grid {
+                display: none !important;
+            }
+            body {
+                padding: 20px;
+                background: #fff;
+            }
+            .app-container {
+                max-width: 100%;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+                page-break-inside: avoid;
+            }
+            .estimate-hero {
+                background: #1a56db !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header class="fixed-header">
-        <div class="logo-area">
-            <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
+    <!-- ===== HEADER PLACEHOLDER ===== -->
+    <div id="header-placeholder"></div>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+        <div class="app-container">
+
+            <!-- ===== LOADING STATE ===== -->
+            <div id="loadingState">
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Loading Estimate...</h3>
+                    <p style="font-size:12px;">Fetching your estimate details</p>
+                </div>
+            </div>
+
+            <!-- ===== ERROR STATE ===== -->
+            <div id="errorState" style="display:none;">
+                <div class="error-state">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Estimate Not Found</h3>
+                    <p id="errorMessage">The estimate you're looking for doesn't exist or has been removed.</p>
+                    <a href="customer-dashboard.html" class="btn-primary">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <!-- ===== CONTENT ===== -->
+            <div id="estimateContent" style="display:none;">
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>
+                        <i class="fas fa-file-invoice"></i>
+                        Estimate
+                    </h1>
+                    <span class="est-id" id="estimateIdBadge">#RM-EST-0001</span>
+                </div>
+
+                <!-- Hero Card -->
+                <div class="estimate-hero">
+                    <div class="hero-top">
+                        <div>
+                            <h2 id="heroProductName">Product Name</h2>
+                            <p id="heroCustomerName">
+                                <i class="fas fa-user"></i> Customer Name
+                            </p>
+                        </div>
+                        <span class="hero-status" id="heroStatus">DRAFT</span>
+                    </div>
+                    <div class="hero-total">
+                        <div class="label">Total Amount</div>
+                        <div class="amount" id="heroTotalAmount">₹0</div>
+                    </div>
+                </div>
+
+                <!-- Customer Details -->
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-user-circle"></i> Customer Details
+                    </div>
+                    <div class="detail-row">
+                        <span class="label"><i class="fas fa-user"></i> Name</span>
+                        <span class="value" id="custName">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label"><i class="fas fa-phone"></i> Mobile</span>
+                        <span class="value" id="custMobile">—</span>
+                    </div>
+                    <div class="detail-row" id="rowWhatsapp">
+                        <span class="label"><i class="fab fa-whatsapp"></i> WhatsApp</span>
+                        <span class="value" id="custWhatsapp">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label"><i class="fas fa-map-marker-alt"></i> Address</span>
+                        <span class="value" id="custAddress">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label"><i class="fas fa-city"></i> City</span>
+                        <span class="value" id="custCity">—</span>
+                    </div>
+                    <div class="detail-row" id="rowMap">
+                        <span class="label"><i class="fas fa-map"></i> Location</span>
+                        <span class="value">
+                            <a href="#" id="custMapLink" target="_blank" style="color:var(--royal-blue);text-decoration:none;font-weight:700;">
+                                <i class="fas fa-external-link-alt"></i> View Map
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-box"></i> Product Details
+                        <span class="badge" id="productCategoryBadge">Category</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label"><i class="fas fa-tag"></i> Product</span>
+                        <span class="value" id="productName">—</span>
+                    </div>
+                    <div class="detail-row" id="rowVariant">
+                        <span class="label"><i class="fas fa-layer-group"></i> Variant</span>
+                        <span class="value" id="productVariant">—</span>
+                    </div>
+                    <div class="detail-row" id="rowColour">
+                        <span class="label"><i class="fas fa-palette"></i> Frame Colour</span>
+                        <span class="value" id="productColour">—</span>
+                    </div>
+                    <div class="detail-row" id="rowMesh">
+                        <span class="label"><i class="fas fa-th"></i> Mesh Type</span>
+                        <span class="value" id="productMesh">—</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label"><i class="fas fa-ruler-combined"></i> Total Area</span>
+                        <span class="value emphasis" id="productSqft">0 sq.ft</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label"><i class="fas fa-rupee-sign"></i> Rate</span>
+                        <span class="value" id="productRate">₹0 / sq.ft</span>
+                    </div>
+                </div>
+
+                <!-- Measurements -->
+                <div class="card" id="measurementsCard" style="display:none;">
+                    <div class="card-title">
+                        <i class="fas fa-ruler-combined"></i> Measurements
+                        <span class="badge" id="measurementCount">0 items</span>
+                    </div>
+                    <div class="items-list" id="measurementsList"></div>
+                </div>
+
+                <!-- Accessories -->
+                <div class="card" id="accessoriesCard" style="display:none;">
+                    <div class="card-title">
+                        <i class="fas fa-tools"></i> Accessories
+                        <span class="badge" id="accessoriesCount">0 items</span>
+                    </div>
+                    <div class="items-list" id="accessoriesList"></div>
+                </div>
+
+                <!-- Price Summary -->
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-calculator"></i> Price Summary
+                    </div>
+                    <div class="summary-box">
+                        <div class="summary-row">
+                            <span class="label">Subtotal</span>
+                            <span class="value" id="summarySubtotal">₹0</span>
+                        </div>
+                        <div class="summary-row discount" id="rowDiscount">
+                            <span class="label">Discount (<span id="discountPercent">0</span>%)</span>
+                            <span class="value" id="summaryDiscount">-₹0</span>
+                        </div>
+                        <div class="summary-row" id="rowAccessories" style="display:none;">
+                            <span class="label">Accessories</span>
+                            <span class="value" id="summaryAccessories">₹0</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span class="label">Grand Total</span>
+                            <span class="value" id="summaryTotal">₹0</span>
+                        </div>
+                    </div>
+                    <div class="amount-words">
+                        <i class="fas fa-credit-card"></i>
+                        <span id="amountWords">Rupees Zero Only</span>
+                    </div>
+                </div>
+
+                <!-- Payment Details -->
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-money-bill-wave"></i> Payment Terms
+                    </div>
+                    <div class="payment-grid">
+                        <div class="payment-item advance">
+                            <div class="payment-label">Advance (<span id="advancePercentDisplay">60</span>%)</div>
+                            <div class="payment-amount" id="advanceAmount">₹0</div>
+                        </div>
+                        <div class="payment-item balance">
+                            <div class="payment-label">Balance</div>
+                            <div class="payment-amount" id="balanceAmount">₹0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="card" id="notesCard" style="display:none;">
+                    <div class="card-title">
+                        <i class="fas fa-sticky-note"></i> Notes
+                    </div>
+                    <p style="font-size:13px; color:var(--bold-grey); line-height:1.7;" id="estimateNotes">—</p>
+                </div>
+
+                <!-- Actions -->
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-bolt"></i> Quick Actions
+                    </div>
+                    <div class="actions-grid">
+                        <a href="#" id="callBtn" class="btn btn-secondary">
+                            <i class="fas fa-phone"></i> Call Customer
+                        </a>
+                        <a href="#" id="whatsappBtn" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <button class="btn btn-secondary" onclick="generatePDF()">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.print()">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                        <a href="#" id="editBtn" class="btn btn-primary">
+                            <i class="fas fa-edit"></i> Edit Estimate
+                        </a>
+                        <button class="btn btn-success" onclick="convertToOrder()" id="convertBtn">
+                            <i class="fas fa-box"></i> Convert to Order
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-        <div class="header-actions">
-            <i class="fas fa-user-circle" title="Profile"></i>
-        </div>
-    </header>
+    </main>
 
-    <div class="app-container">
-        <h2 style="font-size:20px; font-weight:800; color:#1a1a2e; margin-bottom:4px;">🧾 Estimate Details</h2>
-        <p style="font-size:13px; color:#6b6b7b; margin-bottom:12px;" id="estimateIdDisplay">Estimate ID: —</p>
+    <!-- ===== FOOTER PLACEHOLDER ===== -->
+    <div id="footer-placeholder"></div>
 
-        <div id="estimateContent">
-            <div class="loading-text">Loading estimate details...</div>
-        </div>
+    <!-- ===== SCRIPTS ===== -->
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
 
-        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
-            Raj Marketing Mysore · Estimate Details
-        </div>
-    </div>
+    <script>
+    /* ============================================================
+       ESTIMATE DETAILS ENGINE
+       Raj Marketing Mysore
+    ============================================================ */
+    (function() {
+        'use strict';
 
-    <footer class="fixed-footer">
-        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="estimate.html" class="nav-item"><i class="fas fa-th-large"></i> Products</a>
-        <a href="appointment.html" class="nav-item"><i class="fas fa-calendar-check"></i> Appointment</a>
-        <a href="price-checker.html" class="nav-item"><i class="fas fa-robot"></i> AI Price</a>
-        <a href="customer-dashboard.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
-    </footer>
+        // ============================================================
+        // STATE
+        // ============================================================
+        let currentEstimate = null;
+        let settings = {
+            businessName: 'Raj Marketing Mysore',
+            address: '#38/2, 2nd Cross Road, Kuvempunagar, Mysore – 570023',
+            phone: '9483037385',
+            gst: '29CHKPR1962H1ZT',
+            terms: `1. Warranty: SS Mesh & Pleated Nets - 1 year, Aluminium Frame - 5 years against manufacturing defects.\n2. Payment: 60% advance for order confirmation.\n3. Site Visit: Free within Mysore. Outside Mysore: ₹15/km.\n4. Installation: No hidden charges unless specifically mentioned.`
+        };
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+        // ============================================================
+        // INIT
+        // ============================================================
+        function init() {
+            // Load settings from localStorage
+            try {
+                const saved = localStorage.getItem('raj_estimator_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.settings) settings = { ...settings, ...data.settings };
+                }
+            } catch (e) {}
 
-        const params = new URLSearchParams(window.location.search);
-        const estimateId = params.get('id');
+            // Get estimate ID from URL
+            const params = new URLSearchParams(window.location.search);
+            const estimateId = params.get('id');
 
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = "customer-login.html";
+            if (!estimateId) {
+                showError('No estimate ID provided. Please select an estimate from your dashboard.');
                 return;
             }
-            if (estimateId) {
-                await loadEstimateDetails(estimateId);
-            } else {
-                document.getElementById("estimateContent").innerHTML = `
-                    <div class="card" style="text-align:center; padding:30px 20px;">
-                        <i class="fas fa-file-invoice" style="font-size:48px; color:#6b6b7b; display:block; margin-bottom:12px;"></i>
-                        <h3 style="font-size:16px; font-weight:700; color:#1a1a2e;">No Estimate Selected</h3>
-                        <p style="color:#6b6b7b; font-size:13px;">Please select an estimate from your dashboard.</p>
-                        <a href="customer-dashboard.html" class="btn-secondary" style="margin-top:12px; display:inline-block; width:auto;">
-                            <i class="fas fa-arrow-left"></i> Back to Dashboard
-                        </a>
-                    </div>
-                `;
+
+            // Try to load from localStorage
+            const estimate = findEstimate(estimateId);
+
+            if (!estimate) {
+                showError('Estimate not found. It may have been deleted or the link is invalid.');
+                return;
             }
-        });
 
-        async function loadEstimateDetails(id) {
+            currentEstimate = estimate;
+            renderEstimate(estimate);
+            updateSEO(estimate);
+        }
+
+        // ============================================================
+        // FIND ESTIMATE
+        // ============================================================
+        function findEstimate(id) {
             try {
-                const estimateRef = doc(db, "estimates", id);
-                const estimateSnap = await getDoc(estimateRef);
+                const saved = localStorage.getItem('raj_estimator_data');
+                if (!saved) return null;
+                const data = JSON.parse(saved);
+                const estimates = data.estimates || [];
 
-                if (!estimateSnap.exists()) {
-                    document.getElementById("estimateContent").innerHTML = `
-                        <div class="card" style="text-align:center; padding:30px 20px;">
-                            <i class="fas fa-exclamation-circle" style="font-size:48px; color:#dc2626; display:block; margin-bottom:12px;"></i>
-                            <h3 style="font-size:16px; font-weight:700; color:#1a1a2e;">Estimate Not Found</h3>
-                            <p style="color:#6b6b7b; font-size:13px;">The estimate you're looking for doesn't exist.</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                const estimate = estimateSnap.data();
-                document.getElementById("estimateIdDisplay").textContent = `Estimate ID: ${estimate.estimateId || estimate.id || "—"}`;
-
-                const status = estimate.status || "DRAFT";
-                const statusClass = status.toLowerCase().replace(/ /g, '');
-                const total = estimate.finalAmount || estimate.total || 0;
-
-                let itemsHtml = '';
-                if (estimate.items && estimate.items.length) {
-                    itemsHtml = estimate.items.map(item => `
-                        <div class="item">
-                            <span>${item.name || item.product || "Item"} x ${item.qty || 1}</span>
-                            <span>₹${(item.total || 0).toLocaleString("en-IN")}</span>
-                        </div>
-                    `).join('');
-                } else {
-                    itemsHtml = `
-                        <div class="item">
-                            <span>${estimate.product || "—"}</span>
-                            <span>${estimate.sqft || 0} sq.ft</span>
-                        </div>
-                    `;
-                }
-
-                document.getElementById("estimateContent").innerHTML = `
-                    <div class="card">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                            <span style="font-weight:700; font-size:16px; color:#1a1a2e;">${estimate.product || "—"}</span>
-                            <span class="status-badge status-${statusClass}">${status}</span>
-                        </div>
-
-                        <div class="detail-row">
-                            <span class="label">Customer</span>
-                            <span class="value">${estimate.customerName || "—"}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="label">Mobile</span>
-                            <span class="value">${estimate.mobile || "—"}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="label">Product</span>
-                            <span class="value">${estimate.product || "—"} ${estimate.variant ? '(' + estimate.variant + ')' : ''}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="label">Sq.ft</span>
-                            <span class="value">${estimate.sqft || 0}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="label">Rate</span>
-                            <span class="value">₹${estimate.rate || 0}/sq.ft</span>
-                        </div>
-
-                        <div style="margin:8px 0 4px 0; font-weight:600; font-size:13px; color:#1a1a2e;">Items</div>
-                        <div class="estimate-items">${itemsHtml}</div>
-
-                        <div class="detail-row" style="margin-top:8px; border-top:2px solid #e8ecf0; padding-top:12px;">
-                            <span class="label">Subtotal</span>
-                            <span class="value">₹${(estimate.subtotal || estimate.total || 0).toLocaleString("en-IN")}</span>
-                        </div>
-                        ${estimate.discountAmount ? `
-                        <div class="detail-row">
-                            <span class="label">Discount</span>
-                            <span class="value">- ₹${estimate.discountAmount.toLocaleString("en-IN")}</span>
-                        </div>` : ''}
-                        <div class="detail-row">
-                            <span class="label">Total Amount</span>
-                            <span class="value total">₹${total.toLocaleString("en-IN")}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="label">Advance (60%)</span>
-                            <span class="value">₹${(total * 0.6).toLocaleString("en-IN")}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="label">Balance (40%)</span>
-                            <span class="value">₹${(total * 0.4).toLocaleString("en-IN")}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="label">Estimate Date</span>
-                            <span class="value">${formatDate(estimate.createdAt)}</span>
-                        </div>
-                        ${estimate.notes ? `
-                        <div class="detail-row">
-                            <span class="label">Notes</span>
-                            <span class="value" style="font-weight:400;">${estimate.notes}</span>
-                        </div>` : ''}
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-actions"></i> Actions</div>
-                        <div class="action-grid">
-                            <a href="tel:${estimate.mobile || '9483037385'}" class="btn-secondary">
-                                <i class="fas fa-phone"></i> Call
-                            </a>
-                            <a href="https://wa.me/91${String(estimate.mobile || '9483037385').replace(/\D/g,'')}" target="_blank" class="btn-whatsapp">
-                                <i class="fab fa-whatsapp"></i> WhatsApp
-                            </a>
-                            <a href="estimate.html?copy=${estimate.id}" class="btn-secondary">
-                                <i class="fas fa-copy"></i> Copy Estimate
-                            </a>
-                            <button class="btn-primary" onclick="convertToOrder('${estimate.id}')">
-                                <i class="fas fa-box"></i> Convert to Order
-                            </button>
-                        </div>
-                    </div>
-                `;
-
-            } catch (error) {
-                console.error("Estimate load error:", error);
-                document.getElementById("estimateContent").innerHTML = `
-                    <div class="card" style="text-align:center; padding:30px 20px;">
-                        <i class="fas fa-exclamation-circle" style="font-size:48px; color:#dc2626; display:block; margin-bottom:12px;"></i>
-                        <h3 style="font-size:16px; font-weight:700; color:#1a1a2e;">Error Loading Estimate</h3>
-                        <p style="color:#6b6b7b; font-size:13px;">${error.message}</p>
-                    </div>
-                `;
+                // Try exact match by ID, estNo, or index
+                return estimates.find(e =>
+                    e.id === id ||
+                    e.estNo === id ||
+                    e.estimateId === id ||
+                    String(estimates.indexOf(e)) === id
+                );
+            } catch (e) {
+                console.error('Error finding estimate:', e);
+                return null;
             }
         }
 
-        window.convertToOrder = async function(estimateId) {
-            if (!confirm("Convert this estimate to an order?")) return;
-            try {
-                const estimateRef = doc(db, "estimates", estimateId);
-                const estimateSnap = await getDoc(estimateRef);
-                if (!estimateSnap.exists()) {
-                    alert("Estimate not found.");
-                    return;
-                }
-                const estimate = estimateSnap.data();
-                const orderId = "ORD-" + Date.now().toString().slice(-8);
-                const total = estimate.finalAmount || estimate.total || 0;
+        // ============================================================
+        // RENDER ESTIMATE
+        // ============================================================
+        function renderEstimate(est) {
+            // Show content
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'none';
+            document.getElementById('estimateContent').style.display = 'block';
 
-                const orderData = {
+            // Page header
+            const estNo = est.estNo || est.estimateId || est.id || 'N/A';
+            document.getElementById('estimateIdBadge').textContent = `#${estNo}`;
+            document.title = `Estimate ${estNo} - Raj Marketing Mysore`;
+
+            // Hero
+            const productLabel = getProductLabel(est);
+            document.getElementById('heroProductName').textContent = productLabel;
+            document.getElementById('heroCustomerName').innerHTML =
+                `<i class="fas fa-user"></i> ${est.customerName || 'Customer'}`;
+            document.getElementById('heroStatus').textContent = (est.status || 'DRAFT').toUpperCase();
+
+            const total = parseFloat(est.finalAmount || est.total || 0);
+            document.getElementById('heroTotalAmount').textContent = formatCurrency(total);
+
+            // Status badge styling
+            const heroStatus = document.getElementById('heroStatus');
+            const statusLower = (est.status || 'draft').toLowerCase().replace(/\s+/g, '');
+            heroStatus.className = `hero-status status-${statusLower}`;
+
+            // Customer Details
+            document.getElementById('custName').textContent = est.customerName || '—';
+            document.getElementById('custMobile').textContent = est.customerMobile || est.mobile || '—';
+            document.getElementById('custWhatsapp').textContent = est.customerWhatsapp || est.customerMobile || '—';
+            document.getElementById('custAddress').textContent = est.customerAddress || '—';
+            document.getElementById('custCity').textContent = est.customerCity || 'Mysore';
+
+            // WhatsApp row - hide if same as mobile
+            const whatsapp = est.customerWhatsapp || est.customerMobile;
+            if (!whatsapp || whatsapp === est.customerMobile) {
+                document.getElementById('rowWhatsapp').style.display = 'none';
+            } else {
+                document.getElementById('rowWhatsapp').style.display = 'flex';
+            }
+
+            // Map link
+            if (est.customerMap) {
+                document.getElementById('custMapLink').href = est.customerMap;
+                document.getElementById('rowMap').style.display = 'flex';
+            } else {
+                document.getElementById('rowMap').style.display = 'none';
+            }
+
+            // Product Details
+            document.getElementById('productName').textContent = productLabel;
+            document.getElementById('productCategoryBadge').textContent = est.category || 'Product';
+            document.getElementById('productSqft').textContent = `${(est.totalSqft || 0).toFixed(2)} sq.ft`;
+            document.getElementById('productRate').textContent = `₹${est.rate || est.displayPrice || 0} / sq.ft`;
+
+            // Variant
+            if (est.model && est.category) {
+                const modelData = getModelData(est.category, est.model);
+                document.getElementById('productVariant').textContent = modelData?.label || est.model;
+                document.getElementById('rowVariant').style.display = 'flex';
+            } else {
+                document.getElementById('rowVariant').style.display = 'none';
+            }
+
+            // Colour
+            if (est.frameColour) {
+                document.getElementById('productColour').textContent = est.frameColour;
+                document.getElementById('rowColour').style.display = 'flex';
+            } else {
+                document.getElementById('rowColour').style.display = 'none';
+            }
+
+            // Mesh
+            if (est.meshType) {
+                document.getElementById('productMesh').textContent = est.meshType;
+                document.getElementById('rowMesh').style.display = 'flex';
+            } else {
+                document.getElementById('rowMesh').style.display = 'none';
+            }
+
+            // Measurements
+            renderMeasurements(est.measurements || []);
+
+            // Accessories
+            renderAccessories(est.accessories || [], est.accessoriesTotal || 0);
+
+            // Price Summary
+            const subtotal = parseFloat(est.subtotal || 0);
+            const discountPercent = parseFloat(est.discountPercent || 0);
+            const discountAmount = parseFloat(est.discountAmount || 0);
+            const accessoriesTotal = parseFloat(est.accessoriesTotal || 0);
+            const grandTotal = parseFloat(est.finalAmount || est.total || 0);
+
+            document.getElementById('summarySubtotal').textContent = formatCurrency(subtotal);
+
+            if (discountAmount > 0) {
+                document.getElementById('discountPercent').textContent = discountPercent;
+                document.getElementById('summaryDiscount').textContent = `-${formatCurrency(discountAmount)}`;
+                document.getElementById('rowDiscount').style.display = 'flex';
+            } else {
+                document.getElementById('rowDiscount').style.display = 'none';
+            }
+
+            if (accessoriesTotal > 0) {
+                document.getElementById('summaryAccessories').textContent = formatCurrency(accessoriesTotal);
+                document.getElementById('rowAccessories').style.display = 'flex';
+            } else {
+                document.getElementById('rowAccessories').style.display = 'none';
+            }
+
+            document.getElementById('summaryTotal').textContent = formatCurrency(grandTotal);
+            document.getElementById('amountWords').textContent =
+                est.amountWords || numberToWords(grandTotal);
+
+            // Payment
+            const advancePercent = parseFloat(est.advancePercent || 60);
+            const advanceAmount = parseFloat(est.advanceAmount || (grandTotal * advancePercent / 100));
+            const balanceAmount = grandTotal - advanceAmount;
+
+            document.getElementById('advancePercentDisplay').textContent = advancePercent;
+            document.getElementById('advanceAmount').textContent = formatCurrency(advanceAmount);
+            document.getElementById('balanceAmount').textContent = formatCurrency(balanceAmount);
+
+            // Notes
+            if (est.notes && est.notes.trim()) {
+                document.getElementById('estimateNotes').textContent = est.notes;
+                document.getElementById('notesCard').style.display = 'block';
+            } else {
+                document.getElementById('notesCard').style.display = 'none';
+            }
+
+            // Actions
+            const mobile = est.customerMobile || est.mobile || '';
+            if (mobile) {
+                document.getElementById('callBtn').href = `tel:${mobile}`;
+                document.getElementById('whatsappBtn').href = `https://wa.me/91${mobile.replace(/\D/g, '')}`;
+            } else {
+                document.getElementById('callBtn').href = '#';
+                                document.getElementById('whatsappBtn').href = '#';
+            }
+
+            // Edit button
+            document.getElementById('editBtn').href = `estimate.html?id=${est.id || estNo}`;
+
+            // Update header product name display
+            updateHeaderProductInfo(est);
+        }
+
+        // ============================================================
+        // RENDER MEASUREMENTS
+        // ============================================================
+        function renderMeasurements(measurements) {
+            const card = document.getElementById('measurementsCard');
+            const list = document.getElementById('measurementsList');
+            const count = document.getElementById('measurementCount');
+
+            if (!measurements || !measurements.length) {
+                card.style.display = 'none';
+                return;
+            }
+
+            card.style.display = 'block';
+            count.textContent = `${measurements.length} item${measurements.length > 1 ? 's' : ''}`;
+
+            list.innerHTML = measurements.map((m, i) => {
+                const name = m.location || m.floor || `Item ${i + 1}`;
+                const sqft = (m.sqft || 0).toFixed(2);
+                const amount = (m.sqft || 0) * (m.rate || 0);
+
+                return `
+                    <div class="item-row">
+                        <div class="item-name">
+                            <i class="fas fa-window-maximize"></i>
+                            <span>${escapeHtml(name)}</span>
+                        </div>
+                        <span class="item-qty">${sqft} sq.ft × ₹${m.rate || 0}</span>
+                        <span class="item-amount">${formatCurrency(amount)}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============================================================
+        // RENDER ACCESSORIES
+        // ============================================================
+        function renderAccessories(accessories, total) {
+            const card = document.getElementById('accessoriesCard');
+            const list = document.getElementById('accessoriesList');
+            const count = document.getElementById('accessoriesCount');
+
+            if (!accessories || !accessories.length) {
+                card.style.display = 'none';
+                return;
+            }
+
+            card.style.display = 'block';
+            count.textContent = `${accessories.length} item${accessories.length > 1 ? 's' : ''}`;
+
+            list.innerHTML = accessories.map(a => {
+                const amount = (a.qty || 0) * (a.rate || 0);
+                return `
+                    <div class="item-row">
+                        <div class="item-name">
+                            <i class="fas fa-wrench"></i>
+                            <span>${escapeHtml(a.name || 'Accessory')}</span>
+                        </div>
+                        <span class="item-qty">${a.qty || 0} × ₹${a.rate || 0}</span>
+                        <span class="item-amount">${formatCurrency(amount)}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============================================================
+        // GET PRODUCT LABEL
+        // ============================================================
+        function getProductLabel(est) {
+            if (est.productName) return est.productName;
+            if (est.product) return est.product;
+
+            // Try to build from category + model
+            if (est.category && est.model) {
+                const modelData = getModelData(est.category, est.model);
+                if (modelData) return modelData.label;
+            }
+
+            return 'Mosquito Net Product';
+        }
+
+        // ============================================================
+        // GET MODEL DATA
+        // ============================================================
+        function getModelData(category, model) {
+            const MODELS = {
+                velcro: {
+                    velcro_regular: { label: 'Regular Velcro System' },
+                    velcro_saint_gobain: { label: 'Saint-Gobain Velcro System' }
+                },
+                aluminium: {
+                    frame_regular: { label: 'Regular Aluminium Frame + SS Mesh' },
+                    frame_woodgrain: { label: 'Woodgrain Frame + SS Mesh' }
+                },
+                openable: {
+                    openable_regular: { label: 'Openable System (Regular)' },
+                    openable_offer: { label: 'Openable System (Offer)' }
+                },
+                pleated: {
+                    pleated_economic: { label: 'Pleated Economic' },
+                    pleated_premium: { label: 'Pleated Premium' }
+                },
+                pleated_ss: {
+                    pleated_ss_single: { label: 'Pleated SS Mesh - Single' },
+                    pleated_ss_double: { label: 'Pleated SS Mesh - Double' }
+                },
+                sliding: {
+                    sliding_single: { label: 'Single Sliding' },
+                    sliding_double: { label: 'Double Sliding' }
+                }
+            };
+
+            return MODELS[category]?.[model] || null;
+        }
+
+        // ============================================================
+        // UPDATE HEADER PRODUCT INFO
+        // ============================================================
+        function updateHeaderProductInfo(est) {
+            // Add a small badge to the header if possible
+            const header = document.getElementById('siteHeader');
+            if (!header) return;
+
+            const badge = document.createElement('div');
+            badge.style.cssText = `
+                position: fixed;
+                top: 68px;
+                left: 0;
+                right: 0;
+                background: var(--light-blue);
+                color: var(--royal-blue);
+                font-size: 11px;
+                font-weight: 700;
+                padding: 6px 16px;
+                text-align: center;
+                z-index: 99;
+                letter-spacing: 0.3px;
+            `;
+            badge.innerHTML = `<i class="fas fa-file-invoice"></i> Estimate ${est.estNo || est.id} · ${getProductLabel(est)}`;
+            document.body.appendChild(badge);
+
+            // Adjust body padding
+            document.body.style.paddingTop = '100px';
+        }
+
+        // ============================================================
+        // FORMAT CURRENCY
+        // ============================================================
+        function formatCurrency(amount) {
+            const num = Math.round(parseFloat(amount) || 0);
+            return '₹' + num.toLocaleString('en-IN');
+        }
+
+        // ============================================================
+        // NUMBER TO WORDS
+        // ============================================================
+        function numberToWords(num) {
+            const n = Math.round(parseFloat(num) || 0);
+            if (n === 0) return 'Zero Rupees Only';
+
+            const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+                'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+            const crore = Math.floor(n / 10000000);
+            const lakh = Math.floor((n % 10000000) / 100000);
+            const thousand = Math.floor((n % 100000) / 1000);
+            const hundred = Math.floor((n % 1000) / 100);
+            const remainder = n % 100;
+
+            let words = [];
+            if (crore > 0) words.push(numToWordsSmall(crore) + ' Crore');
+            if (lakh > 0) words.push(numToWordsSmall(lakh) + ' Lakh');
+            if (thousand > 0) words.push(numToWordsSmall(thousand) + ' Thousand');
+            if (hundred > 0) words.push(a[hundred] + ' Hundred');
+            if (remainder > 0) {
+                if (words.length > 0) words.push('and');
+                words.push(numToWordsSmall(remainder));
+            }
+
+            return 'Rupees ' + words.join(' ') + ' Only';
+
+            function numToWordsSmall(x) {
+                if (x < 20) return a[x];
+                return b[Math.floor(x / 10)] + (x % 10 ? ' ' + a[x % 10] : '');
+            }
+        }
+
+        // ============================================================
+        // ESCAPE HTML
+        // ============================================================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // ============================================================
+        // SHOW ERROR
+        // ============================================================
+        function showError(message) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('estimateContent').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        // ============================================================
+        // UPDATE SEO
+        // ============================================================
+        function updateSEO(est) {
+            const title = `Estimate ${est.estNo || est.id} - ${getProductLabel(est)} | Raj Marketing Mysore`;
+            document.title = title;
+
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.content = `Estimate for ${est.customerName} - ${getProductLabel(est)} - Total: ₹${est.finalAmount || est.total || 0}`;
+            }
+        }
+
+        // ============================================================
+        // GENERATE PDF
+        // ============================================================
+        window.generatePDF = function() {
+            if (!currentEstimate) {
+                alert('No estimate to generate PDF');
+                return;
+            }
+
+            const est = currentEstimate;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+
+            const total = parseFloat(est.finalAmount || est.total || 0);
+            const subtotal = parseFloat(est.subtotal || 0);
+            const discountAmount = parseFloat(est.discountAmount || 0);
+            const discountPercent = parseFloat(est.discountPercent || 0);
+            const accessoriesTotal = parseFloat(est.accessoriesTotal || 0);
+            const advancePercent = parseFloat(est.advancePercent || 60);
+            const advance = total * advancePercent / 100;
+            const balance = total - advance;
+
+            // ===== HEADER =====
+            doc.setFillColor(26, 86, 219);
+            doc.rect(0, 0, 210, 40, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.text('RAJ MARKETING', 105, 18, { align: 'center' });
+
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Premium Mosquito Nets & Window Screens · Est. 2016', 105, 26, { align: 'center' });
+            doc.text(`📞 ${settings.phone}  |  GST: ${settings.gst}`, 105, 33, { align: 'center' });
+
+            // ===== ESTIMATE TITLE =====
+            doc.setTextColor(26, 86, 219);
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ESTIMATE', 105, 52, { align: 'center' });
+
+            doc.setDrawColor(245, 158, 11);
+            doc.setLineWidth(0.5);
+            doc.line(70, 55, 140, 55);
+
+            // ===== ESTIMATE INFO =====
+            doc.setFontSize(10);
+            doc.setTextColor(15, 27, 51);
+            doc.setFont('helvetica', 'normal');
+
+            let yPos = 65;
+            doc.setFont('helvetica', 'bold');
+            doc.text('Estimate No:', 20, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(est.estNo || est.id || '-', 55, yPos);
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('Date:', 130, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(est.date || new Date().toISOString().split('T')[0], 150, yPos);
+
+            yPos += 8;
+            doc.setFont('helvetica', 'bold');
+            doc.text('Customer:', 20, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(est.customerName || '-', 55, yPos);
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('Mobile:', 130, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.text(est.customerMobile || est.mobile || '-', 150, yPos);
+
+            yPos += 8;
+            doc.setFont('helvetica', 'bold');
+            doc.text('Address:', 20, yPos);
+            doc.setFont('helvetica', 'normal');
+            const address = (est.customerAddress || '') + (est.customerCity ? ', ' + est.customerCity : '');
+            doc.text(address || '-', 55, yPos);
+
+            yPos += 12;
+
+            // ===== PRODUCT DETAILS BOX =====
+            doc.setFillColor(240, 249, 255);
+            doc.roundedRect(15, yPos, 180, 22, 3, 3, 'F');
+
+            doc.setFontSize(11);
+            doc.setTextColor(26, 86, 219);
+            doc.setFont('helvetica', 'bold');
+            doc.text('PRODUCT DETAILS', 20, yPos + 8);
+
+            doc.setFontSize(9);
+            doc.setTextColor(15, 27, 51);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Product: ${getProductLabel(est)}`, 20, yPos + 15);
+            if (est.frameColour) doc.text(`Colour: ${est.frameColour}`, 90, yPos + 15);
+            if (est.meshType) doc.text(`Mesh: ${est.meshType}`, 140, yPos + 15);
+            doc.text(`Total Area: ${(est.totalSqft || 0).toFixed(2)} sq.ft`, 20, yPos + 20);
+
+            yPos += 30;
+
+            // ===== MEASUREMENTS TABLE =====
+            if (est.measurements && est.measurements.length) {
+                const tableData = est.measurements.map((m, i) => [
+                    (i + 1).toString(),
+                    m.floor || '-',
+                    m.location || '-',
+                    (m.width || 0).toString(),
+                    (m.height || 0).toString(),
+                    (m.qty || 1).toString(),
+                    (m.sqft || 0).toFixed(2),
+                    '₹' + (m.rate || 0),
+                    '₹' + ((m.sqft || 0) * (m.rate || 0)).toFixed(0)
+                ]);
+
+                doc.autoTable({
+                    startY: yPos,
+                    head: [['#', 'Floor', 'Room/Location', 'W(in)', 'H(in)', 'Qty', 'Sq.Ft', 'Rate', 'Amount']],
+                    body: tableData,
+                    theme: 'striped',
+                    headStyles: {
+                        fillColor: [26, 86, 219],
+                        textColor: [255, 255, 255],
+                        fontSize: 8,
+                        fontStyle: 'bold'
+                    },
+                    bodyStyles: { fontSize: 8 },
+                    columnStyles: {
+                        0: { cellWidth: 8 },
+                        1: { cellWidth: 20 },
+                        2: { cellWidth: 35 },
+                        3: { cellWidth: 14 },
+                        4: { cellWidth: 14 },
+                        5: { cellWidth: 12 },
+                        6: { cellWidth: 18 },
+                        7: { cellWidth: 20 },
+                        8: { cellWidth: 22 }
+                    },
+                    margin: { left: 15, right: 15 }
+                });
+
+                yPos = doc.lastAutoTable.finalY + 8;
+            }
+
+            // ===== ACCESSORIES TABLE =====
+            if (est.accessories && est.accessories.length) {
+                const accData = est.accessories.map(a => [
+                    a.name || '-',
+                    (a.qty || 0).toString(),
+                    '₹' + (a.rate || 0),
+                    '₹' + ((a.qty || 0) * (a.rate || 0)).toFixed(0)
+                ]);
+
+                doc.autoTable({
+                    startY: yPos,
+                    head: [['Accessory', 'Qty', 'Rate', 'Amount']],
+                    body: accData,
+                    theme: 'grid',
+                    headStyles: {
+                        fillColor: [245, 158, 11],
+                        textColor: [255, 255, 255],
+                        fontSize: 8
+                    },
+                    bodyStyles: { fontSize: 8 },
+                    margin: { left: 15, right: 15 }
+                });
+
+                yPos = doc.lastAutoTable.finalY + 8;
+            }
+
+            // ===== PRICE SUMMARY =====
+            const summaryX = 110;
+            const summaryWidth = 85;
+
+            doc.setFillColor(248, 250, 252);
+            doc.roundedRect(summaryX, yPos, summaryWidth, 55, 3, 3, 'F');
+
+            doc.setFontSize(10);
+            doc.setTextColor(15, 27, 51);
+            doc.setFont('helvetica', 'normal');
+
+            let sumY = yPos + 8;
+            doc.text('Subtotal:', summaryX + 5, sumY);
+            doc.text(formatCurrency(subtotal), summaryX + summaryWidth - 5, sumY, { align: 'right' });
+
+            if (discountAmount > 0) {
+                sumY += 7;
+                doc.setTextColor(5, 150, 105);
+                doc.text(`Discount (${discountPercent}%):`, summaryX + 5, sumY);
+                doc.text(`-${formatCurrency(discountAmount)}`, summaryX + summaryWidth - 5, sumY, { align: 'right' });
+            }
+
+            if (accessoriesTotal > 0) {
+                sumY += 7;
+                doc.setTextColor(15, 27, 51);
+                doc.text('Accessories:', summaryX + 5, sumY);
+                doc.text(formatCurrency(accessoriesTotal), summaryX + summaryWidth - 5, sumY, { align: 'right' });
+            }
+
+            // Total box
+            sumY += 5;
+            doc.setFillColor(26, 86, 219);
+            doc.roundedRect(summaryX, sumY, summaryWidth, 14, 3, 3, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.text('GRAND TOTAL', summaryX + 5, sumY + 9);
+            doc.setFontSize(13);
+            doc.text(formatCurrency(total), summaryX + summaryWidth - 5, sumY + 9, { align: 'right' });
+
+            // Amount in words
+            yPos = sumY + 22;
+            doc.setFontSize(9);
+            doc.setTextColor(100, 116, 139);
+            doc.setFont('helvetica', 'italic');
+            const wordsText = doc.splitTextToSize('In Words: ' + (est.amountWords || numberToWords(total)), 180);
+            doc.text(wordsText, 15, yPos);
+
+            yPos += wordsText.length * 5 + 6;
+
+            // ===== PAYMENT TERMS =====
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(15, 27, 51);
+            doc.text('Payment Terms:', 15, yPos);
+            yPos += 6;
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.text(`• Advance (${advancePercent}%): ${formatCurrency(advance)}`, 20, yPos);
+            yPos += 5;
+            doc.text(`• Balance: ${formatCurrency(balance)}`, 20, yPos);
+            yPos += 10;
+
+            // ===== TERMS =====
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.text('Terms & Conditions:', 15, yPos);
+            yPos += 6;
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(100, 116, 139);
+            const termsLines = doc.splitTextToSize(settings.terms || '', 180);
+            doc.text(termsLines, 15, yPos);
+                        yPos += termsLines.length * 4 + 8;
+
+            // ===== SIGNATURES =====
+            doc.setDrawColor(15, 27, 51);
+            doc.setLineWidth(0.3);
+
+            doc.setTextColor(15, 27, 51);
+            doc.setFontSize(9);
+
+            doc.line(20, yPos + 15, 70, yPos + 15);
+            doc.text('Customer Signature', 20, yPos + 20);
+
+            doc.line(140, yPos + 15, 190, yPos + 15);
+            doc.text('Authorized Signatory', 140, yPos + 20);
+
+            // ===== FOOTER =====
+            doc.setFontSize(8);
+            doc.setTextColor(148, 163, 184);
+            doc.text(`Thank you for choosing ${settings.businessName}`, 105, 285, { align: 'center' });
+            doc.text(`${settings.phone} · ${settings.address}`, 105, 290, { align: 'center' });
+
+            // Save
+            const filename = `Estimate-${est.estNo || est.id}-${(est.customerName || 'Customer').replace(/[^a-zA-Z0-9]/g, '')}.pdf`;
+            doc.save(filename);
+        };
+
+        // ============================================================
+        // CONVERT TO ORDER
+        // ============================================================
+        window.convertToOrder = function() {
+            if (!currentEstimate) return;
+
+            if (!confirm('Convert this estimate to an order?\n\nThis will create a new order with the same details.')) {
+                return;
+            }
+
+            try {
+                // Load existing orders
+                const saved = localStorage.getItem('raj_estimator_data');
+                const data = saved ? JSON.parse(saved) : {};
+                const orders = data.orders || [];
+
+                // Generate order ID
+                const orderId = 'ORD-' + Date.now().toString().slice(-8);
+
+                // Create order
+                const total = parseFloat(currentEstimate.finalAmount || currentEstimate.total || 0);
+                const advancePercent = parseFloat(currentEstimate.advancePercent || 60);
+
+                const order = {
+                    id: orderId,
                     orderId,
-                    customerId: estimate.customerId || "",
-                    customerName: estimate.customerName || "Unknown",
-                    mobile: estimate.mobile || "",
-                    product: estimate.product || "Not specified",
-                    sqft: estimate.sqft || 0,
-                    rate: estimate.rate || 0,
+                    estimateId: currentEstimate.estNo || currentEstimate.id,
+                    customerName: currentEstimate.customerName,
+                    customerMobile: currentEstimate.customerMobile || currentEstimate.mobile,
+                    customerWhatsapp: currentEstimate.customerWhatsapp,
+                    customerAddress: currentEstimate.customerAddress,
+                    customerCity: currentEstimate.customerCity || 'Mysore',
+                    product: getProductLabel(currentEstimate),
+                    category: currentEstimate.category,
+                    model: currentEstimate.model,
+                    frameColour: currentEstimate.frameColour,
+                    meshType: currentEstimate.meshType,
+                    totalSqft: currentEstimate.totalSqft,
+                    rate: currentEstimate.rate,
+                    subtotal: currentEstimate.subtotal,
+                    discountAmount: currentEstimate.discountAmount,
+                    accessoriesTotal: currentEstimate.accessoriesTotal,
                     totalAmount: total,
-                    advanceAmount: total * 0.6,
-                    balanceAmount: total * 0.4,
-                    estimateId,
-                    orderStatus: "NEW",
-                    productionStatus: "PENDING",
-                    paymentStatus: "PENDING",
+                    advancePercent: advancePercent,
+                    advanceAmount: total * advancePercent / 100,
+                    balanceAmount: total - (total * advancePercent / 100),
+                    measurements: currentEstimate.measurements || [],
+                    accessories: currentEstimate.accessories || [],
+                    notes: currentEstimate.notes,
+                    orderStatus: 'NEW',
+                    productionStatus: 'PENDING',
+                    paymentStatus: 'PENDING',
                     createdAt: new Date().toISOString()
                 };
 
-                await addDoc(collection(db, "orders"), orderData);
-                alert("✅ Order created successfully! Order ID: " + orderId);
-                window.location.href = "order-details.html?id=" + orderId;
-            } catch (error) {
-                alert("Failed to convert: " + error.message);
+                orders.push(order);
+                data.orders = orders;
+                localStorage.setItem('raj_estimator_data', JSON.stringify(data));
+
+                // Show success toast
+                showToast('✅ Order created successfully!', 'success');
+
+                // Redirect after brief delay
+                setTimeout(() => {
+                    window.location.href = `order-details.html?id=${orderId}`;
+                }, 1200);
+
+            } catch (e) {
+                console.error('Convert error:', e);
+                showToast('Failed to create order. Please try again.', 'error');
             }
         };
 
-        function formatDate(value) {
-            if (!value) return "—";
-            try {
-                if (value.toDate) {
-                    return value.toDate().toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
-                }
-                const d = new Date(value);
-                if (isNaN(d.getTime())) return "—";
-                return d.toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' });
-            } catch {
-                return "—";
-            }
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(message, type = 'info') {
+            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+
+            const colors = {
+                success: '#10b981',
+                error: '#ef4444',
+                warning: '#f59e0b',
+                info: '#1a56db'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = 'rm-toast';
+            toast.textContent = message;
+            Object.assign(toast.style, {
+                position: 'fixed',
+                bottom: '100px',
+                left: '50%',
+                transform: 'translateX(-50%) translateY(20px)',
+                background: colors[type] || colors.info,
+                color: '#fff',
+                padding: '14px 28px',
+                borderRadius: '40px',
+                fontSize: '13px',
+                fontWeight: '700',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+                zIndex: '9999',
+                opacity: '0',
+                transition: 'all 0.3s ease',
+                maxWidth: '90%',
+                textAlign: 'center',
+                fontFamily: 'Poppins, sans-serif'
+            });
+
+            document.body.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(-50%) translateY(0)';
+            });
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
+
+        // ============================================================
+        // BOOT
+        // ============================================================
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        console.log('✅ Estimate Details Engine loaded');
+    })();
     </script>
 
 </body>
 </html>
+                              
