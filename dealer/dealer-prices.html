@@ -2,397 +2,186 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Raj Marketing · Dealer Prices</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Price List - Raj Marketing Dealer Portal</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            background: #f0ece6;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0 12px;
-            padding-top: 80px;
-            padding-bottom: 100px;
-        }
-        .app-container {
-            max-width: 480px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 36px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            padding: 20px 18px;
-            border: 1px solid #e8e0d8;
-        }
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 14px 20px 10px 20px;
-            border-bottom: 1px solid #e8e0d8;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .fixed-header .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .fixed-header .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(145deg, #f97316, #ea580c);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
-        }
-        .fixed-header .logo-text {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1a1a1a;
-            line-height: 1.2;
-        }
-        .fixed-header .logo-text span {
-            display: block;
-            font-weight: 400;
-            font-size: 9px;
-            color: #6b6b6b;
-        }
-        .fixed-header .header-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .fixed-header .header-actions i {
-            font-size: 18px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .fixed-header .back-btn {
-            font-size: 20px;
-            color: #2d2d2d;
-            background: #f5f0eb;
-            padding: 8px 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .fixed-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            max-width: 504px;
-            margin: 0 auto;
-            width: 100%;
-            background: #ffffff;
-            padding: 8px 12px 12px 12px;
-            border-top: 1px solid #e8e0d8;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-radius: 30px 30px 0 0;
-        }
-        .fixed-footer .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 9px;
-            color: #8a8a8a;
-            font-weight: 500;
-            gap: 2px;
-            padding: 4px 12px;
-            border-radius: 30px;
-            text-decoration: none;
-        }
-        .fixed-footer .nav-item i {
-            font-size: 20px;
-            color: #8a8a8a;
-        }
-        .fixed-footer .nav-item.active i {
-            color: #f97316;
-        }
-        .fixed-footer .nav-item.active {
-            color: #f97316;
-            background: rgba(249, 115, 22, 0.08);
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 18px 16px;
-            margin: 14px 0;
-            border: 1px solid #e8e0d8;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-        }
-        .card-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card-title i {
-            color: #f97316;
-        }
-
-        .price-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0ece6;
-        }
-        .price-item:last-child {
-            border-bottom: none;
-        }
-        .price-item .product {
-            font-weight: 600;
-            font-size: 14px;
-            color: #1a1a1a;
-        }
-        .price-item .variant {
-            font-size: 12px;
-            color: #6b6b6b;
-        }
-        .price-item .price {
-            font-weight: 700;
-            font-size: 16px;
-            color: #ea580c;
-            text-align: right;
-        }
-        .price-item .offer {
-            font-size: 12px;
-            color: #059669;
-            font-weight: 600;
-        }
-
-        .error-box {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: none;
-            font-size: 14px;
-        }
-        .loading-text {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-        }
-
-        .search {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1.5px solid #e8e0d8;
-            border-radius: 12px;
-            outline: none;
-            margin-bottom: 12px;
-            font-size: 13px;
-            transition: 0.2s;
-            background: #faf8f6;
-        }
-        .search:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.08);
-        }
-
-        @media (max-width: 400px) {
-            .price-item {
-                flex-wrap: wrap;
-            }
-            .price-item .price {
-                width: 100%;
-                text-align: left;
-                margin-top: 4px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
-    <!-- Fixed Header -->
-    <header class="fixed-header">
-        <div class="logo-area">
-            <a href="dealer-dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-            <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="logo-text">Raj Marketing<span>Mysore</span></div>
-        </div>
-        <div class="header-actions">
-            <i class="fas fa-user-circle" title="Profile" onclick="window.location.href='dealer-profile.html'"></i>
-        </div>
-    </header>
+    <div id="header-placeholder"></div>
 
-    <!-- App Container -->
-    <div class="app-container">
+    <main class="page-container">
 
-        <h2 style="font-size:20px; font-weight:800; color:#1a1a1a; margin-bottom:4px;">💰 Dealer Price List</h2>
-        <p style="font-size:13px; color:#6b6b6b; margin-bottom:12px;">Approved dealer prices for all products</p>
-
-        <div id="errorBox" class="error-box"></div>
-
-        <input id="priceSearch" class="search" type="text" placeholder="Search products..." oninput="filterPrices()" />
-
-        <div id="priceList">
-            <div class="loading-text">Loading prices...</div>
+        <div class="page-header">
+            <h1><i class="fas fa-tag"></i> Dealer Price List</h1>
+            <span class="dealer-badge">
+                <i class="fas fa-award"></i> <span id="tierLabel">Bronze Dealer</span>
+            </span>
         </div>
 
-        <div style="font-size:9px; color:#aaa; text-align:center; margin-top:14px;">
-            Raj Marketing Mysore · Dealer Prices
-        </div>
-    </div>
-
-    <!-- Fixed Footer -->
-    <footer class="fixed-footer">
-        <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="dealer-prices.html" class="nav-item active"><i class="fas fa-tag"></i> Prices</a>
-        <a href="dealer-enquiries.html" class="nav-item"><i class="fas fa-phone"></i> Enquiries</a>
-        <a href="dealer-orders.html" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-        <a href="dealer-profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-    </footer>
-
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-        let allPrices = [];
-        let dealerStatus = "Pending";
-
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = "dealer-login.html";
-                return;
-            }
-            await checkDealerStatus(user.uid);
-            await loadPrices();
-        });
-
-        async function checkDealerStatus(uid) {
-            try {
-                const dealersRef = collection(db, "dealers");
-                const q = query(dealersRef, where("uid", "==", uid));
-                const snapshot = await getDocs(q);
-                if (!snapshot.empty) {
-                    const data = snapshot.docs[0].data();
-                    dealerStatus = data.status || "Pending";
-                    if (dealerStatus !== "Approved") {
-                        document.getElementById("priceList").innerHTML = `
-                            <div class="card" style="text-align:center; padding:30px 20px;">
-                                <i class="fas fa-lock" style="font-size:36px; color:#f97316; display:block; margin-bottom:12px;"></i>
-                                <h3 style="font-size:16px; font-weight:700;">Access Restricted</h3>
-                                <p style="color:#6b6b6b; font-size:13px; margin-top:4px;">Dealer prices are only available for approved dealers.</p>
-                                <p style="color:#6b6b6b; font-size:12px; margin-top:4px;">Status: ${dealerStatus}</p>
-                            </div>
-                        `;
-                    }
-                }
-            } catch (e) {
-                console.error("Status check error:", e);
-            }
-        }
-
-        async function loadPrices() {
-            if (dealerStatus !== "Approved") return;
-
-            try {
-                const pricesRef = collection(db, "priceList");
-                const snapshot = await getDocs(pricesRef);
-                allPrices = [];
-                snapshot.forEach(doc => {
-                    allPrices.push({ id: doc.id, ...doc.data() });
-                });
-
-                if (allPrices.length === 0) {
-                    // Try alternative collection name
-                    const pricesRef2 = collection(db, "prices");
-                    const snapshot2 = await getDocs(pricesRef2);
-                    snapshot2.forEach(doc => {
-                        allPrices.push({ id: doc.id, ...doc.data() });
-                    });
-                }
-
-                renderPrices(allPrices);
-            } catch (error) {
-                console.error("❌ Price load error:", error);
-                document.getElementById("priceList").innerHTML = `
-                    <div class="card" style="text-align:center; padding:20px; color:#6b6b6b;">
-                        <i class="fas fa-exclamation-circle" style="font-size:24px; display:block; margin-bottom:8px;"></i>
-                        Unable to load prices. Please try again later.
-                    </div>
-                `;
-            }
-        }
-
-        function renderPrices(list) {
-            const container = document.getElementById("priceList");
-            if (!list.length) {
-                container.innerHTML = `
-                    <div class="card" style="text-align:center; padding:20px; color:#6b6b6b;">
-                        <i class="fas fa-tag" style="font-size:24px; display:block; margin-bottom:8px;"></i>
-                        No prices configured yet.
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = list.map(item => `
-                <div class="card price-item-card" data-product="${(item.product || '').toLowerCase()} ${(item.variant || '').toLowerCase()}">
-                    <div class="price-item">
-                        <div>
-                            <div class="product">${item.product || "—"}</div>
-                            <div class="variant">${item.variant || "Standard"} · ${item.unit || "sq.ft"}</div>
-                            ${item.offerPrice ? `<div class="offer">🔥 Offer: ₹${Number(item.offerPrice).toLocaleString("en-IN")}</div>` : ''}
-                        </div>
-                        <div class="price">
-                            ₹${Number(item.dealerPrice || item.price || 0).toLocaleString("en-IN")}
-                            ${item.offerPrice ? `<br><span style="font-size:11px; color:#6b6b6b; text-decoration:line-through;">₹${Number(item.customerPrice || 0).toLocaleString("en-IN")}</span>` : ''}
-                        </div>
-                    </div>
+        <!-- Tier Info Card -->
+        <div class="dealer-hero">
+            <div class="hero-top">
+                <div>
+                    <h2>Your Dealer Benefits</h2>
+                    <p id="tierSubtitle">Standard dealer pricing applies</p>
                 </div>
-            `).join("");
+                <span class="hero-badge" id="discountBadge">
+                    <i class="fas fa-percent"></i> 20% OFF
+                </span>
+            </div>
+            <p style="position:relative;z-index:1;font-size:12px;opacity:0.9;">
+                <i class="fas fa-info-circle"></i> Prices shown are dealer rates (exclusive of GST). Higher tiers unlock bigger discounts.
+            </p>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-cat="all" onclick="setCategory('all')">All</button>
+            <button class="tab-btn" data-cat="Velcro" onclick="setCategory('Velcro')">Velcro</button>
+            <button class="tab-btn" data-cat="Aluminium" onclick="setCategory('Aluminium')">Aluminium</button>
+            <button class="tab-btn" data-cat="Pleated" onclick="setCategory('Pleated')">Pleated</button>
+            <button class="tab-btn" data-cat="Sliding" onclick="setCategory('Sliding')">Sliding</button>
+            <button class="tab-btn" data-cat="Security" onclick="setCategory('Security')">Security</button>
+            <button class="tab-btn" data-cat="Mesh" onclick="setCategory('Mesh')">Mesh</button>
+        </div>
+
+        <!-- Price Table -->
+        <div class="card" style="padding:0;overflow:hidden;">
+            <div style="overflow-x:auto;">
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Variant</th>
+                            <th>Retail</th>
+                            <th>Your Price</th>
+                            <th>You Save</th>
+                        </tr>
+                    </thead>
+                    <tbody id="priceTableBody">
+                        <tr><td colspan="5" style="text-align:center;padding:30px;color:var(--muted-text);">
+                            <i class="fas fa-spinner fa-spin"></i> Loading prices...
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bulk Discount Info -->
+        <div class="card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd;">
+            <div class="card-title" style="color:var(--royal-blue);">
+                <i class="fas fa-boxes"></i> Bulk Order Discounts
+            </div>
+            <div class="calc-row">
+                <span class="label">Order above 200 sq.ft</span>
+                <span class="value" style="color:#059669;">+5% extra off</span>
+            </div>
+            <div class="calc-row">
+                <span class="label">Order above 500 sq.ft</span>
+                <span class="value" style="color:#059669;">+10% extra off</span>
+            </div>
+            <div class="calc-row">
+                <span class="label">Order above 1000 sq.ft</span>
+                <span class="value" style="color:#059669;">+15% extra off</span>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // Base retail prices
+        const RETAIL_PRICES = {
+            'Velcro': { base: 65, variants: [{ name: 'Economic', price: 65 }, { name: 'Saint-Gobain', price: 80 }] },
+            'Aluminium': { base: 200, variants: [{ name: 'Black SS', price: 200 }, { name: 'Bright SS 304', price: 220 }, { name: 'Teakwood', price: 300 }] },
+            'Pleated': { base: 380, variants: [{ name: 'Gold Detachable', price: 380 }, { name: 'Platinum SS', price: 500 }, { name: 'Diamond SS', price: 560 }, { name: 'Honeycomb Gold', price: 520 }] },
+            'Sliding': { base: 400, variants: [{ name: 'Single Sliding', price: 400 }, { name: 'Double Sliding', price: 450 }] },
+            'Security': { base: 990, variants: [{ name: 'Single Door', price: 990 }, { name: 'Double Door', price: 1150 }] },
+            'Mesh': { base: 36, variants: [{ name: 'SS Black 0.18mm', price: 36 }, { name: 'SS Black Standard', price: 38 }, { name: 'SS Black 3 ft', price: 42 }, { name: 'SS Bright 4 ft', price: 48 }, { name: 'Fiber/Touflex', price: 8 }] }
+        };
+
+        // Tier discount
+        const TIER_DISCOUNTS = {
+            'Bronze': 15,
+            'Silver': 20,
+            'Gold': 25,
+            'Platinum': 30
+        };
+
+        let currentTier = 'Bronze';
+        let currentCategory = 'all';
+
+        function init() {
+            loadTier();
+            renderTable();
         }
 
-        window.filterPrices = function() {
-            const search = document.getElementById("priceSearch").value.toLowerCase().trim();
-            if (!search) {
-                renderPrices(allPrices);
+        function loadTier() {
+            try {
+                const dealer = JSON.parse(localStorage.getItem('raj_dealer') || '{}');
+                const dealers = JSON.parse(localStorage.getItem('raj_dealers') || '[]');
+                const fullDealer = dealers.find(d => d.id === dealer.id) || dealer;
+                currentTier = fullDealer.tier || 'Bronze';
+
+                document.getElementById('tierLabel').textContent = currentTier + ' Dealer';
+                document.getElementById('tierSubtitle').textContent = `${currentTier} tier pricing · Higher tiers get bigger discounts`;
+
+                const discount = TIER_DISCOUNTS[currentTier] || 15;
+                document.getElementById('discountBadge').innerHTML = `<i class="fas fa-percent"></i> ${discount}% OFF`;
+            } catch (e) {}
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('priceTableBody');
+            const discount = TIER_DISCOUNTS[currentTier] || 15;
+
+            let rows = [];
+            Object.entries(RETAIL_PRICES).forEach(([cat, data]) => {
+                if (currentCategory !== 'all' && currentCategory !== cat) return;
+                data.variants.forEach(v => {
+                    const dealerPrice = Math.round(v.price * (1 - discount / 100));
+                    const savings = v.price - dealerPrice;
+                    rows.push(`
+                        <tr>
+                            <td><strong>${cat}</strong></td>
+                            <td>${v.name}</td>
+                            <td style="color:var(--muted-text);text-decoration:line-through;">₹${v.price}</td>
+                            <td class="price">₹${dealerPrice}</td>
+                            <td class="discount">₹${savings}</td>
+                        </tr>
+                    `);
+                });
+            });
+
+            if (!rows.length) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--muted-text);">No products in this category</td></tr>`;
                 return;
             }
-            const filtered = allPrices.filter(p => {
-                const text = [p.product, p.variant, p.category].join(" ").toLowerCase();
-                return text.includes(search);
-            });
-            renderPrices(filtered);
-        };
-    </script>
 
+            tbody.innerHTML = rows.join('');
+        }
+
+        window.setCategory = function(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+            renderTable();
+        };
+
+        document.addEventListener('DOMContentLoaded', init);
+    })();
+    </script>
 </body>
-  </html>
+    </html>
