@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Shopping Cart - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/cart-checkout.css" />
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="cart-container">
+
+        <!-- Header -->
+        <div class="cart-header">
+            <h1><i class="fas fa-shopping-cart"></i> My Cart</h1>
+            <span class="cart-count-badge" id="cartCountBadge">0 items</span>
+        </div>
+
+        <!-- Cart Content -->
+        <div id="cartContent">
+            <div class="loader">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading cart...</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sticky checkout bar (hidden if cart empty) -->
+    <div class="cart-sticky-bar" id="cartStickyBar" style="display:none;">
+        <div class="inner">
+            <div class="sticky-total">
+                <span class="label">Grand Total</span>
+                <span class="value" id="stickyTotal">₹0</span>
+            </div>
+            <button class="btn-checkout" onclick="proceedToCheckout()">
+                <i class="fas fa-arrow-right"></i> Checkout
+            </button>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/cart-engine.js"></script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        function renderCart() {
+            const cart = CartEngine.getCart();
+            const container = document.getElementById('cartContent');
+            const stickyBar = document.getElementById('cartStickyBar');
+            const countBadge = document.getElementById('cartCountBadge');
+
+            // Update count
+            countBadge.textContent = cart.length + ' item' + (cart.length !== 1 ? 's' : '');
+
+            if (!cart.length) {
+                // Empty state
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h2>Your cart is empty</h2>
+                        <p>Looks like you haven't added anything yet.<br>Browse our products and get started!</p>
+                        <a href="products.html" class="btn btn-primary btn-lg" style="display:inline-flex;">
+                            <i class="fas fa-th-large"></i> Browse Products
+                        </a>
+                    </div>
+                `;
+                stickyBar.style.display = 'none';
+                return;
+            }
+
+            // Render items
+            const itemsHtml = cart.map(item => renderCartItem(item)).join('');
+
+            // Render summary
+            const totals = CartEngine.getTotals();
+            const summaryHtml = `
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span class="label">Items</span>
+                        <span class="value">${totals.itemCount}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Total Quantity</span>
+                        <span class="value">${totals.totalQty}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Total Area</span>
+                        <span class="value">${totals.totalSqft.toFixed(2)} sq.ft</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Subtotal</span>
+                        <span class="value">${CartEngine.formatCurrency(totals.subtotal)}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">GST (18%)</span>
+                        <span class="value">${CartEngine.formatCurrency(totals.gst)}</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span class="label">Grand Total</span>
+                        <span class="value">${CartEngine.formatCurrency(totals.grandTotal)}</span>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-secondary" onclick="clearCart()" style="flex:1;min-width:120px;">
+                        <i class="fas fa-trash"></i> Clear Cart
+                    </button>
+                    <a href="products.html" class="btn btn-secondary" style="flex:1;min-width:120px;justify-content:center;">
+                        <i class="fas fa-plus"></i> Continue Shopping
+                    </a>
+                </div>
+            `;
+
+            container.innerHTML = itemsHtml + summaryHtml;
+
+            // Update sticky bar
+            document.getElementById('stickyTotal').textContent = CartEngine.formatCurrency(totals.grandTotal);
+            stickyBar.style.display = 'block';
+        }
+
+        function renderCartItem(item) {
+            const imgSrc = item.image || 'images/placeholder.jpg';
+            const unitLabel = item.unit === 'cm' ? 'cm' : '"';
+
+            return `
+                <div class="cart-item">
+                    <button class="remove-item" onclick="removeCartItem('${item.cartId}')" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                    <div class="item-image">
+                        <img src="${imgSrc}" alt="${item.productName}"
+                             onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-box\\'></i>'" />
+                    </div>
+
+                    <div class="item-details">
+                        <div class="item-name">${item.productName}</div>
+
+                        <div class="item-meta">
+                            ${item.colour ? `<span>Colour: <strong>${item.colour}</strong></span>` : ''}
+                            ${item.type ? `<span>Type: <strong>${item.type}</strong></span>` : ''}
+                        </div>
+
+                        <div class="item-measurement">
+                            <span class="mq"><i class="fas fa-arrows-alt-h"></i> ${item.width}${unitLabel}</span>
+                            <span class="mq"><i class="fas fa-arrows-alt-v"></i> ${item.height}${unitLabel}</span>
+                            <span class="mq"><i class="fas fa-th"></i> ${item.perUnitSqft.toFixed(2)} sq.ft</span>
+                        </div>
+
+                        <div class="item-price-row">
+                            <div class="qty-control-small">
+                                <button onclick="changeCartQty('${item.cartId}', -1)">−</button>
+                                <input type="number" value="${item.qty}" min="1" max="999"
+                                       onchange="setCartQty('${item.cartId}', this.value)" />
+                                <button onclick="changeCartQty('${item.cartId}', 1)">+</button>
+                            </div>
+                            <div class="item-total">${CartEngine.formatCurrency(item.totalPrice)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // ACTIONS
+        // ============================================================
+        window.removeCartItem = function(cartId) {
+            if (!confirm('Remove this item from cart?')) return;
+            CartEngine.removeItem(cartId);
+            renderCart();
+            showToast('Item removed', 'warning');
+        };
+
+        window.changeCartQty = function(cartId, delta) {
+            const cart = CartEngine.getCart();
+            const item = cart.find(i => i.cartId === cartId);
+            if (!item) return;
+            const newQty = Math.max(1, (item.qty || 1) + delta);
+            CartEngine.updateItem(cartId, { qty: newQty });
+            renderCart();
+        };
+
+        window.setCartQty = function(cartId, value) {
+            const qty = Math.max(1, Math.min(999, parseInt(value) || 1));
+            CartEngine.updateItem(cartId, { qty });
+            renderCart();
+        };
+
+        window.clearCart = function() {
+            if (!confirm('Clear entire cart?')) return;
+            CartEngine.clearCart();
+            renderCart();
+            showToast('Cart cleared', 'warning');
+        };
+
+        window.proceedToCheckout = function() {
+            const cart = CartEngine.getCart();
+            if (!cart.length) {
+                showToast('Your cart is empty', 'error');
+                return;
+            }
+            window.location.href = 'checkout.html';
+        };
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(msg, type = 'info') {
+            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+            const t = document.createElement('div');
+            t.className = 'rm-toast';
+            t.textContent = msg;
+            t.style.background = colors[type] || colors.info;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => t.classList.add('show'));
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 2500);
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', renderCart);
+        window.addEventListener('cartUpdated', renderCart);
+    })();
+    </script>
+</body>
+  </html>
