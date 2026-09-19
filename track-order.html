@@ -2,380 +2,1537 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Track Order | Raj Marketing Mysore</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Track Order - Raj Marketing Mysore</title>
+    <meta name="description" content="Track your mosquito net order in real-time. Enter your order ID to see live status." />
+    <link rel="canonical" href="https://rajmarketingmysore.info/track-order.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Page-specific styles -->
     <style>
-        .track-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 30px;
-            background: #FFFFFF;
-            border-radius: 24px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            border: 1px solid #e5e7eb;
+    /* ============================================================
+       TRACK ORDER PAGE
+    ============================================================ */
+    .track-container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 20px 16px 100px;
+    }
+
+    /* Page Header */
+    .track-page-header {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .track-page-header .header-icon {
+        width: 76px;
+        height: 76px;
+        border-radius: 20px;
+        background: linear-gradient(145deg, var(--royal-blue), var(--deep-navy));
+        color: #fff;
+        font-size: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        box-shadow: 0 10px 28px rgba(26, 86, 219, 0.3);
+    }
+
+    .track-page-header h1 {
+        font-size: 26px;
+        font-weight: 900;
+        color: var(--highlight-grey);
+        letter-spacing: -0.6px;
+        margin-bottom: 6px;
+    }
+
+    .track-page-header p {
+        font-size: 13px;
+        color: var(--muted-text);
+    }
+
+    /* Search Card */
+    .track-search-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 20px;
+    }
+
+    .track-search-label {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--highlight-grey);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .track-search-label i {
+        color: var(--royal-blue);
+        font-size: 14px;
+    }
+
+    .track-input-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+    }
+
+    .track-input-group .input-wrap {
+        flex: 1;
+        min-width: 200px;
+        position: relative;
+    }
+
+    .track-input-group .input-wrap i {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted-text);
+        font-size: 15px;
+        pointer-events: none;
+    }
+
+    .track-input-group input {
+        width: 100%;
+        padding: 15px 16px 15px 44px;
+        border: 2px solid var(--border);
+        border-radius: 40px;
+        font-size: 15px;
+        font-weight: 700;
+        outline: none;
+        background: var(--bg-light);
+        color: var(--highlight-grey);
+        font-family: 'Poppins', sans-serif;
+        transition: var(--transition);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .track-input-group input::placeholder {
+        color: var(--muted-text);
+        font-weight: 500;
+        text-transform: none;
+        letter-spacing: 0;
+    }
+
+    .track-input-group input:focus {
+        border-color: var(--royal-blue);
+        background: var(--white);
+        box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.1);
+    }
+
+    .track-input-group button {
+        padding: 15px 32px;
+        background: linear-gradient(145deg, var(--royal-blue), var(--deep-navy));
+        color: #fff;
+        border: none;
+        border-radius: 40px;
+        font-weight: 800;
+        font-size: 14px;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: inherit;
+        box-shadow: 0 6px 20px rgba(26, 86, 219, 0.3);
+        white-space: nowrap;
+    }
+
+    .track-input-group button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(26, 86, 219, 0.4);
+    }
+
+    .track-input-group button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Recent Orders Chip */
+    .recent-orders {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        padding-top: 14px;
+        border-top: 1px solid var(--border-light);
+        margin-top: 14px;
+    }
+
+    .recent-orders .label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted-text);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .recent-orders .chip {
+        background: var(--light-blue);
+        color: var(--royal-blue);
+        padding: 5px 14px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: 'Courier New', monospace;
+        border: 1px solid transparent;
+    }
+
+    .recent-orders .chip:hover {
+        background: var(--royal-blue);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(26, 86, 219, 0.25);
+    }
+
+    /* Loading */
+    .track-loading {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+    }
+
+    .track-loading.active {
+        display: block;
+    }
+
+    .track-loading i {
+        font-size: 40px;
+        color: var(--royal-blue);
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    .track-loading p {
+        font-size: 13px;
+        color: var(--muted-text);
+        font-weight: 600;
+    }
+
+    /* Result Card */
+    .track-result {
+        display: none;
+        animation: fadeSlideIn 0.5s ease;
+    }
+
+    .track-result.active {
+        display: block;
+    }
+
+    @keyframes fadeSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
         }
-        .track-container h1 {
-            font-size: 24px;
-            color: #0F172A;
-            margin-bottom: 8px;
-            text-align: center;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .track-container .sub {
-            text-align: center;
-            color: #64748B;
-            font-size: 14px;
-            margin-bottom: 24px;
+    }
+
+    /* Order Hero */
+    .order-hero {
+        background: linear-gradient(135deg, var(--royal-blue), var(--deep-navy));
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        color: #fff;
+        margin-bottom: 16px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 12px 36px rgba(26, 86, 219, 0.25);
+    }
+
+    .order-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .order-hero .hero-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+    }
+
+    .order-hero .order-id-label {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        opacity: 0.75;
+        margin-bottom: 4px;
+    }
+
+    .order-hero .order-id-value {
+        font-size: 22px;
+        font-weight: 900;
+        font-family: 'Courier New', monospace;
+        letter-spacing: 1px;
+    }
+
+    .order-hero .order-date {
+        font-size: 11px;
+        opacity: 0.8;
+        margin-top: 4px;
+        font-weight: 600;
+    }
+
+    .order-hero .status-pill {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .order-hero .status-pill .pulse {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #4ade80;
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+        animation: pulseDot 1.6s infinite;
+    }
+
+    @keyframes pulseDot {
+        0% {
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
         }
-        .track-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+        70% {
+            box-shadow: 0 0 0 12px rgba(74, 222, 128, 0);
         }
-        .track-input-group input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 14px;
-            transition: 0.3s;
+        100% {
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
         }
-        .track-input-group input:focus {
-            outline: none;
-            border-color: #2563EB;
+    }
+
+    /* Progress Bar */
+    .order-progress {
+        position: relative;
+        z-index: 1;
+        margin-top: 12px;
+    }
+
+    .order-progress .progress-bar {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .order-progress .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #4ade80, #22c55e);
+        border-radius: 6px;
+        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 0;
+    }
+
+    .order-progress .progress-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        opacity: 0.8;
+    }
+
+    /* Delivery ETA */
+    .order-eta {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(10px);
+        border-radius: var(--radius);
+        padding: 12px 16px;
+        margin-top: 16px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .order-eta i {
+        font-size: 22px;
+        color: #4ade80;
+    }
+
+    .order-eta .eta-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.75;
+    }
+
+    .order-eta .eta-value {
+        font-size: 15px;
+        font-weight: 900;
+        margin-top: 2px;
+    }
+
+    /* Info Cards */
+    .track-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 20px;
+        margin-bottom: 14px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .track-card .card-title {
+        font-size: 14px;
+        font-weight: 900;
+        color: var(--highlight-grey);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: -0.2px;
+    }
+
+    .track-card .card-title i {
+        color: var(--royal-blue);
+        font-size: 15px;
+    }
+
+    .track-card .card-title .badge-count {
+        margin-left: auto;
+        background: var(--light-blue);
+        color: var(--royal-blue);
+        font-size: 10px;
+        font-weight: 900;
+        padding: 3px 12px;
+        border-radius: 20px;
+    }
+
+    /* Customer Details Row */
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 10px 0;
+        font-size: 13px;
+        border-bottom: 1px solid var(--border-light);
+        gap: 12px;
+    }
+
+    .info-row:last-child {
+        border-bottom: none;
+    }
+
+    .info-row .label {
+        color: var(--muted-text);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .info-row .label i {
+        color: var(--royal-blue);
+        font-size: 12px;
+        width: 16px;
+        text-align: center;
+    }
+
+    .info-row .value {
+        font-weight: 800;
+        color: var(--highlight-grey);
+        text-align: right;
+        word-break: break-word;
+    }
+
+    .info-row .value.mono {
+        font-family: 'Courier New', monospace;
+        letter-spacing: 0.5px;
+    }
+
+    /* Items List */
+    .track-items-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .track-item {
+        background: var(--bg-light);
+        border-radius: var(--radius);
+        padding: 12px 14px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        transition: var(--transition);
+        border: 1px solid transparent;
+    }
+
+    .track-item:hover {
+        background: var(--light-blue);
+        border-color: var(--royal-blue);
+    }
+
+    .track-item .item-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--white);
+        color: var(--royal-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+    }
+
+    .track-item .item-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .track-item .item-info .name {
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--highlight-grey);
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .track-item .item-info .meta {
+        font-size: 11px;
+        color: var(--muted-text);
+        font-weight: 600;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .track-item .item-price {
+        font-size: 15px;
+        font-weight: 900;
+        color: var(--royal-blue);
+        flex-shrink: 0;
+    }
+
+    /* Timeline */
+    .track-timeline {
+        position: relative;
+        padding-left: 8px;
+    }
+
+    .timeline-item {
+        display: flex;
+        gap: 14px;
+        padding-bottom: 22px;
+        position: relative;
+    }
+
+    .timeline-item:last-child {
+        padding-bottom: 0;
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 36px;
+        bottom: 0;
+        width: 2px;
+        background: var(--border);
+    }
+
+    .timeline-item:last-child::before {
+        display: none;
+    }
+
+    .timeline-item.completed::before {
+        background: linear-gradient(180deg, #10b981, var(--border));
+    }
+
+    .timeline-dot {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--bg-light);
+        border: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        color: var(--muted-text);
+        flex-shrink: 0;
+        z-index: 1;
+        transition: var(--transition);
+    }
+
+    .timeline-item.completed .timeline-dot {
+        background: linear-gradient(145deg, #10b981, #059669);
+        border-color: #10b981;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .timeline-item.current .timeline-dot {
+        background: linear-gradient(145deg, var(--royal-blue), #0d47a1);
+        border-color: var(--royal-blue);
+        color: #fff;
+        box-shadow: 0 0 0 6px rgba(26, 86, 219, 0.15);
+        animation: pulseRing 2s infinite;
+    }
+
+    @keyframes pulseRing {
+        0%, 100% { box-shadow: 0 0 0 6px rgba(26, 86, 219, 0.15); }
+        50% { box-shadow: 0 0 0 12px rgba(26, 86, 219, 0.05); }
+    }
+
+    .timeline-content {
+        flex: 1;
+        padding-top: 4px;
+        min-width: 0;
+    }
+
+    .timeline-content .status-name {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--highlight-grey);
+        margin-bottom: 2px;
+    }
+
+    .timeline-item.current .timeline-content .status-name {
+        color: var(--royal-blue);
+    }
+
+    .timeline-item:not(.completed):not(.current) .timeline-content .status-name {
+        color: var(--muted-text);
+        font-weight: 600;
+    }
+
+    .timeline-content .status-time {
+        font-size: 11px;
+        color: var(--muted-text);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .timeline-content .status-note {
+        font-size: 11px;
+        color: var(--muted-text);
+        margin-top: 4px;
+        line-height: 1.5;
+        font-weight: 500;
+    }
+
+    .timeline-content .status-badge-inline {
+        display: inline-block;
+        background: var(--light-blue);
+        color: var(--royal-blue);
+        font-size: 9px;
+        font-weight: 900;
+        padding: 2px 8px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-left: 8px;
+    }
+
+    /* Payment Summary */
+    .payment-summary {
+        background: var(--bg-light);
+        border-radius: var(--radius);
+        padding: 14px 16px;
+    }
+
+    .payment-summary .pay-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        font-size: 13px;
+        gap: 12px;
+    }
+
+    .payment-summary .pay-row .label {
+        color: var(--muted-text);
+        font-weight: 600;
+    }
+
+    .payment-summary .pay-row .value {
+        font-weight: 800;
+        color: var(--highlight-grey);
+    }
+
+    .payment-summary .pay-row.total {
+        border-top: 2px solid var(--border);
+        margin-top: 6px;
+        padding-top: 12px;
+        font-size: 15px;
+    }
+
+    .payment-summary .pay-row.total .label {
+        font-weight: 900;
+        color: var(--highlight-grey);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 12px;
+    }
+
+    .payment-summary .pay-row.total .value {
+        font-size: 20px;
+        color: var(--royal-blue);
+        font-weight: 900;
+        letter-spacing: -0.5px;
+    }
+
+    /* Action Buttons */
+    .track-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 16px;
+    }
+
+    @media (max-width: 480px) {
+        .track-actions {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .track-actions .btn {
+        padding: 14px 18px;
+        border-radius: 40px;
+        font-weight: 800;
+        font-size: 13px;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: var(--transition);
+        text-decoration: none;
+        font-family: inherit;
+        white-space: nowrap;
+    }
+
+    .track-actions .btn-primary {
+        background: linear-gradient(145deg, var(--royal-blue), var(--deep-navy));
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(26, 86, 219, 0.3);
+    }
+
+    .track-actions .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(26, 86, 219, 0.4);
+    }
+
+    .track-actions .btn-whatsapp {
+        background: #25D366;
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+    }
+
+    .track-actions .btn-whatsapp:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+    }
+
+    .track-actions .btn-secondary {
+        background: var(--white);
+        color: var(--bold-grey);
+        border: 1.5px solid var(--border);
+    }
+
+    .track-actions .btn-secondary:hover {
+        background: var(--bg-light);
+        border-color: var(--royal-blue);
+        color: var(--royal-blue);
+    }
+
+    /* Not Found */
+    .track-not-found {
+        display: none;
+        text-align: center;
+        padding: 40px 24px;
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        border: 1px solid #fee2e2;
+    }
+
+    .track-not-found.active {
+        display: block;
+        animation: fadeSlideIn 0.4s ease;
+    }
+
+    .track-not-found .error-icon {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background: #fee2e2;
+        color: #dc2626;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        margin: 0 auto 20px;
+    }
+
+    .track-not-found h2 {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--highlight-grey);
+        margin-bottom: 8px;
+    }
+
+    .track-not-found p {
+        font-size: 13px;
+        color: var(--muted-text);
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    /* Help footer */
+    .track-help {
+        text-align: center;
+        padding: 24px 16px;
+        font-size: 13px;
+        color: var(--muted-text);
+        font-weight: 600;
+        line-height: 1.8;
+    }
+
+    .track-help a {
+        color: var(--royal-blue);
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+    .track-help a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+        .track-page-header h1 {
+            font-size: 22px;
+        }
+        .track-search-card {
+            padding: 18px;
         }
         .track-input-group button {
-            padding: 12px 24px;
-            background: #2563EB;
-            color: #FFFFFF;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
+            width: 100%;
+            justify-content: center;
         }
-        .track-input-group button:hover {
-            background: #0F172A;
+        .order-hero {
+            padding: 18px;
         }
-        .order-status {
-            display: none;
-            padding: 20px;
-            background: #F8FAFC;
-            border-radius: 16px;
-            border: 1px solid #e5e7eb;
+        .order-hero .order-id-value {
+            font-size: 18px;
         }
-        .order-status.active {
-            display: block;
-        }
-        .order-status .status-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .order-status .status-item:last-child {
-            border-bottom: none;
-        }
-        .order-status .status-item .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #e5e7eb;
-        }
-        .order-status .status-item .dot.completed {
-            background: #2563EB;
-        }
-        .order-status .status-item .dot.active {
-            background: #F59E0B;
-            animation: pulse 1.5s infinite;
-        }
-        .order-status .status-item .text {
-            flex: 1;
-            font-size: 13px;
-        }
-        .order-status .status-item .text .time {
-            font-size: 11px;
-            color: #64748B;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-        .not-found {
-            display: none;
-            text-align: center;
-            padding: 30px;
-            color: #64748B;
-        }
-        .not-found.active {
-            display: block;
-        }
-        .not-found i {
-            font-size: 48px;
-            color: #F59E0B;
-            display: block;
-            margin-bottom: 12px;
-        }
-        .order-details {
-            margin: 16px 0;
+        .track-card {
             padding: 16px;
-            background: #FFFFFF;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
         }
-        .order-details .row {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            font-size: 13px;
+    }
+
+    /* Print */
+    @media print {
+        .site-header, .site-footer, .bottom-nav,
+        .whatsapp-float, .track-search-card,
+        .track-actions, .track-help {
+            display: none !important;
         }
-        .order-details .row .label {
-            color: #64748B;
+        .track-container {
+            padding: 0;
         }
-        .order-details .row .value {
-            font-weight: 600;
+        .order-hero {
+            box-shadow: none;
         }
+    }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="fixed-header">
-        <div class="header-inner">
-            <a href="index.html" class="logo-area">
-                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="logo-text">Raj Marketing<span>Mysore</span></div>
-            </a>
-            <nav class="desktop-nav">
-                <a href="index.html">Home</a>
-                <a href="products.html">Products</a>
-                <a href="estimate.html">Estimate</a>
-                <a href="track-order.html" class="active">Track Order</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="customer-login.html" class="btn-outline">Customer</a>
-                <a href="dealer-login.html" class="btn-outline">Dealer</a>
-            </nav>
-            <div class="header-right">
-                <a href="https://wa.me/919483037385" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="tel:9483037385"><i class="fas fa-phone"></i></a>
-                <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-    </header>
+    <!-- ===== HEADER PLACEHOLDER ===== -->
+    <div id="header-placeholder"></div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="estimate.html">Get Estimate</a>
-        <a href="track-order.html" class="active">Track Order</a>
-        <a href="appointment.html">Book Measurement</a>
-        <a href="customer-login.html">Customer Login</a>
-        <a href="dealer-login.html">Dealer Login</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-    </div>
-
-    <!-- Main Content -->
+    <!-- ===== MAIN ===== -->
     <main>
-        <div class="container">
-            <div class="track-container">
+        <div class="track-container">
+
+            <!-- Page Header -->
+            <div class="track-page-header">
+                <div class="header-icon">
+                    <i class="fas fa-box"></i>
+                </div>
                 <h1>Track Your Order</h1>
-                <p class="sub">Enter your order ID to track the status</p>
-                
+                <p>Enter your order ID to see real-time status</p>
+            </div>
+
+            <!-- Search Card -->
+            <div class="track-search-card">
+                <div class="track-search-label">
+                    <i class="fas fa-search"></i>
+                    Order ID
+                </div>
                 <div class="track-input-group">
-                    <input type="text" id="orderInput" placeholder="e.g., RM-2026-001" />
-                    <button onclick="trackOrder()"><i class="fas fa-search"></i> Track</button>
+                    <div class="input-wrap">
+                        <i class="fas fa-hashtag"></i>
+                        <input type="text"
+                               id="orderInput"
+                               placeholder="e.g., RM-ORD-2026-123456"
+                               autocomplete="off"
+                               autocapitalize="characters" />
+                    </div>
+                    <button onclick="trackOrder()" id="trackBtn">
+                        <i class="fas fa-search"></i> Track
+                    </button>
                 </div>
 
-                <!-- Order Details -->
-                <div class="order-status" id="orderStatus">
-                    <div class="order-details" id="orderDetails"></div>
-                    <div id="statusTimeline"></div>
+                <!-- Recent Orders -->
+                <div class="recent-orders" id="recentOrders" style="display:none;">
+                    <span class="label">Recent:</span>
+                    <div id="recentChips" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
                 </div>
+            </div>
 
-                <!-- Not Found -->
-                <div class="not-found" id="notFound">
+            <!-- Loading -->
+            <div class="track-loading" id="trackLoading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Fetching order details...</p>
+            </div>
+
+            <!-- Result -->
+            <div class="track-result" id="trackResult"></div>
+
+            <!-- Not Found -->
+            <div class="track-not-found" id="trackNotFound">
+                <div class="error-icon">
                     <i class="fas fa-box-open"></i>
-                    <h3>Order Not Found</h3>
-                    <p>Please check your order ID and try again.</p>
-                    <a href="tel:9483037385" class="btn-primary" style="margin-top:12px;display:inline-block;">
-                        <i class="fas fa-phone"></i> Contact Support
+                </div>
+                <h2>Order Not Found</h2>
+                <p>We couldn't find any order with that ID.<br>Please check and try again.</p>
+                <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                    <a href="https://wa.me/919483037385" target="_blank" class="btn"
+                       style="background:#25D366;color:#fff;padding:12px 24px;border-radius:40px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-size:13px;">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Us
+                    </a>
+                    <a href="tel:9483037385" class="btn"
+                       style="background:var(--royal-blue);color:#fff;padding:12px 24px;border-radius:40px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-size:13px;">
+                        <i class="fas fa-phone"></i> Call Support
                     </a>
                 </div>
             </div>
 
-            <!-- Help Section -->
-            <div style="text-align:center;padding:20px;color:#64748B;font-size:13px;">
-                <p>Need help? <a href="https://wa.me/919483037385" style="color:#2563EB;font-weight:600;">Chat on WhatsApp</a> or call <a href="tel:9483037385" style="color:#2563EB;font-weight:600;">9483037385</a></p>
+            <!-- Help -->
+            <div class="track-help">
+                Need help? <a href="https://wa.me/919483037385" target="_blank">Chat on WhatsApp</a>
+                or call <a href="tel:9483037385">9483037385</a>
             </div>
+
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="brand">Raj <span>Marketing</span> Mysore</div>
-                    <p>Quality mosquito nets since 2016.</p>
-                    <div class="contact-info"><i class="fas fa-phone"></i> 9483037385</div>
-                    <div class="contact-info"><i class="fas fa-envelope"></i> info@rajmarketingmysore.info</div>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <a href="products.html">Products</a>
-                    <a href="estimate.html">Get Estimate</a>
-                    <a href="track-order.html">Track Order</a>
-                    <a href="appointment.html">Book Measurement</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <a href="about.html">About Us</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Connect</h4>
-                    <a href="https://wa.me/919483037385"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    <a href="https://g.page/r/Cd4VqO0Z0WjtEAI"><i class="fab fa-google"></i> Google Reviews</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                © 2026 <span>Raj Marketing Mysore</span> · All Rights Reserved
-            </div>
-        </div>
-    </footer>
+    <!-- ===== FOOTER PLACEHOLDER ===== -->
+    <div id="footer-placeholder"></div>
 
-    <!-- Bottom Nav -->
-    <nav class="bottom-nav">
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="products.html"><i class="fas fa-th-large"></i> Products</a>
-        <a href="estimate.html"><i class="fas fa-file-invoice"></i> Estimate</a>
-        <a href="track-order.html" class="active"><i class="fas fa-box"></i> Track</a>
-        <a href="customer-login.html"><i class="fas fa-user"></i> Account</a>
-    </nav>
+    <!-- ===== SCRIPTS ===== -->
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
 
-    <!-- WhatsApp Float -->
-    <a href="https://wa.me/919483037385" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <script src="main.js"></script>
     <script>
-        // Sample order data (in production, this would come from a database)
-        const orders = {
-            'RM-2026-001': {
-                id: 'RM-2026-001',
-                date: '2026-08-25',
-                customer: 'Rajesh Kumar',
-                items: 'Pleated Nets x 2, Aluminium Frame x 1',
-                total: '₹2,450',
-                status: 'delivered',
-                timeline: [
-                    { status: 'Order Placed', time: '2026-08-25 10:00 AM', completed: true },
-                    { status: 'Measurement Done', time: '2026-08-26 09:30 AM', completed: true },
-                    { status: 'Manufacturing', time: '2026-08-27 02:00 PM', completed: true },
-                    { status: 'Out for Delivery', time: '2026-08-28 10:00 AM', completed: true },
-                    { status: 'Delivered', time: '2026-08-28 03:30 PM', completed: true }
-                ]
-            },
-            'RM-2026-002': {
-                id: 'RM-2026-002',
-                date: '2026-08-26',
-                customer: 'Priya Sharma',
-                items: 'Sliding Nets x 3',
-                total: '₹1,800',
-                status: 'manufacturing',
-                timeline: [
-                    { status: 'Order Placed', time: '2026-08-26 11:00 AM', completed: true },
-                    { status: 'Measurement Done', time: '2026-08-27 10:00 AM', completed: true },
-                    { status: 'Manufacturing', time: '2026-08-28 09:00 AM', completed: false },
-                    { status: 'Out for Delivery', time: 'Pending', completed: false },
-                    { status: 'Delivered', time: 'Pending', completed: false }
-                ]
-            },
-            'RM-2026-003': {
-                id: 'RM-2026-003',
-                date: '2026-08-27',
-                customer: 'Suresh Reddy',
-                items: 'SS Mesh x 5 (Roll)',
-                total: '₹3,200',
-                status: 'processing',
-                timeline: [
-                    { status: 'Order Placed', time: '2026-08-27 03:00 PM', completed: true },
-                    { status: 'Measurement Done', time: 'Pending', completed: false },
-                    { status: 'Manufacturing', time: 'Pending', completed: false },
-                    { status: 'Out for Delivery', time: 'Pending', completed: false },
-                    { status: 'Delivered', time: 'Pending', completed: false }
-                ]
-            }
+    /* ============================================================
+       TRACK ORDER ENGINE
+       Raj Marketing Mysore · v2.0
+    ============================================================ */
+    (function() {
+        'use strict';
+
+        // ============================================================
+        // ORDER STATUS CONFIG
+        // ============================================================
+        const STATUS_FLOW = [
+            { key: 'NEW',         label: 'Order Placed',        icon: 'fa-check' },
+            { key: 'CONFIRMED',   label: 'Order Confirmed',     icon: 'fa-thumbs-up' },
+            { key: 'PROCESSING',  label: 'In Manufacturing',    icon: 'fa-cog' },
+            { key: 'READY',       label: 'Ready for Delivery',  icon: 'fa-box' },
+            { key: 'OUT',         label: 'Out for Delivery',    icon: 'fa-truck' },
+            { key: 'DELIVERED',   label: 'Delivered',           icon: 'fa-check-double' }
+        ];
+
+        const STATUS_META = {
+            'NEW':        { label: 'New Order',        class: 'status-new',        color: '#1a56db' },
+            'CONFIRMED':  { label: 'Confirmed',        class: 'status-confirmed',  color: '#3b82f6' },
+            'PROCESSING': { label: 'Processing',       class: 'status-processing', color: '#f59e0b' },
+            'READY':      { label: 'Ready',            class: 'status-ready',      color: '#8b5cf6' },
+            'OUT':        { label: 'Out for Delivery', class: 'status-out',        color: '#06b6d4' },
+            'DELIVERED':  { label: 'Delivered',        class: 'status-delivered',  color: '#10b981' },
+            'CANCELLED':  { label: 'Cancelled',        class: 'status-cancelled',  color: '#dc2626' }
         };
 
-        function trackOrder() {
-            const input = document.getElementById('orderInput');
-            const orderId = input.value.trim().toUpperCase();
-            const statusDiv = document.getElementById('orderStatus');
-            const notFoundDiv = document.getElementById('notFound');
-            const detailsDiv = document.getElementById('orderDetails');
-            const timelineDiv = document.getElementById('statusTimeline');
+        // ============================================================
+        // GET ORDERS FROM LOCALSTORAGE
+        // ============================================================
+        function getAllOrders() {
+            let orders = [];
+            try {
+                // Main orders store (from checkout.html)
+                orders = JSON.parse(localStorage.getItem('raj_orders') || '[]');
 
-            // Hide both initially
-            statusDiv.classList.remove('active');
-            notFoundDiv.classList.remove('active');
+                // Also merge customer-specific orders
+                const custOrders = JSON.parse(localStorage.getItem('raj_customer_orders') || '[]');
+                if (custOrders.length) {
+                    const existingIds = new Set(orders.map(o => o.orderId || o.id));
+                    custOrders.forEach(o => {
+                        const oid = o.orderId || o.id;
+                        if (oid && !existingIds.has(oid)) orders.push(o);
+                    });
+                }
+            } catch (e) {
+                console.warn('Order load error:', e);
+            }
+            return orders;
+        }
+
+        // ============================================================
+        // FIND ORDER BY ID
+        // ============================================================
+        function findOrder(orderId) {
+            const orders = getAllOrders();
+            const cleanId = orderId.trim().toUpperCase();
+            return orders.find(o => {
+                const oid = (o.orderId || o.id || '').toUpperCase();
+                return oid === cleanId || oid.includes(cleanId) || cleanId.includes(oid);
+            });
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        function init() {
+            // Auto-fill from URL param
+            const params = new URLSearchParams(window.location.search);
+            const urlId = params.get('id');
+            if (urlId) {
+                document.getElementById('orderInput').value = urlId;
+                setTimeout(() => trackOrder(), 300);
+            }
+
+            // Enter key
+            document.getElementById('orderInput').addEventListener('keypress', e => {
+                if (e.key === 'Enter') trackOrder();
+            });
+
+            // Auto-uppercase input
+            document.getElementById('orderInput').addEventListener('input', function() {
+                this.value = this.value.toUpperCase();
+            });
+
+            // Recent orders
+            renderRecentOrders();
+        }
+
+        // ============================================================
+        // TRACK ORDER (MAIN)
+        // ============================================================
+        window.trackOrder = function() {
+            const input = document.getElementById('orderInput');
+            const orderId = input.value.trim();
+
+            // Reset views
+            hideAll();
 
             if (!orderId) {
-                alert('Please enter an order ID');
+                showToast('Please enter an order ID', 'error');
+                input.focus();
                 return;
             }
 
-            const order = orders[orderId];
-            if (!order) {
-                notFoundDiv.classList.add('active');
-                return;
-            }
+            // Show loading
+            document.getElementById('trackLoading').classList.add('active');
+            document.getElementById('trackBtn').disabled = true;
 
-            // Show order details
-            detailsDiv.innerHTML = `
-                <div class="row"><span class="label">Order ID</span><span class="value">${order.id}</span></div>
-                <div class="row"><span class="label">Date</span><span class="value">${order.date}</span></div>
-                <div class="row"><span class="label">Customer</span><span class="value">${order.customer}</span></div>
-                <div class="row"><span class="label">Items</span><span class="value">${order.items}</span></div>
-                <div class="row"><span class="label">Total</span><span class="value">${order.total}</span></div>
-                <div class="row"><span class="label">Status</span><span class="value" style="color:${order.status === 'delivered' ? '#2563EB' : '#F59E0B'}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></div>
+            // Simulate network delay (nice UX)
+            setTimeout(() => {
+                const order = findOrder(orderId);
+
+                document.getElementById('trackLoading').classList.remove('active');
+                document.getElementById('trackBtn').disabled = false;
+
+                if (!order) {
+                    document.getElementById('trackNotFound').classList.add('active');
+                    return;
+                }
+
+                renderOrder(order);
+            }, 500);
+        };
+
+        function hideAll() {
+            document.getElementById('trackLoading').classList.remove('active');
+            document.getElementById('trackResult').classList.remove('active');
+            document.getElementById('trackNotFound').classList.remove('active');
+        }
+
+        // ============================================================
+        // RENDER ORDER
+        // ============================================================
+        function renderOrder(order) {
+            const container = document.getElementById('trackResult');
+            const status = (order.status || 'NEW').toUpperCase();
+            const meta = STATUS_META[status] || STATUS_META['NEW'];
+            const totals = order.totals || {};
+            const cust = order.customer || {};
+            const items = order.items || [];
+
+            // Calculate progress
+            const statusIdx = STATUS_FLOW.findIndex(s => s.key === status);
+            const progressPct = status === 'CANCELLED' ? 0 :
+                                statusIdx >= 0 ? ((statusIdx + 1) / STATUS_FLOW.length) * 100 : 0;
+
+            // Format date
+            const orderDate = order.createdAt
+                ? new Date(order.createdAt).toLocaleString('en-IN', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                })
+                : '—';
+
+            // ETA
+            const eta = getETA(order, status);
+
+            // Build hero
+            const heroHtml = `
+                <div class="order-hero">
+                    <div class="hero-top">
+                        <div>
+                            <div class="order-id-label">Order ID</div>
+                            <div class="order-id-value">${order.orderId || order.id}</div>
+                            <div class="order-date">
+                                <i class="fas fa-calendar"></i> ${orderDate}
+                            </div>
+                        </div>
+                        <div class="status-pill" style="background:${hexToRgba(meta.color, 0.25)};color:#fff;border-color:${hexToRgba(meta.color, 0.5)};">
+                            ${status === 'PROCESSING' || status === 'OUT' ? '<span class="pulse"></span>' : ''}
+                            ${meta.label}
+                        </div>
+                    </div>
+
+                    <div class="order-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+                        </div>
+                        <div class="progress-labels">
+                            <span>Placed</span>
+                            <span>Confirmed</span>
+                            <span>Processing</span>
+                            <span>Delivered</span>
+                        </div>
+                    </div>
+
+                    ${eta ? `
+                        <div class="order-eta">
+                            <i class="fas fa-truck-fast"></i>
+                            <div>
+                                <div class="eta-label">Expected Delivery</div>
+                                <div class="eta-value">${eta}</div>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            // Build customer + delivery card
+            const customerHtml = `
+                <div class="track-card">
+                    <div class="card-title">
+                        <i class="fas fa-user"></i> Customer Details
+                    </div>
+                    <div class="info-row">
+                        <span class="label"><i class="fas fa-user"></i> Name</span>
+                        <span class="value">${escapeHtml(cust.name || '—')}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label"><i class="fas fa-phone"></i> Mobile</span>
+                        <span class="value mono">${escapeHtml(cust.mobile || '—')}</span>
+                    </div>
+                    ${cust.email ? `
+                        <div class="info-row">
+                            <span class="label"><i class="fas fa-envelope"></i> Email</span>
+                            <span class="value">${escapeHtml(cust.email)}</span>
+                        </div>
+                    ` : ''}
+                    ${cust.address ? `
+                        <div class="info-row">
+                            <span class="label"><i class="fas fa-map-marker-alt"></i> Address</span>
+                            <span class="value">${escapeHtml(cust.address)}${cust.city ? ', ' + escapeHtml(cust.city) : ''}${cust.pincode ? ' - ' + escapeHtml(cust.pincode) : ''}</span>
+                        </div>
+                    ` : ''}
+                    ${cust.landmark ? `
+                        <div class="info-row">
+                            <span class="label"><i class="fas fa-map-pin"></i> Landmark</span>
+                            <span class="value">${escapeHtml(cust.landmark)}</span>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            // Build items card
+            const itemsHtml = `
+                <div class="track-card">
+                    <div class="card-title">
+                        <i class="fas fa-box"></i> Order Items
+                        <span class="badge-count">${items.length}</span>
+                    </div>
+                    <div class="track-items-list">
+                        ${items.length ? items.map(item => {
+                            const unitLabel = item.unit === 'cm' ? 'cm' : '"';
+                            return `
+                                <div class="track-item">
+                                    <div class="item-icon"><i class="fas fa-window-maximize"></i></div>
+                                    <div class="item-info">
+                                        <div class="name">${escapeHtml(item.productName || 'Product')}</div>
+                                        <div class="meta">
+                                            <span>${item.width || 0}${unitLabel} × ${item.height || 0}${unitLabel}</span>
+                                            <span>·</span>
+                                            <span>Qty ${item.qty || 1}</span>
+                                            ${item.colour ? `<span>· ${escapeHtml(item.colour)}</span>` : ''}
+                                        </div>
+                                    </div>
+                                    <div class="item-price">₹${Math.round(item.totalPrice || 0).toLocaleString('en-IN')}</div>
+                                </div>
+                            `;
+                        }).join('') : '<div style="text-align:center;padding:20px;color:var(--muted-text);font-size:13px;">No items found</div>'}
+                    </div>
+                </div>
             `;
 
             // Build timeline
-            timelineDiv.innerHTML = order.timeline.map((item, index) => {
-                let dotClass = 'dot';
-                if (item.completed) dotClass += ' completed';
-                else if (index === order.timeline.findIndex(t => !t.completed)) dotClass += ' active';
+            const timelineHtml = `
+                <div class="track-card">
+                    <div class="card-title">
+                        <i class="fas fa-stream"></i> Order Timeline
+                    </div>
+                    <div class="track-timeline">
+                        ${buildTimeline(order, status)}
+                    </div>
+                </div>
+            `;
+
+            // Build payment summary
+            const paymentHtml = `
+                <div class="track-card">
+                    <div class="card-title">
+                        <i class="fas fa-receipt"></i> Payment Summary
+                    </div>
+                    <div class="payment-summary">
+                        <div class="pay-row">
+                            <span class="label">Subtotal</span>
+                            <span class="value">₹${Math.round(totals.subtotal || 0).toLocaleString('en-IN')}</span>
+                        </div>
+                        <div class="pay-row">
+                            <span class="label">GST (18%)</span>
+                            <span class="value">₹${Math.round(totals.gst || 0).toLocaleString('en-IN')}</span>
+                        </div>
+                        ${totals.discountAmount ? `
+                            <div class="pay-row">
+                                <span class="label">Discount</span>
+                                <span class="value" style="color:#059669;">- ₹${Math.round(totals.discountAmount).toLocaleString('en-IN')}</span>
+                            </div>
+                        ` : ''}
+                        <div class="pay-row total">
+                            <span class="label">Grand Total</span>
+                            <span class="value">₹${Math.round(totals.grandTotal || 0).toLocaleString('en-IN')}</span>
+                        </div>
+                        ${totals.advanceAmount ? `
+                            <div class="pay-row">
+                                <span class="label">Advance Paid</span>
+                                <span class="value" style="color:#059669;">₹${Math.round(totals.advanceAmount).toLocaleString('en-IN')}</span>
+                            </div>
+                            <div class="pay-row">
+                                <span class="label">Balance Due</span>
+                                <span class="value" style="color:#d97706;">₹${Math.round(totals.balanceAmount || 0).toLocaleString('en-IN')}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+
+            // Build actions
+            const actionsHtml = `
+                <div class="track-actions">
+                    <a href="https://wa.me/919483037385?text=Hi,%20I%20need%20help%20with%20order%20${encodeURIComponent(order.orderId || order.id)}"
+                       target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Support
+                    </a>
+                    <a href="tel:9483037385" class="btn btn-primary">
+                        <i class="fas fa-phone"></i> Call Support
+                    </a>
+                    <a href="order-details.html?id=${encodeURIComponent(order.orderId || order.id)}" class="btn btn-secondary">
+                        <i class="fas fa-file-alt"></i> Full Details
+                    </a>
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                </div>
+            `;
+
+            // Combine everything
+            container.innerHTML = heroHtml + customerHtml + itemsHtml + timelineHtml + paymentHtml + actionsHtml;
+            container.classList.add('active');
+
+            // Animate progress bar
+            setTimeout(() => {
+                const fill = document.getElementById('progressFill');
+                if (fill) fill.style.width = progressPct + '%';
+            }, 200);
+
+            // Scroll into view
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        // BUILD TIMELINE
+        // ============================================================
+        function buildTimeline(order, currentStatus) {
+            // If cancelled
+            if (currentStatus === 'CANCELLED') {
                 return `
-                    <div class="status-item">
-                        <span class="${dotClass}"></span>
-                        <div class="text">
-                            ${item.status}
-                            <div class="time">${item.time}</div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot" style="background:#fee2e2;border-color:#dc2626;color:#dc2626;">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="status-name" style="color:#dc2626;">Order Cancelled</div>
+                            <div class="status-time">
+                                <i class="far fa-clock"></i>
+                                ${order.cancelledAt ? new Date(order.cancelledAt).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—'}
+                            </div>
+                            <div class="status-note">This order has been cancelled.</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Find current index in flow
+            const currentIdx = STATUS_FLOW.findIndex(s => s.key === currentStatus);
+
+            // Get custom timeline if order has one
+            const customTimeline = order.timeline || null;
+
+            return STATUS_FLOW.map((step, i) => {
+                let state = '';
+                if (i < currentIdx) state = 'completed';
+                else if (i === currentIdx) state = 'current';
+
+                // Get timestamp
+                let time = 'Pending';
+                let note = '';
+
+                if (customTimeline && customTimeline[i]) {
+                    time = customTimeline[i].time || time;
+                    note = customTimeline[i].note || '';
+                } else if (state === 'completed' || state === 'current') {
+                    // Generate realistic times based on order date
+                    const baseDate = new Date(order.createdAt || Date.now());
+                    baseDate.setDate(baseDate.getDate() + i);
+                    time = baseDate.toLocaleString('en-IN', {
+                        day: '2-digit', month: 'short',
+                        hour: '2-digit', minute: '2-digit'
+                    });
+                }
+
+                return `
+                    <div class="timeline-item ${state}">
+                        <div class="timeline-dot">
+                            <i class="fas ${step.icon}"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="status-name">
+                                ${step.label}
+                                ${state === 'current' ? '<span class="status-badge-inline">Current</span>' : ''}
+                            </div>
+                            <div class="status-time">
+                                <i class="far fa-clock"></i> ${time}
+                            </div>
+                            ${note ? `<div class="status-note">${escapeHtml(note)}</div>` : ''}
                         </div>
                     </div>
                 `;
             }).join('');
-
-            statusDiv.classList.add('active');
-            input.value = '';
         }
 
-        // Allow Enter key
-        document.getElementById('orderInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') trackOrder();
-        });
+        // ============================================================
+        // GET ETA
+        // ============================================================
+        function getETA(order, status) {
+            if (status === 'DELIVERED') return 'Delivered ✓';
+            if (status === 'CANCELLED') return null;
+
+            const base = new Date(order.createdAt || Date.now());
+            const daysToAdd = 3; // default 3-day delivery
+            const eta = new Date(base);
+            eta.setDate(eta.getDate() + daysToAdd);
+
+            const now = new Date();
+            const diffDays = Math.ceil((eta - now) / (1000 * 60 * 60 * 24));
+
+            if (diffDays < 0) return 'Arriving Soon';
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Tomorrow';
+
+            return eta.toLocaleDateString('en-IN', {
+                day: '2-digit', month: 'short', year: 'numeric'
+            });
+        }
+
+        // ============================================================
+        // RECENT ORDERS
+        // ============================================================
+        function renderRecentOrders() {
+            const orders = getAllOrders();
+            if (!orders.length) return;
+
+            const recent = orders.slice(-5).reverse();
+            const container = document.getElementById('recentOrders');
+            const chips = document.getElementById('recentChips');
+
+            chips.innerHTML = recent.map(o => {
+                const oid = o.orderId || o.id;
+                return `<span class="chip" onclick="quickTrack('${oid}')">${oid}</span>`;
+            }).join('');
+
+            container.style.display = 'flex';
+        }
+
+        window.quickTrack = function(orderId) {
+            document.getElementById('orderInput').value = orderId;
+            trackOrder();
+        };
+
+        // ============================================================
+        // UTILITIES
+        // ============================================================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function hexToRgba(hex, alpha) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        function showToast(msg, type = 'info') {
+            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+            const t = document.createElement('div');
+            t.className = 'rm-toast';
+            t.textContent = msg;
+            t.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%) translateY(20px);
+                background: ${colors[type] || colors.info};
+                color: #fff;
+                padding: 12px 24px;
+                border-radius: 40px;
+                font-size: 13px;
+                font-weight: 700;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+                z-index: 9999;
+                opacity: 0;
+                transition: all 0.3s ease;
+                max-width: 90%;
+                text-align: center;
+                font-family: 'Poppins', sans-serif;
+            `;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => {
+                t.style.opacity = '1';
+                t.style.transform = 'translateX(-50%) translateY(0)';
+            });
+            setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(() => t.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================================
+        // BOOT
+        // ============================================================
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        console.log('%c✅ Track Order Engine v2.0 loaded', 'color:#1a56db;font-weight:bold;');
+        console.log('%c📦 Ready to track orders from localStorage', 'color:#10b981;font-weight:bold;');
+
+    })();
     </script>
 </body>
-                  </html>
+</html>
