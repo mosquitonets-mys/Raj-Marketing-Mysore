@@ -2772,3 +2772,508 @@ img { max-width: 100%; height: auto; }
     padding: 0 4px;
     border: 2px solid #fff;
    }
+/* ============================================================
+   HEADER — DARK BLUE UPGRADE
+============================================================ */
+.site-header {
+    background: linear-gradient(135deg, #0f1b33, #1a56db);
+    border-bottom: none;
+    padding: 0 16px;
+    height: 68px;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(15, 27, 51, 0.15);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 12px;
+}
+
+/* ===== LOGO ===== */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logo-area .logo-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: #fff;
+    padding: 4px;
+}
+
+.logo-area .logo-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo-area .logo-text {
+    font-weight: 900;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.3px;
+}
+
+.logo-area .logo-text .brand-name {
+    display: block;
+    font-weight: 900;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: -0.4px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.logo-area .logo-text .brand-sub {
+    display: block;
+    font-weight: 700;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 1px;
+}
+
+/* ===== DESKTOP NAV ===== */
+.desktop-nav {
+    display: none;
+    align-items: center;
+    gap: 4px;
+}
+
+.desktop-nav a {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 30px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.desktop-nav a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.desktop-nav a.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+    font-weight: 700;
+}
+
+.desktop-nav .nav-btn-outline {
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.desktop-nav .nav-btn-outline:hover {
+    background: #fff;
+    color: #1a56db;
+    border-color: #fff;
+}
+
+.desktop-nav .admin-link {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff !important;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+    transition: all 0.25s ease;
+}
+
+.desktop-nav .admin-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.5);
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #fff !important;
+}
+
+/* ===== HEADER RIGHT (icons) ===== */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.header-icon-btn {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.header-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+.header-icon-btn.wa-link {
+    color: #4ade80;
+}
+
+.header-icon-btn.wa-link:hover {
+    color: #25D366;
+    background: rgba(37, 211, 102, 0.2);
+}
+
+.header-icon-btn .cart-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: #ef4444;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #0f1b33;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    padding: 0;
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 992px) {
+    .desktop-nav {
+        display: flex;
+    }
+    .hamburger {
+        display: none;
+    }
+}
+
+/* ============================================================
+   MOBILE MENU
+============================================================ */
+.mobile-menu {
+    display: none;
+    background: #fff;
+    padding: 16px 20px 30px;
+    border-bottom: 1px solid var(--border, #e5e7eb);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    max-height: calc(100vh - 68px);
+    overflow-y: auto;
+}
+
+.mobile-menu.open {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobile-menu a {
+    display: block;
+    padding: 12px 4px;
+    color: var(--highlight-grey, #1f2937);
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f5f9;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.mobile-menu a:hover,
+.mobile-menu a.active {
+    color: var(--royal-blue, #1a56db);
+    padding-left: 10px;
+}
+
+.mobile-menu .btn-sky {
+    background: linear-gradient(135deg, #1a56db, #0f1b33);
+    color: #fff !important;
+    text-align: center;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 8px;
+    border: none;
+    font-weight: 800;
+}
+
+.mobile-menu .admin-menu-link {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e !important;
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin-top: 6px;
+    font-weight: 800;
+    border: none;
+}
+
+.mobile-menu .admin-menu-link:hover {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff !important;
+    padding-left: 16px;
+}
+
+/* ============================================================
+   FOOTER — 3-LINE COMPACT LAYOUT
+============================================================ */
+.site-footer {
+    background: var(--footer-bg, #e5e7eb);
+    color: #000;
+    padding: 16px 0 12px;
+    border-top: 1px solid #d1d5db;
+    margin-top: 40px;
+}
+
+.site-footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Each footer line */
+.footer-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.footer-line-1 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.footer-line-2 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.footer-line-3 {
+    justify-content: space-between;
+    padding-top: 12px;
+}
+
+/* ===== LINE 1: BRAND + CONTACT ===== */
+.footer-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.footer-brand-name {
+    font-size: 16px;
+    font-weight: 900;
+    color: #000;
+    letter-spacing: -0.3px;
+}
+
+.footer-brand-sub {
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.footer-contacts {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.footer-contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #1f2937;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.footer-contact-item i {
+    color: #1a56db;
+    font-size: 13px;
+}
+
+.footer-contact-item:hover {
+    color: #1a56db;
+}
+
+/* ===== LINE 2: NAV LINKS ===== */
+.footer-line-2 a {
+    color: #1f2937;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 2px 4px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.footer-line-2 a:hover {
+    color: #1a56db;
+    text-decoration: underline;
+}
+
+.footer-sep {
+    color: #9ca3af;
+    font-size: 12px;
+    font-weight: 400;
+    user-select: none;
+}
+
+/* ===== LINE 3: LEGAL + COPYRIGHT ===== */
+.footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.footer-legal-links a {
+    color: #374151;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.footer-legal-links a:hover {
+    color: #1a56db;
+    text-decoration: underline;
+}
+
+.footer-copyright {
+    font-size: 11px;
+    color: #4b5563;
+    font-weight: 600;
+    text-align: center;
+}
+
+.footer-copyright strong {
+    color: #000;
+    font-weight: 900;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .footer-line-1 {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .footer-line-2 {
+        gap: 6px 10px;
+        padding: 10px 0;
+    }
+
+    .footer-line-2 a {
+        font-size: 11px;
+    }
+
+    .footer-line-3 {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .footer-copyright {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-brand-name {
+        font-size: 14px;
+    }
+
+    .footer-contact-item {
+        font-size: 11px;
+    }
+
+    .footer-line-2 a {
+        font-size: 10px;
+    }
+
+    .footer-sep {
+        font-size: 10px;
+    }
+   }
