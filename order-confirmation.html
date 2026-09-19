@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Order Confirmed - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/cart-checkout.css" />
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="order-confirm-container" id="confirmContainer">
+        <div class="loader">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading order...</p>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/cart-engine.js"></script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        function init() {
+            const params = new URLSearchParams(window.location.search);
+            const orderId = params.get('id');
+
+            if (!orderId) {
+                document.getElementById('confirmContainer').innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-icon" style="background:#fee2e2;color:#dc2626;"><i class="fas fa-exclamation-circle"></i></div>
+                        <h2>Order not found</h2>
+                        <p>No order ID provided.</p>
+                        <a href="index.html" class="btn btn-primary">Go Home</a>
+                    </div>
+                `;
+                return;
+            }
+
+            let order = null;
+            try {
+                const orders = JSON.parse(localStorage.getItem('raj_orders') || '[]');
+                order = orders.find(o => o.orderId === orderId || o.id === orderId);
+            } catch (e) {}
+
+            if (!order) {
+                document.getElementById('confirmContainer').innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-icon" style="background:#fee2e2;color:#dc2626;"><i class="fas fa-exclamation-circle"></i></div>
+                        <h2>Order not found</h2>
+                        <p>We couldn't find this order.</p>
+                        <a href="my-orders.html" class="btn btn-primary">View My Orders</a>
+                    </div>
+                `;
+                return;
+            }
+
+            renderConfirmation(order);
+        }
+
+        function renderConfirmation(order) {
+            const container = document.getElementById('confirmContainer');
+            const totals = order.totals || {};
+            const cust = order.customer || {};
+
+            const itemsHtml = (order.items || []).map(item => {
+                const unitLabel = item.unit === 'cm' ? 'cm' : '"';
+                return `
+                    <div class="detail-row">
+                        <span class="label">${item.productName}</span>
+                        <span class="value">
+                            ${item.width}${unitLabel} × ${item.height}${unitLabel} · Qty ${item.qty}
+                            <br><span style="font-size:11px;color:var(--muted-text);">${item.totalSqft.toFixed(2)} sq.ft × ₹${item.rate}</span>
+                        </span>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="confirm-hero">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <h1>Order Placed Successfully!</h1>
+                    <p>Thank you ${cust.name || ''}, we've received your order</p>
+                    <div class="order-id">${order.orderId}</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title"><i class="fas fa-user"></i> Contact Details</div>
+                    <div class="detail-row">
+                        <span class="label">Name</span>
+                        <span class="value">${cust.name}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Mobile</span>
+                        <span class="value">${cust.mobile}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Email</span>
+                        <span class="value">${cust.email}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Address</span>
+                        <span class="value">${cust.address}, ${cust.city} - ${cust.pincode}</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title"><i class="fas fa-box"></i> Order Items</div>
+                    ${itemsHtml}
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title"><i class="fas fa-receipt"></i> Payment Summary</div>
+                    <div class="detail-row">
+                        <span class="label">Subtotal</span>
+                        <span class="value">${CartEngine.formatCurrency(totals.subtotal)}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">GST (18%)</span>
+                        <span class="value">${CartEngine.formatCurrency(totals.gst)}</span>
+                    </div>
+                    ${totals.discountAmount ? `
+                        <div class="detail-row">
+                            <span class="label">Payment Discount</span>
+                            <span class="value" style="color:#059669;">- ${CartEngine.formatCurrency(totals.discountAmount)}</span>
+                        </div>
+                    ` : ''}
+                    <div class="detail-row">
+                        <span class="label">Payment Method</span>
+                        <span class="value">${order.paymentMethod}</span>
+                    </div>
+                    <div class="detail-row" style="border-top:2px solid var(--border);margin-top:6px;padding-top:12px;">
+                        <span class="label" style="font-weight:900;font-size:14px;color:var(--highlight-grey);">Grand Total</span>
+                        <span class="value" style="font-size:20px;color:var(--royal-blue);font-weight:900;">${CartEngine.formatCurrency(totals.grandTotal)}</span>
+                    </div>
+                    ${totals.advanceAmount ? `
+                        <div class="detail-row">
+                            <span class="label">Advance Paid</span>
+                            <span class="value" style="color:#059669;">${CartEngine.formatCurrency(totals.advanceAmount)}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Balance Due</span>
+                            <span class="value" style="color:#d97706;">${CartEngine.formatCurrency(totals.balanceAmount)}</span>
+                        </div>
+                    ` : ''}
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title"><i class="fas fa-clock"></i> What's Next?</div>
+                    <div style="font-size:13px;color:var(--bold-grey);line-height:1.7;">
+                        <p>✅ Order confirmed and logged</p>
+                        <p>📞 Our team will call you within <strong>24 hours</strong></p>
+                        <p>📏 We'll schedule a site measurement</p>
+                        <p>🏭 Manufacturing starts after confirmation</p>
+                        <p>🔧 Installation within <strong>3 working days</strong></p>
+                    </div>
+                </div>
+
+                <div class="confirm-actions">
+                    <a href="my-orders.html" class="btn btn-primary">
+                        <i class="fas fa-list"></i> View My Orders
+                    </a>
+                    <a href="https://wa.me/919483037385?text=Hi,%20I%20just%20placed%20order%20${order.orderId}" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Us
+                    </a>
+                    <a href="products.html" class="btn btn-secondary">
+                        <i class="fas fa-th-large"></i> Continue Shopping
+                    </a>
+                    <a href="index.html" class="btn btn-secondary">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    })();
+    </script>
+</body>
+</html>
