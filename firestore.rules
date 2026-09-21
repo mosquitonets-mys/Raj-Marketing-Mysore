@@ -1,0 +1,147 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ============================================================
+    // HELPER FUNCTIONS
+    // ============================================================
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    function isApprovedDealer() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/dealers/$(request.auth.uid)).data.status == 'Approved';
+    }
+
+    // ============================================================
+    // CUSTOMERS
+    // ============================================================
+    match /customers/{customerId} {
+      allow read: if isOwner(customerId) || isAdmin();
+      allow create: if isOwner(customerId);
+      allow update: if isOwner(customerId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ============================================================
+    // DEALERS
+    // ============================================================
+    match /dealers/{dealerId} {
+      allow read: if isOwner(dealerId) || isAdmin();
+      allow create: if isOwner(dealerId);
+      allow update: if isOwner(dealerId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ============================================================
+    // PRODUCTS (public read, admin write)
+    // ============================================================
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ============================================================
+    // ORDERS
+    // ============================================================
+    match /orders/{orderId} {
+      allow read: if isSignedIn() &&
+        (resource.data.customerId == request.auth.uid ||
+         isAdmin() ||
+         isApprovedDealer());
+
+      allow create: if isSignedIn();
+
+      allow update: if isAdmin() ||
+        (isSignedIn() &&
+         resource.data.customerId == request.auth.uid &&
+         request.resource.data.status in ['CANCELLED']);
+
+      allow delete: if isAdmin();
+    }
+
+    // ============================================================
+    // CARTS
+    // ============================================================
+    match /carts/{userId} {
+      allow read, write: if isOwner(userId) || isAdmin();
+    }
+
+    // ============================================================
+    // ESTIMATES
+    // ============================================================
+    match /estimates/{estimateId} {
+      allow read: if isSignedIn() &&
+        (resource.data.customerId == request.auth.uid ||
+         resource.data.dealerId == request.auth.uid ||
+         isAdmin());
+      allow create: if isSignedIn();
+      allow update: if isAdmin() ||
+        (isSignedIn() &&
+         (resource.data.customerId == request.auth.uid ||
+          resource.data.dealerId == request.auth.uid));
+      allow delete: if isAdmin();
+    }
+
+    // ============================================================
+    // NOTIFICATIONS
+    // ============================================================
+    match /notifications/{notifId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn();
+      allow update: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // ============================================================
+    // FEEDBACK
+    // ============================================================
+    match /feedback/{feedbackId} {
+      allow read: if isAdmin();
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // BUSINESS RULES (admin config)
+    // ============================================================
+    match /businessRules/{ruleId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ============================================================
+    // ADMIN SESSIONS (custom auth)
+    // ============================================================
+    match /adminSessions/{sessionId} {
+      allow read, write: if true;
+    }
+
+    // ============================================================
+    // VISITOR STATS
+    // ============================================================
+    match /visitorStats/{date} {
+      allow read: if isAdmin();
+      allow create, update: if true;
+    }
+
+    // ============================================================
+    // DEFAULT DENY
+    // ============================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
