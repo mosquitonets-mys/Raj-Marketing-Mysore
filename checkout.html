@@ -2,433 +2,308 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout - Raj Marketing Mysore</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/cart-checkout.css" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
-    <div id="header-placeholder"></div>
+<div id="header-placeholder"></div>
 
-    <main class="checkout-container">
+<main class="checkout-container">
+    <h1 style="font-size:24px;font-weight:900;color:#1f2937;margin-bottom:16px;">
+        <i class="fas fa-lock" style="color:#1a56db;"></i> Secure Checkout
+    </h1>
 
-        <div style="margin-bottom:20px;">
-            <h1 style="font-size:24px;font-weight:900;color:var(--highlight-grey);letter-spacing:-0.5px;display:flex;align-items:center;gap:10px;">
-                <i class="fas fa-lock" style="color:var(--royal-blue);"></i> Checkout
-            </h1>
-            <p style="font-size:13px;color:var(--muted-text);margin-top:4px;">
-                Complete your order in 3 easy steps
-            </p>
-        </div>
-
-        <!-- Step 1: Contact Info -->
-        <div class="checkout-step">
-            <div class="step-header">
-                <div class="step-number">1</div>
-                <div>
-                    <div class="step-title">Contact Information</div>
-                    <div class="step-subtitle">We'll use this to reach you</div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Full Name <span class="required">*</span></label>
-                    <input type="text" id="coName" required placeholder="Your full name" />
-                </div>
-                <div class="form-group">
-                    <label>Mobile <span class="required">*</span></label>
-                    <input type="tel" id="coMobile" required placeholder="10-digit number" maxlength="10" pattern="[0-9]{10}" />
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Email <span class="required">*</span></label>
-                    <input type="email" id="coEmail" required placeholder="your@email.com" />
-                </div>
-                <div class="form-group">
-                    <label>WhatsApp (Optional)</label>
-                    <input type="tel" id="coWhatsapp" placeholder="If different" maxlength="10" />
-                </div>
+    <!-- Step 1: Contact -->
+    <div class="checkout-step">
+        <div class="step-header">
+            <div class="step-number">1</div>
+            <div>
+                <div class="step-title">Contact Information</div>
+                <div class="step-subtitle">We'll use this to reach you</div>
             </div>
         </div>
-
-        <!-- Step 2: Delivery Address -->
-        <div class="checkout-step">
-            <div class="step-header">
-                <div class="step-number">2</div>
-                <div>
-                    <div class="step-title">Delivery Address</div>
-                    <div class="step-subtitle">Where should we install/deliver?</div>
-                </div>
-            </div>
-
+        <div class="form-row">
             <div class="form-group">
-                <label>Address <span class="required">*</span></label>
-                <textarea id="coAddress" required placeholder="House no, street, area..." rows="2"></textarea>
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" id="coName" required />
             </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>City <span class="required">*</span></label>
-                    <input type="text" id="coCity" required value="Mysore" />
-                </div>
-                <div class="form-group">
-                    <label>Pincode <span class="required">*</span></label>
-                    <input type="text" id="coPincode" required placeholder="570001" maxlength="6" pattern="[0-9]{6}" />
-                </div>
-            </div>
-
             <div class="form-group">
-                <label>Landmark (Optional)</label>
-                <input type="text" id="coLandmark" placeholder="Near..." />
+                <label>Mobile <span class="required">*</span></label>
+                <input type="tel" id="coMobile" required maxlength="10" />
             </div>
         </div>
-
-        <!-- Step 3: Payment Method -->
-        <div class="checkout-step">
-            <div class="step-header">
-                <div class="step-number">3</div>
-                <div>
-                    <div class="step-title">Payment Method</div>
-                    <div class="step-subtitle">How would you like to pay?</div>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" id="coEmail" required />
             </div>
-
-            <div class="payment-methods">
-                <div class="payment-option active" data-method="Advance 60%" onclick="selectPayment(this)">
-                    <div class="radio"></div>
-                    <div class="method-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                    <div class="method-info">
-                        <div class="method-name">Advance 60% + Balance on Delivery</div>
-                        <div class="method-desc">Pay 60% now, rest after installation</div>
-                    </div>
-                </div>
-
-                <div class="payment-option" data-method="Full Payment" onclick="selectPayment(this)">
-                    <div class="radio"></div>
-                    <div class="method-icon"><i class="fas fa-credit-card"></i></div>
-                    <div class="method-info">
-                        <div class="method-name">Full Payment</div>
-                        <div class="method-desc">Pay 100% now (get 2% extra discount)</div>
-                    </div>
-                </div>
-
-                <div class="payment-option" data-method="Cash on Delivery" onclick="selectPayment(this)">
-                    <div class="radio"></div>
-                    <div class="method-icon"><i class="fas fa-money-bill-wave"></i></div>
-                    <div class="method-info">
-                        <div class="method-name">Cash on Delivery</div>
-                        <div class="method-desc">Pay after installation (available in Mysore)</div>
-                    </div>
-                </div>
-
-                <div class="payment-option" data-method="UPI / Online" onclick="selectPayment(this)">
-                    <div class="radio"></div>
-                    <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <div class="method-info">
-                        <div class="method-name">UPI / Online Payment</div>
-                        <div class="method-desc">Google Pay, PhonePe, Paytm, UPI</div>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>WhatsApp (Optional)</label>
+                <input type="tel" id="coWhatsapp" maxlength="10" />
             </div>
-        </div>
-
-        <!-- Order Summary -->
-        <div class="checkout-step">
-            <div class="step-header">
-                <div class="step-number"><i class="fas fa-receipt"></i></div>
-                <div>
-                    <div class="step-title">Order Summary</div>
-                    <div class="step-subtitle" id="summaryCount">0 items</div>
-                </div>
-            </div>
-
-            <div class="order-summary" id="orderSummary"></div>
-        </div>
-
-        <!-- Notes -->
-        <div class="checkout-step">
-            <div class="form-group" style="margin-bottom:0;">
-                <label>Order Notes (Optional)</label>
-                <textarea id="coNotes" placeholder="Any special instructions..." rows="2"></textarea>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Place Order Bar -->
-    <div class="place-order-bar">
-        <div class="inner">
-            <div class="sticky-total">
-                <span class="label">Total Payable</span>
-                <span class="value" id="checkoutTotal">₹0</span>
-            </div>
-            <button class="btn-place-order" id="placeOrderBtn" onclick="placeOrder()">
-                <i class="fas fa-check-circle"></i> Place Order
-            </button>
         </div>
     </div>
 
-    <div id="footer-placeholder"></div>
+    <!-- Step 2: Address -->
+    <div class="checkout-step">
+        <div class="step-header">
+            <div class="step-number">2</div>
+            <div>
+                <div class="step-title">Delivery Address</div>
+                <div class="step-subtitle">Where should we deliver?</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Address <span class="required">*</span></label>
+            <textarea id="coAddress" required rows="2"></textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>City <span class="required">*</span></label>
+                <input type="text" id="coCity" required value="Mysore" />
+            </div>
+            <div class="form-group">
+                <label>Pincode <span class="required">*</span></label>
+                <input type="text" id="coPincode" required maxlength="6" />
+            </div>
+        </div>
+    </div>
 
-    <script src="js/header.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/cart-engine.js"></script>
+    <!-- Step 3: Payment -->
+    <div class="checkout-step">
+        <div class="step-header">
+            <div class="step-number">3</div>
+            <div>
+                <div class="step-title">Payment Method</div>
+                <div class="step-subtitle">Choose how to pay</div>
+            </div>
+        </div>
 
-    <script>
-    (function() {
-        'use strict';
-
-        let selectedPayment = 'Advance 60%';
-        let paymentDiscount = 0;
-
-        function init() {
-            const cart = CartEngine.getCart();
-            if (!cart.length) {
-                showToast('Your cart is empty', 'error');
-                setTimeout(() => window.location.href = 'cart.html', 1000);
-                return;
-            }
-
-            // Pre-fill from logged-in customer
-            prefillCustomer();
-
-            // Render summary
-            renderOrderSummary(cart);
-
-            // Update total
-            updateCheckoutTotal();
-        }
-
-        function prefillCustomer() {
-            try {
-                const user = JSON.parse(localStorage.getItem('raj_customer') || '{}');
-                if (user.name) document.getElementById('coName').value = user.name;
-                if (user.mobile) document.getElementById('coMobile').value = user.mobile;
-                if (user.email) document.getElementById('coEmail').value = user.email;
-                if (user.whatsapp) document.getElementById('coWhatsapp').value = user.whatsapp;
-                if (user.address) document.getElementById('coAddress').value = user.address;
-                if (user.city) document.getElementById('coCity').value = user.city;
-                if (user.pincode) document.getElementById('coPincode').value = user.pincode;
-            } catch (e) {}
-        }
-
-        function renderOrderSummary(cart) {
-            const container = document.getElementById('orderSummary');
-            document.getElementById('summaryCount').textContent = cart.length + ' item' + (cart.length !== 1 ? 's' : '');
-
-            const items = cart.map(item => {
-                const unitLabel = item.unit === 'cm' ? 'cm' : '"';
-                return `
-                    <div class="summary-item">
-                        <div class="name">
-                            ${item.productName}
-                            <small>${item.width}${unitLabel} × ${item.height}${unitLabel} · Qty ${item.qty}</small>
-                        </div>
-                        <div class="amount">${CartEngine.formatCurrency(item.totalPrice)}</div>
-                    </div>
-                `;
-            }).join('');
-
-            const totals = CartEngine.getTotals();
-
-            container.innerHTML = items + `
-                <div class="summary-item" style="border-top:1px solid var(--border);margin-top:8px;padding-top:12px;">
-                    <div class="name">Subtotal</div>
-                    <div class="amount">${CartEngine.formatCurrency(totals.subtotal)}</div>
+        <div class="payment-methods">
+            <div class="payment-option active" data-method="Advance 60%" onclick="selectPayment(this)">
+                <div class="radio"></div>
+                <div class="method-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <div class="method-info">
+                    <div class="method-name">Advance 60% + Balance on Delivery</div>
+                    <div class="method-desc">Pay 60% now, rest after installation</div>
                 </div>
-                <div class="summary-item">
-                    <div class="name">GST (18%)</div>
-                    <div class="amount">${CartEngine.formatCurrency(totals.gst)}</div>
+            </div>
+            <div class="payment-option" data-method="Full Payment" onclick="selectPayment(this)">
+                <div class="radio"></div>
+                <div class="method-icon"><i class="fas fa-credit-card"></i></div>
+                <div class="method-info">
+                    <div class="method-name">Full Payment (2% off)</div>
+                    <div class="method-desc">Pay 100% now, get 2% discount</div>
                 </div>
-                <div class="summary-total">
-                    <span class="label">Grand Total</span>
-                    <span class="value">${CartEngine.formatCurrency(totals.grandTotal)}</span>
-                </div>
-            `;
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="checkout-step">
+        <div class="step-header">
+            <div class="step-number"><i class="fas fa-receipt"></i></div>
+            <div>
+                <div class="step-title">Order Summary</div>
+                <div class="step-subtitle" id="summaryCount">0 items</div>
+            </div>
+        </div>
+        <div class="order-summary" id="orderSummary"></div>
+    </div>
+</main>
+
+<div class="place-order-bar">
+    <div class="inner">
+        <div class="sticky-total">
+            <span class="label">Total Payable</span>
+            <span class="value" id="checkoutTotal">₹0</span>
+        </div>
+        <button class="btn-place-order" id="placeOrderBtn" onclick="placeOrder()">
+            <i class="fas fa-lock"></i> Pay & Place Order
+        </button>
+    </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="js/header.js"></script>
+<script src="js/footer.js"></script>
+
+<script type="module">
+import { db, auth } from './firebase-config.js';
+import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { initiateRazorpayPayment } from './js/razorpay-checkout.js';
+import './js/cart-engine.js';
+
+let selectedPayment = 'Advance 60%';
+let paymentDiscount = 0;
+
+function init() {
+    const cart = window.CartEngine.getCart();
+    if (!cart.length) {
+        showToast('Cart is empty', 'error');
+        setTimeout(() => window.location.href = 'cart.html', 1000);
+        return;
+    }
+    prefillCustomer();
+    renderOrderSummary(cart);
+    updateCheckoutTotal();
+}
+
+function prefillCustomer() {
+    try {
+        const user = JSON.parse(localStorage.getItem('raj_customer') || '{}');
+        if (user.name) document.getElementById('coName').value = user.name;
+        if (user.mobile) document.getElementById('coMobile').value = user.mobile;
+        if (user.email) document.getElementById('coEmail').value = user.email;
+        if (user.address) document.getElementById('coAddress').value = user.address;
+        if (user.city) document.getElementById('coCity').value = user.city;
+    } catch (e) {}
+}
+
+function renderOrderSummary(cart) {
+    const container = document.getElementById('orderSummary');
+    document.getElementById('summaryCount').textContent = cart.length + ' items';
+
+    container.innerHTML = cart.map(item => `
+        <div class="summary-item">
+            <div class="name">${item.productName}<small>${item.width}${item.unit === 'cm' ? 'cm' : '"'} × ${item.height}${item.unit === 'cm' ? 'cm' : '"'} · Qty ${item.qty}</small></div>
+            <div class="amount">₹${Math.round(item.totalPrice).toLocaleString('en-IN')}</div>
+        </div>
+    `).join('') + `
+        <div class="summary-total">
+            <span class="label">Grand Total</span>
+            <span class="value">${window.CartEngine.formatCurrency(window.CartEngine.getTotals().grandTotal)}</span>
+        </div>
+    `;
+}
+
+window.selectPayment = function(el) {
+    document.querySelectorAll('.payment-option').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    selectedPayment = el.dataset.method;
+    paymentDiscount = selectedPayment === 'Full Payment' ? 2 : 0;
+    updateCheckoutTotal();
+};
+
+function updateCheckoutTotal() {
+    const totals = window.CartEngine.getTotals();
+    let final = totals.grandTotal;
+    if (paymentDiscount) final = final * (1 - paymentDiscount / 100);
+    document.getElementById('checkoutTotal').textContent = window.CartEngine.formatCurrency(final);
+}
+
+window.placeOrder = async function() {
+    const name = document.getElementById('coName').value.trim();
+    const mobile = document.getElementById('coMobile').value.trim();
+    const email = document.getElementById('coEmail').value.trim();
+    const address = document.getElementById('coAddress').value.trim();
+    const city = document.getElementById('coCity').value.trim();
+    const pincode = document.getElementById('coPincode').value.trim();
+
+    if (!name) { showToast('Enter name', 'error'); return; }
+    if (mobile.length !== 10) { showToast('Enter valid mobile', 'error'); return; }
+    if (!/^\S+@\S+\.\S+$/.test(email)) { showToast('Enter valid email', 'error'); return; }
+    if (!address) { showToast('Enter address', 'error'); return; }
+    if (pincode.length !== 6) { showToast('Enter valid pincode', 'error'); return; }
+
+    const cart = window.CartEngine.getCart();
+    if (!cart.length) { showToast('Cart is empty', 'error'); return; }
+
+    const totals = window.CartEngine.getTotals();
+    let finalTotal = totals.grandTotal;
+    if (paymentDiscount) finalTotal = finalTotal * (1 - paymentDiscount / 100);
+
+    // Advance amount
+    let advanceAmount = 0;
+    let balanceAmount = 0;
+    if (selectedPayment === 'Advance 60%') {
+        advanceAmount = finalTotal * 0.6;
+        balanceAmount = finalTotal * 0.4;
+    } else {
+        advanceAmount = finalTotal;
+        balanceAmount = 0;
+    }
+
+    const orderId = 'RM-ORD-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-6);
+    const uid = auth.currentUser?.uid || null;
+
+    // Save order to Firestore (PENDING)
+    const orderData = {
+        orderId,
+        customerId: uid,
+        customer: { name, mobile, email, address, city, pincode },
+        items: cart.map(i => ({ ...i })),
+        totals: {
+            subtotal: totals.subtotal,
+            gst: totals.gst,
+            grandTotal: finalTotal,
+            advanceAmount,
+            balanceAmount
+        },
+        status: 'PENDING',
+        paymentStatus: 'PENDING',
+        paymentMethod: selectedPayment,
+        timeline: [{
+            status: 'Order Placed',
+            time: new Date().toISOString(),
+            note: 'Awaiting payment'
+        }],
+        createdAt: serverTimestamp()
+    };
+
+    try {
+        await setDoc(doc(db, 'orders', orderId), orderData);
+
+        // Initiate Razorpay payment
+        showToast('Opening payment gateway...', 'info');
+
+        const result = await initiateRazorpayPayment({
+            orderId: orderId,
+            amount: advanceAmount, // Charge advance only
+            customer: { name, email, mobile },
+            description: 'Raj Marketing Order'
+        });
+
+        if (result.success) {
+            showToast('✅ Payment successful!', 'success');
+            await window.CartEngine.clearCart();
+            setTimeout(() => {
+                window.location.href = 'order-confirmation.html?id=' + orderId;
+            }, 800);
         }
+    } catch (error) {
+        console.error('Order error:', error);
+        showToast('❌ ' + error.message, 'error');
+        // Mark order as failed
+        try {
+            await setDoc(doc(db, 'orders', orderId), {
+                paymentStatus: 'FAILED',
+                failureReason: error.message
+            }, { merge: true });
+        } catch (e) {}
+    }
+};
 
-        window.selectPayment = function(el) {
-            document.querySelectorAll('.payment-option').forEach(p => p.classList.remove('active'));
-            el.classList.add('active');
-            selectedPayment = el.dataset.method;
+function showToast(msg, type = 'info') {
+    document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+    const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+    const t = document.createElement('div');
+    t.className = 'rm-toast';
+    t.textContent = msg;
+    t.style.background = colors[type] || colors.info;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 2500);
+}
 
-            // Apply discount for full payment
-            if (selectedPayment === 'Full Payment') {
-                paymentDiscount = 2;
-            } else {
-                paymentDiscount = 0;
-            }
+document.addEventListener('DOMContentLoaded', init);
+</script>
 
-            updateCheckoutTotal();
-        };
-
-        function updateCheckoutTotal() {
-            const totals = CartEngine.getTotals();
-            let finalTotal = totals.grandTotal;
-
-            if (paymentDiscount) {
-                finalTotal = finalTotal * (1 - paymentDiscount / 100);
-            }
-
-            document.getElementById('checkoutTotal').textContent = CartEngine.formatCurrency(finalTotal);
-        }
-
-        // ============================================================
-        // PLACE ORDER
-        // ============================================================
-        window.placeOrder = function() {
-            const name = document.getElementById('coName').value.trim();
-            const mobile = document.getElementById('coMobile').value.trim();
-            const email = document.getElementById('coEmail').value.trim();
-            const address = document.getElementById('coAddress').value.trim();
-            const city = document.getElementById('coCity').value.trim();
-            const pincode = document.getElementById('coPincode').value.trim();
-
-            // Validation
-            if (!name) { showToast('Please enter your name', 'error'); return; }
-            if (!mobile || mobile.length !== 10) { showToast('Please enter a valid 10-digit mobile', 'error'); return; }
-            if (!email || !/^\S+@\S+\.\S+$/.test(email)) { showToast('Please enter a valid email', 'error'); return; }
-            if (!address) { showToast('Please enter your address', 'error'); return; }
-            if (!city) { showToast('Please enter your city', 'error'); return; }
-            if (!pincode || pincode.length !== 6) { showToast('Please enter a valid 6-digit pincode', 'error'); return; }
-
-            const cart = CartEngine.getCart();
-            if (!cart.length) { showToast('Cart is empty', 'error'); return; }
-
-            // Generate order ID
-            const orderId = 'RM-ORD-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-6);
-
-            // Calculate totals
-            const totals = CartEngine.getTotals();
-            let finalTotal = totals.grandTotal;
-            if (paymentDiscount) {
-                finalTotal = finalTotal * (1 - paymentDiscount / 100);
-            }
-
-            // Advance amount
-            let advanceAmount = 0;
-            let balanceAmount = 0;
-
-            if (selectedPayment === 'Advance 60%') {
-                advanceAmount = finalTotal * 0.6;
-                balanceAmount = finalTotal * 0.4;
-            } else if (selectedPayment === 'Full Payment') {
-                advanceAmount = finalTotal;
-                balanceAmount = 0;
-            } else {
-                // COD or UPI
-                advanceAmount = 0;
-                balanceAmount = finalTotal;
-            }
-
-            // Build order object
-            const order = {
-                id: orderId,
-                orderId: orderId,
-                createdAt: new Date().toISOString(),
-                status: 'NEW',
-                paymentStatus: selectedPayment === 'Full Payment' ? 'PAID' : 'PENDING',
-                paymentMethod: selectedPayment,
-
-                customer: {
-                    name: name,
-                    mobile: mobile,
-                    email: email,
-                    whatsapp: document.getElementById('coWhatsapp').value.trim() || mobile,
-                    address: address,
-                    city: city,
-                    pincode: pincode,
-                    landmark: document.getElementById('coLandmark').value.trim()
-                },
-
-                items: cart.map(item => ({
-                    productId: item.productId,
-                    productName: item.productName,
-                    image: item.image,
-                    colour: item.colour,
-                    type: item.type,
-                    width: item.width,
-                    height: item.height,
-                    unit: item.unit,
-                    qty: item.qty,
-                    perUnitSqft: item.perUnitSqft,
-                    totalSqft: item.totalSqft,
-                    rate: item.rate,
-                    totalPrice: item.totalPrice
-                })),
-
-                totals: {
-                    itemCount: totals.itemCount,
-                    totalQty: totals.totalQty,
-                    totalSqft: totals.totalSqft,
-                    subtotal: totals.subtotal,
-                    gst: totals.gst,
-                    paymentDiscount: paymentDiscount,
-                    discountAmount: totals.grandTotal * (paymentDiscount / 100),
-                    grandTotal: finalTotal,
-                    advanceAmount: advanceAmount,
-                    balanceAmount: balanceAmount
-                },
-
-                notes: document.getElementById('coNotes').value.trim()
-            };
-
-            // Save to localStorage
-            try {
-                const orders = JSON.parse(localStorage.getItem('raj_orders') || '[]');
-                orders.push(order);
-                localStorage.setItem('raj_orders', JSON.stringify(orders));
-
-                // Also save to customer's order history if logged in
-                const user = JSON.parse(localStorage.getItem('raj_customer') || '{}');
-                if (user.id) {
-                    const custOrders = JSON.parse(localStorage.getItem('raj_customer_orders') || '[]');
-                    custOrders.push({ ...order, customerId: user.id });
-                    localStorage.setItem('raj_customer_orders', JSON.stringify(custOrders));
-                }
-
-                // Clear cart
-                CartEngine.clearCart();
-
-                // Show success
-                showToast('✅ Order placed successfully!', 'success');
-
-                // Redirect to confirmation
-                setTimeout(() => {
-                    window.location.href = 'order-confirmation.html?id=' + orderId;
-                }, 800);
-            } catch (e) {
-                console.error('Order save error:', e);
-                showToast('Failed to place order. Try again.', 'error');
-            }
-        };
-
-        // ============================================================
-        // TOAST
-        // ============================================================
-        function showToast(msg, type = 'info') {
-            document.querySelectorAll('.rm-toast').forEach(t => t.remove());
-            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
-            const t = document.createElement('div');
-            t.className = 'rm-toast';
-            t.textContent = msg;
-            t.style.background = colors[type] || colors.info;
-            document.body.appendChild(t);
-            requestAnimationFrame(() => t.classList.add('show'));
-            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 2500);
-        }
-
-        document.addEventListener('DOMContentLoaded', init);
-    })();
-    </script>
 </body>
-  </html>
+    </html>
