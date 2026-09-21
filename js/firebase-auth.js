@@ -8,14 +8,10 @@ import { auth, db } from '../firebase-config.js';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signInWithPhoneNumber,
     signOut,
     onAuthStateChanged,
     updateProfile,
-    sendPasswordResetEmail,
-    RecaptchaVerifier,
-    EmailAuthProvider,
-    reauthenticateWithCredential
+    sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import { doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { Customers, Dealers } from './firestore-service.js';
@@ -24,22 +20,15 @@ import { Customers, Dealers } from './firestore-service.js';
 // CUSTOMER AUTH
 // ============================================================
 const CustomerAuth = {
-    /**
-     * Register new customer
-     * @param {Object} data - { name, email, mobile, password, city, address }
-     */
     async register(data) {
         try {
-            // Create Firebase Auth user
             const userCredential = await createUserWithEmailAndPassword(
                 auth, data.email, data.password
             );
             const user = userCredential.user;
 
-            // Update display name
             await updateProfile(user, { displayName: data.name });
 
-            // Create Firestore profile
             await Customers.create(user.uid, {
                 uid: user.uid,
                 name: data.name,
@@ -53,25 +42,12 @@ const CustomerAuth = {
                 createdAt: serverTimestamp()
             });
 
-            // Send welcome notification
-            await db.collection('notifications').add({
-                type: 'customer_welcome',
-                title: 'Welcome to Raj Marketing!',
-                message: `Hi ${data.name}, thanks for joining. Get 10% off your first order!`,
-                userId: user.uid,
-                read: false,
-                createdAt: serverTimestamp()
-            });
-
             return { success: true, user };
         } catch (error) {
             return { success: false, error: mapAuthError(error) };
         }
     },
 
-    /**
-     * Login customer
-     */
     async login(email, password) {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -93,9 +69,6 @@ const CustomerAuth = {
         }
     },
 
-    /**
-     * Send password reset
-     */
     async resetPassword(email) {
         try {
             await sendPasswordResetEmail(auth, email);
@@ -105,33 +78,20 @@ const CustomerAuth = {
         }
     },
 
-    /**
-     * Logout
-     */
-    async logout() {
-        await signOut(auth);
-    },
+    logout: () => signOut(auth),
 
-    /**
-     * Get current customer profile
-     */
-    async getCurrentProfile() {
+    getCurrentProfile: async () => {
         const user = auth.currentUser;
         if (!user) return null;
         return Customers.get(user.uid);
     },
 
-    /**
-     * Update customer profile
-     */
     async updateProfile(updates) {
         const user = auth.currentUser;
         if (!user) return { success: false, error: 'Not logged in' };
 
         try {
-            if (updates.name) {
-                await updateProfile(user, { displayName: updates.name });
-            }
+            if (updates.name) await updateProfile(user, { displayName: updates.name });
             await Customers.update(user.uid, updates);
             return { success: true };
         } catch (error) {
@@ -144,9 +104,6 @@ const CustomerAuth = {
 // DEALER AUTH
 // ============================================================
 const DealerAuth = {
-    /**
-     * Register new dealer (status: Pending)
-     */
     async register(data) {
         try {
             const userCredential = await createUserWithEmailAndPassword(
@@ -156,7 +113,6 @@ const DealerAuth = {
 
             await updateProfile(user, { displayName: data.ownerName });
 
-            // Generate dealer ID
             const dealerId = 'DLR-' + String(Date.now()).slice(-6);
 
             await Dealers.create(user.uid, {
@@ -172,12 +128,11 @@ const DealerAuth = {
                 city: data.city,
                 pincode: data.pincode || '',
                 role: 'dealer',
-                status: 'Pending',      // ← Needs admin approval
+                status: 'Pending',
                 tier: 'Bronze',
                 createdAt: serverTimestamp()
             });
 
-            // Notify admin
             await db.collection('notifications').add({
                 type: 'dealer_registration',
                 title: 'New Dealer Application',
@@ -194,9 +149,6 @@ const DealerAuth = {
         }
     },
 
-    /**
-     * Login dealer
-     */
     async login(email, password) {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -207,7 +159,6 @@ const DealerAuth = {
                 return { success: false, error: 'Dealer profile not found.' };
             }
 
-            // Check status
             if (profile.status === 'Pending') {
                 await signOut(auth);
                 return {
@@ -237,20 +188,11 @@ const DealerAuth = {
         }
     },
 
-    async resetPassword(email) {
-        try {
-            await sendPasswordResetEmail(auth, email);
-            return { success: true };
-        } catch (error) {
-            return { success: false, error: mapAuthError(error) };
-        }
-    },
+    resetPassword: (email) => sendPasswordResetEmail(auth, email).then(() => ({ success: true })).catch(e => ({ success: false, error: mapAuthError(e) })),
 
-    async logout() {
-        await signOut(auth);
-    },
+    logout: () => signOut(auth),
 
-    async getCurrentProfile() {
+    getCurrentProfile: async () => {
         const user = auth.currentUser;
         if (!user) return null;
         return Dealers.get(user.uid);
@@ -258,20 +200,17 @@ const DealerAuth = {
 };
 
 // ============================================================
-// ADMIN AUTH (Custom — uses Firestore, not Firebase Auth)
+// ADMIN AUTH (Custom — uses Firestore)
 // ============================================================
 const AdminAuth = {
-    /**
-     * Step 1: Verify admin password
-     */
     async verifyPassword(password) {
         try {
-            const rules = await getDoc(doc(db, 'businessRules', 'adminAuth'));
-            if (!rules.exists()) {
+            const snap = await getDoc(doc(db, 'businessRules', 'adminAuth'));
+            if (!snap.exists()) {
                 return { success: false, error: 'Admin config not found' };
             }
 
-            const config = rules.data();
+            const config = snap.data();
             const hash = await sha256(password);
 
             if (hash !== config.passwordHash) {
@@ -284,12 +223,9 @@ const AdminAuth = {
         }
     },
 
-    /**
-     * Step 2: Generate and save OTP
-     */
     async generateOTP() {
         const otp = generateRandomOTP();
-        const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+        const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
         await setDoc(doc(db, 'adminSessions', 'current-otp'), {
             otp,
@@ -301,9 +237,6 @@ const AdminAuth = {
         return otp;
     },
 
-    /**
-     * Step 3: Verify OTP
-     */
     async verifyOTP(inputOTP) {
         try {
             const ref = doc(db, 'adminSessions', 'current-otp');
@@ -318,17 +251,15 @@ const AdminAuth = {
 
             await setDoc(ref, { used: true }, { merge: true });
 
-            // Create admin session
             const sessionId = 'ADMIN-' + Date.now();
             await setDoc(doc(db, 'adminSessions', sessionId), {
                 sessionId,
                 email: 'rajmarketingmys@gmail.com',
                 createdAt: serverTimestamp(),
-                expiresAt: new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString(), // 4 hours
+                expiresAt: new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString(),
                 active: true
             });
 
-            // Also cache in localStorage for offline
             localStorage.setItem('raj_admin_session', JSON.stringify({
                 sessionId,
                 email: 'rajmarketingmys@gmail.com',
@@ -341,9 +272,6 @@ const AdminAuth = {
         }
     },
 
-    /**
-     * Check if admin is logged in
-     */
     async checkSession() {
         try {
             const cached = JSON.parse(localStorage.getItem('raj_admin_session') || 'null');
@@ -353,7 +281,6 @@ const AdminAuth = {
                 return false;
             }
 
-            // Verify with Firestore
             const snap = await getDoc(doc(db, 'adminSessions', cached.sessionId));
             if (!snap.exists()) return false;
             const data = snap.data();
@@ -362,7 +289,6 @@ const AdminAuth = {
 
             return true;
         } catch (e) {
-            // Fallback to cached
             return false;
         }
     },
@@ -371,8 +297,7 @@ const AdminAuth = {
         try {
             const cached = JSON.parse(localStorage.getItem('raj_admin_session') || 'null');
             if (cached?.sessionId) {
-                await setDoc(doc(db, 'adminSessions', cached.sessionId),
-                    { active: false }, { merge: true });
+                await setDoc(doc(db, 'adminSessions', cached.sessionId), { active: false }, { merge: true });
             }
         } catch (e) {}
 
@@ -384,10 +309,6 @@ const AdminAuth = {
 // ============================================================
 // UNIFIED AUTH OBSERVER
 // ============================================================
-/**
- * Subscribe to auth state changes
- * @param {Function} callback - (user, profile, role) => void
- */
 function onAuthChange(callback) {
     return onAuthStateChanged(auth, async (user) => {
         if (!user) {
@@ -395,7 +316,6 @@ function onAuthChange(callback) {
             return;
         }
 
-        // Try to determine role
         let role = 'customer';
         let profile = null;
 
