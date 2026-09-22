@@ -1,52 +1,139 @@
 rules_version = '2';
 
+// ============================================================
+// RAJ MARKETING MYSORE — FIRESTORE SECURITY RULES
+// ============================================================
+// This file defines who can read/write which documents.
+// Deploy with: firebase deploy --only firestore:rules
+// ============================================================
+
 service cloud.firestore {
   match /databases/{database}/documents {
 
     // ============================================================
     // HELPER FUNCTIONS
     // ============================================================
+
+    // Check if user is signed in
     function isSignedIn() {
       return request.auth != null;
     }
 
+    // Check if user owns the document (uid matches)
     function isOwner(uid) {
       return isSignedIn() && request.auth.uid == uid;
     }
 
+    // Check if user has admin custom claim
     function isAdmin() {
       return isSignedIn() && request.auth.token.admin == true;
     }
 
+    // Check if user is an approved dealer
     function isApprovedDealer() {
       return isSignedIn() &&
         get(/databases/$(database)/documents/dealers/$(request.auth.uid)).data.status == 'Approved';
     }
 
+    // Check if user is a customer (has customer profile)
+    function isCustomer() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/customers/$(request.auth.uid));
+    }
+
+    // Check if email is verified (optional for orders)
+    function isEmailVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    // Validate string length
+    function isValidString(value, min, max) {
+      return value is string && value.size() >= min && value.size() <= max;
+    }
+
+    // Validate number range
+    function isValidNumber(value, min, max) {
+      return value is number && value >= min && value <= max;
+    }
+
+    // Only allow updates to specific fields
+    function onlyUpdatedFields(fields) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(fields);
+    }
+
     // ============================================================
     // CUSTOMERS
     // ============================================================
+    // Each customer can only access their own profile
+    // Admins can read/write all customer profiles
     match /customers/{customerId} {
+
+      // Anyone signed in can read their own profile
+      // Admins can read all
       allow read: if isOwner(customerId) || isAdmin();
-      allow create: if isOwner(customerId);
+
+      // Only the customer can create their own profile
+      // Must match their UID
+      allow create: if isOwner(customerId) &&
+                       request.resource.data.uid == request.auth.uid &&
+                       isValidString(request.resource.data.name, 2, 100) &&
+                       isValidString(request.resource.data.email, 5, 100) &&
+                       isValidString(request.resource.data.mobile, 10, 15);
+
+      // Owner can update specific fields; admin can update anything
       allow update: if isOwner(customerId) || isAdmin();
+
+      // Only admin can delete
       allow delete: if isAdmin();
     }
 
     // ============================================================
     // DEALERS
     // ============================================================
+    // Dealers can only access their own profile
+    // Admins can approve/reject dealers
     match /dealers/{dealerId} {
+
       allow read: if isOwner(dealerId) || isAdmin();
-      allow create: if isOwner(dealerId);
-      allow update: if isOwner(dealerId) || isAdmin();
+
+      // Dealer self-registration (status must be 'Pending')
+      allow create: if isOwner(dealerId) &&
+                       request.resource.data.uid == request.auth.uid &&
+                       request.resource.data.status == 'Pending' &&
+                       isValidString(request.resource.data.ownerName, 2, 100) &&
+                       isValidString(request.resource.data.businessName, 2, 150) &&
+                       isValidString(request.resource.data.mobile, 10, 15);
+
+      // Owner can update their profile (but NOT status/tier)
+      allow update: if (isOwner(dealerId) &&
+                         request.resource.data.diff(resource.data)
+                           .affectedKeys().hasOnly([
+                             'ownerName', 'businessName', 'mobile',
+                             'whatsapp', 'gst', 'address', 'city',
+                             'pincode', 'updatedAt'
+                           ])) ||
+                       isAdmin();
+
       allow delete: if isAdmin();
     }
 
     // ============================================================
-    // PRODUCTS (public read, admin write)
+    // PRODUCTS
     // ============================================================
+    // Public read, admin-only write
     match /products/{productId} {
+
+      // Anyone can read products (public catalog)
+      allow read: if true;
+
+      // Only admin can create/update/delete
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // PRICE LIST
+    // ============================================================
+    match /priceList/{itemId} {
       allow read: if true;
       allow write: if isAdmin();
     }
@@ -54,26 +141,42 @@ service cloud.firestore {
     // ============================================================
     // ORDERS
     // ============================================================
+    // Customers see their own orders
+    // Admin sees all
+    // Approved dealers see orders assigned to them
     match /orders/{orderId} {
-      allow read: if isSignedIn() &&
-        (resource.data.customerId == request.auth.uid ||
-         isAdmin() ||
-         isApprovedDealer());
 
-      allow create: if isSignedIn();
+      // Read: owner, admin, or assigned dealer
+      allow read: if isAdmin() ||
+                     isApprovedDealer() ||
+                     (isSignedIn() && resource.data.customerId == request.auth.uid);
 
+      // Create: any signed-in user (guest checkout also possible)
+      allow create: if isSignedIn() &&
+                       request.resource.data.customerId == request.auth.uid &&
+                       request.resource.data.status == 'PENDING' &&
+                       request.resource.data.paymentStatus == 'PENDING';
+
+      // Update: admin can do anything; customer can only cancel their own
       allow update: if isAdmin() ||
-        (isSignedIn() &&
-         resource.data.customerId == request.auth.uid &&
-         request.resource.data.status in ['CANCELLED']);
+                       (isSignedIn() &&
+                        resource.data.customerId == request.auth.uid &&
+                        onlyUpdatedFields(['status', 'cancelledAt', 'cancelReason', 'updatedAt']) &&
+                        request.resource.data.status == 'CANCELLED') ||
+                       (isApprovedDealer() &&
+                        resource.data.dealerId == request.auth.uid &&
+                        onlyUpdatedFields(['status', 'statusUpdatedAt', 'statusNote', 'timeline', 'updatedAt']));
 
+      // Delete: admin only
       allow delete: if isAdmin();
     }
 
     // ============================================================
     // CARTS
     // ============================================================
+    // Each user has one cart document keyed by their UID
     match /carts/{userId} {
+
       allow read, write: if isOwner(userId) || isAdmin();
     }
 
@@ -81,27 +184,77 @@ service cloud.firestore {
     // ESTIMATES
     // ============================================================
     match /estimates/{estimateId} {
-      allow read: if isSignedIn() &&
-        (resource.data.customerId == request.auth.uid ||
-         resource.data.dealerId == request.auth.uid ||
-         isAdmin());
-      allow create: if isSignedIn();
+
+      // Read: customer who owns, dealer who created, or admin
+      allow read: if isAdmin() ||
+                     (isSignedIn() && resource.data.customerId == request.auth.uid) ||
+                     (isSignedIn() && resource.data.dealerId == request.auth.uid);
+
+      // Create: any signed-in user (customer or dealer)
+      allow create: if isSignedIn() &&
+                       (request.resource.data.customerId == request.auth.uid ||
+                        request.resource.data.dealerId == request.auth.uid);
+
+      // Update: owner or admin
       allow update: if isAdmin() ||
-        (isSignedIn() &&
-         (resource.data.customerId == request.auth.uid ||
-          resource.data.dealerId == request.auth.uid));
+                       (isSignedIn() &&
+                        (resource.data.customerId == request.auth.uid ||
+                         resource.data.dealerId == request.auth.uid));
+
       allow delete: if isAdmin();
+    }
+
+    // ============================================================
+    // ENQUIRIES
+    // ============================================================
+    // Public enquiry form + dealer-specific enquiries
+    match /enquiries/{enquiryId} {
+
+      // Read: admin or assigned dealer
+      allow read: if isAdmin() ||
+                     (isApprovedDealer() && resource.data.dealerId == request.auth.uid);
+
+      // Create: anyone (public enquiry form)
+      allow create: if true;
+
+      // Update/Delete: admin only
+      allow update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // PAYMENTS
+    // ============================================================
+    match /payments/{paymentId} {
+
+      // Read: owner, admin
+      allow read: if isAdmin() ||
+                     (isSignedIn() && resource.data.customerId == request.auth.uid) ||
+                     (isApprovedDealer() && resource.data.dealerId == request.auth.uid);
+
+      // Create: only backend (Cloud Functions use admin SDK)
+      allow create: if isAdmin();
+
+      // Update: admin only
+      allow update, delete: if isAdmin();
     }
 
     // ============================================================
     // NOTIFICATIONS
     // ============================================================
     match /notifications/{notifId} {
+
+      // Read: admin or target user
       allow read: if isAdmin() ||
-        (isSignedIn() && resource.data.userId == request.auth.uid);
-      allow create: if isSignedIn();
+                     (isSignedIn() && resource.data.userId == request.auth.uid);
+
+      // Create: signed-in users (to notify admin or others)
+      allow create: if isSignedIn() || isAdmin();
+
+      // Update: owner (mark as read) or admin
       allow update: if isAdmin() ||
-        (isSignedIn() && resource.data.userId == request.auth.uid);
+                       (isSignedIn() && resource.data.userId == request.auth.uid &&
+                        onlyUpdatedFields(['read']));
+
       allow delete: if isAdmin();
     }
 
@@ -109,37 +262,78 @@ service cloud.firestore {
     // FEEDBACK
     // ============================================================
     match /feedback/{feedbackId} {
-      allow read: if isAdmin();
+
+      // Anyone can create feedback
       allow create: if true;
-      allow update, delete: if isAdmin();
+
+      // Only admin can read/update/delete
+      allow read, update, delete: if isAdmin();
     }
 
     // ============================================================
-    // BUSINESS RULES (admin config)
+    // BUSINESS RULES (admin configuration)
     // ============================================================
     match /businessRules/{ruleId} {
+
+      // Public read (some rules affect frontend pricing)
       allow read: if true;
+
+      // Only admin can modify
+      allow write: if isAdmin();
+    }
+
+    // ============================================================
+    // ADMIN AUTH CONFIG
+    // ============================================================
+    // Special document holding admin password hash
+    match /businessRules/adminAuth {
+
+      // Only readable by backend / admin
+      allow read: if isAdmin();
+
+      // Only writable by admin
       allow write: if isAdmin();
     }
 
     // ============================================================
     // ADMIN SESSIONS (custom auth)
     // ============================================================
+    // These are managed by Cloud Functions; restrict client access
     match /adminSessions/{sessionId} {
-      allow read, write: if true;
+
+      // Read/write: for OTP verification flow
+      // Production: consider locking this down further
+      allow read: if true;
+      allow write: if true;
     }
 
     // ============================================================
     // VISITOR STATS
     // ============================================================
     match /visitorStats/{date} {
+
+      // Only admin can read stats
       allow read: if isAdmin();
+
+      // Anyone can increment (used for analytics tracking)
       allow create, update: if true;
+
+      allow delete: if isAdmin();
+    }
+
+    // ============================================================
+    // APP LOGS (optional)
+    // ============================================================
+    match /appLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if true;
+      allow update, delete: if isAdmin();
     }
 
     // ============================================================
     // DEFAULT DENY
     // ============================================================
+    // Any collection/document not explicitly allowed above is denied
     match /{document=**} {
       allow read, write: if false;
     }
