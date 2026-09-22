@@ -503,5 +503,5 @@ import { Products as FirestoreProducts } from './firestore-service.js';
         init();
     }
 
-    console.log('%c✅ Product Detail Engine (Firestore) loaded', 'color:#1a56db;font-weight:bold;');
+     console.log('%c✅ Product Detail Engine (Firestore) loaded', 'color:#1a56db;font-weight:bold;');
 })();
