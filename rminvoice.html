@@ -1269,3 +1269,444 @@ function numberToWords(num) {
     return w.trim() + ' ONLY';
 }
    
+/* ============================================================
+   INIT
+============================================================ */
+function init() {
+    loadStoredData();
+    setDefaultDates();
+    updateInvoiceNumber();
+    addProductRow();
+    addRMRow('22¾', '45½', 1);
+    addRMRow('35½', '59', 2);
+    document.querySelectorAll('#panel-invoice input, #panel-invoice select')
+        .forEach(el => el.addEventListener('change', () => {
+            saveBusinessData();
+            calculateAll();
+        }));
+    calculateAll();
+    console.log('%c📄 Invoice System Ready', 'color:#1a56db;font-weight:bold;');
+}
+
+function setDefaultDates() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('invDate').value = today;
+    const due = new Date();
+    due.setDate(due.getDate() + 15);
+    document.getElementById('invDueDate').value = due.toISOString().split('T')[0];
+}
+
+function updateInvoiceNumber() {
+    const prefix = settingsData.prefix || 'RMM/2026-27/';
+    const next = settingsData.nextNum || 1;
+    document.getElementById('invNumber').value = prefix + String(next).padStart(4, '0');
+}
+
+/* ============================================================
+   STORAGE
+============================================================ */
+function loadStoredData() {
+    try {
+        businessData = JSON.parse(localStorage.getItem(STORAGE.business) || '{}');
+        settingsData = JSON.parse(localStorage.getItem(STORAGE.settings) || '{}');
+        signatureData = localStorage.getItem(STORAGE.signature) || '';
+        logoData = localStorage.getItem(STORAGE.logo) || '';
+        Object.entries(businessData).forEach(([k, v]) => {
+            const el = document.getElementById(k);
+            if (el) el.value = v;
+        });
+        if (settingsData.prefix) document.getElementById('setPrefix').value = settingsData.prefix;
+        if (settingsData.nextNum) document.getElementById('setNextNum').value = settingsData.nextNum;
+        if (settingsData.defaultGst) document.getElementById('setDefaultGst').value = settingsData.defaultGst;
+        if (settingsData.terms) document.getElementById('setTerms').value = settingsData.terms;
+    } catch (e) {}
+}
+
+function saveBusinessData() {
+    const fields = ['bizName','bizAddress','bizMobile','bizEmail','bizGstin','bizState',
+                    'bizStateCode','bizPan','bizBank','bizAccount','bizIfsc','bizUpi'];
+    businessData = {};
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) businessData[id] = el.value;
+    });
+    try { localStorage.setItem(STORAGE.business, JSON.stringify(businessData)); } catch (e) {}
+}
+
+function saveSettings() {
+    settingsData = {
+        prefix: document.getElementById('setPrefix').value,
+        nextNum: parseInt(document.getElementById('setNextNum').value) || 1,
+        defaultGst: parseInt(document.getElementById('setDefaultGst').value) || 18,
+        terms: document.getElementById('setTerms').value
+    };
+    localStorage.setItem(STORAGE.settings, JSON.stringify(settingsData));
+    showToast('Settings saved', 'success');
+}
+
+function handleLogoUpload(input) {
+    const f = input.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = (e) => {
+        logoData = e.target.result;
+        try { localStorage.setItem(STORAGE.logo, logoData); } catch (err) {}
+        showToast('Logo uploaded', 'success');
+    };
+    r.readAsDataURL(f);
+}
+
+/* ============================================================
+   PANEL NAVIGATION
+============================================================ */
+function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    document.querySelectorAll('.dash-btn').forEach(b => b.classList.remove('active'));
+    const map = { invoice: 0, history: 1, rawmaterial: 2, settings: 3 };
+    const btns = document.querySelectorAll('.dash-btn');
+    if (btns[map[name]]) btns[map[name]].classList.add('active');
+    if (name === 'history') renderHistory();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   PRODUCT ROWS
+============================================================ */
+function addProductRow(product = '', hsn = '', width = '', height = '', qty = 1, unit = 'Sq.ft.', rate = 0) {
+    const body = document.getElementById('productBody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td class="row-num"></td>
+        <td><input class="p-name" placeholder="Product name" value="${escapeHtml(product)}"></td>
+        <td><input class="p-hsn" placeholder="HSN" value="${escapeHtml(hsn)}"></td>
+        <td><input class="p-w" type="number" min="0" step="0.01" value="${width}" oninput="calculateAll()"></td>
+        <td><input class="p-h" type="number" min="0" step="0.01" value="${height}" oninput="calculateAll()"></td>
+        <td><input class="p-qty" type="number" min="1" value="${qty}" oninput="calculateAll()"></td>
+        <td>
+            <select class="p-unit" onchange="calculateAll()">
+                <option value="Sq.ft." ${unit === 'Sq.ft.' ? 'selected' : ''}>Sq.ft.</option>
+                <option value="Piece" ${unit === 'Piece' ? 'selected' : ''}>Piece</option>
+                <option value="Length" ${unit === 'Length' ? 'selected' : ''}>Length</option>
+                <option value="Kg" ${unit === 'Kg' ? 'selected' : ''}>Kg</option>
+                <option value="Meter" ${unit === 'Meter' ? 'selected' : ''}>Meter</option>
+            </select>
+        </td>
+        <td class="calc-value p-sqft-cell">0.00</td>
+        <td><input class="p-rate" type="number" min="0" step="0.01" value="${rate}" oninput="calculateAll()"></td>
+        <td class="total-value p-total-cell">₹0.00</td>
+        <td><button class="btn btn-danger" onclick="this.closest('tr').remove(); updateProductRows(); calculateAll();"><i class="fas fa-times"></i></button></td>
+    `;
+    body.appendChild(row);
+    updateProductRows();
+    calculateAll();
+}
+
+function updateProductRows() {
+    const rows = document.querySelectorAll('#productBody tr');
+    rows.forEach((r, i) => r.querySelector('.row-num').textContent = i + 1);
+    document.getElementById('productCountBadge').textContent = rows.length + ' item' + (rows.length !== 1 ? 's' : '');
+}
+
+function loadSampleProducts() {
+    document.getElementById('productBody').innerHTML = '';
+    addProductRow('Aluminium Frame - Ivory', '7610', 24, 48, 2, 'Sq.ft.', 255);
+    addProductRow('Stainless Steel Mesh', '7314', 24, 48, 2, 'Sq.ft.', 19.5);
+    addProductRow('Corner Pieces', '7616', '', '', 8, 'Piece', 3.75);
+    showToast('Sample products loaded', 'success');
+}
+
+/* ============================================================
+   CALCULATE ALL
+============================================================ */
+function calculateAll() {
+    const rows = document.querySelectorAll('#productBody tr');
+    let totalQty = 0, totalSqft = 0, subtotal = 0;
+
+    rows.forEach(row => {
+        const width = parseFloat(row.querySelector('.p-w').value) || 0;
+        const height = parseFloat(row.querySelector('.p-h').value) || 0;
+        const qty = parseFloat(row.querySelector('.p-qty').value) || 0;
+        const unit = row.querySelector('.p-unit').value;
+        const rate = parseFloat(row.querySelector('.p-rate').value) || 0;
+
+        let displayQty, lineTotal;
+        if (unit === 'Sq.ft.' && width > 0 && height > 0) {
+            const sqft = (width * height * qty) / 144;
+            row.querySelector('.p-sqft-cell').textContent = formatNumber(sqft, 2);
+            lineTotal = sqft * rate;
+            totalSqft += sqft;
+            totalQty += sqft;
+        } else {
+            const effQty = qty || 0;
+            row.querySelector('.p-sqft-cell').textContent = formatNumber(effQty, 2);
+            lineTotal = effQty * rate;
+            totalQty += effQty;
+        }
+        row.querySelector('.p-total-cell').textContent = formatCurrency(lineTotal);
+        subtotal += lineTotal;
+    });
+
+    const taxType = document.getElementById('taxType').value;
+    const gstRate = parseFloat(document.getElementById('gstRate').value) || 0;
+
+    let cgst = 0, sgst = 0, igst = 0, totalGst = 0;
+    if (taxType === 'cgst_sgst') {
+        cgst = (subtotal * gstRate) / 200;
+        sgst = (subtotal * gstRate) / 200;
+        totalGst = cgst + sgst;
+    } else if (taxType === 'igst') {
+        igst = (subtotal * gstRate) / 100;
+        totalGst = igst;
+    }
+    const grandTotal = subtotal + totalGst;
+
+    document.getElementById('sumProducts').textContent = rows.length;
+    document.getElementById('sumQty').textContent = formatNumber(totalQty, 2);
+    document.getElementById('sumSqft').textContent = formatNumber(totalSqft, 2);
+    document.getElementById('sumSubtotal').textContent = formatCurrency(subtotal);
+    document.getElementById('sumGst').textContent = formatCurrency(totalGst);
+    document.getElementById('sumGrandTotal').textContent = formatCurrency(grandTotal);
+
+    calculateRawMaterial();
+
+    return { rows: rows.length, totalQty, totalSqft, subtotal, cgst, sgst, igst, totalGst, grandTotal, taxType, gstRate };
+}
+
+/* ============================================================
+   RAW MATERIAL
+============================================================ */
+function parseMeasurement(value) {
+    if (!value && value !== 0) return 0;
+    let s = String(value).trim()
+        .replace(/¼/g, ' 1/4').replace(/½/g, ' 1/2').replace(/¾/g, ' 3/4')
+        .replace(/⅛/g, ' 1/8').replace(/⅜/g, ' 3/8')
+        .replace(/⅝/g, ' 5/8').replace(/⅞/g, ' 7/8')
+        .replace(/-/g, ' ');
+    const parts = s.split(/\s+/).filter(Boolean);
+    if (parts.length === 1 && parts[0].includes('/')) {
+        const p = parts[0].split('/');
+        return Number(p[0]) / Number(p[1]);
+    }
+    if (parts.length >= 2) {
+        const whole = Number(parts[0]);
+        if (parts[1].includes('/')) {
+            const f = parts[1].split('/');
+            return whole + Number(f[0]) / Number(f[1]);
+        }
+    }
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+}
+function getMiddlePieces(h) {
+    if (h <= 36) return 1;
+    if (h <= 60) return 2;
+    return 3;
+}
+function selectMeshRoll(w, qty) {
+    const dw = w * 2;
+    let rw;
+    if (Math.abs(w - 20) < 0.001 && qty === 3) rw = 60;
+    else if (w < 19) rw = 36;
+    else if (w <= 25) rw = 48;
+    else rw = 60;
+    let wastage = rw - dw;
+    if (wastage < 0) wastage = 0;
+    return { rollWidth: rw, widthWastage: wastage };
+}
+function calculateMesh(w, h, qty) {
+    const r = selectMeshRoll(w, qty);
+    const req = (w * h * qty) / 144;
+    const wsq = (r.widthWastage * h) / 144;
+    const wsqTotal = wsq * qty;
+    return { requiredSqft: req, totalWastageSqft: wsqTotal, totalConsumedSqft: req + wsqTotal };
+}
+function addRMRow(w = '', h = '', qty = 1, red = 1.5) {
+    const body = document.getElementById('rmProductBody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td class="rm-num"></td>
+        <td><input class="rm-name" value="Aluminium Frame"></td>
+        <td><input class="rm-w" value="${escapeHtml(w)}" oninput="calculateAll()"></td>
+        <td><input class="rm-h" value="${escapeHtml(h)}" oninput="calculateAll()"></td>
+        <td><input class="rm-qty" type="number" min="1" value="${qty}" oninput="calculateAll()"></td>
+        <td><input class="rm-red" type="number" min="0" step="0.25" value="${red}" oninput="calculateAll()"></td>
+        <td class="rm-alu">0 ft</td>
+        <td class="rm-mesh">0 sq.ft</td>
+        <td><button class="btn btn-danger" onclick="this.closest('tr').remove(); calculateAll();"><i class="fas fa-times"></i></button></td>
+    `;
+    body.appendChild(row);
+    updateRMRows();
+    calculateAll();
+}
+function updateRMRows() {
+    document.querySelectorAll('#rmProductBody tr').forEach((r, i) => r.querySelector('.rm-num').textContent = i + 1);
+}
+function loadRMSample() {
+    document.getElementById('rmProductBody').innerHTML = '';
+    addRMRow('22¾', '45½', 1, 1.5);
+    addRMRow('35½', '59', 2, 1.5);
+    addRMRow('48', '72', 1, 1.5);
+    showToast('Sample loaded', 'success');
+}
+function calculateRawMaterial() {
+    const rows = document.querySelectorAll('#rmProductBody tr');
+    const aluRate = parseFloat(document.getElementById('rmAluRate').value) || 0;
+    const meshRate = parseFloat(document.getElementById('rmMeshRate').value) || 0;
+    const cornerRate = parseFloat(document.getElementById('rmCornerRate').value) || 0;
+
+    let totalFrames = 0, totalAluIn = 0, totalMeshSqft = 0, totalMeshCons = 0, totalCorners = 0;
+
+    rows.forEach(row => {
+        const w = parseMeasurement(row.querySelector('.rm-w').value);
+        const h = parseMeasurement(row.querySelector('.rm-h').value);
+        const qty = parseFloat(row.querySelector('.rm-qty').value) || 0;
+        const red = parseFloat(row.querySelector('.rm-red').value) || 1.5;
+        if (w <= 0 || h <= 0 || qty <= 0) return;
+
+        const fw = Math.max(0, w - red);
+        const fh = Math.max(0, h - red);
+        const mp = getMiddlePieces(h);
+        const aluFrame = (fw * 2) + (fh * 2) + (fw * mp);
+        const aluTotal = aluFrame * qty;
+        totalAluIn += aluTotal;
+
+        const mesh = calculateMesh(w, h, qty);
+        totalMeshSqft += mesh.requiredSqft;
+        totalMeshCons += mesh.totalConsumedSqft;
+        totalCorners += 4 * qty;
+        totalFrames += qty;
+
+        row.querySelector('.rm-alu').textContent = formatNumber(aluTotal / 12, 2) + ' ft';
+        row.querySelector('.rm-mesh').textContent = formatNumber(mesh.totalConsumedSqft, 2) + ' sq.ft';
+    });
+
+    const aluFeet = totalAluIn / 12;
+    const aluLengths = Math.ceil(aluFeet / 12);
+    const aluCost = aluLengths * aluRate;
+    const meshCost = totalMeshCons * meshRate;
+    const cornerCost = totalCorners * cornerRate;
+    const totalCost = aluCost + meshCost + cornerCost;
+
+    document.getElementById('rmFrames').textContent = totalFrames;
+    document.getElementById('rmAluFeet').textContent = formatNumber(aluFeet, 2) + ' ft';
+    document.getElementById('rmAluLengths').textContent = aluLengths;
+    document.getElementById('rmMeshSqft').textContent = formatNumber(totalMeshSqft, 2) + ' sq.ft';
+    document.getElementById('rmMeshConsumed').textContent = formatNumber(totalMeshCons, 2) + ' sq.ft';
+    document.getElementById('rmAluCost').textContent = formatCurrency(aluCost);
+    document.getElementById('rmMeshCost').textContent = formatCurrency(meshCost);
+    document.getElementById('rmCornerCost').textContent = formatCurrency(cornerCost);
+    document.getElementById('rmTotalCost').textContent = formatCurrency(totalCost);
+
+    return { totalFrames, aluFeet, aluLengths, totalMeshSqft, totalMeshCons, aluCost, meshCost, cornerCost, totalCost };
+}
+function transferRawMaterialToInvoice() {
+    const rm = calculateRawMaterial();
+    const aluRate = parseFloat(document.getElementById('rmAluRate').value) || 0;
+    const meshRate = parseFloat(document.getElementById('rmMeshRate').value) || 0;
+    const cornerRate = parseFloat(document.getElementById('rmCornerRate').value) || 0;
+
+    document.getElementById('productBody').innerHTML = '';
+    addProductRow('Aluminium Frame (12 ft lengths)', '7610', '', '', rm.aluLengths, 'Length', aluRate);
+    addProductRow('Stainless Steel Mesh', '7314', '', '', Math.round(rm.totalMeshCons * 100) / 100, 'Sq.ft.', meshRate);
+    addProductRow('Corner Pieces', '7616', '', '', Math.round(rm.totalFrames * 4), 'Piece', cornerRate);
+
+    showPanel('invoice');
+    calculateAll();
+    showToast('Raw material transferred', 'success');
+}
+
+/* ============================================================
+   CALCULATE & PREVIEW
+============================================================ */
+function calculateAndPreview() {
+    const data = collectInvoiceData();
+    if (!validateInvoice(data)) return;
+    const totals = calculateAll();
+    currentInvoiceData = { ...data, ...totals };
+    renderInvoicePreview(currentInvoiceData);
+    showPanel('preview');
+    showToast('Invoice calculated', 'success');
+}
+
+function collectInvoiceData() {
+    return {
+        invoiceNumber: document.getElementById('invNumber').value,
+        invoiceDate: document.getElementById('invDate').value,
+        placeOfSupply: document.getElementById('invPlaceOfSupply').value,
+        paymentTerms: document.getElementById('invPaymentTerms').value,
+        dueDate: document.getElementById('invDueDate').value,
+        reverseCharge: document.getElementById('invReverseCharge').value,
+        taxType: document.getElementById('taxType').value,
+        gstRate: parseFloat(document.getElementById('gstRate').value) || 0,
+        business: {
+            name: document.getElementById('bizName').value,
+            address: document.getElementById('bizAddress').value,
+            mobile: document.getElementById('bizMobile').value,
+            email: document.getElementById('bizEmail').value,
+            gstin: document.getElementById('bizGstin').value,
+            state: document.getElementById('bizState').value,
+            stateCode: document.getElementById('bizStateCode').value,
+            pan: document.getElementById('bizPan').value,
+            bank: document.getElementById('bizBank').value,
+            account: document.getElementById('bizAccount').value,
+            ifsc: document.getElementById('bizIfsc').value,
+            upi: document.getElementById('bizUpi').value
+        },
+        customer: {
+            name: document.getElementById('custName').value,
+            mobile: document.getElementById('custMobile').value,
+            email: document.getElementById('custEmail').value,
+            gstin: document.getElementById('custGstin').value,
+            address: document.getElementById('custAddress').value,
+            state: document.getElementById('custState').value,
+            stateCode: document.getElementById('custStateCode').value
+        },
+        products: collectProducts(),
+        terms: document.getElementById('setTerms').value
+    };
+}
+
+function collectProducts() {
+    const rows = document.querySelectorAll('#productBody tr');
+    const out = [];
+    rows.forEach(row => {
+        const name = row.querySelector('.p-name').value.trim();
+        if (!name) return;
+        const hsn = row.querySelector('.p-hsn').value.trim();
+        const w = parseFloat(row.querySelector('.p-w').value) || 0;
+        const h = parseFloat(row.querySelector('.p-h').value) || 0;
+        const qty = parseFloat(row.querySelector('.p-qty').value) || 0;
+        const unit = row.querySelector('.p-unit').value;
+        const rate = parseFloat(row.querySelector('.p-rate').value) || 0;
+
+        let displayQty, total, sqft = 0;
+        if (unit === 'Sq.ft.' && w > 0 && h > 0) {
+            sqft = (w * h * qty) / 144;
+            displayQty = sqft;
+            total = sqft * rate;
+        } else {
+            displayQty = qty;
+            total = qty * rate;
+        }
+        out.push({ name, hsn, width: w, height: h, qty, unit, rate, displayQty, sqft, total });
+    });
+    return out;
+}
+
+function validateInvoice(data) {
+    const errs = [];
+    if (!data.invoiceNumber.trim()) errs.push('Invoice Number is required');
+    if (!data.invoiceDate) errs.push('Invoice Date is required');
+    if (!data.business.name.trim()) errs.push('Business Name is required');
+    if (!data.business.address.trim()) errs.push('Business Address is required');
+    if (data.products.length === 0) errs.push('At least one product is required');
+    data.products.forEach((p, i) => {
+        if (p.qty < 0) errs.push(`Product ${i + 1}: Quantity cannot be negative`);
+        if (p.rate < 0) errs.push(`Product ${i + 1}: Rate cannot be negative`);
+    });
+    if (errs.length) { showToast(errs[0], 'error'); return false; }
+    return true;
+}
+
+/* ============================================================
+   RENDER PREVIEW (Screen
