@@ -1833,4 +1833,296 @@ function calculateAll() {
     document.getElementById('sumQty').textContent = formatNumber(totalQty, 2);
     document.getElementById('sumSqft').textContent = formatNumber(totalSqft, 2);
     document.getElementById('sumSubtotal').textContent = formatCurrency(subtotal);
-    document.getElementById('sumGst').textConte
+    document.getElementById('sumGst').textContent = formatCurrency(totalGst);
+    document.getElementById('sumGrandTotal').textContent = formatCurrency(grandTotal);
+
+    // Raw material panel
+    calculateRawMaterial();
+
+    return {
+        rows: rows.length,
+        totalQty,
+        totalSqft,
+        subtotal,
+        cgst, sgst, igst,
+        totalGst,
+        grandTotal,
+        taxType,
+        gstRate
+    };
+}
+
+/* ============================================================
+   RAW MATERIAL CALCULATION
+============================================================ */
+function parseMeasurement(value) {
+    if (!value && value !== 0) return 0;
+    let s = String(value).trim()
+        .replace(/¼/g, ' 1/4').replace(/½/g, ' 1/2').replace(/¾/g, ' 3/4')
+        .replace(/⅛/g, ' 1/8').replace(/⅜/g, ' 3/8')
+        .replace(/⅝/g, ' 5/8').replace(/⅞/g, ' 7/8')
+        .replace(/-/g, ' ');
+    const parts = s.split(/\s+/).filter(Boolean);
+    if (parts.length === 1 && parts[0].includes('/')) {
+        const p = parts[0].split('/');
+        return Number(p[0]) / Number(p[1]);
+    }
+    if (parts.length >= 2) {
+        const whole = Number(parts[0]);
+        if (parts[1].includes('/')) {
+            const f = parts[1].split('/');
+            return whole + Number(f[0]) / Number(f[1]);
+        }
+    }
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+}
+
+function getMiddlePieces(height) {
+    if (height <= 36) return 1;
+    if (height <= 60) return 2;
+    return 3;
+}
+
+function selectMeshRoll(width, qty) {
+    const doubleWidth = width * 2;
+    let rollWidth;
+    if (Math.abs(width - 20) < 0.001 && qty === 3) rollWidth = 60;
+    else if (width < 19) rollWidth = 36;
+    else if (width <= 25) rollWidth = 48;
+    else rollWidth = 60;
+    let wastage = rollWidth - doubleWidth;
+    if (wastage < 0) wastage = 0;
+    return { rollWidth, widthWastage: wastage };
+}
+
+function calculateMesh(width, height, qty) {
+    const roll = selectMeshRoll(width, qty);
+    const requiredSqft = (width * height * qty) / 144;
+    const wastageSqftPerQty = (roll.widthWastage * height) / 144;
+    const totalWastageSqft = wastageSqftPerQty * qty;
+    const totalConsumedSqft = requiredSqft + totalWastageSqft;
+    return { requiredSqft, totalWastageSqft, totalConsumedSqft };
+}
+
+function addRMRow(width = '', height = '', qty = 1, reduction = 1.5) {
+    const body = document.getElementById('rmProductBody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td class="rm-num"></td>
+        <td><input class="rm-name" value="Aluminium Frame"></td>
+        <td><input class="rm-w" value="${escapeHtml(width)}" oninput="calculateAll()"></td>
+        <td><input class="rm-h" value="${escapeHtml(height)}" oninput="calculateAll()"></td>
+        <td><input class="rm-qty" type="number" min="1" value="${qty}" oninput="calculateAll()"></td>
+        <td><input class="rm-red" type="number" min="0" step="0.25" value="${reduction}" oninput="calculateAll()"></td>
+        <td class="rm-alu">0 ft</td>
+        <td class="rm-mesh">0 sq.ft</td>
+        <td><button class="btn btn-danger" onclick="this.closest('tr').remove(); calculateAll();"><i class="fas fa-times"></i></button></td>
+    `;
+    body.appendChild(row);
+    updateRMRows();
+    calculateAll();
+}
+
+function updateRMRows() {
+    document.querySelectorAll('#rmProductBody tr').forEach((r, i) => {
+        r.querySelector('.rm-num').textContent = i + 1;
+    });
+}
+
+function loadRMSample() {
+    document.getElementById('rmProductBody').innerHTML = '';
+    addRMRow('22¾', '45½', 1, 1.5);
+    addRMRow('35½', '59', 2, 1.5);
+    addRMRow('48', '72', 1, 1.5);
+    showToast('Sample raw material loaded', 'success');
+}
+
+function calculateRawMaterial() {
+    const rows = document.querySelectorAll('#rmProductBody tr');
+    const aluRate = parseFloat(document.getElementById('rmAluRate').value) || 0;
+    const meshRate = parseFloat(document.getElementById('rmMeshRate').value) || 0;
+    const cornerRate = parseFloat(document.getElementById('rmCornerRate').value) || 0;
+
+    let totalFrames = 0;
+    let totalAluInches = 0;
+    let totalMeshSqft = 0;
+    let totalMeshConsumed = 0;
+    let totalCorners = 0;
+
+    rows.forEach(row => {
+        const width = parseMeasurement(row.querySelector('.rm-w').value);
+        const height = parseMeasurement(row.querySelector('.rm-h').value);
+        const qty = parseFloat(row.querySelector('.rm-qty').value) || 0;
+        const reduction = parseFloat(row.querySelector('.rm-red').value) || 1.5;
+
+        if (width <= 0 || height <= 0 || qty <= 0) return;
+
+        const frameW = Math.max(0, width - reduction);
+        const frameH = Math.max(0, height - reduction);
+        const middlePieces = getMiddlePieces(height);
+
+        const aluPerFrame = (frameW * 2) + (frameH * 2) + (frameW * middlePieces);
+        const aluTotal = aluPerFrame * qty;
+
+        totalAluInches += aluTotal;
+
+        const mesh = calculateMesh(width, height, qty);
+        totalMeshSqft += mesh.requiredSqft;
+        totalMeshConsumed += mesh.totalConsumedSqft;
+
+        totalCorners += 4 * qty;
+        totalFrames += qty;
+
+        row.querySelector('.rm-alu').textContent = formatNumber(aluTotal / 12, 2) + ' ft';
+        row.querySelector('.rm-mesh').textContent = formatNumber(mesh.totalConsumedSqft, 2) + ' sq.ft';
+    });
+
+    const aluFeet = totalAluInches / 12;
+    const aluLengths = Math.ceil(aluFeet / 12);
+    const aluCost = aluLengths * aluRate;
+    const meshCost = totalMeshConsumed * meshRate;
+    const cornerCost = totalCorners * cornerRate;
+    const totalCost = aluCost + meshCost + cornerCost;
+
+    document.getElementById('rmFrames').textContent = totalFrames;
+    document.getElementById('rmAluFeet').textContent = formatNumber(aluFeet, 2) + ' ft';
+    document.getElementById('rmAluLengths').textContent = aluLengths;
+    document.getElementById('rmMeshSqft').textContent = formatNumber(totalMeshSqft, 2) + ' sq.ft';
+    document.getElementById('rmMeshConsumed').textContent = formatNumber(totalMeshConsumed, 2) + ' sq.ft';
+    document.getElementById('rmAluCost').textContent = formatCurrency(aluCost);
+    document.getElementById('rmMeshCost').textContent = formatCurrency(meshCost);
+    document.getElementById('rmCornerCost').textContent = formatCurrency(cornerCost);
+    document.getElementById('rmTotalCost').textContent = formatCurrency(totalCost);
+
+    return { totalFrames, aluFeet, aluLengths, totalMeshSqft, totalMeshConsumed, aluCost, meshCost, cornerCost, totalCost };
+}
+
+function transferRawMaterialToInvoice() {
+    const rm = calculateRawMaterial();
+    const aluRate = parseFloat(document.getElementById('rmAluRate').value) || 0;
+    const meshRate = parseFloat(document.getElementById('rmMeshRate').value) || 0;
+    const cornerRate = parseFloat(document.getElementById('rmCornerRate').value) || 0;
+
+    document.getElementById('productBody').innerHTML = '';
+
+    addProductRow('Aluminium Frame (12 ft lengths)', '7610', '', '', rm.aluLengths, 'Length', aluRate);
+    addProductRow('Stainless Steel Mesh', '7314', '', '', Math.round(rm.totalMeshConsumed * 100) / 100, 'Sq.ft.', meshRate);
+    addProductRow('Corner Pieces', '7616', '', '', Math.round(rm.totalFrames * 4), 'Piece', cornerRate);
+
+    showPanel('invoice');
+    calculateAll();
+    showToast('Raw material transferred to invoice', 'success');
+}
+
+/* ============================================================
+   CALCULATE AND PREVIEW
+============================================================ */
+function calculateAndPreview() {
+    const invoiceData = collectInvoiceData();
+
+    if (!validateInvoice(invoiceData)) return;
+
+    const totals = calculateAll();
+    currentInvoiceData = { ...invoiceData, ...totals };
+
+    renderInvoicePreview(currentInvoiceData);
+    showPanel('preview');
+    showToast('Invoice calculated', 'success');
+}
+
+function collectInvoiceData() {
+    return {
+        invoiceNumber: document.getElementById('invNumber').value,
+        invoiceDate: document.getElementById('invDate').value,
+        placeOfSupply: document.getElementById('invPlaceOfSupply').value,
+        paymentTerms: document.getElementById('invPaymentTerms').value,
+        dueDate: document.getElementById('invDueDate').value,
+        reverseCharge: document.getElementById('invReverseCharge').value,
+        taxType: document.getElementById('taxType').value,
+        gstRate: parseFloat(document.getElementById('gstRate').value) || 0,
+
+        business: {
+            name: document.getElementById('bizName').value,
+            address: document.getElementById('bizAddress').value,
+            mobile: document.getElementById('bizMobile').value,
+            email: document.getElementById('bizEmail').value,
+            gstin: document.getElementById('bizGstin').value,
+            state: document.getElementById('bizState').value,
+            stateCode: document.getElementById('bizStateCode').value,
+            pan: document.getElementById('bizPan').value,
+            bank: document.getElementById('bizBank').value,
+            account: document.getElementById('bizAccount').value,
+            ifsc: document.getElementById('bizIfsc').value,
+            upi: document.getElementById('bizUpi').value
+        },
+
+        customer: {
+            name: document.getElementById('custName').value,
+            mobile: document.getElementById('custMobile').value,
+            email: document.getElementById('custEmail').value,
+            gstin: document.getElementById('custGstin').value,
+            address: document.getElementById('custAddress').value,
+            state: document.getElementById('custState').value,
+            stateCode: document.getElementById('custStateCode').value
+        },
+
+        products: collectProducts(),
+        terms: document.getElementById('setTerms').value
+    };
+}
+
+function collectProducts() {
+    const rows = document.querySelectorAll('#productBody tr');
+    const products = [];
+
+    rows.forEach(row => {
+        const name = row.querySelector('.p-name').value.trim();
+        if (!name) return;
+
+        const hsn = row.querySelector('.p-hsn').value.trim();
+        const width = parseFloat(row.querySelector('.p-w').value) || 0;
+        const height = parseFloat(row.querySelector('.p-h').value) || 0;
+        const qty = parseFloat(row.querySelector('.p-qty').value) || 0;
+        const unit = row.querySelector('.p-unit').value;
+        const rate = parseFloat(row.querySelector('.p-rate').value) || 0;
+
+        let displayQty, total, sqft = 0;
+
+        if (unit === 'Sq.ft.' && width > 0 && height > 0) {
+            sqft = (width * height * qty) / 144;
+            displayQty = sqft;
+            total = sqft * rate;
+        } else {
+            displayQty = qty;
+            total = qty * rate;
+        }
+
+        products.push({ name, hsn, width, height, qty, unit, rate, displayQty, sqft, total });
+    });
+
+    return products;
+}
+
+function validateInvoice(data) {
+    const errors = [];
+
+    if (!data.invoiceNumber.trim()) errors.push('Invoice Number is required');
+    if (!data.invoiceDate) errors.push('Invoice Date is required');
+    if (!data.business.name.trim()) errors.push('Business Name is required');
+    if (!data.business.address.trim()) errors.push('Business Address is required');
+    if (data.products.length === 0) errors.push('At least one product is required');
+
+    data.products.forEach((p, i) => {
+        if (p.qty < 0) errors.push(`Product ${i + 1}: Quantity cannot be negative`);
+        if (p.rate < 0) errors.push(`Product ${i + 1}: Rate cannot be negative`);
+    });
+
+    if (errors.length) {
+        showToast(errors[0], 'error');
+        return false;
+    }
+    return true;
+}
+
+/*
