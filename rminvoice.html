@@ -1316,4 +1316,521 @@ td .total-value {
                             <th style="width:80px;">Aluminium ft</th>
                             <th style="width:80px;">Mesh Sq.ft</th>
                             <th style="width:50px;"></th>
-                     
+                                             </tr>
+                    </thead>
+                    <tbody id="rmProductBody"></tbody>
+                </table>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="addRMRow()">
+                    <i class="fas fa-plus"></i> Add Row
+                </button>
+                <button class="btn btn-success" onclick="calculateAll()">
+                    <i class="fas fa-calculator"></i> Calculate
+                </button>
+                <button class="btn btn-warning" onclick="loadRMSample()">
+                    <i class="fas fa-flask"></i> Load Sample
+                </button>
+            </div>
+        </div>
+
+        <!-- RAW MATERIAL RESULT -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-clipboard-list"></i> Raw Material Requirement
+            </div>
+
+            <div class="summary-grid">
+                <div class="summary-box">
+                    <div class="label">Total Frames</div>
+                    <div class="value" id="rmFrames">0</div>
+                </div>
+                <div class="summary-box">
+                    <div class="label">Aluminium Required</div>
+                    <div class="value" id="rmAluFeet">0 ft</div>
+                </div>
+                <div class="summary-box">
+                    <div class="label">12 ft Lengths</div>
+                    <div class="value" id="rmAluLengths">0</div>
+                </div>
+                <div class="summary-box">
+                    <div class="label">Mesh Required</div>
+                    <div class="value" id="rmMeshSqft">0 sq.ft</div>
+                </div>
+                <div class="summary-box">
+                    <div class="label">Mesh Consumed</div>
+                    <div class="value" id="rmMeshConsumed">0 sq.ft</div>
+                </div>
+                <div class="summary-box green">
+                    <div class="label">Aluminium Cost</div>
+                    <div class="value" id="rmAluCost">₹0.00</div>
+                </div>
+                <div class="summary-box green">
+                    <div class="label">Mesh Cost</div>
+                    <div class="value" id="rmMeshCost">₹0.00</div>
+                </div>
+                <div class="summary-box green">
+                    <div class="label">Corners Cost</div>
+                    <div class="value" id="rmCornerCost">₹0.00</div>
+                </div>
+                <div class="summary-box navy">
+                    <div class="label">Total Material Cost</div>
+                    <div class="value" id="rmTotalCost">₹0.00</div>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="transferRawMaterialToInvoice()">
+                    <i class="fas fa-arrow-right"></i> Transfer to Invoice
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+         PANEL 5: SETTINGS
+    ============================================================ -->
+    <div class="panel" id="panel-settings">
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-cog"></i> Invoice Settings
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Invoice Prefix</label>
+                    <input type="text" id="setPrefix" value="RMM/2026-27/">
+                </div>
+                <div class="form-group">
+                    <label>Next Number</label>
+                    <input type="number" id="setNextNum" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label>Default GST (%)</label>
+                    <input type="number" id="setDefaultGst" value="18">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top:12px;">
+                <label>Default Terms &amp; Conditions</label>
+                <textarea id="setTerms" rows="6">1. Goods once sold will be subject to the applicable business return policy.
+2. Measurements and specifications supplied by the customer are subject to confirmation.
+3. Payment terms are as mentioned in the invoice.
+4. Taxes are charged as applicable.
+5. Any dispute shall be subject to the applicable jurisdiction.
+6. This invoice is computer generated unless digitally signed.</textarea>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-success" onclick="saveSettings()">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ============================================================
+     SIGNATURE MODAL
+============================================================ -->
+<div class="modal-overlay no-print" id="signatureModal">
+    <div class="modal-box">
+        <h3><i class="fas fa-signature"></i> Upload Signature</h3>
+        <div class="form-group" style="margin-bottom:14px;">
+            <label>Signature Image (PNG with transparency recommended)</label>
+            <input type="file" id="signatureFile" accept="image/*" onchange="handleSignatureUpload(this)">
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-light" onclick="closeModal('signatureModal')">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+/* ============================================================
+   RAJ MARKETING MYSORE — INVOICE + RAW MATERIAL SYSTEM
+   Complete JavaScript Engine
+============================================================ */
+(function() {
+'use strict';
+
+const STORAGE = {
+    business: 'raj_business_details_v1',
+    settings: 'raj_invoice_settings_v1',
+    invoices: 'raj_invoices_v1',
+    signature: 'raj_signature_v1',
+    logo: 'raj_logo_v1'
+};
+
+let businessData = {};
+let settingsData = {};
+let signatureData = '';
+let logoData = '';
+let currentInvoiceData = null;
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+function formatCurrency(value) {
+    const n = Number(value) || 0;
+    return '₹' + n.toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+function formatNumber(value, decimals = 2) {
+    return Number(value || 0).toLocaleString('en-IN', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+    });
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    try {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    } catch (e) { return dateStr; }
+}
+
+function escapeHtml(str) {
+    if (!str && str !== 0) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function showToast(msg, type = 'info') {
+    document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+    const colors = {
+        success: 'linear-gradient(145deg,#059669,#047857)',
+        error: 'linear-gradient(145deg,#dc2626,#b91c1c)',
+        warning: 'linear-gradient(145deg,#f59e0b,#d97706)',
+        info: 'linear-gradient(145deg,#1a56db,#0d47a1)'
+    };
+    const t = document.createElement('div');
+    t.className = 'rm-toast';
+    t.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+    t.style.background = colors[type] || colors.info;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => {
+        t.classList.remove('show');
+        setTimeout(() => t.remove(), 300);
+    }, 3000);
+}
+
+function openModal(id) {
+    document.getElementById(id).classList.add('active');
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+}
+
+/* ============================================================
+   NUMBER TO WORDS (Indian)
+============================================================ */
+function numberToWords(num) {
+    const n = Math.floor(Number(num) || 0);
+    const paise = Math.round(((Number(num) || 0) - n) * 100);
+
+    if (n === 0 && paise === 0) return 'RUPEES ZERO ONLY';
+
+    const a = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE',
+        'TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN',
+        'SEVENTEEN', 'EIGHTEEN', 'NINETEEN'];
+    const b = ['', '', 'TWENTY', 'THIRTY', 'FORTY', 'FIFTY', 'SIXTY', 'SEVENTY', 'EIGHTY', 'NINETY'];
+
+    function toWords(x) {
+        if (x === 0) return '';
+        if (x < 20) return a[x];
+        if (x < 100) return b[Math.floor(x / 10)] + (x % 10 ? ' ' + a[x % 10] : '');
+        if (x < 1000) return a[Math.floor(x / 100)] + ' HUNDRED' + (x % 100 ? ' ' + toWords(x % 100) : '');
+        return '';
+    }
+
+    function toIndian(x) {
+        if (x === 0) return '';
+        const crore = Math.floor(x / 10000000);
+        const lakh = Math.floor((x % 10000000) / 100000);
+        const thousand = Math.floor((x % 100000) / 1000);
+        const hundred = x % 1000;
+        let out = [];
+        if (crore > 0) out.push(toWords(crore) + ' CRORE');
+        if (lakh > 0) out.push(toWords(lakh) + ' LAKH');
+        if (thousand > 0) out.push(toWords(thousand) + ' THOUSAND');
+        if (hundred > 0) out.push(toWords(hundred));
+        return out.join(' ');
+    }
+
+    let words = 'RUPEES ' + toIndian(n);
+    if (paise > 0) words += ' AND ' + toWords(paise) + ' PAISE';
+    return words.trim() + ' ONLY';
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+function init() {
+    loadStoredData();
+    setDefaultDates();
+    updateInvoiceNumber();
+
+    // Add first product row
+    addProductRow();
+
+    // Load raw material default rows
+    addRMRow('22¾', '45½', 1);
+    addRMRow('35½', '59', 2);
+
+    // Attach auto-save listeners
+    document.querySelectorAll('#panel-invoice input, #panel-invoice select, #panel-invoice textarea')
+        .forEach(el => {
+            el.addEventListener('change', () => {
+                saveBusinessData();
+                calculateAll();
+            });
+        });
+
+    // Initial calculations
+    calculateAll();
+
+    console.log('%c📄 Invoice System Ready', 'color:#1a56db;font-weight:bold;');
+}
+
+function setDefaultDates() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('invDate').value = today;
+
+    const due = new Date();
+    due.setDate(due.getDate() + 15);
+    document.getElementById('invDueDate').value = due.toISOString().split('T')[0];
+}
+
+function updateInvoiceNumber() {
+    const prefix = settingsData.prefix || 'RMM/2026-27/';
+    const next = settingsData.nextNum || 1;
+    const num = prefix + String(next).padStart(4, '0');
+    document.getElementById('invNumber').value = num;
+}
+
+/* ============================================================
+   STORAGE
+============================================================ */
+function loadStoredData() {
+    try {
+        businessData = JSON.parse(localStorage.getItem(STORAGE.business) || '{}');
+        settingsData = JSON.parse(localStorage.getItem(STORAGE.settings) || '{}');
+        signatureData = localStorage.getItem(STORAGE.signature) || '';
+        logoData = localStorage.getItem(STORAGE.logo) || '';
+
+        // Fill business fields
+        Object.entries(businessData).forEach(([key, val]) => {
+            const el = document.getElementById(key);
+            if (el) el.value = val;
+        });
+
+        // Apply settings
+        if (settingsData.prefix) document.getElementById('setPrefix').value = settingsData.prefix;
+        if (settingsData.nextNum) document.getElementById('setNextNum').value = settingsData.nextNum;
+        if (settingsData.defaultGst) document.getElementById('setDefaultGst').value = settingsData.defaultGst;
+        if (settingsData.terms) document.getElementById('setTerms').value = settingsData.terms;
+    } catch (e) {
+        console.warn('Storage load error:', e);
+    }
+}
+
+function saveBusinessData() {
+    const fields = ['bizName','bizAddress','bizMobile','bizEmail','bizGstin','bizState',
+                    'bizStateCode','bizPan','bizBank','bizAccount','bizIfsc','bizUpi'];
+    businessData = {};
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) businessData[id] = el.value;
+    });
+    try {
+        localStorage.setItem(STORAGE.business, JSON.stringify(businessData));
+    } catch (e) {}
+}
+
+function saveSettings() {
+    settingsData = {
+        prefix: document.getElementById('setPrefix').value,
+        nextNum: parseInt(document.getElementById('setNextNum').value) || 1,
+        defaultGst: parseInt(document.getElementById('setDefaultGst').value) || 18,
+        terms: document.getElementById('setTerms').value
+    };
+    try {
+        localStorage.setItem(STORAGE.settings, JSON.stringify(settingsData));
+        showToast('Settings saved successfully', 'success');
+    } catch (e) {
+        showToast('Failed to save settings', 'error');
+    }
+}
+
+function handleLogoUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        logoData = e.target.result;
+        try {
+            localStorage.setItem(STORAGE.logo, logoData);
+        } catch (err) {
+            showToast('Logo too large', 'warning');
+        }
+        showToast('Logo uploaded', 'success');
+    };
+    reader.readAsDataURL(file);
+}
+
+function handleSignatureUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        signatureData = e.target.result;
+        try {
+            localStorage.setItem(STORAGE.signature, signatureData);
+        } catch (err) {}
+        closeModal('signatureModal');
+        showToast('Signature saved', 'success');
+    };
+    reader.readAsDataURL(file);
+}
+
+/* ============================================================
+   PANEL NAVIGATION
+============================================================ */
+function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+
+    document.querySelectorAll('.dash-btn').forEach(b => b.classList.remove('active'));
+    const btnMap = {
+        invoice: 0, history: 1, rawmaterial: 2, settings: 3
+    };
+    const btns = document.querySelectorAll('.dash-btn');
+    if (btns[btnMap[name]]) btns[btnMap[name]].classList.add('active');
+
+    if (name === 'history') renderHistory();
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   PRODUCT ROW MANAGEMENT
+============================================================ */
+function addProductRow(product = '', hsn = '', width = '', height = '', qty = 1, unit = 'Sq.ft.', rate = 0) {
+    const body = document.getElementById('productBody');
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+        <td class="row-num"></td>
+        <td><input class="p-name" placeholder="Product name" value="${escapeHtml(product)}"></td>
+        <td><input class="p-hsn" placeholder="HSN" value="${escapeHtml(hsn)}"></td>
+        <td><input class="p-w" type="number" min="0" step="0.01" value="${width}" oninput="calculateAll()"></td>
+        <td><input class="p-h" type="number" min="0" step="0.01" value="${height}" oninput="calculateAll()"></td>
+        <td><input class="p-qty" type="number" min="1" value="${qty}" oninput="calculateAll()"></td>
+        <td>
+            <select class="p-unit" onchange="calculateAll()">
+                <option value="Sq.ft." ${unit === 'Sq.ft.' ? 'selected' : ''}>Sq.ft.</option>
+                <option value="Piece" ${unit === 'Piece' ? 'selected' : ''}>Piece</option>
+                <option value="Length" ${unit === 'Length' ? 'selected' : ''}>Length</option>
+                <option value="Kg" ${unit === 'Kg' ? 'selected' : ''}>Kg</option>
+                <option value="Meter" ${unit === 'Meter' ? 'selected' : ''}>Meter</option>
+            </select>
+        </td>
+        <td class="calc-value p-sqft-cell">0.00</td>
+        <td><input class="p-rate" type="number" min="0" step="0.01" value="${rate}" oninput="calculateAll()"></td>
+        <td class="total-value p-total-cell">₹0.00</td>
+        <td><button class="btn btn-danger" onclick="this.closest('tr').remove(); updateProductRows(); calculateAll();"><i class="fas fa-times"></i></button></td>
+    `;
+
+    body.appendChild(row);
+    row.querySelectorAll('input').forEach(i => i.addEventListener('change', saveBusinessData));
+    updateProductRows();
+    calculateAll();
+}
+
+function updateProductRows() {
+    const rows = document.querySelectorAll('#productBody tr');
+    rows.forEach((r, i) => {
+        r.querySelector('.row-num').textContent = i + 1;
+    });
+    document.getElementById('productCountBadge').textContent = rows.length + ' item' + (rows.length !== 1 ? 's' : '');
+}
+
+function loadSampleProducts() {
+    document.getElementById('productBody').innerHTML = '';
+    addProductRow('Aluminium Frame - Ivory', '7610', 24, 48, 2, 'Sq.ft.', 255);
+    addProductRow('Stainless Steel Mesh', '7314', 24, 48, 2, 'Sq.ft.', 19.5);
+    addProductRow('Corner Pieces', '7616', '', '', 8, 'Piece', 3.75);
+    showToast('Sample products loaded', 'success');
+}
+
+/* ============================================================
+   CALCULATE ALL
+============================================================ */
+function calculateAll() {
+    const rows = document.querySelectorAll('#productBody tr');
+    let totalQty = 0, totalSqft = 0, subtotal = 0;
+
+    rows.forEach(row => {
+        const width = parseFloat(row.querySelector('.p-w').value) || 0;
+        const height = parseFloat(row.querySelector('.p-h').value) || 0;
+        const qty = parseFloat(row.querySelector('.p-qty').value) || 0;
+        const unit = row.querySelector('.p-unit').value;
+        const rate = parseFloat(row.querySelector('.p-rate').value) || 0;
+
+        let displayQty, lineTotal;
+
+        if (unit === 'Sq.ft.' && width > 0 && height > 0) {
+            // Sq.ft. calculation
+            const sqft = (width * height * qty) / 144;
+            row.querySelector('.p-sqft-cell').textContent = formatNumber(sqft, 2);
+            lineTotal = sqft * rate;
+            totalSqft += sqft;
+            totalQty += sqft;
+        } else {
+            // Direct quantity
+            const effectiveQty = qty || 0;
+            row.querySelector('.p-sqft-cell').textContent = formatNumber(effectiveQty, 2);
+            lineTotal = effectiveQty * rate;
+            totalQty += effectiveQty;
+        }
+
+        row.querySelector('.p-total-cell').textContent = formatCurrency(lineTotal);
+        subtotal += lineTotal;
+    });
+
+    // GST
+    const taxType = document.getElementById('taxType').value;
+    const gstRate = parseFloat(document.getElementById('gstRate').value) || 0;
+
+    let cgst = 0, sgst = 0, igst = 0, totalGst = 0;
+    if (taxType === 'cgst_sgst') {
+        cgst = (subtotal * gstRate) / 200;
+        sgst = (subtotal * gstRate) / 200;
+        totalGst = cgst + sgst;
+    } else if (taxType === 'igst') {
+        igst = (subtotal * gstRate) / 100;
+        totalGst = igst;
+    }
+
+    const grandTotal = subtotal + totalGst;
+
+    // Update summary
+    document.getElementById('sumProducts').textContent = rows.length;
+    document.getElementById('sumQty').textContent = formatNumber(totalQty, 2);
+    document.getElementById('sumSqft').textContent = formatNumber(totalSqft, 2);
+    document.getElementById('sumSubtotal').textContent = formatCurrency(subtotal);
+    document.getElementById('sumGst').textConte
