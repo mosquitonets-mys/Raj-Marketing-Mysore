@@ -2631,4 +2631,225 @@ function downloadPDF() {
     showToast('PDF downloaded successfully', 'success');
 }
 
-/* =========================
+
+/* ============================================================
+   WHATSAPP SHARE
+============================================================ */
+function shareWhatsApp() {
+    if (!currentInvoiceData) {
+        showToast('Please calculate invoice first', 'warning');
+        return;
+    }
+
+    const data = currentInvoiceData;
+    const message = `*${data.business.name || 'RAJ MARKETING MYSORE'}*
+
+*TAX INVOICE*
+
+Invoice No: ${data.invoiceNumber}
+Invoice Date: ${formatDate(data.invoiceDate)}
+Customer: ${data.customer.name || 'Cash Customer'}
+Grand Total: ${formatCurrency(data.grandTotal)}
+
+Items: ${data.products.length}
+Subtotal: ${formatCurrency(data.subtotal)}
+GST: ${formatCurrency(data.totalGst)}
+
+Thank you for your business!`;
+
+    const encoded = encodeURIComponent(message);
+
+    // Try native share first (mobile)
+    if (navigator.share) {
+        navigator.share({
+            title: `Invoice ${data.invoiceNumber}`,
+            text: message
+        }).catch(() => {
+            window.open(`https://wa.me/?text=${encoded}`, '_blank');
+        });
+    } else {
+        window.open(`https://wa.me/?text=${encoded}`, '_blank');
+    }
+
+    showToast('Opening WhatsApp...', 'info');
+}
+
+/* ============================================================
+   SAVE INVOICE
+============================================================ */
+function saveInvoice() {
+    if (!currentInvoiceData) {
+        showToast('Please calculate invoice first', 'warning');
+        return;
+    }
+
+    try {
+        const invoices = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
+        const existing = invoices.findIndex(i => i.invoiceNumber === currentInvoiceData.invoiceNumber);
+
+        const record = {
+            ...currentInvoiceData,
+            savedAt: new Date().toISOString(),
+            status: 'SAVED'
+        };
+
+        if (existing >= 0) {
+            invoices[existing] = record;
+        } else {
+            invoices.push(record);
+        }
+
+        localStorage.setItem(STORAGE.invoices, JSON.stringify(invoices));
+
+        // Increment next invoice number
+        settingsData.nextNum = (settingsData.nextNum || 1) + 1;
+        localStorage.setItem(STORAGE.settings, JSON.stringify(settingsData));
+        document.getElementById('setNextNum').value = settingsData.nextNum;
+
+        showToast('Invoice saved successfully', 'success');
+    } catch (e) {
+        showToast('Failed to save: ' + e.message, 'error');
+    }
+}
+
+function renderHistory() {
+    const container = document.getElementById('historyList');
+    let invoices = [];
+    try {
+        invoices = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
+    } catch (e) {}
+
+    const query = (document.getElementById('historySearch')?.value || '').toLowerCase().trim();
+
+    if (query) {
+        invoices = invoices.filter(i =>
+            (i.invoiceNumber || '').toLowerCase().includes(query) ||
+            (i.customer?.name || '').toLowerCase().includes(query) ||
+            (i.invoiceDate || '').includes(query)
+        );
+    }
+
+    document.getElementById('historyCount').textContent = invoices.length + ' invoice' + (invoices.length !== 1 ? 's' : '');
+
+    if (!invoices.length) {
+        container.innerHTML = `
+            <div style="text-align:center;padding:40px;color:var(--text-muted);">
+                <i class="fas fa-inbox" style="font-size:48px;opacity:0.3;display:block;margin-bottom:12px;"></i>
+                <p>No invoices yet. Create your first invoice!</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = invoices.slice().reverse().map(inv => `
+        <div style="background:var(--bg-light);border-radius:var(--radius);padding:14px;margin-bottom:10px;border-left:4px solid var(--primary);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;">
+            <div style="flex:1;min-width:200px;">
+                <div style="font-weight:900;font-size:14px;color:var(--navy);">${escapeHtml(inv.invoiceNumber)}</div>
+                <div style="font-size:12px;color:var(--text-muted);font-weight:600;">
+                    ${formatDate(inv.invoiceDate)} · ${escapeHtml(inv.customer?.name || 'Cash Customer')}
+                </div>
+            </div>
+            <div style="font-size:18px;font-weight:900;color:var(--primary);">
+                ${formatCurrency(inv.grandTotal)}
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button class="btn btn-primary" style="padding:6px 12px;font-size:11px;" onclick="viewInvoice('${escapeHtml(inv.invoiceNumber)}')">
+                    <i class="fas fa-eye"></i> View
+                </button>
+                <button class="btn btn-danger" style="padding:6px 12px;font-size:11px;" onclick="deleteInvoice('${escapeHtml(inv.invoiceNumber)}')">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function viewInvoice(invoiceNumber) {
+    try {
+        const invoices = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
+        const inv = invoices.find(i => i.invoiceNumber === invoiceNumber);
+        if (!inv) {
+            showToast('Invoice not found', 'error');
+            return;
+        }
+        currentInvoiceData = inv;
+        renderInvoicePreview(inv);
+        showPanel('preview');
+    } catch (e) {
+        showToast('Failed to load invoice', 'error');
+    }
+}
+
+function deleteInvoice(invoiceNumber) {
+    if (!confirm('Delete this invoice permanently?')) return;
+    try {
+        const invoices = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
+        const filtered = invoices.filter(i => i.invoiceNumber !== invoiceNumber);
+        localStorage.setItem(STORAGE.invoices, JSON.stringify(filtered));
+        renderHistory();
+        showToast('Invoice deleted', 'warning');
+    } catch (e) {
+        showToast('Failed to delete', 'error');
+    }
+}
+
+/* ============================================================
+   NEW INVOICE
+============================================================ */
+function newInvoice() {
+    if (!confirm('Start a new invoice? Current data will be cleared.')) return;
+
+    document.getElementById('custName').value = '';
+    document.getElementById('custMobile').value = '';
+    document.getElementById('custEmail').value = '';
+    document.getElementById('custGstin').value = '';
+    document.getElementById('custAddress').value = '';
+
+    document.getElementById('productBody').innerHTML = '';
+    addProductRow();
+
+    updateInvoiceNumber();
+    setDefaultDates();
+    calculateAll();
+    showPanel('invoice');
+    showToast('New invoice ready', 'success');
+}
+
+/* ============================================================
+   EXPOSE TO WINDOW
+============================================================ */
+window.showPanel = showPanel;
+window.addProductRow = addProductRow;
+window.loadSampleProducts = loadSampleProducts;
+window.calculateAll = calculateAll;
+window.calculateAndPreview = calculateAndPreview;
+window.downloadPDF = downloadPDF;
+window.shareWhatsApp = shareWhatsApp;
+window.saveInvoice = saveInvoice;
+window.viewInvoice = viewInvoice;
+window.deleteInvoice = deleteInvoice;
+window.newInvoice = newInvoice;
+window.renderHistory = renderHistory;
+window.handleLogoUpload = handleLogoUpload;
+window.handleSignatureUpload = handleSignatureUpload;
+window.saveSettings = saveSettings;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.addRMRow = addRMRow;
+window.loadRMSample = loadRMSample;
+window.transferRawMaterialToInvoice = transferRawMaterialToInvoice;
+
+/* ============================================================
+   BOOT
+============================================================ */
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+
+})();
+</script>
+
+</body>
+</html>
