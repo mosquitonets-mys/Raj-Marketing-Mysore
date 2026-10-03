@@ -1709,4 +1709,498 @@ function validateInvoice(data) {
 }
 
 /* ============================================================
-   RENDER PREVIEW (Screen
+   RENDER PREVIEW (Screen A4)
+============================================================ */
+function renderInvoicePreview(data) {
+    const page = document.getElementById('invoicePreview');
+    const b = data.business, c = data.customer;
+
+    const hasCustomer = c.name || c.address || c.gstin;
+    const customerHtml = hasCustomer ? `
+        <div class="row"><span class="lbl">Name:</span><span class="val">${escapeHtml(c.name || '—')}</span></div>
+        ${c.address ? `<div class="row"><span class="lbl">Address:</span><span class="val">${escapeHtml(c.address)}</span></div>` : ''}
+        ${c.mobile ? `<div class="row"><span class="lbl">Mobile:</span><span class="val">${escapeHtml(c.mobile)}</span></div>` : ''}
+        ${c.gstin ? `<div class="row"><span class="lbl">GSTIN:</span><span class="val">${escapeHtml(c.gstin)}</span></div>` : ''}
+        ${c.state ? `<div class="row"><span class="lbl">State:</span><span class="val">${escapeHtml(c.state)} (${escapeHtml(c.stateCode || '')})</span></div>` : ''}
+    ` : `<div class="row"><span class="lbl">Name:</span><span class="val">Cash Customer</span></div>`;
+
+    const productRows = data.products.map((p, i) => `
+        <tr>
+            <td>${i + 1}</td>
+            <td class="left">${escapeHtml(p.name)}</td>
+            <td>${escapeHtml(p.hsn || '—')}</td>
+            <td>${formatNumber(p.displayQty, 2)} ${p.unit}</td>
+            <td class="right">${formatCurrency(p.rate)}</td>
+            <td class="right">${formatCurrency(p.total)}</td>
+        </tr>
+    `).join('');
+
+    let gstRows = '';
+    let gstSummary = '';
+    if (data.taxType === 'cgst_sgst') {
+        gstRows = `
+            <tr><td class="lbl">CGST @ ${data.gstRate / 2}%</td><td class="val">${formatCurrency(data.cgst)}</td></tr>
+            <tr><td class="lbl">SGST @ ${data.gstRate / 2}%</td><td class="val">${formatCurrency(data.sgst)}</td></tr>
+        `;
+        gstSummary = `
+            <table class="gst-summary-table">
+                <thead>
+                    <tr>
+                        <th>HSN/SAC</th><th>Taxable Value</th>
+                        <th>CGST Rate</th><th>CGST Amount</th>
+                        <th>SGST Rate</th><th>SGST Amount</th><th>Total Tax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>—</td>
+                        <td>${formatCurrency(data.subtotal)}</td>
+                        <td>${data.gstRate / 2}%</td>
+                        <td>${formatCurrency(data.cgst)}</td>
+                        <td>${data.gstRate / 2}%</td>
+                        <td>${formatCurrency(data.sgst)}</td>
+                        <td>${formatCurrency(data.totalGst)}</td>
+                    </tr>
+                </tbody>
+            </table>`;
+    } else if (data.taxType === 'igst') {
+        gstRows = `<tr><td class="lbl">IGST @ ${data.gstRate}%</td><td class="val">${formatCurrency(data.igst)}</td></tr>`;
+        gstSummary = `
+            <table class="gst-summary-table">
+                <thead>
+                    <tr>
+                        <th>HSN/SAC</th><th>Taxable Value</th>
+                        <th>IGST Rate</th><th>IGST Amount</th><th>Total Tax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>—</td>
+                        <td>${formatCurrency(data.subtotal)}</td>
+                        <td>${data.gstRate}%</td>
+                        <td>${formatCurrency(data.igst)}</td>
+                        <td>${formatCurrency(data.igst)}</td>
+                    </tr>
+                </tbody>
+            </table>`;
+    }
+
+    const bankHtml = (b.bank || b.account || b.ifsc || b.upi) ? `
+        <div class="inv-bank">
+            <h5><i class="fas fa-university"></i> Bank Details</h5>
+            ${b.bank ? `<div class="row"><span class="lbl">Bank:</span><span class="val">${escapeHtml(b.bank)}</span></div>` : ''}
+            ${b.account ? `<div class="row"><span class="lbl">A/c No:</span><span class="val">${escapeHtml(b.account)}</span></div>` : ''}
+            ${b.ifsc ? `<div class="row"><span class="lbl">IFSC:</span><span class="val">${escapeHtml(b.ifsc)}</span></div>` : ''}
+            ${b.upi ? `<div class="row"><span class="lbl">UPI:</span><span class="val">${escapeHtml(b.upi)}</span></div>` : ''}
+        </div>
+    ` : `<div class="inv-bank"><h5>Bank Details</h5><div class="row"><span class="lbl">—</span><span class="val">—</span></div></div>`;
+
+    const terms = (data.terms || '').split('\n').filter(t => t.trim());
+
+    page.innerHTML = `
+        <!-- HEADER -->
+        <div class="inv-header">
+            <div class="inv-brand">
+                <div class="inv-logo">
+                    ${logoData ? `<img src="${logoData}" alt="Logo">` : '<i class="fas fa-shield-alt"></i>'}
+                </div>
+                <div class="inv-brand-info">
+                    <h1>${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</h1>
+                    <div class="tagline">Aluminium Frame | Mosquito Net | Kitchen | Wardrobe</div>
+                    <div class="addr">
+                        ${escapeHtml(b.address || '')}<br>
+                        ${b.mobile ? `<strong>📞</strong> ${escapeHtml(b.mobile)}` : ''}
+                        ${b.email ? ` &nbsp; <strong>✉</strong> ${escapeHtml(b.email)}` : ''}
+                        ${b.gstin ? `<br><strong>GSTIN:</strong> ${escapeHtml(b.gstin)}` : ''}
+                        ${b.state ? ` &nbsp; <strong>State:</strong> ${escapeHtml(b.state)} (${escapeHtml(b.stateCode || '')})` : ''}
+                    </div>
+                </div>
+            </div>
+            <div class="inv-type">
+                <div class="title">TAX INVOICE</div>
+                <div class="copy-type">Original for Recipient</div>
+            </div>
+        </div>
+
+        <!-- META -->
+        <div class="inv-meta">
+            <div class="inv-meta-box">
+                <h4><i class="fas fa-file-invoice"></i> Invoice Details</h4>
+                <div class="row"><span class="lbl">Invoice No:</span><span class="val">${escapeHtml(data.invoiceNumber)}</span></div>
+                <div class="row"><span class="lbl">Invoice Date:</span><span class="val">${formatDate(data.invoiceDate)}</span></div>
+                <div class="row"><span class="lbl">Due Date:</span><span class="val">${formatDate(data.dueDate)}</span></div>
+                <div class="row"><span class="lbl">Place of Supply:</span><span class="val">${escapeHtml(data.placeOfSupply)}</span></div>
+                <div class="row"><span class="lbl">Payment Terms:</span><span class="val">${escapeHtml(data.paymentTerms)}</span></div>
+                <div class="row"><span class="lbl">Reverse Charge:</span><span class="val">${escapeHtml(data.reverseCharge)}</span></div>
+            </div>
+            <div class="inv-meta-box">
+                <h4><i class="fas fa-user"></i> Bill To</h4>
+                ${customerHtml}
+            </div>
+        </div>
+
+        <!-- PRODUCTS -->
+        <div class="inv-table-wrap">
+            <table class="inv-table">
+                <thead>
+                    <tr>
+                        <th style="width:28px;">Sl</th>
+                        <th style="text-align:left;">Product</th>
+                        <th style="width:65px;">HSN/SAC</th>
+                        <th style="width:80px;">Total Qty</th>
+                        <th style="width:70px;">Price / Unit</th>
+                        <th style="width:80px;">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${productRows || '<tr><td colspan="6" style="text-align:center;padding:16px;">No products</td></tr>'}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TOTALS -->
+        <div class="inv-totals-wrap">
+            <div class="inv-words">
+                <div class="lbl">Amount in Words</div>
+                <div class="val">${numberToWords(data.grandTotal)}</div>
+            </div>
+            <table class="inv-totals">
+                <tr><td class="lbl">Subtotal</td><td class="val">${formatCurrency(data.subtotal)}</td></tr>
+                ${gstRows}
+                <tr class="grand"><td class="lbl">Grand Total</td><td class="val">${formatCurrency(data.grandTotal)}</td></tr>
+            </table>
+        </div>
+
+        <!-- GST SUMMARY -->
+        ${gstSummary}
+
+        <!-- BANK + SIGNATURE -->
+        <div class="inv-bottom-grid">
+            ${bankHtml}
+            <div class="inv-sign">
+                <div class="inv-sign-img">
+                    ${signatureData ? `<img src="${signatureData}" alt="Signature">` : ''}
+                </div>
+                <div class="line">Authorized Signatory</div>
+                <div class="for">For ${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</div>
+            </div>
+        </div>
+
+        <!-- TERMS -->
+        <div class="inv-terms">
+            <h5>Terms &amp; Conditions</h5>
+            <ol>
+                ${terms.map(t => `<li>${escapeHtml(t.replace(/^\d+\.\s*/, ''))}</li>`).join('')}
+            </ol>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="inv-footer">
+            <strong>${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</strong>
+            ${b.address ? ` · ${escapeHtml(b.address)}` : ''}
+            ${b.mobile ? ` · 📞 ${escapeHtml(b.mobile)}` : ''}
+            ${b.email ? ` · ✉ ${escapeHtml(b.email)}` : ''}
+            ${b.gstin ? ` · GSTIN: ${escapeHtml(b.gstin)}` : ''}
+        </div>
+    `;
+}
+
+/* ============================================================
+   PDF DOWNLOAD — PROFESSIONAL SINGLE-PAGE A4
+   ============================================================ */
+function downloadPDF() {
+    if (!currentInvoiceData) {
+        showToast('Please calculate the invoice first', 'warning');
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+    const data = currentInvoiceData;
+    const b = data.business;
+    const c = data.customer;
+
+    const PW = 210;   // A4 width in mm
+    const PH = 297;   // A4 height in mm
+    const M = 10;     // margin
+    const CW = PW - M * 2; // content width
+    let y = M;
+
+    /* ============================================================
+       HEADER BAR
+    ============================================================ */
+    doc.setFillColor(15, 27, 51);
+    doc.rect(0, 0, PW, 22, 'F');
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.text((b.name || 'RAJ MARKETING MYSORE').toUpperCase(), M, 10);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(200, 210, 230);
+    doc.text('Aluminium Frame | Mosquito Net | Kitchen | Wardrobe', M, 15);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(15);
+    doc.setTextColor(245, 158, 11);
+    doc.text('TAX INVOICE', PW - M, 10, { align: 'right' });
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(6.5);
+    doc.setTextColor(200, 210, 230);
+    doc.text('Original for Recipient', PW - M, 15, { align: 'right' });
+
+    y = 26;
+
+    /* ============================================================
+       BUSINESS + INVOICE + CUSTOMER INFO (2-column grid)
+    ============================================================ */
+    const boxH = 30;
+    const leftW = CW / 2 - 1;
+    const rightW = CW / 2 - 1;
+    const rightX = M + leftW + 2;
+
+    // LEFT: Invoice Details
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(203, 213, 225);
+    doc.rect(M, y, leftW, boxH, 'FD');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    doc.setTextColor(26, 86, 219);
+    doc.text('INVOICE DETAILS', M + 3, y + 4.5);
+
+    doc.setDrawColor(203, 213, 225);
+    doc.line(M + 2, y + 6, M + leftW - 2, y + 6);
+
+    doc.setFontSize(7);
+    const invRows = [
+        ['Invoice No:', data.invoiceNumber],
+        ['Invoice Date:', formatDate(data.invoiceDate)],
+        ['Due Date:', formatDate(data.dueDate)],
+        ['Place of Supply:', data.placeOfSupply],
+        ['Payment Terms:', data.paymentTerms],
+        ['Reverse Charge:', data.reverseCharge]
+    ];
+    let ty = y + 10;
+    invRows.forEach(([k, v]) => {
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(100, 116, 139);
+        doc.text(k, M + 3, ty);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(15, 27, 51);
+        doc.text(String(v || '—').substring(0, 32), M + 28, ty);
+        ty += 3.4;
+    });
+
+    // RIGHT: Bill To
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(203, 213, 225);
+    doc.rect(rightX, y, rightW, boxH, 'FD');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    doc.setTextColor(26, 86, 219);
+    doc.text('BILL TO', rightX + 3, y + 4.5);
+
+    doc.setDrawColor(203, 213, 225);
+    doc.line(rightX + 2, y + 6, rightX + rightW - 2, y + 6);
+
+    const custRows = c.name ? [
+        ['Name:', c.name],
+        c.mobile ? ['Mobile:', c.mobile] : null,
+        c.gstin ? ['GSTIN:', c.gstin] : null,
+        c.address ? ['Address:', c.address] : null,
+        c.state ? ['State:', `${c.state} (${c.stateCode || ''})`] : null
+    ].filter(Boolean) : [['Name:', 'Cash Customer']];
+
+    ty = y + 10;
+    custRows.slice(0, 6).forEach(([k, v]) => {
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(100, 116, 139);
+        doc.text(k, rightX + 3, ty);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(15, 27, 51);
+        const txt = doc.splitTextToSize(String(v || '—'), rightW - 26)[0];
+        doc.text(txt, rightX + 18, ty);
+        ty += 3.4;
+    });
+
+    y += boxH + 4;
+
+    /* ============================================================
+       PRODUCTS TABLE
+    ============================================================ */
+    const tableBody = data.products.map((p, i) => [
+        String(i + 1),
+        p.name,
+        p.hsn || '—',
+        `${formatNumber(p.displayQty, 2)} ${p.unit}`,
+        formatCurrency(p.rate),
+        formatCurrency(p.total)
+    ]);
+
+    doc.autoTable({
+        startY: y,
+        head: [['Sl', 'Product', 'HSN/SAC', 'Total Qty', 'Price/Unit', 'Total Price']],
+        body: tableBody,
+        theme: 'grid',
+        styles: {
+            fontSize: 7.5,
+            cellPadding: 2,
+            lineColor: [203, 213, 225],
+            lineWidth: 0.15,
+            textColor: [15, 27, 51],
+            overflow: 'linebreak'
+        },
+        headStyles: {
+            fillColor: [15, 27, 51],
+            textColor: [255, 255, 255],
+            fontStyle: 'bold',
+            fontSize: 7,
+            halign: 'center',
+            cellPadding: 2.2
+        },
+        alternateRowStyles: { fillColor: [248, 250, 252] },
+        columnStyles: {
+            0: { cellWidth: 8, halign: 'center' },
+            1: { cellWidth: 70, halign: 'left' },
+            2: { cellWidth: 22, halign: 'center' },
+            3: { cellWidth: 25, halign: 'center' },
+            4: { cellWidth: 25, halign: 'right' },
+            5: { cellWidth: 30, halign: 'right' }
+        },
+        margin: { left: M, right: M },
+        tableWidth: CW
+    });
+
+    y = doc.lastAutoTable.finalY + 4;
+
+    /* ============================================================
+       AMOUNT IN WORDS + TOTALS
+    ============================================================ */
+    const wordsW = CW - 70;
+    const totalsX = M + wordsW + 2;
+    const totalsW = 68;
+
+    // Amount in words box
+    const wordsText = numberToWords(data.grandTotal);
+    const wordsLines = doc.splitTextToSize(wordsText, wordsW - 4);
+    const wordsBoxH = Math.max(20, 12 + wordsLines.length * 3.2);
+
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(203, 213, 225);
+    doc.rect(M, y, wordsW, wordsBoxH, 'FD');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(26, 86, 219);
+    doc.text('AMOUNT IN WORDS', M + 3, y + 4.5);
+
+    doc.setDrawColor(203, 213, 225);
+    doc.line(M + 2, y + 6, M + wordsW - 2, y + 6);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(15, 27, 51);
+    doc.text(wordsLines, M + 3, y + 10);
+
+    // Totals table
+    const rowH = 5.5;
+    let tyx = y;
+
+    function drawTotalRow(label, value, grand = false) {
+        if (grand) {
+            doc.setFillColor(15, 27, 51);
+            doc.rect(totalsX, tyx, totalsW, 7.5, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(255, 255, 255);
+            doc.text(label, totalsX + 2.5, tyx + 5);
+            doc.text(value, totalsX + totalsW - 2.5, tyx + 5, { align: 'right' });
+            tyx += 7.5;
+        } else {
+            doc.setFillColor(248, 250, 252);
+            doc.setDrawColor(203, 213, 225);
+            doc.rect(totalsX, tyx, totalsW, rowH, 'FD');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(7.5);
+            doc.setTextColor(100, 116, 139);
+            doc.text(label, totalsX + 2.5, tyx + 3.7);
+            doc.setTextColor(15, 27, 51);
+            doc.text(value, totalsX + totalsW - 2.5, tyx + 3.7, { align: 'right' });
+            tyx += rowH;
+        }
+    }
+
+    drawTotalRow('Subtotal', formatCurrency(data.subtotal));
+    if (data.taxType === 'cgst_sgst') {
+        drawTotalRow(`CGST @ ${data.gstRate / 2}%`, formatCurrency(data.cgst));
+        drawTotalRow(`SGST @ ${data.gstRate / 2}%`, formatCurrency(data.sgst));
+    } else if (data.taxType === 'igst') {
+        drawTotalRow(`IGST @ ${data.gstRate}%`, formatCurrency(data.igst));
+    }
+    drawTotalRow('GRAND TOTAL', formatCurrency(data.grandTotal), true);
+
+    y = Math.max(y + wordsBoxH, tyx) + 4;
+
+    /* ============================================================
+       GST SUMMARY TABLE (compact)
+    ============================================================ */
+    if (data.taxType === 'cgst_sgst' || data.taxType === 'igst') {
+        const gstHead = data.taxType === 'cgst_sgst'
+            ? [['HSN/SAC', 'Taxable Value', 'CGST Rate', 'CGST Amount', 'SGST Rate', 'SGST Amount', 'Total Tax']]
+            : [['HSN/SAC', 'Taxable Value', 'IGST Rate', 'IGST Amount', 'Total Tax']];
+
+        const gstBody = data.taxType === 'cgst_sgst'
+            ? [['—', formatCurrency(data.subtotal), `${data.gstRate / 2}%`,
+                formatCurrency(data.cgst), `${data.gstRate / 2}%`,
+                formatCurrency(data.sgst), formatCurrency(data.totalGst)]]
+            : [['—', formatCurrency(data.subtotal), `${data.gstRate}%`,
+                formatCurrency(data.igst), formatCurrency(data.igst)]];
+
+        doc.autoTable({
+            startY: y,
+            head: gstHead,
+            body: gstBody,
+            theme: 'grid',
+            styles: {
+                fontSize: 6.5,
+                cellPadding: 1.8,
+                lineColor: [203, 213, 225],
+                lineWidth: 0.15,
+                textColor: [15, 27, 51],
+                halign: 'center'
+            },
+            headStyles: {
+                fillColor: [26, 86, 219],
+                textColor: [255, 255, 255],
+                fontStyle: 'bold',
+                fontSize: 6,
+                cellPadding: 1.8
+            },
+            margin: { left: M, right: M },
+            tableWidth: CW
+        });
+
+        y = doc.lastAutoTable.finalY + 4;
+    }
+
+    /* ============================================================
+       BANK + SIGNATURE (side by side)
+    ============================================================ */
+    const bsH = 26;
+    const bankW = CW / 2 - 1;
+    const sigW = CW / 2 - 1;
+    const sigX = M + bankW + 2;
+
+    // Bank box
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(203, 213, 225);
+    doc.rect(M, y, bankW, bsH, 'FD');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    doc.setTextColor(26, 86, 21
