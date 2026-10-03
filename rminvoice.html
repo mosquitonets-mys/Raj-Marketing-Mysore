@@ -2125,4 +2125,510 @@ function validateInvoice(data) {
     return true;
 }
 
-/*
+
+/* ============================================================
+   INVOICE PREVIEW RENDERING
+============================================================ */
+function renderInvoicePreview(data) {
+    const page = document.getElementById('invoicePreview');
+    const b = data.business;
+    const c = data.customer;
+
+    // Customer block (optional)
+    const hasCustomer = c.name || c.address || c.gstin;
+    const customerSection = hasCustomer ? `
+        <div class="inv-meta-box">
+            <h4><i class="fas fa-user"></i> Bill To</h4>
+            ${c.name ? `<div class="row"><span class="lbl">Name:</span><span class="val">${escapeHtml(c.name)}</span></div>` : ''}
+            ${c.address ? `<div class="row"><span class="lbl">Address:</span><span class="val">${escapeHtml(c.address)}</span></div>` : ''}
+            ${c.mobile ? `<div class="row"><span class="lbl">Mobile:</span><span class="val">${escapeHtml(c.mobile)}</span></div>` : ''}
+            ${c.gstin ? `<div class="row"><span class="lbl">GSTIN:</span><span class="val">${escapeHtml(c.gstin)}</span></div>` : ''}
+            ${c.state ? `<div class="row"><span class="lbl">State:</span><span class="val">${escapeHtml(c.state)} (${escapeHtml(c.stateCode || '')})</span></div>` : ''}
+        </div>
+    ` : `
+        <div class="inv-meta-box">
+            <h4><i class="fas fa-user"></i> Bill To</h4>
+            <div class="row"><span class="lbl">Name:</span><span class="val">Cash Customer</span></div>
+        </div>
+    `;
+
+    // Products table (invoice format - no width/height)
+    const productRows = data.products.map((p, i) => {
+        const unitLabel = p.unit === 'Sq.ft.' ? 'Sq.ft.' : p.unit;
+        return `
+            <tr>
+                <td>${i + 1}</td>
+                <td class="left">${escapeHtml(p.name)}</td>
+                <td>${escapeHtml(p.hsn || '—')}</td>
+                <td>${formatNumber(p.displayQty, 2)} ${unitLabel}</td>
+                <td class="right">${formatCurrency(p.rate)}</td>
+                <td class="right">${formatCurrency(p.total)}</td>
+            </tr>
+        `;
+    }).join('');
+
+    // GST rows
+    let gstRows = '';
+    let gstSummaryTable = '';
+
+    if (data.taxType === 'cgst_sgst') {
+        gstRows = `
+            <tr><td class="lbl">CGST @ ${data.gstRate / 2}%</td><td class="val">${formatCurrency(data.cgst)}</td></tr>
+            <tr><td class="lbl">SGST @ ${data.gstRate / 2}%</td><td class="val">${formatCurrency(data.sgst)}</td></tr>
+        `;
+        gstSummaryTable = `
+            <table class="gst-summary-table">
+                <thead>
+                    <tr>
+                        <th>HSN/SAC</th>
+                        <th>Taxable Value</th>
+                        <th>CGST Rate</th>
+                        <th>CGST Amount</th>
+                        <th>SGST Rate</th>
+                        <th>SGST Amount</th>
+                        <th>Total Tax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>—</td>
+                        <td>${formatCurrency(data.subtotal)}</td>
+                        <td>${data.gstRate / 2}%</td>
+                        <td>${formatCurrency(data.cgst)}</td>
+                        <td>${data.gstRate / 2}%</td>
+                        <td>${formatCurrency(data.sgst)}</td>
+                        <td>${formatCurrency(data.totalGst)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+    } else if (data.taxType === 'igst') {
+        gstRows = `<tr><td class="lbl">IGST @ ${data.gstRate}%</td><td class="val">${formatCurrency(data.igst)}</td></tr>`;
+        gstSummaryTable = `
+            <table class="gst-summary-table">
+                <thead>
+                    <tr>
+                        <th>HSN/SAC</th>
+                        <th>Taxable Value</th>
+                        <th>IGST Rate</th>
+                        <th>IGST Amount</th>
+                        <th>Total Tax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>—</td>
+                        <td>${formatCurrency(data.subtotal)}</td>
+                        <td>${data.gstRate}%</td>
+                        <td>${formatCurrency(data.igst)}</td>
+                        <td>${formatCurrency(data.igst)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+    } else {
+        gstRows = `<tr><td class="lbl">Tax</td><td class="val">Not Applicable</td></tr>`;
+        gstSummaryTable = '';
+    }
+
+    // Bank details
+    const bankDetails = b.bank || b.account || b.ifsc ? `
+        <div class="row"><span class="lbl">Bank:</span><span class="val">${escapeHtml(b.bank || '—')}</span></div>
+        ${b.account ? `<div class="row"><span class="lbl">A/c No:</span><span class="val">${escapeHtml(b.account)}</span></div>` : ''}
+        ${b.ifsc ? `<div class="row"><span class="lbl">IFSC:</span><span class="val">${escapeHtml(b.ifsc)}</span></div>` : ''}
+    ` : '';
+
+    // Signature
+    const signatureHtml = signatureData ? `<img src="${signatureData}" alt="Signature">` : '';
+
+    // Terms
+    const terms = (data.terms || '').split('\n').filter(t => t.trim());
+
+    page.innerHTML = `
+        <!-- HEADER -->
+        <div class="inv-header">
+            <div class="inv-brand">
+                <div class="inv-logo">
+                    ${logoData ? `<img src="${logoData}" alt="Logo">` : '<i class="fas fa-shield-alt"></i>'}
+                </div>
+                <div class="inv-brand-info">
+                    <h1>${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</h1>
+                    <div class="tagline">Aluminium Frame | Mosquito Net | Kitchen | Wardrobe</div>
+                    <div class="addr">
+                        ${escapeHtml(b.address || '')}<br>
+                        ${b.mobile ? `<strong>📞</strong> ${escapeHtml(b.mobile)}` : ''}
+                        ${b.email ? ` &nbsp;|&nbsp; <strong>✉</strong> ${escapeHtml(b.email)}` : ''}
+                        ${b.gstin ? `<br><strong>GSTIN:</strong> ${escapeHtml(b.gstin)}` : ''}
+                        ${b.state ? ` &nbsp;|&nbsp; <strong>State:</strong> ${escapeHtml(b.state)} (${escapeHtml(b.stateCode || '')})` : ''}
+                    </div>
+                </div>
+            </div>
+            <div class="inv-type">
+                <div class="title">Tax Invoice</div>
+                <div class="copy-type">Original for Recipient</div>
+            </div>
+        </div>
+
+        <!-- META -->
+        <div class="inv-meta">
+            <div class="inv-meta-box">
+                <h4><i class="fas fa-file-invoice"></i> Invoice Details</h4>
+                <div class="row"><span class="lbl">Invoice No:</span><span class="val">${escapeHtml(data.invoiceNumber)}</span></div>
+                <div class="row"><span class="lbl">Invoice Date:</span><span class="val">${formatDate(data.invoiceDate)}</span></div>
+                <div class="row"><span class="lbl">Due Date:</span><span class="val">${formatDate(data.dueDate)}</span></div>
+                <div class="row"><span class="lbl">Place of Supply:</span><span class="val">${escapeHtml(data.placeOfSupply)}</span></div>
+                <div class="row"><span class="lbl">Payment Terms:</span><span class="val">${escapeHtml(data.paymentTerms)}</span></div>
+                <div class="row"><span class="lbl">Reverse Charge:</span><span class="val">${escapeHtml(data.reverseCharge)}</span></div>
+            </div>
+            ${customerSection}
+        </div>
+
+        <!-- PRODUCTS TABLE -->
+        <div class="inv-table-wrap">
+            <table class="inv-table">
+                <thead>
+                    <tr>
+                        <th style="width:30px;">Sl</th>
+                        <th style="text-align:left;">Product</th>
+                        <th style="width:70px;">HSN/SAC</th>
+                        <th style="width:90px;">Total Qty</th>
+                        <th style="width:80px;">Price / Unit</th>
+                        <th style="width:90px;">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>${productRows || '<tr><td colspan="6" style="text-align:center;padding:20px;">No products</td></tr>'}</tbody>
+            </table>
+        </div>
+
+        <!-- TOTALS -->
+        <div class="inv-totals-wrap">
+            <div class="inv-words">
+                <div class="lbl">Amount in Words</div>
+                <div class="val">${numberToWords(data.grandTotal)}</div>
+            </div>
+            <table class="inv-totals">
+                <tr><td class="lbl">Subtotal</td><td class="val">${formatCurrency(data.subtotal)}</td></tr>
+                ${gstRows}
+                <tr class="grand"><td class="lbl">Grand Total</td><td class="val">${formatCurrency(data.grandTotal)}</td></tr>
+            </table>
+        </div>
+
+        <!-- GST SUMMARY -->
+        ${gstSummaryTable}
+
+        <!-- BANK & PAYMENT -->
+        ${bankDetails ? `
+            <div class="inv-meta" style="grid-template-columns:1fr;">
+                <div class="inv-meta-box">
+                    <h4><i class="fas fa-university"></i> Bank Details</h4>
+                    ${bankDetails}
+                    ${b.upi ? `<div class="row"><span class="lbl">UPI:</span><span class="val">${escapeHtml(b.upi)}</span></div>` : ''}
+                </div>
+            </div>
+        ` : ''}
+
+        <!-- TERMS & SIGNATURE -->
+        <div class="inv-bottom">
+            <div class="inv-terms">
+                <h5>Terms &amp; Conditions</h5>
+                <ol>
+                    ${terms.map(t => `<li>${escapeHtml(t.replace(/^\d+\.\s*/, ''))}</li>`).join('')}
+                </ol>
+            </div>
+            <div class="inv-sign">
+                <div class="inv-sign-img">${signatureHtml}</div>
+                <div class="line">Authorized Signatory</div>
+                <div class="for">For ${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="inv-footer">
+            <strong>${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</strong>
+            ${b.address ? ` · ${escapeHtml(b.address)}` : ''}
+            ${b.mobile ? ` · 📞 ${escapeHtml(b.mobile)}` : ''}
+            ${b.email ? ` · ✉ ${escapeHtml(b.email)}` : ''}
+            ${b.gstin ? ` · GSTIN: ${escapeHtml(b.gstin)}` : ''}
+        </div>
+    `;
+}
+
+/* ============================================================
+   PDF DOWNLOAD
+============================================================ */
+function downloadPDF() {
+    if (!currentInvoiceData) {
+        showToast('Please calculate the invoice first', 'warning');
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const data = currentInvoiceData;
+    const b = data.business;
+    const c = data.customer;
+
+    let y = 15;
+    const pageWidth = 210;
+    const margin = 12;
+    const contentWidth = pageWidth - (margin * 2);
+
+    // HEADER
+    doc.setFillColor(15, 27, 51);
+    doc.rect(0, 0, pageWidth, 28, 'F');
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.text((b.name || 'RAJ MARKETING MYSORE').toUpperCase(), margin, 12);
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Aluminium Frame | Mosquito Net | Kitchen | Wardrobe', margin, 17);
+
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('TAX INVOICE', pageWidth - margin, 15, { align: 'right' });
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Original for Recipient', pageWidth - margin, 20, { align: 'right' });
+
+    y = 35;
+
+    // Business info block
+    doc.setTextColor(15, 27, 51);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    const bizInfo = [
+        b.address,
+        `${b.mobile ? '📞 ' + b.mobile : ''} ${b.email ? '  ✉ ' + b.email : ''}`.trim(),
+        `GSTIN: ${b.gstin || '—'}   State: ${b.state || ''} (${b.stateCode || ''})`
+    ].filter(Boolean);
+    bizInfo.forEach(line => {
+        doc.text(line, margin, y);
+        y += 4;
+    });
+
+    y += 2;
+
+    // Invoice meta boxes
+    doc.setDrawColor(226, 232, 240);
+    doc.setFillColor(248, 250, 252);
+
+    // Invoice details
+    doc.rect(margin, y, contentWidth / 2 - 2, 26, 'FD');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(26, 86, 219);
+    doc.text('INVOICE DETAILS', margin + 3, y + 5);
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(15, 27, 51);
+    const invLines = [
+        ['Invoice No:', data.invoiceNumber],
+        ['Invoice Date:', formatDate(data.invoiceDate)],
+        ['Place of Supply:', data.placeOfSupply],
+        ['Payment Terms:', data.paymentTerms]
+    ];
+    let iy = y + 10;
+    invLines.forEach(([label, val]) => {
+        doc.setFont('helvetica', 'bold');
+        doc.text(label, margin + 3, iy);
+        doc.setFont('helvetica', 'normal');
+        doc.text(String(val || '—'), margin + 32, iy);
+        iy += 4;
+    });
+
+    // Customer details
+    const cx = margin + contentWidth / 2 + 2;
+    doc.rect(cx, y, contentWidth / 2 - 2, 26, 'FD');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(26, 86, 219);
+    doc.text('BILL TO', cx + 3, y + 5);
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(15, 27, 51);
+    const custLines = c.name ? [
+        ['Name:', c.name],
+        ['Mobile:', c.mobile || '—'],
+        ['GSTIN:', c.gstin || '—'],
+        ['State:', `${c.state || ''} (${c.stateCode || ''})`]
+    ] : [['Name:', 'Cash Customer']];
+
+    let cy = y + 10;
+    custLines.forEach(([label, val]) => {
+        doc.setFont('helvetica', 'bold');
+        doc.text(label, cx + 3, cy);
+        doc.setFont('helvetica', 'normal');
+        doc.text(String(val || '—').substring(0, 40), cx + 22, cy);
+        cy += 4;
+    });
+
+    y += 30;
+
+    // Products table
+    const tableData = data.products.map((p, i) => [
+        i + 1,
+        p.name.substring(0, 45),
+        p.hsn || '—',
+        `${formatNumber(p.displayQty, 2)} ${p.unit}`,
+        '₹' + formatNumber(p.rate, 2),
+        '₹' + formatNumber(p.total, 2)
+    ]);
+
+    doc.autoTable({
+        startY: y,
+        head: [['Sl', 'Product', 'HSN/SAC', 'Total Qty', 'Price/Unit', 'Total Price']],
+        body: tableData,
+        theme: 'grid',
+        headStyles: {
+            fillColor: [15, 27, 51],
+            textColor: [255, 255, 255],
+            fontSize: 8,
+            fontStyle: 'bold',
+            halign: 'center'
+        },
+        bodyStyles: { fontSize: 8, textColor: [31, 41, 55] },
+        columnStyles: {
+            0: { cellWidth: 10, halign: 'center' },
+            1: { cellWidth: 65 },
+            2: { cellWidth: 22, halign: 'center' },
+            3: { cellWidth: 25, halign: 'center' },
+            4: { cellWidth: 25, halign: 'right' },
+            5: { cellWidth: 30, halign: 'right' }
+        },
+        margin: { left: margin, right: margin }
+    });
+
+    y = doc.lastAutoTable.finalY + 5;
+
+    // Totals + words
+    const wordsWidth = contentWidth - 70;
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(226, 232, 240);
+    doc.rect(margin, y, wordsWidth, 26, 'FD');
+
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(26, 86, 219);
+    doc.text('AMOUNT IN WORDS', margin + 3, y + 5);
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 27, 51);
+    const words = doc.splitTextToSize(numberToWords(data.grandTotal), wordsWidth - 6);
+    doc.text(words, margin + 3, y + 11);
+
+    // Totals table
+    const totalsX = margin + wordsWidth + 5;
+    const totalsW = contentWidth - wordsWidth - 5;
+
+    doc.setDrawColor(226, 232, 240);
+    doc.setFillColor(248, 250, 252);
+
+    let ty = y;
+    const drawRow = (label, value, isBold = false, isGrand = false) => {
+        doc.setFontSize(8);
+        if (isGrand) {
+            doc.setFillColor(15, 27, 51);
+            doc.rect(totalsX, ty, totalsW, 8, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.text(label, totalsX + 2, ty + 5.5);
+            doc.text(value, totalsX + totalsW - 2, ty + 5.5, { align: 'right' });
+            ty += 8;
+        } else {
+            doc.rect(totalsX, ty, totalsW, 5, 'FD');
+            doc.setTextColor(100, 116, 139);
+            doc.setFont('helvetica', 'normal');
+            doc.text(label, totalsX + 2, ty + 3.5);
+            doc.setTextColor(15, 27, 51);
+            doc.setFont('helvetica', isBold ? 'bold' : 'normal');
+            doc.text(value, totalsX + totalsW - 2, ty + 3.5, { align: 'right' });
+            ty += 5;
+        }
+    };
+
+    drawRow('Subtotal', '₹' + formatNumber(data.subtotal, 2), true);
+
+    if (data.taxType === 'cgst_sgst') {
+        drawRow(`CGST @ ${data.gstRate / 2}%`, '₹' + formatNumber(data.cgst, 2));
+        drawRow(`SGST @ ${data.gstRate / 2}%`, '₹' + formatNumber(data.sgst, 2));
+    } else if (data.taxType === 'igst') {
+        drawRow(`IGST @ ${data.gstRate}%`, '₹' + formatNumber(data.igst, 2));
+    }
+
+    drawRow('Grand Total', '₹' + formatNumber(data.grandTotal, 2), true, true);
+
+    y = Math.max(y + 28, ty + 5);
+
+    // Terms & signature
+    doc.setDrawColor(15, 27, 51);
+    doc.line(margin, y, pageWidth - margin, y);
+
+    y += 4;
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(26, 86, 219);
+    doc.text('TERMS & CONDITIONS', margin, y);
+    y += 4;
+
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(51, 65, 85);
+    const terms = (data.terms || '').split('\n').filter(t => t.trim());
+    terms.slice(0, 6).forEach((t, i) => {
+        const line = doc.splitTextToSize(`${i + 1}. ${t.replace(/^\d+\.\s*/, '')}`, contentWidth - 60);
+        doc.text(line, margin, y);
+        y += line.length * 3.5;
+    });
+
+    // Signature
+    const sigX = pageWidth - margin - 60;
+    const sigY = y - 20;
+
+    if (signatureData) {
+        try {
+            doc.addImage(signatureData, 'PNG', sigX + 10, sigY - 10, 40, 15);
+        } catch (e) {}
+    }
+
+    doc.setDrawColor(15, 27, 51);
+    doc.line(sigX + 5, y + 5, sigX + 55, y + 5);
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 27, 51);
+    doc.text('Authorized Signatory', sigX + 30, y + 10, { align: 'center' });
+
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`For ${b.name || 'RAJ MARKETING MYSORE'}`, sigX + 30, y + 14, { align: 'center' });
+
+    // Footer
+    const footY = 285;
+    doc.setDrawColor(226, 232, 240);
+    doc.line(margin, footY, pageWidth - margin, footY);
+
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 27, 51);
+    const footer = [
+        b.name || 'RAJ MARKETING MYSORE',
+        b.address,
+        [b.mobile, b.email, b.gstin ? 'GSTIN: ' + b.gstin : ''].filter(Boolean).join(' | ')
+    ].filter(Boolean).join(' · ');
+    doc.text(footer, pageWidth / 2, footY + 4, { align: 'center' });
+
+    // SAVE
+    const filename = `Invoice_${data.invoiceNumber.replace(/\//g, '-')}_${Date.now()}.pdf`;
+    doc.save(filename);
+    showToast('PDF downloaded successfully', 'success');
+}
+
+/* =========================
