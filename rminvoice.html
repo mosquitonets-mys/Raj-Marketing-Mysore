@@ -988,4 +988,284 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
         </div>
 
     </div>
-                                           
+          
+    <!-- ============================================================
+         PANEL 2: PREVIEW
+    ============================================================ -->
+    <div class="panel" id="panel-preview">
+
+        <div class="card no-print">
+            <div class="card-title">
+                <i class="fas fa-eye"></i> Invoice Preview
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-light" onclick="showPanel('invoice')">
+                    <i class="fas fa-arrow-left"></i> Edit Invoice
+                </button>
+                <button class="btn btn-primary" onclick="calculateAndPreview()">
+                    <i class="fas fa-calculator"></i> Recalculate
+                </button>
+                <button class="btn btn-light" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn btn-success" onclick="downloadPDF()">
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </button>
+                <button class="btn btn-whatsapp" onclick="shareWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Share WhatsApp
+                </button>
+                <button class="btn btn-dark" onclick="saveInvoice()">
+                    <i class="fas fa-save"></i> Save Invoice
+                </button>
+                <button class="btn btn-warning" onclick="newInvoice()">
+                    <i class="fas fa-plus"></i> New Invoice
+                </button>
+            </div>
+        </div>
+
+        <div class="a4-wrap">
+            <div class="a4-page" id="invoicePreview"></div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+         PANEL 3: HISTORY
+    ============================================================ -->
+    <div class="panel" id="panel-history">
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-history"></i> Invoice History
+                <span class="badge" id="historyCount">0 invoices</span>
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <input type="text" id="historySearch" placeholder="🔍 Search..." oninput="renderHistory()">
+            </div>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         PANEL 4: RAW MATERIAL
+    ============================================================ -->
+    <div class="panel" id="panel-rawmaterial">
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-ruler-combined"></i> Raw Material Calculator
+            </div>
+            <div class="form-grid form-grid-4" style="margin-bottom:14px;">
+                <div class="form-group">
+                    <label>Aluminium Rate (12 ft)</label>
+                    <input type="number" id="rmAluRate" value="255" oninput="calculateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Mesh Rate / Sq.ft.</label>
+                    <input type="number" id="rmMeshRate" value="19.5" step="0.01" oninput="calculateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Corner Rate / pc</label>
+                    <input type="number" id="rmCornerRate" value="3.75" step="0.01" oninput="calculateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Rubber Rate / kg</label>
+                    <input type="number" id="rmRubberRate" value="220" step="0.01" oninput="calculateAll()">
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table id="rmProductTable">
+                    <thead>
+                        <tr>
+                            <th style="width:36px;">#</th>
+                            <th style="text-align:left;">Product</th>
+                            <th style="width:70px;">Width</th>
+                            <th style="width:70px;">Height</th>
+                            <th style="width:60px;">Qty</th>
+                            <th style="width:80px;">Reduction</th>
+                            <th style="width:80px;">Aluminium ft</th>
+                            <th style="width:80px;">Mesh Sq.ft</th>
+                            <th style="width:50px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="rmProductBody"></tbody>
+                </table>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="addRMRow()">
+                    <i class="fas fa-plus"></i> Add Row
+                </button>
+                <button class="btn btn-success" onclick="calculateAll()">
+                    <i class="fas fa-calculator"></i> Calculate
+                </button>
+                <button class="btn btn-warning" onclick="loadRMSample()">
+                    <i class="fas fa-flask"></i> Load Sample
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-clipboard-list"></i> Raw Material Requirement
+            </div>
+            <div class="summary-grid">
+                <div class="summary-box"><div class="label">Total Frames</div><div class="value" id="rmFrames">0</div></div>
+                <div class="summary-box"><div class="label">Aluminium Required</div><div class="value" id="rmAluFeet">0 ft</div></div>
+                <div class="summary-box"><div class="label">12 ft Lengths</div><div class="value" id="rmAluLengths">0</div></div>
+                <div class="summary-box"><div class="label">Mesh Required</div><div class="value" id="rmMeshSqft">0 sq.ft</div></div>
+                <div class="summary-box"><div class="label">Mesh Consumed</div><div class="value" id="rmMeshConsumed">0 sq.ft</div></div>
+                <div class="summary-box green"><div class="label">Aluminium Cost</div><div class="value" id="rmAluCost">₹0.00</div></div>
+                <div class="summary-box green"><div class="label">Mesh Cost</div><div class="value" id="rmMeshCost">₹0.00</div></div>
+                <div class="summary-box green"><div class="label">Corners Cost</div><div class="value" id="rmCornerCost">₹0.00</div></div>
+                <div class="summary-box navy"><div class="label">Total Material Cost</div><div class="value" id="rmTotalCost">₹0.00</div></div>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="transferRawMaterialToInvoice()">
+                    <i class="fas fa-arrow-right"></i> Transfer to Invoice
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         PANEL 5: SETTINGS
+    ============================================================ -->
+    <div class="panel" id="panel-settings">
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-cog"></i> Invoice Settings
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Invoice Prefix</label>
+                    <input type="text" id="setPrefix" value="RMM/2026-27/">
+                </div>
+                <div class="form-group">
+                    <label>Next Number</label>
+                    <input type="number" id="setNextNum" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label>Default GST (%)</label>
+                    <input type="number" id="setDefaultGst" value="18">
+                </div>
+            </div>
+            <div class="form-group" style="margin-top:12px;">
+                <label>Default Terms &amp; Conditions</label>
+                <textarea id="setTerms" rows="6">1. Goods once sold will be subject to the applicable business return policy.
+2. Measurements and specifications supplied by the customer are subject to confirmation.
+3. Payment terms are as mentioned in the invoice.
+4. Taxes are charged as applicable.
+5. Any dispute shall be subject to the applicable jurisdiction.
+6. This invoice is computer generated unless digitally signed.</textarea>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-success" onclick="saveSettings()">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+/* ============================================================
+   RAJ MARKETING MYSORE — INVOICE SYSTEM (Professional PDF)
+============================================================ */
+(function() {
+'use strict';
+
+const STORAGE = {
+    business: 'raj_business_details_v1',
+    settings: 'raj_invoice_settings_v1',
+    invoices: 'raj_invoices_v1',
+    signature: 'raj_signature_v1',
+    logo: 'raj_logo_v1'
+};
+
+let businessData = {};
+let settingsData = {};
+let signatureData = '';
+let logoData = '';
+let currentInvoiceData = null;
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+function formatCurrency(v) {
+    return '₹' + Number(v || 0).toLocaleString('en-IN', {
+        minimumFractionDigits: 2, maximumFractionDigits: 2
+    });
+}
+function formatNumber(v, d = 2) {
+    return Number(v || 0).toLocaleString('en-IN', {
+        minimumFractionDigits: d, maximumFractionDigits: d
+    });
+}
+function formatDate(s) {
+    if (!s) return '—';
+    try {
+        return new Date(s).toLocaleDateString('en-IN', {
+            day: '2-digit', month: 'short', year: 'numeric'
+        });
+    } catch (e) { return s; }
+}
+function escapeHtml(s) {
+    if (!s && s !== 0) return '';
+    return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function showToast(msg, type = 'info') {
+    document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+    const colors = {
+        success: 'linear-gradient(145deg,#059669,#047857)',
+        error: 'linear-gradient(145deg,#dc2626,#b91c1c)',
+        warning: 'linear-gradient(145deg,#f59e0b,#d97706)',
+        info: 'linear-gradient(145deg,#1a56db,#0d47a1)'
+    };
+    const t = document.createElement('div');
+    t.className = 'rm-toast';
+    t.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+    t.style.background = colors[type] || colors.info;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 2800);
+}
+
+/* ============================================================
+   NUMBER TO WORDS
+============================================================ */
+function numberToWords(num) {
+    const n = Math.floor(Number(num) || 0);
+    const paise = Math.round(((Number(num) || 0) - n) * 100);
+    if (n === 0 && paise === 0) return 'RUPEES ZERO ONLY';
+
+    const a = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE',
+        'TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN',
+        'SEVENTEEN', 'EIGHTEEN', 'NINETEEN'];
+    const b = ['', '', 'TWENTY', 'THIRTY', 'FORTY', 'FIFTY', 'SIXTY', 'SEVENTY', 'EIGHTY', 'NINETY'];
+
+    function toWords(x) {
+        if (x === 0) return '';
+        if (x < 20) return a[x];
+        if (x < 100) return b[Math.floor(x / 10)] + (x % 10 ? ' ' + a[x % 10] : '');
+        if (x < 1000) return a[Math.floor(x / 100)] + ' HUNDRED' + (x % 100 ? ' ' + toWords(x % 100) : '');
+        return '';
+    }
+    function toIndian(x) {
+        if (x === 0) return '';
+        const cr = Math.floor(x / 10000000);
+        const lk = Math.floor((x % 10000000) / 100000);
+        const th = Math.floor((x % 100000) / 1000);
+        const hd = x % 1000;
+        let out = [];
+        if (cr > 0) out.push(toWords(cr) + ' CRORE');
+        if (lk > 0) out.push(toWords(lk) + ' LAKH');
+        if (th > 0) out.push(toWords(th) + ' THOUSAND');
+        if (hd > 0) out.push(toWords(hd));
+        return out.join(' ');
+    }
+    let w = 'RUPEES ' + toIndian(n);
+    if (paise > 0) w += ' AND ' + toWords(paise) + ' PAISE';
+    return w.trim() + ' ONLY';
+}
+   
