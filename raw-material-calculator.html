@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+
+<title>Raw Material Calculator | Raj Marketing Mysore</title>
+<meta name="description" content="Complete raw material calculator for aluminium mosquito net production. Calculate aluminium, mesh, corners, rubber, and total cost.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+/* ============================================================
+   ROOT VARIABLES
+============================================================ */
+:root {
+    --primary: #1a56db;
+    --primary-dark: #0d47a1;
+    --primary-light: #e8f0fe;
+    --navy: #0f1b33;
+    --orange: #f59e0b;
+    --orange-dark: #d97706;
+    --green: #059669;
+    --green-dark: #047857;
+    --red: #dc2626;
+    --red-dark: #b91c1c;
+    --purple: #8b5cf6;
+    --text-dark: #1f2937;
+    --text-muted: #64748b;
+    --bg: #f0f4f8;
+    --bg-white: #ffffff;
+    --bg-light: #f8fafc;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.10);
+    --radius: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding-bottom: 40px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+.header {
+    background: linear-gradient(135deg, var(--navy), #1a2d4d);
+    color: white;
+    padding: 28px;
+    border-radius: var(--radius-xl);
+    margin-bottom: 22px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(15, 27, 51, 0.25);
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+}
+
+.header-icon {
+    width: 64px; height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, var(--orange), var(--orange-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+}
+
+.header-text h1 {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+}
+
+.header-text p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+}
+
+.header-badge {
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================================
+   CARD
+============================================================ */
+.card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border-light);
+    letter-spacing: -0.3px;
+}
+
+.card-title i { color: var(--primary); font-size: 18px; }
+
+.card-title .title-badge {
+    margin-left: auto;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   SETTINGS GRID
+============================================================ */
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.setting label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.setting label i { color: var(--primary); font-size: 11px; }
+
+.setting-input-wrap { position: relative; display: flex; align-items: center; }
+
+.setting-input-wrap .prefix {
+    position: absolute; left: 14px;
+    color: var(--text-muted);
+    font-weight: 800; font-size: 14px;
+    pointer-events: none;
+}
+
+.setting-input-wrap .suffix {
+    position: absolute; right: 14px;
+    color: var(--text-muted);
+    font-weight: 700; font-size: 11px;
+    pointer-events: none;
+    text-transform: uppercase;
+}
+
+input, select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--text-dark);
+    background: var(--bg-light);
+    transition: var(--transition);
+    outline: none;
+}
+
+.setting-input-wrap.has-prefix input { padding-left: 34px; }
+.setting-input-wrap.has-suffix input { padding-right: 42px; }
+
+input:focus {
+    border-color: var(--primary);
+    background: var(--bg-white);
+    box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.08);
+}
+
+input[type="number"] { -moz-appearance: textfield; }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ============================================================
+   TABLE
+============================================================ */
+.table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius);
+}
+
+.table-wrap::-webkit-scrollbar { height: 6px; }
+.table-wrap::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 20px; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+    font-size: 13px;
+}
+
+th {
+    background: linear-gradient(145deg, var(--navy), #1a2d4d);
+    color: white;
+    padding: 12px 10px;
+    font-size: 11px;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+th:first-child { border-top-left-radius: var(--radius); }
+th:last-child { border-top-right-radius: var(--radius); }
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-light);
+    text-align: center;
+    vertical-align: middle;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+td input { padding: 8px 10px; font-size: 13px; text-align: center; }
+
+.row-number { font-weight: 900; color: var(--primary); font-size: 14px; }
+td.area-cell, td.middle-cell { color: var(--primary); font-weight: 800; }
+
+.roll-badge {
+    display: inline-block;
+    background: linear-gradient(145deg, var(--primary-light), #dbeafe);
+    color: var(--primary);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(26, 86, 219, 0.2);
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn {
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary {
+    background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 14px rgba(26, 86, 219, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(145deg, var(--green), var(--green-dark));
+    color: white;
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(145deg, var(--red), var(--red-dark));
+    color: white;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.btn-dark {
+    background: linear-gradient(145deg, var(--navy), #1a2d4d);
+    color: white;
+    box-shadow: 0 4px 14px rgba(15, 27, 51, 0.3);
+}
+
+.btn-light {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    border: 1.5px solid var(--border);
+}
+
+.btn-warning {
+    background: linear-gradient(145deg, var(--orange), var(--orange-dark));
+    color: white;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+/* ============================================================
+   SUMMARY GRID
+============================================================ */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.summary-box {
+    padding: 20px;
+    border-radius: var(--radius);
+    background: var(--bg-light);
+    border-left: 5px solid var(--primary);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.summary-box:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.summary-box .summary-icon {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-size: 22px;
+    color: var(--primary);
+    opacity: 0.15;
+}
+
+.summary-box .label {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+}
+
+.summary-box .value {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+.summary-box.total-box {
+    background: linear-gradient(135deg, var(--navy), #1a2d4d);
+    color: white;
+    border-left-color: var(--orange);
+    grid-column: span 2;
+    box-shadow: 0 8px 24px rgba(15, 27, 51, 0.25);
+}
+
+.summary-box.total-box .label { color: rgba(255, 255, 255, 0.75); }
+.summary-box.total-box .value { color: white; font-size: 32px; }
+
+.summary-box.total-box .summary-icon {
+    color: var(--orange);
+    opacity: 0.25;
+    font-size: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.summary-box.green-box { border-left-color: var(--green); }
+.summary-box.green-box .summary-icon { color: var(--green); }
+.summary-box.green-box .value { color: var(--green); }
+
+.summary-box.orange-box { border-left-color: var(--orange); }
+.summary-box.orange-box .summary-icon { color: var(--orange); }
+.summary-box.orange-box .value { color: var(--orange-dark); }
+
+.summary-box.purple-box { border-left-color: var(--purple); }
+.summary-box.purple-box .summary-icon { color: var(--purple); }
+.summary-box.purple-box .value { color: #7c3aed; }
+
+.summary-box.red-box { border-left-color: var(--red); }
+.summary-box.red-box .summary-icon { color: var(--red); }
+.summary-box.red-box .value { color: var(--red); }
+
+/* ============================================================
+   MATERIAL TABLE
+============================================================ */
+.material-table td:first-child {
+    text-align: left;
+    font-weight: 800;
+    color: var(--navy);
+}
+
+.material-table td:first-child i {
+    color: var(--primary);
+    margin-right: 8px;
+    width: 18px;
+    text-align: center;
+}
+
+.material-table .total-row {
+    background: linear-gradient(135deg, var(--navy), #1a2d4d);
+    color: white;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.material-table .total-row td {
+    padding: 16px 12px;
+    color: white;
+    border-bottom: none;
+}
+
+.material-table .total-row td:first-child {
+    color: white;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.material-table .total-row .total-amount {
+    font-size: 22px;
+    color: var(--orange);
+    font-weight: 900;
+}
+
+.wastage-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.wastage-note strong { color: var(--text-dark); }
+.wastage-note .wastage-red { color: var(--red); font-weight: 800; }
+
+/* ============================================================
+   NOTE
+============================================================ */
+.note {
+    background: linear-gradient(135deg, #fff7ed, #ffedd5);
+    border-left: 4px solid var(--orange);
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    margin-top: 16px;
+    font-size: 12px;
+    color: #92400e;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.note i { color: var(--orange); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+/* ============================================================
+   PREVIEW
+============================================================ */
+.preview {
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    background: white;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 3px solid var(--navy);
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.preview-title {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+}
+
+.preview-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background: linear-gradient(145deg, var(--primary-light), #dbeafe);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1.5px solid rgba(26, 86, 219, 0.2);
+}
+
+.preview-section { margin-top: 24px; }
+
+.preview-section-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.preview-section-title i { color: var(--primary); }
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.preview-stat {
+    background: var(--bg-light);
+    padding: 14px;
+    border-radius: var(--radius);
+    border-left: 4px solid var(--primary);
+}
+
+.preview-stat .label {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.preview-stat .value {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--navy);
+    margin-top: 2px;
+}
+
+.cut-list {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-dark);
+    background: var(--bg-light);
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    border-left: 4px solid var(--orange);
+}
+
+.preview-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 900px) {
+    .settings-grid { grid-template-columns: repeat(3, 1fr); }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .summary-box.total-box { grid-column: span 2; }
+    .preview-grid { grid-template-columns: repeat(2, 1fr); }
+    .header-text h1 { font-size: 22px; }
+    .header-badge { margin-left: 0; }
+}
+
+@media (max-width: 600px) {
+    .container { padding: 12px; }
+    .card { padding: 16px; }
+    .settings-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .summary-grid { grid-template-columns: 1fr; }
+    .summary-box.total-box { grid-column: span 1; }
+    .preview { padding: 18px; }
+    .preview-title { font-size: 20px; }
+    .preview-grid { grid-template-columns: 1fr; }
+    .header { padding: 20px; }
+    .header-text h1 { font-size: 18px; }
+    .header-icon { width: 52px; height: 52px; font-size: 22px; }
+    .btn { padding: 10px 14px; font-size: 12px; }
+}
+
+/* ============================================================
+   PRINT
+============================================================ */
+@media print {
+    body { background: white; padding: 0; }
+    .no-print, .button-row, .header-badge { display: none !important; }
+    .container { max-width: none; padding: 0; }
+    .card { box-shadow: none; border: none; padding: 0; margin-bottom: 20px; page-break-inside: avoid; }
+    .preview { border: none; padding: 0; }
+    th { background: #111827 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .summary-box.total-box, .material-table .total-row {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header no-print">
+        <div class="header-inner">
+            <div class="header-icon"><i class="fas fa-ruler-combined"></i></div>
+            <div class="header-text">
+                <h1>Raw Material Calculator</h1>
+                <p>Aluminium Frame &amp; Mosquito Net · Complete Production Planner</p>
+            </div>
+            <div class="header-badge"><i class="fas fa-industry"></i> Raj Marketing</div>
+        </div>
+    </div>
+
+    <!-- MATERIAL RATES -->
+    <div class="card no-print">
+        <div class="card-title">
+            <i class="fas fa-tags"></i> Material Rates
+            <span class="title-badge">Editable</span>
+        </div>
+
+        <div class="settings-grid">
+            <div class="setting">
+                <label><i class="fas fa-grip-lines"></i> Aluminium (12 ft)</label>
+                <div class="setting-input-wrap has-prefix">
+                    <span class="prefix">₹</span>
+                    <input id="aluminiumRate" type="number" value="255" step="0.01">
+                </div>
+            </div>
+
+            <div class="setting">
+                <label><i class="fas fa-th"></i> SS Mesh Rate</label>
+                <div class="setting-input-wrap has-prefix has-suffix">
+                    <span class="prefix">₹</span>
+                    <input id="meshRate" type="number" value="19.5" step="0.01">
+                    <span class="suffix">/sq.ft</span>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label><i class="fas fa-cubes"></i> Corner</label>
+                <div class="setting-input-wrap has-prefix has-suffix">
+                    <span class="prefix">₹</span>
+                    <input id="cornerRate" type="number" value="3.75" step="0.01">
+                    <span class="suffix">/pc</span>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label><i class="fas fa-circle"></i> Rubber</label>
+                <div class="setting-input-wrap has-prefix has-suffix">
+                    <span class="prefix">₹</span>
+                    <input id="rubberRate" type="number" value="220" step="0.01">
+                    <span class="suffix">/kg</span>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label><i class="fas fa-ruler"></i> Rubber Length</label>
+                <div class="setting-input-wrap has-suffix">
+                    <input id="rubberPerKg" type="number" value="20" step="0.1">
+                    <span class="suffix">m/kg</span>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label><i class="fas fa-stop-circle"></i> Stopper</label>
+                <div class="setting-input-wrap has-prefix has-suffix">
+                    <span class="prefix">₹</span>
+                    <input id="stopperRate" type="number" value="2" step="0.01">
+                    <span class="suffix">/pc</span>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label><i class="fas fa-cog"></i> Hinge</label>
+                <div class="setting-input-wrap has-prefix has-suffix">
+                    <span class="prefix">₹</span>
+                    <input id="hingeRate" type="number" value="4.5" step="0.01">
+                    <span class="suffix">/pc</span>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label><i class="fas fa-cut"></i> Frame Reduction</label>
+                <div class="setting-input-wrap has-suffix">
+                    <input id="reduction" type="number" value="1.5" step="0.25">
+                    <span class="suffix">inch</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            <i class="fas fa-info-circle"></i>
+            <div><strong>Tip:</strong> All rates are editable. The calculator auto-saves your rates on this device.</div>
+        </div>
+    </div>
+
+    <!-- MEASUREMENTS -->
+    <div class="card no-print">
+        <div class="card-title">
+            <i class="fas fa-list-ol"></i> Customer Measurements
+            <span class="title-badge" id="rowCountBadge">1 row</span>
+        </div>
+
+        <div class="table-wrap">
+            <table id="measurementTable">
+                <thead>
+                    <tr>
+                        <th style="width:40px;">#</th>
+                        <th>Width (inch)</th>
+                        <th>Height (inch)</th>
+                        <th style="width:80px;">Qty</th>
+                        <th>Original Area</th>
+                        <th>Middle Pieces</th>
+                        <th style="width:80px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="measurementBody"></tbody>
+            </table>
+        </div>
+
+        <div class="button-row">
+            <button class="btn btn-primary" onclick="addRow()">
+                <i class="fas fa-plus"></i> Add Measurement
+            </button>
+            <button class="btn btn-success" onclick="calculate()">
+                <i class="fas fa-calculator"></i> Calculate
+            </button>
+            <button class="btn btn-warning" onclick="loadSample()">
+                <i class="fas fa-flask"></i> Load Sample
+            </button>
+            <button class="btn btn-light" onclick="clearAll()">
+                <i class="fas fa-redo"></i> Clear All
+            </button>
+        </div>
+
+        <div class="note">
+            <i class="fas fa-lightbulb"></i>
+            <div><strong>Fraction Input:</strong> Type <code>22¾</code> or <code>22 3/4</code> or <code>22.75</code> — all work!</div>
+        </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="card">
+        <div class="card-title">
+            <i class="fas fa-chart-pie"></i> Calculation Summary
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-box">
+                <i class="fas fa-window-maximize summary-icon"></i>
+                <div class="label">Total Frames</div>
+                <div class="value" id="totalFrames">0</div>
+            </div>
+
+            <div class="summary-box orange-box">
+                <i class="fas fa-ruler-horizontal summary-icon"></i>
+                <div class="label">Aluminium Required</div>
+                <div class="value" id="totalAluminium">0 ft</div>
+            </div>
+
+            <div class="summary-box">
+                <i class="fas fa-boxes summary-icon"></i>
+                <div class="label">12 ft Lengths</div>
+                <div class="value" id="aluminiumLengths">0</div>
+            </div>
+
+            <div class="summary-box green-box">
+                <i class="fas fa-th summary-icon"></i>
+                <div class="label">Mesh Required</div>
+                <div class="value" id="totalMesh">0 sq.ft</div>
+            </div>
+
+            <div class="summary-box red-box">
+                <i class="fas fa-exclamation-triangle summary-icon"></i>
+                <div class="label">Mesh Wastage</div>
+                <div class="value" id="totalMeshWastage">0 sq.ft</div>
+            </div>
+
+            <div class="summary-box purple-box">
+                <i class="fas fa-layer-group summary-icon"></i>
+                <div class="label">Mesh Consumed</div>
+                <div class="value" id="totalMeshConsumed">0 sq.ft</div>
+            </div>
+
+            <div class="summary-box">
+                <i class="fas fa-trash-alt summary-icon"></i>
+                <div class="label">Aluminium Wastage</div>
+                <div class="value" id="aluminiumWastage">0 ft</div>
+            </div>
+
+            <div class="summary-box">
+                <i class="fas fa-cubes summary-icon"></i>
+                <div class="label">Corners</div>
+                <div class="value" id="totalCorners">0</div>
+            </div>
+
+            <div class="summary-box">
+                <i class="fas fa-circle summary-icon"></i>
+                <div class="label">Rubber</div>
+                <div class="value" id="totalRubber">0 kg</div>
+            </div>
+
+            <div class="summary-box">
+                <i class="fas fa-stop-circle summary-icon"></i>
+                <div class="label">Stoppers + Hinges</div>
+                <div class="value" id="totalAccessories">0</div>
+            </div>
+
+            <div class="summary-box total-box">
+                <i class="fas fa-rupee-sign summary-icon"></i>
+                <div class="label">Total Material Cost</div>
+                <div class="value" id="grandTotal">₹0.00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MATERIAL LIST -->
+    <div class="card">
+        <div class="card-title">
+            <i class="fas fa-clipboard-list"></i> Required Raw Material &amp; Cost
+        </div>
+
+        <div class="table-wrap">
+            <table class="material-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Raw Material</th>
+                        <th>Required Qty</th>
+                        <th>Unit</th>
+                        <th>Rate</th>
+                        <th>Cost</th>
+                        <th style="text-align:left;">Notes / Wastage</th>
+                    </tr>
+                </thead>
+                <tbody id="materialBody">
+                    <tr>
+                        <td colspan="6" style="padding:40px;text-align:center;color:var(--text-muted);">
+                            <i class="fas fa-calculator" style="font-size:32px;opacity:0.3;display:block;margin-bottom:8px;"></i>
+                            Enter measurements and click <strong>Calculate</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ALUMINIUM CUTTING DETAILS -->
+    <div class="card">
+        <div class="card-title">
+            <i class="fas fa-cut"></i> Aluminium Cutting Details
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Measurement</th>
+                        <th>Qty</th>
+                        <th>Frame W</th>
+                        <th>Frame H</th>
+                        <th>Top + Bottom</th>
+                        <th>Left + Right</th>
+                        <th>Middle</th>
+                        <th>Total Inches</th>
+                    </tr>
+                </thead>
+                <tbody id="detailsBody">
+                    <tr><td colspan="8" style="padding:40px;text-align:center;color:var(--text-muted);">Cutting details will appear after calculation</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MESH CUTTING & ROLL DETAILS -->
+    <div class="card">
+        <div class="card-title">
+            <i class="fas fa-th"></i> SS Mesh Cutting &amp; Roll Details
+            <span class="title-badge">Auto Roll Selection</span>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Measurement</th>
+                        <th>Qty</th>
+                        <th>Roll Size</th>
+                        <th>2× Width</th>
+                        <th>Width Wastage</th>
+                        <th>Required Sq.ft</th>
+                        <th>Wastage Sq.ft</th>
+                        <th>Length Used</th>
+                    </tr>
+                </thead>
+                <tbody id="meshDetailsBody">
+                    <tr><td colspan="8" style="padding:40px;text-align:center;color:var(--text-muted);">Mesh details will appear after calculation</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="note">
+            <i class="fas fa-info-circle"></i>
+            <div>
+                <strong>Mesh Roll Rules:</strong>
+                Width &lt; 19" → 3 ft roll &nbsp;|&nbsp;
+                19" to 25" → 4 ft roll &nbsp;|&nbsp;
+                &gt; 25" → 5 ft roll &nbsp;|&nbsp;
+                Special: 20" × 3 Qty → 5 ft roll
+            </div>
+        </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="card">
+        <div class="button-row no-print">
+            <button class="btn btn-dark" onclick="window.print()">
+                <i class="fas fa-print"></i> Print / Save PDF
+            </button>
+            <button class="btn btn-light" onclick="copySummary()">
+                <i class="fas fa-copy"></i> Copy Summary
+            </button>
+        </div>
+
+        <div class="preview" id="preview">
+            <div class="preview-header">
+                <div>
+                    <div class="preview-title">RAJ MARKETING MYSORE</div>
+                    <div class="preview-subtitle">Aluminium Frame &amp; Mosquito Net · Raw Material Estimate</div>
+                </div>
+                <span class="badge"><i class="fas fa-industry"></i> Production Sheet</span>
+            </div>
+
+            <div id="previewContent">
+                <div class="preview-empty">
+                    <i class="fas fa-calculator" style="font-size:48px;opacity:0.2;display:block;margin-bottom:12px;"></i>
+                    Enter measurements and click <strong>Calculate</strong> to see preview
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+/* =====================================================
+   RAJ MARKETING MYSORE
+   RAW MATERIAL CALCULATOR - COMPLETE
+   ===================================================== */
+(function() {
+'use strict';
+
+const STORAGE_KEY = 'raj_raw_material_v2';
+
+/* -----------------------------------------------------
+   MEASUREMENT PARSER
+----------------------------------------------------- */
+function parseMeasurement(value) {
+    if (!value && value !== 0) return 0;
+    let s = String(value).trim()
+        .replace(/¼/g, ' 1/4')
+        .replace(/½/g, ' 1/2')
+        .replace(/¾/g, ' 3/4')
+        .replace(/⅛/g, ' 1/8')
+        .replace(/⅜/g, ' 3/8')
+        .replace(/⅝/g, ' 5/8')
+        .replace(/⅞/g, ' 7/8')
+        .replace(/-/g, ' ');
+    const parts = s.split(/\s+/).filter(Boolean);
+    if (parts.length === 1 && parts[0].includes('/')) {
+        const p = parts[0].split('/');
+        return Number(p[0]) / Number(p[1]);
+    }
+    if (parts.length >= 2) {
+        const whole = Number(parts[0]);
+        if (parts[1].includes('/')) {
+            const f = parts[1].split('/');
+            return whole + Number(f[0]) / Number(f[1]);
+        }
+    }
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+}
+
+/* -----------------------------------------------------
+   FORMATTERS
+----------------------------------------------------- */
+function num(value, decimals = 2) {
+    return Number(value || 0).toLocaleString('en-IN', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+    });
+}
+
+function money(value) {
+    return '₹' + Number(value || 0).toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/* =====================================================
+   BUSINESS RULES
+===================================================== */
+function getMiddlePieces(height) {
+    if (height <= 36) return 1;
+    if (height <= 60) return 2;
+    return 3;
+}
+
+function getAccessoryPieces(height) {
+    if (height <= 36) return 2;
+    return 3;
+}
+
+/* =====================================================
+   MESH ROLL SELECTION
+===================================================== */
+function selectMeshRoll(width, qty) {
+    const doubleWidth = width * 2;
+    let rollWidth, reason;
+
+    if (Math.abs(width - 20) < 0.001 && qty === 3) {
+        rollWidth = 60;
+        reason = 'Special: 20" × 3 Qty → 5 ft roll';
+    } else if (width < 19) {
+        rollWidth = 36;
+        reason = 'Width < 19" → 3 ft roll';
+    } else if (width <= 25) {
+        rollWidth = 48;
+        reason = 'Width 19"–25" → 4 ft roll';
+    } else {
+        rollWidth = 60;
+        reason = 'Width > 25" → 5 ft roll';
+    }
+
+    let widthWastage = rollWidth - doubleWidth;
+    if (widthWastage < 0) widthWastage = 0;
+
+    return {
+        rollWidth,
+        rollFeet: rollWidth / 12,
+        doubleWidth,
+        widthWastage,
+        reason
+    };
+}
+
+function calculateMesh(width, height, qty) {
+    const roll = selectMeshRoll(width, qty);
+    const requiredSqft = (width * height * qty) / 144;
+    const wastageSqInPerQty = roll.widthWastage * height;
+    const wastageSqftPerQty = wastageSqInPerQty / 144;
+    const totalWastageSqft = wastageSqftPerQty * qty;
+    const totalConsumedSqft = requiredSqft + totalWastageSqft;
+    const rollLengthConsumed = (height / 12) * qty;
+    const rollLengthBalance = Math.max(0, 100 - rollLengthConsumed);
+
+    return {
+        rollWidth: roll.rollWidth,
+        rollFeet: roll.rollFeet,
+        doubleWidth: roll.doubleWidth,
+        widthWastage: roll.widthWastage,
+        wastageSqInPerQty,
+        wastageSqftPerQty,
+        totalWastageSqft,
+        requiredSqft,
+        totalConsumedSqft,
+        rollLengthConsumed,
+        rollLengthBalance,
+        reason: roll.reason
+    };
+}
+          /* =====================================================
+   ROW MANAGEMENT
+===================================================== */
+function addRow(width = '', height = '', qty = 1) {
+    const body = document.getElementById('measurementBody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td class="row-number"></td>
+        <td><input class="width-input" placeholder="22¾" value="${escapeHtml(width)}"></td>
+        <td><input class="height-input" placeholder="45½" value="${escapeHtml(height)}"></td>
+        <td><input class="qty-input" type="number" min="1" value="${qty}"></td>
+        <td class="area-cell">0.00</td>
+        <td class="middle-cell">0</td>
+        <td><button class="btn btn-danger" onclick="removeRow(this)"><i class="fas fa-times"></i></button></td>
+    `;
+    body.appendChild(row);
+    row.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+            updateRow(row);
+            saveToStorage();
+        });
+    });
+    updateRow(row);
+    updateRowNumbers();
+    return row;
+}
+
+function updateRow(row) {
+    const width = parseMeasurement(row.querySelector('.width-input').value);
+    const height = parseMeasurement(row.querySelector('.height-input').value);
+    const qty = Number(row.querySelector('.qty-input').value) || 0;
+    const area = (width * height) / 144;
+    const middle = getMiddlePieces(height);
+    row.querySelector('.area-cell').textContent = num(area, 2) + ' sq.ft';
+    row.querySelector('.middle-cell').textContent = middle;
+}
+
+function removeRow(button) {
+    button.closest('tr').remove();
+    updateRowNumbers();
+    calculate();
+    saveToStorage();
+}
+
+function updateRowNumbers() {
+    const rows = document.querySelectorAll('#measurementBody tr');
+    rows.forEach((row, i) => {
+        row.querySelector('.row-number').textContent = i + 1;
+    });
+    const badge = document.getElementById('rowCountBadge');
+    if (badge) badge.textContent = rows.length + ' row' + (rows.length !== 1 ? 's' : '');
+}
+
+function getMeasurements() {
+    const rows = document.querySelectorAll('#measurementBody tr');
+    const out = [];
+    rows.forEach(row => {
+        const w = parseMeasurement(row.querySelector('.width-input').value);
+        const h = parseMeasurement(row.querySelector('.height-input').value);
+        const q = Number(row.querySelector('.qty-input').value) || 0;
+        if (w > 0 && h > 0 && q > 0) out.push({ width: w, height: h, qty: q });
+    });
+    return out;
+}
+
+function getSettings() {
+    return {
+        aluminiumRate: Number(document.getElementById('aluminiumRate')?.value) || 0,
+        meshRate: Number(document.getElementById('meshRate')?.value) || 0,
+        cornerRate: Number(document.getElementById('cornerRate')?.value) || 0,
+        rubberRate: Number(document.getElementById('rubberRate')?.value) || 0,
+        rubberPerKg: Number(document.getElementById('rubberPerKg')?.value) || 20,
+        stopperRate: Number(document.getElementById('stopperRate')?.value) || 0,
+        hingeRate: Number(document.getElementById('hingeRate')?.value) || 0,
+        reduction: Number(document.getElementById('reduction')?.value) || 1.5
+    };
+}
+
+/* =====================================================
+   MAIN CALCULATION
+===================================================== */
+function calculate() {
+    const measurements = getMeasurements();
+    const s = getSettings();
+
+    let totalFrames = 0;
+    let totalAluminiumInches = 0;
+    let totalMeshSqft = 0;
+    let totalMeshWastageSqft = 0;
+    let totalMeshConsumedSqft = 0;
+    let totalCorners = 0;
+    let totalRubberMeters = 0;
+    let totalStoppers = 0;
+    let totalHinges = 0;
+
+    let detailsHTML = '';
+    let meshDetailsHTML = '';
+    let previewMeasurements = '';
+    let meshCutDetails = '';
+
+    const meshRolls = {
+        36: { count: 0, name: '3 ft Roll (36")' },
+        48: { count: 0, name: '4 ft Roll (48")' },
+        60: { count: 0, name: '5 ft Roll (60")' }
+    };
+
+    measurements.forEach((m, i) => {
+        /* ALUMINIUM */
+        const frameWidth = Math.max(0, m.width - s.reduction);
+        const frameHeight = Math.max(0, m.height - s.reduction);
+        const middlePieces = getMiddlePieces(m.height);
+        const accessoryPieces = getAccessoryPieces(m.height);
+
+        const widthTotal = frameWidth * 2;
+        const heightTotal = frameHeight * 2;
+        const middleTotal = frameWidth * middlePieces;
+        const aluminiumOneFrame = widthTotal + heightTotal + middleTotal;
+        const aluminiumTotal = aluminiumOneFrame * m.qty;
+
+        totalAluminiumInches += aluminiumTotal;
+
+        /* MESH */
+        const mesh = calculateMesh(m.width, m.height, m.qty);
+        totalMeshSqft += mesh.requiredSqft;
+        totalMeshWastageSqft += mesh.totalWastageSqft;
+        totalMeshConsumedSqft += mesh.totalConsumedSqft;
+        meshRolls[mesh.rollWidth].count += m.qty;
+
+        /* CORNERS */
+        totalCorners += 4 * m.qty;
+
+        /* RUBBER */
+        const perimeterInches = 2 * (m.width + m.height);
+        totalRubberMeters += (perimeterInches / 39.3700787) * m.qty;
+
+        /* ACCESSORIES */
+        totalStoppers += accessoryPieces * m.qty;
+        totalHinges += accessoryPieces * m.qty;
+
+        /* FRAMES */
+        totalFrames += m.qty;
+
+        /* ALUMINIUM DETAILS */
+        detailsHTML += `
+            <tr>
+                <td><strong>${num(m.width, 2)}" × ${num(m.height, 2)}"</strong></td>
+                <td>${m.qty}</td>
+                <td>${num(frameWidth, 2)}"</td>
+                <td>${num(frameHeight, 2)}"</td>
+                <td>${num(widthTotal, 2)}"</td>
+                <td>${num(heightTotal, 2)}"</td>
+                <td>${num(middleTotal, 2)}"<br><small>${middlePieces} middle/frame</small></td>
+                <td><strong>${num(aluminiumTotal, 2)}"</strong></td>
+            </tr>
+        `;
+
+        /* MESH DETAILS */
+        meshDetailsHTML += `
+            <tr>
+                <td><strong>${num(m.width, 2)}" × ${num(m.height, 2)}"</strong></td>
+                <td>${m.qty}</td>
+                <td><span class="roll-badge">${mesh.rollFeet} ft</span> (${mesh.rollWidth}")</td>
+                <td>${num(mesh.doubleWidth, 2)}"</td>
+                <td>${num(mesh.widthWastage, 2)}"</td>
+                <td>${num(mesh.requiredSqft, 3)}</td>
+                <td style="color:#dc2626;">${num(mesh.totalWastageSqft, 3)}</td>
+                <td>${num(mesh.rollLengthConsumed, 2)} ft</td>
+            </tr>
+        `;
+
+        /* MESH CUT DETAILS FOR PREVIEW */
+        meshCutDetails += `
+            <div style="margin-bottom:10px;">
+                <strong>Mesh ${i + 1}: ${num(m.width, 2)}" × ${num(m.height, 2)}" (Qty: ${m.qty})</strong><br>
+                • Roll Size: <strong>${mesh.rollFeet} ft (${mesh.rollWidth}")</strong><br>
+                • Width usage: 2 × ${num(m.width, 2)}" = ${num(mesh.doubleWidth, 2)}"<br>
+                • Width wastage: <span style="color:#dc2626;">${num(mesh.widthWastage, 2)}"</span><br>
+                • Length consumed: ${num(mesh.rollLengthConsumed, 2)} ft<br>
+                • Balance in 100 ft roll: ${num(mesh.rollLengthBalance, 2)} ft<br>
+                <small style="color:#64748b;">${mesh.reason}</small>
+            </div>
+        `;
+
+        /* PREVIEW ROW */
+        previewMeasurements += `
+            <tr>
+                <td>${i + 1}</td>
+                <td>${num(m.width, 2)}" × ${num(m.height, 2)}"</td>
+                <td>${m.qty}</td>
+                <td>${num(frameWidth, 2)}" × ${num(frameHeight, 2)}"</td>
+                <td>${middlePieces}</td>
+                <td>${mesh.rollFeet} ft</td>
+                <td>${num(mesh.totalWastageSqft, 3)} sq.ft</td>
+            </tr>
+        `;
+    });
+
+    /* ALUMINIUM 12 FT BAR */
+    const aluminiumBarLength = 144;
+    const aluminiumLengths = totalAluminiumInches > 0
+        ? Math.ceil(totalAluminiumInches / aluminiumBarLength) : 0;
+    const purchasedAluminiumInches = aluminiumLengths * aluminiumBarLength;
+    const aluminiumWastage = purchasedAluminiumInches - totalAluminiumInches;
+
+    /* RUBBER KG */
+    const rubberKg = totalRubberMeters / s.rubberPerKg;
+
+    /* COSTS */
+    const aluminiumCost = aluminiumLengths * s.aluminiumRate;
+    const meshCost = totalMeshConsumedSqft * s.meshRate;
+    const meshWastageCost = totalMeshWastageSqft * s.meshRate;
+    const cornerCost = totalCorners * s.cornerRate;
+    const rubberCost = rubberKg * s.rubberRate;
+    const stopperCost = totalStoppers * s.stopperRate;
+    const hingeCost = totalHinges * s.hingeRate;
+    const grandTotal = aluminiumCost + meshCost + cornerCost + rubberCost + stopperCost + hingeCost;
+
+    /* SUMMARY UPDATES */
+    document.getElementById('totalFrames').textContent = totalFrames;
+    document.getElementById('totalAluminium').textContent = num(totalAluminiumInches / 12, 2) + ' ft';
+    document.getElementById('aluminiumLengths').textContent = aluminiumLengths;
+    document.getElementById('totalMesh').textContent = num(totalMeshSqft, 2) + ' sq.ft';
+    document.getElementById('aluminiumWastage').textContent = num(aluminiumWastage / 12, 2) + ' ft';
+    document.getElementById('totalCorners').textContent = totalCorners;
+    document.getElementById('totalRubber').textContent = num(rubberKg, 3) + ' kg';
+    document.getElementById('totalAccessories').textContent = totalStoppers + totalHinges;
+    document.getElementById('grandTotal').textContent = money(grandTotal);
+
+    const el1 = document.getElementById('totalMeshWastage');
+    if (el1) el1.textContent = num(totalMeshWastageSqft, 2) + ' sq.ft';
+    const el2 = document.getElementById('totalMeshConsumed');
+    if (el2) el2.textContent = num(totalMeshConsumedSqft, 2) + ' sq.ft';
+
+    /* MATERIAL TABLE */
+    const materialBody = document.getElementById('materialBody');
+
+    if (measurements.length === 0) {
+        materialBody.innerHTML = `
+            <tr><td colspan="6" style="padding:40px;text-align:center;color:var(--text-muted);">
+                <i class="fas fa-exclamation-circle" style="font-size:32px;opacity:0.3;display:block;margin-bottom:8px;"></i>
+                No valid measurements entered
+            </td></tr>
+        `;
+    } else {
+        let meshRollsText = [];
+        Object.entries(meshRolls).forEach(([width, data]) => {
+            if (data.count > 0) meshRollsText.push(`${data.name}: ${data.count} pcs`);
+        });
+
+        materialBody.innerHTML = `
+            <tr>
+                <td><i class="fas fa-grip-lines"></i> Aluminium Frame (12 ft)</td>
+                <td><strong>${aluminiumLengths}</strong></td>
+                <td>lengths</td>
+                <td>${money(s.aluminiumRate)}</td>
+                <td><strong>${money(aluminiumCost)}</strong></td>
+                <td class="wastage-note">Required: ${num(totalAluminiumInches / 12, 2)} ft<br>Wastage: <span class="wastage-red">${num(aluminiumWastage / 12, 2)} ft</span></td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-th"></i> SS Mesh (with wastage)</td>
+                <td><strong>${num(totalMeshConsumedSqft, 2)}</strong></td>
+                <td>sq.ft</td>
+                <td>${money(s.meshRate)}</td>
+                <td><strong>${money(meshCost)}</strong></td>
+                <td class="wastage-note">Required: ${num(totalMeshSqft, 2)} sq.ft<br>Wastage: <span class="wastage-red">${num(totalMeshWastageSqft, 2)} sq.ft</span><br>${meshRollsText.join(' · ')}</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-cubes"></i> Corners</td>
+                <td><strong>${totalCorners}</strong></td>
+                <td>pieces</td>
+                <td>${money(s.cornerRate)}</td>
+                <td><strong>${money(cornerCost)}</strong></td>
+                <td class="wastage-note">4 per frame</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-circle"></i> Rubber</td>
+                <td><strong>${num(rubberKg, 3)}</strong></td>
+                <td>kg</td>
+                <td>${money(s.rubberRate)}</td>
+                <td><strong>${money(rubberCost)}</strong></td>
+                <td class="wastage-note">${num(totalRubberMeters, 2)} m total</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-stop-circle"></i> Stoppers</td>
+                <td><strong>${totalStoppers}</strong></td>
+                <td>pieces</td>
+                <td>${money(s.stopperRate)}</td>
+                <td><strong>${money(stopperCost)}</strong></td>
+                <td class="wastage-note">Based on frame height</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-cog"></i> Hinges</td>
+                <td><strong>${totalHinges}</strong></td>
+                <td>pieces</td>
+                <td>${money(s.hingeRate)}</td>
+                <td><strong>${money(hingeCost)}</strong></td>
+                <td class="wastage-note">Based on frame height</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="4" style="text-align:right;">TOTAL MATERIAL COST</td>
+                <td colspan="2" style="text-align:left;"><span class="total-amount">${money(grandTotal)}</span></td>
+            </tr>
+        `;
+    }
+
+    /* DETAILS TABLE */
+    const detailsBody = document.getElementById('detailsBody');
+    if (detailsBody) {
+        detailsBody.innerHTML = measurements.length === 0
+            ? `<tr><td colspan="8" style="padding:40px;text-align:center;color:var(--text-muted);">Cutting details will appear after calculation</td></tr>`
+            : detailsHTML;
+    }
+
+    /* MESH DETAILS TABLE */
+    const meshBody = document.getElementById('meshDetailsBody');
+    if (meshBody) {
+        meshBody.innerHTML = measurements.length === 0
+            ? `<tr><td colspan="8" style="padding:40px;text-align:center;color:var(--text-muted);">Mesh details will appear after calculation</td></tr>`
+            : meshDetailsHTML;
+    }
+
+    /* PREVIEW */
+    renderPreview({
+        measurements,
+        previewMeasurements,
+        meshCutDetails,
+        totalFrames,
+        totalAluminiumFeet: totalAluminiumInches / 12,
+        aluminiumLengths,
+        aluminiumWastageFeet: aluminiumWastage / 12,
+        totalMeshSqft,
+        totalMeshWastageSqft,
+        totalMeshConsumedSqft,
+        totalCorners,
+        rubberKg,
+        totalStoppers,
+        totalHinges,
+        grandTotal,
+        meshRolls,
+        costs: { aluminiumCost, meshCost, cornerCost, rubberCost, stopperCost, hingeCost }
+    });
+
+    saveToStorage();
+}
+
+/* =====================================================
+   PREVIEW RENDER
+===================================================== */
+function renderPreview(data) {
+    const container = document.getElementById('previewContent');
+    if (!container) return;
+
+    if (!data.measurements || data.measurements.length === 0) {
+        container.innerHTML = `
+            <div class="preview-empty">
+                <i class="fas fa-calculator" style="font-size:48px;opacity:0.2;display:block;margin-bottom:12px;"></i>
+                Enter measurements and click <strong>Calculate</strong> to see preview
+            </div>
+        `;
+        return;
+    }
+
+    let meshRollsText = [];
+    Object.entries(data.meshRolls).forEach(([width, roll]) => {
+        if (roll.count > 0) meshRollsText.push(`${roll.name}: <strong>${roll.count} pcs</strong>`);
+    });
+
+    container.innerHTML = `
+        <div class="preview-section">
+            <div class="preview-section-title"><i class="fas fa-chart-bar"></i> Production Summary</div>
+            <div class="preview-grid">
+                <div class="preview-stat"><div class="label">Total Frames</div><div class="value">${data.totalFrames}</div></div>
+                <div class="preview-stat"><div class="label">Aluminium</div><div class="value">${num(data.totalAluminiumFeet, 2)} ft</div></div>
+                <div class="preview-stat"><div class="label">12 ft Lengths</div><div class="value">${data.aluminiumLengths}</div></div>
+                <div class="preview-stat"><div class="label">Corners</div><div class="value">${data.totalCorners}</div></div>
+                <div class="preview-stat" style="border-left-color:#10b981;"><div class="label">Mesh (Net)</div><div class="value" style="color:#059669;">${num(data.totalMeshSqft, 2)} ft²</div></div>
+                <div class="preview-stat" style="border-left-color:#dc2626;"><div class="label">Mesh Wastage</div><div class="value" style="color:#dc2626;">${num(data.totalMeshWastageSqft, 2)} ft²</div></div>
+                <div class="preview-stat" style="border-left-color:#8b5cf6;"><div class="label">Mesh Consumed</div><div class="value" style="color:#7c3aed;">${num(data.totalMeshConsumedSqft, 2)} ft²</div></div>
+                <div class="preview-stat"><div class="label">Rubber</div><div class="value">${num(data.rubberKg, 3)} kg</div></div>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <div class="preview-section-title"><i class="fas fa-scroll"></i> Mesh Roll Requirement</div>
+            <div class="cut-list">
+                ${meshRollsText.length ? meshRollsText.map(t => `• ${t}`).join('<br>') : '—'}
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <div class="preview-section-title"><i class="fas fa-rupee-sign"></i> Cost Breakdown</div>
+            <div class="preview-grid">
+                <div class="preview-stat"><div class="label">Aluminium</div><div class="value">${money(data.costs.aluminiumCost)}</div></div>
+                <div class="preview-stat"><div class="label">SS Mesh</div><div class="value">${money(data.costs.meshCost)}</div></div>
+                <div class="preview-stat"><div class="label">Corners</div><div class="value">${money(data.costs.cornerCost)}</div></div>
+                <div class="preview-stat"><div class="label">Rubber</div><div class="value">${money(data.costs.rubberCost)}</div></div>
+                <div class="preview-stat"><div class="label">Stoppers</div><div class="value">${money(data.costs.stopperCost)}</div></div>
+                <div class="preview-stat"><div class="label">Hinges</div><div class="value">${money(data.costs.hingeCost)}</div></div>
+                <div class="preview-stat" style="grid-column:span 2;border-left-color:var(--orange);background:linear-gradient(135deg,#fff7ed,#ffedd5);">
+                    <div class="label">TOTAL MATERIAL COST</div>
+                    <div class="value" style="color:var(--orange-dark);font-size:24px;">${money(data.grandTotal)}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <div class="preview-section-title"><i class="fas fa-cut"></i> Mesh Cutting Details</div>
+            <div class="cut-list">${data.meshCutDetails}</div>
+        </div>
+
+        <div class="preview-section">
+            <div class="preview-section-title"><i class="fas fa-table"></i> Measurement Summary</div>
+            <div class="table-wrap">
+                <table style="min-width:auto;">
+                    <thead>
+                        <tr>
+                            <th>#</th><th>Size</th><th>Qty</th><th>Frame</th>
+                            <th>Middle</th><th>Roll</th><th>Wastage</th>
+                        </tr>
+                    </thead>
+                    <tbody>${data.previewMeasurements}</tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="text-align:center;font-size:10px;color:var(--text-muted);margin-top:24px;padding-top:16px;border-top:1px solid var(--border);">
+            Generated on ${new Date().toLocaleString('en-IN')} · Raj Marketing Mysore
+        </div>
+    `;
+}
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+function clearAll() {
+    if (!confirm('Clear all measurements?')) return;
+    document.getElementById('measurementBody').innerHTML = '';
+    addRow();
+    calculate();
+    saveToStorage();
+    showToast('Cleared', 'info');
+}
+
+function loadSample() {
+    document.getElementById('measurementBody').innerHTML = '';
+    addRow('22¾', '45½', 1);
+    addRow('35½', '59', 2);
+    addRow('48', '72', 1);
+    addRow('20', '48', 3);
+    calculate();
+    showToast('Sample loaded', 'success');
+}
+
+function copySummary() {
+    const frames = document.getElementById('totalFrames')?.textContent || '0';
+    const alu = document.getElementById('totalAluminium')?.textContent || '0';
+    const mesh = document.getElementById('totalMesh')?.textContent || '0';
+    const total = document.getElementById('grandTotal')?.textContent || '₹0';
+
+    const text = `Raw Material Summary — Raj Marketing Mysore
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total Frames  : ${frames}
+Aluminium     : ${alu}
+SS Mesh       : ${mesh}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TOTAL COST    : ${total}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Generated: ${new Date().toLocaleString('en-IN')}`;
+
+    navigator.clipboard.writeText(text)
+        .then(() => showToast('Summary copied!', 'success'))
+        .catch(() => showToast('Copy failed', 'error'));
+}
+
+/* =====================================================
+   STORAGE
+===================================================== */
+function saveToStorage() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            settings: getSettings(),
+            measurements: getMeasurements(),
+            savedAt: new Date().toISOString()
+        }));
+    } catch (e) {}
+}
+
+function loadFromStorage() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const data = JSON.parse(raw);
+
+        if (data.settings) {
+            Object.entries(data.settings).forEach(([key, val]) => {
+                const el = document.getElementById(key);
+                if (el) el.value = val;
+            });
+        }
+
+        if (data.measurements && data.measurements.length) {
+            document.getElementById('measurementBody').innerHTML = '';
+            data.measurements.forEach(m => addRow(m.width, m.height, m.qty));
+            return true;
+        }
+    } catch (e) {}
+    return false;
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+function showToast(msg, type = 'info') {
+    document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+    const colors = {
+        success: 'linear-gradient(145deg,#059669,#047857)',
+        error: 'linear-gradient(145deg,#dc2626,#b91c1c)',
+        warning: 'linear-gradient(145deg,#f59e0b,#d97706)',
+        info: 'linear-gradient(145deg,#1a56db,#0d47a1)'
+    };
+
+    const t = document.createElement('div');
+    t.className = 'rm-toast';
+    t.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+    t.style.cssText = `
+        position:fixed;bottom:30px;left:50%;
+        transform:translateX(-50%) translateY(20px);
+        background:${colors[type] || colors.info};color:#fff;
+        padding:14px 26px;border-radius:40px;font-size:13px;
+        font-weight:800;box-shadow:0 12px 36px rgba(0,0,0,0.3);
+        z-index:9999;opacity:0;transition:all 0.3s ease;
+        display:flex;align-items:center;gap:10px;
+        font-family:'Poppins',sans-serif;
+    `;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => {
+        t.style.opacity = '1';
+        t.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transform = 'translateX(-50%) translateY(20px)';
+        setTimeout(() => t.remove(), 300);
+    }, 2500);
+}
+
+/* =====================================================
+   INIT
+===================================================== */
+function init() {
+    ['aluminiumRate','meshRate','cornerRate','rubberRate','rubberPerKg',
+     'stopperRate','hingeRate','reduction'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => {
+                calculate();
+                saveToStorage();
+            });
+        }
+    });
+
+    const loaded = loadFromStorage();
+    if (!loaded) {
+        addRow('22¾', '45½', 1);
+        addRow('35½', '59', 2);
+    }
+
+    calculate();
+    console.log('%c📐 Raw Material Calculator Ready (Complete)', 'color:#1a56db;font-weight:bold;');
+}
+
+/* EXPOSE */
+window.addRow = addRow;
+window.removeRow = removeRow;
+window.calculate = calculate;
+window.clearAll = clearAll;
+window.loadSample = loadSample;
+window.copySummary = copySummary;
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+
+})();
+</script>
+
+</body>
+</html>
