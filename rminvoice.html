@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 
 <title>GST Tax Invoice | Raj Marketing Mysore</title>
-<meta name="description" content="Professional GST Tax Invoice Generator with Raw Material Calculator for Raj Marketing Mysore">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -18,9 +16,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 
 <style>
-/* ============================================================
-   ROOT
-============================================================ */
 :root {
     --primary: #1a56db;
     --primary-dark: #0d47a1;
@@ -53,42 +48,35 @@ body {
 }
 .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
 
-/* ============================================================
-   APP HEADER
-============================================================ */
+/* HEADER */
 .app-header {
     background: linear-gradient(135deg, var(--navy), #1a2d4d);
     color: white;
-    padding: 24px 28px;
+    padding: 22px 26px;
     border-radius: var(--radius-lg);
-    margin-bottom: 22px;
-    box-shadow: 0 12px 40px rgba(15, 27, 51, 0.25);
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(15, 27, 51, 0.2);
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
     flex-wrap: wrap;
 }
-.app-header i {
-    font-size: 34px;
-    color: var(--orange);
-}
-.app-header h1 { font-size: 22px; font-weight: 900; letter-spacing: -0.4px; }
-.app-header p { font-size: 12px; opacity: 0.8; }
+.app-header i { font-size: 30px; color: var(--orange); }
+.app-header h1 { font-size: 20px; font-weight: 900; }
+.app-header p { font-size: 11px; opacity: 0.8; }
 
-/* ============================================================
-   DASHBOARD
-============================================================ */
+/* DASHBOARD */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 18px;
 }
 .dash-btn {
     background: var(--bg-white);
     border: 2px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 20px;
+    padding: 18px;
     cursor: pointer;
     text-align: center;
     transition: var(--transition);
@@ -96,50 +84,45 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 .dash-btn:hover, .dash-btn.active {
     border-color: var(--primary);
     background: var(--primary-light);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 .dash-btn i {
-    font-size: 26px;
+    font-size: 22px;
     color: var(--primary);
     background: var(--primary-light);
-    width: 52px; height: 52px;
-    border-radius: 14px;
+    width: 46px; height: 46px;
+    border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
 }
 .dash-btn:hover i, .dash-btn.active i { background: var(--primary); color: #fff; }
-.dash-btn .label { font-size: 13px; font-weight: 800; color: var(--text-dark); }
+.dash-btn .label { font-size: 12px; font-weight: 800; }
 
-/* ============================================================
-   PANELS
-============================================================ */
+/* PANELS */
 .panel { display: none; }
-.panel.active { display: block; animation: fade 0.3s ease; }
-@keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.panel.active { display: block; }
 
-/* ============================================================
-   CARDS
-============================================================ */
+/* CARDS */
 .card {
     background: var(--bg-white);
     border-radius: var(--radius-lg);
-    padding: 22px;
-    margin-bottom: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
     box-shadow: var(--shadow-sm);
 }
 .card-title {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
     color: var(--navy);
-    margin-bottom: 16px;
-    padding-bottom: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
     border-bottom: 2px solid var(--border-light);
 }
 .card-title i { color: var(--primary); }
@@ -154,9 +137,7 @@ body {
     text-transform: uppercase;
 }
 
-/* ============================================================
-   FORM
-============================================================ */
+/* FORM */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -197,13 +178,10 @@ body {
 }
 .form-group textarea { resize: vertical; min-height: 60px; }
 
-/* ============================================================
-   TABLE
-============================================================ */
-.table-wrap { overflow-x: auto; border-radius: var(--radius); margin-bottom: 12px; }
+/* TABLE */
+.table-wrap { overflow-x: auto; border-radius: var(--radius); margin-bottom: 10px; }
 .table-wrap::-webkit-scrollbar { height: 6px; }
 .table-wrap::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 20px; }
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -213,18 +191,18 @@ table {
 th {
     background: linear-gradient(145deg, var(--navy), #1a2d4d);
     color: white;
-    padding: 11px 8px;
+    padding: 10px 6px;
     font-size: 10px;
     font-weight: 800;
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     white-space: nowrap;
 }
 th:first-child { border-top-left-radius: var(--radius); }
 th:last-child { border-top-right-radius: var(--radius); }
 td {
-    padding: 8px;
+    padding: 7px 6px;
     border-bottom: 1px solid var(--border-light);
     text-align: center;
     font-weight: 600;
@@ -246,43 +224,39 @@ td input:focus, td select:focus { border-color: var(--primary); background: var(
 td .calc-value { font-weight: 800; color: var(--primary); font-size: 13px; }
 td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
 
-/* ============================================================
-   BUTTONS
-============================================================ */
+/* BUTTONS */
 .btn {
     border: none;
     border-radius: var(--radius);
-    padding: 11px 20px;
+    padding: 10px 18px;
     cursor: pointer;
     font-weight: 800;
-    font-size: 13px;
+    font-size: 12px;
     font-family: inherit;
     transition: var(--transition);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 7px;
     white-space: nowrap;
 }
-.btn:hover { transform: translateY(-2px); }
-.btn-primary { background: linear-gradient(145deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 14px rgba(26,86,219,0.3); }
-.btn-success { background: linear-gradient(145deg, var(--green), #047857); color: white; box-shadow: 0 4px 14px rgba(5,150,105,0.3); }
-.btn-danger { background: linear-gradient(145deg, var(--red), #b91c1c); color: white; padding: 7px 10px; font-size: 11px; }
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: linear-gradient(145deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 12px rgba(26,86,219,0.28); }
+.btn-success { background: linear-gradient(145deg, var(--green), #047857); color: white; box-shadow: 0 4px 12px rgba(5,150,105,0.28); }
+.btn-danger { background: linear-gradient(145deg, var(--red), #b91c1c); color: white; padding: 6px 10px; font-size: 11px; }
 .btn-warning { background: linear-gradient(145deg, var(--orange), var(--orange-dark)); color: white; }
 .btn-dark { background: linear-gradient(145deg, var(--navy), #1a2d4d); color: white; }
 .btn-light { background: var(--bg-light); color: var(--text-dark); border: 1.5px solid var(--border); }
-.btn-whatsapp { background: linear-gradient(145deg, #25d366, #1fa855); color: white; box-shadow: 0 4px 14px rgba(37,211,102,0.3); }
-.btn-lg { padding: 14px 28px; font-size: 14px; border-radius: 40px; }
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.btn-whatsapp { background: linear-gradient(145deg, #25d366, #1fa855); color: white; }
+.btn-lg { padding: 13px 26px; font-size: 13px; border-radius: 40px; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 
-/* ============================================================
-   SUMMARY
-============================================================ */
+/* SUMMARY */
 .summary-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
-    margin-top: 14px;
+    margin-top: 12px;
 }
 .summary-box {
     padding: 14px 16px;
@@ -297,82 +271,89 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     color: var(--text-muted);
     font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 .summary-box.navy .label { color: rgba(255,255,255,0.7); }
 .summary-box .value {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 900;
     color: var(--navy);
     margin-top: 2px;
 }
 .summary-box.green .value { color: var(--green); }
-.summary-box.navy .value { color: white; font-size: 22px; }
+.summary-box.navy .value { color: white; font-size: 21px; }
 
-/* ============================================================
-   NOTES
-============================================================ */
 .note {
     background: linear-gradient(135deg, #fff7ed, #ffedd5);
     border-left: 4px solid var(--orange);
     padding: 12px 16px;
     border-radius: var(--radius);
-    margin-top: 14px;
+    margin-top: 12px;
     font-size: 12px;
     color: #92400e;
     display: flex;
     align-items: flex-start;
     gap: 10px;
     font-weight: 600;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 .note i { color: var(--orange); margin-top: 2px; }
 
 /* ============================================================
-   A4 PREVIEW WRAPPER
+   A4 PREVIEW — PROPER SCALING
 ============================================================ */
-.a4-wrap {
+.a4-outer {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    background: #cbd5e1;
+    padding: 20px 10px;
+    background: #94a3b8;
     border-radius: var(--radius);
     overflow-x: auto;
 }
+
+.a4-scaler {
+    /* Scales A4 (210mm) down to viewport width on mobile */
+    transform-origin: top center;
+    transition: transform 0.2s ease;
+}
+
 .a4-page {
     width: 210mm;
-    height: 297mm;
+    min-height: 297mm;
+    max-height: 297mm;
     background: white;
-    padding: 10mm 12mm 12mm 12mm;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    padding: 8mm 8mm 6mm 8mm;
     color: #111;
     font-family: 'Poppins', Arial, sans-serif;
-    font-size: 9pt;
-    line-height: 1.3;
+    font-size: 8pt;
+    line-height: 1.28;
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
 }
 .a4-page * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
-/* Invoice header */
+/* Header */
 .inv-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 12px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--navy);
+    gap: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2.5px solid var(--navy);
     margin-bottom: 8px;
+    flex-shrink: 0;
 }
-.inv-brand { display: flex; gap: 10px; align-items: flex-start; flex: 1; min-width: 0; }
+.inv-brand { display: flex; gap: 9px; align-items: flex-start; flex: 1; min-width: 0; }
 .inv-logo {
-    width: 60px; height: 60px;
+    width: 52px; height: 52px;
     border-radius: 8px;
     background: linear-gradient(145deg, var(--navy), #1a2d4d);
     color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 900;
     overflow: hidden;
     flex-shrink: 0;
@@ -380,91 +361,92 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
 .inv-logo img { width: 100%; height: 100%; object-fit: contain; }
 .inv-brand-info { min-width: 0; flex: 1; }
 .inv-brand-info h1 {
-    font-size: 15pt;
+    font-size: 13.5pt;
     font-weight: 900;
     color: var(--navy);
     letter-spacing: -0.3px;
-    line-height: 1.1;
-    margin-bottom: 2px;
+    line-height: 1.05;
+    margin-bottom: 1px;
 }
 .inv-brand-info .tagline {
-    font-size: 7pt;
+    font-size: 6.5pt;
     color: var(--text-muted);
     font-weight: 600;
     margin-bottom: 3px;
 }
 .inv-brand-info .addr {
-    font-size: 7.5pt;
+    font-size: 7pt;
     color: #333;
-    line-height: 1.35;
+    line-height: 1.32;
 }
 .inv-type { text-align: right; flex-shrink: 0; }
 .inv-type .title {
-    font-size: 13pt;
+    font-size: 12pt;
     font-weight: 900;
     color: var(--navy);
-    letter-spacing: 0.8px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
     border: 2px solid var(--navy);
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 4px;
     display: inline-block;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 }
 .inv-type .copy-type {
-    font-size: 6.5pt;
+    font-size: 6pt;
     color: var(--text-muted);
     font-weight: 700;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
 }
 
-/* Meta boxes */
+/* Meta */
 .inv-meta {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
+    flex-shrink: 0;
 }
 .inv-meta-box {
     background: #f8fafc;
     border: 1px solid #cbd5e1;
     border-radius: 4px;
-    padding: 7px 9px;
+    padding: 6px 8px;
 }
 .inv-meta-box h4 {
-    font-size: 7pt;
+    font-size: 6.5pt;
     color: var(--primary);
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 4px;
+    letter-spacing: 0.7px;
+    margin-bottom: 3px;
     font-weight: 900;
     border-bottom: 1px solid #cbd5e1;
-    padding-bottom: 3px;
+    padding-bottom: 2px;
 }
 .inv-meta-box .row {
     display: flex;
     justify-content: space-between;
-    font-size: 7.5pt;
-    padding: 1px 0;
+    font-size: 7pt;
+    padding: 0.8px 0;
     gap: 6px;
 }
 .inv-meta-box .row .lbl { color: var(--text-muted); font-weight: 600; }
-.inv-meta-box .row .val { color: #111; font-weight: 700; text-align: right; }
+.inv-meta-box .row .val { color: #111; font-weight: 700; text-align: right; word-break: break-word; }
 
 /* Table */
-.inv-table-wrap { margin-bottom: 8px; }
 .inv-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 8pt;
+    font-size: 7.5pt;
     table-layout: fixed;
+    margin-bottom: 6px;
 }
 .inv-table th {
     background: var(--navy);
     color: white;
-    padding: 6px 4px;
-    font-size: 7pt;
+    padding: 5px 3px;
+    font-size: 6.5pt;
     text-transform: uppercase;
     letter-spacing: 0.3px;
     text-align: center;
@@ -472,113 +454,116 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     font-weight: 800;
 }
 .inv-table td {
-    padding: 5px 4px;
+    padding: 4.5px 4px;
     border: 1px solid #cbd5e1;
     text-align: center;
     vertical-align: middle;
     font-weight: 600;
     font-size: 7.5pt;
     word-wrap: break-word;
-    overflow: hidden;
 }
-.inv-table td.left { text-align: left; }
-.inv-table td.right { text-align: right; }
+.inv-table td.left { text-align: left; padding-left: 6px; }
+.inv-table td.right { text-align: right; padding-right: 6px; }
 .inv-table tbody tr:nth-child(even) td { background: #f8fafc; }
 
 /* Totals */
 .inv-totals-wrap {
     display: grid;
-    grid-template-columns: 1fr 240px;
-    gap: 10px;
-    margin-bottom: 8px;
+    grid-template-columns: 1fr 62mm;
+    gap: 6px;
+    margin-bottom: 6px;
     align-items: flex-start;
+    flex-shrink: 0;
 }
 .inv-words {
     background: #f8fafc;
     border: 1px solid #cbd5e1;
     border-radius: 4px;
-    padding: 7px 9px;
+    padding: 6px 8px;
 }
 .inv-words .lbl {
-    font-size: 7pt;
+    font-size: 6.5pt;
     color: var(--primary);
     text-transform: uppercase;
     font-weight: 900;
     letter-spacing: 0.5px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 .inv-words .val {
-    font-size: 7.5pt;
+    font-size: 7pt;
     color: #111;
     font-weight: 800;
     text-transform: uppercase;
     line-height: 1.3;
 }
-.inv-totals { width: 100%; border-collapse: collapse; font-size: 8pt; }
-.inv-totals td { padding: 4px 8px; border: 1px solid #cbd5e1; font-weight: 700; }
+.inv-totals { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+.inv-totals td { padding: 4px 7px; border: 1px solid #cbd5e1; font-weight: 700; }
 .inv-totals td.lbl { background: #f8fafc; color: var(--text-muted); text-align: left; font-weight: 600; }
 .inv-totals td.val { text-align: right; color: #111; }
 .inv-totals tr.grand td {
     background: var(--navy);
     color: white;
-    font-size: 10pt;
+    font-size: 9.5pt;
     font-weight: 900;
-    padding: 6px 8px;
+    padding: 5.5px 7px;
     border-color: var(--navy);
 }
 
-/* GST summary */
+/* GST */
 .gst-summary-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 7pt;
-    margin-bottom: 8px;
+    font-size: 6.5pt;
+    margin-bottom: 6px;
     table-layout: fixed;
+    flex-shrink: 0;
 }
 .gst-summary-table th {
     background: var(--primary);
     color: white;
-    padding: 5px 3px;
+    padding: 4px 2px;
     text-transform: uppercase;
-    font-size: 6.5pt;
+    font-size: 6pt;
     letter-spacing: 0.3px;
     border: 1px solid var(--primary);
     font-weight: 800;
 }
 .gst-summary-table td {
-    padding: 4px 3px;
+    padding: 3.5px 2px;
     border: 1px solid #cbd5e1;
     text-align: center;
     font-weight: 600;
-    font-size: 7pt;
+    font-size: 6.5pt;
 }
 
-/* Bank + Signature Grid */
+/* Bottom grid */
 .inv-bottom-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
+    flex-shrink: 0;
 }
 .inv-bank {
     background: #f8fafc;
     border: 1px solid #cbd5e1;
     border-radius: 4px;
-    padding: 7px 9px;
+    padding: 6px 8px;
 }
 .inv-bank h5 {
-    font-size: 7pt;
+    font-size: 6.5pt;
     color: var(--primary);
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 4px;
+    letter-spacing: 0.7px;
+    margin-bottom: 3px;
     font-weight: 900;
 }
 .inv-bank .row {
     display: flex;
     justify-content: space-between;
-    font-size: 7.5pt;
-    padding: 1px 0;
+    font-size: 7pt;
+    padding: 0.8px 0;
+    gap: 6px;
 }
 .inv-bank .row .lbl { color: var(--text-muted); font-weight: 600; }
 .inv-bank .row .val { color: #111; font-weight: 700; text-align: right; }
@@ -586,26 +571,25 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
 .inv-sign {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    padding: 6px 9px;
+    padding: 6px 8px;
     border: 1px solid #cbd5e1;
     border-radius: 4px;
     background: #f8fafc;
-    min-height: 60px;
+    min-height: 55px;
 }
 .inv-sign-img {
-    height: 40px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 4px;
 }
-.inv-sign-img img { max-height: 40px; max-width: 130px; object-fit: contain; }
+.inv-sign-img img { max-height: 32px; max-width: 120px; object-fit: contain; }
 .inv-sign .line {
     border-top: 1.2px solid var(--navy);
     padding-top: 3px;
-    font-size: 7.5pt;
+    font-size: 7pt;
     font-weight: 900;
     color: var(--navy);
     text-transform: uppercase;
@@ -613,42 +597,44 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     width: 100%;
 }
 .inv-sign .for {
-    font-size: 6.5pt;
+    font-size: 6pt;
     color: var(--text-muted);
-    margin-top: 2px;
+    margin-top: 1px;
     font-weight: 700;
     text-align: center;
 }
 
 /* Terms */
 .inv-terms {
-    font-size: 6.5pt;
-    line-height: 1.4;
-    padding: 6px 0;
+    font-size: 6pt;
+    line-height: 1.35;
+    padding: 5px 0 4px;
     border-top: 1px solid #cbd5e1;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    flex-shrink: 0;
 }
 .inv-terms h5 {
-    font-size: 7pt;
+    font-size: 6.5pt;
     color: var(--primary);
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 3px;
+    letter-spacing: 0.7px;
+    margin-bottom: 2px;
     font-weight: 900;
 }
-.inv-terms ol { padding-left: 14px; color: #333; }
-.inv-terms ol li { margin-bottom: 1px; }
+.inv-terms ol { padding-left: 12px; color: #333; }
+.inv-terms ol li { margin-bottom: 0.5px; }
 
 /* Footer */
 .inv-footer {
     margin-top: auto;
-    padding-top: 5px;
+    padding-top: 4px;
     border-top: 1.2px solid var(--navy);
     text-align: center;
-    font-size: 6.5pt;
+    font-size: 6pt;
     color: var(--text-muted);
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
+    flex-shrink: 0;
 }
 .inv-footer strong { color: var(--navy); }
 
@@ -672,31 +658,26 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Poppins', sans-serif;
     max-width: 90%;
 }
 .rm-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ============================================================
-   RESPONSIVE
-============================================================ */
+/* RESPONSIVE */
 @media (max-width: 900px) {
     .form-grid { grid-template-columns: repeat(2, 1fr); }
     .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
     .summary-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
-    .container { padding: 12px; }
-    .card { padding: 16px; }
+    .container { padding: 10px; }
+    .card { padding: 14px; }
     .form-grid, .form-grid-2, .form-grid-4 { grid-template-columns: 1fr; }
-    .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
     .summary-grid { grid-template-columns: 1fr; }
-    .app-header h1 { font-size: 17px; }
-    .app-header i { font-size: 26px; }
-    .btn { padding: 10px 14px; font-size: 12px; }
-    .btn-lg { padding: 12px 20px; font-size: 13px; }
-    .a4-page { transform: scale(0.55); transform-origin: top left; margin-bottom:-140mm; }
-        .a4-wrap { padding: 8px; }
+    .app-header h1 { font-size: 16px; }
+    .app-header i { font-size: 24px; }
+    .btn { padding: 9px 13px; font-size: 11px; }
+    .btn-lg { padding: 11px 18px; font-size: 12px; }
 }
 
 @media print {
@@ -704,8 +685,10 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     .no-print { display: none !important; }
     .container { max-width: none; padding: 0; }
     .card { box-shadow: none; border: none; padding: 0; margin: 0; }
-    .a4-wrap { background: white; padding: 0; }
-    .a4-page { box-shadow: none; }
+    .a4-outer { background: white; padding: 0; }
+    .a4-scaler { transform: none !important; }
+    .a4-page { box-shadow: none; margin: 0; page-break-after: always; }
+    @page { size: A4 portrait; margin: 0; }
 }
 </style>
 </head>
@@ -714,9 +697,6 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
 
 <div class="container">
 
-    <!-- ============================================================
-         APP HEADER
-    ============================================================ -->
     <div class="app-header no-print">
         <i class="fas fa-file-invoice-dollar"></i>
         <div>
@@ -725,9 +705,6 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
         </div>
     </div>
 
-    <!-- ============================================================
-         DASHBOARD MENU
-    ============================================================ -->
     <div class="dashboard-grid no-print">
         <button class="dash-btn active" onclick="showPanel('invoice')">
             <i class="fas fa-plus-circle"></i>
@@ -748,7 +725,7 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     </div>
 
     <!-- ============================================================
-         PANEL 1: INVOICE ENTRY
+         PANEL: INVOICE
     ============================================================ -->
     <div class="panel active" id="panel-invoice">
 
@@ -919,17 +896,17 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                 <table id="productTable">
                     <thead>
                         <tr>
-                            <th style="width:36px;">#</th>
+                            <th style="width:34px;">#</th>
                             <th style="text-align:left;">Product</th>
-                            <th style="width:90px;">HSN/SAC</th>
-                            <th style="width:70px;">Width (in)</th>
-                            <th style="width:70px;">Height (in)</th>
-                            <th style="width:60px;">Qty</th>
-                            <th style="width:70px;">Unit</th>
-                            <th style="width:80px;">Total Sq.ft.</th>
-                            <th style="width:80px;">Rate (₹)</th>
-                            <th style="width:90px;">Total (₹)</th>
-                            <th style="width:50px;"></th>
+                            <th style="width:80px;">HSN/SAC</th>
+                            <th style="width:65px;">Width</th>
+                            <th style="width:65px;">Height</th>
+                            <th style="width:55px;">Qty</th>
+                            <th style="width:75px;">Unit</th>
+                            <th style="width:75px;">Sq.ft.</th>
+                            <th style="width:75px;">Rate (₹)</th>
+                            <th style="width:85px;">Total (₹)</th>
+                            <th style="width:44px;"></th>
                         </tr>
                     </thead>
                     <tbody id="productBody"></tbody>
@@ -939,46 +916,25 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                 <button class="btn btn-primary" onclick="addProductRow()">
                     <i class="fas fa-plus"></i> Add Product
                 </button>
-                <button class="btn btn-secondary" onclick="loadSampleProducts()">
+                <button class="btn btn-light" onclick="loadSampleProducts()">
                     <i class="fas fa-flask"></i> Load Sample
                 </button>
             </div>
-
             <div class="note">
                 <i class="fas fa-info-circle"></i>
-                <div><strong>Formula:</strong> Total Sq.ft. = Width × Height × Qty ÷ 144. For non-Sq.ft. units, enter quantity directly.</div>
+                <div><strong>Formula:</strong> Total Sq.ft. = Width × Height × Qty ÷ 144</div>
             </div>
         </div>
 
         <div class="card no-print">
-            <div class="card-title">
-                <i class="fas fa-calculator"></i> Summary
-            </div>
+            <div class="card-title"><i class="fas fa-calculator"></i> Summary</div>
             <div class="summary-grid">
-                <div class="summary-box">
-                    <div class="label">Total Products</div>
-                    <div class="value" id="sumProducts">0</div>
-                </div>
-                <div class="summary-box">
-                    <div class="label">Total Quantity</div>
-                    <div class="value" id="sumQty">0</div>
-                </div>
-                <div class="summary-box">
-                    <div class="label">Total Sq.ft.</div>
-                    <div class="value" id="sumSqft">0.00</div>
-                </div>
-                <div class="summary-box">
-                    <div class="label">Subtotal</div>
-                    <div class="value" id="sumSubtotal">₹0.00</div>
-                </div>
-                <div class="summary-box green">
-                    <div class="label">GST</div>
-                    <div class="value" id="sumGst">₹0.00</div>
-                </div>
-                <div class="summary-box navy">
-                    <div class="label">Grand Total</div>
-                    <div class="value" id="sumGrandTotal">₹0.00</div>
-                </div>
+                <div class="summary-box"><div class="label">Total Products</div><div class="value" id="sumProducts">0</div></div>
+                <div class="summary-box"><div class="label">Total Quantity</div><div class="value" id="sumQty">0</div></div>
+                <div class="summary-box"><div class="label">Total Sq.ft.</div><div class="value" id="sumSqft">0.00</div></div>
+                <div class="summary-box"><div class="label">Subtotal</div><div class="value" id="sumSubtotal">₹0.00</div></div>
+                <div class="summary-box green"><div class="label">GST</div><div class="value" id="sumGst">₹0.00</div></div>
+                <div class="summary-box navy"><div class="label">Grand Total</div><div class="value" id="sumGrandTotal">₹0.00</div></div>
             </div>
             <div class="btn-row">
                 <button class="btn btn-success btn-lg" onclick="calculateAndPreview()">
@@ -988,19 +944,17 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
         </div>
 
     </div>
-          
+
     <!-- ============================================================
-         PANEL 2: PREVIEW
+         PANEL: PREVIEW
     ============================================================ -->
     <div class="panel" id="panel-preview">
 
         <div class="card no-print">
-            <div class="card-title">
-                <i class="fas fa-eye"></i> Invoice Preview
-            </div>
+            <div class="card-title"><i class="fas fa-eye"></i> Invoice Preview</div>
             <div class="btn-row">
                 <button class="btn btn-light" onclick="showPanel('invoice')">
-                    <i class="fas fa-arrow-left"></i> Edit Invoice
+                    <i class="fas fa-arrow-left"></i> Edit
                 </button>
                 <button class="btn btn-primary" onclick="calculateAndPreview()">
                     <i class="fas fa-calculator"></i> Recalculate
@@ -1012,25 +966,27 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                     <i class="fas fa-file-pdf"></i> Download PDF
                 </button>
                 <button class="btn btn-whatsapp" onclick="shareWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Share WhatsApp
+                    <i class="fab fa-whatsapp"></i> WhatsApp
                 </button>
                 <button class="btn btn-dark" onclick="saveInvoice()">
-                    <i class="fas fa-save"></i> Save Invoice
+                    <i class="fas fa-save"></i> Save
                 </button>
                 <button class="btn btn-warning" onclick="newInvoice()">
-                    <i class="fas fa-plus"></i> New Invoice
+                    <i class="fas fa-plus"></i> New
                 </button>
             </div>
         </div>
 
-        <div class="a4-wrap">
-            <div class="a4-page" id="invoicePreview"></div>
+        <div class="a4-outer">
+            <div class="a4-scaler" id="a4Scaler">
+                <div class="a4-page" id="invoicePreview"></div>
+            </div>
         </div>
 
     </div>
 
     <!-- ============================================================
-         PANEL 3: HISTORY
+         PANEL: HISTORY
     ============================================================ -->
     <div class="panel" id="panel-history">
         <div class="card">
@@ -1038,7 +994,7 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                 <i class="fas fa-history"></i> Invoice History
                 <span class="badge" id="historyCount">0 invoices</span>
             </div>
-            <div class="form-group" style="margin-bottom:14px;">
+            <div class="form-group" style="margin-bottom:12px;">
                 <input type="text" id="historySearch" placeholder="🔍 Search..." oninput="renderHistory()">
             </div>
             <div id="historyList"></div>
@@ -1046,66 +1002,44 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     </div>
 
     <!-- ============================================================
-         PANEL 4: RAW MATERIAL
+         PANEL: RAW MATERIAL
     ============================================================ -->
     <div class="panel" id="panel-rawmaterial">
         <div class="card">
-            <div class="card-title">
-                <i class="fas fa-ruler-combined"></i> Raw Material Calculator
-            </div>
-            <div class="form-grid form-grid-4" style="margin-bottom:14px;">
-                <div class="form-group">
-                    <label>Aluminium Rate (12 ft)</label>
-                    <input type="number" id="rmAluRate" value="255" oninput="calculateAll()">
-                </div>
-                <div class="form-group">
-                    <label>Mesh Rate / Sq.ft.</label>
-                    <input type="number" id="rmMeshRate" value="19.5" step="0.01" oninput="calculateAll()">
-                </div>
-                <div class="form-group">
-                    <label>Corner Rate / pc</label>
-                    <input type="number" id="rmCornerRate" value="3.75" step="0.01" oninput="calculateAll()">
-                </div>
-                <div class="form-group">
-                    <label>Rubber Rate / kg</label>
-                    <input type="number" id="rmRubberRate" value="220" step="0.01" oninput="calculateAll()">
-                </div>
+            <div class="card-title"><i class="fas fa-ruler-combined"></i> Raw Material Calculator</div>
+            <div class="form-grid form-grid-4" style="margin-bottom:12px;">
+                <div class="form-group"><label>Aluminium (12 ft)</label><input type="number" id="rmAluRate" value="255" oninput="calculateAll()"></div>
+                <div class="form-group"><label>Mesh / Sq.ft.</label><input type="number" id="rmMeshRate" value="19.5" step="0.01" oninput="calculateAll()"></div>
+                <div class="form-group"><label>Corner / pc</label><input type="number" id="rmCornerRate" value="3.75" step="0.01" oninput="calculateAll()"></div>
+                <div class="form-group"><label>Rubber / kg</label><input type="number" id="rmRubberRate" value="220" step="0.01" oninput="calculateAll()"></div>
             </div>
             <div class="table-wrap">
                 <table id="rmProductTable">
                     <thead>
                         <tr>
-                            <th style="width:36px;">#</th>
+                            <th style="width:34px;">#</th>
                             <th style="text-align:left;">Product</th>
-                            <th style="width:70px;">Width</th>
-                            <th style="width:70px;">Height</th>
-                            <th style="width:60px;">Qty</th>
-                            <th style="width:80px;">Reduction</th>
-                            <th style="width:80px;">Aluminium ft</th>
+                            <th style="width:65px;">Width</th>
+                            <th style="width:65px;">Height</th>
+                            <th style="width:55px;">Qty</th>
+                            <th style="width:75px;">Reduction</th>
+                            <th style="width:80px;">Alu ft</th>
                             <th style="width:80px;">Mesh Sq.ft</th>
-                            <th style="width:50px;"></th>
+                            <th style="width:44px;"></th>
                         </tr>
                     </thead>
                     <tbody id="rmProductBody"></tbody>
                 </table>
             </div>
             <div class="btn-row">
-                <button class="btn btn-primary" onclick="addRMRow()">
-                    <i class="fas fa-plus"></i> Add Row
-                </button>
-                <button class="btn btn-success" onclick="calculateAll()">
-                    <i class="fas fa-calculator"></i> Calculate
-                </button>
-                <button class="btn btn-warning" onclick="loadRMSample()">
-                    <i class="fas fa-flask"></i> Load Sample
-                </button>
+                <button class="btn btn-primary" onclick="addRMRow()"><i class="fas fa-plus"></i> Add</button>
+                <button class="btn btn-success" onclick="calculateAll()"><i class="fas fa-calculator"></i> Calculate</button>
+                <button class="btn btn-light" onclick="loadRMSample()"><i class="fas fa-flask"></i> Sample</button>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-title">
-                <i class="fas fa-clipboard-list"></i> Raw Material Requirement
-            </div>
+            <div class="card-title"><i class="fas fa-clipboard-list"></i> Raw Material Requirement</div>
             <div class="summary-grid">
                 <div class="summary-box"><div class="label">Total Frames</div><div class="value" id="rmFrames">0</div></div>
                 <div class="summary-box"><div class="label">Aluminium Required</div><div class="value" id="rmAluFeet">0 ft</div></div>
@@ -1126,28 +1060,17 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     </div>
 
     <!-- ============================================================
-         PANEL 5: SETTINGS
+         PANEL: SETTINGS
     ============================================================ -->
     <div class="panel" id="panel-settings">
         <div class="card">
-            <div class="card-title">
-                <i class="fas fa-cog"></i> Invoice Settings
-            </div>
+            <div class="card-title"><i class="fas fa-cog"></i> Invoice Settings</div>
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Invoice Prefix</label>
-                    <input type="text" id="setPrefix" value="RMM/2026-27/">
-                </div>
-                <div class="form-group">
-                    <label>Next Number</label>
-                    <input type="number" id="setNextNum" value="1" min="1">
-                </div>
-                <div class="form-group">
-                    <label>Default GST (%)</label>
-                    <input type="number" id="setDefaultGst" value="18">
-                </div>
+                <div class="form-group"><label>Invoice Prefix</label><input type="text" id="setPrefix" value="RMM/2026-27/"></div>
+                <div class="form-group"><label>Next Number</label><input type="number" id="setNextNum" value="1" min="1"></div>
+                <div class="form-group"><label>Default GST (%)</label><input type="number" id="setDefaultGst" value="18"></div>
             </div>
-            <div class="form-group" style="margin-top:12px;">
+            <div class="form-group" style="margin-top:10px;">
                 <label>Default Terms &amp; Conditions</label>
                 <textarea id="setTerms" rows="6">1. Goods once sold will be subject to the applicable business return policy.
 2. Measurements and specifications supplied by the customer are subject to confirmation.
@@ -1157,9 +1080,7 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
 6. This invoice is computer generated unless digitally signed.</textarea>
             </div>
             <div class="btn-row">
-                <button class="btn btn-success" onclick="saveSettings()">
-                    <i class="fas fa-save"></i> Save Settings
-                </button>
+                <button class="btn btn-success" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
             </div>
         </div>
     </div>
@@ -1168,7 +1089,8 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
 
 <script>
 /* ============================================================
-   RAJ MARKETING MYSORE — INVOICE SYSTEM (Professional PDF)
+   RAJ MARKETING MYSORE — INVOICE SYSTEM v3.0
+   Fully rebuilt PDF generator + Fixed preview scaling
 ============================================================ */
 (function() {
 'use strict';
@@ -1190,16 +1112,20 @@ let currentInvoiceData = null;
 /* ============================================================
    UTILITIES
 ============================================================ */
-function formatCurrency(v) {
-    return '₹' + Number(v || 0).toLocaleString('en-IN', {
-        minimumFractionDigits: 2, maximumFractionDigits: 2
-    });
-}
-function formatNumber(v, d = 2) {
+function fmt(v, d = 2) {
     return Number(v || 0).toLocaleString('en-IN', {
         minimumFractionDigits: d, maximumFractionDigits: d
     });
 }
+
+function money(v) {
+    return '₹' + fmt(v, 2);
+}
+
+function moneyNoSymbol(v) {
+    return fmt(v, 2);
+}
+
 function formatDate(s) {
     if (!s) return '—';
     try {
@@ -1208,12 +1134,14 @@ function formatDate(s) {
         });
     } catch (e) { return s; }
 }
+
 function escapeHtml(s) {
     if (!s && s !== 0) return '';
     return String(s)
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
+
 function showToast(msg, type = 'info') {
     document.querySelectorAll('.rm-toast').forEach(t => t.remove());
     const colors = {
@@ -1232,7 +1160,7 @@ function showToast(msg, type = 'info') {
 }
 
 /* ============================================================
-   NUMBER TO WORDS
+   NUMBER TO WORDS (Indian system)
 ============================================================ */
 function numberToWords(num) {
     const n = Math.floor(Number(num) || 0);
@@ -1268,7 +1196,7 @@ function numberToWords(num) {
     if (paise > 0) w += ' AND ' + toWords(paise) + ' PAISE';
     return w.trim() + ' ONLY';
 }
-   
+
 /* ============================================================
    INIT
 ============================================================ */
@@ -1285,7 +1213,28 @@ function init() {
             calculateAll();
         }));
     calculateAll();
-    console.log('%c📄 Invoice System Ready', 'color:#1a56db;font-weight:bold;');
+    scalePreview();
+    window.addEventListener('resize', scalePreview);
+    console.log('%c📄 Invoice System v3.0 Ready', 'color:#1a56db;font-weight:bold;');
+}
+
+/* ============================================================
+   RESPONSIVE A4 SCALING
+============================================================ */
+function scalePreview() {
+    const scaler = document.getElementById('a4Scaler');
+    if (!scaler) return;
+    const outer = scaler.parentElement;
+    const availableWidth = outer.clientWidth - 20;
+    const a4WidthPx = 210 * 3.7795; // 210mm in px at 96dpi
+    if (availableWidth < a4WidthPx) {
+        const scale = availableWidth / a4WidthPx;
+        scaler.style.transform = `scale(${scale})`;
+        scaler.style.marginBottom = `-${(297 * 3.7795) * (1 - scale)}px`;
+    } else {
+        scaler.style.transform = 'none';
+        scaler.style.marginBottom = '0';
+    }
 }
 
 function setDefaultDates() {
@@ -1356,7 +1305,7 @@ function handleLogoUpload(input) {
 }
 
 /* ============================================================
-   PANEL NAVIGATION
+   PANEL NAV
 ============================================================ */
 function showPanel(name) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -1366,6 +1315,7 @@ function showPanel(name) {
     const btns = document.querySelectorAll('.dash-btn');
     if (btns[map[name]]) btns[map[name]].classList.add('active');
     if (name === 'history') renderHistory();
+    if (name === 'preview') setTimeout(scalePreview, 50);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1412,7 +1362,7 @@ function loadSampleProducts() {
     addProductRow('Aluminium Frame - Ivory', '7610', 24, 48, 2, 'Sq.ft.', 255);
     addProductRow('Stainless Steel Mesh', '7314', 24, 48, 2, 'Sq.ft.', 19.5);
     addProductRow('Corner Pieces', '7616', '', '', 8, 'Piece', 3.75);
-    showToast('Sample products loaded', 'success');
+    showToast('Sample loaded', 'success');
 }
 
 /* ============================================================
@@ -1432,17 +1382,17 @@ function calculateAll() {
         let displayQty, lineTotal;
         if (unit === 'Sq.ft.' && width > 0 && height > 0) {
             const sqft = (width * height * qty) / 144;
-            row.querySelector('.p-sqft-cell').textContent = formatNumber(sqft, 2);
+            row.querySelector('.p-sqft-cell').textContent = fmt(sqft, 2);
             lineTotal = sqft * rate;
             totalSqft += sqft;
             totalQty += sqft;
         } else {
             const effQty = qty || 0;
-            row.querySelector('.p-sqft-cell').textContent = formatNumber(effQty, 2);
+            row.querySelector('.p-sqft-cell').textContent = fmt(effQty, 2);
             lineTotal = effQty * rate;
             totalQty += effQty;
         }
-        row.querySelector('.p-total-cell').textContent = formatCurrency(lineTotal);
+        row.querySelector('.p-total-cell').textContent = money(lineTotal);
         subtotal += lineTotal;
     });
 
@@ -1461,11 +1411,11 @@ function calculateAll() {
     const grandTotal = subtotal + totalGst;
 
     document.getElementById('sumProducts').textContent = rows.length;
-    document.getElementById('sumQty').textContent = formatNumber(totalQty, 2);
-    document.getElementById('sumSqft').textContent = formatNumber(totalSqft, 2);
-    document.getElementById('sumSubtotal').textContent = formatCurrency(subtotal);
-    document.getElementById('sumGst').textContent = formatCurrency(totalGst);
-    document.getElementById('sumGrandTotal').textContent = formatCurrency(grandTotal);
+    document.getElementById('sumQty').textContent = fmt(totalQty, 2);
+    document.getElementById('sumSqft').textContent = fmt(totalSqft, 2);
+    document.getElementById('sumSubtotal').textContent = money(subtotal);
+    document.getElementById('sumGst').textContent = money(totalGst);
+    document.getElementById('sumGrandTotal').textContent = money(grandTotal);
 
     calculateRawMaterial();
 
@@ -1501,24 +1451,6 @@ function getMiddlePieces(h) {
     if (h <= 36) return 1;
     if (h <= 60) return 2;
     return 3;
-}
-function selectMeshRoll(w, qty) {
-    const dw = w * 2;
-    let rw;
-    if (Math.abs(w - 20) < 0.001 && qty === 3) rw = 60;
-    else if (w < 19) rw = 36;
-    else if (w <= 25) rw = 48;
-    else rw = 60;
-    let wastage = rw - dw;
-    if (wastage < 0) wastage = 0;
-    return { rollWidth: rw, widthWastage: wastage };
-}
-function calculateMesh(w, h, qty) {
-    const r = selectMeshRoll(w, qty);
-    const req = (w * h * qty) / 144;
-    const wsq = (r.widthWastage * h) / 144;
-    const wsqTotal = wsq * qty;
-    return { requiredSqft: req, totalWastageSqft: wsqTotal, totalConsumedSqft: req + wsqTotal };
 }
 function addRMRow(w = '', h = '', qty = 1, red = 1.5) {
     const body = document.getElementById('rmProductBody');
@@ -1570,14 +1502,14 @@ function calculateRawMaterial() {
         const aluTotal = aluFrame * qty;
         totalAluIn += aluTotal;
 
-        const mesh = calculateMesh(w, h, qty);
-        totalMeshSqft += mesh.requiredSqft;
-        totalMeshCons += mesh.totalConsumedSqft;
+        const reqSqft = (w * h * qty) / 144;
+        totalMeshSqft += reqSqft;
+        totalMeshCons += reqSqft * 1.05; // with 5% wastage
         totalCorners += 4 * qty;
         totalFrames += qty;
 
-        row.querySelector('.rm-alu').textContent = formatNumber(aluTotal / 12, 2) + ' ft';
-        row.querySelector('.rm-mesh').textContent = formatNumber(mesh.totalConsumedSqft, 2) + ' sq.ft';
+        row.querySelector('.rm-alu').textContent = fmt(aluTotal / 12, 2) + ' ft';
+        row.querySelector('.rm-mesh').textContent = fmt(reqSqft * 1.05, 2) + ' sq.ft';
     });
 
     const aluFeet = totalAluIn / 12;
@@ -1588,14 +1520,14 @@ function calculateRawMaterial() {
     const totalCost = aluCost + meshCost + cornerCost;
 
     document.getElementById('rmFrames').textContent = totalFrames;
-    document.getElementById('rmAluFeet').textContent = formatNumber(aluFeet, 2) + ' ft';
+    document.getElementById('rmAluFeet').textContent = fmt(aluFeet, 2) + ' ft';
     document.getElementById('rmAluLengths').textContent = aluLengths;
-    document.getElementById('rmMeshSqft').textContent = formatNumber(totalMeshSqft, 2) + ' sq.ft';
-    document.getElementById('rmMeshConsumed').textContent = formatNumber(totalMeshCons, 2) + ' sq.ft';
-    document.getElementById('rmAluCost').textContent = formatCurrency(aluCost);
-    document.getElementById('rmMeshCost').textContent = formatCurrency(meshCost);
-    document.getElementById('rmCornerCost').textContent = formatCurrency(cornerCost);
-    document.getElementById('rmTotalCost').textContent = formatCurrency(totalCost);
+    document.getElementById('rmMeshSqft').textContent = fmt(totalMeshSqft, 2) + ' sq.ft';
+    document.getElementById('rmMeshConsumed').textContent = fmt(totalMeshCons, 2) + ' sq.ft';
+    document.getElementById('rmAluCost').textContent = money(aluCost);
+    document.getElementById('rmMeshCost').textContent = money(meshCost);
+    document.getElementById('rmCornerCost').textContent = money(cornerCost);
+    document.getElementById('rmTotalCost').textContent = money(totalCost);
 
     return { totalFrames, aluFeet, aluLengths, totalMeshSqft, totalMeshCons, aluCost, meshCost, cornerCost, totalCost };
 }
@@ -1709,15 +1641,14 @@ function validateInvoice(data) {
 }
 
 /* ============================================================
-   RENDER PREVIEW (Screen A4)
+   RENDER PREVIEW (A4)
 ============================================================ */
 function renderInvoicePreview(data) {
     const page = document.getElementById('invoicePreview');
     const b = data.business, c = data.customer;
 
-    const hasCustomer = c.name || c.address || c.gstin;
-    const customerHtml = hasCustomer ? `
-        <div class="row"><span class="lbl">Name:</span><span class="val">${escapeHtml(c.name || '—')}</span></div>
+    const customerHtml = (c.name || c.address || c.gstin) ? `
+        ${c.name ? `<div class="row"><span class="lbl">Name:</span><span class="val">${escapeHtml(c.name)}</span></div>` : ''}
         ${c.address ? `<div class="row"><span class="lbl">Address:</span><span class="val">${escapeHtml(c.address)}</span></div>` : ''}
         ${c.mobile ? `<div class="row"><span class="lbl">Mobile:</span><span class="val">${escapeHtml(c.mobile)}</span></div>` : ''}
         ${c.gstin ? `<div class="row"><span class="lbl">GSTIN:</span><span class="val">${escapeHtml(c.gstin)}</span></div>` : ''}
@@ -1729,9 +1660,9 @@ function renderInvoicePreview(data) {
             <td>${i + 1}</td>
             <td class="left">${escapeHtml(p.name)}</td>
             <td>${escapeHtml(p.hsn || '—')}</td>
-            <td>${formatNumber(p.displayQty, 2)} ${p.unit}</td>
-            <td class="right">${formatCurrency(p.rate)}</td>
-            <td class="right">${formatCurrency(p.total)}</td>
+            <td>${fmt(p.displayQty, 2)} ${p.unit}</td>
+            <td class="right">${money(p.rate)}</td>
+            <td class="right">${money(p.total)}</td>
         </tr>
     `).join('');
 
@@ -1739,32 +1670,32 @@ function renderInvoicePreview(data) {
     let gstSummary = '';
     if (data.taxType === 'cgst_sgst') {
         gstRows = `
-            <tr><td class="lbl">CGST @ ${data.gstRate / 2}%</td><td class="val">${formatCurrency(data.cgst)}</td></tr>
-            <tr><td class="lbl">SGST @ ${data.gstRate / 2}%</td><td class="val">${formatCurrency(data.sgst)}</td></tr>
+            <tr><td class="lbl">CGST @ ${data.gstRate / 2}%</td><td class="val">${money(data.cgst)}</td></tr>
+            <tr><td class="lbl">SGST @ ${data.gstRate / 2}%</td><td class="val">${money(data.sgst)}</td></tr>
         `;
         gstSummary = `
             <table class="gst-summary-table">
                 <thead>
                     <tr>
-                        <th>HSN/SAC</th><th>Taxable Value</th>
-                        <th>CGST Rate</th><th>CGST Amount</th>
-                        <th>SGST Rate</th><th>SGST Amount</th><th>Total Tax</th>
+                        <th>HSN/SAC</th><th>Taxable</th>
+                        <th>CGST %</th><th>CGST Amt</th>
+                        <th>SGST %</th><th>SGST Amt</th><th>Total Tax</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>—</td>
-                        <td>${formatCurrency(data.subtotal)}</td>
+                        <td>${money(data.subtotal)}</td>
                         <td>${data.gstRate / 2}%</td>
-                        <td>${formatCurrency(data.cgst)}</td>
+                        <td>${money(data.cgst)}</td>
                         <td>${data.gstRate / 2}%</td>
-                        <td>${formatCurrency(data.sgst)}</td>
-                        <td>${formatCurrency(data.totalGst)}</td>
+                        <td>${money(data.sgst)}</td>
+                        <td>${money(data.totalGst)}</td>
                     </tr>
                 </tbody>
             </table>`;
     } else if (data.taxType === 'igst') {
-        gstRows = `<tr><td class="lbl">IGST @ ${data.gstRate}%</td><td class="val">${formatCurrency(data.igst)}</td></tr>`;
+        gstRows = `<tr><td class="lbl">IGST @ ${data.gstRate}%</td><td class="val">${money(data.igst)}</td></tr>`;
         gstSummary = `
             <table class="gst-summary-table">
                 <thead>
@@ -1776,10 +1707,10 @@ function renderInvoicePreview(data) {
                 <tbody>
                     <tr>
                         <td>—</td>
-                        <td>${formatCurrency(data.subtotal)}</td>
+                        <td>${money(data.subtotal)}</td>
                         <td>${data.gstRate}%</td>
-                        <td>${formatCurrency(data.igst)}</td>
-                        <td>${formatCurrency(data.igst)}</td>
+                        <td>${money(data.igst)}</td>
+                        <td>${money(data.igst)}</td>
                     </tr>
                 </tbody>
             </table>`;
@@ -1787,7 +1718,7 @@ function renderInvoicePreview(data) {
 
     const bankHtml = (b.bank || b.account || b.ifsc || b.upi) ? `
         <div class="inv-bank">
-            <h5><i class="fas fa-university"></i> Bank Details</h5>
+            <h5>Bank Details</h5>
             ${b.bank ? `<div class="row"><span class="lbl">Bank:</span><span class="val">${escapeHtml(b.bank)}</span></div>` : ''}
             ${b.account ? `<div class="row"><span class="lbl">A/c No:</span><span class="val">${escapeHtml(b.account)}</span></div>` : ''}
             ${b.ifsc ? `<div class="row"><span class="lbl">IFSC:</span><span class="val">${escapeHtml(b.ifsc)}</span></div>` : ''}
@@ -1798,7 +1729,6 @@ function renderInvoicePreview(data) {
     const terms = (data.terms || '').split('\n').filter(t => t.trim());
 
     page.innerHTML = `
-        <!-- HEADER -->
         <div class="inv-header">
             <div class="inv-brand">
                 <div class="inv-logo">
@@ -1808,10 +1738,12 @@ function renderInvoicePreview(data) {
                     <h1>${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</h1>
                     <div class="tagline">Aluminium Frame | Mosquito Net | Kitchen | Wardrobe</div>
                     <div class="addr">
-                        ${escapeHtml(b.address || '')}<br>
+                        ${escapeHtml(b.address || '')}
+                        ${b.mobile || b.email ? '<br>' : ''}
                         ${b.mobile ? `<strong>📞</strong> ${escapeHtml(b.mobile)}` : ''}
                         ${b.email ? ` &nbsp; <strong>✉</strong> ${escapeHtml(b.email)}` : ''}
-                        ${b.gstin ? `<br><strong>GSTIN:</strong> ${escapeHtml(b.gstin)}` : ''}
+                        ${b.gstin || b.state ? '<br>' : ''}
+                        ${b.gstin ? `<strong>GSTIN:</strong> ${escapeHtml(b.gstin)}` : ''}
                         ${b.state ? ` &nbsp; <strong>State:</strong> ${escapeHtml(b.state)} (${escapeHtml(b.stateCode || '')})` : ''}
                     </div>
                 </div>
@@ -1822,10 +1754,9 @@ function renderInvoicePreview(data) {
             </div>
         </div>
 
-        <!-- META -->
         <div class="inv-meta">
             <div class="inv-meta-box">
-                <h4><i class="fas fa-file-invoice"></i> Invoice Details</h4>
+                <h4>Invoice Details</h4>
                 <div class="row"><span class="lbl">Invoice No:</span><span class="val">${escapeHtml(data.invoiceNumber)}</span></div>
                 <div class="row"><span class="lbl">Invoice Date:</span><span class="val">${formatDate(data.invoiceDate)}</span></div>
                 <div class="row"><span class="lbl">Due Date:</span><span class="val">${formatDate(data.dueDate)}</span></div>
@@ -1834,47 +1765,41 @@ function renderInvoicePreview(data) {
                 <div class="row"><span class="lbl">Reverse Charge:</span><span class="val">${escapeHtml(data.reverseCharge)}</span></div>
             </div>
             <div class="inv-meta-box">
-                <h4><i class="fas fa-user"></i> Bill To</h4>
+                <h4>Bill To</h4>
                 ${customerHtml}
             </div>
         </div>
 
-        <!-- PRODUCTS -->
-        <div class="inv-table-wrap">
-            <table class="inv-table">
-                <thead>
-                    <tr>
-                        <th style="width:28px;">Sl</th>
-                        <th style="text-align:left;">Product</th>
-                        <th style="width:65px;">HSN/SAC</th>
-                        <th style="width:80px;">Total Qty</th>
-                        <th style="width:70px;">Price / Unit</th>
-                        <th style="width:80px;">Total Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${productRows || '<tr><td colspan="6" style="text-align:center;padding:16px;">No products</td></tr>'}
-                </tbody>
-            </table>
-        </div>
+        <table class="inv-table">
+            <thead>
+                <tr>
+                    <th style="width:26px;">Sl</th>
+                    <th style="text-align:left;">Product</th>
+                    <th style="width:65px;">HSN/SAC</th>
+                    <th style="width:85px;">Total Qty</th>
+                    <th style="width:70px;">Price / Unit</th>
+                    <th style="width:85px;">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${productRows || '<tr><td colspan="6" style="text-align:center;padding:14px;">No products</td></tr>'}
+            </tbody>
+        </table>
 
-        <!-- TOTALS -->
         <div class="inv-totals-wrap">
             <div class="inv-words">
                 <div class="lbl">Amount in Words</div>
                 <div class="val">${numberToWords(data.grandTotal)}</div>
             </div>
             <table class="inv-totals">
-                <tr><td class="lbl">Subtotal</td><td class="val">${formatCurrency(data.subtotal)}</td></tr>
+                <tr><td class="lbl">Subtotal</td><td class="val">${money(data.subtotal)}</td></tr>
                 ${gstRows}
-                <tr class="grand"><td class="lbl">Grand Total</td><td class="val">${formatCurrency(data.grandTotal)}</td></tr>
+                <tr class="grand"><td class="lbl">GRAND TOTAL</td><td class="val">${money(data.grandTotal)}</td></tr>
             </table>
         </div>
 
-        <!-- GST SUMMARY -->
         ${gstSummary}
 
-        <!-- BANK + SIGNATURE -->
         <div class="inv-bottom-grid">
             ${bankHtml}
             <div class="inv-sign">
@@ -1886,7 +1811,6 @@ function renderInvoicePreview(data) {
             </div>
         </div>
 
-        <!-- TERMS -->
         <div class="inv-terms">
             <h5>Terms &amp; Conditions</h5>
             <ol>
@@ -1894,7 +1818,6 @@ function renderInvoicePreview(data) {
             </ol>
         </div>
 
-        <!-- FOOTER -->
         <div class="inv-footer">
             <strong>${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</strong>
             ${b.address ? ` · ${escapeHtml(b.address)}` : ''}
@@ -1903,79 +1826,96 @@ function renderInvoicePreview(data) {
             ${b.gstin ? ` · GSTIN: ${escapeHtml(b.gstin)}` : ''}
         </div>
     `;
+
+    setTimeout(scalePreview, 50);
 }
 
 /* ============================================================
-   PDF DOWNLOAD — PROFESSIONAL SINGLE-PAGE A4
-   ============================================================ */
+   PDF DOWNLOAD — FIXED & PROFESSIONAL
+   ============================================================
+   Key fixes:
+   - Removed "1" prefix on numbers → using plain string concatenation
+   - Proper column widths to fit A4
+   - Single-page guaranteed
+   - Clean spacing between sections
+   - Correct currency rendering
+============================================================ */
 function downloadPDF() {
     if (!currentInvoiceData) {
-        showToast('Please calculate the invoice first', 'warning');
+        showToast('Please calculate invoice first', 'warning');
         return;
     }
 
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', compress: true });
     const data = currentInvoiceData;
     const b = data.business;
     const c = data.customer;
 
-    const PW = 210;   // A4 width in mm
-    const PH = 297;   // A4 height in mm
-    const M = 10;     // margin
-    const CW = PW - M * 2; // content width
-    let y = M;
+    const PW = 210;
+    const PH = 297;
+    const M = 10;
+    const CW = PW - M * 2;
+    let y = 0;
+
+    /* ============================================================
+       HELPER: Safe text — no auto-format bugs
+    ============================================================ */
+    function safeText(str) {
+        // Ensure it's a clean string without auto-formatted numbers
+        return String(str == null ? '' : str);
+    }
 
     /* ============================================================
        HEADER BAR
     ============================================================ */
     doc.setFillColor(15, 27, 51);
-    doc.rect(0, 0, PW, 22, 'F');
+    doc.rect(0, 0, PW, 20, 'F');
 
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(14);
-    doc.text((b.name || 'RAJ MARKETING MYSORE').toUpperCase(), M, 10);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7);
-    doc.setTextColor(200, 210, 230);
-    doc.text('Aluminium Frame | Mosquito Net | Kitchen | Wardrobe', M, 15);
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(15);
-    doc.setTextColor(245, 158, 11);
-    doc.text('TAX INVOICE', PW - M, 10, { align: 'right' });
+    doc.setFontSize(13);
+    doc.text(safeText(b.name || 'RAJ MARKETING MYSORE').toUpperCase(), M, 9);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(6.5);
     doc.setTextColor(200, 210, 230);
-    doc.text('Original for Recipient', PW - M, 15, { align: 'right' });
+    doc.text('Aluminium Frame | Mosquito Net | Kitchen | Wardrobe', M, 14);
 
-    y = 26;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(245, 158, 11);
+    doc.text('TAX INVOICE', PW - M, 9, { align: 'right' });
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(6);
+    doc.setTextColor(200, 210, 230);
+    doc.text('Original for Recipient', PW - M, 14, { align: 'right' });
+
+    y = 24;
 
     /* ============================================================
-       BUSINESS + INVOICE + CUSTOMER INFO (2-column grid)
+       BUSINESS + INVOICE + CUSTOMER
     ============================================================ */
-    const boxH = 30;
-    const leftW = CW / 2 - 1;
-    const rightW = CW / 2 - 1;
-    const rightX = M + leftW + 2;
+    const boxH = 29;
+    const leftW = CW / 2 - 1.5;
+    const rightW = CW / 2 - 1.5;
+    const rightX = M + leftW + 3;
 
     // LEFT: Invoice Details
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
+    doc.setLineWidth(0.2);
     doc.rect(M, y, leftW, boxH, 'FD');
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
+    doc.setFontSize(6.5);
     doc.setTextColor(26, 86, 219);
-    doc.text('INVOICE DETAILS', M + 3, y + 4.5);
+    doc.text('INVOICE DETAILS', M + 2.5, y + 4);
 
     doc.setDrawColor(203, 213, 225);
-    doc.line(M + 2, y + 6, M + leftW - 2, y + 6);
+    doc.line(M + 2, y + 5.5, M + leftW - 2, y + 5.5);
 
-    doc.setFontSize(7);
     const invRows = [
         ['Invoice No:', data.invoiceNumber],
         ['Invoice Date:', formatDate(data.invoiceDate)],
@@ -1984,15 +1924,17 @@ function downloadPDF() {
         ['Payment Terms:', data.paymentTerms],
         ['Reverse Charge:', data.reverseCharge]
     ];
-    let ty = y + 10;
+    let ty = y + 9;
+    doc.setFontSize(6.8);
     invRows.forEach(([k, v]) => {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(100, 116, 139);
         doc.text(k, M + 3, ty);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(15, 27, 51);
-        doc.text(String(v || '—').substring(0, 32), M + 28, ty);
-        ty += 3.4;
+        const txt = doc.splitTextToSize(safeText(v || '—'), leftW - 30)[0];
+        doc.text(txt, M + 27, ty);
+        ty += 3.2;
     });
 
     // RIGHT: Bill To
@@ -2001,12 +1943,12 @@ function downloadPDF() {
     doc.rect(rightX, y, rightW, boxH, 'FD');
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
+    doc.setFontSize(6.5);
     doc.setTextColor(26, 86, 219);
-    doc.text('BILL TO', rightX + 3, y + 4.5);
+    doc.text('BILL TO', rightX + 2.5, y + 4);
 
     doc.setDrawColor(203, 213, 225);
-    doc.line(rightX + 2, y + 6, rightX + rightW - 2, y + 6);
+    doc.line(rightX + 2, y + 5.5, rightX + rightW - 2, y + 5.5);
 
     const custRows = c.name ? [
         ['Name:', c.name],
@@ -2016,286 +1958,303 @@ function downloadPDF() {
         c.state ? ['State:', `${c.state} (${c.stateCode || ''})`] : null
     ].filter(Boolean) : [['Name:', 'Cash Customer']];
 
-    ty = y + 10;
+    ty = y + 9;
     custRows.slice(0, 6).forEach(([k, v]) => {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(100, 116, 139);
         doc.text(k, rightX + 3, ty);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(15, 27, 51);
-        const txt = doc.splitTextToSize(String(v || '—'), rightW - 26)[0];
-        doc.text(txt, rightX + 18, ty);
-        ty += 3.4;
+        const txt = doc.splitTextToSize(safeText(v || '—'), rightW - 24)[0];
+        doc.text(txt, rightX + 17, ty);
+        ty += 3.2;
     });
 
-    y += boxH + 4;
+    y += boxH + 3;
 
     /* ============================================================
        PRODUCTS TABLE
     ============================================================ */
     const tableBody = data.products.map((p, i) => [
-        String(i + 1),
-        p.name,
-        p.hsn || '—',
-        `${formatNumber(p.displayQty, 2)} ${p.unit}`,
-        formatCurrency(p.rate),
-        formatCurrency(p.total)
+        safeText(i + 1),
+        safeText(p.name),
+        safeText(p.hsn || '—'),
+        safeText(fmt(p.displayQty, 2) + ' ' + p.unit),
+        safeText(moneyNoSymbol(p.rate)),
+        safeText(moneyNoSymbol(p.total))
     ]);
 
     doc.autoTable({
         startY: y,
-        head: [['Sl', 'Product', 'HSN/SAC', 'Total Qty', 'Price/Unit', 'Total Price']],
+        head: [['Sl', 'Product', 'HSN/SAC', 'Total Qty', 'Price/Unit (₹)', 'Total (₹)']],
         body: tableBody,
         theme: 'grid',
         styles: {
-            fontSize: 7.5,
-            cellPadding: 2,
+            fontSize: 7,
+            cellPadding: 1.8,
             lineColor: [203, 213, 225],
             lineWidth: 0.15,
             textColor: [15, 27, 51],
-            overflow: 'linebreak'
+            overflow: 'linebreak',
+            valign: 'middle'
         },
         headStyles: {
             fillColor: [15, 27, 51],
             textColor: [255, 255, 255],
             fontStyle: 'bold',
-            fontSize: 7,
+            fontSize: 6.5,
             halign: 'center',
-            cellPadding: 2.2
+            cellPadding: 2
         },
         alternateRowStyles: { fillColor: [248, 250, 252] },
         columnStyles: {
             0: { cellWidth: 8, halign: 'center' },
-            1: { cellWidth: 70, halign: 'left' },
+            1: { cellWidth: 66, halign: 'left' },
             2: { cellWidth: 22, halign: 'center' },
-            3: { cellWidth: 25, halign: 'center' },
-            4: { cellWidth: 25, halign: 'right' },
+            3: { cellWidth: 26, halign: 'center' },
+            4: { cellWidth: 28, halign: 'right' },
             5: { cellWidth: 30, halign: 'right' }
         },
         margin: { left: M, right: M },
         tableWidth: CW
     });
 
-    y = doc.lastAutoTable.finalY + 4;
+    y = doc.lastAutoTable.finalY + 3;
 
     /* ============================================================
-       AMOUNT IN WORDS + TOTALS
+       AMOUNT IN WORDS + TOTALS (side-by-side)
     ============================================================ */
-    const wordsW = CW - 70;
+    const wordsW = CW - 72;
     const totalsX = M + wordsW + 2;
-    const totalsW = 68;
+    const totalsW = 70;
 
-    // Amount in words box
     const wordsText = numberToWords(data.grandTotal);
-    const wordsLines = doc.splitTextToSize(wordsText, wordsW - 4);
-    const wordsBoxH = Math.max(20, 12 + wordsLines.length * 3.2);
+    const wordsLines = doc.splitTextToSize(wordsText, wordsW - 5);
+    const wordsBoxH = Math.max(22, 12 + wordsLines.length * 3);
 
+    // Amount in words
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
+    doc.setLineWidth(0.2);
     doc.rect(M, y, wordsW, wordsBoxH, 'FD');
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(6.5);
+    doc.setFontSize(6.3);
     doc.setTextColor(26, 86, 219);
-    doc.text('AMOUNT IN WORDS', M + 3, y + 4.5);
+    doc.text('AMOUNT IN WORDS', M + 2.5, y + 4);
 
     doc.setDrawColor(203, 213, 225);
-    doc.line(M + 2, y + 6, M + wordsW - 2, y + 6);
+    doc.line(M + 2, y + 5.5, M + wordsW - 2, y + 5.5);
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7.5);
+    doc.setFontSize(7);
     doc.setTextColor(15, 27, 51);
-    doc.text(wordsLines, M + 3, y + 10);
+    doc.text(wordsLines, M + 3, y + 9.5);
 
-    // Totals table
-    const rowH = 5.5;
+    // Totals
     let tyx = y;
+    const rowH = 5.2;
 
-    function drawTotalRow(label, value, grand = false) {
+    function drawRow(label, value, grand = false) {
         if (grand) {
             doc.setFillColor(15, 27, 51);
             doc.rect(totalsX, tyx, totalsW, 7.5, 'F');
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(9);
+            doc.setFontSize(8.5);
             doc.setTextColor(255, 255, 255);
             doc.text(label, totalsX + 2.5, tyx + 5);
-            doc.text(value, totalsX + totalsW - 2.5, tyx + 5, { align: 'right' });
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.text(safeText(value), totalsX + totalsW - 2.5, tyx + 5, { align: 'right' });
             tyx += 7.5;
         } else {
             doc.setFillColor(248, 250, 252);
             doc.setDrawColor(203, 213, 225);
             doc.rect(totalsX, tyx, totalsW, rowH, 'FD');
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(7.5);
+            doc.setFontSize(6.8);
             doc.setTextColor(100, 116, 139);
-            doc.text(label, totalsX + 2.5, tyx + 3.7);
+            doc.text(label, totalsX + 2.5, tyx + 3.5);
             doc.setTextColor(15, 27, 51);
-            doc.text(value, totalsX + totalsW - 2.5, tyx + 3.7, { align: 'right' });
+            doc.setFontSize(7);
+            doc.text(safeText(value), totalsX + totalsW - 2.5, tyx + 3.5, { align: 'right' });
             tyx += rowH;
         }
     }
 
-    drawTotalRow('Subtotal', formatCurrency(data.subtotal));
+    drawRow('Subtotal (₹)', moneyNoSymbol(data.subtotal));
     if (data.taxType === 'cgst_sgst') {
-        drawTotalRow(`CGST @ ${data.gstRate / 2}%`, formatCurrency(data.cgst));
-        drawTotalRow(`SGST @ ${data.gstRate / 2}%`, formatCurrency(data.sgst));
+        drawRow(`CGST @ ${data.gstRate / 2}% (₹)`, moneyNoSymbol(data.cgst));
+        drawRow(`SGST @ ${data.gstRate / 2}% (₹)`, moneyNoSymbol(data.sgst));
     } else if (data.taxType === 'igst') {
-        drawTotalRow(`IGST @ ${data.gstRate}%`, formatCurrency(data.igst));
+        drawRow(`IGST @ ${data.gstRate}% (₹)`, moneyNoSymbol(data.igst));
     }
-    drawTotalRow('GRAND TOTAL', formatCurrency(data.grandTotal), true);
+    drawRow('GRAND TOTAL (₹)', moneyNoSymbol(data.grandTotal), true);
 
-    y = Math.max(y + wordsBoxH, tyx) + 4;
+    y = Math.max(y + wordsBoxH, tyx) + 3;
 
     /* ============================================================
-       GST SUMMARY TABLE (compact)
+       GST SUMMARY TABLE
     ============================================================ */
     if (data.taxType === 'cgst_sgst' || data.taxType === 'igst') {
-        const gstHead = data.taxType === 'cgst_sgst'
+        const head = data.taxType === 'cgst_sgst'
             ? [['HSN/SAC', 'Taxable Value', 'CGST Rate', 'CGST Amount', 'SGST Rate', 'SGST Amount', 'Total Tax']]
             : [['HSN/SAC', 'Taxable Value', 'IGST Rate', 'IGST Amount', 'Total Tax']];
 
-        const gstBody = data.taxType === 'cgst_sgst'
-            ? [['—', formatCurrency(data.subtotal), `${data.gstRate / 2}%`,
-                formatCurrency(data.cgst), `${data.gstRate / 2}%`,
-                formatCurrency(data.sgst), formatCurrency(data.totalGst)]]
-            : [['—', formatCurrency(data.subtotal), `${data.gstRate}%`,
-                formatCurrency(data.igst), formatCurrency(data.igst)]];
+        const body = data.taxType === 'cgst_sgst'
+            ? [['—',
+                moneyNoSymbol(data.subtotal),
+                `${data.gstRate / 2}%`,
+                moneyNoSymbol(data.cgst),
+                `${data.gstRate / 2}%`,
+                moneyNoSymbol(data.sgst),
+                moneyNoSymbol(data.totalGst)]]
+            : [['—',
+                moneyNoSymbol(data.subtotal),
+                `${data.gstRate}%`,
+                moneyNoSymbol(data.igst),
+                moneyNoSymbol(data.igst)]];
 
         doc.autoTable({
             startY: y,
-            head: gstHead,
-            body: gstBody,
+            head,
+            body,
             theme: 'grid',
             styles: {
-                fontSize: 6.5,
-                cellPadding: 1.8,
+                fontSize: 6.3,
+                cellPadding: 1.6,
                 lineColor: [203, 213, 225],
                 lineWidth: 0.15,
                 textColor: [15, 27, 51],
-                halign: 'center'
+                halign: 'center',
+                valign: 'middle'
             },
             headStyles: {
                 fillColor: [26, 86, 219],
                 textColor: [255, 255, 255],
                 fontStyle: 'bold',
                 fontSize: 6,
-                cellPadding: 1.8
+                cellPadding: 1.6
             },
             margin: { left: M, right: M },
             tableWidth: CW
         });
 
-        y = doc.lastAutoTable.finalY + 4;
+        y = doc.lastAutoTable.finalY + 3;
     }
 
     /* ============================================================
        BANK + SIGNATURE (side by side)
     ============================================================ */
-    const bsH = 26;
-    const bankW = CW / 2 - 1;
-    const sigW = CW / 2 - 1;
-    const sigX = M + bankW + 2;
+    const bsH = 24;
+    const bankW = CW / 2 - 1.5;
+    const sigW = CW / 2 - 1.5;
+    const sigX = M + bankW + 3;
 
-    // Bank box
+    // Bank
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
     doc.rect(M, y, bankW, bsH, 'FD');
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
+    doc.setFontSize(6.3);
     doc.setTextColor(26, 86, 219);
-    doc.text('BANK DETAILS', M + 3, y + 4.5);
+    doc.text('BANK DETAILS', M + 2.5, y + 4);
 
     doc.setDrawColor(203, 213, 225);
-    doc.line(M + 2, y + 6, M + bankW - 2, y + 6);
+    doc.line(M + 2, y + 5.5, M + bankW - 2, y + 5.5);
 
-    doc.setFontSize(7);
     const bankRows = [
         ['Bank:', b.bank || '—'],
         ['A/c No:', b.account || '—'],
         ['IFSC:', b.ifsc || '—'],
         ['UPI:', b.upi || '—']
     ];
-    let by = y + 10;
+    let by = y + 9;
+    doc.setFontSize(6.8);
     bankRows.forEach(([k, v]) => {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(100, 116, 139);
         doc.text(k, M + 3, by);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(15, 27, 51);
-        doc.text(String(v).substring(0, 28), M + 18, by);
-        by += 3.6;
+        doc.text(safeText(v).substring(0, 28), M + 16, by);
+        by += 3.3;
     });
 
-    // Signature box
+    // Signature
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
     doc.rect(sigX, y, sigW, bsH, 'FD');
 
     if (signatureData) {
         try {
-            doc.addImage(signatureData, 'PNG', sigX + 15, y + 3, 30, 12);
+            doc.addImage(signatureData, 'PNG', sigX + 14, y + 2.5, 26, 10);
         } catch (e) {}
     }
 
     doc.setDrawColor(15, 27, 51);
-    doc.line(sigX + 8, y + 18, sigX + sigW - 8, y + 18);
+    doc.setLineWidth(0.3);
+    doc.line(sigX + 6, y + 16, sigX + sigW - 6, y + 16);
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
+    doc.setFontSize(6.5);
     doc.setTextColor(15, 27, 51);
-    doc.text('Authorized Signatory', sigX + sigW / 2, y + 22, { align: 'center' });
+    doc.text('Authorized Signatory', sigX + sigW / 2, y + 19.5, { align: 'center' });
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(6);
+    doc.setFontSize(5.5);
     doc.setTextColor(100, 116, 139);
-    doc.text(`For ${b.name || 'RAJ MARKETING MYSORE'}`, sigX + sigW / 2, y + 24.5, { align: 'center' });
+    doc.text(`For ${safeText(b.name || 'RAJ MARKETING MYSORE')}`, sigX + sigW / 2, y + 22, { align: 'center' });
 
-    y += bsH + 4;
+    y += bsH + 3;
 
     /* ============================================================
-       TERMS & CONDITIONS
+       TERMS
     ============================================================ */
     doc.setDrawColor(203, 213, 225);
+    doc.setLineWidth(0.2);
     doc.line(M, y, PW - M, y);
-    y += 3;
+    y += 2.5;
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
+    doc.setFontSize(6.3);
     doc.setTextColor(26, 86, 219);
     doc.text('TERMS & CONDITIONS', M, y);
-    y += 3.5;
+    y += 3;
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(6.5);
+    doc.setFontSize(5.8);
     doc.setTextColor(51, 65, 85);
     const terms = (data.terms || '').split('\n').filter(t => t.trim());
     terms.slice(0, 6).forEach((t, i) => {
         const line = `${i + 1}. ${t.replace(/^\d+\.\s*/, '')}`;
-        const wrapped = doc.splitTextToSize(line, CW - 4);
+        const wrapped = doc.splitTextToSize(line, CW - 3);
         doc.text(wrapped, M, y);
-        y += wrapped.length * 2.8;
+        y += wrapped.length * 2.5;
     });
 
     /* ============================================================
-       FOOTER BAR (bottom)
+       FOOTER (bottom-fixed)
     ============================================================ */
-    const footerY = PH - 8;
+    const footerY = PH - 6;
     doc.setDrawColor(15, 27, 51);
-    doc.setLineWidth(0.4);
+    doc.setLineWidth(0.3);
     doc.line(M, footerY - 3, PW - M, footerY - 3);
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(6.5);
+    doc.setFontSize(5.8);
     doc.setTextColor(15, 27, 51);
-    const footer = [
+    const footerParts = [
         b.name || 'RAJ MARKETING MYSORE',
         b.address,
         b.mobile ? `📞 ${b.mobile}` : '',
         b.email ? `✉ ${b.email}` : '',
         b.gstin ? `GSTIN: ${b.gstin}` : ''
-    ].filter(Boolean).join(' · ');
-    doc.text(footer, PW / 2, footerY, { align: 'center', maxWidth: CW });
+    ].filter(Boolean);
+    const footerText = footerParts.join('  ·  ');
+    const footerWrapped = doc.splitTextToSize(footerText, CW);
+    doc.text(footerWrapped, PW / 2, footerY - 1, { align: 'center' });
 
     /* ============================================================
        SAVE
@@ -2309,7 +2268,7 @@ function downloadPDF() {
    WHATSAPP SHARE
 ============================================================ */
 function shareWhatsApp() {
-    if (!currentInvoiceData) { showToast('Please calculate invoice first', 'warning'); return; }
+    if (!currentInvoiceData) { showToast('Calculate invoice first', 'warning'); return; }
     const data = currentInvoiceData;
     const message = `*${data.business.name || 'RAJ MARKETING MYSORE'}*
 
@@ -2318,11 +2277,11 @@ function shareWhatsApp() {
 Invoice No: ${data.invoiceNumber}
 Invoice Date: ${formatDate(data.invoiceDate)}
 Customer: ${data.customer.name || 'Cash Customer'}
-Grand Total: ${formatCurrency(data.grandTotal)}
+Grand Total: ${money(data.grandTotal)}
 
 Items: ${data.products.length}
-Subtotal: ${formatCurrency(data.subtotal)}
-GST: ${formatCurrency(data.totalGst)}
+Subtotal: ${money(data.subtotal)}
+GST: ${money(data.totalGst)}
 
 Thank you for your business!`;
     const encoded = encodeURIComponent(message);
@@ -2330,7 +2289,8 @@ Thank you for your business!`;
     if (navigator.share) {
         navigator.share({
             title: `Invoice ${data.invoiceNumber}`,
-            text: message        }).catch(() => window.open(`https://wa.me/?text=${encoded}`, '_blank'));
+            text: message
+        }).catch(() => window.open(`https://wa.me/?text=${encoded}`, '_blank'));
     } else {
         window.open(`https://wa.me/?text=${encoded}`, '_blank');
     }
@@ -2384,7 +2344,7 @@ function renderHistory() {
                 </div>
             </div>
             <div style="font-size:18px;font-weight:900;color:var(--primary);">
-                ${formatCurrency(inv.grandTotal)}
+                ${money(inv.grandTotal)}
             </div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
                 <button class="btn btn-primary" style="padding:6px 12px;font-size:11px;" onclick="viewInvoice('${escapeHtml(inv.invoiceNumber)}')">
@@ -2417,11 +2377,8 @@ function deleteInvoice(invoiceNumber) {
     showToast('Invoice deleted', 'warning');
 }
 
-/* ============================================================
-   NEW INVOICE
-============================================================ */
 function newInvoice() {
-    if (!confirm('Start a new invoice? Current data will be cleared.')) return;
+    if (!confirm('Start new invoice? Current data will be cleared.')) return;
     ['custName','custMobile','custEmail','custGstin','custAddress'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
