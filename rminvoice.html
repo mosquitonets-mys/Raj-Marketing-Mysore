@@ -3,700 +3,207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-
 <title>GST Tax Invoice | Raj Marketing Mysore</title>
-
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-
 <style>
-:root {
-    --primary: #1a56db;
-    --primary-dark: #0d47a1;
-    --primary-light: #e8f0fe;
-    --navy: #0f1b33;
-    --orange: #f59e0b;
-    --orange-dark: #d97706;
-    --green: #059669;
-    --red: #dc2626;
-    --text-dark: #1f2937;
-    --text-muted: #64748b;
-    --bg: #f0f4f8;
-    --bg-white: #ffffff;
-    --bg-light: #f8fafc;
-    --border: #e2e8f0;
-    --border-light: #f1f5f9;
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-    --shadow-md: 0 4px 20px rgba(0,0,0,0.10);
-    --radius: 12px;
-    --radius-lg: 20px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-    font-family: 'Poppins', Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text-dark);
-    line-height: 1.6;
-    padding-bottom: 40px;
-}
-.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-
-/* HEADER */
-.app-header {
-    background: linear-gradient(135deg, var(--navy), #1a2d4d);
-    color: white;
-    padding: 22px 26px;
-    border-radius: var(--radius-lg);
-    margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(15, 27, 51, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-}
-.app-header i { font-size: 30px; color: var(--orange); }
-.app-header h1 { font-size: 20px; font-weight: 900; }
-.app-header p { font-size: 11px; opacity: 0.8; }
-
-/* DASHBOARD */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 18px;
-}
-.dash-btn {
-    background: var(--bg-white);
-    border: 2px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 18px;
-    cursor: pointer;
-    text-align: center;
-    transition: var(--transition);
-    font-family: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-.dash-btn:hover, .dash-btn.active {
-    border-color: var(--primary);
-    background: var(--primary-light);
-    transform: translateY(-2px);
-}
-.dash-btn i {
-    font-size: 22px;
-    color: var(--primary);
-    background: var(--primary-light);
-    width: 46px; height: 46px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-}
-.dash-btn:hover i, .dash-btn.active i { background: var(--primary); color: #fff; }
-.dash-btn .label { font-size: 12px; font-weight: 800; }
-
-/* PANELS */
-.panel { display: none; }
-.panel.active { display: block; }
-
-/* CARDS */
-.card {
-    background: var(--bg-white);
-    border-radius: var(--radius-lg);
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow-sm);
-}
-.card-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--navy);
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border-light);
-}
-.card-title i { color: var(--primary); }
-.card-title .badge {
-    margin-left: auto;
-    background: var(--primary-light);
-    color: var(--primary);
-    font-size: 10px;
-    font-weight: 800;
-    padding: 3px 12px;
-    border-radius: 30px;
-    text-transform: uppercase;
-}
-
-/* FORM */
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-.form-grid-2 { grid-template-columns: repeat(2, 1fr); }
-.form-grid-4 { grid-template-columns: repeat(4, 1fr); }
-.form-group { display: flex; flex-direction: column; }
-.form-group label {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
-.form-group label .required { color: var(--red); }
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    font-size: 13px;
-    font-family: inherit;
-    font-weight: 600;
-    color: var(--text-dark);
-    background: var(--bg-light);
-    outline: none;
-    transition: var(--transition);
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: var(--primary);
-    background: var(--bg-white);
-    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.08);
-}
-.form-group textarea { resize: vertical; min-height: 60px; }
-
-/* TABLE */
-.table-wrap { overflow-x: auto; border-radius: var(--radius); margin-bottom: 10px; }
-.table-wrap::-webkit-scrollbar { height: 6px; }
-.table-wrap::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 20px; }
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 900px;
-    font-size: 13px;
-}
-th {
-    background: linear-gradient(145deg, var(--navy), #1a2d4d);
-    color: white;
-    padding: 10px 6px;
-    font-size: 10px;
-    font-weight: 800;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    white-space: nowrap;
-}
-th:first-child { border-top-left-radius: var(--radius); }
-th:last-child { border-top-right-radius: var(--radius); }
-td {
-    padding: 7px 6px;
-    border-bottom: 1px solid var(--border-light);
-    text-align: center;
-    font-weight: 600;
-    vertical-align: middle;
-}
-td input, td select {
-    width: 100%;
-    padding: 7px 8px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 12px;
-    font-family: inherit;
-    font-weight: 700;
-    text-align: center;
-    background: var(--bg-light);
-    outline: none;
-}
-td input:focus, td select:focus { border-color: var(--primary); background: var(--bg-white); }
-td .calc-value { font-weight: 800; color: var(--primary); font-size: 13px; }
-td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
-
-/* BUTTONS */
-.btn {
-    border: none;
-    border-radius: var(--radius);
-    padding: 10px 18px;
-    cursor: pointer;
-    font-weight: 800;
-    font-size: 12px;
-    font-family: inherit;
-    transition: var(--transition);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    white-space: nowrap;
-}
-.btn:hover { transform: translateY(-1px); }
-.btn-primary { background: linear-gradient(145deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 12px rgba(26,86,219,0.28); }
-.btn-success { background: linear-gradient(145deg, var(--green), #047857); color: white; box-shadow: 0 4px 12px rgba(5,150,105,0.28); }
-.btn-danger { background: linear-gradient(145deg, var(--red), #b91c1c); color: white; padding: 6px 10px; font-size: 11px; }
-.btn-warning { background: linear-gradient(145deg, var(--orange), var(--orange-dark)); color: white; }
-.btn-dark { background: linear-gradient(145deg, var(--navy), #1a2d4d); color: white; }
-.btn-light { background: var(--bg-light); color: var(--text-dark); border: 1.5px solid var(--border); }
-.btn-whatsapp { background: linear-gradient(145deg, #25d366, #1fa855); color: white; }
-.btn-lg { padding: 13px 26px; font-size: 13px; border-radius: 40px; }
-.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-
-/* SUMMARY */
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 12px;
-}
-.summary-box {
-    padding: 14px 16px;
-    border-radius: var(--radius);
-    background: var(--bg-light);
-    border-left: 4px solid var(--primary);
-}
-.summary-box.green { border-left-color: var(--green); background: #ecfdf5; }
-.summary-box.navy { background: var(--navy); color: white; border-left-color: var(--orange); }
-.summary-box .label {
-    font-size: 10px;
-    color: var(--text-muted);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-}
-.summary-box.navy .label { color: rgba(255,255,255,0.7); }
-.summary-box .value {
-    font-size: 17px;
-    font-weight: 900;
-    color: var(--navy);
-    margin-top: 2px;
-}
-.summary-box.green .value { color: var(--green); }
-.summary-box.navy .value { color: white; font-size: 21px; }
-
-.note {
-    background: linear-gradient(135deg, #fff7ed, #ffedd5);
-    border-left: 4px solid var(--orange);
-    padding: 12px 16px;
-    border-radius: var(--radius);
-    margin-top: 12px;
-    font-size: 12px;
-    color: #92400e;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-weight: 600;
-    line-height: 1.5;
-}
-.note i { color: var(--orange); margin-top: 2px; }
+:root{--primary:#1a56db;--primary-dark:#0d47a1;--primary-light:#e8f0fe;--navy:#0f1b33;--orange:#f59e0b;--orange-dark:#d97706;--green:#059669;--red:#dc2626;--text-dark:#1f2937;--text-muted:#64748b;--bg:#f0f4f8;--bg-white:#fff;--bg-light:#f8fafc;--border:#e2e8f0;--border-light:#f1f5f9;--radius:12px;--radius-lg:20px;--transition:all .3s cubic-bezier(.4,0,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',Arial,sans-serif;background:var(--bg);color:var(--text-dark);line-height:1.6;padding-bottom:40px}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+.app-header{background:linear-gradient(135deg,var(--navy),#1a2d4d);color:#fff;padding:22px 26px;border-radius:var(--radius-lg);margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.app-header i{font-size:30px;color:var(--orange)}
+.app-header h1{font-size:20px;font-weight:900}
+.app-header p{font-size:11px;opacity:.8}
+.dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.dash-btn{background:var(--bg-white);border:2px solid var(--border);border-radius:var(--radius-lg);padding:18px;cursor:pointer;text-align:center;transition:var(--transition);font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:8px}
+.dash-btn:hover,.dash-btn.active{border-color:var(--primary);background:var(--primary-light);transform:translateY(-2px)}
+.dash-btn i{font-size:22px;color:var(--primary);background:var(--primary-light);width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.dash-btn:hover i,.dash-btn.active i{background:var(--primary);color:#fff}
+.dash-btn .label{font-size:12px;font-weight:800}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:var(--bg-white);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--border-light)}
+.card-title i{color:var(--primary)}
+.card-title .badge{margin-left:auto;background:var(--primary-light);color:var(--primary);font-size:10px;font-weight:800;padding:3px 12px;border-radius:30px;text-transform:uppercase}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.form-grid-2{grid-template-columns:repeat(2,1fr)}
+.form-grid-4{grid-template-columns:repeat(4,1fr)}
+.form-group{display:flex;flex-direction:column}
+.form-group label{font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:5px;text-transform:uppercase}
+.form-group label .required{color:var(--red)}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:inherit;font-weight:600;color:var(--text-dark);background:var(--bg-light);outline:none;transition:var(--transition)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary);background:var(--bg-white);box-shadow:0 0 0 3px rgba(26,86,219,.08)}
+.form-group textarea{resize:vertical;min-height:60px}
+.table-wrap{overflow-x:auto;border-radius:var(--radius);margin-bottom:10px}
+table{width:100%;border-collapse:collapse;min-width:900px;font-size:13px}
+th{background:linear-gradient(145deg,var(--navy),#1a2d4d);color:#fff;padding:10px 6px;font-size:10px;font-weight:800;text-align:center;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+th:first-child{border-top-left-radius:var(--radius)}th:last-child{border-top-right-radius:var(--radius)}
+td{padding:7px 6px;border-bottom:1px solid var(--border-light);text-align:center;font-weight:600;vertical-align:middle}
+td input,td select{width:100%;padding:7px 8px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;font-weight:700;text-align:center;background:var(--bg-light);outline:none}
+td input:focus,td select:focus{border-color:var(--primary);background:var(--bg-white)}
+td .calc-value{font-weight:800;color:var(--primary);font-size:13px}
+td .total-value{font-weight:900;color:var(--green);font-size:13px}
+.btn{border:none;border-radius:var(--radius);padding:10px 18px;cursor:pointer;font-weight:800;font-size:12px;font-family:inherit;transition:var(--transition);display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(145deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 4px 12px rgba(26,86,219,.28)}
+.btn-success{background:linear-gradient(145deg,var(--green),#047857);color:#fff;box-shadow:0 4px 12px rgba(5,150,105,.28)}
+.btn-danger{background:linear-gradient(145deg,var(--red),#b91c1c);color:#fff;padding:6px 10px;font-size:11px}
+.btn-warning{background:linear-gradient(145deg,var(--orange),var(--orange-dark));color:#fff}
+.btn-dark{background:linear-gradient(145deg,var(--navy),#1a2d4d);color:#fff}
+.btn-light{background:var(--bg-light);color:var(--text-dark);border:1.5px solid var(--border)}
+.btn-whatsapp{background:linear-gradient(145deg,#25d366,#1fa855);color:#fff}
+.btn-lg{padding:13px 26px;font-size:13px;border-radius:40px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.summary-box{padding:14px 16px;border-radius:var(--radius);background:var(--bg-light);border-left:4px solid var(--primary)}
+.summary-box.green{border-left-color:var(--green);background:#ecfdf5}
+.summary-box.navy{background:var(--navy);color:#fff;border-left-color:var(--orange)}
+.summary-box .label{font-size:10px;color:var(--text-muted);font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.summary-box.navy .label{color:rgba(255,255,255,.7)}
+.summary-box .value{font-size:17px;font-weight:900;color:var(--navy);margin-top:2px}
+.summary-box.green .value{color:var(--green)}
+.summary-box.navy .value{color:#fff;font-size:21px}
+.note{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-left:4px solid var(--orange);padding:12px 16px;border-radius:var(--radius);margin-top:12px;font-size:12px;color:#92400e;display:flex;align-items:flex-start;gap:10px;font-weight:600;line-height:1.5}
+.note i{color:var(--orange);margin-top:2px}
 
 /* ============================================================
-   A4 PREVIEW — PROPER SCALING
+   A4 PREVIEW — FULL WIDTH, PROPER SCALE, HORIZONTAL SCROLL
 ============================================================ */
-.a4-outer {
-    display: flex;
-    justify-content: center;
-    padding: 20px 10px;
-    background: #94a3b8;
-    border-radius: var(--radius);
-    overflow-x: auto;
+.a4-outer{
+    width:100%;
+    overflow-x:auto;
+    background:#94a3b8;
+    border-radius:var(--radius);
+    padding:16px;
+    -webkit-overflow-scrolling:touch;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
 }
+.a4-scaler{
+    /* Scale will be set by JS to fit viewport */
+    transform-origin:top left;
+    transition:transform .2s ease;
+    flex-shrink:0;
+}
+.a4-page{
+    width:210mm;
+    min-height:297mm;
+    max-height:297mm;
+    background:#fff;
+    padding:8mm;
+    color:#111;
+    font-family:'Poppins',Arial,sans-serif;
+    font-size:8pt;
+    line-height:1.28;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.25);
+}
+.a4-page *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
-.a4-scaler {
-    /* Scales A4 (210mm) down to viewport width on mobile */
-    transform-origin: top center;
-    transition: transform 0.2s ease;
-}
+.inv-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-bottom:6px;border-bottom:2.5px solid var(--navy);margin-bottom:8px;flex-shrink:0}
+.inv-brand{display:flex;gap:9px;align-items:flex-start;flex:1;min-width:0}
+.inv-logo{width:52px;height:52px;border-radius:8px;background:linear-gradient(145deg,var(--navy),#1a2d4d);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;overflow:hidden;flex-shrink:0}
+.inv-logo img{width:100%;height:100%;object-fit:contain}
+.inv-brand-info{min-width:0;flex:1}
+.inv-brand-info h1{font-size:13.5pt;font-weight:900;color:var(--navy);letter-spacing:-.3px;line-height:1.05;margin-bottom:1px}
+.inv-brand-info .tagline{font-size:6.5pt;color:var(--text-muted);font-weight:600;margin-bottom:3px}
+.inv-brand-info .addr{font-size:7pt;color:#333;line-height:1.32}
+.inv-type{text-align:right;flex-shrink:0}
+.inv-type .title{font-size:12pt;font-weight:900;color:var(--navy);letter-spacing:.6px;text-transform:uppercase;border:2px solid var(--navy);padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:3px}
+.inv-type .copy-type{font-size:6pt;color:var(--text-muted);font-weight:700;letter-spacing:.6px;text-transform:uppercase}
 
-.a4-page {
-    width: 210mm;
-    min-height: 297mm;
-    max-height: 297mm;
-    background: white;
-    padding: 8mm 8mm 6mm 8mm;
-    color: #111;
-    font-family: 'Poppins', Arial, sans-serif;
-    font-size: 8pt;
-    line-height: 1.28;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
-}
-.a4-page * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.inv-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;flex-shrink:0}
+.inv-meta-box{background:#f8fafc;border:1px solid #cbd5e1;border-radius:4px;padding:6px 8px}
+.inv-meta-box h4{font-size:6.5pt;color:var(--primary);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;font-weight:900;border-bottom:1px solid #cbd5e1;padding-bottom:2px}
+.inv-meta-box .row{display:flex;justify-content:space-between;font-size:7pt;padding:.8px 0;gap:6px}
+.inv-meta-box .row .lbl{color:var(--text-muted);font-weight:600}
+.inv-meta-box .row .val{color:#111;font-weight:700;text-align:right;word-break:break-word}
 
-/* Header */
-.inv-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-    padding-bottom: 6px;
-    border-bottom: 2.5px solid var(--navy);
-    margin-bottom: 8px;
-    flex-shrink: 0;
-}
-.inv-brand { display: flex; gap: 9px; align-items: flex-start; flex: 1; min-width: 0; }
-.inv-logo {
-    width: 52px; height: 52px;
-    border-radius: 8px;
-    background: linear-gradient(145deg, var(--navy), #1a2d4d);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    font-weight: 900;
-    overflow: hidden;
-    flex-shrink: 0;
-}
-.inv-logo img { width: 100%; height: 100%; object-fit: contain; }
-.inv-brand-info { min-width: 0; flex: 1; }
-.inv-brand-info h1 {
-    font-size: 13.5pt;
-    font-weight: 900;
-    color: var(--navy);
-    letter-spacing: -0.3px;
-    line-height: 1.05;
-    margin-bottom: 1px;
-}
-.inv-brand-info .tagline {
-    font-size: 6.5pt;
-    color: var(--text-muted);
-    font-weight: 600;
-    margin-bottom: 3px;
-}
-.inv-brand-info .addr {
-    font-size: 7pt;
-    color: #333;
-    line-height: 1.32;
-}
-.inv-type { text-align: right; flex-shrink: 0; }
-.inv-type .title {
-    font-size: 12pt;
-    font-weight: 900;
-    color: var(--navy);
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    border: 2px solid var(--navy);
-    padding: 3px 10px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-bottom: 3px;
-}
-.inv-type .copy-type {
-    font-size: 6pt;
-    color: var(--text-muted);
-    font-weight: 700;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-}
+.inv-table{width:100%;border-collapse:collapse;font-size:7.5pt;table-layout:fixed;margin-bottom:6px}
+.inv-table th{background:var(--navy);color:#fff;padding:5px 3px;font-size:6.5pt;text-transform:uppercase;letter-spacing:.3px;text-align:center;border:1px solid var(--navy);font-weight:800}
+.inv-table td{padding:4.5px 4px;border:1px solid #cbd5e1;text-align:center;vertical-align:middle;font-weight:600;font-size:7.5pt;word-wrap:break-word}
+.inv-table td.left{text-align:left;padding-left:6px}
+.inv-table td.right{text-align:right;padding-right:6px}
+.inv-table tbody tr:nth-child(even) td{background:#f8fafc}
 
-/* Meta */
-.inv-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    margin-bottom: 6px;
-    flex-shrink: 0;
-}
-.inv-meta-box {
-    background: #f8fafc;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    padding: 6px 8px;
-}
-.inv-meta-box h4 {
-    font-size: 6.5pt;
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
-    margin-bottom: 3px;
-    font-weight: 900;
-    border-bottom: 1px solid #cbd5e1;
-    padding-bottom: 2px;
-}
-.inv-meta-box .row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 7pt;
-    padding: 0.8px 0;
-    gap: 6px;
-}
-.inv-meta-box .row .lbl { color: var(--text-muted); font-weight: 600; }
-.inv-meta-box .row .val { color: #111; font-weight: 700; text-align: right; word-break: break-word; }
+.inv-totals-wrap{display:grid;grid-template-columns:1fr 62mm;gap:6px;margin-bottom:6px;align-items:flex-start;flex-shrink:0}
+.inv-words{background:#f8fafc;border:1px solid #cbd5e1;border-radius:4px;padding:6px 8px}
+.inv-words .lbl{font-size:6.5pt;color:var(--primary);text-transform:uppercase;font-weight:900;letter-spacing:.5px;margin-bottom:2px}
+.inv-words .val{font-size:7pt;color:#111;font-weight:800;text-transform:uppercase;line-height:1.3}
+.inv-totals{width:100%;border-collapse:collapse;font-size:7.5pt}
+.inv-totals td{padding:4px 7px;border:1px solid #cbd5e1;font-weight:700}
+.inv-totals td.lbl{background:#f8fafc;color:var(--text-muted);text-align:left;font-weight:600}
+.inv-totals td.val{text-align:right;color:#111}
+.inv-totals tr.grand td{background:var(--navy);color:#fff;font-size:9.5pt;font-weight:900;padding:5.5px 7px;border-color:var(--navy)}
 
-/* Table */
-.inv-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 7.5pt;
-    table-layout: fixed;
-    margin-bottom: 6px;
-}
-.inv-table th {
-    background: var(--navy);
-    color: white;
-    padding: 5px 3px;
-    font-size: 6.5pt;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    text-align: center;
-    border: 1px solid var(--navy);
-    font-weight: 800;
-}
-.inv-table td {
-    padding: 4.5px 4px;
-    border: 1px solid #cbd5e1;
-    text-align: center;
-    vertical-align: middle;
-    font-weight: 600;
-    font-size: 7.5pt;
-    word-wrap: break-word;
-}
-.inv-table td.left { text-align: left; padding-left: 6px; }
-.inv-table td.right { text-align: right; padding-right: 6px; }
-.inv-table tbody tr:nth-child(even) td { background: #f8fafc; }
+.gst-summary-table{width:100%;border-collapse:collapse;font-size:6.5pt;margin-bottom:6px;table-layout:fixed;flex-shrink:0}
+.gst-summary-table th{background:var(--primary);color:#fff;padding:4px 2px;text-transform:uppercase;font-size:6pt;letter-spacing:.3px;border:1px solid var(--primary);font-weight:800}
+.gst-summary-table td{padding:3.5px 2px;border:1px solid #cbd5e1;text-align:center;font-weight:600;font-size:6.5pt}
 
-/* Totals */
-.inv-totals-wrap {
-    display: grid;
-    grid-template-columns: 1fr 62mm;
-    gap: 6px;
-    margin-bottom: 6px;
-    align-items: flex-start;
-    flex-shrink: 0;
-}
-.inv-words {
-    background: #f8fafc;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    padding: 6px 8px;
-}
-.inv-words .lbl {
-    font-size: 6.5pt;
-    color: var(--primary);
-    text-transform: uppercase;
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
-}
-.inv-words .val {
-    font-size: 7pt;
-    color: #111;
-    font-weight: 800;
-    text-transform: uppercase;
-    line-height: 1.3;
-}
-.inv-totals { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
-.inv-totals td { padding: 4px 7px; border: 1px solid #cbd5e1; font-weight: 700; }
-.inv-totals td.lbl { background: #f8fafc; color: var(--text-muted); text-align: left; font-weight: 600; }
-.inv-totals td.val { text-align: right; color: #111; }
-.inv-totals tr.grand td {
-    background: var(--navy);
-    color: white;
-    font-size: 9.5pt;
-    font-weight: 900;
-    padding: 5.5px 7px;
-    border-color: var(--navy);
-}
+.inv-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;flex-shrink:0}
+.inv-bank{background:#f8fafc;border:1px solid #cbd5e1;border-radius:4px;padding:6px 8px}
+.inv-bank h5{font-size:6.5pt;color:var(--primary);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;font-weight:900}
+.inv-bank .row{display:flex;justify-content:space-between;font-size:7pt;padding:.8px 0;gap:6px}
+.inv-bank .row .lbl{color:var(--text-muted);font-weight:600}
+.inv-bank .row .val{color:#111;font-weight:700;text-align:right}
+.inv-sign{display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:6px 8px;border:1px solid #cbd5e1;border-radius:4px;background:#f8fafc;min-height:55px}
+.inv-sign-img{height:32px;display:flex;align-items:center;justify-content:center}
+.inv-sign-img img{max-height:32px;max-width:120px;object-fit:contain}
+.inv-sign .line{border-top:1.2px solid var(--navy);padding-top:3px;font-size:7pt;font-weight:900;color:var(--navy);text-transform:uppercase;text-align:center;width:100%}
+.inv-sign .for{font-size:6pt;color:var(--text-muted);margin-top:1px;font-weight:700;text-align:center}
 
-/* GST */
-.gst-summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 6.5pt;
-    margin-bottom: 6px;
-    table-layout: fixed;
-    flex-shrink: 0;
-}
-.gst-summary-table th {
-    background: var(--primary);
-    color: white;
-    padding: 4px 2px;
-    text-transform: uppercase;
-    font-size: 6pt;
-    letter-spacing: 0.3px;
-    border: 1px solid var(--primary);
-    font-weight: 800;
-}
-.gst-summary-table td {
-    padding: 3.5px 2px;
-    border: 1px solid #cbd5e1;
-    text-align: center;
-    font-weight: 600;
-    font-size: 6.5pt;
-}
+.inv-terms{font-size:6pt;line-height:1.35;padding:5px 0 4px;border-top:1px solid #cbd5e1;margin-bottom:4px;flex-shrink:0}
+.inv-terms h5{font-size:6.5pt;color:var(--primary);text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px;font-weight:900}
+.inv-terms ol{padding-left:12px;color:#333}
+.inv-terms ol li{margin-bottom:.5px}
 
-/* Bottom grid */
-.inv-bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    margin-bottom: 6px;
-    flex-shrink: 0;
-}
-.inv-bank {
-    background: #f8fafc;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    padding: 6px 8px;
-}
-.inv-bank h5 {
-    font-size: 6.5pt;
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
-    margin-bottom: 3px;
-    font-weight: 900;
-}
-.inv-bank .row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 7pt;
-    padding: 0.8px 0;
-    gap: 6px;
-}
-.inv-bank .row .lbl { color: var(--text-muted); font-weight: 600; }
-.inv-bank .row .val { color: #111; font-weight: 700; text-align: right; }
+.inv-footer{margin-top:auto;padding-top:4px;border-top:1.2px solid var(--navy);text-align:center;font-size:6pt;color:var(--text-muted);font-weight:600;line-height:1.25;flex-shrink:0}
+.inv-footer strong{color:var(--navy)}
 
-.inv-sign {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 8px;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    background: #f8fafc;
-    min-height: 55px;
-}
-.inv-sign-img {
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.inv-sign-img img { max-height: 32px; max-width: 120px; object-fit: contain; }
-.inv-sign .line {
-    border-top: 1.2px solid var(--navy);
-    padding-top: 3px;
-    font-size: 7pt;
-    font-weight: 900;
-    color: var(--navy);
-    text-transform: uppercase;
-    text-align: center;
-    width: 100%;
-}
-.inv-sign .for {
-    font-size: 6pt;
-    color: var(--text-muted);
-    margin-top: 1px;
-    font-weight: 700;
-    text-align: center;
-}
+.rm-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);padding:12px 24px;border-radius:40px;font-size:13px;font-weight:800;color:#fff;box-shadow:0 12px 36px rgba(0,0,0,.3);z-index:9999;opacity:0;transition:all .3s ease;display:flex;align-items:center;gap:10px;max-width:90%}
+.rm-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* Terms */
-.inv-terms {
-    font-size: 6pt;
-    line-height: 1.35;
-    padding: 5px 0 4px;
-    border-top: 1px solid #cbd5e1;
-    margin-bottom: 4px;
-    flex-shrink: 0;
+@media (max-width:900px){
+    .form-grid{grid-template-columns:repeat(2,1fr)}
+    .dashboard-grid{grid-template-columns:repeat(2,1fr)}
+    .summary-grid{grid-template-columns:repeat(2,1fr)}
 }
-.inv-terms h5 {
-    font-size: 6.5pt;
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
-    margin-bottom: 2px;
-    font-weight: 900;
+@media (max-width:600px){
+    .container{padding:10px}
+    .card{padding:14px}
+    .form-grid,.form-grid-2,.form-grid-4{grid-template-columns:1fr}
+    .dashboard-grid{grid-template-columns:1fr 1fr;gap:8px}
+    .summary-grid{grid-template-columns:1fr}
+    .app-header h1{font-size:16px}
+    .app-header i{font-size:24px}
+    .btn{padding:9px 13px;font-size:11px}
+    .btn-lg{padding:11px 18px;font-size:12px}
 }
-.inv-terms ol { padding-left: 12px; color: #333; }
-.inv-terms ol li { margin-bottom: 0.5px; }
-
-/* Footer */
-.inv-footer {
-    margin-top: auto;
-    padding-top: 4px;
-    border-top: 1.2px solid var(--navy);
-    text-align: center;
-    font-size: 6pt;
-    color: var(--text-muted);
-    font-weight: 600;
-    line-height: 1.25;
-    flex-shrink: 0;
-}
-.inv-footer strong { color: var(--navy); }
-
-/* ============================================================
-   TOAST
-============================================================ */
-.rm-toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    padding: 12px 24px;
-    border-radius: 40px;
-    font-size: 13px;
-    font-weight: 800;
-    color: #fff;
-    box-shadow: 0 12px 36px rgba(0,0,0,0.3);
-    z-index: 9999;
-    opacity: 0;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    max-width: 90%;
-}
-.rm-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .form-grid { grid-template-columns: repeat(2, 1fr); }
-    .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
-    .summary-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-    .container { padding: 10px; }
-    .card { padding: 14px; }
-    .form-grid, .form-grid-2, .form-grid-4 { grid-template-columns: 1fr; }
-    .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .summary-grid { grid-template-columns: 1fr; }
-    .app-header h1 { font-size: 16px; }
-    .app-header i { font-size: 24px; }
-    .btn { padding: 9px 13px; font-size: 11px; }
-    .btn-lg { padding: 11px 18px; font-size: 12px; }
-}
-
-@media print {
-    body { background: white; padding: 0; }
-    .no-print { display: none !important; }
-    .container { max-width: none; padding: 0; }
-    .card { box-shadow: none; border: none; padding: 0; margin: 0; }
-    .a4-outer { background: white; padding: 0; }
-    .a4-scaler { transform: none !important; }
-    .a4-page { box-shadow: none; margin: 0; page-break-after: always; }
-    @page { size: A4 portrait; margin: 0; }
+@media print{
+    body{background:#fff;padding:0}
+    .no-print{display:none!important}
+    .container{max-width:none;padding:0}
+    .card{box-shadow:none;border:none;padding:0;margin:0}
+    .a4-outer{background:#fff;padding:0;overflow:visible}
+    .a4-scaler{transform:none!important}
+    .a4-page{box-shadow:none;margin:0}
+    @page{size:A4 portrait;margin:0}
 }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
     <div class="app-header no-print">
         <i class="fas fa-file-invoice-dollar"></i>
         <div>
@@ -706,147 +213,52 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
     </div>
 
     <div class="dashboard-grid no-print">
-        <button class="dash-btn active" onclick="showPanel('invoice')">
-            <i class="fas fa-plus-circle"></i>
-            <span class="label">New Invoice</span>
-        </button>
-        <button class="dash-btn" onclick="showPanel('history')">
-            <i class="fas fa-history"></i>
-            <span class="label">Invoice History</span>
-        </button>
-        <button class="dash-btn" onclick="showPanel('rawmaterial')">
-            <i class="fas fa-ruler-combined"></i>
-            <span class="label">Raw Material</span>
-        </button>
-        <button class="dash-btn" onclick="showPanel('settings')">
-            <i class="fas fa-cog"></i>
-            <span class="label">Settings</span>
-        </button>
+        <button class="dash-btn active" onclick="showPanel('invoice')"><i class="fas fa-plus-circle"></i><span class="label">New Invoice</span></button>
+        <button class="dash-btn" onclick="showPanel('history')"><i class="fas fa-history"></i><span class="label">Invoice History</span></button>
+        <button class="dash-btn" onclick="showPanel('rawmaterial')"><i class="fas fa-ruler-combined"></i><span class="label">Raw Material</span></button>
+        <button class="dash-btn" onclick="showPanel('settings')"><i class="fas fa-cog"></i><span class="label">Settings</span></button>
     </div>
 
-    <!-- ============================================================
-         PANEL: INVOICE
-    ============================================================ -->
     <div class="panel active" id="panel-invoice">
-
         <div class="card no-print">
-            <div class="card-title">
-                <i class="fas fa-building"></i> Business Details
-                <span class="badge">Auto-saved</span>
-            </div>
+            <div class="card-title"><i class="fas fa-building"></i> Business Details<span class="badge">Auto-saved</span></div>
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Business Name <span class="required">*</span></label>
-                    <input type="text" id="bizName" value="RAJ MARKETING MYSORE">
-                </div>
-                <div class="form-group">
-                    <label>GSTIN</label>
-                    <input type="text" id="bizGstin" value="29CHKPR1962H1ZT" maxlength="15">
-                </div>
-                <div class="form-group">
-                    <label>PAN</label>
-                    <input type="text" id="bizPan" value="CHKPR1962H" maxlength="10">
-                </div>
-                <div class="form-group" style="grid-column:span 2;">
-                    <label>Address <span class="required">*</span></label>
-                    <input type="text" id="bizAddress" value="#45, Devraj Urs Road, Mysore – 570001">
-                </div>
-                <div class="form-group">
-                    <label>Mobile</label>
-                    <input type="tel" id="bizMobile" value="9483037385">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="bizEmail" value="info@rajmarketingmysore.info">
-                </div>
-                <div class="form-group">
-                    <label>State</label>
-                    <input type="text" id="bizState" value="Karnataka">
-                </div>
-                <div class="form-group">
-                    <label>State Code</label>
-                    <input type="text" id="bizStateCode" value="29">
-                </div>
-                <div class="form-group">
-                    <label>Bank Name</label>
-                    <input type="text" id="bizBank" value="State Bank of India">
-                </div>
-                <div class="form-group">
-                    <label>Account Number</label>
-                    <input type="text" id="bizAccount" value="">
-                </div>
-                <div class="form-group">
-                    <label>IFSC Code</label>
-                    <input type="text" id="bizIfsc" value="">
-                </div>
-                <div class="form-group">
-                    <label>UPI ID</label>
-                    <input type="text" id="bizUpi" value="">
-                </div>
-                <div class="form-group">
-                    <label>Logo</label>
-                    <input type="file" id="bizLogo" accept="image/*" onchange="handleLogoUpload(this)">
-                </div>
+                <div class="form-group"><label>Business Name <span class="required">*</span></label><input type="text" id="bizName" value="RAJ MARKETING MYSORE"></div>
+                <div class="form-group"><label>GSTIN</label><input type="text" id="bizGstin" value="29CHKPR1962H1ZT" maxlength="15"></div>
+                <div class="form-group"><label>PAN</label><input type="text" id="bizPan" value="CHKPR1962H" maxlength="10"></div>
+                <div class="form-group" style="grid-column:span 2;"><label>Address <span class="required">*</span></label><input type="text" id="bizAddress" value="#45, Devraj Urs Road, Mysore – 570001"></div>
+                <div class="form-group"><label>Mobile</label><input type="tel" id="bizMobile" value="9483037385"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="bizEmail" value="info@rajmarketingmysore.info"></div>
+                <div class="form-group"><label>State</label><input type="text" id="bizState" value="Karnataka"></div>
+                <div class="form-group"><label>State Code</label><input type="text" id="bizStateCode" value="29"></div>
+                <div class="form-group"><label>Bank Name</label><input type="text" id="bizBank" value="State Bank of India"></div>
+                <div class="form-group"><label>Account Number</label><input type="text" id="bizAccount" value=""></div>
+                <div class="form-group"><label>IFSC Code</label><input type="text" id="bizIfsc" value=""></div>
+                <div class="form-group"><label>UPI ID</label><input type="text" id="bizUpi" value=""></div>
+                <div class="form-group"><label>Logo</label><input type="file" id="bizLogo" accept="image/*" onchange="handleLogoUpload(this)"></div>
             </div>
         </div>
 
         <div class="card no-print">
-            <div class="card-title">
-                <i class="fas fa-user"></i> Customer Details
-                <span class="badge">Optional</span>
-            </div>
+            <div class="card-title"><i class="fas fa-user"></i> Customer Details<span class="badge">Optional</span></div>
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Customer Name</label>
-                    <input type="text" id="custName" placeholder="Customer name">
-                </div>
-                <div class="form-group">
-                    <label>Mobile</label>
-                    <input type="tel" id="custMobile" placeholder="Mobile number">
-                </div>
-                <div class="form-group">
-                    <label>GSTIN</label>
-                    <input type="text" id="custGstin" maxlength="15" placeholder="Customer GSTIN">
-                </div>
-                <div class="form-group" style="grid-column:span 2;">
-                    <label>Address</label>
-                    <input type="text" id="custAddress" placeholder="Customer address">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="custEmail" placeholder="Email (optional)">
-                </div>
-                <div class="form-group">
-                    <label>State</label>
-                    <input type="text" id="custState" value="Karnataka">
-                </div>
-                <div class="form-group">
-                    <label>State Code</label>
-                    <input type="text" id="custStateCode" value="29" maxlength="2">
-                </div>
+                <div class="form-group"><label>Customer Name</label><input type="text" id="custName" placeholder="Customer name"></div>
+                <div class="form-group"><label>Mobile</label><input type="tel" id="custMobile" placeholder="Mobile number"></div>
+                <div class="form-group"><label>GSTIN</label><input type="text" id="custGstin" maxlength="15" placeholder="Customer GSTIN"></div>
+                <div class="form-group" style="grid-column:span 2;"><label>Address</label><input type="text" id="custAddress" placeholder="Customer address"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="custEmail" placeholder="Email (optional)"></div>
+                <div class="form-group"><label>State</label><input type="text" id="custState" value="Karnataka"></div>
+                <div class="form-group"><label>State Code</label><input type="text" id="custStateCode" value="29" maxlength="2"></div>
             </div>
         </div>
 
         <div class="card no-print">
-            <div class="card-title">
-                <i class="fas fa-file-alt"></i> Invoice Details
-                <span class="badge">Auto-number</span>
-            </div>
+            <div class="card-title"><i class="fas fa-file-alt"></i> Invoice Details<span class="badge">Auto-number</span></div>
             <div class="form-grid form-grid-4">
-                <div class="form-group">
-                    <label>Invoice Number <span class="required">*</span></label>
-                    <input type="text" id="invNumber" value="RMM/2026-27/0001">
-                </div>
-                <div class="form-group">
-                    <label>Invoice Date <span class="required">*</span></label>
-                    <input type="date" id="invDate">
-                </div>
-                <div class="form-group">
-                    <label>Place of Supply</label>
-                    <input type="text" id="invPlaceOfSupply" value="Karnataka">
-                </div>
-                <div class="form-group">
-                    <label>Payment Terms</label>
+                <div class="form-group"><label>Invoice Number <span class="required">*</span></label><input type="text" id="invNumber" value="RMM/2026-27/0001"></div>
+                <div class="form-group"><label>Invoice Date <span class="required">*</span></label><input type="date" id="invDate"></div>
+                <div class="form-group"><label>Place of Supply</label><input type="text" id="invPlaceOfSupply" value="Karnataka"></div>
+                <div class="form-group"><label>Payment Terms</label>
                     <select id="invPaymentTerms">
                         <option value="100% Advance">100% Advance</option>
                         <option value="60% Advance + 40% Delivery" selected>60% Advance + 40% Delivery</option>
@@ -855,43 +267,28 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                         <option value="Cash on Delivery">Cash on Delivery</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Due Date</label>
-                    <input type="date" id="invDueDate">
+                <div class="form-group"><label>Due Date</label><input type="date" id="invDueDate"></div>
+                <div class="form-group"><label>Reverse Charge</label>
+                    <select id="invReverseCharge"><option value="No">No</option><option value="Yes">Yes</option></select>
                 </div>
-                <div class="form-group">
-                    <label>Reverse Charge</label>
-                    <select id="invReverseCharge">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Tax Type</label>
+                <div class="form-group"><label>Tax Type</label>
                     <select id="taxType" onchange="calculateAll()">
                         <option value="cgst_sgst" selected>CGST + SGST (Intra-state)</option>
                         <option value="igst">IGST (Inter-state)</option>
                         <option value="none">No Tax</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>GST Rate (%)</label>
+                <div class="form-group"><label>GST Rate (%)</label>
                     <select id="gstRate" onchange="calculateAll()">
-                        <option value="0">0%</option>
-                        <option value="5">5%</option>
-                        <option value="12">12%</option>
-                        <option value="18" selected>18%</option>
-                        <option value="28">28%</option>
+                        <option value="0">0%</option><option value="5">5%</option><option value="12">12%</option>
+                        <option value="18" selected>18%</option><option value="28">28%</option>
                     </select>
                 </div>
             </div>
         </div>
 
         <div class="card no-print">
-            <div class="card-title">
-                <i class="fas fa-boxes"></i> Product Entry
-                <span class="badge" id="productCountBadge">0 items</span>
-            </div>
+            <div class="card-title"><i class="fas fa-boxes"></i> Product Entry<span class="badge" id="productCountBadge">0 items</span></div>
             <div class="table-wrap">
                 <table id="productTable">
                     <thead>
@@ -913,17 +310,10 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                 </table>
             </div>
             <div class="btn-row">
-                <button class="btn btn-primary" onclick="addProductRow()">
-                    <i class="fas fa-plus"></i> Add Product
-                </button>
-                <button class="btn btn-light" onclick="loadSampleProducts()">
-                    <i class="fas fa-flask"></i> Load Sample
-                </button>
+                <button class="btn btn-primary" onclick="addProductRow()"><i class="fas fa-plus"></i> Add Product</button>
+                <button class="btn btn-light" onclick="loadSampleProducts()"><i class="fas fa-flask"></i> Load Sample</button>
             </div>
-            <div class="note">
-                <i class="fas fa-info-circle"></i>
-                <div><strong>Formula:</strong> Total Sq.ft. = Width × Height × Qty ÷ 144</div>
-            </div>
+            <div class="note"><i class="fas fa-info-circle"></i><div><strong>Formula:</strong> Total Sq.ft. = Width × Height × Qty ÷ 144</div></div>
         </div>
 
         <div class="card no-print">
@@ -937,73 +327,39 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                 <div class="summary-box navy"><div class="label">Grand Total</div><div class="value" id="sumGrandTotal">₹0.00</div></div>
             </div>
             <div class="btn-row">
-                <button class="btn btn-success btn-lg" onclick="calculateAndPreview()">
-                    <i class="fas fa-calculator"></i> Calculate &amp; Preview Invoice
-                </button>
+                <button class="btn btn-success btn-lg" onclick="calculateAndPreview()"><i class="fas fa-calculator"></i> Calculate &amp; Preview Invoice</button>
             </div>
         </div>
-
     </div>
 
-    <!-- ============================================================
-         PANEL: PREVIEW
-    ============================================================ -->
     <div class="panel" id="panel-preview">
-
         <div class="card no-print">
             <div class="card-title"><i class="fas fa-eye"></i> Invoice Preview</div>
             <div class="btn-row">
-                <button class="btn btn-light" onclick="showPanel('invoice')">
-                    <i class="fas fa-arrow-left"></i> Edit
-                </button>
-                <button class="btn btn-primary" onclick="calculateAndPreview()">
-                    <i class="fas fa-calculator"></i> Recalculate
-                </button>
-                <button class="btn btn-light" onclick="window.print()">
-                    <i class="fas fa-print"></i> Print
-                </button>
-                <button class="btn btn-success" onclick="downloadPDF()">
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </button>
-                <button class="btn btn-whatsapp" onclick="shareWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </button>
-                <button class="btn btn-dark" onclick="saveInvoice()">
-                    <i class="fas fa-save"></i> Save
-                </button>
-                <button class="btn btn-warning" onclick="newInvoice()">
-                    <i class="fas fa-plus"></i> New
-                </button>
+                <button class="btn btn-light" onclick="showPanel('invoice')"><i class="fas fa-arrow-left"></i> Edit</button>
+                <button class="btn btn-primary" onclick="calculateAndPreview()"><i class="fas fa-calculator"></i> Recalculate</button>
+                <button class="btn btn-light" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+                <button class="btn btn-success" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+                <button class="btn btn-whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                <button class="btn btn-dark" onclick="saveInvoice()"><i class="fas fa-save"></i> Save</button>
+                <button class="btn btn-warning" onclick="newInvoice()"><i class="fas fa-plus"></i> New</button>
             </div>
         </div>
-
         <div class="a4-outer">
             <div class="a4-scaler" id="a4Scaler">
                 <div class="a4-page" id="invoicePreview"></div>
             </div>
         </div>
-
     </div>
 
-    <!-- ============================================================
-         PANEL: HISTORY
-    ============================================================ -->
     <div class="panel" id="panel-history">
         <div class="card">
-            <div class="card-title">
-                <i class="fas fa-history"></i> Invoice History
-                <span class="badge" id="historyCount">0 invoices</span>
-            </div>
-            <div class="form-group" style="margin-bottom:12px;">
-                <input type="text" id="historySearch" placeholder="🔍 Search..." oninput="renderHistory()">
-            </div>
+            <div class="card-title"><i class="fas fa-history"></i> Invoice History<span class="badge" id="historyCount">0 invoices</span></div>
+            <div class="form-group" style="margin-bottom:12px;"><input type="text" id="historySearch" placeholder="🔍 Search..." oninput="renderHistory()"></div>
             <div id="historyList"></div>
         </div>
     </div>
 
-    <!-- ============================================================
-         PANEL: RAW MATERIAL
-    ============================================================ -->
     <div class="panel" id="panel-rawmaterial">
         <div class="card">
             <div class="card-title"><i class="fas fa-ruler-combined"></i> Raw Material Calculator</div>
@@ -1037,7 +393,6 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                 <button class="btn btn-light" onclick="loadRMSample()"><i class="fas fa-flask"></i> Sample</button>
             </div>
         </div>
-
         <div class="card">
             <div class="card-title"><i class="fas fa-clipboard-list"></i> Raw Material Requirement</div>
             <div class="summary-grid">
@@ -1052,16 +407,11 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
                 <div class="summary-box navy"><div class="label">Total Material Cost</div><div class="value" id="rmTotalCost">₹0.00</div></div>
             </div>
             <div class="btn-row">
-                <button class="btn btn-primary" onclick="transferRawMaterialToInvoice()">
-                    <i class="fas fa-arrow-right"></i> Transfer to Invoice
-                </button>
+                <button class="btn btn-primary" onclick="transferRawMaterialToInvoice()"><i class="fas fa-arrow-right"></i> Transfer to Invoice</button>
             </div>
         </div>
     </div>
 
-    <!-- ============================================================
-         PANEL: SETTINGS
-    ============================================================ -->
     <div class="panel" id="panel-settings">
         <div class="card">
             <div class="card-title"><i class="fas fa-cog"></i> Invoice Settings</div>
@@ -1084,15 +434,10 @@ td .total-value { font-weight: 900; color: var(--green); font-size: 13px; }
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
-/* ============================================================
-   RAJ MARKETING MYSORE — INVOICE SYSTEM v3.0
-   Fully rebuilt PDF generator + Fixed preview scaling
-============================================================ */
-(function() {
+(function(){
 'use strict';
 
 const STORAGE = {
@@ -1110,22 +455,16 @@ let logoData = '';
 let currentInvoiceData = null;
 
 /* ============================================================
-   UTILITIES
+   FORMATTING — use plain numbers, no ₹ in PDF
 ============================================================ */
-function fmt(v, d = 2) {
+function fmt(v, d) {
+    d = (d === undefined) ? 2 : d;
     return Number(v || 0).toLocaleString('en-IN', {
-        minimumFractionDigits: d, maximumFractionDigits: d
+        minimumFractionDigits: d,
+        maximumFractionDigits: d
     });
 }
-
-function money(v) {
-    return '₹' + fmt(v, 2);
-}
-
-function moneyNoSymbol(v) {
-    return fmt(v, 2);
-}
-
+function money(v) { return '₹' + fmt(v, 2); }
 function formatDate(s) {
     if (!s) return '—';
     try {
@@ -1134,25 +473,24 @@ function formatDate(s) {
         });
     } catch (e) { return s; }
 }
-
 function escapeHtml(s) {
-    if (!s && s !== 0) return '';
+    if (s == null) return '';
     return String(s)
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
-
-function showToast(msg, type = 'info') {
+function showToast(msg, type) {
+    type = type || 'info';
     document.querySelectorAll('.rm-toast').forEach(t => t.remove());
     const colors = {
-        success: 'linear-gradient(145deg,#059669,#047857)',
-        error: 'linear-gradient(145deg,#dc2626,#b91c1c)',
-        warning: 'linear-gradient(145deg,#f59e0b,#d97706)',
-        info: 'linear-gradient(145deg,#1a56db,#0d47a1)'
+        success:'linear-gradient(145deg,#059669,#047857)',
+        error:'linear-gradient(145deg,#dc2626,#b91c1c)',
+        warning:'linear-gradient(145deg,#f59e0b,#d97706)',
+        info:'linear-gradient(145deg,#1a56db,#0d47a1)'
     };
     const t = document.createElement('div');
     t.className = 'rm-toast';
-    t.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+    t.innerHTML = '<i class="fas fa-check-circle"></i> ' + escapeHtml(msg);
     t.style.background = colors[type] || colors.info;
     document.body.appendChild(t);
     requestAnimationFrame(() => t.classList.add('show'));
@@ -1160,32 +498,30 @@ function showToast(msg, type = 'info') {
 }
 
 /* ============================================================
-   NUMBER TO WORDS (Indian system)
+   NUMBER TO WORDS
 ============================================================ */
 function numberToWords(num) {
     const n = Math.floor(Number(num) || 0);
     const paise = Math.round(((Number(num) || 0) - n) * 100);
     if (n === 0 && paise === 0) return 'RUPEES ZERO ONLY';
-
-    const a = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE',
-        'TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN',
-        'SEVENTEEN', 'EIGHTEEN', 'NINETEEN'];
-    const b = ['', '', 'TWENTY', 'THIRTY', 'FORTY', 'FIFTY', 'SIXTY', 'SEVENTY', 'EIGHTY', 'NINETY'];
-
+    const a = ['','ONE','TWO','THREE','FOUR','FIVE','SIX','SEVEN','EIGHT','NINE',
+        'TEN','ELEVEN','TWELVE','THIRTEEN','FOURTEEN','FIFTEEN','SIXTEEN',
+        'SEVENTEEN','EIGHTEEN','NINETEEN'];
+    const b = ['','','TWENTY','THIRTY','FORTY','FIFTY','SIXTY','SEVENTY','EIGHTY','NINETY'];
     function toWords(x) {
         if (x === 0) return '';
         if (x < 20) return a[x];
-        if (x < 100) return b[Math.floor(x / 10)] + (x % 10 ? ' ' + a[x % 10] : '');
-        if (x < 1000) return a[Math.floor(x / 100)] + ' HUNDRED' + (x % 100 ? ' ' + toWords(x % 100) : '');
+        if (x < 100) return b[Math.floor(x/10)] + (x%10 ? ' ' + a[x%10] : '');
+        if (x < 1000) return a[Math.floor(x/100)] + ' HUNDRED' + (x%100 ? ' ' + toWords(x%100) : '');
         return '';
     }
     function toIndian(x) {
         if (x === 0) return '';
-        const cr = Math.floor(x / 10000000);
-        const lk = Math.floor((x % 10000000) / 100000);
-        const th = Math.floor((x % 100000) / 1000);
-        const hd = x % 1000;
-        let out = [];
+        const cr = Math.floor(x/10000000);
+        const lk = Math.floor((x%10000000)/100000);
+        const th = Math.floor((x%100000)/1000);
+        const hd = x%1000;
+        const out = [];
         if (cr > 0) out.push(toWords(cr) + ' CRORE');
         if (lk > 0) out.push(toWords(lk) + ' LAKH');
         if (th > 0) out.push(toWords(th) + ' THOUSAND');
@@ -1205,35 +541,50 @@ function init() {
     setDefaultDates();
     updateInvoiceNumber();
     addProductRow();
-    addRMRow('22¾', '45½', 1);
-    addRMRow('35½', '59', 2);
+    addRMRow('22¾','45½',1);
+    addRMRow('35½','59',2);
     document.querySelectorAll('#panel-invoice input, #panel-invoice select')
-        .forEach(el => el.addEventListener('change', () => {
+        .forEach(el => el.addEventListener('change', function() {
             saveBusinessData();
             calculateAll();
         }));
     calculateAll();
-    scalePreview();
     window.addEventListener('resize', scalePreview);
-    console.log('%c📄 Invoice System v3.0 Ready', 'color:#1a56db;font-weight:bold;');
+    window.addEventListener('orientationchange', function() {
+        setTimeout(scalePreview, 300);
+    });
+    console.log('Invoice System ready');
 }
 
 /* ============================================================
-   RESPONSIVE A4 SCALING
+   PREVIEW SCALING — FITS VIEWPORT PROPERLY
 ============================================================ */
 function scalePreview() {
     const scaler = document.getElementById('a4Scaler');
-    if (!scaler) return;
-    const outer = scaler.parentElement;
-    const availableWidth = outer.clientWidth - 20;
-    const a4WidthPx = 210 * 3.7795; // 210mm in px at 96dpi
-    if (availableWidth < a4WidthPx) {
-        const scale = availableWidth / a4WidthPx;
-        scaler.style.transform = `scale(${scale})`;
-        scaler.style.marginBottom = `-${(297 * 3.7795) * (1 - scale)}px`;
+    const outer = scaler ? scaler.parentElement : null;
+    if (!scaler || !outer) return;
+
+    // A4 width in px (210mm at 96dpi = 793.7px)
+    const a4Px = 210 * 3.7795275591;
+    const a4PxH = 297 * 3.7795275591;
+
+    // Available width inside outer (minus padding)
+    const style = window.getComputedStyle(outer);
+    const paddingX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+    const availW = outer.clientWidth - paddingX;
+
+    if (availW < a4Px) {
+        const scale = availW / a4Px;
+        scaler.style.transform = 'scale(' + scale + ')';
+        // Collapse the unused vertical space created by scaling
+        scaler.style.height = (a4PxH * scale) + 'px';
+        scaler.style.width = a4Px + 'px';
+        // Reset margin trick — use wrapper height instead
+        scaler.style.marginBottom = '0';
     } else {
         scaler.style.transform = 'none';
-        scaler.style.marginBottom = '0';
+        scaler.style.height = 'auto';
+        scaler.style.width = 'auto';
     }
 }
 
@@ -1244,11 +595,10 @@ function setDefaultDates() {
     due.setDate(due.getDate() + 15);
     document.getElementById('invDueDate').value = due.toISOString().split('T')[0];
 }
-
 function updateInvoiceNumber() {
     const prefix = settingsData.prefix || 'RMM/2026-27/';
     const next = settingsData.nextNum || 1;
-    document.getElementById('invNumber').value = prefix + String(next).padStart(4, '0');
+    document.getElementById('invNumber').value = prefix + String(next).padStart(4,'0');
 }
 
 /* ============================================================
@@ -1260,9 +610,9 @@ function loadStoredData() {
         settingsData = JSON.parse(localStorage.getItem(STORAGE.settings) || '{}');
         signatureData = localStorage.getItem(STORAGE.signature) || '';
         logoData = localStorage.getItem(STORAGE.logo) || '';
-        Object.entries(businessData).forEach(([k, v]) => {
+        Object.keys(businessData).forEach(function(k) {
             const el = document.getElementById(k);
-            if (el) el.value = v;
+            if (el) el.value = businessData[k];
         });
         if (settingsData.prefix) document.getElementById('setPrefix').value = settingsData.prefix;
         if (settingsData.nextNum) document.getElementById('setNextNum').value = settingsData.nextNum;
@@ -1270,18 +620,16 @@ function loadStoredData() {
         if (settingsData.terms) document.getElementById('setTerms').value = settingsData.terms;
     } catch (e) {}
 }
-
 function saveBusinessData() {
     const fields = ['bizName','bizAddress','bizMobile','bizEmail','bizGstin','bizState',
                     'bizStateCode','bizPan','bizBank','bizAccount','bizIfsc','bizUpi'];
     businessData = {};
-    fields.forEach(id => {
+    fields.forEach(function(id) {
         const el = document.getElementById(id);
         if (el) businessData[id] = el.value;
     });
     try { localStorage.setItem(STORAGE.business, JSON.stringify(businessData)); } catch (e) {}
 }
-
 function saveSettings() {
     settingsData = {
         prefix: document.getElementById('setPrefix').value,
@@ -1292,11 +640,11 @@ function saveSettings() {
     localStorage.setItem(STORAGE.settings, JSON.stringify(settingsData));
     showToast('Settings saved', 'success');
 }
-
 function handleLogoUpload(input) {
-    const f = input.files[0]; if (!f) return;
+    const f = input.files[0];
+    if (!f) return;
     const r = new FileReader();
-    r.onload = (e) => {
+    r.onload = function(e) {
         logoData = e.target.result;
         try { localStorage.setItem(STORAGE.logo, logoData); } catch (err) {}
         showToast('Logo uploaded', 'success');
@@ -1315,48 +663,47 @@ function showPanel(name) {
     const btns = document.querySelectorAll('.dash-btn');
     if (btns[map[name]]) btns[map[name]].classList.add('active');
     if (name === 'history') renderHistory();
-    if (name === 'preview') setTimeout(scalePreview, 50);
+    if (name === 'preview') setTimeout(scalePreview, 80);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ============================================================
    PRODUCT ROWS
 ============================================================ */
-function addProductRow(product = '', hsn = '', width = '', height = '', qty = 1, unit = 'Sq.ft.', rate = 0) {
+function addProductRow(product, hsn, width, height, qty, unit, rate) {
+    product = product || ''; hsn = hsn || '';
+    width = (width === undefined) ? '' : width;
+    height = (height === undefined) ? '' : height;
+    qty = qty || 1; unit = unit || 'Sq.ft.'; rate = rate || 0;
     const body = document.getElementById('productBody');
     const row = document.createElement('tr');
-    row.innerHTML = `
-        <td class="row-num"></td>
-        <td><input class="p-name" placeholder="Product name" value="${escapeHtml(product)}"></td>
-        <td><input class="p-hsn" placeholder="HSN" value="${escapeHtml(hsn)}"></td>
-        <td><input class="p-w" type="number" min="0" step="0.01" value="${width}" oninput="calculateAll()"></td>
-        <td><input class="p-h" type="number" min="0" step="0.01" value="${height}" oninput="calculateAll()"></td>
-        <td><input class="p-qty" type="number" min="1" value="${qty}" oninput="calculateAll()"></td>
-        <td>
-            <select class="p-unit" onchange="calculateAll()">
-                <option value="Sq.ft." ${unit === 'Sq.ft.' ? 'selected' : ''}>Sq.ft.</option>
-                <option value="Piece" ${unit === 'Piece' ? 'selected' : ''}>Piece</option>
-                <option value="Length" ${unit === 'Length' ? 'selected' : ''}>Length</option>
-                <option value="Kg" ${unit === 'Kg' ? 'selected' : ''}>Kg</option>
-                <option value="Meter" ${unit === 'Meter' ? 'selected' : ''}>Meter</option>
-            </select>
-        </td>
-        <td class="calc-value p-sqft-cell">0.00</td>
-        <td><input class="p-rate" type="number" min="0" step="0.01" value="${rate}" oninput="calculateAll()"></td>
-        <td class="total-value p-total-cell">₹0.00</td>
-        <td><button class="btn btn-danger" onclick="this.closest('tr').remove(); updateProductRows(); calculateAll();"><i class="fas fa-times"></i></button></td>
-    `;
+    row.innerHTML =
+        '<td class="row-num"></td>' +
+        '<td><input class="p-name" placeholder="Product name" value="' + escapeHtml(product) + '"></td>' +
+        '<td><input class="p-hsn" placeholder="HSN" value="' + escapeHtml(hsn) + '"></td>' +
+        '<td><input class="p-w" type="number" min="0" step="0.01" value="' + width + '" oninput="calculateAll()"></td>' +
+        '<td><input class="p-h" type="number" min="0" step="0.01" value="' + height + '" oninput="calculateAll()"></td>' +
+        '<td><input class="p-qty" type="number" min="1" value="' + qty + '" oninput="calculateAll()"></td>' +
+        '<td><select class="p-unit" onchange="calculateAll()">' +
+            '<option value="Sq.ft."' + (unit==='Sq.ft.'?' selected':'') + '>Sq.ft.</option>' +
+            '<option value="Piece"' + (unit==='Piece'?' selected':'') + '>Piece</option>' +
+            '<option value="Length"' + (unit==='Length'?' selected':'') + '>Length</option>' +
+            '<option value="Kg"' + (unit==='Kg'?' selected':'') + '>Kg</option>' +
+            '<option value="Meter"' + (unit==='Meter'?' selected':'') + '>Meter</option>' +
+        '</select></td>' +
+        '<td class="calc-value p-sqft-cell">0.00</td>' +
+        '<td><input class="p-rate" type="number" min="0" step="0.01" value="' + rate + '" oninput="calculateAll()"></td>' +
+        '<td class="total-value p-total-cell">₹0.00</td>' +
+        '<td><button class="btn btn-danger" onclick="this.closest(\'tr\').remove(); updateProductRows(); calculateAll();"><i class="fas fa-times"></i></button></td>';
     body.appendChild(row);
     updateProductRows();
     calculateAll();
 }
-
 function updateProductRows() {
     const rows = document.querySelectorAll('#productBody tr');
-    rows.forEach((r, i) => r.querySelector('.row-num').textContent = i + 1);
+    rows.forEach(function(r, i) { r.querySelector('.row-num').textContent = i + 1; });
     document.getElementById('productCountBadge').textContent = rows.length + ' item' + (rows.length !== 1 ? 's' : '');
 }
-
 function loadSampleProducts() {
     document.getElementById('productBody').innerHTML = '';
     addProductRow('Aluminium Frame - Ivory', '7610', 24, 48, 2, 'Sq.ft.', 255);
@@ -1372,14 +719,14 @@ function calculateAll() {
     const rows = document.querySelectorAll('#productBody tr');
     let totalQty = 0, totalSqft = 0, subtotal = 0;
 
-    rows.forEach(row => {
+    rows.forEach(function(row) {
         const width = parseFloat(row.querySelector('.p-w').value) || 0;
         const height = parseFloat(row.querySelector('.p-h').value) || 0;
         const qty = parseFloat(row.querySelector('.p-qty').value) || 0;
         const unit = row.querySelector('.p-unit').value;
         const rate = parseFloat(row.querySelector('.p-rate').value) || 0;
 
-        let displayQty, lineTotal;
+        let lineTotal;
         if (unit === 'Sq.ft.' && width > 0 && height > 0) {
             const sqft = (width * height * qty) / 144;
             row.querySelector('.p-sqft-cell').textContent = fmt(sqft, 2);
@@ -1398,7 +745,6 @@ function calculateAll() {
 
     const taxType = document.getElementById('taxType').value;
     const gstRate = parseFloat(document.getElementById('gstRate').value) || 0;
-
     let cgst = 0, sgst = 0, igst = 0, totalGst = 0;
     if (taxType === 'cgst_sgst') {
         cgst = (subtotal * gstRate) / 200;
@@ -1418,7 +764,6 @@ function calculateAll() {
     document.getElementById('sumGrandTotal').textContent = money(grandTotal);
 
     calculateRawMaterial();
-
     return { rows: rows.length, totalQty, totalSqft, subtotal, cgst, sgst, igst, totalGst, grandTotal, taxType, gstRate };
 }
 
@@ -1433,13 +778,13 @@ function parseMeasurement(value) {
         .replace(/⅝/g, ' 5/8').replace(/⅞/g, ' 7/8')
         .replace(/-/g, ' ');
     const parts = s.split(/\s+/).filter(Boolean);
-    if (parts.length === 1 && parts[0].includes('/')) {
+    if (parts.length === 1 && parts[0].indexOf('/') > -1) {
         const p = parts[0].split('/');
         return Number(p[0]) / Number(p[1]);
     }
     if (parts.length >= 2) {
         const whole = Number(parts[0]);
-        if (parts[1].includes('/')) {
+        if (parts[1].indexOf('/') > -1) {
             const f = parts[1].split('/');
             return whole + Number(f[0]) / Number(f[1]);
         }
@@ -1452,32 +797,34 @@ function getMiddlePieces(h) {
     if (h <= 60) return 2;
     return 3;
 }
-function addRMRow(w = '', h = '', qty = 1, red = 1.5) {
+function addRMRow(w, h, qty, red) {
+    w = w || ''; h = h || ''; qty = qty || 1; red = (red === undefined) ? 1.5 : red;
     const body = document.getElementById('rmProductBody');
     const row = document.createElement('tr');
-    row.innerHTML = `
-        <td class="rm-num"></td>
-        <td><input class="rm-name" value="Aluminium Frame"></td>
-        <td><input class="rm-w" value="${escapeHtml(w)}" oninput="calculateAll()"></td>
-        <td><input class="rm-h" value="${escapeHtml(h)}" oninput="calculateAll()"></td>
-        <td><input class="rm-qty" type="number" min="1" value="${qty}" oninput="calculateAll()"></td>
-        <td><input class="rm-red" type="number" min="0" step="0.25" value="${red}" oninput="calculateAll()"></td>
-        <td class="rm-alu">0 ft</td>
-        <td class="rm-mesh">0 sq.ft</td>
-        <td><button class="btn btn-danger" onclick="this.closest('tr').remove(); calculateAll();"><i class="fas fa-times"></i></button></td>
-    `;
+    row.innerHTML =
+        '<td class="rm-num"></td>' +
+        '<td><input class="rm-name" value="Aluminium Frame"></td>' +
+        '<td><input class="rm-w" value="' + escapeHtml(w) + '" oninput="calculateAll()"></td>' +
+        '<td><input class="rm-h" value="' + escapeHtml(h) + '" oninput="calculateAll()"></td>' +
+        '<td><input class="rm-qty" type="number" min="1" value="' + qty + '" oninput="calculateAll()"></td>' +
+        '<td><input class="rm-red" type="number" min="0" step="0.25" value="' + red + '" oninput="calculateAll()"></td>' +
+        '<td class="rm-alu">0 ft</td>' +
+        '<td class="rm-mesh">0 sq.ft</td>' +
+        '<td><button class="btn btn-danger" onclick="this.closest(\'tr\').remove(); calculateAll();"><i class="fas fa-times"></i></button></td>';
     body.appendChild(row);
     updateRMRows();
     calculateAll();
 }
 function updateRMRows() {
-    document.querySelectorAll('#rmProductBody tr').forEach((r, i) => r.querySelector('.rm-num').textContent = i + 1);
+    document.querySelectorAll('#rmProductBody tr').forEach(function(r, i) {
+        r.querySelector('.rm-num').textContent = i + 1;
+    });
 }
 function loadRMSample() {
     document.getElementById('rmProductBody').innerHTML = '';
-    addRMRow('22¾', '45½', 1, 1.5);
-    addRMRow('35½', '59', 2, 1.5);
-    addRMRow('48', '72', 1, 1.5);
+    addRMRow('22¾','45½',1,1.5);
+    addRMRow('35½','59',2,1.5);
+    addRMRow('48','72',1,1.5);
     showToast('Sample loaded', 'success');
 }
 function calculateRawMaterial() {
@@ -1488,7 +835,7 @@ function calculateRawMaterial() {
 
     let totalFrames = 0, totalAluIn = 0, totalMeshSqft = 0, totalMeshCons = 0, totalCorners = 0;
 
-    rows.forEach(row => {
+    rows.forEach(function(row) {
         const w = parseMeasurement(row.querySelector('.rm-w').value);
         const h = parseMeasurement(row.querySelector('.rm-h').value);
         const qty = parseFloat(row.querySelector('.rm-qty').value) || 0;
@@ -1498,18 +845,18 @@ function calculateRawMaterial() {
         const fw = Math.max(0, w - red);
         const fh = Math.max(0, h - red);
         const mp = getMiddlePieces(h);
-        const aluFrame = (fw * 2) + (fh * 2) + (fw * mp);
+        const aluFrame = (fw*2) + (fh*2) + (fw*mp);
         const aluTotal = aluFrame * qty;
         totalAluIn += aluTotal;
 
         const reqSqft = (w * h * qty) / 144;
         totalMeshSqft += reqSqft;
-        totalMeshCons += reqSqft * 1.05; // with 5% wastage
+        totalMeshCons += reqSqft * 1.05;
         totalCorners += 4 * qty;
         totalFrames += qty;
 
-        row.querySelector('.rm-alu').textContent = fmt(aluTotal / 12, 2) + ' ft';
-        row.querySelector('.rm-mesh').textContent = fmt(reqSqft * 1.05, 2) + ' sq.ft';
+        row.querySelector('.rm-alu').textContent = fmt(aluTotal/12, 2) + ' ft';
+        row.querySelector('.rm-mesh').textContent = fmt(reqSqft*1.05, 2) + ' sq.ft';
     });
 
     const aluFeet = totalAluIn / 12;
@@ -1539,8 +886,8 @@ function transferRawMaterialToInvoice() {
 
     document.getElementById('productBody').innerHTML = '';
     addProductRow('Aluminium Frame (12 ft lengths)', '7610', '', '', rm.aluLengths, 'Length', aluRate);
-    addProductRow('Stainless Steel Mesh', '7314', '', '', Math.round(rm.totalMeshCons * 100) / 100, 'Sq.ft.', meshRate);
-    addProductRow('Corner Pieces', '7616', '', '', Math.round(rm.totalFrames * 4), 'Piece', cornerRate);
+    addProductRow('Stainless Steel Mesh', '7314', '', '', Math.round(rm.totalMeshCons*100)/100, 'Sq.ft.', meshRate);
+    addProductRow('Corner Pieces', '7616', '', '', Math.round(rm.totalFrames*4), 'Piece', cornerRate);
 
     showPanel('invoice');
     calculateAll();
@@ -1554,12 +901,11 @@ function calculateAndPreview() {
     const data = collectInvoiceData();
     if (!validateInvoice(data)) return;
     const totals = calculateAll();
-    currentInvoiceData = { ...data, ...totals };
+    currentInvoiceData = Object.assign({}, data, totals);
     renderInvoicePreview(currentInvoiceData);
     showPanel('preview');
     showToast('Invoice calculated', 'success');
 }
-
 function collectInvoiceData() {
     return {
         invoiceNumber: document.getElementById('invNumber').value,
@@ -1597,11 +943,10 @@ function collectInvoiceData() {
         terms: document.getElementById('setTerms').value
     };
 }
-
 function collectProducts() {
     const rows = document.querySelectorAll('#productBody tr');
     const out = [];
-    rows.forEach(row => {
+    rows.forEach(function(row) {
         const name = row.querySelector('.p-name').value.trim();
         if (!name) return;
         const hsn = row.querySelector('.p-hsn').value.trim();
@@ -1624,7 +969,6 @@ function collectProducts() {
     });
     return out;
 }
-
 function validateInvoice(data) {
     const errs = [];
     if (!data.invoiceNumber.trim()) errs.push('Invoice Number is required');
@@ -1632,261 +976,205 @@ function validateInvoice(data) {
     if (!data.business.name.trim()) errs.push('Business Name is required');
     if (!data.business.address.trim()) errs.push('Business Address is required');
     if (data.products.length === 0) errs.push('At least one product is required');
-    data.products.forEach((p, i) => {
-        if (p.qty < 0) errs.push(`Product ${i + 1}: Quantity cannot be negative`);
-        if (p.rate < 0) errs.push(`Product ${i + 1}: Rate cannot be negative`);
+    data.products.forEach(function(p, i) {
+        if (p.qty < 0) errs.push('Product ' + (i+1) + ': Quantity cannot be negative');
+        if (p.rate < 0) errs.push('Product ' + (i+1) + ': Rate cannot be negative');
     });
     if (errs.length) { showToast(errs[0], 'error'); return false; }
     return true;
 }
 
 /* ============================================================
-   RENDER PREVIEW (A4)
+   RENDER PREVIEW
 ============================================================ */
 function renderInvoicePreview(data) {
     const page = document.getElementById('invoicePreview');
     const b = data.business, c = data.customer;
 
-    const customerHtml = (c.name || c.address || c.gstin) ? `
-        ${c.name ? `<div class="row"><span class="lbl">Name:</span><span class="val">${escapeHtml(c.name)}</span></div>` : ''}
-        ${c.address ? `<div class="row"><span class="lbl">Address:</span><span class="val">${escapeHtml(c.address)}</span></div>` : ''}
-        ${c.mobile ? `<div class="row"><span class="lbl">Mobile:</span><span class="val">${escapeHtml(c.mobile)}</span></div>` : ''}
-        ${c.gstin ? `<div class="row"><span class="lbl">GSTIN:</span><span class="val">${escapeHtml(c.gstin)}</span></div>` : ''}
-        ${c.state ? `<div class="row"><span class="lbl">State:</span><span class="val">${escapeHtml(c.state)} (${escapeHtml(c.stateCode || '')})</span></div>` : ''}
-    ` : `<div class="row"><span class="lbl">Name:</span><span class="val">Cash Customer</span></div>`;
+    const customerHtml = (c.name || c.address || c.gstin) ?
+        (c.name ? '<div class="row"><span class="lbl">Name:</span><span class="val">' + escapeHtml(c.name) + '</span></div>' : '') +
+        (c.address ? '<div class="row"><span class="lbl">Address:</span><span class="val">' + escapeHtml(c.address) + '</span></div>' : '') +
+        (c.mobile ? '<div class="row"><span class="lbl">Mobile:</span><span class="val">' + escapeHtml(c.mobile) + '</span></div>' : '') +
+        (c.gstin ? '<div class="row"><span class="lbl">GSTIN:</span><span class="val">' + escapeHtml(c.gstin) + '</span></div>' : '') +
+        (c.state ? '<div class="row"><span class="lbl">State:</span><span class="val">' + escapeHtml(c.state) + ' (' + escapeHtml(c.stateCode || '') + ')</span></div>' : '')
+        : '<div class="row"><span class="lbl">Name:</span><span class="val">Cash Customer</span></div>';
 
-    const productRows = data.products.map((p, i) => `
-        <tr>
-            <td>${i + 1}</td>
-            <td class="left">${escapeHtml(p.name)}</td>
-            <td>${escapeHtml(p.hsn || '—')}</td>
-            <td>${fmt(p.displayQty, 2)} ${p.unit}</td>
-            <td class="right">${money(p.rate)}</td>
-            <td class="right">${money(p.total)}</td>
-        </tr>
-    `).join('');
+    const productRows = data.products.map(function(p, i) {
+        return '<tr>' +
+            '<td>' + (i+1) + '</td>' +
+            '<td class="left">' + escapeHtml(p.name) + '</td>' +
+            '<td>' + escapeHtml(p.hsn || '—') + '</td>' +
+            '<td>' + fmt(p.displayQty, 2) + ' ' + p.unit + '</td>' +
+            '<td class="right">' + money(p.rate) + '</td>' +
+            '<td class="right">' + money(p.total) + '</td>' +
+        '</tr>';
+    }).join('');
 
     let gstRows = '';
     let gstSummary = '';
     if (data.taxType === 'cgst_sgst') {
-        gstRows = `
-            <tr><td class="lbl">CGST @ ${data.gstRate / 2}%</td><td class="val">${money(data.cgst)}</td></tr>
-            <tr><td class="lbl">SGST @ ${data.gstRate / 2}%</td><td class="val">${money(data.sgst)}</td></tr>
-        `;
-        gstSummary = `
-            <table class="gst-summary-table">
-                <thead>
-                    <tr>
-                        <th>HSN/SAC</th><th>Taxable</th>
-                        <th>CGST %</th><th>CGST Amt</th>
-                        <th>SGST %</th><th>SGST Amt</th><th>Total Tax</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>—</td>
-                        <td>${money(data.subtotal)}</td>
-                        <td>${data.gstRate / 2}%</td>
-                        <td>${money(data.cgst)}</td>
-                        <td>${data.gstRate / 2}%</td>
-                        <td>${money(data.sgst)}</td>
-                        <td>${money(data.totalGst)}</td>
-                    </tr>
-                </tbody>
-            </table>`;
+        gstRows =
+            '<tr><td class="lbl">CGST @ ' + (data.gstRate/2) + '%</td><td class="val">' + money(data.cgst) + '</td></tr>' +
+            '<tr><td class="lbl">SGST @ ' + (data.gstRate/2) + '%</td><td class="val">' + money(data.sgst) + '</td></tr>';
+        gstSummary =
+            '<table class="gst-summary-table"><thead><tr>' +
+                '<th>HSN/SAC</th><th>Taxable</th><th>CGST %</th><th>CGST Amt</th>' +
+                '<th>SGST %</th><th>SGST Amt</th><th>Total Tax</th>' +
+            '</tr></thead><tbody><tr>' +
+                '<td>—</td>' +
+                '<td>' + money(data.subtotal) + '</td>' +
+                '<td>' + (data.gstRate/2) + '%</td>' +
+                '<td>' + money(data.cgst) + '</td>' +
+                '<td>' + (data.gstRate/2) + '%</td>' +
+                '<td>' + money(data.sgst) + '</td>' +
+                '<td>' + money(data.totalGst) + '</td>' +
+            '</tr></tbody></table>';
     } else if (data.taxType === 'igst') {
-        gstRows = `<tr><td class="lbl">IGST @ ${data.gstRate}%</td><td class="val">${money(data.igst)}</td></tr>`;
-        gstSummary = `
-            <table class="gst-summary-table">
-                <thead>
-                    <tr>
-                        <th>HSN/SAC</th><th>Taxable Value</th>
-                        <th>IGST Rate</th><th>IGST Amount</th><th>Total Tax</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>—</td>
-                        <td>${money(data.subtotal)}</td>
-                        <td>${data.gstRate}%</td>
-                        <td>${money(data.igst)}</td>
-                        <td>${money(data.igst)}</td>
-                    </tr>
-                </tbody>
-            </table>`;
+        gstRows = '<tr><td class="lbl">IGST @ ' + data.gstRate + '%</td><td class="val">' + money(data.igst) + '</td></tr>';
+        gstSummary =
+            '<table class="gst-summary-table"><thead><tr>' +
+                '<th>HSN/SAC</th><th>Taxable Value</th><th>IGST Rate</th>' +
+                '<th>IGST Amount</th><th>Total Tax</th>' +
+            '</tr></thead><tbody><tr>' +
+                '<td>—</td>' +
+                '<td>' + money(data.subtotal) + '</td>' +
+                '<td>' + data.gstRate + '%</td>' +
+                '<td>' + money(data.igst) + '</td>' +
+                '<td>' + money(data.igst) + '</td>' +
+            '</tr></tbody></table>';
     }
 
-    const bankHtml = (b.bank || b.account || b.ifsc || b.upi) ? `
-        <div class="inv-bank">
-            <h5>Bank Details</h5>
-            ${b.bank ? `<div class="row"><span class="lbl">Bank:</span><span class="val">${escapeHtml(b.bank)}</span></div>` : ''}
-            ${b.account ? `<div class="row"><span class="lbl">A/c No:</span><span class="val">${escapeHtml(b.account)}</span></div>` : ''}
-            ${b.ifsc ? `<div class="row"><span class="lbl">IFSC:</span><span class="val">${escapeHtml(b.ifsc)}</span></div>` : ''}
-            ${b.upi ? `<div class="row"><span class="lbl">UPI:</span><span class="val">${escapeHtml(b.upi)}</span></div>` : ''}
-        </div>
-    ` : `<div class="inv-bank"><h5>Bank Details</h5><div class="row"><span class="lbl">—</span><span class="val">—</span></div></div>`;
+    const bankHtml = (b.bank || b.account || b.ifsc || b.upi) ?
+        '<div class="inv-bank"><h5>Bank Details</h5>' +
+        (b.bank ? '<div class="row"><span class="lbl">Bank:</span><span class="val">' + escapeHtml(b.bank) + '</span></div>' : '') +
+        (b.account ? '<div class="row"><span class="lbl">A/c No:</span><span class="val">' + escapeHtml(b.account) + '</span></div>' : '') +
+        (b.ifsc ? '<div class="row"><span class="lbl">IFSC:</span><span class="val">' + escapeHtml(b.ifsc) + '</span></div>' : '') +
+        (b.upi ? '<div class="row"><span class="lbl">UPI:</span><span class="val">' + escapeHtml(b.upi) + '</span></div>' : '') +
+        '</div>'
+        : '<div class="inv-bank"><h5>Bank Details</h5><div class="row"><span class="lbl">—</span><span class="val">—</span></div></div>';
 
-    const terms = (data.terms || '').split('\n').filter(t => t.trim());
+    const terms = (data.terms || '').split('\n').filter(function(t) { return t.trim(); });
 
-    page.innerHTML = `
-        <div class="inv-header">
-            <div class="inv-brand">
-                <div class="inv-logo">
-                    ${logoData ? `<img src="${logoData}" alt="Logo">` : '<i class="fas fa-shield-alt"></i>'}
-                </div>
-                <div class="inv-brand-info">
-                    <h1>${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</h1>
-                    <div class="tagline">Aluminium Frame | Mosquito Net | Kitchen | Wardrobe</div>
-                    <div class="addr">
-                        ${escapeHtml(b.address || '')}
-                        ${b.mobile || b.email ? '<br>' : ''}
-                        ${b.mobile ? `<strong>📞</strong> ${escapeHtml(b.mobile)}` : ''}
-                        ${b.email ? ` &nbsp; <strong>✉</strong> ${escapeHtml(b.email)}` : ''}
-                        ${b.gstin || b.state ? '<br>' : ''}
-                        ${b.gstin ? `<strong>GSTIN:</strong> ${escapeHtml(b.gstin)}` : ''}
-                        ${b.state ? ` &nbsp; <strong>State:</strong> ${escapeHtml(b.state)} (${escapeHtml(b.stateCode || '')})` : ''}
-                    </div>
-                </div>
-            </div>
-            <div class="inv-type">
-                <div class="title">TAX INVOICE</div>
-                <div class="copy-type">Original for Recipient</div>
-            </div>
-        </div>
+    page.innerHTML =
+        '<div class="inv-header">' +
+            '<div class="inv-brand">' +
+                '<div class="inv-logo">' + (logoData ? '<img src="' + logoData + '" alt="Logo">' : '<i class="fas fa-shield-alt"></i>') + '</div>' +
+                '<div class="inv-brand-info">' +
+                    '<h1>' + escapeHtml(b.name || 'RAJ MARKETING MYSORE') + '</h1>' +
+                    '<div class="tagline">Aluminium Frame | Mosquito Net | Kitchen | Wardrobe</div>' +
+                    '<div class="addr">' +
+                        escapeHtml(b.address || '') +
+                        ((b.mobile || b.email) ? '<br>' : '') +
+                        (b.mobile ? '<strong>📞</strong> ' + escapeHtml(b.mobile) : '') +
+                        (b.email ? ' &nbsp; <strong>✉</strong> ' + escapeHtml(b.email) : '') +
+                        ((b.gstin || b.state) ? '<br>' : '') +
+                        (b.gstin ? '<strong>GSTIN:</strong> ' + escapeHtml(b.gstin) : '') +
+                        (b.state ? ' &nbsp; <strong>State:</strong> ' + escapeHtml(b.state) + ' (' + escapeHtml(b.stateCode || '') + ')' : '') +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="inv-type">' +
+                '<div class="title">TAX INVOICE</div>' +
+                '<div class="copy-type">Original for Recipient</div>' +
+            '</div>' +
+        '</div>' +
+        '<div class="inv-meta">' +
+            '<div class="inv-meta-box">' +
+                '<h4>Invoice Details</h4>' +
+                '<div class="row"><span class="lbl">Invoice No:</span><span class="val">' + escapeHtml(data.invoiceNumber) + '</span></div>' +
+                '<div class="row"><span class="lbl">Invoice Date:</span><span class="val">' + formatDate(data.invoiceDate) + '</span></div>' +
+                '<div class="row"><span class="lbl">Due Date:</span><span class="val">' + formatDate(data.dueDate) + '</span></div>' +
+                '<div class="row"><span class="lbl">Place of Supply:</span><span class="val">' + escapeHtml(data.placeOfSupply) + '</span></div>' +
+                '<div class="row"><span class="lbl">Payment Terms:</span><span class="val">' + escapeHtml(data.paymentTerms) + '</span></div>' +
+                '<div class="row"><span class="lbl">Reverse Charge:</span><span class="val">' + escapeHtml(data.reverseCharge) + '</span></div>' +
+            '</div>' +
+            '<div class="inv-meta-box">' +
+                '<h4>Bill To</h4>' +
+                customerHtml +
+            '</div>' +
+        '</div>' +
+        '<table class="inv-table"><thead><tr>' +
+            '<th style="width:26px;">Sl</th>' +
+            '<th style="text-align:left;">Product</th>' +
+            '<th style="width:65px;">HSN/SAC</th>' +
+            '<th style="width:85px;">Total Qty</th>' +
+            '<th style="width:70px;">Price / Unit</th>' +
+            '<th style="width:85px;">Total Price</th>' +
+        '</tr></thead><tbody>' +
+            (productRows || '<tr><td colspan="6" style="text-align:center;padding:14px;">No products</td></tr>') +
+        '</tbody></table>' +
+        '<div class="inv-totals-wrap">' +
+            '<div class="inv-words">' +
+                '<div class="lbl">Amount in Words</div>' +
+                '<div class="val">' + numberToWords(data.grandTotal) + '</div>' +
+            '</div>' +
+            '<table class="inv-totals">' +
+                '<tr><td class="lbl">Subtotal</td><td class="val">' + money(data.subtotal) + '</td></tr>' +
+                gstRows +
+                '<tr class="grand"><td class="lbl">GRAND TOTAL</td><td class="val">' + money(data.grandTotal) + '</td></tr>' +
+            '</table>' +
+        '</div>' +
+        gstSummary +
+        '<div class="inv-bottom-grid">' +
+            bankHtml +
+            '<div class="inv-sign">' +
+                '<div class="inv-sign-img">' + (signatureData ? '<img src="' + signatureData + '" alt="Signature">' : '') + '</div>' +
+                '<div class="line">Authorized Signatory</div>' +
+                '<div class="for">For ' + escapeHtml(b.name || 'RAJ MARKETING MYSORE') + '</div>' +
+            '</div>' +
+        '</div>' +
+        '<div class="inv-terms">' +
+            '<h5>Terms &amp; Conditions</h5>' +
+            '<ol>' + terms.map(function(t) {
+                return '<li>' + escapeHtml(t.replace(/^\d+\.\s*/, '')) + '</li>';
+            }).join('') + '</ol>' +
+        '</div>' +
+        '<div class="inv-footer">' +
+            '<strong>' + escapeHtml(b.name || 'RAJ MARKETING MYSORE') + '</strong>' +
+            (b.address ? ' · ' + escapeHtml(b.address) : '') +
+            (b.mobile ? ' · 📞 ' + escapeHtml(b.mobile) : '') +
+            (b.email ? ' · ✉ ' + escapeHtml(b.email) : '') +
+            (b.gstin ? ' · GSTIN: ' + escapeHtml(b.gstin) : '') +
+        '</div>';
 
-        <div class="inv-meta">
-            <div class="inv-meta-box">
-                <h4>Invoice Details</h4>
-                <div class="row"><span class="lbl">Invoice No:</span><span class="val">${escapeHtml(data.invoiceNumber)}</span></div>
-                <div class="row"><span class="lbl">Invoice Date:</span><span class="val">${formatDate(data.invoiceDate)}</span></div>
-                <div class="row"><span class="lbl">Due Date:</span><span class="val">${formatDate(data.dueDate)}</span></div>
-                <div class="row"><span class="lbl">Place of Supply:</span><span class="val">${escapeHtml(data.placeOfSupply)}</span></div>
-                <div class="row"><span class="lbl">Payment Terms:</span><span class="val">${escapeHtml(data.paymentTerms)}</span></div>
-                <div class="row"><span class="lbl">Reverse Charge:</span><span class="val">${escapeHtml(data.reverseCharge)}</span></div>
-            </div>
-            <div class="inv-meta-box">
-                <h4>Bill To</h4>
-                ${customerHtml}
-            </div>
-        </div>
-
-        <table class="inv-table">
-            <thead>
-                <tr>
-                    <th style="width:26px;">Sl</th>
-                    <th style="text-align:left;">Product</th>
-                    <th style="width:65px;">HSN/SAC</th>
-                    <th style="width:85px;">Total Qty</th>
-                    <th style="width:70px;">Price / Unit</th>
-                    <th style="width:85px;">Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${productRows || '<tr><td colspan="6" style="text-align:center;padding:14px;">No products</td></tr>'}
-            </tbody>
-        </table>
-
-        <div class="inv-totals-wrap">
-            <div class="inv-words">
-                <div class="lbl">Amount in Words</div>
-                <div class="val">${numberToWords(data.grandTotal)}</div>
-            </div>
-            <table class="inv-totals">
-                <tr><td class="lbl">Subtotal</td><td class="val">${money(data.subtotal)}</td></tr>
-                ${gstRows}
-                <tr class="grand"><td class="lbl">GRAND TOTAL</td><td class="val">${money(data.grandTotal)}</td></tr>
-            </table>
-        </div>
-
-        ${gstSummary}
-
-        <div class="inv-bottom-grid">
-            ${bankHtml}
-            <div class="inv-sign">
-                <div class="inv-sign-img">
-                    ${signatureData ? `<img src="${signatureData}" alt="Signature">` : ''}
-                </div>
-                <div class="line">Authorized Signatory</div>
-                <div class="for">For ${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</div>
-            </div>
-        </div>
-
-        <div class="inv-terms">
-            <h5>Terms &amp; Conditions</h5>
-            <ol>
-                ${terms.map(t => `<li>${escapeHtml(t.replace(/^\d+\.\s*/, ''))}</li>`).join('')}
-            </ol>
-        </div>
-
-        <div class="inv-footer">
-            <strong>${escapeHtml(b.name || 'RAJ MARKETING MYSORE')}</strong>
-            ${b.address ? ` · ${escapeHtml(b.address)}` : ''}
-            ${b.mobile ? ` · 📞 ${escapeHtml(b.mobile)}` : ''}
-            ${b.email ? ` · ✉ ${escapeHtml(b.email)}` : ''}
-            ${b.gstin ? ` · GSTIN: ${escapeHtml(b.gstin)}` : ''}
-        </div>
-    `;
-
-    setTimeout(scalePreview, 50);
+    setTimeout(scalePreview, 80);
 }
 
 /* ============================================================
-   PDF DOWNLOAD — FIXED & PROFESSIONAL
+   PDF DOWNLOAD — CLEAN, NO ₹ SYMBOL, NO (1) BUG
    ============================================================
-   Key fixes:
-   - Removed "1" prefix on numbers → using plain string concatenation
-   - Proper column widths to fit A4
-   - Single-page guaranteed
-   - Clean spacing between sections
-   - Correct currency rendering
+   CRITICAL: Do NOT use "₹" in doc.text() or autoTable cells.
+   jsPDF Helvetica font doesn't support ₹ and renders it as
+   superscript "(1)". Instead, put (₹) in column HEADERS only,
+   and use plain numbers in cells.
 ============================================================ */
 function downloadPDF() {
-    if (!currentInvoiceData) {
-        showToast('Please calculate invoice first', 'warning');
-        return;
-    }
+    if (!currentInvoiceData) { showToast('Please calculate invoice first', 'warning'); return; }
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', compress: true });
+    const jsPDFCtor = window.jspdf.jsPDF;
+    const doc = new jsPDFCtor({ orientation: 'p', unit: 'mm', format: 'a4', compress: true });
     const data = currentInvoiceData;
     const b = data.business;
     const c = data.customer;
 
-    const PW = 210;
-    const PH = 297;
-    const M = 10;
-    const CW = PW - M * 2;
+    const PW = 210, PH = 297, M = 10, CW = PW - M * 2;
     let y = 0;
 
-    /* ============================================================
-       HELPER: Safe text — no auto-format bugs
-    ============================================================ */
-    function safeText(str) {
-        // Ensure it's a clean string without auto-formatted numbers
-        return String(str == null ? '' : str);
-    }
-
-    /* ============================================================
-       HEADER BAR
-    ============================================================ */
+    /* HEADER BAR */
     doc.setFillColor(15, 27, 51);
     doc.rect(0, 0, PW, 20, 'F');
-
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
-    doc.text(safeText(b.name || 'RAJ MARKETING MYSORE').toUpperCase(), M, 9);
-
+    doc.text(String(b.name || 'RAJ MARKETING MYSORE').toUpperCase(), M, 9);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(6.5);
     doc.setTextColor(200, 210, 230);
     doc.text('Aluminium Frame | Mosquito Net | Kitchen | Wardrobe', M, 14);
-
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
     doc.setTextColor(245, 158, 11);
     doc.text('TAX INVOICE', PW - M, 9, { align: 'right' });
-
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(6);
     doc.setTextColor(200, 210, 230);
@@ -1894,27 +1182,22 @@ function downloadPDF() {
 
     y = 24;
 
-    /* ============================================================
-       BUSINESS + INVOICE + CUSTOMER
-    ============================================================ */
+    /* BUSINESS / INVOICE / CUSTOMER BOXES */
     const boxH = 29;
-    const leftW = CW / 2 - 1.5;
-    const rightW = CW / 2 - 1.5;
-    const rightX = M + leftW + 3;
+    const halfW = (CW - 3) / 2;
+    const rightX = M + halfW + 3;
 
-    // LEFT: Invoice Details
+    // LEFT — Invoice Details
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
     doc.setLineWidth(0.2);
-    doc.rect(M, y, leftW, boxH, 'FD');
-
+    doc.rect(M, y, halfW, boxH, 'FD');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(6.5);
     doc.setTextColor(26, 86, 219);
     doc.text('INVOICE DETAILS', M + 2.5, y + 4);
-
     doc.setDrawColor(203, 213, 225);
-    doc.line(M + 2, y + 5.5, M + leftW - 2, y + 5.5);
+    doc.line(M + 2, y + 5.5, M + halfW - 2, y + 5.5);
 
     const invRows = [
         ['Invoice No:', data.invoiceNumber],
@@ -1926,67 +1209,64 @@ function downloadPDF() {
     ];
     let ty = y + 9;
     doc.setFontSize(6.8);
-    invRows.forEach(([k, v]) => {
+    invRows.forEach(function(row) {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(100, 116, 139);
-        doc.text(k, M + 3, ty);
-        doc.setFont('helvetica', 'bold');
+        doc.text(row[0], M + 3, ty);
         doc.setTextColor(15, 27, 51);
-        const txt = doc.splitTextToSize(safeText(v || '—'), leftW - 30)[0];
+        const txt = doc.splitTextToSize(String(row[1] || '—'), halfW - 30)[0];
         doc.text(txt, M + 27, ty);
         ty += 3.2;
     });
 
-    // RIGHT: Bill To
+    // RIGHT — Bill To
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
-    doc.rect(rightX, y, rightW, boxH, 'FD');
-
+    doc.rect(rightX, y, halfW, boxH, 'FD');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(6.5);
     doc.setTextColor(26, 86, 219);
     doc.text('BILL TO', rightX + 2.5, y + 4);
-
     doc.setDrawColor(203, 213, 225);
-    doc.line(rightX + 2, y + 5.5, rightX + rightW - 2, y + 5.5);
+    doc.line(rightX + 2, y + 5.5, rightX + halfW - 2, y + 5.5);
 
     const custRows = c.name ? [
         ['Name:', c.name],
         c.mobile ? ['Mobile:', c.mobile] : null,
         c.gstin ? ['GSTIN:', c.gstin] : null,
         c.address ? ['Address:', c.address] : null,
-        c.state ? ['State:', `${c.state} (${c.stateCode || ''})`] : null
+        c.state ? ['State:', c.state + ' (' + (c.stateCode || '') + ')'] : null
     ].filter(Boolean) : [['Name:', 'Cash Customer']];
 
     ty = y + 9;
-    custRows.slice(0, 6).forEach(([k, v]) => {
+    custRows.slice(0, 6).forEach(function(row) {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(100, 116, 139);
-        doc.text(k, rightX + 3, ty);
+        doc.text(row[0], rightX + 3, ty);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(15, 27, 51);
-        const txt = doc.splitTextToSize(safeText(v || '—'), rightW - 24)[0];
+        const txt = doc.splitTextToSize(String(row[1] || '—'), halfW - 24)[0];
         doc.text(txt, rightX + 17, ty);
         ty += 3.2;
     });
 
     y += boxH + 3;
 
-    /* ============================================================
-       PRODUCTS TABLE
-    ============================================================ */
-    const tableBody = data.products.map((p, i) => [
-        safeText(i + 1),
-        safeText(p.name),
-        safeText(p.hsn || '—'),
-        safeText(fmt(p.displayQty, 2) + ' ' + p.unit),
-        safeText(moneyNoSymbol(p.rate)),
-        safeText(moneyNoSymbol(p.total))
-    ]);
+    /* PRODUCTS TABLE */
+    const tableBody = data.products.map(function(p, i) {
+        return [
+            String(i + 1),
+            String(p.name),
+            String(p.hsn || '—'),
+            fmt(p.displayQty, 2) + ' ' + p.unit,
+            fmt(p.rate, 2),
+            fmt(p.total, 2)
+        ];
+    });
 
     doc.autoTable({
         startY: y,
-        head: [['Sl', 'Product', 'HSN/SAC', 'Total Qty', 'Price/Unit (₹)', 'Total (₹)']],
+        head: [['Sl', 'Product', 'HSN/SAC', 'Total Qty', 'Price/Unit (Rs.)', 'Total (Rs.)']],
         body: tableBody,
         theme: 'grid',
         styles: {
@@ -2021,9 +1301,7 @@ function downloadPDF() {
 
     y = doc.lastAutoTable.finalY + 3;
 
-    /* ============================================================
-       AMOUNT IN WORDS + TOTALS (side-by-side)
-    ============================================================ */
+    /* AMOUNT IN WORDS + TOTALS */
     const wordsW = CW - 72;
     const totalsX = M + wordsW + 2;
     const totalsW = 70;
@@ -2032,40 +1310,33 @@ function downloadPDF() {
     const wordsLines = doc.splitTextToSize(wordsText, wordsW - 5);
     const wordsBoxH = Math.max(22, 12 + wordsLines.length * 3);
 
-    // Amount in words
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
-    doc.setLineWidth(0.2);
     doc.rect(M, y, wordsW, wordsBoxH, 'FD');
-
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(6.3);
     doc.setTextColor(26, 86, 219);
     doc.text('AMOUNT IN WORDS', M + 2.5, y + 4);
-
     doc.setDrawColor(203, 213, 225);
     doc.line(M + 2, y + 5.5, M + wordsW - 2, y + 5.5);
-
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7);
     doc.setTextColor(15, 27, 51);
     doc.text(wordsLines, M + 3, y + 9.5);
 
-    // Totals
     let tyx = y;
     const rowH = 5.2;
 
-    function drawRow(label, value, grand = false) {
-        if (grand) {
+    function drawRow(label, value, isGrand) {
+        if (isGrand) {
             doc.setFillColor(15, 27, 51);
             doc.rect(totalsX, tyx, totalsW, 7.5, 'F');
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8.5);
             doc.setTextColor(255, 255, 255);
             doc.text(label, totalsX + 2.5, tyx + 5);
-            doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(safeText(value), totalsX + totalsW - 2.5, tyx + 5, { align: 'right' });
+            doc.text(String(value), totalsX + totalsW - 2.5, tyx + 5, { align: 'right' });
             tyx += 7.5;
         } else {
             doc.setFillColor(248, 250, 252);
@@ -2077,48 +1348,45 @@ function downloadPDF() {
             doc.text(label, totalsX + 2.5, tyx + 3.5);
             doc.setTextColor(15, 27, 51);
             doc.setFontSize(7);
-            doc.text(safeText(value), totalsX + totalsW - 2.5, tyx + 3.5, { align: 'right' });
+            doc.text(String(value), totalsX + totalsW - 2.5, tyx + 3.5, { align: 'right' });
             tyx += rowH;
         }
     }
 
-    drawRow('Subtotal (₹)', moneyNoSymbol(data.subtotal));
+    drawRow('Subtotal (Rs.)', fmt(data.subtotal, 2));
     if (data.taxType === 'cgst_sgst') {
-        drawRow(`CGST @ ${data.gstRate / 2}% (₹)`, moneyNoSymbol(data.cgst));
-        drawRow(`SGST @ ${data.gstRate / 2}% (₹)`, moneyNoSymbol(data.sgst));
+        drawRow('CGST @ ' + (data.gstRate / 2) + '% (Rs.)', fmt(data.cgst, 2));
+        drawRow('SGST @ ' + (data.gstRate / 2) + '% (Rs.)', fmt(data.sgst, 2));
     } else if (data.taxType === 'igst') {
-        drawRow(`IGST @ ${data.gstRate}% (₹)`, moneyNoSymbol(data.igst));
+        drawRow('IGST @ ' + data.gstRate + '% (Rs.)', fmt(data.igst, 2));
     }
-    drawRow('GRAND TOTAL (₹)', moneyNoSymbol(data.grandTotal), true);
+    drawRow('GRAND TOTAL (Rs.)', fmt(data.grandTotal, 2), true);
 
     y = Math.max(y + wordsBoxH, tyx) + 3;
 
-    /* ============================================================
-       GST SUMMARY TABLE
-    ============================================================ */
+    /* GST SUMMARY TABLE */
     if (data.taxType === 'cgst_sgst' || data.taxType === 'igst') {
         const head = data.taxType === 'cgst_sgst'
-            ? [['HSN/SAC', 'Taxable Value', 'CGST Rate', 'CGST Amount', 'SGST Rate', 'SGST Amount', 'Total Tax']]
-            : [['HSN/SAC', 'Taxable Value', 'IGST Rate', 'IGST Amount', 'Total Tax']];
-
+            ? [['HSN/SAC', 'Taxable Value (Rs.)', 'CGST Rate', 'CGST Amt (Rs.)', 'SGST Rate', 'SGST Amt (Rs.)', 'Total Tax (Rs.)']]
+            : [['HSN/SAC', 'Taxable Value (Rs.)', 'IGST Rate', 'IGST Amt (Rs.)', 'Total Tax (Rs.)']];
         const body = data.taxType === 'cgst_sgst'
             ? [['—',
-                moneyNoSymbol(data.subtotal),
-                `${data.gstRate / 2}%`,
-                moneyNoSymbol(data.cgst),
-                `${data.gstRate / 2}%`,
-                moneyNoSymbol(data.sgst),
-                moneyNoSymbol(data.totalGst)]]
+                fmt(data.subtotal, 2),
+                (data.gstRate / 2) + '%',
+                fmt(data.cgst, 2),
+                (data.gstRate / 2) + '%',
+                fmt(data.sgst, 2),
+                fmt(data.totalGst, 2)]]
             : [['—',
-                moneyNoSymbol(data.subtotal),
-                `${data.gstRate}%`,
-                moneyNoSymbol(data.igst),
-                moneyNoSymbol(data.igst)]];
+                fmt(data.subtotal, 2),
+                data.gstRate + '%',
+                fmt(data.igst, 2),
+                fmt(data.igst, 2)]];
 
         doc.autoTable({
             startY: y,
-            head,
-            body,
+            head: head,
+            body: body,
             theme: 'grid',
             styles: {
                 fontSize: 6.3,
@@ -2139,28 +1407,22 @@ function downloadPDF() {
             margin: { left: M, right: M },
             tableWidth: CW
         });
-
         y = doc.lastAutoTable.finalY + 3;
     }
 
-    /* ============================================================
-       BANK + SIGNATURE (side by side)
-    ============================================================ */
+    /* BANK + SIGNATURE */
     const bsH = 24;
-    const bankW = CW / 2 - 1.5;
-    const sigW = CW / 2 - 1.5;
+    const bankW = (CW - 3) / 2;
+    const sigW = (CW - 3) / 2;
     const sigX = M + bankW + 3;
 
-    // Bank
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
     doc.rect(M, y, bankW, bsH, 'FD');
-
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(6.3);
     doc.setTextColor(26, 86, 219);
     doc.text('BANK DETAILS', M + 2.5, y + 4);
-
     doc.setDrawColor(203, 213, 225);
     doc.line(M + 2, y + 5.5, M + bankW - 2, y + 5.5);
 
@@ -2172,17 +1434,16 @@ function downloadPDF() {
     ];
     let by = y + 9;
     doc.setFontSize(6.8);
-    bankRows.forEach(([k, v]) => {
+    bankRows.forEach(function(row) {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(100, 116, 139);
-        doc.text(k, M + 3, by);
+        doc.text(row[0], M + 3, by);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(15, 27, 51);
-        doc.text(safeText(v).substring(0, 28), M + 16, by);
+        doc.text(String(row[1]).substring(0, 28), M + 16, by);
         by += 3.3;
     });
 
-    // Signature
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(203, 213, 225);
     doc.rect(sigX, y, sigW, bsH, 'FD');
@@ -2192,75 +1453,63 @@ function downloadPDF() {
             doc.addImage(signatureData, 'PNG', sigX + 14, y + 2.5, 26, 10);
         } catch (e) {}
     }
-
     doc.setDrawColor(15, 27, 51);
     doc.setLineWidth(0.3);
     doc.line(sigX + 6, y + 16, sigX + sigW - 6, y + 16);
-
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(6.5);
     doc.setTextColor(15, 27, 51);
     doc.text('Authorized Signatory', sigX + sigW / 2, y + 19.5, { align: 'center' });
-
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(5.5);
     doc.setTextColor(100, 116, 139);
-    doc.text(`For ${safeText(b.name || 'RAJ MARKETING MYSORE')}`, sigX + sigW / 2, y + 22, { align: 'center' });
+    doc.text('For ' + String(b.name || 'RAJ MARKETING MYSORE'), sigX + sigW / 2, y + 22, { align: 'center' });
 
     y += bsH + 3;
 
-    /* ============================================================
-       TERMS
-    ============================================================ */
+    /* TERMS */
     doc.setDrawColor(203, 213, 225);
     doc.setLineWidth(0.2);
     doc.line(M, y, PW - M, y);
     y += 2.5;
-
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(6.3);
     doc.setTextColor(26, 86, 219);
     doc.text('TERMS & CONDITIONS', M, y);
     y += 3;
-
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(5.8);
     doc.setTextColor(51, 65, 85);
-    const terms = (data.terms || '').split('\n').filter(t => t.trim());
-    terms.slice(0, 6).forEach((t, i) => {
-        const line = `${i + 1}. ${t.replace(/^\d+\.\s*/, '')}`;
+    const terms = (data.terms || '').split('\n').filter(function(t) { return t.trim(); });
+    terms.slice(0, 6).forEach(function(t, i) {
+        const line = (i + 1) + '. ' + t.replace(/^\d+\.\s*/, '');
         const wrapped = doc.splitTextToSize(line, CW - 3);
         doc.text(wrapped, M, y);
         y += wrapped.length * 2.5;
     });
 
-    /* ============================================================
-       FOOTER (bottom-fixed)
-    ============================================================ */
+    /* FOOTER */
     const footerY = PH - 6;
     doc.setDrawColor(15, 27, 51);
     doc.setLineWidth(0.3);
     doc.line(M, footerY - 3, PW - M, footerY - 3);
-
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(5.8);
     doc.setTextColor(15, 27, 51);
     const footerParts = [
         b.name || 'RAJ MARKETING MYSORE',
         b.address,
-        b.mobile ? `📞 ${b.mobile}` : '',
-        b.email ? `✉ ${b.email}` : '',
-        b.gstin ? `GSTIN: ${b.gstin}` : ''
+        b.mobile ? 'Phone: ' + b.mobile : '',
+        b.email ? 'Email: ' + b.email : '',
+        b.gstin ? 'GSTIN: ' + b.gstin : ''
     ].filter(Boolean);
-    const footerText = footerParts.join('  ·  ');
+    const footerText = footerParts.join('   |   ');
     const footerWrapped = doc.splitTextToSize(footerText, CW);
     doc.text(footerWrapped, PW / 2, footerY - 1, { align: 'center' });
 
-    /* ============================================================
-       SAVE
-    ============================================================ */
+    /* SAVE */
     const safeNo = String(data.invoiceNumber).replace(/[^a-zA-Z0-9]/g, '-');
-    doc.save(`Invoice_${safeNo}.pdf`);
+    doc.save('Invoice_' + safeNo + '.pdf');
     showToast('PDF downloaded successfully', 'success');
 }
 
@@ -2270,29 +1519,28 @@ function downloadPDF() {
 function shareWhatsApp() {
     if (!currentInvoiceData) { showToast('Calculate invoice first', 'warning'); return; }
     const data = currentInvoiceData;
-    const message = `*${data.business.name || 'RAJ MARKETING MYSORE'}*
-
-*TAX INVOICE*
-
-Invoice No: ${data.invoiceNumber}
-Invoice Date: ${formatDate(data.invoiceDate)}
-Customer: ${data.customer.name || 'Cash Customer'}
-Grand Total: ${money(data.grandTotal)}
-
-Items: ${data.products.length}
-Subtotal: ${money(data.subtotal)}
-GST: ${money(data.totalGst)}
-
-Thank you for your business!`;
+    const message =
+        '*' + (data.business.name || 'RAJ MARKETING MYSORE') + '*\n\n' +
+        '*TAX INVOICE*\n\n' +
+        'Invoice No: ' + data.invoiceNumber + '\n' +
+        'Invoice Date: ' + formatDate(data.invoiceDate) + '\n' +
+        'Customer: ' + (data.customer.name || 'Cash Customer') + '\n' +
+        'Grand Total: ' + money(data.grandTotal) + '\n\n' +
+        'Items: ' + data.products.length + '\n' +
+        'Subtotal: ' + money(data.subtotal) + '\n' +
+        'GST: ' + money(data.totalGst) + '\n\n' +
+        'Thank you for your business!';
     const encoded = encodeURIComponent(message);
 
     if (navigator.share) {
         navigator.share({
-            title: `Invoice ${data.invoiceNumber}`,
+            title: 'Invoice ' + data.invoiceNumber,
             text: message
-        }).catch(() => window.open(`https://wa.me/?text=${encoded}`, '_blank'));
+        }).catch(function() {
+            window.open('https://wa.me/?text=' + encoded, '_blank');
+        });
     } else {
-        window.open(`https://wa.me/?text=${encoded}`, '_blank');
+        window.open('https://wa.me/?text=' + encoded, '_blank');
     }
     showToast('Opening WhatsApp...', 'info');
 }
@@ -2304,10 +1552,12 @@ function saveInvoice() {
     if (!currentInvoiceData) { showToast('Calculate invoice first', 'warning'); return; }
     try {
         const list = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
-        const idx = list.findIndex(i => i.invoiceNumber === currentInvoiceData.invoiceNumber);
-        const record = { ...currentInvoiceData, savedAt: new Date().toISOString(), status: 'SAVED' };
-        if (idx >= 0) list[idx] = record;
-        else list.push(record);
+        const idx = list.findIndex(function(i) { return i.invoiceNumber === currentInvoiceData.invoiceNumber; });
+        const record = Object.assign({}, currentInvoiceData, {
+            savedAt: new Date().toISOString(),
+            status: 'SAVED'
+        });
+        if (idx >= 0) list[idx] = record; else list.push(record);
         localStorage.setItem(STORAGE.invoices, JSON.stringify(list));
         settingsData.nextNum = (settingsData.nextNum || 1) + 1;
         localStorage.setItem(STORAGE.settings, JSON.stringify(settingsData));
@@ -2315,71 +1565,63 @@ function saveInvoice() {
         showToast('Invoice saved', 'success');
     } catch (e) { showToast('Failed to save', 'error'); }
 }
-
 function renderHistory() {
     const container = document.getElementById('historyList');
     let list = [];
     try { list = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]'); } catch (e) {}
     const q = (document.getElementById('historySearch')?.value || '').toLowerCase().trim();
-    if (q) list = list.filter(i =>
-        (i.invoiceNumber || '').toLowerCase().includes(q) ||
-        (i.customer?.name || '').toLowerCase().includes(q) ||
-        (i.invoiceDate || '').includes(q)
-    );
+    if (q) list = list.filter(function(i) {
+        return ((i.invoiceNumber || '').toLowerCase().indexOf(q) > -1) ||
+               ((i.customer?.name || '').toLowerCase().indexOf(q) > -1) ||
+               ((i.invoiceDate || '').indexOf(q) > -1);
+    });
     document.getElementById('historyCount').textContent = list.length + ' invoice' + (list.length !== 1 ? 's' : '');
     if (!list.length) {
-        container.innerHTML = `
-            <div style="text-align:center;padding:40px;color:var(--text-muted);">
-                <i class="fas fa-inbox" style="font-size:48px;opacity:0.3;display:block;margin-bottom:12px;"></i>
-                <p>No invoices yet</p>
-            </div>`;
+        container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">' +
+            '<i class="fas fa-inbox" style="font-size:48px;opacity:.3;display:block;margin-bottom:12px;"></i>' +
+            '<p>No invoices yet</p></div>';
         return;
     }
-    container.innerHTML = list.slice().reverse().map(inv => `
-        <div style="background:var(--bg-light);border-radius:var(--radius);padding:14px;margin-bottom:10px;border-left:4px solid var(--primary);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;">
-            <div style="flex:1;min-width:200px;">
-                <div style="font-weight:900;font-size:14px;color:var(--navy);">${escapeHtml(inv.invoiceNumber)}</div>
-                <div style="font-size:12px;color:var(--text-muted);font-weight:600;">
-                    ${formatDate(inv.invoiceDate)} · ${escapeHtml(inv.customer?.name || 'Cash Customer')}
-                </div>
-            </div>
-            <div style="font-size:18px;font-weight:900;color:var(--primary);">
-                ${money(inv.grandTotal)}
-            </div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <button class="btn btn-primary" style="padding:6px 12px;font-size:11px;" onclick="viewInvoice('${escapeHtml(inv.invoiceNumber)}')">
-                    <i class="fas fa-eye"></i> View
-                </button>
-                <button class="btn btn-danger" style="padding:6px 12px;font-size:11px;" onclick="deleteInvoice('${escapeHtml(inv.invoiceNumber)}')">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        </div>
-    `).join('');
+    container.innerHTML = list.slice().reverse().map(function(inv) {
+        return '<div style="background:var(--bg-light);border-radius:var(--radius);padding:14px;margin-bottom:10px;border-left:4px solid var(--primary);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;">' +
+            '<div style="flex:1;min-width:200px;">' +
+                '<div style="font-weight:900;font-size:14px;color:var(--navy);">' + escapeHtml(inv.invoiceNumber) + '</div>' +
+                '<div style="font-size:12px;color:var(--text-muted);font-weight:600;">' +
+                    formatDate(inv.invoiceDate) + ' · ' + escapeHtml(inv.customer?.name || 'Cash Customer') +
+                '</div>' +
+            '</div>' +
+            '<div style="font-size:18px;font-weight:900;color:var(--primary);">' + money(inv.grandTotal) + '</div>' +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+                '<button class="btn btn-primary" style="padding:6px 12px;font-size:11px;" onclick="viewInvoice(\'' + escapeHtml(inv.invoiceNumber) + '\')">' +
+                    '<i class="fas fa-eye"></i> View</button>' +
+                '<button class="btn btn-danger" style="padding:6px 12px;font-size:11px;" onclick="deleteInvoice(\'' + escapeHtml(inv.invoiceNumber) + '\')">' +
+                    '<i class="fas fa-trash"></i></button>' +
+            '</div>' +
+        '</div>';
+    }).join('');
 }
-
 function viewInvoice(invoiceNumber) {
     try {
         const list = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
-        const inv = list.find(i => i.invoiceNumber === invoiceNumber);
+        const inv = list.find(function(i) { return i.invoiceNumber === invoiceNumber; });
         if (!inv) { showToast('Not found', 'error'); return; }
         currentInvoiceData = inv;
         renderInvoicePreview(inv);
         showPanel('preview');
     } catch (e) { showToast('Failed to load', 'error'); }
 }
-
 function deleteInvoice(invoiceNumber) {
     if (!confirm('Delete this invoice permanently?')) return;
     const list = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
-    localStorage.setItem(STORAGE.invoices, JSON.stringify(list.filter(i => i.invoiceNumber !== invoiceNumber)));
+    localStorage.setItem(STORAGE.invoices, JSON.stringify(list.filter(function(i) {
+        return i.invoiceNumber !== invoiceNumber;
+    })));
     renderHistory();
     showToast('Invoice deleted', 'warning');
 }
-
 function newInvoice() {
     if (!confirm('Start new invoice? Current data will be cleared.')) return;
-    ['custName','custMobile','custEmail','custGstin','custAddress'].forEach(id => {
+    ['custName','custMobile','custEmail','custGstin','custAddress'].forEach(function(id) {
         const el = document.getElementById(id);
         if (el) el.value = '';
     });
@@ -2393,7 +1635,7 @@ function newInvoice() {
 }
 
 /* ============================================================
-   EXPOSE
+   EXPOSE TO WINDOW
 ============================================================ */
 window.showPanel = showPanel;
 window.addProductRow = addProductRow;
@@ -2420,6 +1662,5 @@ if (document.readyState === 'loading') {
 }
 })();
 </script>
-
 </body>
 </html>
