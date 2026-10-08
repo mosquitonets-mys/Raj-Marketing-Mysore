@@ -13,54 +13,33 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 <style>
 :root{
-    --teal:#0d9488;
-    --teal-dark:#0f766e;
-    --teal-light:#14b8a6;
-    --navy:#0f1b33;
-    --navy-light:#1e3a5f;
-    --cream:#faf7f2;
-    --cream-dark:#f0ebe3;
-    --text-dark:#1f2937;
-    --text-muted:#64748b;
-    --border:#e5e7eb;
-    --white:#ffffff;
-    --primary:#1a56db;
-    --primary-dark:#0d47a1;
-    --primary-light:#e8f0fe;
-    --orange:#f59e0b;
-    --green:#059669;
-    --red:#dc2626;
-    --radius:12px;
-    --radius-lg:20px;
+    --primary:#1a56db;--primary-dark:#0d47a1;--primary-light:#e8f0fe;
+    --navy:#0f1b33;--orange:#f59e0b;--orange-dark:#d97706;
+    --green:#059669;--red:#dc2626;--teal:#0d9488;--teal-dark:#0f766e;
+    --cream:#faf7f2;--text-dark:#1f2937;--text-muted:#64748b;
+    --bg:#f0f4f8;--white:#fff;--border:#e2e8f0;
+    --radius:12px;--radius-lg:20px;
     --transition:all .3s cubic-bezier(.4,0,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',Arial,sans-serif;background:#f0f4f8;color:var(--text-dark);line-height:1.6;padding-bottom:40px}
+body{font-family:'Poppins',Arial,sans-serif;background:var(--bg);color:var(--text-dark);line-height:1.6;padding-bottom:40px}
 .container{max-width:1400px;margin:0 auto;padding:20px}
-
-/* ADMIN HEADER */
 .app-header{background:linear-gradient(135deg,var(--navy),#1a2d4d);color:#fff;padding:22px 26px;border-radius:var(--radius-lg);margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .app-header i{font-size:30px;color:var(--orange)}
 .app-header h1{font-size:20px;font-weight:900}
 .app-header p{font-size:11px;opacity:.8}
-
-/* DASHBOARD */
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
 .dash-btn{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);padding:18px;cursor:pointer;text-align:center;transition:var(--transition);font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:8px}
 .dash-btn:hover,.dash-btn.active{border-color:var(--primary);background:var(--primary-light);transform:translateY(-2px)}
 .dash-btn i{font-size:22px;color:var(--primary);background:var(--primary-light);width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center}
 .dash-btn:hover i,.dash-btn.active i{background:var(--primary);color:#fff}
 .dash-btn .label{font-size:12px;font-weight:800}
-
-/* PANELS */
 .panel{display:none}
 .panel.active{display:block}
 .card{background:var(--white);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .card-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}
 .card-title i{color:var(--primary)}
 .card-title .badge{margin-left:auto;background:var(--primary-light);color:var(--primary);font-size:10px;font-weight:800;padding:3px 12px;border-radius:30px;text-transform:uppercase}
-
-/* FORM */
 .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .form-grid-2{grid-template-columns:repeat(2,1fr)}
 .form-grid-4{grid-template-columns:repeat(4,1fr)}
@@ -70,8 +49,6 @@ body{font-family:'Poppins',Arial,sans-serif;background:#f0f4f8;color:var(--text-
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:inherit;font-weight:600;color:var(--text-dark);background:#f8fafc;outline:none;transition:var(--transition)}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary);background:var(--white);box-shadow:0 0 0 3px rgba(26,86,219,.08)}
 .form-group textarea{resize:vertical;min-height:60px}
-
-/* TABLE */
 .table-wrap{overflow-x:auto;border-radius:var(--radius);margin-bottom:10px}
 table{width:100%;border-collapse:collapse;min-width:900px;font-size:13px}
 th{background:linear-gradient(145deg,var(--navy),#1a2d4d);color:#fff;padding:10px 6px;font-size:10px;font-weight:800;text-align:center;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
@@ -81,21 +58,17 @@ td input,td select{width:100%;padding:7px 8px;border:1px solid var(--border);bor
 td input:focus,td select:focus{border-color:var(--primary);background:var(--white)}
 td .calc-value{font-weight:800;color:var(--primary);font-size:13px}
 td .total-value{font-weight:900;color:var(--green);font-size:13px}
-
-/* BUTTONS */
 .btn{border:none;border-radius:var(--radius);padding:10px 18px;cursor:pointer;font-weight:800;font-size:12px;font-family:inherit;transition:var(--transition);display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
 .btn:hover{transform:translateY(-1px)}
 .btn-primary{background:linear-gradient(145deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 4px 12px rgba(26,86,219,.28)}
 .btn-success{background:linear-gradient(145deg,var(--green),#047857);color:#fff;box-shadow:0 4px 12px rgba(5,150,105,.28)}
 .btn-danger{background:linear-gradient(145deg,var(--red),#b91c1c);color:#fff;padding:6px 10px;font-size:11px}
-.btn-warning{background:linear-gradient(145deg,var(--orange),#d97706);color:#fff}
+.btn-warning{background:linear-gradient(145deg,var(--orange),var(--orange-dark));color:#fff}
 .btn-dark{background:linear-gradient(145deg,var(--navy),#1a2d4d);color:#fff}
 .btn-light{background:#f8fafc;color:var(--text-dark);border:1.5px solid var(--border)}
 .btn-whatsapp{background:linear-gradient(145deg,#25d366,#1fa855);color:#fff}
 .btn-lg{padding:13px 26px;font-size:13px;border-radius:40px}
 .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-
-/* SUMMARY */
 .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
 .summary-box{padding:14px 16px;border-radius:var(--radius);background:#f8fafc;border-left:4px solid var(--primary)}
 .summary-box.green{border-left-color:var(--green);background:#ecfdf5}
@@ -107,22 +80,12 @@ td .total-value{font-weight:900;color:var(--green);font-size:13px}
 .summary-box.navy .value{color:#fff;font-size:21px}
 .note{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-left:4px solid var(--orange);padding:12px 16px;border-radius:var(--radius);margin-top:12px;font-size:12px;color:#92400e;display:flex;align-items:flex-start;gap:10px;font-weight:600}
 .note i{color:var(--orange);margin-top:2px}
-
-/* ============================================================
-   A4 PREVIEW - FAUGÉT STYLE
-============================================================ */
 .a4-outer{width:100%;overflow-x:auto;background:#94a3b8;border-radius:var(--radius);padding:16px;-webkit-overflow-scrolling:touch;display:flex;justify-content:center;align-items:flex-start}
 .a4-scaler{transform-origin:top left;transition:transform .2s ease;flex-shrink:0}
 .a4-page{width:210mm;height:297mm;background:#faf7f2;color:#1f2937;font-family:'Poppins',Arial,sans-serif;font-size:9pt;line-height:1.4;display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.25)}
 .a4-page *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-
-/* Decorative top-right arc */
 .a4-deco-arc{position:absolute;top:-60mm;right:-40mm;width:130mm;height:130mm;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(20,184,166,.35), rgba(20,184,166,.05) 60%, transparent 70%);pointer-events:none;z-index:0}
-
-/* Main content area */
 .a4-body{position:relative;z-index:1;padding:14mm 14mm 10mm 14mm;display:flex;flex-direction:column;flex:1}
-
-/* HEADER */
 .inv-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14mm;flex-shrink:0}
 .inv-brand{display:flex;gap:10px;align-items:flex-start}
 .inv-logo-wrap{width:46px;height:46px;border-radius:10px;background:linear-gradient(145deg,var(--teal),var(--teal-dark));color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;flex-shrink:0}
@@ -132,30 +95,22 @@ td .total-value{font-weight:900;color:var(--green);font-size:13px}
 .inv-title-block{text-align:right;padding-top:4px}
 .inv-title{font-size:26pt;font-weight:900;color:var(--navy);letter-spacing:2px;line-height:1;font-family:'Poppins',sans-serif}
 .inv-copy-type{font-size:7pt;color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px}
-
-/* TOP INFO - 2 COLUMN */
 .inv-info-row{display:grid;grid-template-columns:1fr 1fr;gap:10mm;margin-bottom:10mm;flex-shrink:0;align-items:flex-start}
-.inv-info-block{padding-top:0}
 .inv-info-label{font-size:8pt;color:var(--navy);font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
 .inv-info-name{font-size:11pt;color:var(--navy);font-weight:800;margin-bottom:3px;line-height:1.2}
 .inv-info-line{font-size:9pt;color:#475569;font-weight:500;line-height:1.4;margin-bottom:1px}
 .inv-info-meta{margin-top:8mm}
 .inv-info-meta .inv-info-label{margin-bottom:5px}
 .inv-info-meta .inv-info-line{color:var(--navy);font-weight:700}
-
-/* Right column - invoice number/date */
 .inv-meta-right{text-align:right;padding-top:0}
 .inv-meta-right .inv-info-line{text-align:right;font-size:9.5pt;color:var(--navy);font-weight:700}
 .inv-meta-right .inv-info-line strong{color:var(--text-muted);font-weight:600;margin-right:4px}
-
-/* ITEMS TABLE */
 .items-wrapper{margin-bottom:8mm;flex-shrink:0}
 .items-header-bar{background:linear-gradient(135deg,var(--teal),var(--teal-dark));border-radius:30px;padding:9px 22px;display:grid;grid-template-columns:1fr 70px 90px 100px;gap:10px;align-items:center;color:#fff;font-size:8.5pt;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .items-header-bar .col-desc{text-align:left}
 .items-header-bar .col-qty{text-align:center}
 .items-header-bar .col-price{text-align:right}
 .items-header-bar .col-total{text-align:right}
-
 .items-body{background:#fff;border-radius:20px;padding:6px 22px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
 .items-row{display:grid;grid-template-columns:1fr 70px 90px 100px;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #f1f5f9;font-size:9pt}
 .items-row:last-child{border-bottom:none}
@@ -164,14 +119,9 @@ td .total-value{font-weight:900;color:var(--green);font-size:13px}
 .items-row .col-price{text-align:right;color:var(--text-dark);font-weight:700}
 .items-row .col-total{text-align:right;color:var(--navy);font-weight:800}
 .items-row .hsn-sub{font-size:7pt;color:var(--text-muted);font-weight:500;display:block;margin-top:2px}
-
-/* BOTTOM SECTION - NOTES + TOTALS */
 .inv-bottom{display:grid;grid-template-columns:1fr 68mm;gap:10mm;margin-top:auto;margin-bottom:6mm;flex-shrink:0;align-items:flex-start}
 .inv-notes-label{font-size:8pt;color:var(--navy);font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
 .inv-notes-text{font-size:8pt;color:#475569;line-height:1.5;font-weight:500}
-.inv-notes-text ol{padding-left:14px}
-.inv-notes-text ol li{margin-bottom:2px}
-
 .inv-totals-card{background:#fff;border-radius:20px;padding:14px 20px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
 .totals-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:9pt}
 .totals-row .lbl{color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.8px;font-size:8pt}
@@ -179,65 +129,30 @@ td .total-value{font-weight:900;color:var(--green);font-size:13px}
 .totals-row.grand{margin-top:6px;padding-top:10px;border-top:1.5px solid #f1f5f9}
 .totals-row.grand .lbl{color:var(--navy);font-weight:900;font-size:9pt}
 .totals-row.grand .val{color:var(--navy);font-weight:900;font-size:12pt}
-
-/* AMOUNT IN WORDS */
 .amount-words-bar{background:#faf7f2;border:1px dashed #cbd5e1;border-radius:12px;padding:8px 12px;margin-top:6px;font-size:7.5pt}
 .amount-words-bar .lbl{font-size:7pt;color:var(--teal-dark);font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
 .amount-words-bar .val{color:var(--navy);font-weight:800;text-transform:uppercase;line-height:1.3}
-
-/* SIGNATURE + GST SUMMARY */
 .inv-signature-row{display:grid;grid-template-columns:1fr 68mm;gap:10mm;margin-bottom:6mm;flex-shrink:0;align-items:flex-end}
 .inv-gst-summary{font-size:7pt;border-collapse:collapse;width:100%}
 .inv-gst-summary th{background:var(--teal);color:#fff;padding:4px 5px;font-size:6.5pt;text-transform:uppercase;letter-spacing:.5px;font-weight:800;border:1px solid var(--teal)}
 .inv-gst-summary td{padding:3px 5px;border:1px solid #e2e8f0;text-align:center;font-weight:600;background:#fff}
-
 .inv-sign-box{text-align:center;padding-bottom:4px}
 .inv-sign-img-wrap{height:44px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
 .inv-sign-img-wrap img{max-height:44px;max-width:130px;object-fit:contain}
 .inv-sign-line{border-top:1.5px solid var(--navy);padding-top:5px;font-size:8.5pt;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
 .inv-sign-for{font-size:7pt;color:var(--text-muted);font-weight:600;margin-top:2px}
-
-/* FOOTER BAR */
 .inv-footer-bar{background:linear-gradient(135deg,#1e3a5f,#0f1b33);padding:12px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:center;flex-shrink:0;margin:0 -14mm -10mm -14mm}
 .inv-footer-item{display:flex;align-items:center;gap:8px;color:#fff;font-size:8pt;font-weight:600;justify-content:center}
 .inv-footer-item i{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
-.inv-footer-item span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-/* TOAST */
 .rm-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);padding:12px 24px;border-radius:40px;font-size:13px;font-weight:800;color:#fff;box-shadow:0 12px 36px rgba(0,0,0,.3);z-index:9999;opacity:0;transition:all .3s ease;display:flex;align-items:center;gap:10px;max-width:90%}
 .rm-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-@media (max-width:900px){
-    .form-grid{grid-template-columns:repeat(2,1fr)}
-    .dashboard-grid{grid-template-columns:repeat(2,1fr)}
-    .summary-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:600px){
-    .container{padding:10px}
-    .card{padding:14px}
-    .form-grid,.form-grid-2,.form-grid-4{grid-template-columns:1fr}
-    .dashboard-grid{grid-template-columns:1fr 1fr;gap:8px}
-    .summary-grid{grid-template-columns:1fr}
-    .app-header h1{font-size:16px}
-    .app-header i{font-size:24px}
-    .btn{padding:9px 13px;font-size:11px}
-    .btn-lg{padding:11px 18px;font-size:12px}
-}
-@media print{
-    body{background:#fff;padding:0}
-    .no-print{display:none!important}
-    .container{max-width:none;padding:0}
-    .card{box-shadow:none;border:none;padding:0;margin:0}
-    .a4-outer{background:#fff;padding:0;overflow:visible}
-    .a4-scaler{transform:none!important}
-    .a4-page{box-shadow:none;margin:0}
-    @page{size:A4 portrait;margin:0}
-}
+@media (max-width:900px){.form-grid{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:repeat(2,1fr)}.summary-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.container{padding:10px}.card{padding:14px}.form-grid,.form-grid-2,.form-grid-4{grid-template-columns:1fr}.dashboard-grid{grid-template-columns:1fr 1fr;gap:8px}.summary-grid{grid-template-columns:1fr}.app-header h1{font-size:16px}.app-header i{font-size:24px}.btn{padding:9px 13px;font-size:11px}.btn-lg{padding:11px 18px;font-size:12px}}
+@media print{body{background:#fff;padding:0}.no-print{display:none!important}.container{max-width:none;padding:0}.card{box-shadow:none;border:none;padding:0;margin:0}.a4-outer{background:#fff;padding:0;overflow:visible}.a4-scaler{transform:none!important}.a4-page{box-shadow:none;margin:0}@page{size:A4 portrait;margin:0}}
 </style>
 </head>
 <body>
 <div class="container">
-
     <div class="app-header no-print">
         <i class="fas fa-file-invoice-dollar"></i>
         <div>
@@ -249,17 +164,19 @@ td .total-value{font-weight:900;color:var(--green);font-size:13px}
     <div class="dashboard-grid no-print">
         <button class="dash-btn active" onclick="showPanel('invoice')"><i class="fas fa-plus-circle"></i><span class="label">New Invoice</span></button>
         <button class="dash-btn" onclick="showPanel('history')"><i class="fas fa-history"></i><span class="label">Invoice History</span></button>
-        <button class="dash-btn" onclick="showPanel('rawmaterial')"><i class="fas fa-ruler-combined"></i><span class="label">Raw Material</span></button>
+        <button class="dash-btn" onclick="showPanel('pricelist')"><i class="fas fa-tags"></i><span class="label">Price List</span></button>
         <button class="dash-btn" onclick="showPanel('settings')"><i class="fas fa-cog"></i><span class="label">Settings</span></button>
     </div>
 
-    <!-- PANEL: INVOICE -->
+    <!-- ============================================================
+         PANEL: INVOICE
+    ============================================================ -->
     <div class="panel active" id="panel-invoice">
         <div class="card no-print">
             <div class="card-title"><i class="fas fa-building"></i> Business Details<span class="badge">Auto-saved</span></div>
             <div class="form-grid">
                 <div class="form-group"><label>Business Name <span class="required">*</span></label><input type="text" id="bizName" value="RAJ MARKETING MYSORE"></div>
-                <div class="form-group"><label>GSTIN</label><input type="text" id="bizGstin" value="29GKYPM6953C1ZT" maxlength="15"></div>
+                <div class="form-group"><label>GSTIN</label><input type="text" id="bizGstin" value="29CHKPR1962H1ZT" maxlength="15"></div>
                 <div class="form-group"><label>PAN</label><input type="text" id="bizPan" value="CHKPR1962H" maxlength="10"></div>
                 <div class="form-group" style="grid-column:span 2;"><label>Address <span class="required">*</span></label><input type="text" id="bizAddress" value="65/C3, Hebbal Industries Area, Hebbal, Mysuru, Hutagalli, Karnataka 571130"></div>
                 <div class="form-group"><label>Mobile</label><input type="tel" id="bizMobile" value="9483037385"></div>
@@ -371,7 +288,9 @@ td .total-value{font-weight:900;color:var(--green);font-size:13px}
         </div>
     </div>
 
-    <!-- PANEL: PREVIEW -->
+    <!-- ============================================================
+         PANEL: PREVIEW
+    ============================================================ -->
     <div class="panel" id="panel-preview">
         <div class="card no-print">
             <div class="card-title"><i class="fas fa-eye"></i> Invoice Preview</div>
@@ -392,69 +311,43 @@ td .total-value{font-weight:900;color:var(--green);font-size:13px}
         </div>
     </div>
 
-    <!-- PANEL: HISTORY -->
-    <div class="panel" id="panel-history">
+    <!-- ============================================================
+         PANEL: PRICE LIST
+    ============================================================ -->
+    <div class="panel" id="panel-pricelist">
         <div class="card">
-            <div class="card-title"><i class="fas fa-history"></i> Invoice History<span class="badge" id="historyCount">0 invoices</span></div>
-            <div class="form-group" style="margin-bottom:12px;"><input type="text" id="historySearch" placeholder="🔍 Search..." oninput="renderHistory()"></div>
-            <div id="historyList"></div>
-        </div>
-    </div>
+            <div class="card-title"><i class="fas fa-tags"></i> Product Price Master<span class="badge">2026-27</span></div>
 
-    <!-- PANEL: RAW MATERIAL -->
-    <div class="panel" id="panel-rawmaterial">
-        <div class="card">
-            <div class="card-title"><i class="fas fa-ruler-combined"></i> Raw Material Calculator</div>
-            <div class="form-grid form-grid-4" style="margin-bottom:12px;">
-                <div class="form-group"><label>Aluminium (12 ft)</label><input type="number" id="rmAluRate" value="255" oninput="calculateAll()"></div>
-                <div class="form-group"><label>Mesh / Sq.ft.</label><input type="number" id="rmMeshRate" value="19.5" step="0.01" oninput="calculateAll()"></div>
-                <div class="form-group"><label>Corner / pc</label><input type="number" id="rmCornerRate" value="3.75" step="0.01" oninput="calculateAll()"></div>
-                <div class="form-group"><label>Rubber / kg</label><input type="number" id="rmRubberRate" value="220" step="0.01" oninput="calculateAll()"></div>
+            <div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:4px solid var(--orange);padding:12px 16px;border-radius:var(--radius);margin-bottom:14px;font-size:12px;color:#92400e;font-weight:600;">
+                <i class="fas fa-lock"></i> <strong>CONFIDENTIAL:</strong> Manufacturer costs are internal and must not be disclosed to customers or dealers.
             </div>
+
+            <div class="form-group" style="margin-bottom:14px;">
+                <input type="text" id="priceListSearch" placeholder="🔍 Search products..." oninput="renderPriceList()">
+            </div>
+
             <div class="table-wrap">
-                <table id="rmProductTable">
+                <table id="priceListTable" style="min-width:800px;">
                     <thead>
                         <tr>
                             <th style="width:34px;">#</th>
-                            <th style="text-align:left;">Product</th>
-                            <th style="width:65px;">Width</th>
-                            <th style="width:65px;">Height</th>
-                            <th style="width:55px;">Qty</th>
-                            <th style="width:75px;">Reduction</th>
-                            <th style="width:80px;">Alu ft</th>
-                            <th style="width:80px;">Mesh Sq.ft</th>
-                            <th style="width:44px;"></th>
+                            <th style="text-align:left;">Product / Variant</th>
+                            <th style="width:80px;">HSN</th>
+                            <th style="width:70px;">Unit</th>
+                            <th style="width:100px;">Customer (₹)</th>
+                            <th style="width:100px;">Dealer (₹)</th>
+                            <th style="width:80px;">Status</th>
                         </tr>
                     </thead>
-                    <tbody id="rmProductBody"></tbody>
+                    <tbody id="priceListBody"></tbody>
                 </table>
-            </div>
-            <div class="btn-row">
-                <button class="btn btn-primary" onclick="addRMRow()"><i class="fas fa-plus"></i> Add</button>
-                <button class="btn btn-success" onclick="calculateAll()"><i class="fas fa-calculator"></i> Calculate</button>
-                <button class="btn btn-light" onclick="loadRMSample()"><i class="fas fa-flask"></i> Sample</button>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-title"><i class="fas fa-clipboard-list"></i> Raw Material Requirement</div>
-            <div class="summary-grid">
-                <div class="summary-box"><div class="label">Total Frames</div><div class="value" id="rmFrames">0</div></div>
-                <div class="summary-box"><div class="label">Aluminium Required</div><div class="value" id="rmAluFeet">0 ft</div></div>
-                <div class="summary-box"><div class="label">12 ft Lengths</div><div class="value" id="rmAluLengths">0</div></div>
-                <div class="summary-box"><div class="label">Mesh Required</div><div class="value" id="rmMeshSqft">0 sq.ft</div></div>
-                <div class="summary-box"><div class="label">Mesh Consumed</div><div class="value" id="rmMeshConsumed">0 sq.ft</div></div>
-                <div class="summary-box green"><div class="label">Aluminium Cost</div><div class="value" id="rmAluCost">₹0.00</div></div>
-                <div class="summary-box green"><div class="label">Mesh Cost</div><div class="value" id="rmMeshCost">₹0.00</div></div>
-                <div class="summary-box green"><div class="label">Corners Cost</div><div class="value" id="rmCornerCost">₹0.00</div></div>
-                <div class="summary-box navy"><div class="label">Total Material Cost</div><div class="value" id="rmTotalCost">₹0.00</div></div>
-            </div>
-            <div class="btn-row">
-                <button class="btn btn-primary" onclick="transferRawMaterialToInvoice()"><i class="fas fa-arrow-right"></i> Transfer to Invoice</button>
             </div>
         </div>
     </div>
 
-    <!-- PANEL: SETTINGS -->
+    <!-- ============================================================
+         PANEL: SETTINGS
+    ============================================================ -->
     <div class="panel" id="panel-settings">
         <div class="card">
             <div class="card-title"><i class="fas fa-cog"></i> Invoice Settings</div>
@@ -481,16 +374,96 @@ td .total-value{font-weight:900;color:var(--green);font-size:13px}
             </div>
         </div>
     </div>
+
+    <!-- ============================================================
+         PANEL: HISTORY
+    ============================================================ -->
+    <div class="panel" id="panel-history">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-history"></i> Invoice History<span class="badge" id="historyCount">0 invoices</span></div>
+            <div class="form-group" style="margin-bottom:12px;"><input type="text" id="historySearch" placeholder="🔍 Search..." oninput="renderHistory()"></div>
+            <div id="historyList"></div>
+        </div>
+    </div>
 </div>
 
 <script>
 (function(){
 'use strict';
 
+/* ============================================================
+   PRICE MASTER DATABASE — From Uploaded PDF
+   ============================================================
+   Customer = Manufacturer × 2 (except Mesh Door)
+   Dealer = Customer × 85%, rounded to nearest Rs 10
+   Mesh Door: Customer = Manufacturer, Dealer = 10% below
+============================================================ */
+const PRICE_MASTER = [
+    /* Velcro Systems */
+    { id:'velcro-economic', name:'Velcro System - Economic', cat:'Velcro', hsn:'58061000', unit:'Sq.ft', cust:60, dealer:40, status:'APPROVED', mfr:null },
+    { id:'velcro-saint-gobain', name:'Velcro System - Saint-Gobain Premium', cat:'Velcro', hsn:'58061000', unit:'Sq.ft', cust:70, dealer:50, status:'APPROVED', mfr:null },
+
+    /* Aluminium Frames */
+    { id:'alu-regular-black', name:'Aluminium Frame - Regular + SS Black', cat:'Aluminium', hsn:'76101000', unit:'Sq.ft', cust:200, dealer:180, status:'APPROVED', mfr:null },
+    { id:'alu-regular-bright', name:'Aluminium Frame - Regular + SS Bright', cat:'Aluminium', hsn:'76101000', unit:'Sq.ft', cust:220, dealer:200, status:'APPROVED', mfr:null },
+    { id:'alu-teakwood-black', name:'Aluminium Frame - Teakwood + SS Black', cat:'Aluminium', hsn:'76101000', unit:'Sq.ft', cust:300, dealer:280, status:'APPROVED', mfr:null },
+    { id:'alu-teakwood-bright', name:'Aluminium Frame - Teakwood + SS Bright', cat:'Aluminium', hsn:'76101000', unit:'Sq.ft', cust:320, dealer:300, status:'APPROVED', mfr:null },
+
+    /* Pleated — Approved Customer Prices */
+    { id:'pleated-single-sliding', name:'Pleated - Single Sliding', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:470, dealer:null, status:'APPROVED', mfr:null },
+    { id:'pleated-double-sliding', name:'Pleated - Double Sliding', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:590, dealer:null, status:'APPROVED', mfr:null },
+    { id:'pleated-woodgrain-eco', name:'Pleated - Woodgrain Economic', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:380, dealer:null, status:'APPROVED', mfr:null },
+
+    /* Mesh Doors — Exception: Cust = Mfr, Dealer = 10% below */
+    { id:'mesh-door-single', name:'Mesh Door - Single', cat:'Mesh Door', hsn:'76101000', unit:'Sq.ft', cust:360, dealer:324, status:'APPROVED', mfr:null },
+    { id:'mesh-door-double', name:'Mesh Door - Double', cat:'Mesh Door', hsn:'76101000', unit:'Sq.ft', cust:380, dealer:342, status:'APPROVED', mfr:null },
+    { id:'mesh-door-foldable', name:'Mesh Door - Foldable', cat:'Mesh Door', hsn:'76101000', unit:'Sq.ft', cust:400, dealer:360, status:'APPROVED', mfr:null },
+
+    /* Pleated — Calculated prices (Mfr × 2 = Cust, Dealer = Cust × 85%) */
+    { id:'pleated-fiber-eco', name:'Pleated - Fiber / Normal Economic', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:420, dealer:360, status:'CALCULATED', mfr:210 },
+    { id:'pleated-polyester-eco', name:'Pleated - Polyester Economic', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:450, dealer:380, status:'CALCULATED', mfr:225 },
+    { id:'pleated-ss-eco', name:'Pleated - Stainless Steel Mesh Economic', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:470, dealer:400, status:'CALCULATED', mfr:235 },
+    { id:'pleated-woodgrain-black-eco', name:'Pleated - Woodgrain + Black Mesh Economic', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:470, dealer:400, status:'CALCULATED', mfr:235 },
+    { id:'pleated-woodgrain-ss', name:'Pleated - Woodgrain + SS Mesh', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:530, dealer:450, status:'CALCULATED', mfr:265 },
+    { id:'pleated-honey-gold-emp', name:'Pleated - Honey Gold EMP / Economic Black', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:400, dealer:340, status:'CALCULATED', mfr:200 },
+    { id:'pleated-honey-gold-black', name:'Pleated - Honey Gold / Black Variant', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:510, dealer:430, status:'CALCULATED', mfr:255 },
+    { id:'pleated-single-eco', name:'Pleated - Single Economic', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:420, dealer:360, status:'CALCULATED', mfr:210 },
+    { id:'pleated-double-eco', name:'Pleated - Double Economic', cat:'Pleated', hsn:'39269069', unit:'Sq.ft', cust:460, dealer:390, status:'CALCULATED', mfr:230 },
+
+    /* Sliding */
+    { id:'sliding-double-woodgrain', name:'Double Sliding - Woodgrain Economic', cat:'Sliding', hsn:'39269069', unit:'Sq.ft', cust:570, dealer:480, status:'CALCULATED', mfr:285 },
+    { id:'sliding-double-ss', name:'Double Sliding - SS Mesh', cat:'Sliding', hsn:'39269069', unit:'Sq.ft', cust:580, dealer:490, status:'CALCULATED', mfr:290 },
+
+    /* Honeycomb */
+    { id:'honeycomb-20mm', name:'Honeycomb 20 mm - Top Heavy, No Mesh', cat:'Honeycomb', hsn:'39269069', unit:'Sq.ft', cust:510, dealer:430, status:'CALCULATED', mfr:255 },
+    { id:'honeycomb-mesh-double', name:'Honeycomb + Mesh - Double Door', cat:'Honeycomb', hsn:'39269069', unit:'Sq.ft', cust:680, dealer:580, status:'CALCULATED', mfr:340 },
+
+    /* Security */
+    { id:'security-single', name:'Security Screen - Single Door', cat:'Security', hsn:'76101000', unit:'Sq.ft', cust:990, dealer:840, status:'CALCULATED +GST', mfr:495 },
+    { id:'security-double', name:'Security Screen - Double Door', cat:'Security', hsn:'76101000', unit:'Sq.ft', cust:1150, dealer:980, status:'CALCULATED +GST', mfr:575 },
+
+    /* Raw Materials */
+    { id:'ss-bright-mesh', name:'SS Bright Mesh 4 ft, 0.24 mm', cat:'Raw Mesh', hsn:'73141410', unit:'Sq.ft', cust:24, dealer:24, status:'PURCHASE-COST', mfr:null },
+    { id:'ss-black-mesh', name:'SS Black Mesh 0.24 mm', cat:'Raw Mesh', hsn:'73141410', unit:'Sq.ft', cust:22.5, dealer:22.5, status:'PURCHASE-COST', mfr:null },
+    { id:'fiberglass-touflex', name:'Fiberglass / Touflex', cat:'Raw Mesh', hsn:'39269069', unit:'Sq.ft', cust:40.55, dealer:40.55, status:'PURCHASE-COST', mfr:null },
+    { id:'grey-fiber-roll', name:'Grey Fiber Mesh 5 ft × 25 ft roll', cat:'Raw Mesh', hsn:'39269069', unit:'Roll', cust:1000, dealer:1000, status:'PURCHASE-COST', mfr:null },
+    { id:'ivory-fiber-roll', name:'Ivory Fiber Mesh 5 ft × 30 ft roll', cat:'Raw Mesh', hsn:'39269069', unit:'Roll', cust:1200, dealer:1200, status:'PURCHASE-COST', mfr:null },
+
+    /* Components */
+    { id:'corner-90', name:'90° Corner', cat:'Component', hsn:'76169990', unit:'Piece', cust:4, dealer:4, status:'PURCHASE-COST', mfr:null },
+    { id:'hinge', name:'Hinge', cat:'Component', hsn:'830210', unit:'Piece', cust:4, dealer:4, status:'PURCHASE-COST', mfr:null },
+    { id:'stopper', name:'Stopper', cat:'Component', hsn:'830210', unit:'Piece', cust:2, dealer:2, status:'PURCHASE-COST', mfr:null },
+    { id:'pvc-clip', name:'PVC Clip / Middle Clip', cat:'Component', hsn:'39269069', unit:'Piece', cust:2, dealer:2, status:'PURCHASE-COST', mfr:null },
+    { id:'rubber', name:'Rubber', cat:'Component', hsn:'4008', unit:'Kg', cust:180, dealer:180, status:'PURCHASE-COST', mfr:null },
+    { id:'velcro-loop-hook', name:'Velcro Loop + Hook (25 m roll)', cat:'Component', hsn:'58061000', unit:'Roll', cust:250, dealer:250, status:'PURCHASE-COST', mfr:null },
+    { id:'adhesive-velcro', name:'Adhesive Velcro Strap (25 m roll)', cat:'Component', hsn:'58061000', unit:'Roll', cust:390, dealer:390, status:'PURCHASE-COST', mfr:null },
+    { id:'sleek-channel', name:'Channel - Sleek Channel', cat:'Component', hsn:'76169990', unit:'Length', cust:285, dealer:280, status:'QUOTED', mfr:null }
+];
+
 const STORAGE = {
-    business: 'raj_business_details_v2',
-    settings: 'raj_invoice_settings_v2',
-    invoices: 'raj_invoices_v2',
+    business: 'raj_business_details_v3',
+    settings: 'raj_invoice_settings_v3',
+    invoices: 'raj_invoices_v3',
     signature: 'raj_signature_v1',
     logo: 'raj_logo_v1'
 };
@@ -500,6 +473,7 @@ let settingsData = {};
 let signatureData = '';
 let logoData = '';
 let currentInvoiceData = null;
+let currentBuyerType = 'customer';
 
 /* ============================================================
    FORMATTING
@@ -524,17 +498,12 @@ function formatDateLong(s) {
     if (!s) return '—';
     try {
         const d = new Date(s);
-        const day = String(d.getDate()).padStart(2, '0');
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const year = d.getFullYear();
-        return day + '/' + month + '/' + year;
+        return String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
     } catch (e) { return s; }
 }
 function escapeHtml(s) {
     if (s == null) return '';
-    return String(s)
-        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 function showToast(msg, type) {
     type = type || 'info';
@@ -594,6 +563,27 @@ function numberToWords(num) {
 }
 
 /* ============================================================
+   PRODUCT SELECT DROPDOWN
+============================================================ */
+function buildProductDropdown() {
+    const grouped = {};
+    PRICE_MASTER.forEach(function(p) {
+        if (!grouped[p.cat]) grouped[p.cat] = [];
+        grouped[p.cat].push(p);
+    });
+
+    let html = '<option value="">-- Select Product --</option>';
+    Object.keys(grouped).forEach(function(cat) {
+        html += '<optgroup label="' + escapeHtml(cat) + '">';
+        grouped[cat].forEach(function(p) {
+            html += '<option value="' + p.id + '">' + escapeHtml(p.name) + '</option>';
+        });
+        html += '</optgroup>';
+    });
+    return html;
+}
+
+/* ============================================================
    INIT
 ============================================================ */
 function init() {
@@ -601,8 +591,6 @@ function init() {
     setDefaultDates();
     updateInvoiceNumber();
     addProductRow();
-    addRMRow('22¾','45½',1);
-    addRMRow('35½','59',2);
     document.querySelectorAll('#panel-invoice input, #panel-invoice select')
         .forEach(function(el) {
             el.addEventListener('change', function() {
@@ -611,11 +599,12 @@ function init() {
             });
         });
     calculateAll();
+    renderPriceList();
     window.addEventListener('resize', scalePreview);
     window.addEventListener('orientationchange', function() {
         setTimeout(scalePreview, 300);
     });
-    console.log('Invoice System ready');
+    console.log('Invoice System ready. Products loaded:', PRICE_MASTER.length);
 }
 
 /* ============================================================
@@ -631,7 +620,6 @@ function scalePreview() {
     const style = window.getComputedStyle(outer);
     const paddingX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
     const availW = outer.clientWidth - paddingX;
-
     if (availW < a4Px) {
         const scale = availW / a4Px;
         scaler.style.transform = 'scale(' + scale + ')';
@@ -717,61 +705,104 @@ function showPanel(name) {
     document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
     document.getElementById('panel-' + name).classList.add('active');
     document.querySelectorAll('.dash-btn').forEach(function(b) { b.classList.remove('active'); });
-    const map = { invoice: 0, history: 1, rawmaterial: 2, settings: 3 };
+    const map = { invoice: 0, history: 1, pricelist: 2, settings: 3 };
     const btns = document.querySelectorAll('.dash-btn');
     if (btns[map[name]]) btns[map[name]].classList.add('active');
     if (name === 'history') renderHistory();
+    if (name === 'pricelist') renderPriceList();
     if (name === 'preview') setTimeout(scalePreview, 80);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ============================================================
-   PRODUCT ROWS
+   PRODUCT ROWS — With Dropdown Selection
 ============================================================ */
-function addProductRow(product, hsn, width, height, qty, unit, rate) {
-    product = product || ''; hsn = hsn || '';
-    width = (width === undefined) ? '' : width;
-    height = (height === undefined) ? '' : height;
-    qty = qty || 1; unit = unit || 'Sq.ft.'; rate = rate || 0;
+function addProductRow(productId) {
+    productId = productId || '';
     const body = document.getElementById('productBody');
     const row = document.createElement('tr');
     row.innerHTML =
         '<td class="row-num"></td>' +
-        '<td><input class="p-name" placeholder="Product name" value="' + escapeHtml(product) + '"></td>' +
-        '<td><input class="p-hsn" placeholder="HSN" value="' + escapeHtml(hsn) + '"></td>' +
-        '<td><input class="p-w" type="number" min="0" step="0.01" value="' + width + '" oninput="calculateAll()"></td>' +
-        '<td><input class="p-h" type="number" min="0" step="0.01" value="' + height + '" oninput="calculateAll()"></td>' +
-        '<td><input class="p-qty" type="number" min="1" value="' + qty + '" oninput="calculateAll()"></td>' +
+        '<td style="text-align:left;"><select class="p-select" style="width:100%;padding:6px 8px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;background:#f8fafc;outline:none;" onchange="onProductSelect(this, ' + Date.now() + ')">' + buildProductDropdown() + '</select></td>' +
+        '<td><input class="p-hsn" placeholder="HSN" value="" readonly style="background:#f1f5f9;color:#1a56db;font-weight:700;font-size:11px;"></td>' +
+        '<td><input class="p-w" type="number" min="0" step="0.01" value="" oninput="calculateAll()"></td>' +
+        '<td><input class="p-h" type="number" min="0" step="0.01" value="" oninput="calculateAll()"></td>' +
+        '<td><input class="p-qty" type="number" min="1" value="1" oninput="calculateAll()"></td>' +
         '<td><select class="p-unit" onchange="calculateAll()">' +
-            '<option value="Sq.ft."' + (unit==='Sq.ft.'?' selected':'') + '>Sq.ft.</option>' +
-            '<option value="Piece"' + (unit==='Piece'?' selected':'') + '>Piece</option>' +
-            '<option value="Length"' + (unit==='Length'?' selected':'') + '>Length</option>' +
-            '<option value="Kg"' + (unit==='Kg'?' selected':'') + '>Kg</option>' +
-            '<option value="Meter"' + (unit==='Meter'?' selected':'') + '>Meter</option>' +
+            '<option value="Sq.ft.">Sq.ft.</option>' +
+            '<option value="Piece">Piece</option>' +
+            '<option value="Length">Length</option>' +
+            '<option value="Kg">Kg</option>' +
+            '<option value="Meter">Meter</option>' +
+            '<option value="Roll">Roll</option>' +
         '</select></td>' +
         '<td class="calc-value p-sqft-cell">0.00</td>' +
-        '<td><input class="p-rate" type="number" min="0" step="0.01" value="' + rate + '" oninput="calculateAll()"></td>' +
+        '<td><input class="p-rate" type="number" min="0" step="0.01" value="0" oninput="calculateAll()"></td>' +
         '<td class="total-value p-total-cell">₹0.00</td>' +
         '<td><button class="btn btn-danger" onclick="this.closest(\'tr\').remove(); updateProductRows(); calculateAll();"><i class="fas fa-times"></i></button></td>';
     body.appendChild(row);
+    if (productId) {
+        const sel = row.querySelector('.p-select');
+        if (sel) sel.value = productId;
+        onProductSelect(sel, null);
+    }
     updateProductRows();
     calculateAll();
 }
+
+function onProductSelect(selectEl, rowId) {
+    const productId = selectEl.value;
+    const row = selectEl.closest('tr');
+    if (!row || !productId) return;
+
+    const product = PRICE_MASTER.find(function(p) { return p.id === productId; });
+    if (!product) return;
+
+    /* Set HSN */
+    const hsnInput = row.querySelector('.p-hsn');
+    if (hsnInput) hsnInput.value = product.hsn || '';
+
+    /* Set Unit */
+    const unitSelect = row.querySelector('.p-unit');
+    if (unitSelect && product.unit) {
+        unitSelect.value = product.unit;
+    }
+
+    /* Set Rate based on buyer type */
+    const rateInput = row.querySelector('.p-rate');
+    if (rateInput) {
+        const rate = currentBuyerType === 'dealer' ? product.dealer : product.cust;
+        rateInput.value = (rate !== null && rate !== undefined) ? rate : 0;
+        /* Highlight if dealer price not available */
+        if (currentBuyerType === 'dealer' && (rate === null || rate === undefined)) {
+            rateInput.value = 0;
+            rateInput.style.background = '#fef3c7';
+            rateInput.title = 'Dealer price not separately approved';
+        } else {
+            rateInput.style.background = '';
+            rateInput.title = '';
+        }
+    }
+
+    calculateAll();
+}
+
 function updateProductRows() {
     const rows = document.querySelectorAll('#productBody tr');
     rows.forEach(function(r, i) { r.querySelector('.row-num').textContent = i + 1; });
     document.getElementById('productCountBadge').textContent = rows.length + ' item' + (rows.length !== 1 ? 's' : '');
 }
+
 function loadSampleProducts() {
     document.getElementById('productBody').innerHTML = '';
-    addProductRow('Aluminium Frame - Ivory', '7610', 24, 48, 2, 'Sq.ft.', 255);
-    addProductRow('Stainless Steel Mesh', '7314', 24, 48, 2, 'Sq.ft.', 19.5);
-    addProductRow('Corner Pieces', '7616', '', '', 8, 'Piece', 3.75);
-    showToast('Sample loaded', 'success');
+    addProductRow('alu-regular-black');
+    addProductRow('ss-bright-mesh');
+    addProductRow('corner-90');
+    showToast('Sample products loaded', 'success');
 }
 
 /* ============================================================
-   CALCULATE ALL - ACCURATE
+   CALCULATE ALL
 ============================================================ */
 function calculateAll() {
     const rows = document.querySelectorAll('#productBody tr');
@@ -821,135 +852,46 @@ function calculateAll() {
     document.getElementById('sumGst').textContent = money(totalGst);
     document.getElementById('sumGrandTotal').textContent = money(grandTotal);
 
-    calculateRawMaterial();
     return { rows: rows.length, totalQty, totalSqft, subtotal, cgst, sgst, igst, totalGst, grandTotal, taxType, gstRate };
 }
 
 /* ============================================================
-   RAW MATERIAL
+   RENDER PRICE LIST
 ============================================================ */
-function parseMeasurement(value) {
-    if (!value && value !== 0) return 0;
-    let s = String(value).trim()
-        .replace(/¼/g, ' 1/4').replace(/½/g, ' 1/2').replace(/¾/g, ' 3/4')
-        .replace(/⅛/g, ' 1/8').replace(/⅜/g, ' 3/8')
-        .replace(/⅝/g, ' 5/8').replace(/⅞/g, ' 7/8')
-        .replace(/-/g, ' ');
-    const parts = s.split(/\s+/).filter(Boolean);
-    if (parts.length === 1 && parts[0].indexOf('/') > -1) {
-        const p = parts[0].split('/');
-        return Number(p[0]) / Number(p[1]);
-    }
-    if (parts.length >= 2) {
-        const whole = Number(parts[0]);
-        if (parts[1].indexOf('/') > -1) {
-            const f = parts[1].split('/');
-            return whole + Number(f[0]) / Number(f[1]);
-        }
-    }
-    const n = parseFloat(s);
-    return isNaN(n) ? 0 : n;
-}
-function getMiddlePieces(h) {
-    if (h <= 36) return 1;
-    if (h <= 60) return 2;
-    return 3;
-}
-function addRMRow(w, h, qty, red) {
-    w = w || ''; h = h || ''; qty = qty || 1; red = (red === undefined) ? 1.5 : red;
-    const body = document.getElementById('rmProductBody');
-    const row = document.createElement('tr');
-    row.innerHTML =
-        '<td class="rm-num"></td>' +
-        '<td><input class="rm-name" value="Aluminium Frame"></td>' +
-        '<td><input class="rm-w" value="' + escapeHtml(w) + '" oninput="calculateAll()"></td>' +
-        '<td><input class="rm-h" value="' + escapeHtml(h) + '" oninput="calculateAll()"></td>' +
-        '<td><input class="rm-qty" type="number" min="1" value="' + qty + '" oninput="calculateAll()"></td>' +
-        '<td><input class="rm-red" type="number" min="0" step="0.25" value="' + red + '" oninput="calculateAll()"></td>' +
-        '<td class="rm-alu">0 ft</td>' +
-        '<td class="rm-mesh">0 sq.ft</td>' +
-        '<td><button class="btn btn-danger" onclick="this.closest(\'tr\').remove(); calculateAll();"><i class="fas fa-times"></i></button></td>';
-    body.appendChild(row);
-    updateRMRows();
-    calculateAll();
-}
-function updateRMRows() {
-    document.querySelectorAll('#rmProductBody tr').forEach(function(r, i) {
-        r.querySelector('.rm-num').textContent = i + 1;
-    });
-}
-function loadRMSample() {
-    document.getElementById('rmProductBody').innerHTML = '';
-    addRMRow('22¾','45½',1,1.5);
-    addRMRow('35½','59',2,1.5);
-    addRMRow('48','72',1,1.5);
-    showToast('Sample loaded', 'success');
-}
-function calculateRawMaterial() {
-    const rows = document.querySelectorAll('#rmProductBody tr');
-    const aluRate = parseFloat(document.getElementById('rmAluRate').value) || 0;
-    const meshRate = parseFloat(document.getElementById('rmMeshRate').value) || 0;
-    const cornerRate = parseFloat(document.getElementById('rmCornerRate').value) || 0;
+function renderPriceList() {
+    const tbody = document.getElementById('priceListBody');
+    if (!tbody) return;
+    const q = (document.getElementById('priceListSearch')?.value || '').toLowerCase().trim();
 
-    let totalFrames = 0, totalAluIn = 0, totalMeshSqft = 0, totalMeshCons = 0, totalCorners = 0;
-
-    rows.forEach(function(row) {
-        const w = parseMeasurement(row.querySelector('.rm-w').value);
-        const h = parseMeasurement(row.querySelector('.rm-h').value);
-        const qty = parseFloat(row.querySelector('.rm-qty').value) || 0;
-        const red = parseFloat(row.querySelector('.rm-red').value) || 1.5;
-        if (w <= 0 || h <= 0 || qty <= 0) return;
-
-        const fw = Math.max(0, w - red);
-        const fh = Math.max(0, h - red);
-        const mp = getMiddlePieces(h);
-        const aluFrame = (fw*2) + (fh*2) + (fw*mp);
-        const aluTotal = aluFrame * qty;
-        totalAluIn += aluTotal;
-
-        const reqSqft = (w * h * qty) / 144;
-        totalMeshSqft += reqSqft;
-        totalMeshCons += reqSqft * 1.05;
-        totalCorners += 4 * qty;
-        totalFrames += qty;
-
-        row.querySelector('.rm-alu').textContent = fmt(aluTotal/12, 2) + ' ft';
-        row.querySelector('.rm-mesh').textContent = fmt(reqSqft*1.05, 2) + ' sq.ft';
+    let list = PRICE_MASTER.filter(function(p) {
+        if (!q) return true;
+        return p.name.toLowerCase().indexOf(q) > -1 ||
+               p.cat.toLowerCase().indexOf(q) > -1 ||
+               (p.hsn || '').indexOf(q) > -1;
     });
 
-    const aluFeet = totalAluIn / 12;
-    const aluLengths = Math.ceil(aluFeet / 12);
-    const aluCost = aluLengths * aluRate;
-    const meshCost = totalMeshCons * meshRate;
-    const cornerCost = totalCorners * cornerRate;
-    const totalCost = aluCost + meshCost + cornerCost;
+    if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:#64748b;">No products found</td></tr>';
+        return;
+    }
 
-    document.getElementById('rmFrames').textContent = totalFrames;
-    document.getElementById('rmAluFeet').textContent = fmt(aluFeet, 2) + ' ft';
-    document.getElementById('rmAluLengths').textContent = aluLengths;
-    document.getElementById('rmMeshSqft').textContent = fmt(totalMeshSqft, 2) + ' sq.ft';
-    document.getElementById('rmMeshConsumed').textContent = fmt(totalMeshCons, 2) + ' sq.ft';
-    document.getElementById('rmAluCost').textContent = money(aluCost);
-    document.getElementById('rmMeshCost').textContent = money(meshCost);
-    document.getElementById('rmCornerCost').textContent = money(cornerCost);
-    document.getElementById('rmTotalCost').textContent = money(totalCost);
-
-    return { totalFrames, aluFeet, aluLengths, totalMeshSqft, totalMeshCons, aluCost, meshCost, cornerCost, totalCost };
-}
-function transferRawMaterialToInvoice() {
-    const rm = calculateRawMaterial();
-    const aluRate = parseFloat(document.getElementById('rmAluRate').value) || 0;
-    const meshRate = parseFloat(document.getElementById('rmMeshRate').value) || 0;
-    const cornerRate = parseFloat(document.getElementById('rmCornerRate').value) || 0;
-
-    document.getElementById('productBody').innerHTML = '';
-    addProductRow('Aluminium Frame (12 ft lengths)', '7610', '', '', rm.aluLengths, 'Length', aluRate);
-    addProductRow('Stainless Steel Mesh', '7314', '', '', Math.round(rm.totalMeshCons*100)/100, 'Sq.ft.', meshRate);
-    addProductRow('Corner Pieces', '7616', '', '', Math.round(rm.totalFrames*4), 'Piece', cornerRate);
-
-    showPanel('invoice');
-    calculateAll();
-    showToast('Raw material transferred', 'success');
+    tbody.innerHTML = list.map(function(p, i) {
+        const custStr = (p.cust !== null && p.cust !== undefined) ? '₹' + fmt(p.cust, 2) : '—';
+        const dealerStr = (p.dealer !== null && p.dealer !== undefined) ? '₹' + fmt(p.dealer, 2) : '—';
+        const statusColor = p.status === 'APPROVED' ? 'background:#d1fae5;color:#059669;' :
+                            p.status === 'CALCULATED' ? 'background:#dbeafe;color:#1d4ed8;' :
+                            p.status === 'PURCHASE-COST' ? 'background:#f1f5f9;color:#64748b;' :
+                            'background:#fef3c7;color:#d97706;';
+        return '<tr>' +
+            '<td>' + (i+1) + '</td>' +
+            '<td style="text-align:left;font-weight:700;">' + escapeHtml(p.name) + '<br><small style="color:#64748b;font-weight:500;">' + escapeHtml(p.cat) + '</small></td>' +
+            '<td style="font-family:monospace;font-size:11px;color:#1a56db;font-weight:700;">' + escapeHtml(p.hsn || '—') + '</td>' +
+            '<td>' + escapeHtml(p.unit) + '</td>' +
+            '<td style="font-weight:900;color:#059669;">' + custStr + '</td>' +
+            '<td style="font-weight:900;color:#1a56db;">' + dealerStr + '</td>' +
+            '<td><span style="' + statusColor + 'padding:2px 8px;border-radius:20px;font-size:9px;font-weight:800;text-transform:uppercase;">' + escapeHtml(p.status) + '</span></td>' +
+        '</tr>';
+    }).join('');
 }
 
 /* ============================================================
@@ -964,6 +906,7 @@ function calculateAndPreview() {
     showPanel('preview');
     showToast('Invoice calculated', 'success');
 }
+
 function collectInvoiceData() {
     return {
         invoiceNumber: document.getElementById('invNumber').value,
@@ -974,6 +917,7 @@ function collectInvoiceData() {
         reverseCharge: document.getElementById('invReverseCharge').value,
         taxType: document.getElementById('taxType').value,
         gstRate: parseFloat(document.getElementById('gstRate').value) || 0,
+        buyerType: currentBuyerType,
         business: {
             name: document.getElementById('bizName').value,
             address: document.getElementById('bizAddress').value,
@@ -1003,11 +947,15 @@ function collectInvoiceData() {
         notes: document.getElementById('setNotes').value
     };
 }
+
 function collectProducts() {
     const rows = document.querySelectorAll('#productBody tr');
     const out = [];
     rows.forEach(function(row) {
-        const name = row.querySelector('.p-name').value.trim();
+        const selectEl = row.querySelector('.p-select');
+        const productId = selectEl ? selectEl.value : '';
+        const product = PRICE_MASTER.find(function(p) { return p.id === productId; });
+        const name = product ? product.name : (row.querySelector('.p-name')?.value || '');
         if (!name) return;
         const hsn = row.querySelector('.p-hsn').value.trim();
         const w = parseFloat(row.querySelector('.p-w').value) || 0;
@@ -1029,6 +977,7 @@ function collectProducts() {
     });
     return out;
 }
+
 function validateInvoice(data) {
     const errs = [];
     if (!data.invoiceNumber.trim()) errs.push('Invoice Number is required');
@@ -1036,27 +985,21 @@ function validateInvoice(data) {
     if (!data.business.name.trim()) errs.push('Business Name is required');
     if (!data.business.address.trim()) errs.push('Business Address is required');
     if (data.products.length === 0) errs.push('At least one product is required');
-    data.products.forEach(function(p, i) {
-        if (p.qty < 0) errs.push('Product ' + (i+1) + ': Quantity cannot be negative');
-        if (p.rate < 0) errs.push('Product ' + (i+1) + ': Rate cannot be negative');
-    });
     if (errs.length) { showToast(errs[0], 'error'); return false; }
     return true;
 }
 
 /* ============================================================
-   RENDER PREVIEW (FAUGÉT STYLE)
+   RENDER INVOICE PREVIEW
 ============================================================ */
 function renderInvoicePreview(data) {
     const page = document.getElementById('invoicePreview');
     const b = data.business, c = data.customer;
 
-    /* Customer block (Payable To) */
     const custName = c.name || 'Cash Customer';
     const custAddr = c.address || '—';
     const custMobile = c.mobile || '';
 
-    /* Items rows */
     const itemsRows = data.products.map(function(p) {
         return '<div class="items-row">' +
             '<div class="col-desc">' + escapeHtml(p.name) +
@@ -1068,7 +1011,6 @@ function renderInvoicePreview(data) {
         '</div>';
     }).join('');
 
-    /* GST rows */
     let gstRows = '';
     let gstSummaryTable = '';
     if (data.taxType === 'cgst_sgst') {
@@ -1096,10 +1038,7 @@ function renderInvoicePreview(data) {
             '</tr></tbody></table>';
     }
 
-    /* Notes */
     const notesText = data.notes || 'Thank you for your business!';
-
-    /* Bank details (below Payable To) */
     const bankLines = [];
     if (b.bank) bankLines.push(b.bank);
     if (b.account) bankLines.push('A/c: ' + b.account);
@@ -1111,11 +1050,11 @@ function renderInvoicePreview(data) {
         bankLines.map(function(l) { return '<div class="inv-info-line">' + escapeHtml(l) + '</div>'; }).join('') +
         '</div>' : '';
 
+    const buyerLabel = data.buyerType === 'dealer' ? 'B2B — Dealer' : 'B2C — Customer';
+
     page.innerHTML =
         '<div class="a4-deco-arc"></div>' +
         '<div class="a4-body">' +
-
-            /* HEADER */
             '<div class="inv-header">' +
                 '<div class="inv-brand">' +
                     '<div class="inv-logo-wrap">' +
@@ -1128,11 +1067,10 @@ function renderInvoicePreview(data) {
                 '</div>' +
                 '<div class="inv-title-block">' +
                     '<div class="inv-title">INVOICE</div>' +
-                    '<div class="inv-copy-type">Original for Recipient</div>' +
+                    '<div class="inv-copy-type">' + escapeHtml(buyerLabel) + '</div>' +
                 '</div>' +
             '</div>' +
 
-            /* INFO ROW: PAYABLE TO + BANK + META */
             '<div class="inv-info-row">' +
                 '<div>' +
                     '<div class="inv-info-block">' +
@@ -1154,7 +1092,6 @@ function renderInvoicePreview(data) {
                 '</div>' +
             '</div>' +
 
-            /* ITEMS TABLE */
             '<div class="items-wrapper">' +
                 '<div class="items-header-bar">' +
                     '<div class="col-desc">Item Description</div>' +
@@ -1167,7 +1104,6 @@ function renderInvoicePreview(data) {
                 '</div>' +
             '</div>' +
 
-            /* NOTES + TOTALS */
             '<div class="inv-bottom">' +
                 '<div>' +
                     '<div class="inv-notes-label">Notes</div>' +
@@ -1186,7 +1122,6 @@ function renderInvoicePreview(data) {
                 '</div>' +
             '</div>' +
 
-            /* GST SUMMARY + SIGNATURE */
             '<div class="inv-signature-row">' +
                 '<div>' + gstSummaryTable + '</div>' +
                 '<div class="inv-sign-box">' +
@@ -1197,10 +1132,8 @@ function renderInvoicePreview(data) {
                     '<div class="inv-sign-for">For ' + escapeHtml(b.name || 'RAJ MARKETING MYSORE') + '</div>' +
                 '</div>' +
             '</div>' +
-
         '</div>' +
 
-        /* FOOTER BAR (full-width) */
         '<div class="inv-footer-bar">' +
             '<div class="inv-footer-item">' +
                 '<i class="fas fa-globe"></i>' +
@@ -1220,8 +1153,8 @@ function renderInvoicePreview(data) {
 }
 
 /* ============================================================
-   PDF DOWNLOAD — MATCHES PREVIEW DESIGN
-   ============================================================ */
+   PDF DOWNLOAD
+============================================================ */
 function downloadPDF() {
     if (!currentInvoiceData) { showToast('Please calculate invoice first', 'warning'); return; }
 
@@ -1234,12 +1167,10 @@ function downloadPDF() {
     const PW = 210, PH = 297, M = 12, CW = PW - M * 2;
     let y = 0;
 
-    /* ============ DECORATIVE ARC (top-right) ============ */
-    doc.setFillColor(20, 184, 166, 0.08); // teal transparent - jsPDF doesn't do alpha, use light color
+    /* Decorative arc */
     doc.setFillColor(230, 245, 243);
     doc.circle(PW - 20, 5, 55, 'F');
 
-    /* ============ HEADER ============ */
     y = 15;
 
     /* Logo box */
@@ -1250,7 +1181,7 @@ function downloadPDF() {
     doc.setFontSize(14);
     doc.text('R', M + 6, y + 8.5, { align: 'center' });
 
-    /* Brand name */
+    /* Brand */
     doc.setTextColor(15, 27, 51);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
@@ -1260,7 +1191,7 @@ function downloadPDF() {
     doc.setTextColor(13, 148, 136);
     doc.text('Aluminium Frame · Mosquito Net · Kitchen · Wardrobe', M + 15, y + 9.5);
 
-    /* INVOICE title (right) */
+    /* INVOICE title */
     doc.setTextColor(15, 27, 51);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(24);
@@ -1268,11 +1199,11 @@ function downloadPDF() {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(6.5);
     doc.setTextColor(100, 116, 139);
-    doc.text('ORIGINAL FOR RECIPIENT', PW - M, y + 10, { align: 'right' });
+    const buyerLabel = data.buyerType === 'dealer' ? 'B2B — DEALER' : 'B2C — CUSTOMER';
+    doc.text(buyerLabel, PW - M, y + 10, { align: 'right' });
 
     y += 22;
 
-    /* ============ INFO ROW (Payable To + Bank left, Invoice meta right) ============ */
     const leftColX = M;
     const rightColX = M + CW * 0.55;
     const infoStartY = y;
@@ -1283,30 +1214,19 @@ function downloadPDF() {
     doc.setTextColor(15, 27, 51);
     doc.text('PAYABLE TO', leftColX, y);
     y += 4;
-
-    doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
-    doc.setTextColor(15, 27, 51);
     doc.text(c.name || 'Cash Customer', leftColX, y);
     y += 4;
-
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.setTextColor(71, 85, 105);
     const custAddrLines = doc.splitTextToSize(c.address || '—', CW * 0.5);
     doc.text(custAddrLines, leftColX, y);
     y += custAddrLines.length * 3.5;
+    if (c.mobile) { doc.text('Mobile: ' + c.mobile, leftColX, y); y += 3.5; }
+    if (c.gstin) { doc.text('GSTIN: ' + c.gstin, leftColX, y); y += 3.5; }
 
-    if (c.mobile) {
-        doc.text('Mobile: ' + c.mobile, leftColX, y);
-        y += 3.5;
-    }
-    if (c.gstin) {
-        doc.text('GSTIN: ' + c.gstin, leftColX, y);
-        y += 3.5;
-    }
-
-    /* Bank Details (below Payable To) */
+    /* Bank */
     if (b.bank || b.account || b.ifsc || b.upi) {
         y += 3;
         doc.setFont('helvetica', 'bold');
@@ -1323,22 +1243,18 @@ function downloadPDF() {
         if (b.upi) { doc.text('UPI: ' + b.upi, leftColX, y); y += 3.5; }
     }
 
-    /* Invoice meta (right side) */
+    /* Invoice meta */
     let ry = infoStartY;
-    doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
-
     function metaLine(label, value) {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(100, 116, 139);
         const labelW = doc.getTextWidth(label + ' ');
         doc.text(label, rightColX, ry);
-        doc.setFont('helvetica', 'bold');
         doc.setTextColor(15, 27, 51);
         doc.text(String(value), rightColX + labelW + 1, ry);
         ry += 4.5;
     }
-
     metaLine('Invoice No:', data.invoiceNumber);
     metaLine('Date:', formatDateLong(data.invoiceDate));
     if (data.dueDate) metaLine('Due Date:', formatDateLong(data.dueDate));
@@ -1348,11 +1264,9 @@ function downloadPDF() {
 
     y = Math.max(y, ry) + 6;
 
-    /* ============ ITEMS TABLE ============ */
-    /* Header bar - rounded teal bar */
+    /* Items header bar */
     doc.setFillColor(13, 148, 136);
     doc.roundedRect(M, y, CW, 9, 2, 2, 'F');
-
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
@@ -1360,10 +1274,8 @@ function downloadPDF() {
     doc.text('QTY', M + CW * 0.62, y + 6, { align: 'center' });
     doc.text('PRICE', M + CW * 0.78, y + 6, { align: 'center' });
     doc.text('TOTAL', PW - M - 4, y + 6, { align: 'right' });
-
     y += 11;
 
-    /* Product rows */
     const rowData = data.products.map(function(p) {
         return [
             String(p.name) + (p.hsn ? '\nHSN: ' + p.hsn : ''),
@@ -1392,23 +1304,19 @@ function downloadPDF() {
             3: { cellWidth: CW * 0.14, halign: 'right', fontStyle: 'bold', textColor: [15, 27, 51] }
         },
         margin: { left: M, right: M },
-        tableWidth: CW,
-        didDrawPage: function() {}
+        tableWidth: CW
     });
 
     y = doc.lastAutoTable.finalY + 6;
 
-    /* ============ NOTES + TOTALS ============ */
     const notesW = CW * 0.5;
     const totalsW = CW * 0.44;
     const totalsX = M + notesW + CW * 0.06;
 
-    /* Notes */
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7);
     doc.setTextColor(15, 27, 51);
     doc.text('NOTES:', M, y);
-
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
     doc.setTextColor(71, 85, 105);
@@ -1416,7 +1324,6 @@ function downloadPDF() {
     const notesWrapped = doc.splitTextToSize(notesText, notesW);
     doc.text(notesWrapped, M, y + 4);
 
-    /* Totals card (rounded white with shadow - use solid white with border) */
     doc.setFillColor(255, 255, 255);
     doc.setDrawColor(241, 245, 249);
     doc.setLineWidth(0.3);
@@ -1424,7 +1331,6 @@ function downloadPDF() {
 
     let ty = y + 4;
     const rowPad = 5;
-
     function totalsRow(label, value, isGrand) {
         const fontSize = isGrand ? 9 : 7.5;
         doc.setFontSize(fontSize);
@@ -1455,19 +1361,15 @@ function downloadPDF() {
     } else if (data.taxType === 'igst') {
         totalsRow('IGST @ ' + data.gstRate + '%', fmt(data.igst, 2), false);
     }
-    /* Grand total row */
     totalsRow('Grand Total', fmt(data.grandTotal, 2), true);
 
-    /* Advance the y position */
     y = Math.max(y + notesWrapped.length * 3.5 + 4, ty + 4);
 
-    /* Amount in words */
     doc.setDrawColor(203, 213, 225);
     doc.setLineWidth(0.2);
     doc.setLineDashPattern([1, 1], 0);
     doc.roundedRect(M, y, CW, 10, 2, 2, 'S');
     doc.setLineDashPattern([], 0);
-
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(6.5);
     doc.setTextColor(13, 148, 136);
@@ -1480,12 +1382,9 @@ function downloadPDF() {
 
     y += 14;
 
-    /* ============ SIGNATURE (right side) ============ */
     const sigX = PW - M - 60;
     if (signatureData) {
-        try {
-            doc.addImage(signatureData, 'PNG', sigX + 10, y - 2, 40, 14);
-        } catch (e) {}
+        try { doc.addImage(signatureData, 'PNG', sigX + 10, y - 2, 40, 14); } catch (e) {}
     }
     doc.setDrawColor(15, 27, 51);
     doc.setLineWidth(0.4);
@@ -1499,34 +1398,18 @@ function downloadPDF() {
     doc.setTextColor(100, 116, 139);
     doc.text('For ' + String(b.name || 'RAJ MARKETING MYSORE'), sigX + 30, y + 21.5, { align: 'center' });
 
-    /* ============ FOOTER BAR ============ */
+    /* Footer bar */
     const footerBarY = PH - 14;
-    /* Dark navy bar full width */
     doc.setFillColor(30, 58, 95);
     doc.rect(0, footerBarY, PW, 14, 'F');
-
-    /* 3 columns */
     const colW = PW / 3;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(255, 255, 255);
-
-    /* Website */
     doc.text(String(b.website || 'rajmarketingmysore.info'), colW * 0.5, footerBarY + 8.5, { align: 'center' });
-    /* Phone */
     doc.text(String(b.mobile || '9483037385'), colW * 1.5, footerBarY + 8.5, { align: 'center' });
-    /* Email */
     doc.text(String(b.email || 'info@rajmarketingmysore.info'), colW * 2.5, footerBarY + 8.5, { align: 'center' });
 
-    /* Small icons (circles) */
-    doc.setFillColor(255, 255, 255, 0.15);
-    doc.setDrawColor(255, 255, 255);
-    doc.setLineWidth(0.1);
-    doc.circle(colW * 0.5 - 32, footerBarY + 7, 2.2, 'S');
-    doc.circle(colW * 1.5 - 22, footerBarY + 7, 2.2, 'S');
-    doc.circle(colW * 2.5 - 38, footerBarY + 7, 2.2, 'S');
-
-    /* SAVE */
     const safeNo = String(data.invoiceNumber).replace(/[^a-zA-Z0-9]/g, '-');
     doc.save('Invoice_' + safeNo + '.pdf');
     showToast('PDF downloaded successfully', 'success');
@@ -1550,14 +1433,9 @@ function shareWhatsApp() {
         'GST: ' + money(data.totalGst) + '\n\n' +
         'Thank you for your business!';
     const encoded = encodeURIComponent(message);
-
     if (navigator.share) {
-        navigator.share({
-            title: 'Invoice ' + data.invoiceNumber,
-            text: message
-        }).catch(function() {
-            window.open('https://wa.me/?text=' + encoded, '_blank');
-        });
+        navigator.share({ title: 'Invoice ' + data.invoiceNumber, text: message })
+            .catch(function() { window.open('https://wa.me/?text=' + encoded, '_blank'); });
     } else {
         window.open('https://wa.me/?text=' + encoded, '_blank');
     }
@@ -1572,10 +1450,7 @@ function saveInvoice() {
     try {
         const list = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
         const idx = list.findIndex(function(i) { return i.invoiceNumber === currentInvoiceData.invoiceNumber; });
-        const record = Object.assign({}, currentInvoiceData, {
-            savedAt: new Date().toISOString(),
-            status: 'SAVED'
-        });
+        const record = Object.assign({}, currentInvoiceData, { savedAt: new Date().toISOString(), status: 'SAVED' });
         if (idx >= 0) list[idx] = record; else list.push(record);
         localStorage.setItem(STORAGE.invoices, JSON.stringify(list));
         settingsData.nextNum = (settingsData.nextNum || 1) + 1;
@@ -1596,25 +1471,22 @@ function renderHistory() {
     });
     document.getElementById('historyCount').textContent = list.length + ' invoice' + (list.length !== 1 ? 's' : '');
     if (!list.length) {
-        container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">' +
+        container.innerHTML = '<div style="text-align:center;padding:40px;color:#64748b;">' +
             '<i class="fas fa-inbox" style="font-size:48px;opacity:.3;display:block;margin-bottom:12px;"></i>' +
             '<p>No invoices yet</p></div>';
         return;
     }
     container.innerHTML = list.slice().reverse().map(function(inv) {
+        const buyerTag = inv.buyerType === 'dealer' ? 'B2B' : 'B2C';
         return '<div style="background:#f8fafc;border-radius:12px;padding:14px;margin-bottom:10px;border-left:4px solid #1a56db;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;">' +
             '<div style="flex:1;min-width:200px;">' +
-                '<div style="font-weight:900;font-size:14px;color:#0f1b33;">' + escapeHtml(inv.invoiceNumber) + '</div>' +
-                '<div style="font-size:12px;color:#64748b;font-weight:600;">' +
-                    formatDate(inv.invoiceDate) + ' · ' + escapeHtml(inv.customer?.name || 'Cash Customer') +
-                '</div>' +
+                '<div style="font-weight:900;font-size:14px;color:#0f1b33;">' + escapeHtml(inv.invoiceNumber) + ' <span style="background:#dbeafe;color:#1d4ed8;font-size:9px;padding:2px 8px;border-radius:20px;margin-left:6px;">' + buyerTag + '</span></div>' +
+                '<div style="font-size:12px;color:#64748b;font-weight:600;">' + formatDate(inv.invoiceDate) + ' · ' + escapeHtml(inv.customer?.name || 'Cash Customer') + '</div>' +
             '</div>' +
             '<div style="font-size:18px;font-weight:900;color:#1a56db;">' + money(inv.grandTotal) + '</div>' +
             '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
-                '<button class="btn btn-primary" style="padding:6px 12px;font-size:11px;" onclick="viewInvoice(\'' + escapeHtml(inv.invoiceNumber) + '\')">' +
-                    '<i class="fas fa-eye"></i> View</button>' +
-                '<button class="btn btn-danger" style="padding:6px 12px;font-size:11px;" onclick="deleteInvoice(\'' + escapeHtml(inv.invoiceNumber) + '\')">' +
-                    '<i class="fas fa-trash"></i></button>' +
+                '<button class="btn btn-primary" style="padding:6px 12px;font-size:11px;" onclick="viewInvoice(\'' + escapeHtml(inv.invoiceNumber) + '\')"><i class="fas fa-eye"></i></button>' +
+                '<button class="btn btn-danger" style="padding:6px 12px;font-size:11px;" onclick="deleteInvoice(\'' + escapeHtml(inv.invoiceNumber) + '\')"><i class="fas fa-trash"></i></button>' +
             '</div>' +
         '</div>';
     }).join('');
@@ -1625,6 +1497,7 @@ function viewInvoice(invoiceNumber) {
         const inv = list.find(function(i) { return i.invoiceNumber === invoiceNumber; });
         if (!inv) { showToast('Not found', 'error'); return; }
         currentInvoiceData = inv;
+        currentBuyerType = inv.buyerType || 'customer';
         renderInvoicePreview(inv);
         showPanel('preview');
     } catch (e) { showToast('Failed to load', 'error'); }
@@ -1632,9 +1505,7 @@ function viewInvoice(invoiceNumber) {
 function deleteInvoice(invoiceNumber) {
     if (!confirm('Delete this invoice permanently?')) return;
     const list = JSON.parse(localStorage.getItem(STORAGE.invoices) || '[]');
-    localStorage.setItem(STORAGE.invoices, JSON.stringify(list.filter(function(i) {
-        return i.invoiceNumber !== invoiceNumber;
-    })));
+    localStorage.setItem(STORAGE.invoices, JSON.stringify(list.filter(function(i) { return i.invoiceNumber !== invoiceNumber; })));
     renderHistory();
     showToast('Invoice deleted', 'warning');
 }
@@ -1658,6 +1529,7 @@ function newInvoice() {
 ============================================================ */
 window.showPanel = showPanel;
 window.addProductRow = addProductRow;
+window.onProductSelect = onProductSelect;
 window.loadSampleProducts = loadSampleProducts;
 window.calculateAll = calculateAll;
 window.calculateAndPreview = calculateAndPreview;
@@ -1668,11 +1540,9 @@ window.viewInvoice = viewInvoice;
 window.deleteInvoice = deleteInvoice;
 window.newInvoice = newInvoice;
 window.renderHistory = renderHistory;
+window.renderPriceList = renderPriceList;
 window.handleLogoUpload = handleLogoUpload;
 window.saveSettings = saveSettings;
-window.addRMRow = addRMRow;
-window.loadRMSample = loadRMSample;
-window.transferRawMaterialToInvoice = transferRawMaterialToInvoice;
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
