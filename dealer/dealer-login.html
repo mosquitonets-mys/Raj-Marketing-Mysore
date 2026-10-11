@@ -10,13 +10,105 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        .auth-container { max-width: 480px; margin: 0 auto; padding: 20px 16px 100px; }
+        .dealer-auth-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+        .dealer-auth-icon {
+            width: 72px; height: 72px;
+            background: linear-gradient(145deg, #f59e0b, #d97706);
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 32px;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 24px rgba(245,158,11,0.25);
+        }
+        .auth-header { text-align: center; margin-bottom: 28px; }
+        .auth-header h1 {
+            font-size: 24px; font-weight: 900;
+            color: #1f2937; letter-spacing: -0.5px; margin-bottom: 6px;
+        }
+        .auth-header p { font-size: 13px; color: #6b7280; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block; font-size: 12px; font-weight: 700;
+            color: #1f2937; margin-bottom: 6px;
+        }
+        .form-group label .required { color: #dc2626; }
+        .form-group input {
+            width: 100%; padding: 12px 14px;
+            border: 1.5px solid #e2e8f0; border-radius: 12px;
+            font-size: 14px; font-family: 'Poppins', sans-serif;
+            outline: none; color: #1f2937;
+            transition: all 0.2s ease;
+        }
+        .form-group input:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245,158,11,0.08);
+        }
+        .form-hint {
+            font-size: 11px; color: #6b7280; margin-top: 4px;
+        }
+        .btn {
+            padding: 12px 20px; border-radius: 40px;
+            font-weight: 700; font-size: 13px;
+            border: none; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 8px; font-family: 'Poppins', sans-serif;
+            text-decoration: none; transition: all 0.25s ease;
+        }
+        .btn-dealer {
+            background: linear-gradient(145deg, #f59e0b, #d97706);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(245,158,11,0.3);
+        }
+        .btn-dealer:hover:not(:disabled) { transform: translateY(-2px); }
+        .btn-dealer:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-secondary {
+            background: #fff; color: #374151;
+            border: 1.5px solid #e2e8f0;
+        }
+        .btn-secondary:hover { border-color: #f59e0b; color: #d97706; }
+        .btn-block { width: 100%; }
+        .btn-lg { padding: 14px 28px; font-size: 14px; }
+        .divider {
+            text-align: center; margin: 16px 0;
+            color: #6b7280; font-size: 12px;
+            position: relative;
+        }
+        .divider hr { border: none; border-top: 1px solid #e2e8f0; margin: 0; }
+        .divider span {
+            background: #fff; padding: 0 12px;
+            position: relative; top: -9px;
+            font-weight: 600;
+        }
+        .footer-note {
+            text-align: center; margin-top: 20px;
+            font-size: 12px; color: #6b7280;
+        }
+        .footer-note a { color: #d97706; text-decoration: none; font-weight: 700; }
+        .rm-toast {
+            position: fixed; top: 24px; left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            padding: 14px 24px; border-radius: 12px;
+            color: #fff; font-weight: 600; font-size: 14px;
+            z-index: 9999; transition: transform 0.3s ease;
+            max-width: 90vw; text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        .rm-toast.show { transform: translateX(-50%) translateY(0); }
+    </style>
 </head>
 <body>
 
     <div id="header-placeholder"></div>
 
     <main class="auth-container">
-
         <div class="dealer-auth-card">
             <div class="auth-header">
                 <div class="dealer-auth-icon"><i class="fas fa-user-tie"></i></div>
@@ -26,25 +118,31 @@
 
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label>Email or Dealer ID <span class="required">*</span></label>
-                    <input type="text" id="loginEmail" required placeholder="Enter email or dealer ID" />
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" id="loginEmail" required
+                           inputmode="email" placeholder="Enter registered email"
+                           autocomplete="email" />
                 </div>
 
                 <div class="form-group">
                     <label>Password <span class="required">*</span></label>
-                    <input type="password" id="loginPassword" required placeholder="Enter password" minlength="6" />
+                    <input type="password" id="loginPassword" required
+                           placeholder="Enter password" minlength="6"
+                           autocomplete="current-password" />
                     <div class="form-hint" style="text-align:right;">
-                        <a href="#" onclick="forgotPassword(event)" style="color:#f59e0b;text-decoration:none;font-weight:700;">Forgot password?</a>
+                        <a href="#" onclick="forgotPassword(event)"
+                           style="color:#d97706;text-decoration:none;font-weight:700;">
+                            Forgot password?
+                        </a>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block btn-lg" style="background:linear-gradient(145deg,#f59e0b,#d97706);box-shadow:0 4px 14px rgba(245,158,11,0.3);">
+                <button type="submit" class="btn btn-dealer btn-block btn-lg" id="submitBtn">
                     <i class="fas fa-sign-in-alt"></i> Sign In
                 </button>
 
-                <div style="text-align:center;margin:16px 0;color:var(--muted-text);font-size:12px;position:relative;">
-                    <hr style="border:none;border-top:1px solid var(--border);margin:0;" />
-                    <span style="background:var(--white);padding:0 12px;position:relative;top:-9px;font-weight:600;">OR</span>
+                <div class="divider">
+                    <hr><span>OR</span>
                 </div>
 
                 <a href="dealer-registration.html" class="btn btn-secondary btn-block btn-lg">
@@ -53,69 +151,74 @@
             </form>
         </div>
 
-        <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--muted-text);">
+        <div class="footer-note">
             <p>By continuing, you agree to our</p>
             <p>
-                <a href="../terms.html" style="color:#f59e0b;text-decoration:none;font-weight:700;">Terms</a>
-                ·
-                <a href="../privacy.html" style="color:#f59e0b;text-decoration:none;font-weight:700;">Privacy Policy</a>
+                <a href="../terms.html">Terms</a> ·
+                <a href="../privacy.html">Privacy Policy</a>
             </p>
         </div>
-
     </main>
 
     <div id="footer-placeholder"></div>
 
-    <script src="../js/header.js"></script>
-    <script src="../js/footer.js"></script>
+    <script type="module">
+    import { DealerAuth } from '../js/firebase-auth.js';
+    import { auth } from '../firebase-config.js';
 
-    <script>
-    function handleLogin(e) {
+    // If already signed in as dealer, redirect
+    auth.onAuthStateChanged(async (user) => {
+        if (user) {
+            const profile = await DealerAuth.getCurrentProfile();
+            if (profile && profile.status === 'Approved') {
+                window.location.href = 'dealer-dashboard.html';
+            }
+        }
+    });
+
+    window.handleLogin = async function(e) {
         e.preventDefault();
+
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
+        const btn = document.getElementById('submitBtn');
 
-        if (!email) { showToast('Please enter email or dealer ID', 'error'); return; }
-        if (!password || password.length < 6) { showToast('Password must be at least 6 characters', 'error'); return; }
-
-        try {
-            const dealers = JSON.parse(localStorage.getItem('raj_dealers') || '[]');
-            const found = dealers.find(d =>
-                (d.email === email || d.dealerId === email || d.mobile === email) && d.password === password
-            );
-
-            if (!found) {
-                showToast('Invalid credentials. Please register first.', 'error');
-                return;
-            }
-
-            if (found.status !== 'Approved' && found.status !== 'Active') {
-                showToast('Your account is under review. Please wait for approval.', 'warning');
-                return;
-            }
-
-            localStorage.setItem('raj_dealer', JSON.stringify({
-                id: found.id,
-                dealerId: found.dealerId,
-                name: found.ownerName || found.name,
-                email: found.email,
-                mobile: found.mobile,
-                status: found.status,
-                loggedInAt: new Date().toISOString()
-            }));
-
-            showToast('✅ Login successful!', 'success');
-            setTimeout(() => window.location.href = 'dealer-dashboard.html', 800);
-        } catch (err) {
-            showToast('Login failed. Try again.', 'error');
+        if (!email || !password) {
+            showToast('Please enter email and password', 'error');
+            return;
         }
-    }
 
-    function forgotPassword(e) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+
+        const result = await DealerAuth.login(email, password);
+
+        if (!result.success) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+            showToast('❌ ' + result.error, result.status === 'Pending' ? 'warning' : 'error');
+            document.getElementById('loginPassword').value = '';
+            return;
+        }
+
+        showToast('✅ Login successful!', 'success');
+        setTimeout(() => {
+            window.location.href = 'dealer-dashboard.html';
+        }, 800);
+    };
+
+    window.forgotPassword = async function(e) {
         e.preventDefault();
-        const email = prompt('Enter your registered email or dealer ID:');
-        if (email) showToast('Password reset link sent to ' + email, 'info');
-    }
+        const email = prompt('Enter your registered email:');
+        if (!email) return;
+
+        const result = await DealerAuth.resetPassword(email.trim());
+        if (result.success) {
+            showToast('📧 Password reset email sent!', 'success');
+        } else {
+            showToast('❌ ' + result.error, 'error');
+        }
+    };
 
     function showToast(msg, type = 'info') {
         document.querySelectorAll('.rm-toast').forEach(t => t.remove());
@@ -126,8 +229,11 @@
         t.style.background = colors[type] || colors.info;
         document.body.appendChild(t);
         requestAnimationFrame(() => t.classList.add('show'));
-        setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
     }
     </script>
+
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 </body>
 </html>
