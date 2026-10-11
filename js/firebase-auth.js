@@ -1,8 +1,11 @@
 /* ============================================================
    FIREBASE AUTH HELPER
    Raj Marketing Mysore
+   Version: 3.0  (compatible with firebase-config.js v12.17.1)
+   Location: /js/firebase-auth.js
+   ------------------------------------------------------------
    Handles: Customer, Dealer, Admin authentication
-   ============================================================ */
+============================================================ */
 
 import { auth, db } from '../firebase-config.js';
 import {
@@ -12,9 +15,14 @@ import {
     onAuthStateChanged,
     updateProfile,
     sendPasswordResetEmail
-} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-import { doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-import { Customers, Dealers } from './firestore-service.js';
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+import {
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { Customers, Dealers, Notifications } from './firestore-service.js';
 
 // ============================================================
 // CUSTOMER AUTH
@@ -22,10 +30,10 @@ import { Customers, Dealers } from './firestore-service.js';
 const CustomerAuth = {
     async register(data) {
         try {
-            const userCredential = await createUserWithEmailAndPassword(
+            const credential = await createUserWithEmailAndPassword(
                 auth, data.email, data.password
             );
-            const user = userCredential.user;
+            const user = credential.user;
 
             await updateProfile(user, { displayName: data.name });
 
@@ -38,9 +46,19 @@ const CustomerAuth = {
                 city: data.city || 'Mysore',
                 address: data.address || '',
                 role: 'customer',
-                status: 'Active',
-                createdAt: serverTimestamp()
+                status: 'Active'
             });
+
+            // Notify admin (best-effort)
+            try {
+                await Notifications.createForUser('ADMIN', {
+                    type: 'customer_registration',
+                    title: 'New Customer',
+                    message: `${data.name} (${data.mobile}) registered.`
+                });
+            } catch (e) {
+                console.warn('Admin notify failed:', e.message);
+            }
 
             return { success: true, user };
         } catch (error) {
@@ -50,20 +68,20 @@ const CustomerAuth = {
 
     async login(email, password) {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const profile = await Customers.get(userCredential.user.uid);
+            const credential = await signInWithEmailAndPassword(auth, email, password);
+            const profile = await Customers.get(credential.user.uid);
 
             if (!profile) {
                 await signOut(auth);
-                return { success: false, error: 'Profile not found. Please contact support.' };
+                return { success: false, error: 'Profile not found. Contact support.' };
             }
 
             if (profile.status === 'Suspended' || profile.status === 'Blocked') {
                 await signOut(auth);
-                return { success: false, error: 'Your account is suspended. Contact support.' };
+                return { success: false, error: 'Account suspended. Contact support.' };
             }
 
-            return { success: true, user: userCredential.user, profile };
+            return { success: true, user: credential.user, profile };
         } catch (error) {
             return { success: false, error: mapAuthError(error) };
         }
@@ -78,9 +96,11 @@ const CustomerAuth = {
         }
     },
 
-    logout: () => signOut(auth),
+    async logout() {
+        await signOut(auth);
+    },
 
-    getCurrentProfile: async () => {
+    async getCurrentProfile() {
         const user = auth.currentUser;
         if (!user) return null;
         return Customers.get(user.uid);
@@ -89,7 +109,6 @@ const CustomerAuth = {
     async updateProfile(updates) {
         const user = auth.currentUser;
         if (!user) return { success: false, error: 'Not logged in' };
-
         try {
             if (updates.name) await updateProfile(user, { displayName: updates.name });
             await Customers.update(user.uid, updates);
@@ -106,10 +125,10 @@ const CustomerAuth = {
 const DealerAuth = {
     async register(data) {
         try {
-            const userCredential = await createUserWithEmailAndPassword(
+            const credential = await createUserWithEmailAndPassword(
                 auth, data.email, data.password
             );
-            const user = userCredential.user;
+            const user = credential.user;
 
             await updateProfile(user, { displayName: data.ownerName });
 
@@ -129,19 +148,19 @@ const DealerAuth = {
                 pincode: data.pincode || '',
                 role: 'dealer',
                 status: 'Pending',
-                tier: 'Bronze',
-                createdAt: serverTimestamp()
+                tier: 'Bronze'
             });
 
-            await db.collection('notifications').add({
-                type: 'dealer_registration',
-                title: 'New Dealer Application',
-                message: `${data.businessName} (${data.ownerName}) applied for dealership.`,
-                userId: 'ADMIN',
-                dealerId: user.uid,
-                read: false,
-                createdAt: serverTimestamp()
-            });
+            // Notify admin (best-effort, ignore failure)
+            try {
+                await Notifications.createForUser('ADMIN', {
+                    type: 'dealer_registration',
+                    title: 'New Dealer Application',
+                    message: `${data.businessName} (${data.ownerName}) applied.`
+                });
+            } catch (e) {
+                console.warn('Admin notify failed:', e.message);
+            }
 
             return { success: true, user, dealerId };
         } catch (error) {
@@ -151,8 +170,8 @@ const DealerAuth = {
 
     async login(email, password) {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const profile = await Dealers.get(userCredential.user.uid);
+            const credential = await signInWithEmailAndPassword(auth, email, password);
+            const profile = await Dealers.get(credential.user.uid);
 
             if (!profile) {
                 await signOut(auth);
@@ -179,20 +198,33 @@ const DealerAuth = {
 
             if (profile.status === 'Suspended') {
                 await signOut(auth);
-                return { success: false, error: 'Account suspended. Contact admin.', status: 'Suspended' };
+                return {
+                    success: false,
+                    error: 'Account suspended. Contact admin.',
+                    status: 'Suspended'
+                };
             }
 
-            return { success: true, user: userCredential.user, profile };
+            return { success: true, user: credential.user, profile };
         } catch (error) {
             return { success: false, error: mapAuthError(error) };
         }
     },
 
-    resetPassword: (email) => sendPasswordResetEmail(auth, email).then(() => ({ success: true })).catch(e => ({ success: false, error: mapAuthError(e) })),
+    async resetPassword(email) {
+        try {
+            await sendPasswordResetEmail(auth, email);
+            return { success: true };
+        } catch (error) {
+            return { success: false, error: mapAuthError(error) };
+        }
+    },
 
-    logout: () => signOut(auth),
+    async logout() {
+        await signOut(auth);
+    },
 
-    getCurrentProfile: async () => {
+    async getCurrentProfile() {
         const user = auth.currentUser;
         if (!user) return null;
         return Dealers.get(user.uid);
@@ -200,109 +232,54 @@ const DealerAuth = {
 };
 
 // ============================================================
-// ADMIN AUTH (Custom — uses Firestore)
+// ADMIN AUTH (Firebase Auth email/password + Firestore role)
+// ------------------------------------------------------------
+// Admin user is created manually in Firebase Console with
+// email rajmarketingmys@gmail.com, then added to /admins/{uid}
 // ============================================================
+const ADMIN_EMAIL = 'rajmarketingmys@gmail.com';
+
 const AdminAuth = {
-    async verifyPassword(password) {
+    async login(email, password) {
         try {
-            const snap = await getDoc(doc(db, 'businessRules', 'adminAuth'));
+            if (email.toLowerCase() !== ADMIN_EMAIL) {
+                return { success: false, error: 'Not an admin email.' };
+            }
+
+            const credential = await signInWithEmailAndPassword(auth, email, password);
+            const uid = credential.user.uid;
+
+            // Verify admin doc in Firestore
+            const snap = await getDoc(doc(db, 'admins', uid));
             if (!snap.exists()) {
-                return { success: false, error: 'Admin config not found' };
+                await signOut(auth);
+                return { success: false, error: 'You are not registered as admin.' };
             }
 
-            const config = snap.data();
-            const hash = await sha256(password);
+            sessionStorage.setItem('rm_admin_uid', uid);
+            sessionStorage.setItem('rm_admin_login_at', Date.now().toString());
 
-            if (hash !== config.passwordHash) {
-                return { success: false, error: 'Invalid password' };
-            }
-
-            return { success: true };
+            return { success: true, user: credential.user };
         } catch (error) {
-            return { success: false, error: error.message };
-        }
-    },
-
-    async generateOTP() {
-        const otp = generateRandomOTP();
-        const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
-
-        await setDoc(doc(db, 'adminSessions', 'current-otp'), {
-            otp,
-            expiresAt: expiresAt.toISOString(),
-            used: false,
-            createdAt: serverTimestamp()
-        });
-
-        return otp;
-    },
-
-    async verifyOTP(inputOTP) {
-        try {
-            const ref = doc(db, 'adminSessions', 'current-otp');
-            const snap = await getDoc(ref);
-
-            if (!snap.exists()) return { success: false, error: 'No OTP found' };
-            const data = snap.data();
-
-            if (data.used) return { success: false, error: 'OTP already used' };
-            if (new Date(data.expiresAt) < new Date()) return { success: false, error: 'OTP expired' };
-            if (data.otp !== inputOTP.toUpperCase().trim()) return { success: false, error: 'Invalid OTP' };
-
-            await setDoc(ref, { used: true }, { merge: true });
-
-            const sessionId = 'ADMIN-' + Date.now();
-            await setDoc(doc(db, 'adminSessions', sessionId), {
-                sessionId,
-                email: 'rajmarketingmys@gmail.com',
-                createdAt: serverTimestamp(),
-                expiresAt: new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString(),
-                active: true
-            });
-
-            localStorage.setItem('raj_admin_session', JSON.stringify({
-                sessionId,
-                email: 'rajmarketingmys@gmail.com',
-                expiresAt: Date.now() + 4 * 60 * 60 * 1000
-            }));
-
-            return { success: true, sessionId };
-        } catch (error) {
-            return { success: false, error: error.message };
+            return { success: false, error: mapAuthError(error) };
         }
     },
 
     async checkSession() {
+        const user = auth.currentUser;
+        if (!user) return false;
         try {
-            const cached = JSON.parse(localStorage.getItem('raj_admin_session') || 'null');
-            if (!cached) return false;
-            if (Date.now() > cached.expiresAt) {
-                localStorage.removeItem('raj_admin_session');
-                return false;
-            }
-
-            const snap = await getDoc(doc(db, 'adminSessions', cached.sessionId));
-            if (!snap.exists()) return false;
-            const data = snap.data();
-            if (!data.active) return false;
-            if (new Date(data.expiresAt) < new Date()) return false;
-
-            return true;
-        } catch (e) {
+            const snap = await getDoc(doc(db, 'admins', user.uid));
+            return snap.exists();
+        } catch {
             return false;
         }
     },
 
     async logout() {
-        try {
-            const cached = JSON.parse(localStorage.getItem('raj_admin_session') || 'null');
-            if (cached?.sessionId) {
-                await setDoc(doc(db, 'adminSessions', cached.sessionId), { active: false }, { merge: true });
-            }
-        } catch (e) {}
-
-        localStorage.removeItem('raj_admin_session');
-        window.location.href = 'admin-login.html';
+        sessionStorage.removeItem('rm_admin_uid');
+        sessionStorage.removeItem('rm_admin_login_at');
+        await signOut(auth);
     }
 };
 
@@ -329,6 +306,12 @@ function onAuthChange(callback) {
                 if (dealerProfile) {
                     profile = dealerProfile;
                     role = 'dealer';
+                } else {
+                    const adminDoc = await getDoc(doc(db, 'admins', user.uid));
+                    if (adminDoc.exists()) {
+                        profile = { uid: user.uid, role: 'admin', email: user.email };
+                        role = 'admin';
+                    }
                 }
             }
         } catch (e) {
@@ -342,50 +325,30 @@ function onAuthChange(callback) {
 // ============================================================
 // UTILITIES
 // ============================================================
-async function sha256(text) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(text);
-    const hash = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(hash))
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('');
-}
-
-function generateRandomOTP() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let otp = '';
-    const array = new Uint32Array(6);
-    crypto.getRandomValues(array);
-    for (let i = 0; i < 6; i++) {
-        otp += chars[array[i] % chars.length];
-    }
-    return otp;
-}
-
 function mapAuthError(error) {
     const messages = {
         'auth/email-already-in-use': 'This email is already registered. Try logging in.',
         'auth/invalid-email': 'Please enter a valid email address.',
         'auth/weak-password': 'Password should be at least 6 characters.',
         'auth/user-not-found': 'No account found with this email.',
-        'auth/wrong-password': 'Incorrect password. Please try again.',
-        'auth/too-many-requests': 'Too many attempts. Please try again later.',
-        'auth/network-request-failed': 'Network error. Check your connection.',
-        'auth/invalid-credential': 'Invalid email or password.'
+        'auth/wrong-password': 'Incorrect password.',
+        'auth/too-many-requests': 'Too many attempts. Please try later.',
+        'auth/network-request-failed': 'Network error. Check connection.',
+        'auth/invalid-credential': 'Invalid email or password.',
+        'auth/user-disabled': 'This account has been disabled.'
     };
-    return messages[error.code] || error.message;
+    return messages[error.code] || error.message || 'Something went wrong.';
 }
 
 // ============================================================
-// EXPORT
+// EXPORTS
 // ============================================================
 export {
     CustomerAuth,
     DealerAuth,
     AdminAuth,
     onAuthChange,
-    sha256,
-    generateRandomOTP
+    mapAuthError
 };
 
 export default {
