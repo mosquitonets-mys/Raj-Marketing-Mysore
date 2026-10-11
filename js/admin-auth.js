@@ -538,4 +538,108 @@
 
             // Move to OTP step
             document.getElementById('passwordStep').style.display = 'none';
-            docum
+            document.getElementById('otpStep').style.display = 'block';
+            document.getElementById('stepDot1').classList.add('completed');
+            document.getElementById('stepLine1').classList.add('completed');
+            document.getElementById('stepDot2').classList.add('active');
+
+            showToast('✅ Password verified! Check console for OTP.', 'success');
+
+            // Focus OTP input
+            setTimeout(() => document.getElementById('otpInput').focus(), 300);
+        };
+
+        // ============================================================
+        // STEP 2: OTP
+        // ============================================================
+        window.submitOTP = function(e) {
+            if (e && e.preventDefault) e.preventDefault();
+
+            const inputOTP = document.getElementById('otpInput').value.toUpperCase().trim();
+
+            if (inputOTP.length !== CONFIG.OTP_LENGTH) {
+                showToast('Please enter the complete 6-character OTP', 'error');
+                return;
+            }
+
+            // Check expiry
+            if (Date.now() - otpGeneratedAt > CONFIG.OTP_VALIDITY) {
+                showToast('❌ OTP has expired. Please request a new one.', 'error');
+                return;
+            }
+
+            // Verify
+            if (inputOTP !== currentOTP) {
+                showToast('❌ Invalid OTP. Please try again.', 'error');
+                document.getElementById('otpInput').value = '';
+                document.getElementById('otpInput').focus();
+                return;
+            }
+
+            // Success!
+            resetAttempts();
+            createAdminSession();
+
+            document.getElementById('stepDot2').classList.add('completed');
+
+            showToast('🎉 Login successful! Redirecting...', 'success');
+
+            setTimeout(() => {
+                const redirect = sessionStorage.getItem('admin_redirect') || 'dashboard.html';
+                sessionStorage.removeItem('admin_redirect');
+                window.location.href = redirect;
+            }, 800);
+        };
+
+        // ============================================================
+        // UTILITIES
+        // ============================================================
+        window.backToPassword = function() {
+            document.getElementById('passwordStep').style.display = 'block';
+            document.getElementById('otpStep').style.display = 'none';
+            document.getElementById('stepDot1').classList.remove('completed');
+            document.getElementById('stepLine1').classList.remove('completed');
+            document.getElementById('stepDot2').classList.remove('active');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('otpInput').value = '';
+        };
+
+        window.resendOTP = function() {
+            currentOTP = generateOTP();
+            otpGeneratedAt = Date.now();
+            console.log('%c🔐 NEW ADMIN OTP: ' + currentOTP, 'color: #dc2626; font-size: 20px; font-weight: bold;');
+            document.getElementById('devOTPCode').textContent = currentOTP;
+            document.getElementById('devOTPHint').classList.add('show');
+            showToast('📧 New OTP generated. Check console.', 'info');
+        };
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        // Check if already logged in
+        if (isAdminLoggedIn()) {
+            window.location.href = 'dashboard.html';
+            return;
+        }
+
+        // Check lockout
+        const lock = isLockedOut();
+        if (lock.locked) {
+            showLockout(lock.remaining);
+        }
+
+        // Auto-format OTP input
+        document.getElementById('otpInput').addEventListener('input', function() {
+            this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, CONFIG.OTP_LENGTH);
+        });
+
+        // Auto-submit when 6 chars entered
+        document.getElementById('otpInput').addEventListener('input', function() {
+            if (this.value.length === CONFIG.OTP_LENGTH) {
+                setTimeout(() => submitOTP({ preventDefault: () => {} }), 300);
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
