@@ -1,129 +1,106 @@
 /* ============================================================
-   HEADER COMPONENT LOADER
-   Loads components/header.html via fetch()
-   Raj Marketing Mysore
+   HEADER COMPONENT LOADER — FIXED
 ============================================================ */
 
 (function() {
     'use strict';
 
-    // ============================================================
-    // Detect current page for active nav highlighting
-    // ============================================================
-    function getCurrentNavKey() {
-        const path = window.location.pathname.toLowerCase();
-        const file = path.split('/').pop() || 'index.html';
+    function getBasePath() {
+        // Works on: /index.html, /pages/foo.html, /cities/mandya.html, file:///
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(Boolean);
 
+        // If we're at the root (e.g., /index.html or /), depth = 1
+        // If we're nested (e.g., /cities/mandya.html), depth = 2
+        const depth = parts.length;
+
+        if (depth <= 1) return '';
+        // For each extra folder level beyond root, add ../
+        return '../'.repeat(depth - 1);
+    }
+
+    function getCurrentNavKey() {
+        const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
         if (file === '' || file === 'index.html') return 'home';
         if (file.includes('products')) return 'products';
         if (file.includes('solutions')) return 'solutions';
         if (file.includes('how-it-works')) return 'how-it-works';
         if (file.includes('about')) return 'about';
         if (file.includes('contact')) return 'contact';
-        if (file.includes('estimate') || file.includes('price-checker')) return 'estimate';
-        if (file.includes('track-order') || file.includes('orders')) return 'orders';
-        if (file.includes('customer-login') || file.includes('customer-registration') || file.includes('account')) return 'account';
         return '';
     }
 
-    // ============================================================
-    // Apply active state to nav links
-    // ============================================================
     function applyActiveState() {
-        const currentNav = getCurrentNavKey();
-        if (!currentNav) return;
-
+        const current = getCurrentNavKey();
+        if (!current) return;
         document.querySelectorAll('[data-nav]').forEach(link => {
-            if (link.getAttribute('data-nav') === currentNav) {
+            if (link.getAttribute('data-nav') === current) {
                 link.classList.add('active');
             }
         });
     }
 
-    // ============================================================
-    // Initialize mobile menu toggle
-    // ============================================================
     function initMobileMenu() {
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+        const btn = document.getElementById('hamburgerBtn');
+        const menu = document.getElementById('mobileMenu');
+        if (!btn || !menu) return;
 
-        if (!hamburgerBtn || !mobileMenu) return;
-
-        hamburgerBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('open');
-            const isOpen = mobileMenu.classList.contains('open');
-            this.innerHTML = isOpen
-                ? '<i class="fas fa-times"></i>'
-                : '<i class="fas fa-bars"></i>';
-            this.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            menu.classList.toggle('open');
+            const isOpen = menu.classList.contains('open');
+            this.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
 
-        // Auto-close on link click
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                hamburgerBtn.setAttribute('aria-label', 'Open menu');
+        menu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                menu.classList.remove('open');
+                btn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
 
-        // Close on outside click
         document.addEventListener('click', function(e) {
-            if (mobileMenu.classList.contains('open') &&
-                !mobileMenu.contains(e.target) &&
-                !hamburgerBtn.contains(e.target)) {
-                mobileMenu.classList.remove('open');
-                hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            if (menu.classList.contains('open') &&
+                !menu.contains(e.target) &&
+                !btn.contains(e.target)) {
+                menu.classList.remove('open');
+                btn.innerHTML = '<i class="fas fa-bars"></i>';
             }
         });
 
-        // Close on Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-                mobileMenu.classList.remove('open');
-                hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                hamburgerBtn.focus();
+            if (e.key === 'Escape' && menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                btn.innerHTML = '<i class="fas fa-bars"></i>';
+                btn.focus();
             }
         });
     }
 
-    // ============================================================
-    // Load header.html into #header-placeholder
-    // ============================================================
     function loadHeader() {
         const placeholder = document.getElementById('header-placeholder');
         if (!placeholder) return;
 
-        // Determine base path (handles nested pages like /customer/login.html)
-        const depth = (window.location.pathname.match(/\//g) || []).length;
-        const isNested = depth > 1 && !window.location.pathname.endsWith('/');
-        const basePath = isNested ? '../' : '';
-
-        fetch(basePath + 'components/header.html')
-            .then(response => {
-                if (!response.ok) throw new Error('Header not found');
-                return response.text();
-            })
+        const base = getBasePath();
+        fetch(base + 'components/header.html')
+            .then(r => { if (!r.ok) throw new Error('Header missing'); return r.text(); })
             .then(html => {
-                // Fix relative paths for nested pages
-                if (isNested) {
-                    html = html.replace(/href="(?!http|https|#|mailto|tel|javascript)/g, `href="${basePath}`);
-                    html = html.replace(/src="(?!http|https|data)/g, `src="${basePath}`);
+                if (base) {
+                    html = html.replace(/(href|src)="(?!https?:|data:|mailto:|tel:|#|javascript:)/g, `$1="${base}`);
                 }
                 placeholder.innerHTML = html;
                 applyActiveState();
                 initMobileMenu();
             })
             .catch(err => {
-                console.warn('Header component failed to load:', err);
-                // Fallback: inline minimal header
+                console.warn('Header load failed:', err);
                 placeholder.innerHTML = `
                     <header class="site-header">
-                        <div class="header-inner">
-                            <a href="${basePath}index.html" class="logo-area">
+                        <div class="header-inner" style="justify-content:space-between;">
+                            <a href="${base}index.html" class="logo-area">
                                 <div class="logo-text">
-                                    <span class="brand-animation">Raj Marketing</span>
-                                    <span>Mysore</span>
+                                    <span class="brand-name">Raj Marketing</span>
+                                    <span class="brand-sub">Mysore</span>
                                 </div>
                             </a>
                         </div>
@@ -132,9 +109,6 @@
             });
     }
 
-    // ============================================================
-    // Boot
-    // ============================================================
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', loadHeader);
     } else {
