@@ -46,14 +46,13 @@
             font-size: 14px; font-family: 'Poppins', sans-serif;
             outline: none; color: #1f2937;
             transition: all 0.2s ease;
+            box-sizing: border-box;
         }
         .form-group input:focus {
             border-color: #f59e0b;
             box-shadow: 0 0 0 4px rgba(245,158,11,0.08);
         }
-        .form-hint {
-            font-size: 11px; color: #6b7280; margin-top: 4px;
-        }
+        .form-hint { font-size: 11px; color: #6b7280; margin-top: 4px; }
         .btn {
             padding: 12px 20px; border-radius: 40px;
             font-weight: 700; font-size: 13px;
@@ -61,6 +60,7 @@
             display: inline-flex; align-items: center; justify-content: center;
             gap: 8px; font-family: 'Poppins', sans-serif;
             text-decoration: none; transition: all 0.25s ease;
+            box-sizing: border-box;
         }
         .btn-dealer {
             background: linear-gradient(145deg, #f59e0b, #d97706);
@@ -76,16 +76,11 @@
         .btn-secondary:hover { border-color: #f59e0b; color: #d97706; }
         .btn-block { width: 100%; }
         .btn-lg { padding: 14px 28px; font-size: 14px; }
-        .divider {
-            text-align: center; margin: 16px 0;
-            color: #6b7280; font-size: 12px;
-            position: relative;
-        }
+        .divider { text-align: center; margin: 16px 0; color: #6b7280; font-size: 12px; position: relative; }
         .divider hr { border: none; border-top: 1px solid #e2e8f0; margin: 0; }
         .divider span {
             background: #fff; padding: 0 12px;
-            position: relative; top: -9px;
-            font-weight: 600;
+            position: relative; top: -9px; font-weight: 600;
         }
         .footer-note {
             text-align: center; margin-top: 20px;
@@ -141,9 +136,7 @@
                     <i class="fas fa-sign-in-alt"></i> Sign In
                 </button>
 
-                <div class="divider">
-                    <hr><span>OR</span>
-                </div>
+                <div class="divider"><hr><span>OR</span></div>
 
                 <a href="dealer-registration.html" class="btn btn-secondary btn-block btn-lg">
                     <i class="fas fa-handshake"></i> Become a Dealer
@@ -165,12 +158,12 @@
     <script type="module">
     import { DealerAuth } from '../js/firebase-auth.js';
     import { auth } from '../firebase-config.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
-    // If already signed in as dealer, redirect
-    auth.onAuthStateChanged(async (user) => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
             const profile = await DealerAuth.getCurrentProfile();
-            if (profile && profile.status === 'Approved') {
+            if (profile && (profile.status === 'Approved' || profile.status === 'Active')) {
                 window.location.href = 'dealer-dashboard.html';
             }
         }
@@ -202,16 +195,13 @@
         }
 
         showToast('✅ Login successful!', 'success');
-        setTimeout(() => {
-            window.location.href = 'dealer-dashboard.html';
-        }, 800);
+        setTimeout(() => { window.location.href = 'dealer-dashboard.html'; }, 800);
     };
 
     window.forgotPassword = async function(e) {
         e.preventDefault();
         const email = prompt('Enter your registered email:');
         if (!email) return;
-
         const result = await DealerAuth.resetPassword(email.trim());
         if (result.success) {
             showToast('📧 Password reset email sent!', 'success');
