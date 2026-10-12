@@ -1,10 +1,7 @@
 /* ============================================================
    FIREBASE CONFIGURATION
-   Raj Marketing Mysore
-   Version: 3.0
-   Project: raj-marketing-mysore-f91f7
-   ------------------------------------------------------------
-   Location: /firebase-config.js  (root)
+   Raj Marketing Mysore · Version 3.0
+   Location: /firebase-config.js  (ROOT — not in js/)
 ============================================================ */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
@@ -30,12 +27,12 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-// Enable offline cache (safe to fail)
+// Enable offline cache (non-fatal)
 enableIndexedDbPersistence(db).catch((err) => {
     if (err.code === 'failed-precondition') {
-        console.warn('⚠️ Firestore: multiple tabs open');
+        console.warn('⚠️ Firestore: multiple tabs open — persistence disabled');
     } else if (err.code === 'unimplemented') {
-        console.warn('⚠️ Firestore: browser unsupported');
+        console.warn('⚠️ Firestore: browser does not support persistence');
     }
 });
 
@@ -49,7 +46,7 @@ if (typeof window !== 'undefined') {
                     "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js"
                 );
                 const snap = await getDocs(query(collection(db, 'products'), limit(1)));
-                console.log(`✅ Firestore OK — ${snap.size} docs`);
+                console.log(`✅ Firestore OK — ${snap.size} docs found`);
                 return true;
             } catch (e) {
                 console.error('❌ Firestore failed:', e.message);
@@ -58,6 +55,7 @@ if (typeof window !== 'undefined') {
         },
         whoami: () => auth.currentUser
     };
+    console.log('🔥 Firebase initialized · Project: raj-marketing-mysore-f91f7');
 }
 
 export { app, db, auth, storage };
