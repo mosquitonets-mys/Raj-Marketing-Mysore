@@ -1,164 +1,254 @@
-8y    t.style.background = colors[type] || colors.info;
-            document.body.appendChild(t);
-            requestAnimationFrame(() => t.classList.add('show'));
-            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Admin Login - Raj Marketing Mysore</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f1b33, #1a56db);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: 'Poppins', sans-serif;
         }
+        .admin-login-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 28px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .admin-badge-wrap { text-align: center; margin-bottom: 16px; }
+        .admin-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .admin-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #1a56db, #0f1b33);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 36px;
+            margin: 0 auto 20px;
+            box-shadow: 0 12px 32px rgba(26, 86, 219, 0.35);
+        }
+        .admin-login-card h1 {
+            font-size: 26px;
+            font-weight: 900;
+            color: #1f2937;
+            text-align: center;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .admin-login-card .subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 28px;
+        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 6px;
+        }
+        .form-group label .required { color: #dc2626; }
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            color: #1f2937;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: #1a56db;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.08);
+        }
+        .form-hint {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        .btn {
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+        .btn-primary {
+            background: linear-gradient(145deg, #1a56db, #0f1b33);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(26, 86, 219, 0.3);
+        }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 86, 219, 0.4);
+        }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-block { width: 100%; }
+        .btn-lg { padding: 14px 28px; font-size: 14px; }
+        .rm-toast {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 9999;
+            transition: transform 0.3s ease;
+            max-width: 90vw;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        .rm-toast.show { transform: translateX(-50%) translateY(0); }
+        .secure-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 11px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
 
-        // Check if already logged in
-        if (AdminAuth.isAdminLoggedIn()) {
-            window.location.href = 'dashboard.html';
+    <div class="admin-login-card">
+        <div class="admin-badge-wrap">
+            <div class="admin-badge">
+                <i class="fas fa-shield-alt"></i> Admin Access Only
+            </div>
+        </div>
+        <div class="admin-logo"><i class="fas fa-crown"></i></div>
+        <h1>Admin Login</h1>
+        <p class="subtitle">Raj Marketing Mysore · Secure Portal</p>
+
+        <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+            <div class="form-group">
+                <label>Admin Email <span class="required">*</span></label>
+                <input type="email" id="adminEmail" required
+                       inputmode="email"
+                       value="rajmarketingmys@gmail.com"
+                       placeholder="admin@rajmarketingmysore.info"
+                       autocomplete="username" />
+            </div>
+
+            <div class="form-group">
+                <label>Password <span class="required">*</span></label>
+                <input type="password" id="adminPassword" required
+                       placeholder="Enter admin password"
+                       autocomplete="current-password" />
+                <div class="form-hint">
+                    <i class="fas fa-info-circle"></i>
+                    Use your Firebase Authentication password.
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="adminSubmitBtn">
+                <i class="fas fa-lock"></i> Secure Login
+            </button>
+        </form>
+
+        <div class="secure-note">
+            <i class="fas fa-shield-alt"></i> Secured with Firebase Authentication
+        </div>
+    </div>
+
+    <script type="module">
+    import { AdminAuth } from '../js/firebase-auth.js';
+    import { auth } from '../firebase-config.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+    // Auto-redirect if already admin
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const ok = await AdminAuth.checkSession();
+            if (ok) window.location.href = 'dashboard.html';
+        }
+    });
+
+    window.handleAdminLogin = async function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById('adminEmail').value.trim();
+        const password = document.getElementById('adminPassword').value;
+        const btn = document.getElementById('adminSubmitBtn');
+
+        if (!email || !password) {
+            showToast('Please enter email and password', 'error');
             return;
         }
 
-        // Check lockout
-        const lock = AdminAuth.isLockedOut();
-        if (lock.locked) {
-            showLockout(lock.remaining);
-        }
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
 
-        function showLockout(seconds) {
-            const box = document.getElementById('lockoutBox');
-            const timer = document.getElementById('lockoutTimer');
-            box.style.display = 'block';
-            document.querySelector('#passwordForm button[type="submit"]').disabled = true;
+        const result = await AdminAuth.login(email, password);
 
-            function update() {
-                if (seconds <= 0) {
-                    box.style.display = 'none';
-                    document.querySelector('#passwordForm button[type="submit"]').disabled = false;
-                    AdminAuth.resetAttempts();
-                    return;
-                }
-                const m = Math.floor(seconds / 60);
-                const s = seconds % 60;
-                timer.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-                seconds--;
-                setTimeout(update, 1000);
-            }
-            update();
-        }
-
-        // ============================================================
-        // STEP 1: PASSWORD
-        // ============================================================
-        window.submitPassword = async function(e) {
-            e.preventDefault();
-
-            const lock = AdminAuth.isLockedOut();
-            if (lock.locked) {
-                showToast('Account locked. Please wait.', 'error');
-                return;
-            }
-
-            const password = document.getElementById('adminPassword').value;
-
-            // Hash and compare
-            const hash = await AdminAuth.sha256(password);
-            const correctHash = AdminAuth.config.ADMIN_PASSWORD_HASH;
-
-            if (hash !== correctHash) {
-                const attempts = AdminAuth.incrementAttempts();
-                const remaining = AdminAuth.config.MAX_ATTEMPTS - attempts.count;
-                showToast(`❌ Invalid password. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`, 'error');
-
-                if (attempts.count >= AdminAuth.config.MAX_ATTEMPTS) {
-                    showLockout(Math.floor(AdminAuth.config.LOCKOUT_DURATION / 1000));
-                }
-                return;
-            }
-
-            // Password correct - generate OTP
-            currentOTP = AdminAuth.generateOTP();
-            AdminAuth.sendOTPByEmail(currentOTP);
-
-            // Show dev hint
-            const devHint = document.getElementById('devOTPHint');
-            document.getElementById('devOTPCode').textContent = currentOTP;
-            devHint.classList.add('show');
-
-            // Move to OTP step
-            document.getElementById('passwordStep').style.display = 'none';
-            document.getElementById('otpStep').style.display = 'block';
-            document.getElementById('stepDot1').classList.add('completed');
-            document.getElementById('stepLine1').classList.add('completed');
-            document.getElementById('stepDot2').classList.add('active');
-
-            showToast('✅ Password verified! OTP sent to admin email.', 'success');
-
-            // Focus OTP input
-            setTimeout(() => document.getElementById('otpInput').focus(), 300);
-        };
-
-        // ============================================================
-        // STEP 2: OTP
-        // ============================================================
-        window.submitOTP = function(e) {
-            e.preventDefault();
-
-            const inputOTP = document.getElementById('otpInput').value.toUpperCase().trim();
-
-            if (inputOTP.length !== 6) {
-                showToast('Please enter the complete 6-character OTP', 'error');
-                return;
-            }
-
-            const result = AdminAuth.verifyOTP(inputOTP);
-
-            if (!result.valid) {
-                showToast('❌ ' + result.error, 'error');
-                document.getElementById('otpInput').value = '';
-                document.getElementById('otpInput').focus();
-                return;
-            }
-
-            // Success!
-            AdminAuth.resetAttempts();
-            AdminAuth.createAdminSession();
-
-            document.getElementById('stepDot2').classList.add('completed');
-
-            showToast('🎉 Login successful! Redirecting...', 'success');
-
-            setTimeout(() => {
-                const redirect = sessionStorage.getItem('admin_redirect') || 'dashboard.html';
-                sessionStorage.removeItem('admin_redirect');
-                window.location.href = redirect;
-            }, 800);
-        };
-
-        // ============================================================
-        // UTILITIES
-        // ============================================================
-        window.backToPassword = function() {
-            document.getElementById('passwordStep').style.display = 'block';
-            document.getElementById('otpStep').style.display = 'none';
-            document.getElementById('stepDot1').classList.remove('completed');
-            document.getElementById('stepLine1').classList.remove('completed');
-            document.getElementById('stepDot2').classList.remove('active');
+        if (!result.success) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-lock"></i> Secure Login';
+            showToast('❌ ' + result.error, 'error');
             document.getElementById('adminPassword').value = '';
-            document.getElementById('otpInput').value = '';
-        };
+            return;
+        }
 
-        window.resendOTP = function() {
-            currentOTP = AdminAuth.generateOTP();
-            AdminAuth.sendOTPByEmail(currentOTP);
-            document.getElementById('devOTPCode').textContent = currentOTP;
-            document.getElementById('devOTPHint').classList.add('show');
-            showToast('📧 New OTP sent to admin email', 'info');
-        };
+        showToast('🎉 Login successful! Redirecting...', 'success');
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
+    };
 
-        // Auto-format OTP input
-        document.getElementById('otpInput').addEventListener('input', function() {
-            this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
-        });
-
-        // Auto-submit when 6 chars entered
-        document.getElementById('otpInput').addEventListener('input', function() {
-            if (this.value.length === 6) {
-                setTimeout(() => submitOTP({ preventDefault: () => {} }), 300);
-            }
-        });
-    })();
+    function showToast(msg, type = 'info') {
+        document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+        const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+        const t = document.createElement('div');
+        t.className = 'rm-toast';
+        t.textContent = msg;
+        t.style.background = colors[type] || colors.info;
+        document.body.appendChild(t);
+        requestAnimationFrame(() => t.classList.add('show'));
+        setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+    }
     </script>
 </body>
-  </html>
+</html>
