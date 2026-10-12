@@ -1,26 +1,14 @@
 /* ============================================================
    FIRESTORE SERVICE
    Raj Marketing Mysore
-   ------------------------------------------------------------
-   Centralized collection helpers for Customers, Dealers, etc.
    Location: /js/firestore-service.js
 ============================================================ */
 
 import { db } from '../firebase-config.js';
 import {
-    doc,
-    getDoc,
-    setDoc,
-    updateDoc,
-    deleteDoc,
-    collection,
-    getDocs,
-    query,
-    where,
-    orderBy,
-    limit,
-    serverTimestamp,
-    onSnapshot
+    doc, getDoc, setDoc, updateDoc, deleteDoc,
+    collection, getDocs, query, where, orderBy, limit,
+    serverTimestamp, onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
 // ============================================================
@@ -45,8 +33,7 @@ const Customers = {
     },
 
     async update(uid, updates) {
-        const ref = doc(db, 'customers', uid);
-        await updateDoc(ref, {
+        await updateDoc(doc(db, 'customers', uid), {
             ...updates,
             updatedAt: serverTimestamp()
         });
@@ -57,13 +44,21 @@ const Customers = {
     },
 
     async list(max = 100) {
-        const q = query(collection(db, 'customers'), orderBy('createdAt', 'desc'), limit(max));
+        const q = query(
+            collection(db, 'customers'),
+            orderBy('createdAt', 'desc'),
+            limit(max)
+        );
         const snap = await getDocs(q);
         return snap.docs.map(d => ({ id: d.id, ...d.data() }));
     },
 
     async findByMobile(mobile) {
-        const q = query(collection(db, 'customers'), where('mobile', '==', mobile), limit(1));
+        const q = query(
+            collection(db, 'customers'),
+            where('mobile', '==', mobile),
+            limit(1)
+        );
         const snap = await getDocs(q);
         if (snap.empty) return null;
         const d = snap.docs[0];
@@ -71,7 +66,11 @@ const Customers = {
     },
 
     async findByEmail(email) {
-        const q = query(collection(db, 'customers'), where('email', '==', email), limit(1));
+        const q = query(
+            collection(db, 'customers'),
+            where('email', '==', email),
+            limit(1)
+        );
         const snap = await getDocs(q);
         if (snap.empty) return null;
         const d = snap.docs[0];
@@ -107,8 +106,7 @@ const Dealers = {
     },
 
     async update(uid, updates) {
-        const ref = doc(db, 'dealers', uid);
-        await updateDoc(ref, {
+        await updateDoc(doc(db, 'dealers', uid), {
             ...updates,
             updatedAt: serverTimestamp()
         });
@@ -130,7 +128,11 @@ const Dealers = {
     },
 
     async findByDealerId(dealerId) {
-        const q = query(collection(db, 'dealers'), where('dealerId', '==', dealerId), limit(1));
+        const q = query(
+            collection(db, 'dealers'),
+            where('dealerId', '==', dealerId),
+            limit(1)
+        );
         const snap = await getDocs(q);
         if (snap.empty) return null;
         const d = snap.docs[0];
@@ -138,7 +140,11 @@ const Dealers = {
     },
 
     async findByEmail(email) {
-        const q = query(collection(db, 'dealers'), where('email', '==', email), limit(1));
+        const q = query(
+            collection(db, 'dealers'),
+            where('email', '==', email),
+            limit(1)
+        );
         const snap = await getDocs(q);
         if (snap.empty) return null;
         const d = snap.docs[0];
@@ -190,11 +196,15 @@ const Orders = {
 };
 
 // ============================================================
-// PRODUCTS (read-only on frontend)
+// PRODUCTS (read-only from frontend)
 // ============================================================
 const Products = {
     async list(max = 100) {
-        const q = query(collection(db, 'products'), where('active', '==', true), limit(max));
+        const q = query(
+            collection(db, 'products'),
+            where('active', '==', true),
+            limit(max)
+        );
         const snap = await getDocs(q);
         return snap.docs.map(d => ({ id: d.id, ...d.data() }));
     },
@@ -220,7 +230,7 @@ const Products = {
 // NOTIFICATIONS
 // ============================================================
 const Notifications = {
-    async createForUser(userId, data) {
+    async create(userId, data) {
         const id = 'NOTIF-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
         const ref = doc(db, 'notifications', id);
         await setDoc(ref, {
