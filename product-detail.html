@@ -462,3 +462,197 @@ body { background:#f0f4f8; color:#0f172a; line-height:1.5; padding:0 0 40px; }
     </div>
 </main>
   
+<script>
+/* ============================================================
+   PRODUCT-DETAIL INLINE SCRIPT (self-contained, no external JS)
+============================================================ */
+(function () {
+    'use strict';
+
+    console.log('🟢 product-detail script loaded');
+
+    // ---------- PRODUCT DATABASE (identical IDs to products.html) ----------
+    var PRODUCTS = {
+        'velcro-economic': {
+            name: 'Velcro System – Economic', category: 'Velcro', variant: 'Economic',
+            price: 65, unit: 'sq.ft', onlinePurchase: true,
+            description: 'Economical velcro-based mosquito net for windows and small openings.',
+            longDescription: 'The Economic Velcro System offers a budget-friendly solution for mosquito protection. Attaches with high-quality velcro tape and can be easily removed for cleaning.',
+            images: ['images/velcro-economic.jpg', 'images/velcro-premium.jpg', 'images/placeholder.jpg'],
+            colours: ['Ivory', 'White', 'Black'],
+            types: ['Single', 'Double'],
+            benefits: ['Economical pricing', 'Easy to install & remove', 'Washable net', 'Custom sizes available'],
+            applications: ['Windows', 'Ventilators', 'Balcony openings'],
+            specs: { 'Product Type': 'Velcro Mosquito Net', 'Mesh': 'Fiberglass', 'Attachment': 'Velcro Tape', 'Custom Size': 'Yes', 'Warranty': '1 Year' },
+            faqs: [
+                { q: 'Can I install it myself?', a: 'Yes, velcro nets are DIY-friendly.' },
+                { q: 'Is the net washable?', a: 'Yes, the mesh can be removed and washed gently.' }
+            ]
+        },
+        'velcro-premium': { name:'Velcro System – Premium Saint-Gobain', category:'Velcro', variant:'Premium Saint-Gobain', price:80, unit:'sq.ft', onlinePurchase:true, description:'Premium velcro net with Saint-Gobain mesh.', images:['images/velcro-premium.jpg'], colours:['Ivory','White'], types:['Single','Double'] },
+        'aluminium-black-ss': { name:'Aluminium Frame – Black Coated SS Mesh', category:'Aluminium', variant:'Regular + Black Coated SS', price:200, unit:'sq.ft', onlinePurchase:false, description:'Aluminium frame with black coated SS mesh.', images:['images/aluminium-black-ss.jpg'], colours:['Black','Ivory'], types:['Single','Double','Sliding'] },
+        'aluminium-bright-ss': { name:'Aluminium Frame – Bright SS 304 Mesh', category:'Aluminium', variant:'Regular + Bright SS 304', price:220, unit:'sq.ft', onlinePurchase:false, description:'Aluminium frame with bright SS 304 mesh.', images:['images/aluminium-bright-ss.jpg'], colours:['Silver','Ivory'], types:['Single','Double'] },
+        'aluminium-teakwood': { name:'Premium Teakwood – Black Coated SS Mesh', category:'Premium', variant:'Teakwood + Black Coated SS', price:300, unit:'sq.ft', onlinePurchase:false, description:'Premium teakwood finish with black SS mesh.', images:['images/aluminium-teakwood.jpg'], colours:['Teakwood'], types:['Single','Double'] },
+        'pleated-gold': { name:'Pleated Mesh – Gold Detachable', category:'Pleated', variant:'32mm Single', price:380, originalPrice:420, discount:10, unit:'sq.ft', onlinePurchase:false, description:'Pleated mesh with gold finish.', images:['images/pleated-gold.jpg'], colours:['Gold','Ivory'], types:['Single'] },
+        'pleated-platinum': { name:'Pleated SS Mesh – Platinum Detachable', category:'Pleated', variant:'25mm Single', price:500, unit:'sq.ft', onlinePurchase:false, description:'Pleated SS mesh with platinum finish.', images:['images/pleated-platinum.jpg'], colours:['Platinum'], types:['Single'] },
+        'pleated-diamond': { name:'Pleated SS Mesh – Diamond Detachable', category:'Pleated', variant:'32mm Single', price:560, unit:'sq.ft', onlinePurchase:false, description:'Pleated SS mesh with diamond finish.', images:['images/pleated-diamond.jpg'], colours:['Diamond'], types:['Single'] },
+        'honeycomb-gold': { name:'Pleated Honeycomb Gold – Detachable', category:'Pleated', variant:'32mm Single', price:520, unit:'sq.ft', onlinePurchase:false, description:'Honeycomb pleated net.', images:['images/honeycomb-gold.jpg'], colours:['Gold'], types:['Single'] },
+        'single-sliding-economic': { name:'Single Sliding Economic', category:'Sliding', variant:'Single Sliding', price:400, unit:'sq.ft', onlinePurchase:false, description:'Single sliding mosquito net.', images:['images/single-sliding.jpg'], colours:['Ivory','Black'], types:['Single'] },
+        'double-sliding-economic': { name:'Double Sliding Economic', category:'Sliding', variant:'Double Sliding', price:450, unit:'sq.ft', onlinePurchase:false, description:'Double sliding mosquito net.', images:['images/double-sliding.jpg'], colours:['Ivory','Black'], types:['Double'] },
+        'security-screen-single-door': { name:'Security Screen – Single Door', category:'Security', variant:'Single Door + GST', price:990, unit:'sq.ft', onlinePurchase:false, description:'Security screen for single door.', images:['images/security-screen-single.jpg'], colours:['Black'], types:['Single'] },
+        'security-screen-double-door': { name:'Security Screen – Double Door', category:'Security', variant:'Double Door + GST', price:1150, unit:'sq.ft', onlinePurchase:false, description:'Security screen for double door.', images:['images/security-screen-double.jpg'], colours:['Black'], types:['Double'] },
+        'ss-black-mesh-0.18mm': { name:'SS Black Mesh 0.18mm', category:'Mesh', variant:'0.18mm Black', price:36, unit:'sq.ft', onlinePurchase:false, description:'SS black mesh 0.18mm.', images:['images/ss-black-mesh.jpg'], colours:['Black'], types:['Roll'] },
+        'ss-black-mesh': { name:'SS Black Mesh', category:'Mesh', variant:'Black', price:38, unit:'sq.ft', onlinePurchase:false, description:'SS black mesh.', images:['images/ss-black-mesh-standard.jpg'], colours:['Black'], types:['Roll'] },
+        'ss-black-mesh-3ft': { name:'SS Black Mesh 3 ft', category:'Mesh', variant:'3 ft Black', price:42, unit:'sq.ft', onlinePurchase:false, description:'SS black mesh 3 ft.', images:['images/ss-black-mesh-3ft.jpg'], colours:['Black'], types:['Roll'] },
+        'ss-bright-mesh-0.24mm-4ft': { name:'SS Bright Mesh 0.24mm, 4 ft', category:'Mesh', variant:'0.24mm Bright 4ft', price:48, unit:'sq.ft', onlinePurchase:false, description:'SS bright mesh 0.24mm.', images:['images/ss-bright-mesh.jpg'], colours:['Bright'], types:['Roll'] },
+        'ss-black-304g-0.5mm': { name:'SS Black 304G 0.5mm', category:'Mesh', variant:'304G 0.5mm', price:550, unit:'sq.ft', onlinePurchase:false, description:'SS black 304G 0.5mm.', images:['images/ss-black-304g.jpg'], colours:['Black'], types:['Roll'] },
+        'fiber-touflex-mesh': { name:'Fiber/Touflex Mesh', category:'Mesh', variant:'Fiber Mesh', price:8, unit:'sq.ft', onlinePurchase:false, description:'Fiber touflex mesh.', images:['images/fiber-mesh.jpg'], colours:['Grey'], types:['Roll'] },
+        'mesh-door-black': { name:'Mesh Door – Black Coated SS Mesh', category:'Door', variant:'Regular + Black Coated SS', price:350, unit:'sq.ft', onlinePurchase:false, description:'Mesh door with black SS.', images:['images/mesh-door-black.jpg'], colours:['Black'], types:['Single','Double'] },
+        'mesh-door-bright': { name:'Mesh Door – Bright SS 304 Mesh', category:'Door', variant:'Regular + Bright SS 304', price:380, unit:'sq.ft', onlinePurchase:false, description:'Mesh door with bright SS 304.', images:['images/mesh-door-bright.jpg'], colours:['Bright'], types:['Single','Double'] }
+    };
+
+    // ---------- STATE ----------
+    var currentProduct = null;
+    var currentUnit = 'in';
+    var selectedColour = null;
+    var selectedType = null;
+    var currentSlide = 0;
+    var unitRate = 0;
+
+    var WIDTH_OPTIONS = [12,18,24,30,36,42,48,54,60,66,72,78,84,90,96,102,108,114,120];
+    var HEIGHT_OPTIONS = [12,18,24,30,36,42,48,54,60,66,72,78,84,90,96,102,108,114,120];
+
+    function qs(id) { return document.getElementById(id); }
+    function toCm(i) { return Math.round(i * 2.54); }
+    function fromCm(c) { return Math.round(c / 2.54); }
+    function formatINR(n) { return '₹' + Number(n).toLocaleString('en-IN', { maximumFractionDigits: 0 }); }
+
+    // ---------- BOOT ----------
+    function boot() {
+        try {
+            var params = new URLSearchParams(window.location.search);
+            var productId = params.get('id');
+            console.log('🔎 Product ID:', productId);
+
+            if (!productId) { showError('No product ID in URL.'); return; }
+            var product = PRODUCTS[productId];
+            if (!product) { showError('Product not found: ' + productId); return; }
+
+            currentProduct = product;
+            currentProduct.id = productId;
+
+            renderProduct(product);
+            qs('loadingState').style.display = 'none';
+            qs('productContainer').style.display = 'block';
+            console.log('✅ Rendered:', product.name);
+
+            // Hide error state explicitly
+            qs('errorState').style.display = 'none';
+
+        } catch (err) {
+            console.error('❌ Boot error:', err);
+            showError(err.message);
+        }
+    }
+
+    function showError(msg) {
+        var ls = qs('loadingState'); if (ls) ls.style.display = 'none';
+        var pc = qs('productContainer'); if (pc) pc.style.display = 'none';
+        var es = qs('errorState');
+        if (es) {
+            es.style.display = 'block';
+            var em = qs('errorMessage'); if (em) em.textContent = msg;
+        }
+    }
+
+    // ---------- RENDER ----------
+    function renderProduct(p) {
+        document.title = p.name + ' – Raj Marketing Mysore';
+        var md = document.querySelector('meta[name="description"]');
+        if (md) md.content = p.description || ('Buy ' + p.name + ' in Mysore.');
+
+        setText('productTitle', p.name);
+        setText('productVariant', p.variant || '');
+        setText('breadcrumbCategory', p.category || 'Category');
+        setText('breadcrumbProduct', p.name);
+        setText('productDescription', p.description || '');
+        setText('galleryBadge', p.category || 'Product');
+
+        unitRate = Number(p.price) || 0;
+        setText('currentPrice', formatINR(unitRate));
+        setText('priceUnit', '/ ' + (p.unit || 'sq.ft'));
+
+        if (p.originalPrice) { var op = qs('originalPrice'); op.textContent = formatINR(p.originalPrice); op.style.display = 'inline'; }
+        if (p.discount) { var dt = qs('discountTag'); dt.textContent = p.discount + '% OFF'; dt.style.display = 'inline'; }
+
+        buildGallery(p.images && p.images.length ? p.images : ['images/placeholder.jpg']);
+        buildColours(p.colours && p.colours.length ? p.colours : ['Ivory']);
+        buildTypes(p.types && p.types.length ? p.types : ['Single']);
+        populateDimensionSelects();
+        buildBuyActions(p);
+        buildTabs(p);
+        buildRelated(p);
+        calculatePrice();
+        bindTabs();
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setText(id, val) { var el = qs(id); if (el) el.textContent = val; }
+
+    // ---------- GALLERY ----------
+    function buildGallery(images) {
+        var track = qs('galleryTrack'), dots = qs('galleryDots'), thumbs = qs('galleryThumbs'), counter = qs('galleryCounter');
+
+        track.innerHTML = images.map(function (src) {
+            return '<div class="gallery-slide"><img src="' + src + '" alt="" onerror="this.src=\'images/placeholder.jpg\'"></div>';
+        }).join('');
+
+        dots.innerHTML = images.map(function (_, i) {
+            return '<button class="dot' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"></button>';
+        }).join('');
+
+        thumbs.innerHTML = images.map(function (src, i) {
+            return '<div class="thumb' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"><img src="' + src + '" alt="" onerror="this.src=\'images/placeholder.jpg\'"></div>';
+        }).join('');
+
+        function goTo(i) {
+            currentSlide = (i + images.length) % images.length;
+            track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+            dots.querySelectorAll('.dot').forEach(function (d, idx) { d.classList.toggle('active', idx === currentSlide); });
+            thumbs.querySelectorAll('.thumb').forEach(function (t, idx) { t.classList.toggle('active', idx === currentSlide); });
+            counter.textContent = (currentSlide + 1) + ' / ' + images.length;
+        }
+
+        qs('galleryPrev').onclick = function () { goTo(currentSlide - 1); };
+        qs('galleryNext').onclick = function () { goTo(currentSlide + 1); };
+        dots.querySelectorAll('.dot').forEach(function (d) { d.onclick = function () { goTo(+d.dataset.i); }; });
+        thumbs.querySelectorAll('.thumb').forEach(function (t) { t.onclick = function () { goTo(+t.dataset.i); }; });
+
+        var startX = 0;
+        track.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', function (e) {
+            var dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 40) goTo(currentSlide + (dx < 0 ? 1 : -1));
+        });
+    }
+
+    // ---------- COLOURS ----------
+    function buildColours(colours) {
+        selectedColour = colours[0];
+        setText('selectedColour', selectedColour);
+        var co = qs('colourOptions');
+        co.innerHTML = colours.map(function (c, i) {
+            var cls = 'colour-' + c.toLowerCase().replace(/\s+/g, '-');
+            return '<span class="colour ' + cls + (i === 0 ? ' active' : '') + '" data-colour="' + c + '" title="' + c + '"></span>';
+        }).join('');
+        co.querySelectorAll('.colour').forEach(function (el) {
+            el.addEventListener('click', function () {
+                co.querySelectorAll('.colour').forEach(function (x) { x.classList.remove('active'); });
+                el.classList.add('active');
+                selectedColour = el.dataset.colour;
+                setText('selectedColour', selectedColour);
+            });
+        });
+    }
+                               
