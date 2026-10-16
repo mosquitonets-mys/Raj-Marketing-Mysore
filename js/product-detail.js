@@ -1,507 +1,389 @@
 /* ============================================================
-   PRODUCT DETAIL ENGINE — FIRESTORE
-   Raj Marketing Mysore · v5.0
-   ============================================================ */
+   product-detail.js
+   Loads product from Firestore (falls back to static data),
+   renders gallery, info, calculator, tabs, related products.
+============================================================ */
 
-import { Products as FirestoreProducts } from './firestore-service.js';
+import { db } from './firebase-config.js';
+import { doc, getDoc, collection, getDocs, query, limit } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
-(function() {
-    'use strict';
+// ============================================================
+// STATIC FALLBACK (must match products.html IDs exactly)
+// ============================================================
+const STATIC_PRODUCTS = {
+    'velcro-economic': { name:'Velcro System – Economic', category:'Velcro', variant:'Economic', price:65, unit:'sq.ft', description:'Economical velcro-based mosquito net.', images:['images/velcro-economic.jpg'], colours:['Ivory','White','Black'], types:['Single','Double'], onlinePurchase:true },
+    'velcro-premium': { name:'Velcro System – Premium Saint-Gobain', category:'Velcro', variant:'Premium Saint-Gobain', price:80, unit:'sq.ft', description:'Premium velcro net with Saint-Gobain mesh.', images:['images/velcro-premium.jpg'], colours:['Ivory','White'], types:['Single','Double'], onlinePurchase:true },
+    'aluminium-black-ss': { name:'Aluminium Frame – Black Coated SS Mesh', category:'Aluminium', variant:'Regular + Black Coated SS', price:200, unit:'sq.ft', description:'Aluminium frame with black coated SS mesh.', images:['images/aluminium-black-ss.jpg'], colours:['Black','Ivory'], types:['Single','Double','Sliding'], onlinePurchase:false },
+    'aluminium-bright-ss': { name:'Aluminium Frame – Bright SS 304 Mesh', category:'Aluminium', variant:'Regular + Bright SS 304', price:220, unit:'sq.ft', description:'Aluminium frame with bright SS 304 mesh.', images:['images/aluminium-bright-ss.jpg'], colours:['Silver','Ivory'], types:['Single','Double'], onlinePurchase:false },
+    'aluminium-teakwood': { name:'Premium Teakwood – Black Coated SS Mesh', category:'Premium', variant:'Teakwood + Black Coated SS', price:300, unit:'sq.ft', description:'Premium teakwood finish with black SS mesh.', images:['images/aluminium-teakwood.jpg'], colours:['Teakwood'], types:['Single','Double'], onlinePurchase:false },
+    'pleated-gold': { name:'Pleated Mesh – Gold Detachable', category:'Pleated', variant:'32mm Single', price:380, originalPrice:420, discount:10, unit:'sq.ft', description:'Pleated mesh with gold finish.', images:['images/pleated-gold.jpg'], colours:['Gold','Ivory'], types:['Single'], onlinePurchase:false },
+    'pleated-platinum': { name:'Pleated SS Mesh – Platinum Detachable', category:'Pleated', variant:'25mm Single', price:500, unit:'sq.ft', description:'Pleated SS mesh with platinum finish.', images:['images/pleated-platinum.jpg'], colours:['Platinum'], types:['Single'], onlinePurchase:false },
+    'pleated-diamond': { name:'Pleated SS Mesh – Diamond Detachable', category:'Pleated', variant:'32mm Single', price:560, unit:'sq.ft', description:'Pleated SS mesh with diamond finish.', images:['images/pleated-diamond.jpg'], colours:['Diamond'], types:['Single'], onlinePurchase:false },
+    'honeycomb-gold': { name:'Pleated Honeycomb Gold – Detachable', category:'Pleated', variant:'32mm Single', price:520, unit:'sq.ft', description:'Honeycomb pleated net.', images:['images/honeycomb-gold.jpg'], colours:['Gold'], types:['Single'], onlinePurchase:false },
+    'single-sliding-economic': { name:'Single Sliding Economic', category:'Sliding', variant:'Single Sliding', price:400, unit:'sq.ft', description:'Single sliding mosquito net.', images:['images/single-sliding.jpg'], colours:['Ivory','Black'], types:['Single'], onlinePurchase:false },
+    'double-sliding-economic': { name:'Double Sliding Economic', category:'Sliding', variant:'Double Sliding', price:450, unit:'sq.ft', description:'Double sliding mosquito net.', images:['images/double-sliding.jpg'], colours:['Ivory','Black'], types:['Double'], onlinePurchase:false },
+    'security-screen-single-door': { name:'Security Screen – Single Door', category:'Security', variant:'Single Door + GST', price:990, unit:'sq.ft', description:'Security screen for single door.', images:['images/security-screen-single.jpg'], colours:['Black'], types:['Single'], onlinePurchase:false },
+    'security-screen-double-door': { name:'Security Screen – Double Door', category:'Security', variant:'Double Door + GST', price:1150, unit:'sq.ft', description:'Security screen for double door.', images:['images/security-screen-double.jpg'], colours:['Black'], types:['Double'], onlinePurchase:false },
+    'ss-black-mesh-0.18mm': { name:'SS Black Mesh 0.18mm', category:'Mesh', variant:'0.18mm Black', price:36, unit:'sq.ft', description:'SS black mesh 0.18mm.', images:['images/ss-black-mesh.jpg'], colours:['Black'], types:['Roll'], onlinePurchase:false },
+    'ss-black-mesh': { name:'SS Black Mesh', category:'Mesh', variant:'Black', price:38, unit:'sq.ft', description:'SS black mesh.', images:['images/ss-black-mesh-standard.jpg'], colours:['Black'], types:['Roll'], onlinePurchase:false },
+    'ss-black-mesh-3ft': { name:'SS Black Mesh 3 ft', category:'Mesh', variant:'3 ft Black', price:42, unit:'sq.ft', description:'SS black mesh 3 ft.', images:['images/ss-black-mesh-3ft.jpg'], colours:['Black'], types:['Roll'], onlinePurchase:false },
+    'ss-bright-mesh-0.24mm-4ft': { name:'SS Bright Mesh 0.24mm, 4 ft', category:'Mesh', variant:'0.24mm Bright 4ft', price:48, unit:'sq.ft', description:'SS bright mesh 0.24mm.', images:['images/ss-bright-mesh.jpg'], colours:['Bright'], types:['Roll'], onlinePurchase:false },
+    'ss-black-304g-0.5mm': { name:'SS Black 304G 0.5mm', category:'Mesh', variant:'304G 0.5mm', price:550, unit:'sq.ft', description:'SS black 304G 0.5mm.', images:['images/ss-black-304g.jpg'], colours:['Black'], types:['Roll'], onlinePurchase:false },
+    'fiber-touflex-mesh': { name:'Fiber/Touflex Mesh', category:'Mesh', variant:'Fiber Mesh', price:8, unit:'sq.ft', description:'Fiber touflex mesh.', images:['images/fiber-mesh.jpg'], colours:['Grey'], types:['Roll'], onlinePurchase:false },
+    'mesh-door-black': { name:'Mesh Door – Black Coated SS Mesh', category:'Door', variant:'Regular + Black Coated SS', price:350, unit:'sq.ft', description:'Mesh door with black SS.', images:['images/mesh-door-black.jpg'], colours:['Black'], types:['Single','Double'], onlinePurchase:false },
+    'mesh-door-bright': { name:'Mesh Door – Bright SS 304 Mesh', category:'Door', variant:'Regular + Bright SS 304', price:380, unit:'sq.ft', description:'Mesh door with bright SS 304.', images:['images/mesh-door-bright.jpg'], colours:['Bright'], types:['Single','Double'], onlinePurchase:false }
+};
 
-    let currentProduct = null;
-    let currentSlide = 0;
-    let currentColour = 'Ivory';
-    let currentType = 'Single';
-    let selectedImages = [];
+// ============================================================
+// STATE
+// ============================================================
+let currentProduct = null;
+let currentQty = 1;
+let currentUnit = 'in'; // 'in' or 'cm'
+let selectedColour = null;
+let selectedType = null;
+let currentSlide = 0;
+let unitRate = 0;
 
-    // Measurement state
-    let currentUnit = 'in';
-    let selectedWidth = 36;
-    let selectedHeight = 48;
-    let selectedQty = 1;
+const WIDTH_OPTIONS_IN = [12,18,24,30,36,42,48,54,60,66,72,78,84,90,96,102,108,114,120];
+const HEIGHT_OPTIONS_IN = [12,18,24,30,36,42,48,54,60,66,72,78,84,90,96,102,108,114,120];
 
-    const MIN_DIM = { in: 12, cm: 30 };
-    const MAX_DIM = { in: 60, cm: 152 };
-    const CM_PER_INCH = 2.54;
+// ============================================================
+// HELPERS
+// ============================================================
+const qs = (id) => document.getElementById(id);
 
-    // ============================================================
-    // INIT
-    // ============================================================
-    async function init() {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id') || 'pleated-economic';
+function toCm(inches) { return Math.round(inches * 2.54); }
+function fromCm(cm) { return Math.round(cm / 2.54); }
+function formatINR(n) { return '₹' + Number(n).toLocaleString('en-IN', { maximumFractionDigits: 0 }); }
 
-        // Show loading
-        document.getElementById('loadingState').style.display = 'block';
-        document.getElementById('productContainer').style.display = 'none';
+// ============================================================
+// INIT
+// ============================================================
+async function init() {
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
 
-        let product = null;
+    if (!productId) {
+        showError('No product ID provided');
+        return;
+    }
 
+    try {
         // Try Firestore first
+        let product = null;
         try {
-            product = await FirestoreProducts.get(id);
+            const snap = await getDoc(doc(db, 'products', productId));
+            if (snap.exists()) {
+                product = { id: snap.id, ...snap.data() };
+            }
         } catch (e) {
-            console.warn('Firestore fetch failed, trying localStorage');
+            console.warn('Firestore lookup failed, using static data:', e.message);
         }
 
-        // Fallback to localStorage
-        if (!product) {
-            try {
-                const products = JSON.parse(localStorage.getItem('raj_master_products') || '[]');
-                product = products.find(p => p.id === id);
-            } catch (e) {}
+        // Fallback to static
+        if (!product && STATIC_PRODUCTS[productId]) {
+            product = { id: productId, ...STATIC_PRODUCTS[productId] };
         }
 
         if (!product) {
-            document.getElementById('loadingState').style.display = 'none';
-            document.getElementById('errorState').style.display = 'block';
+            showError('Product not found');
             return;
         }
 
         currentProduct = product;
-        currentColour = (product.colours && product.colours[0]) || 'Ivory';
-        currentType = (product.types && product.types[0]) || 'Single';
-        selectedImages = product.images || ['images/placeholder.jpg'];
-        currentSlide = 0;
-        selectedWidth = 36;
-        selectedHeight = 48;
-        selectedQty = 1;
+        renderProduct(product);
+        qs('loadingState').style.display = 'none';
+        qs('productContainer').style.display = 'block';
 
-        setTimeout(() => {
-            document.getElementById('loadingState').style.display = 'none';
-            document.getElementById('productContainer').style.display = 'block';
-            renderProduct(product);
-        }, 250);
+    } catch (err) {
+        console.error('Init error:', err);
+        showError(err.message);
+    }
+}
+
+function showError(msg) {
+    qs('loadingState').style.display = 'none';
+    qs('errorState').style.display = 'block';
+    const p = qs('errorState').querySelector('p');
+    if (p) p.textContent = msg || 'The product you are looking for does not exist.';
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderProduct(p) {
+    // SEO
+    document.title = `${p.name} – Raj Marketing Mysore`;
+    const md = document.querySelector('meta[name="description"]');
+    if (md) md.content = p.description || `Buy ${p.name} in Mysore.`;
+    const ogT = qs('ogTitle'); if (ogT) ogT.content = p.name;
+    const ogD = qs('ogDescription'); if (ogD) ogD.content = p.description || '';
+    const twT = qs('twitterTitle'); if (twT) twT.content = p.name;
+    const twD = qs('twitterDescription'); if (twD) twD.content = p.description || '';
+
+    // Title / variant / breadcrumb
+    qs('productTitle').textContent = p.name;
+    qs('productVariant').textContent = p.variant || '';
+    qs('breadcrumbCategory').textContent = p.category || 'Category';
+    qs('breadcrumbProduct').textContent = p.name;
+    qs('productDescription').textContent = p.description || '';
+
+    // Price
+    unitRate = Number(p.price) || 0;
+    qs('currentPrice').textContent = formatINR(unitRate);
+    qs('priceUnit').textContent = '/ ' + (p.unit || 'sq.ft');
+    if (p.originalPrice) {
+        qs('originalPrice').textContent = formatINR(p.originalPrice);
+        qs('originalPrice').style.display = 'inline';
+    }
+    if (p.discount) {
+        qs('discountTag').textContent = p.discount + '% OFF';
+        qs('discountTag').style.display = 'inline';
     }
 
-    // ============================================================
-    // RENDER PRODUCT
-    // ============================================================
-    function renderProduct(product) {
-        // Breadcrumb
-        const bcCat = document.getElementById('breadcrumbCategory');
-        const bcProd = document.getElementById('breadcrumbProduct');
-        if (bcCat) {
-            bcCat.textContent = product.category || 'Product';
-            bcCat.href = `products.html?cat=${(product.category || '').toLowerCase()}`;
-        }
-        if (bcProd) bcProd.textContent = product.name;
+    // Gallery
+    const images = p.images && p.images.length ? p.images : ['images/placeholder.jpg'];
+    buildGallery(images);
+    const badge = qs('galleryBadge');
+    if (badge) badge.textContent = p.category || 'Product';
 
-        // Header
-        document.getElementById('productTitle').textContent = product.name;
-        document.getElementById('productVariant').textContent = product.variant || '';
-        document.getElementById('galleryBadge').textContent = product.category || 'Product';
-
-        // Price
-        document.getElementById('currentPrice').textContent = `₹${product.displayPrice || product.price || 0}`;
-
-        // Description
-        document.getElementById('productDescription').textContent = product.description || '';
-
-        // Gallery
-        renderGallery(product);
-
-        // Colour options
-        renderColourOptions(product);
-
-        // Type options
-        renderTypeOptions(product);
-
-        // Calculator
-        initializeCalculator(product);
-
-        // CTA
-        renderBuyActions(product);
-
-        // Tabs content
-        document.getElementById('descriptionContent').innerHTML =
-            `<p>${product.description || ''}</p>${product.longDescription ? `<p>${product.longDescription}</p>` : ''}`;
-
-        document.getElementById('appTags').innerHTML = (product.applications || [])
-            .map(a => `<span class="tag">${a}</span>`).join('');
-
-        document.getElementById('specTable').innerHTML = Object.entries(product.specs || {})
-            .map(([k, v]) => `<tr><td class="label">${k}</td><td class="value">${v}</td></tr>`).join('');
-
-        const benefitIcons = ['fa-check-circle', 'fa-star', 'fa-shield-alt', 'fa-trophy', 'fa-gem', 'fa-award'];
-        document.getElementById('benefitsGrid').innerHTML = (product.benefits || [])
-            .map((b, i) => `
-                <div class="benefit-item">
-                    <i class="fas ${benefitIcons[i % benefitIcons.length]}"></i>
-                    <span>${b}</span>
-                </div>
-            `).join('');
-
-        const faqs = product.faqs || [];
-        document.getElementById('faqList').innerHTML = faqs.map((f, i) => `
-            <div class="faq-item ${i === 0 ? 'open' : ''}">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>${f.q}</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">${f.a}</div>
-            </div>
-        `).join('');
-
-        // Related products
-        renderRelated(product);
-
-        calculatePrice();
-    }
-
-    // ============================================================
-    // GALLERY
-    // ============================================================
-    function renderGallery(product) {
-        const track = document.getElementById('galleryTrack');
-        const dots = document.getElementById('galleryDots');
-        const thumbs = document.getElementById('galleryThumbs');
-        const images = product.images || ['images/placeholder.jpg'];
-
-        track.innerHTML = images.map((src, i) => `
-            <div class="gallery-slide">
-                <img src="${src}" alt="${product.name} - Image ${i + 1}"
-                     loading="${i === 0 ? 'eager' : 'lazy'}"
-                     onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-box icon-placeholder\\'></i>'" />
-            </div>
-        `).join('');
-
-        if (images.length > 1) {
-            dots.innerHTML = images.map((_, i) =>
-                `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>`
-            ).join('');
-            dots.style.display = 'flex';
-
-            thumbs.innerHTML = images.map((src, i) => `
-                <button class="thumb ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})">
-                    <img src="${src}" alt="Thumb ${i + 1}" loading="lazy" onerror="this.style.display='none'" />
-                </button>
-            `).join('');
-            thumbs.style.display = 'flex';
-        }
-    }
-
-    // ============================================================
-    // COLOUR / TYPE
-    // ============================================================
-    function renderColourOptions(product) {
-        const container = document.getElementById('colourOptions');
-        if (!container) return;
-        const colours = product.colours || ['Ivory'];
-        container.innerHTML = colours.map(colour => {
-            const colourClass = colour.toLowerCase().replace(/\s+/g, '-');
-            const isActive = colour === currentColour;
-            return `
-                <div class="colour-item ${isActive ? 'active' : ''}" onclick="selectColour(this, '${colour}')">
-                    <span class="colour colour-${colourClass}" title="${colour}"></span>
-                    <span class="colour-name">${colour}</span>
-                </div>
-            `;
-        }).join('');
-    }
-
-    function renderTypeOptions(product) {
-        const container = document.getElementById('typeOptions');
-        if (!container) return;
-        const types = product.types || ['Single'];
-        container.innerHTML = types.map(type => {
-            const isActive = type === currentType;
-            return `<button class="type ${isActive ? 'active' : ''}" onclick="selectType(this, '${type}')">${type}</button>`;
-        }).join('');
-    }
-
-    // ============================================================
-    // CALCULATOR
-    // ============================================================
-    function initializeCalculator(product) {
-        populateDimensionDropdowns();
-        const ws = document.getElementById('widthSelect');
-        const hs = document.getElementById('heightSelect');
-        if (ws) ws.value = selectedWidth;
-        if (hs) hs.value = selectedHeight;
-        const qi = document.getElementById('qtyInput');
-        if (qi) qi.value = selectedQty;
-    }
-
-    function populateDimensionDropdowns() {
-        const widthSelect = document.getElementById('widthSelect');
-        const heightSelect = document.getElementById('heightSelect');
-        if (!widthSelect || !heightSelect) return;
-
-        const step = currentUnit === 'in' ? 1 : 5;
-        const min = MIN_DIM[currentUnit];
-        const max = MAX_DIM[currentUnit];
-
-        widthSelect.innerHTML = '';
-        heightSelect.innerHTML = '';
-
-        for (let val = min; val <= max; val += step) {
-            const label = currentUnit === 'cm' ? `${val} cm` : `${val}"`;
-            const opt1 = new Option(label, val);
-            const opt2 = new Option(label, val);
-            widthSelect.appendChild(opt1);
-            heightSelect.appendChild(opt2);
-        }
-    }
-
-    window.setUnit = function(unit) {
-        if (unit === currentUnit) return;
-
-        if (unit === 'cm') {
-            selectedWidth = Math.round(selectedWidth * CM_PER_INCH);
-            selectedHeight = Math.round(selectedHeight * CM_PER_INCH);
-        } else {
-            selectedWidth = Math.round(selectedWidth / CM_PER_INCH);
-            selectedHeight = Math.round(selectedHeight / CM_PER_INCH);
-        }
-
-        currentUnit = unit;
-        document.querySelectorAll('.unit-toggle button').forEach(b => {
-            b.classList.toggle('active', b.dataset.unit === unit);
+    // Colours
+    const colours = p.colours && p.colours.length ? p.colours : ['Ivory'];
+    selectedColour = colours[0];
+    qs('selectedColour').textContent = selectedColour;
+    qs('colourOptions').innerHTML = colours.map((c, i) => {
+        const cls = 'colour-' + c.toLowerCase().replace(/\s+/g, '-');
+        return `<span class="colour ${cls} ${i===0?'active':''}" data-colour="${c}" title="${c}"></span>`;
+    }).join('');
+    qs('colourOptions').querySelectorAll('.colour').forEach(el => {
+        el.addEventListener('click', () => {
+            qs('colourOptions').querySelectorAll('.colour').forEach(x => x.classList.remove('active'));
+            el.classList.add('active');
+            selectedColour = el.dataset.colour;
+            qs('selectedColour').textContent = selectedColour;
         });
+    });
 
-        const wb = document.getElementById('widthUnitBadge');
-        const hb = document.getElementById('heightUnitBadge');
-        if (wb) wb.textContent = unit;
-        if (hb) hb.textContent = unit;
-
-        populateDimensionDropdowns();
-
-        const min = MIN_DIM[unit], max = MAX_DIM[unit];
-        const step = unit === 'in' ? 1 : 5;
-        selectedWidth = Math.max(min, Math.min(max, Math.round(selectedWidth / step) * step));
-        selectedHeight = Math.max(min, Math.min(max, Math.round(selectedHeight / step) * step));
-
-        document.getElementById('widthSelect').value = selectedWidth;
-        document.getElementById('heightSelect').value = selectedHeight;
-
-        calculatePrice();
-    };
-
-    window.changeQty = function(delta) {
-        const input = document.getElementById('qtyInput');
-        if (!input) return;
-        let val = parseInt(input.value) || 1;
-        val = Math.max(1, Math.min(999, val + delta));
-        input.value = val;
-        selectedQty = val;
-        calculatePrice();
-    };
-
-    window.calculatePrice = function() {
-        if (!currentProduct) return;
-
-        selectedWidth = parseFloat(document.getElementById('widthSelect')?.value) || 36;
-        selectedHeight = parseFloat(document.getElementById('heightSelect')?.value) || 48;
-        selectedQty = parseInt(document.getElementById('qtyInput')?.value) || 1;
-        selectedQty = Math.max(1, Math.min(999, selectedQty));
-
-        let wIn = currentUnit === 'in' ? selectedWidth : selectedWidth / CM_PER_INCH;
-        let hIn = currentUnit === 'in' ? selectedHeight : selectedHeight / CM_PER_INCH;
-
-        const perUnitSqft = (wIn * hIn) / 144;
-        const totalSqft = perUnitSqft * selectedQty;
-        const rate = parseFloat(currentProduct.displayPrice || currentProduct.price || 0);
-        const totalPrice = totalSqft * rate;
-
-        const sv = document.getElementById('sqftValue');
-        if (sv) sv.textContent = perUnitSqft.toFixed(2);
-
-        const bpu = document.getElementById('breakdownPerUnit');
-        if (bpu) bpu.textContent = perUnitSqft.toFixed(2) + ' sq.ft';
-        const bq = document.getElementById('breakdownQty');
-        if (bq) bq.textContent = '× ' + selectedQty;
-        const bts = document.getElementById('breakdownTotalSqft');
-        if (bts) bts.textContent = totalSqft.toFixed(2) + ' sq.ft';
-        const br = document.getElementById('breakdownRate');
-        if (br) br.textContent = '₹' + rate.toFixed(2);
-        const bt = document.getElementById('breakdownTotal');
-        if (bt) bt.textContent = '₹' + Math.round(totalPrice).toLocaleString('en-IN');
-        const tbv = document.getElementById('totalBarValue');
-        if (tbv) tbv.textContent = '₹' + Math.round(totalPrice).toLocaleString('en-IN');
-
-        currentProduct._calc = {
-            width: selectedWidth,
-            height: selectedHeight,
-            unit: currentUnit,
-            qty: selectedQty,
-            perUnitSqft,
-            totalSqft,
-            rate,
-            totalPrice
-        };
-    };
-
-    // ============================================================
-    // BUY ACTIONS
-    // ============================================================
-    function renderBuyActions(product) {
-        const container = document.getElementById('buyActions');
-        if (!container) return;
-
-        if (product.onlinePurchase !== false) {
-            container.innerHTML = `
-                <button class="btn btn-add-cart" onclick="addToCart()">
-                    <i class="fas fa-cart-plus"></i> Add to Cart
-                </button>
-                <button class="btn btn-buy-now" onclick="buyNow()">
-                    <i class="fas fa-bolt"></i> Buy Now
-                </button>
-            `;
-        } else {
-            container.innerHTML = `
-                <button class="btn btn-add-cart" style="grid-column:1/-1;border-color:#f59e0b;color:#d97706;" onclick="bookAppointment()">
-                    <i class="fas fa-calendar-check"></i> Book Appointment
-                </button>
-            `;
-        }
-    }
-
-    window.addToCart = async function() {
-        if (!currentProduct || !currentProduct._calc) return;
-        const calc = currentProduct._calc;
-
-        const item = {
-            productId: currentProduct.id,
-            productName: currentProduct.name,
-            image: (currentProduct.images && currentProduct.images[0]) || '',
-            colour: currentColour,
-            type: currentType,
-            width: calc.width,
-            height: calc.height,
-            unit: calc.unit,
-            qty: calc.qty,
-            perUnitSqft: calc.perUnitSqft,
-            totalSqft: calc.totalSqft,
-            rate: calc.rate,
-            totalPrice: calc.totalPrice
-        };
-
-        await window.CartEngine.addItem(item);
-        showCartToast(`✅ Added to cart`);
-    };
-
-    window.buyNow = async function() {
-        await window.addToCart();
-        setTimeout(() => window.location.href = 'cart.html', 600);
-    };
-
-    window.bookAppointment = function() {
-        const calc = currentProduct._calc || {};
-        const params = new URLSearchParams({
-            product: currentProduct.name,
-            width: calc.width || '',
-            height: calc.height || '',
-            unit: calc.unit || 'in',
-            qty: calc.qty || 1
+    // Types
+    const types = p.types && p.types.length ? p.types : ['Single'];
+    selectedType = types[0];
+    qs('selectedType').textContent = selectedType;
+    qs('typeOptions').innerHTML = types.map((t, i) =>
+        `<span class="type ${i===0?'active':''}" data-type="${t}">${t}</span>`
+    ).join('');
+    qs('typeOptions').querySelectorAll('.type').forEach(el => {
+        el.addEventListener('click', () => {
+            qs('typeOptions').querySelectorAll('.type').forEach(x => x.classList.remove('active'));
+            el.classList.add('active');
+            selectedType = el.dataset.type;
+            qs('selectedType').textContent = selectedType;
         });
-        window.location.href = 'appointment.html?' + params.toString();
+    });
+
+    // Populate width/height selects
+    populateDimensionSelects();
+
+    // Buy actions
+    buildBuyActions(p);
+
+    // Tabs
+    buildTabs(p);
+
+    // Related
+    buildRelated(p);
+
+    // Calculator
+    calculatePrice();
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const pane = qs('tab-' + btn.dataset.tab);
+            if (pane) pane.classList.add('active');
+        });
+    });
+}
+
+// ============================================================
+// GALLERY
+// ============================================================
+function buildGallery(images) {
+    const track = qs('galleryTrack');
+    const dots = qs('galleryDots');
+    const thumbs = qs('galleryThumbs');
+    const counter = qs('galleryCounter');
+
+    track.innerHTML = images.map(src =>
+        `<div class="gallery-slide"><img src="${src}" alt="" loading="lazy" onerror="this.src='images/placeholder.jpg'"></div>`
+    ).join('');
+
+    dots.innerHTML = images.map((_, i) =>
+        `<button class="dot ${i===0?'active':''}" data-i="${i}"></button>`
+    ).join('');
+
+    thumbs.innerHTML = images.map((src, i) =>
+        `<div class="thumb ${i===0?'active':''}" data-i="${i}"><img src="${src}" alt="" onerror="this.src='images/placeholder.jpg'"></div>`
+    ).join('');
+
+    const goTo = (i) => {
+        currentSlide = (i + images.length) % images.length;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        dots.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === currentSlide));
+        thumbs.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === currentSlide));
+        counter.textContent = `${currentSlide + 1} / ${images.length}`;
     };
 
-    // ============================================================
-    // RELATED
-    // ============================================================
-    async function renderRelated(product) {
-        const container = document.getElementById('relatedGrid');
-        if (!container) return;
+    qs('galleryPrev').onclick = () => goTo(currentSlide - 1);
+    qs('galleryNext').onclick = () => goTo(currentSlide + 1);
+    dots.querySelectorAll('.dot').forEach(d => d.onclick = () => goTo(+d.dataset.i));
+    thumbs.querySelectorAll('.thumb').forEach(t => t.onclick = () => goTo(+t.dataset.i));
 
-        const relatedIds = product.related || [];
-        if (!relatedIds.length) {
-            container.innerHTML = '';
-            return;
+    // Swipe
+    let startX = 0;
+    track.addEventListener('touchstart', e => startX = e.touches[0].clientX, { passive: true });
+    track.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) goTo(currentSlide + (dx < 0 ? 1 : -1));
+    });
+}
+
+// ============================================================
+// DIMENSIONS
+// ============================================================
+function populateDimensionSelects() {
+    const wSel = qs('widthSelect');
+    const hSel = qs('heightSelect');
+    const buildOptions = () => {
+        if (currentUnit === 'in') {
+            return WIDTH_OPTIONS_IN.map(v => `<option value="${v}">${v}"</option>`).join('');
         }
-
-        try {
-            const relatedProducts = [];
-            for (const rid of relatedIds) {
-                try {
-                    const p = await FirestoreProducts.get(rid);
-                    if (p) relatedProducts.push(p);
-                } catch (e) {}
-            }
-
-            container.innerHTML = relatedProducts.map(p => {
-                const img = (p.images && p.images[0]) || 'images/placeholder.jpg';
-                return `
-                    <a href="product-detail.html?id=${p.id}" class="related-card">
-                        <div class="img-wrap">
-                            <img src="${img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'" />
-                        </div>
-                        <div class="name">${p.name}</div>
-                        <div class="price">₹${p.displayPrice || p.price || 0}</div>
-                    </a>
-                `;
-            }).join('');
-        } catch (e) {
-            container.innerHTML = '';
-        }
-    }
-
-    // ============================================================
-    // HELPERS
-    // ============================================================
-    window.goToSlide = function(index) {
-        const track = document.getElementById('galleryTrack');
-        if (!track || !selectedImages.length) return;
-        const total = selectedImages.length;
-        currentSlide = Math.max(0, Math.min(index, total - 1));
-        track.style.transform = `translateX(-${currentSlide * (100 / total)}%)`;
-        document.querySelectorAll('.gallery-dots .dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-        document.querySelectorAll('.gallery-thumbs .thumb').forEach((t, i) => t.classList.toggle('active', i === currentSlide));
-        const counter = document.getElementById('galleryCounter');
-        if (counter) counter.textContent = `${currentSlide + 1} / ${total}`;
+        return WIDTH_OPTIONS_IN.map(v => `<option value="${toCm(v)}">${toCm(v)} cm</option>`).join('');
     };
+    wSel.innerHTML = buildOptions();
+    hSel.innerHTML = buildOptions();
+    wSel.value = currentUnit === 'in' ? 36 : toCm(36);
+    hSel.value = currentUnit === 'in' ? 48 : toCm(48);
+    qs('widthUnitBadge').textContent = currentUnit;
+    qs('heightUnitBadge').textContent = currentUnit;
+}
 
-    window.changeSlide = function(dir) {
-        const total = selectedImages.length;
-        if (!total) return;
-        goToSlide((currentSlide + dir + total) % total);
-    };
+window.setUnit = function(unit) {
+    currentUnit = unit;
+    document.querySelectorAll('.unit-toggle button').forEach(b => {
+        b.classList.toggle('active', b.dataset.unit === unit);
+    });
+    populateDimensionSelects();
+    calculatePrice();
+};
 
-    window.selectColour = function(el, colour) {
-        document.querySelectorAll('.colour-options .colour-item').forEach(c => c.classList.remove('active'));
-        el.classList.add('active');
-        currentColour = colour;
-        const sv = document.getElementById('selectedColour');
-        if (sv) sv.textContent = colour;
-    };
+// ============================================================
+// CALCULATOR
+// ============================================================
+window.changeQty = function(delta) {
+    const input = qs('qtyInput');
+    let v = parseInt(input.value, 10) || 1;
+    v = Math.max(1, Math.min(999, v + delta));
+    input.value = v;
+    calculatePrice();
+};
 
-    window.selectType = function(el, type) {
-        document.querySelectorAll('.type-options .type').forEach(t => t.classList.remove('active'));
-        el.classList.add('active');
-        currentType = type;
-        const st = document.getElementById('selectedType');
-        if (st) st.textContent = type;
-    };
+window.calculatePrice = function() {
+    if (!currentProduct) return;
 
-    window.toggleFaq = function(el) {
-        const item = el.closest('.faq-item');
-        const wasOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-list .faq-item').forEach(f => f.classList.remove('open'));
-        if (!wasOpen) item.classList.add('open');
-    };
+    const wRaw = parseFloat(qs('widthSelect').value) || 0;
+    const hRaw = parseFloat(qs('heightSelect').value) || 0;
+    const qty = Math.max(1, parseInt(qs('qtyInput').value, 10) || 1);
 
-    function showCartToast(msg) {
-        document.querySelectorAll('.cart-toast').forEach(t => t.remove());
-        const toast = document.createElement('div');
-        toast.className = 'cart-toast';
-        toast.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
-        document.body.appendChild(toast);
-        requestAnimationFrame(() => toast.classList.add('show'));
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }, 2500);
-    }
+    // Convert to inches for sq.ft calc
+    const wIn = currentUnit === 'cm' ? fromCm(wRaw) : wRaw;
+    const hIn = currentUnit === 'cm' ? fromCm(hRaw) : hRaw;
 
-    // ============================================================
-    // BOOT
-    // ============================================================
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+    const perUnitSqFt = (wIn * hIn) / 144;
+    const totalSqFt = perUnitSqFt * qty;
+    const total = totalSqFt * unitRate;
+
+    qs('sqftValue').textContent = perUnitSqFt.toFixed(2);
+    qs('breakdownPerUnit').textContent = perUnitSqFt.toFixed(2) + ' sq.ft';
+    qs('breakdownQty').textContent = '× ' + qty;
+    qs('breakdownTotalSqft').textContent = totalSqFt.toFixed(2) + ' sq.ft';
+    qs('breakdownRate').textContent = formatINR(unitRate);
+    qs('breakdownTotal').textContent = formatINR(Math.round(total));
+    qs('totalBarValue').textContent = formatINR(Math.round(total));
+};
+
+// ============================================================
+// BUY ACTIONS
+// ============================================================
+function buildBuyActions(p) {
+    const isOnline = p.onlinePurchase !== false;
+    const container = qs('buyActions');
+    if (isOnline) {
+        container.innerHTML = `
+            <button class="btn btn-add-cart" onclick="addToCart()">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+            <button class="btn btn-buy-now" onclick="buyNow()">
+                <i class="fas fa-bolt"></i> Buy Now
+            </button>
+        `;
     } else {
-        init();
+        container.innerHTML = `
+            <button class="btn btn-buy-now" style="grid-column:1/-1;" onclick="bookAppointment()">
+                <i class="fas fa-calendar-check"></i> Book Appointment
+            </button>
+        `;
     }
+}
 
-     console.log('%c✅ Product Detail Engine (Firestore) loaded', 'color:#1a56db;font-weight:bold;');
-})();
+window.addToCart = function() {
+    if (!currentProduct) return;
+    const total = parseFloat(qs('breakdownTotal').textContent.replace(/[^0-9.]/g, '')) || 0;
+    const cart = JSON.parse(localStorage.getItem('rm_cart') || '[]');
+    cart.push({
+        id: currentProduct.id,
+        name: currentProduct.name,
+        colour: selectedColour,
+        type: selectedType,
+        width: qs('widthSelect').value,
+        height: qs('heightSelect').value,
+        unit: currentUnit,
+        qty: parseInt(qs('qtyInput').value, 10),
+        total: total
+    });
+    localStorage.setItem('rm_cart', JSON.stringify(cart));
+    showToast('✅ Added to cart!');
+};
+
+window.buyNow = function() {
+    window.addToCart();
+    window.location.href = 'checkout.html';
+};
+
+window.bookAppointment = function() {
+    window.location.href = 'appointment.html?product=' + encodeURIComponent(currentProduct.name);
+};
+
+function showToast(msg) {
+    let toast = document.querySelector('.cart-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'cart-toast';
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = '<i class="fas fa-check-circle"></i> ' + msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ============================================================
+// TABS CONTENT
+// ============================================================
+function buildTabs(p) {
+    // Description
+    qs('descriptionContent').innerHTML = `<p>${p.longDescription || p.description || ''}</p>`;
+    const apps = p.applications || ['Windows', 'Doors', 'Balcony'];
+    qs('appTags
