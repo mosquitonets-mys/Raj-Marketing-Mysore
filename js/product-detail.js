@@ -386,4 +386,75 @@ function buildTabs(p) {
     // Description
     qs('descriptionContent').innerHTML = `<p>${p.longDescription || p.description || ''}</p>`;
     const apps = p.applications || ['Windows', 'Doors', 'Balcony'];
-    qs('appTags
+    qs('appTags').innerHTML = apps.map(a => `<span class="app-tag">${a}</span>`).join('');
+
+    // Specs
+    const specs = p.specs || {
+        'Product Type': p.category || 'Mosquito Net',
+        'Mesh': 'Premium Quality',
+        'Frame': 'Aluminium',
+        'Custom Size': 'Yes',
+        'Warranty': 'As applicable'
+    };
+    qs('specTable').innerHTML = Object.entries(specs).map(([k, v]) =>
+        `<tr><td class="spec-label">${k}</td><td class="spec-value">${v}</td></tr>`
+    ).join('');
+
+    // Benefits
+    const benefits = p.benefits || ['Mosquito Protection', 'Custom Measurements', 'Durable Materials', 'Easy Maintenance'];
+    qs('benefitsGrid').innerHTML = benefits.map(b =>
+        `<div class="benefit-card"><i class="fas fa-check-circle"></i><span>${b}</span></div>`
+    ).join('');
+
+    // Installation
+    const steps = ['Book Appointment', 'Site Measurement', 'Confirm Order', 'Manufacturing', 'Installation'];
+    qs('processSteps').innerHTML = steps.map((s, i) =>
+        `<div class="process-step"><span class="step-num">${i+1}</span><span>${s}</span></div>`
+    ).join('');
+
+    // FAQs
+    const faqs = p.faqs || [
+        { q: 'Can this be customized?', a: 'Yes, custom sizes are available.' },
+        { q: 'Is installation included?', a: 'Yes, professional installation is available in Mysore.' },
+        { q: 'What is the warranty?', a: 'Warranty as per manufacturer terms.' }
+    ];
+    qs('faqList').innerHTML = faqs.map((f, i) =>
+        `<div class="faq-item ${i===0?'open':''}">
+            <div class="faq-q"><span>${f.q}</span><i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a">${f.a}</div>
+        </div>`
+    ).join('');
+    qs('faqList').querySelectorAll('.faq-q').forEach(q => {
+        q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+    });
+}
+
+// ============================================================
+// RELATED
+// ============================================================
+async function buildRelated(p) {
+    const grid = qs('relatedGrid');
+    if (!grid) return;
+
+    const all = Object.entries(STATIC_PRODUCTS)
+        .filter(([id]) => id !== p.id && STATIC_PRODUCTS[id].category === p.category)
+        .slice(0, 4);
+
+    if (!all.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:20px;">No related products.</div>';
+        return;
+    }
+
+    grid.innerHTML = all.map(([id, r]) => `
+        <a href="product-detail.html?id=${id}" class="related-card">
+            <div class="related-img"><img src="${r.images[0]}" alt="${r.name}" onerror="this.src='images/placeholder.jpg'"></div>
+            <div class="related-name">${r.name}</div>
+            <div class="related-price">${formatINR(r.price)}</div>
+        </a>
+    `).join('');
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+init();
