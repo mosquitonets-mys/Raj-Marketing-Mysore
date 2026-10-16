@@ -1,843 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-    <title id="pageTitle">Product Detail - Raj Marketing Mysore</title>
-    <meta id="metaDescription" name="description" content="Premium mosquito nets and window screens in Mysore. Custom sizes, professional installation." />
-    <link rel="canonical" id="canonicalUrl" href="https://rajmarketingmysore.info/product-detail.html" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" id="ogTitle" content="Product Detail - Raj Marketing Mysore" />
-    <meta property="og:description" id="ogDescription" content="Premium mosquito nets and window screens in Mysore." />
-    <meta property="og:image" id="ogImage" content="https://rajmarketingmysore.info/images/og-image.jpg" />
-    <meta property="og:url" id="ogUrl" content="https://rajmarketingmysore.info/product-detail.html" />
-    <meta property="og:type" content="product" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" id="twitterTitle" content="Product Detail - Raj Marketing Mysore" />
-    <meta name="twitter:description" id="twitterDescription" content="Premium mosquito nets and window screens in Mysore." />
-    <meta name="twitter:image" id="twitterImage" content="https://rajmarketingmysore.info/images/og-image.jpg" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/product-detail.css" />
-
-    <!-- Inline overrides / new styles -->
-    <style>
-    /* ============================================================
-       MEASUREMENT CALCULATOR STYLES (NEW)
-    ============================================================ */
-    .measurement-calculator {
-        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-        border: 1.5px solid var(--border);
-        border-radius: var(--radius-lg);
-        padding: 18px;
-        margin: 16px 0;
-    }
-
-    .measurement-calculator .calc-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 14px;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .measurement-calculator .calc-header h3 {
-        font-size: 15px;
-        font-weight: 900;
-        color: var(--highlight-grey);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin: 0;
-    }
-
-    .measurement-calculator .calc-header h3 i {
-        color: var(--royal-blue);
-    }
-
-    /* Unit Toggle */
-    .unit-toggle {
-        display: inline-flex;
-        background: var(--white);
-        border: 1.5px solid var(--border);
-        border-radius: 30px;
-        padding: 3px;
-        gap: 2px;
-    }
-
-    .unit-toggle button {
-        padding: 6px 16px;
-        border: none;
-        background: transparent;
-        font-size: 12px;
-        font-weight: 800;
-        color: var(--muted-text);
-        border-radius: 30px;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        font-family: inherit;
-        letter-spacing: 0.3px;
-    }
-
-    .unit-toggle button.active {
-        background: linear-gradient(145deg, var(--royal-blue), #0d47a1);
-        color: #fff;
-        box-shadow: 0 4px 12px rgba(26, 86, 219, 0.3);
-    }
-
-    /* Dimension Grid */
-    .dimension-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-bottom: 14px;
-    }
-
-    @media (max-width: 420px) {
-        .dimension-grid {
-            gap: 10px;
-        }
-    }
-
-    .dimension-field {
-        background: var(--white);
-        border-radius: var(--radius);
-        padding: 12px;
-        border: 1.5px solid var(--border);
-        transition: all 0.2s ease;
-    }
-
-    .dimension-field:focus-within {
-        border-color: var(--royal-blue);
-        box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.08);
-    }
-
-    .dimension-field label {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 11px;
-        font-weight: 800;
-        color: var(--highlight-grey);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 6px;
-    }
-
-    .dimension-field label .unit-badge {
-        background: var(--light-blue);
-        color: var(--royal-blue);
-        font-size: 9px;
-        padding: 2px 8px;
-        border-radius: 10px;
-        font-weight: 900;
-    }
-
-    .dimension-field select {
-        width: 100%;
-        padding: 10px 12px;
-        border: none;
-        background: transparent;
-        font-size: 18px;
-        font-weight: 900;
-        color: var(--highlight-grey);
-        font-family: inherit;
-        cursor: pointer;
-        outline: none;
-        appearance: none;
-        -webkit-appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a56db' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-position: right 0px center;
-        background-size: 18px;
-        padding-right: 24px;
-    }
-
-    /* Quantity Row */
-    .qty-row {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 12px;
-        align-items: center;
-        background: var(--white);
-        border-radius: var(--radius);
-        padding: 12px;
-        border: 1.5px solid var(--border);
-        margin-bottom: 14px;
-    }
-
-    .qty-row .qty-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .qty-row .qty-info > label {
-        font-size: 11px;
-        font-weight: 800;
-        color: var(--highlight-grey);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .qty-control {
-        display: inline-flex;
-        align-items: center;
-        background: var(--bg-light);
-        border-radius: 30px;
-        padding: 3px;
-        border: 1.5px solid var(--border);
-    }
-
-    .qty-control button {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        border: none;
-        background: var(--white);
-        color: var(--royal-blue);
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 900;
-    }
-
-    .qty-control button:hover {
-        background: var(--royal-blue);
-        color: #fff;
-        transform: scale(1.05);
-    }
-
-    .qty-control button:active {
-        transform: scale(0.95);
-    }
-
-    .qty-control input {
-        width: 50px;
-        border: none;
-        background: transparent;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 900;
-        color: var(--highlight-grey);
-        font-family: inherit;
-        outline: none;
-        -moz-appearance: textfield;
-    }
-
-    .qty-control input::-webkit-outer-spin-button,
-    .qty-control input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    .qty-row .sqft-display {
-        text-align: right;
-    }
-
-    .qty-row .sqft-display .sqft-value {
-        font-size: 20px;
-        font-weight: 900;
-        color: var(--royal-blue);
-        letter-spacing: -0.5px;
-        line-height: 1.1;
-    }
-
-    .qty-row .sqft-display .sqft-label {
-        font-size: 10px;
-        color: var(--muted-text);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    /* Live Price Breakdown */
-    .price-breakdown {
-        background: var(--white);
-        border-radius: var(--radius);
-        padding: 14px 16px;
-        border: 1.5px solid var(--border);
-    }
-
-    .price-breakdown .breakdown-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 0;
-        border-bottom: 1px solid var(--border-light);
-        font-size: 13px;
-        gap: 12px;
-    }
-
-    .price-breakdown .breakdown-row:last-child {
-        border-bottom: none;
-    }
-
-    .price-breakdown .breakdown-row .label {
-        color: var(--muted-text);
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .price-breakdown .breakdown-row .label i {
-        color: var(--royal-blue);
-        font-size: 11px;
-    }
-
-    .price-breakdown .breakdown-row .value {
-        font-weight: 800;
-        color: var(--highlight-grey);
-        font-variant-numeric: tabular-nums;
-    }
-
-    .price-breakdown .breakdown-row.highlight {
-        background: linear-gradient(135deg, #eff6ff, #dbeafe);
-        border-radius: var(--radius);
-        margin-top: 6px;
-        padding: 14px 16px;
-        border-bottom: none;
-    }
-
-    .price-breakdown .breakdown-row.highlight .label {
-        font-size: 14px;
-        font-weight: 900;
-        color: var(--highlight-grey);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .price-breakdown .breakdown-row.highlight .value {
-        font-size: 24px;
-        font-weight: 900;
-        color: var(--royal-blue);
-        letter-spacing: -0.5px;
-    }
-
-    /* CTA buttons row */
-    .buy-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 14px;
-    }
-
-    @media (max-width: 420px) {
-        .buy-actions {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .buy-actions .btn {
-        padding: 16px 20px;
-        border-radius: 40px;
-        font-weight: 900;
-        font-size: 14px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        font-family: inherit;
-        letter-spacing: 0.2px;
-    }
-
-    .buy-actions .btn-add-cart {
-        background: var(--white);
-        color: var(--royal-blue);
-        border: 2px solid var(--royal-blue);
-    }
-
-    .buy-actions .btn-add-cart:hover {
-        background: var(--light-blue);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(26, 86, 219, 0.15);
-    }
-
-    .buy-actions .btn-buy-now {
-        background: linear-gradient(145deg, #16a34a, #15803d);
-        color: #fff;
-        box-shadow: 0 6px 20px rgba(22, 163, 74, 0.35);
-    }
-
-    .buy-actions .btn-buy-now:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 28px rgba(22, 163, 74, 0.45);
-    }
-
-    /* Big total bar */
-    .total-bar {
-        background: linear-gradient(135deg, var(--royal-blue), #0d47a1);
-        color: #fff;
-        border-radius: var(--radius);
-        padding: 14px 18px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 14px;
-        gap: 12px;
-        box-shadow: 0 8px 24px rgba(26, 86, 219, 0.25);
-    }
-
-    .total-bar .total-label {
-        font-size: 11px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        opacity: 0.85;
-    }
-
-    .total-bar .total-value {
-        font-size: 26px;
-        font-weight: 900;
-        letter-spacing: -0.8px;
-        font-variant-numeric: tabular-nums;
-    }
-
-    /* Formula hint */
-    .formula-hint {
-        background: #fef3c7;
-        border: 1px solid #fcd34d;
-        border-radius: var(--radius);
-        padding: 10px 14px;
-        font-size: 11px;
-        color: #78350f;
-        font-weight: 600;
-        margin-top: 12px;
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        line-height: 1.5;
-    }
-
-    .formula-hint i {
-        color: #d97706;
-        margin-top: 2px;
-        flex-shrink: 0;
-    }
-
-    .formula-hint code {
-        background: #fff;
-        padding: 1px 6px;
-        border-radius: 4px;
-        font-weight: 900;
-        color: #92400e;
-        font-family: 'Courier New', monospace;
-    }
-
-    /* Cart toast notification */
-    .cart-toast {
-        position: fixed;
-        bottom: 100px;
-        left: 50%;
-        transform: translateX(-50%) translateY(20px);
-        background: #16a34a;
-        color: #fff;
-        padding: 14px 24px;
-        border-radius: 40px;
-        font-size: 13px;
-        font-weight: 800;
-        box-shadow: 0 8px 32px rgba(22, 163, 74, 0.4);
-        z-index: 9999;
-        opacity: 0;
-        transition: all 0.3s ease;
-        max-width: 90%;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .cart-toast.show {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-
-    /* Cart badge on header if you have one */
-    .cart-count {
-        position: absolute;
-        top: -4px;
-        right: -4px;
-        background: #ef4444;
-        color: #fff;
-        font-size: 9px;
-        font-weight: 900;
-        min-width: 16px;
-        height: 16px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 4px;
-    }
-    </style>
-</head>
-<body>
-
-    <!-- ===== HEADER PLACEHOLDER ===== -->
-    <div id="header-placeholder"></div>
-
-    <!-- ===== BREADCRUMB ===== -->
-    <div class="container">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html"><i class="fas fa-home"></i> Home</a>
-            <span class="sep">›</span>
-            <a href="products.html">Products</a>
-            <span class="sep">›</span>
-            <a href="products.html" id="breadcrumbCategory">Category</a>
-            <span class="sep">›</span>
-            <span class="current" id="breadcrumbProduct">Product</span>
-        </nav>
-    </div>
-
-    <!-- ===== MAIN ===== -->
-    <main>
-        <div class="container">
-
-            <!-- Loading -->
-            <div class="loading-state" id="loadingState">
-                <i class="fas fa-spinner fa-spin"></i>
-                <h3>Loading Product...</h3>
-                <p>Please wait while we fetch the details</p>
-            </div>
-
-            <!-- Product Container -->
-            <div class="product-container" id="productContainer" style="display:none;">
-
-                <!-- ========== TOP: GALLERY + INFO ========== -->
-                <div class="product-top">
-
-                    <!-- LEFT: GALLERY -->
-                    <div class="product-gallery">
-                        <div class="gallery-main" id="galleryMain">
-                            <div class="gallery-track" id="galleryTrack"></div>
-                            <button class="gallery-nav prev" id="galleryPrev" aria-label="Previous">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="gallery-nav next" id="galleryNext" aria-label="Next">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                            <div class="gallery-dots" id="galleryDots"></div>
-                            <span class="gallery-counter" id="galleryCounter">1 / 3</span>
-                            <span class="gallery-badge" id="galleryBadge">Pleated</span>
-                        </div>
-                        <div class="gallery-thumbs" id="galleryThumbs"></div>
-                    </div>
-
-                    <!-- RIGHT: PRODUCT INFO -->
-                    <div class="product-info">
-
-                        <div class="info-header">
-                            <h1 id="productTitle">Product Name</h1>
-                            <p class="variant" id="productVariant">Variant</p>
-                            <div class="rating-row">
-                                <span class="stars">★★★★★</span>
-                                <span class="rating-value">4.9</span>
-                                <span class="rating-count" id="ratingCount">(24 reviews)</span>
-                                <span class="badge-in-stock" id="stockBadge">
-                                    <i class="fas fa-check-circle"></i> In Stock
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="info-price">
-                            <span class="current-price" id="currentPrice">₹0</span>
-                            <span class="price-unit" id="priceUnit">/ sq.ft</span>
-                            <span class="original-price" id="originalPrice" style="display:none;">₹0</span>
-                            <span class="discount-tag" id="discountTag" style="display:none;">0% OFF</span>
-                            <p class="tax-note">* GST extra as applicable</p>
-                        </div>
-
-                        <p class="info-description" id="productDescription">
-                            Premium quality mosquito net from Raj Marketing Mysore.
-                        </p>
-
-                        <!-- ============================================
-                             COLOUR SELECTOR
-                        ============================================ -->
-                        <div class="info-group" id="colourGroup">
-                            <label class="group-label">
-                                <i class="fas fa-palette"></i> Frame Colour
-                                <span class="selected-value" id="selectedColour">Ivory</span>
-                            </label>
-                            <div class="colour-options" id="colourOptions"></div>
-                        </div>
-
-                        <!-- ============================================
-                             TYPE SELECTOR
-                        ============================================ -->
-                        <div class="info-group" id="typeGroup">
-                            <label class="group-label">
-                                <i class="fas fa-layer-group"></i> Configuration
-                                <span class="selected-value" id="selectedType">Single</span>
-                            </label>
-                            <div class="type-options" id="typeOptions"></div>
-                        </div>
-
-                        <!-- ============================================
-                             MEASUREMENT CALCULATOR (NEW)
-                        ============================================ -->
-                        <div class="measurement-calculator" id="measurementCalculator">
-                            <div class="calc-header">
-                                <h3>
-                                    <i class="fas fa-ruler-combined"></i>
-                                    Size &amp; Quantity
-                                </h3>
-                                <div class="unit-toggle" role="tablist">
-                                    <button class="active" data-unit="in" onclick="setUnit('in')" role="tab">Inches</button>
-                                    <button data-unit="cm" onclick="setUnit('cm')" role="tab">CM</button>
-                                </div>
-                            </div>
-
-                            <!-- Dimensions -->
-                            <div class="dimension-grid">
-                            <div class="dimension-field">
-                                    <label>
-                                        Width
-                                        <span class="unit-badge" id="widthUnitBadge">in</span>
-                                    </label>
-                                    <select id="widthSelect" onchange="calculatePrice()"></select>
-                                </div>
-                                <div class="dimension-field">
-                                    <label>
-                                        Height
-                                        <span class="unit-badge" id="heightUnitBadge">in</span>
-                                    </label>
-                                    <select id="heightSelect" onchange="calculatePrice()"></select>
-                                </div>
-                            </div>
-
-                            <!-- Quantity -->
-                            <div class="qty-row">
-                                <div class="qty-info">
-                                    <label><i class="fas fa-sort-numeric-up" style="color:var(--royal-blue);"></i> Qty</label>
-                                    <div class="qty-control">
-                                        <button onclick="changeQty(-1)" aria-label="Decrease">−</button>
-                                        <input type="number" id="qtyInput" value="1" min="1" max="999"
-                                               onchange="calculatePrice()" oninput="calculatePrice()" />
-                                        <button onclick="changeQty(1)" aria-label="Increase">+</button>
-                                    </div>
-                                </div>
-                                <div class="sqft-display">
-                                    <div class="sqft-value" id="sqftValue">0.00</div>
-                                    <div class="sqft-label">Sq.Ft / unit</div>
-                                </div>
-                            </div>
-
-                            <!-- Price Breakdown -->
-                            <div class="price-breakdown">
-                                <div class="breakdown-row">
-                                    <span class="label"><i class="fas fa-ruler-combined"></i> Per Unit Area</span>
-                                    <span class="value" id="breakdownPerUnit">0.00 sq.ft</span>
-                                </div>
-                                <div class="breakdown-row">
-                                    <span class="label"><i class="fas fa-layer-group"></i> Quantity</span>
-                                    <span class="value" id="breakdownQty">× 1</span>
-                                </div>
-                                <div class="breakdown-row">
-                                    <span class="label"><i class="fas fa-th"></i> Total Area</span>
-                                    <span class="value" id="breakdownTotalSqft">0.00 sq.ft</span>
-                                </div>
-                                <div class="breakdown-row">
-                                    <span class="label"><i class="fas fa-tag"></i> Rate / sq.ft</span>
-                                    <span class="value" id="breakdownRate">₹0</span>
-                                </div>
-                                <div class="breakdown-row highlight">
-                                    <span class="label"><i class="fas fa-rupee-sign"></i> Total Price</span>
-                                    <span class="value" id="breakdownTotal">₹0</span>
-                                </div>
-                            </div>
-
-                            <!-- Formula Hint -->
-                            <div class="formula-hint">
-                                <i class="fas fa-calculator"></i>
-                                <span>
-                                    <strong>Formula:</strong>
-                                    <code>W × H ÷ 144 × Qty = Sq.Ft</code>
-                                    &nbsp;·&nbsp;
-                                    <code>Sq.Ft × Rate = Total</code>
-                                </span>
-                            </div>
-
-                            <!-- Big Total Bar -->
-                            <div class="total-bar">
-                                <span class="total-label">Your Total</span>
-                                <span class="total-value" id="totalBarValue">₹0</span>
-                            </div>
-
-                            <!-- Buy / Cart Actions -->
-                            <div class="buy-actions" id="buyActions">
-                                <!-- Populated by JS -->
-                            </div>
-
-                        </div>
-                        <!-- ============ END MEASUREMENT CALCULATOR ============ -->
-
-                        <!-- Trust Badges -->
-                        <div class="trust-badges">
-                            <div class="trust-item">
-                                <i class="fas fa-ruler"></i>
-                                <span>Free Measurement<br><strong>In Mysore</strong></span>
-                            </div>
-                            <div class="trust-item">
-                                <i class="fas fa-tools"></i>
-                                <span>Professional<br><strong>Installation</strong></span>
-                            </div>
-                            <div class="trust-item">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>Warranty<br><strong>Support</strong></span>
-                            </div>
-                            <div class="trust-item">
-                                <i class="fas fa-truck"></i>
-                                <span>Fast<br><strong>Delivery</strong></span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- ========== TABS ========== -->
-                <div class="product-tabs">
-                    <div class="tabs-nav" role="tablist">
-                        <button class="tab-btn active" data-tab="description" role="tab">
-                            <i class="fas fa-info-circle"></i> Description
-                        </button>
-                        <button class="tab-btn" data-tab="specs" role="tab">
-                            <i class="fas fa-list"></i> Specifications
-                        </button>
-                        <button class="tab-btn" data-tab="benefits" role="tab">
-                            <i class="fas fa-star"></i> Benefits
-                        </button>
-                        <button class="tab-btn" data-tab="installation" role="tab">
-                            <i class="fas fa-cogs"></i> Installation
-                        </button>
-                        <button class="tab-btn" data-tab="faq" role="tab">
-                            <i class="fas fa-question-circle"></i> FAQs
-                        </button>
-                    </div>
-
-                    <div class="tabs-content">
-                        <div class="tab-pane active" id="tab-description">
-                            <div class="tab-inner">
-                                <h3 class="tab-heading">About This Product</h3>
-                                <div class="description-content" id="descriptionContent"></div>
-                                <div class="applications-section">
-                                    <h4><i class="fas fa-check-circle"></i> Best For</h4>
-                                    <div class="app-tags" id="appTags"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="tab-specs">
-                            <div class="tab-inner">
-                                <h3 class="tab-heading">Technical Specifications</h3>
-                                <table class="spec-table" id="specTable"></table>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="tab-benefits">
-                            <div class="tab-inner">
-                                <h3 class="tab-heading">Why Choose This Product</h3>
-                                <div class="benefits-grid" id="benefitsGrid"></div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="tab-installation">
-                            <div class="tab-inner">
-                                <h3 class="tab-heading">Installation Process</h3>
-                                <div class="process-steps" id="processSteps"></div>
-                                <div class="delivery-info">
-                                    <h4><i class="fas fa-truck"></i> Typical Delivery Time</h4>
-                                    <ul>
-                                        <li><strong>Velcro Nets:</strong> 2 days after confirmation</li>
-                                        <li><strong>Frame System:</strong> 3 days after confirmation</li>
-                                        <li><strong>Pleated Nets:</strong> ~3 days after confirmation</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="tab-faq">
-                            <div class="tab-inner">
-                                <h3 class="tab-heading">Frequently Asked Questions</h3>
-                                <div class="faq-list" id="faqList"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ========== RELATED ========== -->
-                <section class="related-section">
-                    <div class="section-header">
-                        <h2><i class="fas fa-link"></i> You May Also Like</h2>
-                        <a href="products.html">View All →</a>
-                    </div>
-                    <div class="related-grid" id="relatedGrid"></div>
-                </section>
-
-                <!-- ========== HELP ========== -->
-                <section class="help-section">
-                    <div class="help-content">
-                        <div class="help-icon"><i class="fas fa-headset"></i></div>
-                        <div class="help-text">
-                            <h3>Need Help Choosing?</h3>
-                            <p>Our experts are here to guide you. Call or WhatsApp us for personalized recommendations.</p>
-                        </div>
-                        <div class="help-actions">
-                            <a href="tel:9483037385" class="btn-call">
-                                <i class="fas fa-phone"></i> Call Now
-                            </a>
-                            <a href="https://wa.me/919483037385" target="_blank" class="btn-wa">
-                                <i class="fab fa-whatsapp"></i> WhatsApp
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-
-            <!-- Error state -->
-            <div class="error-state" id="errorState" style="display:none;">
-                <i class="fas fa-exclamation-circle"></i>
-                <h2>Product Not Found</h2>
-                <p>The product you're looking for doesn't exist or has been removed.</p>
-                <a href="products.html" class="btn-primary">
-                    <i class="fas fa-arrow-left"></i> Browse All Products
-                </a>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- ===== FOOTER PLACEHOLDER ===== -->
-    <div id="footer-placeholder"></div>
-
-    <!-- ===== SCRIPTS ===== -->
-    <script src="js/header.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/product-detail.js"></script>
-
-</body>
-</html>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+<title id="pageTitle">Product Detail - Raj Marketing Mysore</title>
+<meta id="metaDescription" name="description" content="Premium mosquito nets and window screens in Mysore. Custom sizes, professional installation." />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦟</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+<style>
+/* ============ RESET & BASE ============ */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+body { background:#f0f4f8; color:#0f172a; line-height:1.5; padding:0 0 40px; }
+
+.container { max-width:1100px; margin:0 auto; padding:0 16px; }
+
+/* ============ BREADCRUMB ============ */
+.breadcrumb { display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:14px 0; font-size:13px; color:#64748b; }
+.breadcrumb a { color:#1a56db; text-decoration:none; font-weight:600; }
+.breadcrumb a:hover { text-decoration:underline; }
+.breadcrumb .sep { color:#cbd5e1; }
+.breadcrumb .current { color:#0f172a; font-weight:700; }
+
+/* ============ LOADING / ERROR ============ */
+.loading-state, .error-state { text-align:center; padding:80px 20px; }
+.loading-state i { font-size:48px; color:#1a56db; margin-bottom:16px; }
+.loading-state h3 { font-size:18px; font-weight:800; color:#0f172a; margin-bottom:6px; }
+.loading-state p { font-size:13px; color:#64748b; }
+
+.error-state i { font-size:56px; color:#ef4444; margin-bottom:16px; }
+.error-state h2 { font-size:22px; font-weight:800; color:#0f172a; margin-bottom:8px; }
+.error-state p { font-size:14px; color:#64748b; margin-bottom:20px; }
+.error-state .btn-primary { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(145deg,#1a56db,#0d47a1); color:#fff; padding:14px 28px; border-radius:40px; text-decoration:none; font-weight:800; font-size:14px; box-shadow:0 6px 20px rgba(26,86,219,0.3); }
+
+/* ============ PRODUCT LAYOUT ============ */
+.product-container { background:#fff; border-radius:20px; padding:20px; margin-bottom:24px; box-shadow:0 4px 20px rgba(0,0,0,0.04); }
+
+.product-top { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px; }
+@media (max-width:768px) { .product-top { grid-template-columns:1fr; gap:20px; } }
+
+/* ============ GALLERY ============ */
+.product-gallery { position:relative; }
+.gallery-main { position:relative; border-radius:16px; overflow:hidden; background:#f1f5f9; aspect-ratio:1/1; }
+.gallery-track { display:flex; height:100%; transition:transform 0.4s ease; }
+.gallery-slide { min-width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.gallery-slide img { width:100%; height:100%; object-fit:cover; }
+.gallery-nav { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; border:none; background:rgba(255,255,255,0.95); color:#1a56db; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.15); font-size:14px; z-index:2; display:flex; align-items:center; justify-content:center; transition:0.2s; }
+.gallery-nav:hover { background:#1a56db; color:#fff; }
+.gallery-nav.prev { left:12px; }
+.gallery-nav.next { right:12px; }
+.gallery-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:2; }
+.gallery-dots .dot { width:8px; height:8px; border-radius:50%; border:none; background:rgba(255,255,255,0.6); cursor:pointer; transition:0.2s; padding:0; }
+.gallery-dots .dot.active { background:#fff; width:24px; border-radius:4px; }
+.gallery-counter { position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.6); color:#fff; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; z-index:2; }
+.gallery-badge { position:absolute; top:12px; left:12px; background:rgba(26,86,219,0.95); color:#fff; padding:4px 14px; border-radius:20px; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; z-index:2; }
+.gallery-thumbs { display:flex; gap:8px; margin-top:12px; overflow-x:auto; padding-bottom:4px; }
+.gallery-thumbs .thumb { width:64px; height:64px; border-radius:10px; overflow:hidden; cursor:pointer; border:2px solid transparent; flex-shrink:0; transition:0.2s; }
+.gallery-thumbs .thumb.active { border-color:#1a56db; }
+.gallery-thumbs .thumb img { width:100%; height:100%; object-fit:cover; }
+
+/* ============ PRODUCT INFO ============ */
+.product-info { display:flex; flex-direction:column; gap:14px; }
+.info-header h1 { font-size:24px; font-weight:900; color:#0f172a; line-height:1.2; margin-bottom:4px; letter-spacing:-0.5px; }
+.info-header .variant { font-size:13px; color:#64748b; font-weight:500; margin-bottom:8px; }
+.rating-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:12px; }
+.stars { color:#f59e0b; letter-spacing:1px; }
+.rating-value { font-weight:800; color:#0f172a; }
+.rating-count { color:#64748b; }
+.badge-in-stock { background:#d1fae5; color:#059669; padding:3px 12px; border-radius:20px; font-size:11px; font-weight:700; display:inline-flex; align-items:center; gap:4px; margin-left:auto; }
+
+.info-price { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; padding:12px 0; border-top:1px solid #f1f5f9; border-bottom:1px solid #f1f5f9; }
+.current-price { font-size:32px; font-weight:900; color:#1a56db; letter-spacing:-1px; }
+.price-unit { font-size:14px; color:#64748b; font-weight:600; }
+.original-price { font-size:16px; color:#94a3b8; text-decoration:line-through; font-weight:500; }
+.discount-tag { background:#d1fae5; color:#059669; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:800; }
+.tax-note { font-size:10px; color:#94a3b8; width:100%; margin-top:4px; }
+
+.info-description { font-size:13px; color:#475569; line-height:1.7; }
+
+/* ============ INFO GROUP (Colour/Type) ============ */
+.info-group { display:flex; flex-direction:column; gap:8px; }
+.group-label { font-size:12px; font-weight:800; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px; display:flex; align-items:center; gap:6px; }
+.group-label i { color:#1a56db; font-size:12px; }
+.group-label .selected-value { margin-left:auto; font-size:12px; color:#1a56db; font-weight:800; text-transform:none; letter-spacing:0; }
+
+.colour-options { display:flex; gap:8px; flex-wrap:wrap; }
+.colour { width:32px; height:32px; border-radius:50%; cursor:pointer; border:2px solid #e2e8f0; transition:0.2s; position:relative; }
+.colour.active { border-color:#1a56db; box-shadow:0 0 0 3px rgba(26,86,219,0.15); }
+.colour.active::after { content:'✓'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; font-size:14px; font-weight:900; text-shadow:0 1px 2px rgba(0,0,0,0.3); }
+.colour-ivory { background:#f5f0e3; }
+.colour-white { background:#fafafa; }
+.colour-black { background:#1a1a1a; }
+.colour-silver { background:#c0c0c0; }
+.colour-teakwood { background:#8b4513; }
+.colour-gold { background:#d4af37; }
+.colour-platinum { background:#e5e4e2; }
+.colour-diamond { background:#b9f2ff; }
+.colour-bright { background:#e0e7ee; }
+.colour-grey { background:#94a3b8; }
+
+.type-options { display:flex; gap:8px; flex-wrap:wrap; }
+.type { padding:8px 18px; border:1.5px solid #e2e8f0; border-radius:30px; font-size:12px; font-weight:700; color:#475569; cursor:pointer; transition:0.2s; background:#fff; }
+.type:hover { border-color:#1a56db; color:#1a56db; }
+.type.active { background:linear-gradient(145deg,#1a56db,#0d47a1); color:#fff; border-color:#1a56db; box-shadow:0 4px 12px rgba(26,86,219,0.25); }
+
+/* ============ MEASUREMENT CALCULATOR ============ */
+.measurement-calculator { background:linear-gradient(135deg,#f8fafc,#f1f5f9); border:1.5px solid #e2e8f0; border-radius:16px; padding:16px; margin:6px 0; }
+.calc-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
+.calc-header h3 { font-size:14px; font-weight:900; color:#0f172a; display:flex; align-items:center; gap:6px; margin:0; }
+.calc-header h3 i { color:#1a56db; }
+
+.unit-toggle { display:inline-flex; background:#fff; border:1.5px solid #e2e8f0; border-radius:30px; padding:3px; gap:2px; }
+.unit-toggle button { padding:6px 14px; border:none; background:transparent; font-size:11px; font-weight:800; color:#94a3b8; border-radius:30px; cursor:pointer; transition:0.25s; font-family:inherit; }
+.unit-toggle button.active { background:linear-gradient(145deg,#1a56db,#0d47a1); color:#fff; box-shadow:0 4px 12px rgba(26,86,219,0.3); }
+
+.dimension-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+.dimension-field { background:#fff; border-radius:12px; padding:10px 12px; border:1.5px solid #e2e8f0; }
+.dimension-field:focus-within { border-color:#1a56db; box-shadow:0 0 0 4px rgba(26,86,219,0.08); }
+.dimension-field label { display:flex; justify-content:space-between; align-items:center; font-size:10px; font-weight:800; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+.dimension-field label .unit-badge { background:#dbeafe; color:#1a56db; font-size:9px; padding:2px 8px; border-radius:10px; font-weight:900; }
+.dimension-field select { width:100%; padding:8px 24px 8px 4px; border:none; background:transparent; font-size:16px; font-weight:900; color:#0f172a; font-family:inherit; cursor:pointer; outline:none; appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a56db' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat:no-repeat; background-position:right 0 center; background-size:16px; }
+
+.qty-row { display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; background:#fff; border-radius:12px; padding:10px 12px; border:1.5px solid #e2e8f0; margin-bottom:12px; }
+.qty-info { display:flex; align-items:center; gap:10px; }
+.qty-info > label { font-size:10px; font-weight:800; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px; }
+.qty-control { display:inline-flex; align-items:center; background:#f1f5f9; border-radius:30px; padding:3px; border:1.5px solid #e2e8f0; }
+.qty-control button { width:32px; height:32px; border-radius:50%; border:none; background:#fff; color:#1a56db; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-weight:900; }
+.qty-control button:hover { background:#1a56db; color:#fff; }
+.qty-control input { width:44px; border:none; background:transparent; text-align:center; font-size:15px; font-weight:900; color:#0f172a; font-family:inherit; outline:none; -moz-appearance:textfield; }
+.qty-control input::-webkit-outer-spin-button, .qty-control input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+.sqft-display { text-align:right; }
+.sqft-value { font-size:18px; font-weight:900; color:#1a56db; letter-spacing:-0.5px; line-height:1.1; }
+.sqft-label { font-size:9px; color:#94a3b8; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+
+.price-breakdown { background:#fff; border-radius:12px; padding:12px 14px; border:1.5px solid #e2e8f0; }
+.breakdown-row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:12px; gap:12px; }
+.breakdown-row:last-child { border-bottom:none; }
+.breakdown-row .label { color:#64748b; font-weight:600; display:flex; align-items:center; gap:6px; }
+.breakdown-row .label i { color:#1a56db; font-size:10px; }
+.breakdown-row .value { font-weight:800; color:#0f172a; }
+.breakdown-row.highlight { background:linear-gradient(135deg,#eff6ff,#dbeafe); border-radius:10px; margin-top:6px; padding:12px 14px; border-bottom:none; }
+.breakdown-row.highlight .label { font-size:12px; font-weight:900; color:#0f172a; text-transform:uppercase; letter-spacing:0.5px; }
+.breakdown-row.highlight .value { font-size:22px; font-weight:900; color:#1a56db; }
+
+.formula-hint { background:#fef3c7; border:1px solid #fcd34d; border-radius:10px; padding:8px 12px; font-size:10px; color:#78350f; font-weight:600; margin-top:10px; display:flex; align-items:flex-start; gap:6px; line-height:1.5; }
+.formula-hint i { color:#d97706; margin-top:2px; flex-shrink:0; }
+.formula-hint code { background:#fff; padding:1px 6px; border-radius:4px; font-weight:900; color:#92400e; font-family:'Courier New',monospace; }
+
+.total-bar { background:linear-gradient(135deg,#1a56db,#0d47a1); color:#fff; border-radius:12px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center; margin-top:10px; gap:12px; box-shadow:0 8px 20px rgba(26,86,219,0.25); }
+.total-bar .total-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1px; opacity:0.85; }
+.total-bar .total-value { font-size:22px; font-weight:900; letter-spacing:-0.5px; }
+
+.buy-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+.buy-actions .btn { padding:14px 20px; border-radius:40px; font-weight:900; font-size:13px; border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:inherit; transition:0.25s; }
+.buy-actions .btn-add-cart { background:#fff; color:#1a56db; border:2px solid #1a56db; }
+.buy-actions .btn-add-cart:hover { background:#eff6ff; transform:translateY(-2px); }
+.buy-actions .btn-buy-now { background:linear-gradient(145deg,#16a34a,#15803d); color:#fff; box-shadow:0 6px 20px rgba(22,163,74,0.35); }
+.buy-actions .btn-buy-now:hover { transform:translateY(-2px); }
+
+/* ============ TRUST BADGES ============ */
+.trust-badges { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding-top:12px; border-top:1px solid #f1f5f9; }
+.trust-item { text-align:center; font-size:10px; color:#64748b; line-height:1.3; }
+.trust-item i { color:#1a56db; font-size:18px; display:block; margin-bottom:4px; }
+.trust-item strong { color:#0f172a; font-weight:800; }
+@media (max-width:600px) { .trust-badges { grid-template-columns:repeat(2,1fr); gap:12px; } }
+
+/* ============ TABS ============ */
+.product-tabs { margin-top:20px; border-top:1px solid #f1f5f9; padding-top:20px; }
+.tabs-nav { display:flex; gap:6px; overflow-x:auto; padding-bottom:10px; border-bottom:2px solid #f1f5f9; }
+.tabs-nav::-webkit-scrollbar { display:none; }
+.tab-btn { padding:10px 18px; background:transparent; border:none; font-size:12px; font-weight:700; color:#64748b; cursor:pointer; border-radius:30px; white-space:nowrap; font-family:inherit; transition:0.2s; display:inline-flex; align-items:center; gap:6px; }
+.tab-btn:hover { background:#f1f5f9; color:#1a56db; }
+.tab-btn.active { background:linear-gradient(145deg,#1a56db,#0d47a1); color:#fff; box-shadow:0 4px 12px rgba(26,86,219,0.25); }
+.tabs-content { padding-top:16px; }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; animation:fadeIn 0.3s; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+.tab-heading { font-size:16px; font-weight:900; color:#0f172a; margin-bottom:10px; }
+.tab-inner { font-size:13px; color:#475569; line-height:1.7; }
+.description-content p { margin-bottom:8px; }
+
+.applications-section { margin-top:14px; }
+.applications-section h4 { font-size:13px; font-weight:800; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.applications-section h4 i { color:#16a34a; }
+.app-tags { display:flex; gap:8px; flex-wrap:wrap; }
+.app-tag { background:#dbeafe; color:#1a56db; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; }
+
+.spec-table { width:100%; border-collapse:collapse; }
+.spec-table tr { border-bottom:1px solid #f1f5f9; }
+.spec-table tr:last-child { border-bottom:none; }
+.spec-table td { padding:10px 0; font-size:13px; }
+.spec-table .spec-label { color:#64748b; font-weight:600; width:40%; }
+.spec-table .spec-value { color:#0f172a; font-weight:700; }
+
+.benefits-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media (max-width:520px) { .benefits-grid { grid-template-columns:1fr; } }
+.benefit-card { display:flex; align-items:flex-start; gap:8px; padding:10px 12px; background:#f8fafc; border-radius:10px; font-size:12px; font-weight:600; color:#0f172a; }
+.benefit-card i { color:#16a34a; margin-top:2px; }
+
+.process-steps { display:flex; flex-direction:column; gap:8px; }
+.process-step { display:flex; align-items:center; gap:10px; padding:10px 12px; background:#f8fafc; border-radius:10px; font-size:12px; font-weight:600; color:#0f172a; }
+.step-num { width:24px; height:24px; border-radius:50%; background:linear-gradient(145deg,#1a56db,#0d47a1); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:900; flex-shrink:0; }
+.delivery-info { margin-top:16px; padding:12px 14px; background:#f0f9ff; border-radius:10px; }
+.delivery-info h4 { font-size:13px; font-weight:800; color:#0f172a; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+.delivery-info ul { list-style:none; padding-left:0; font-size:12px; color:#475569; }
+.delivery-info ul li { padding:3px 0; }
+
+.faq-list { display:flex; flex-direction:column; gap:8px; }
+.faq-item { border:1.5px solid #e2e8f0; border-radius:12px; overflow:hidden; }
+.faq-q { padding:12px 14px; cursor:pointer; font-size:13px; font-weight:700; color:#0f172a; display:flex; justify-content:space-between; align-items:center; gap:8px; background:#fff; }
+.faq-q i { color:#1a56db; transition:0.3s; font-size:12px; }
+.faq-item.open .faq-q i { transform:rotate(180deg); }
+.faq-a { max-height:0; overflow:hidden; padding:0 14px; font-size:12px; color:#475569; line-height:1.6; transition:0.3s; background:#f8fafc; }
+.faq-item.open .faq-a { max-height:300px; padding:12px 14px; }
+
+/* ============ RELATED ============ */
+.related-section { margin-top:24px; }
+.section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.section-header h2 { font-size:16px; font-weight:900; color:#0f172a; display:flex; align-items:center; gap:6px; }
+.section-header h2 i { color:#1a56db; }
+.section-header a { font-size:12px; color:#1a56db; text-decoration:none; font-weight:700; }
+.related-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:600px) { .related-grid { grid-template-columns:repeat(2,1fr); } }
+.related-card { background:#fff; border-radius:14px; padding:10px; text-decoration:none; border:1px solid #e8ecf0; transition:0.2s; }
+.related-card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,0.08); border-color:#1a56db; }
+.related-img { aspect-ratio:1/1; border-radius:10px; overflow:hidden; background:#f1f5f9; margin-bottom:8px; }
+.related-img img { width:100%; height:100%; object-fit:cover; }
+.related-name { font-size:12px; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.related-price { font-size:14px; font-weight:900; color:#1a56db; }
+
+/* ============ HELP ============ */
+.help-section { margin-top:24px; background:linear-gradient(135deg,#eff6ff,#dbeafe); border-radius:20px; padding:20px; }
+.help-content { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+.help-icon { width:56px; height:56px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:c
