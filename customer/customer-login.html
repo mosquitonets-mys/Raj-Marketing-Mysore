@@ -155,35 +155,56 @@
 
     <div id="footer-placeholder"></div>
 
-    <script type="module">
-    import { CustomerAuth } from '../js/firebase-auth.js';
-    import { auth } from '../firebase-config.js';
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+<script type="module">
+import { CustomerAuth } from '../js/firebase-auth.js';
+import { auth } from '../firebase-config.js';
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const profile = await CustomerAuth.getCurrentProfile();
-            if (profile) window.location.href = 'customer-dashboard.html';
-        }
-    });
+const form = document.getElementById('loginForm');
+form.style.opacity = '0.5';
+form.style.pointerEvents = 'none';
 
-    window.handleLogin = async function(e) {
-        e.preventDefault();
-
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
-        const btn = document.getElementById('submitBtn');
-
-        if (!email || !password) {
-            showToast('Please enter email and password', 'error');
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        form.style.opacity = '1';
+        form.style.pointerEvents = 'auto';
+        return;
+    }
+    try {
+        const profile = await CustomerAuth.getCurrentProfile(user); // pass user
+        if (profile) {
+            window.location.replace('customer-dashboard.html');
             return;
         }
+        // Auth user exists but no customer profile → wrong role / orphan
+        await signOut(auth);
+        showToast('No customer profile found. Please register.', 'warning');
+    } catch (err) {
+        console.error('Profile check failed:', err);
+        showToast('Could not verify your account.', 'error');
+    } finally {
+        form.style.opacity = '1';
+        form.style.pointerEvents = 'auto';
+    }
+});
 
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+window.handleLogin = async function (e) {
+    e.preventDefault();
 
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const btn = document.getElementById('submitBtn');
+
+    if (!email || !password) {
+        showToast('Please enter email and password', 'error');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+
+    try {
         const result = await CustomerAuth.login(email, password);
-
         if (!result.success) {
             btn.disabled = false;
             btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
@@ -191,35 +212,48 @@
             document.getElementById('loginPassword').value = '';
             return;
         }
-
         showToast('✅ Login successful!', 'success');
-        setTimeout(() => { window.location.href = 'customer-dashboard.html'; }, 800);
-    };
-
-    window.forgotPassword = async function(e) {
-        e.preventDefault();
-        const email = prompt('Enter your registered email:');
-        if (!email) return;
-        const result = await CustomerAuth.resetPassword(email.trim());
-        if (result.success) {
-            showToast('📧 Password reset email sent!', 'success');
-        } else {
-            showToast('❌ ' + result.error, 'error');
-        }
-    };
-
-    function showToast(msg, type = 'info') {
-        document.querySelectorAll('.rm-toast').forEach(t => t.remove());
-        const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
-        const t = document.createElement('div');
-        t.className = 'rm-toast';
-        t.textContent = msg;
-        t.style.background = colors[type] || colors.info;
-        document.body.appendChild(t);
-        requestAnimationFrame(() => t.classList.add('show'));
-        setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+    } catch (err) {
+        console.error('Login failed:', err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+        showToast('Network error. Please try again.', 'error');
     }
-    </script>
+};
+
+window.forgotPassword = async function (e) {
+    e.preventDefault();
+    const input = prompt('Enter your registered email:');
+    const email = (input || '').trim();
+    if (!email) { showToast('Email is required.', 'warning'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast('Please enter a valid email address.', 'error');
+        return;
+    }
+    try {
+        const result = await CustomerAuth.resetPassword(email);
+        showToast(
+            result.success ? '📧 Password reset email sent!' : '❌ ' + result.error,
+            result.success ? 'success' : 'error'
+        );
+    } catch (err) {
+        console.error('Reset failed:', err);
+        showToast('Could not send reset email. Try again.', 'error');
+    }
+};
+
+function showToast(msg, type = 'info') {
+    document.querySelectorAll('.rm-toast').forEach(t => t.remove());
+    const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#1a56db' };
+    const t = document.createElement('div');
+    t.className = 'rm-toast';
+    t.textContent = msg;
+    t.style.background = colors[type] || colors.info;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+}
+</script>
 
     <script src="../js/header.js"></script>
     <script src="../js/footer.js"></script>
