@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Checker</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f8fafc; }
+        h1 { color: #0f172a; }
+        .ok { color: #16a34a; font-weight: bold; }
+        .missing { color: #dc2626; font-weight: bold; }
+        li { padding: 6px 0; border-bottom: 1px solid #e2e8f0; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Image Verification</h1>
+    <ul id="list"></ul>
+    <p id="summary"></p>
+
+    <script>
+    const images = [
+        'images/velcro-economic.jpg',
+        'images/velcro-premium.jpg',
+        'images/aluminium-black-ss.jpg',
+        'images/aluminium-bright-ss.jpg',
+        'images/aluminium-teakwood.jpg',
+        'images/pleated-gold.jpg',
+        'images/pleated-platinum.jpg',
+        'images/pleated-diamond.jpg',
+        'images/honeycomb-gold.jpg',
+        'images/single-sliding.jpg',
+        'images/double-sliding.jpg',
+        'images/security-screen-single.jpg',
+        'images/security-screen-double.jpg',
+        'images/ss-black-mesh.jpg',
+        'images/ss-black-mesh-standard.jpg',
+        'images/ss-black-mesh-3ft.jpg',
+        'images/ss-bright-mesh.jpg',
+        'images/ss-black-304g.jpg',
+        'images/fiber-mesh.jpg',
+        'images/mesh-door-black.jpg',
+        'images/mesh-door-bright.jpg',
+        'images/placeholder.jpg'
+    ];
+
+    let ok = 0, missing = 0;
+    const list = document.getElementById('list');
+
+    images.forEach(function (src) {
+        const li = document.createElement('li');
+        li.textContent = src + ' — checking...';
+        list.appendChild(li);
+
+        const img = new Image();
+        img.onload = function () {
+            li.innerHTML = src + ' <span class="ok">✅ OK</span>';
+            ok++;
+            updateSummary();
+        };
+        img.onerror = function () {
+            li.innerHTML = src + ' <span class="missing">❌ MISSING</span>';
+            missing++;
+            updateSummary();
+        };
+        img.src = src;
+    });
+
+    function updateSummary() {
+        document.getElementById('summary').innerHTML =
+            '<strong>Total:</strong> ' + images.length +
+            ' | <span class="ok">✅ Found: ' + ok + '</span>' +
+            ' | <span class="missing">❌ Missing: ' + missing + '</span>';
+    }
+    </script>
+</body>
+</html>
