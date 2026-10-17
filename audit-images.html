@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Audit — Raj Marketing</title>
+    <style>
+        body { font-family: system-ui, sans-serif; padding: 20px; background: #f8fafc; }
+        h1 { color: #0f172a; }
+        table { width: 100%; border-collapse: collapse; margin-top: 16px; background: #fff; border-radius: 10px; overflow: hidden; }
+        th { background: #1a56db; color: #fff; padding: 10px; text-align: left; font-size: 12px; }
+        td { padding: 8px 10px; border-bottom: 1px solid #e2e8f0; font-size: 12px; }
+        tr:hover { background: #eff6ff; }
+        .ok { color: #16a34a; font-weight: 700; }
+        .missing { color: #dc2626; font-weight: 700; }
+        .warn { color: #d97706; font-weight: 700; }
+        .preview { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
+        #summary { margin-top: 16px; padding: 12px; background: #fff; border-radius: 8px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Image Audit — Raj Marketing Mysore</h1>
+    <p>This scans every image referenced in your code and reports real file size, pixel dimensions, and whether the file exists.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Preview</th>
+                <th>Name</th>
+                <th>Path</th>
+                <th>Status</th>
+                <th>File Size</th>
+                <th>Dimensions</th>
+                <th>Used On</th>
+            </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+    </table>
+
+    <div id="summary">Scanning...</div>
+
+    <script>
+    const images = [
+        // Product images (products.html + product-detail.html)
+        { name: 'velcro-economic.jpg', path: 'images/velcro-economic.jpg', used: 'Product' },
+        { name: 'velcro-premium.jpg', path: 'images/velcro-premium.jpg', used: 'Product' },
+        { name: 'aluminium-black-ss.jpg', path: 'images/aluminium-black-ss.jpg', used: 'Product' },
+        { name: 'aluminium-bright-ss.jpg', path: 'images/aluminium-bright-ss.jpg', used: 'Product' },
+        { name: 'aluminium-teakwood.jpg', path: 'images/aluminium-teakwood.jpg', used: 'Product' },
+        { name: 'pleated-gold.jpg', path: 'images/pleated-gold.jpg', used: 'Product' },
+        { name: 'pleated-platinum.jpg', path: 'images/pleated-platinum.jpg', used: 'Product' },
+        { name: 'pleated-diamond.jpg', path: 'images/pleated-diamond.jpg', used: 'Product' },
+        { name: 'honeycomb-gold.jpg', path: 'images/honeycomb-gold.jpg', used: 'Product' },
+        { name: 'single-sliding.jpg', path: 'images/single-sliding.jpg', used: 'Product' },
+        { name: 'double-sliding.jpg', path: 'images/double-sliding.jpg', used: 'Product' },
+        { name: 'security-screen-single.jpg', path: 'images/security-screen-single.jpg', used: 'Product' },
+        { name: 'security-screen-double.jpg', path: 'images/security-screen-double.jpg', used: 'Product' },
+        { name: 'ss-black-mesh.jpg', path: 'images/ss-black-mesh.jpg', used: 'Product' },
+        { name: 'ss-black-mesh-standard.jpg', path: 'images/ss-black-mesh-standard.jpg', used: 'Product' },
+        { name: 'ss-black-mesh-3ft.jpg', path: 'images/ss-black-mesh-3ft.jpg', used: 'Product' },
+        { name: 'ss-bright-mesh.jpg', path: 'images/ss-bright-mesh.jpg', used: 'Product' },
+        { name: 'ss-black-304g.jpg', path: 'images/ss-black-304g.jpg', used: 'Product' },
+        { name: 'fiber-mesh.jpg', path: 'images/fiber-mesh.jpg', used: 'Product' },
+        { name: 'mesh-door-black.jpg', path: 'images/mesh-door-black.jpg', used: 'Product' },
+        { name: 'mesh-door-bright.jpg', path: 'images/mesh-door-bright.jpg', used: 'Product' },
+        // Fallback & SEO
+        { name: 'placeholder.jpg', path: 'images/placeholder.jpg', used: 'Fallback' },
+        { name: 'og-image.jpg', path: 'images/og-image.jpg', used: 'SEO/Social' },
+        // Home page (check these — may or may not exist)
+        { name: 'hero-banner.jpg', path: 'images/hero-banner.jpg', used: 'Home' },
+        { name: 'hero-mobile.jpg', path: 'images/hero-mobile.jpg', used: 'Home' },
+        { name: 'logo.png', path: 'images/logo.png', used: 'Header' },
+        { name: 'velcro-category.jpg', path: 'images/velcro-category.jpg', used: 'Home' },
+        { name: 'aluminium-category.jpg', path: 'images/aluminium-category.jpg', used: 'Home' },
+        { name: 'pleated-category.jpg', path: 'images/pleated-category.jpg', used: 'Home' },
+        { name: 'sliding-category.jpg', path: 'images/sliding-category.jpg', used: 'Home' },
+        { name: 'security-category.jpg', path: 'images/security-category.jpg', used: 'Home' },
+        { name: 'door-category.jpg', path: 'images/door-category.jpg', used: 'Home' },
+        { name: 'install-process.jpg', path: 'images/install-process.jpg', used: 'Home' },
+        { name: 'about-team.jpg', path: 'images/about-team.jpg', used: 'Home/About' },
+        { name: 'testimonial-1.jpg', path: 'images/testimonial-1.jpg', used: 'Home' },
+        { name: 'testimonial-2.jpg', path: 'images/testimonial-2.jpg', used: 'Home' },
+        { name: 'testimonial-3.jpg', path: 'images/testimonial-3.jpg', used: 'Home' }
+    ];
+
+    let ok = 0, missing = 0, done = 0;
+    const rows = document.getElementById('rows');
+
+    function fmtSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    images.forEach(function (item) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><div style="width:40px;height:40px;background:#f1f5f9;border-radius:6px;"></div></td>
+            <td>${item.name}</td>
+            <td style="font-family:monospace;color:#64748b;">${item.path}</td>
+            <td class="status">checking...</td>
+            <td class="size">—</td>
+            <td class="dims">—</td>
+            <td>${item.used}</td>
+        `;
+        rows.appendChild(tr);
+
+        // Use fetch HEAD to get content-length
+        fetch(item.path, { method: 'HEAD' })
+            .then(function (res) {
+                const statusCell = tr.querySelector('.status');
+                const sizeCell = tr.querySelector('.size');
+                const dimsCell = tr.querySelector('.dims');
+                const previewCell = tr.querySelector('td:first-child');
+
+                if (!res.ok) {
+                    statusCell.innerHTML = '<span class="missing">❌ MISSING</span>';
+                    missing++;
+                } else {
+                    const size = res.headers.get('content-length');
+                    statusCell.innerHTML = '<span class="ok">✅ OK</span>';
+                    sizeCell.textContent = size ? fmtSize(parseInt(size)) : 'unknown';
+                    // Load image to get dimensions
+                    const img = new Image();
+                    img.onload = function () {
+                        dimsCell.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px';
+                        previewCell.innerHTML = '<img class="preview" src="' + item.path + '" alt="">';
+                    };
+                    img.onerror = function () { dimsCell.textContent = 'failed'; };
+                    img.src = item.path + '?t=' + Date.now();
+                    ok++;
+                }
+                done++;
+                updateSummary();
+            })
+            .catch(function () {
+                tr.querySelector('.status').innerHTML = '<span class="missing">❌ ERROR</span>';
+                missing++;
+                done++;
+                updateSummary();
+            });
+    });
+
+    function updateSummary() {
+        if (done === images.length) {
+            document.getElementById('summary').innerHTML =
+                '<strong>✅ Found: ' + ok + '</strong> | ' +
+                '<strong class="missing">❌ Missing: ' + missing + '</strong> | ' +
+                '<strong>Total checked: ' + images.length + '</strong>';
+        } else {
+            document.getElementById('summary').textContent =
+                'Scanning... ' + done + ' / ' + images.length;
+        }
+    }
+    </script>
+</body>
+</html>
