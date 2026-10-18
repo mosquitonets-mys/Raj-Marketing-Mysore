@@ -1,97 +1,663 @@
 <!-- ============================================================
-     HEADER COMPONENT - UPGRADED
+     HEADER COMPONENT — PROFESSIONAL UPGRADE
      Raj Marketing Mysore
-     - Dark blue background + white bold fonts
-     - Fixed duplicate icons issue
-     - Cart icon integrated properly
+     - Animated brand name (shimmer)
+     - Sticky header with scroll effect
+     - Cart badge with pulse
+     - Fixed duplicate mobile menu
 ============================================================ -->
-     <header class="site-header">
-    <div class="header-inner">
-        <a href="index.html" class="logo-area" aria-label="Raj Marketing Mysore Home">
-            <div class="logo-icon" style="display:flex;">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <div class="logo-text">
-                <span class="brand-name">Raj Marketing</span>
-                <span class="brand-sub">Mysore</span>
-            </div>
-        </a>
+<header class="site-header" id="siteHeader">
 
-        <nav class="desktop-nav" aria-label="Main navigation">
-            <a href="index.html" data-nav="home">Home</a>
-            <a href="products.html" data-nav="products">Products</a>
-            <a href="solutions.html" data-nav="solutions">Solutions</a>
-            <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
-            <a href="about.html" data-nav="about">About</a>
-            <a href="contact.html" data-nav="contact">Contact</a>
-            <a href="admin-login.html" class="admin-link" aria-label="Admin login">
-                <i class="fas fa-lock"></i> Admin
-            </a>
-        </nav>
-
-        <div class="header-right">
-            <a href="tel:9483037385" class="header-icon-btn" aria-label="Call us">
-                <i class="fas fa-phone-alt"></i>
-            </a>
-            <a href="https://wa.me/919483037385" target="_blank" rel="noopener" class="header-icon-btn wa-link" aria-label="WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="cart.html" class="header-icon-btn" aria-label="Cart">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount" style="display:none;">0</span>
-            </a>
-            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
-                <i class="fas fa-bars"></i>
+    <!-- ===== ANNOUNCEMENT BAR ===== -->
+    <div class="top-announcement" id="topAnnouncement">
+        <div class="container">
+            <div class="announcement-content">
+                <span class="announce-item">
+                    <i class="fas fa-truck"></i> Free Measurement in Mysore
+                </span>
+                <span class="announce-sep">·</span>
+                <span class="announce-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:9483037385">94830 37385</a>
+                </span>
+                <span class="announce-sep">·</span>
+                <span class="announce-item">
+                    <i class="fas fa-tag"></i> Established Since 2016
+                </span>
+            </div>
+            <button class="announce-close" id="announceClose" aria-label="Close announcement">
+                <i class="fas fa-times"></i>
             </button>
         </div>
     </div>
 
+    <!-- ===== MAIN HEADER ===== -->
+    <div class="header-main">
+        <div class="header-inner">
+
+            <!-- LOGO + ANIMATED BRAND -->
+            <a href="index.html" class="logo-area" aria-label="Raj Marketing Mysore Home">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="brand-name">Raj Marketing</span>
+                    <span class="brand-sub">Mysore</span>
+                </div>
+            </a>
+
+            <!-- DESKTOP NAV -->
+            <nav class="desktop-nav" aria-label="Main navigation">
+                <a href="index.html" data-nav="home">Home</a>
+                <a href="products.html" data-nav="products">Products</a>
+                <a href="solutions.html" data-nav="solutions">Solutions</a>
+                <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
+                <a href="about.html" data-nav="about">About</a>
+                <a href="contact.html" data-nav="contact">Contact</a>
+                <a href="admin-login.html" class="admin-link" aria-label="Admin login">
+                    <i class="fas fa-lock"></i> Admin
+                </a>
+            </nav>
+
+            <!-- RIGHT ICONS -->
+            <div class="header-right">
+                <a href="tel:9483037385" class="header-icon-btn" aria-label="Call us" title="Call">
+                    <i class="fas fa-phone-alt"></i>
+                </a>
+                <a href="https://wa.me/919483037385" target="_blank" rel="noopener"
+                   class="header-icon-btn wa-link" aria-label="WhatsApp" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="cart.html" class="header-icon-btn cart-link" aria-label="Cart" title="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount" style="display:none;">0</span>
+                </a>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== MOBILE MENU (single instance) ===== -->
     <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-        <a href="index.html" data-nav="home">Home</a>
-        <a href="products.html" data-nav="products">Products</a>
-        <a href="solutions.html" data-nav="solutions">Solutions</a>
-        <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
-        <a href="about.html" data-nav="about">About</a>
-        <a href="contact.html" data-nav="contact">Contact</a>
-        <a href="estimate.html" class="btn-sky">Get Free Estimate</a>
+        <a href="index.html" data-nav="home"><i class="fas fa-home"></i> Home</a>
+        <a href="products.html" data-nav="products"><i class="fas fa-th-large"></i> Products</a>
+        <a href="solutions.html" data-nav="solutions"><i class="fas fa-lightbulb"></i> Solutions</a>
+        <a href="how-it-works.html" data-nav="how-it-works"><i class="fas fa-cogs"></i> How It Works</a>
+
+        <div class="mobile-menu-divider">Services</div>
+        <a href="estimate.html"><i class="fas fa-file-invoice"></i> Get Estimate</a>
+        <a href="appointment.html"><i class="fas fa-calendar-check"></i> Book Measurement</a>
+        <a href="price-checker.html"><i class="fas fa-calculator"></i> AI Price Checker</a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i> My Cart</a>
+        <a href="track-order.html"><i class="fas fa-truck"></i> Track Order</a>
+
+        <div class="mobile-menu-divider">Account</div>
+        <a href="customer/customer-login.html"><i class="fas fa-sign-in-alt"></i> Customer Login</a>
+        <a href="customer/customer-registration.html"><i class="fas fa-user-plus"></i> Customer Register</a>
+        <a href="dealer/dealer-login.html"><i class="fas fa-handshake"></i> Dealer Login</a>
+        <a href="dealer/dealer-registration.html" class="btn-sky"><i class="fas fa-handshake"></i> Become a Dealer</a>
+
+        <div class="mobile-menu-divider">Info</div>
+        <a href="about.html" data-nav="about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="contact.html" data-nav="contact"><i class="fas fa-envelope"></i> Contact</a>
+
         <a href="admin-login.html" class="admin-menu-link">
-            <i class="fas fa-lock"></i> Admin Login
+            <i class="fas fa-crown"></i> Admin Login
         </a>
     </nav>
-     </header>
+
+</header>
+
 <!-- ============================================================
-     MOBILE MENU COMPONENT
+     HEADER-SPECIFIC CSS
+     (Auto-injected as <style> — safe fallback if style.css missing)
 ============================================================ -->
-<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile Navigation">
+<style id="headerStyles">
+/* ===== CSS VARIABLES (fallback if style.css missing) ===== */
+:root {
+    --rm-blue: #1a56db;
+    --rm-navy: #0f1b33;
+    --rm-green: #16a34a;
+    --rm-yellow: #f59e0b;
+    --rm-white: #ffffff;
+    --rm-border: #e2e8f0;
+    --rm-ink: #0f172a;
+    --rm-muted: #64748b;
+}
 
-    <!-- Primary -->
-    <a href="index.html" data-nav="home">Home</a>
-    <a href="products.html" data-nav="products">Products</a>
-    <a href="solutions.html" data-nav="solutions">Solutions</a>
-    <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
+/* ===== ANNOUNCEMENT BAR ===== */
+.top-announcement {
+    background: linear-gradient(90deg, var(--rm-navy), var(--rm-blue), var(--rm-navy));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 0;
+    position: relative;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+.top-announcement.hidden {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.top-announcement .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+}
+.announcement-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 24px;
+}
+.announce-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+.announce-item i {
+    color: var(--rm-yellow);
+    font-size: 11px;
+}
+.announce-item a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+.announce-item a:hover {
+    color: var(--rm-yellow);
+}
+.announce-sep {
+    color: rgba(255,255,255,0.35);
+}
+.announce-close {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.12);
+    border: none;
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    transition: 0.2s;
+}
+.announce-close:hover {
+    background: rgba(255,255,255,0.25);
+}
+@media (max-width: 600px) {
+    .announce-item { font-size: 10px; }
+    .announce-sep:nth-child(4),
+    .announce-item:nth-child(5) { display: none; }
+}
 
-    <!-- Services -->
-    <a href="estimate.html">Get Estimate</a>
-    <a href="appointment.html">Book Measurement</a>
-    <a href="price-checker.html">AI Price Checker</a>
-    <a href="cart.html">My Cart</a>
-    <a href="track-order.html">Track Order</a>
+/* ===== MAIN HEADER ===== */
+.header-main {
+    background: linear-gradient(135deg, #0f1b33 0%, #1e3a8a 50%, #2563eb 100%);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 20px rgba(15, 27, 51, 0.18);
+    transition: box-shadow 0.3s ease;
+}
+.header-main.scrolled {
+    box-shadow: 0 4px 30px rgba(15, 27, 51, 0.28);
+}
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: 16px;
+}
 
-    <!-- Customer -->
-    <a href="customer/customer-login.html">Customer Login</a>
-    <a href="customer/customer-registration.html">Customer Register</a>
+/* ===== LOGO AREA ===== */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+.logo-area:hover {
+    transform: translateY(-1px);
+}
 
-    <!-- Dealer -->
-    <a href="dealer/dealer-login.html">Dealer Login</a>
-    <a href="dealer/dealer-registration.html" class="btn-sky">Become a Dealer</a>
+.logo-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.08));
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    animation: logoPulse 3s ease-in-out infinite;
+}
+@keyframes logoPulse {
+    0%, 100% { box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    50% { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35); }
+}
 
-    <!-- Info -->
-    <a href="about.html" data-nav="about">About</a>
-    <a href="contact.html" data-nav="contact">Contact</a>
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+.logo-text .brand-name {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #ffffff, #fbbf24, #ffffff, #fbbf24, #ffffff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brandShimmer 4s linear infinite;
+}
+@keyframes brandShimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+.logo-text .brand-sub {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 1px;
+}
 
-    <!-- Admin -->
-    <a href="admin/dashboard.html" class="admin-menu-link">
-        <i class="fas fa-crown"></i> Admin Dashboard
-    </a>
+/* ===== DESKTOP NAV ===== */
+.desktop-nav {
+    display: none;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    justify-content: center;
+}
+.desktop-nav a {
+    color: rgba(255,255,255,0.88);
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 8px 14px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    position: relative;
+}
+.desktop-nav a:not(.admin-link)::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 18px;
+    height: 2px;
+    background: var(--rm-yellow);
+    border-radius: 2px;
+    transition: transform 0.25s ease;
+}
+.desktop-nav a:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+}
+.desktop-nav a:hover::after,
+.desktop-nav a.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+.desktop-nav a.active {
+    color: #fff;
+    background: rgba(255,255,255,0.15);
+    font-weight: 700;
+}
 
- </div>
+.desktop-nav .admin-link {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff !important;
+    padding: 7px 16px;
+    margin-left: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 12px rgba(245,158,11,0.4);
+    transition: 0.25s;
+}
+.desktop-nav .admin-link::after { display: none; }
+.desktop-nav .admin-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(245,158,11,0.55);
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+/* ===== HEADER RIGHT ICONS ===== */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.header-icon-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+}
+.header-icon-btn:hover {
+    background: rgba(255,255,255,0.22);
+    transform: translateY(-2px);
+    color: #fff;
+}
+.header-icon-btn.wa-link {
+    color: #4ade80;
+}
+.header-icon-btn.wa-link:hover {
+    color: #25D366;
+    background: rgba(37,211,102,0.18);
+    border-color: rgba(37,211,102,0.4);
+}
+.header-icon-btn.cart-link {
+    background: rgba(245,158,11,0.15);
+    border-color: rgba(245,158,11,0.35);
+}
+.header-icon-btn.cart-link:hover {
+    background: rgba(245,158,11,0.3);
+    color: #fbbf24;
+}
+
+/* Cart badge */
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    background: #ef4444;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 9.5px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #0f1b33;
+    box-shadow: 0 2px 6px rgba(239,68,68,0.5);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger {
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.25s ease;
+    padding: 0;
+}
+.hamburger:hover {
+    background: rgba(255,255,255,0.2);
+}
+.hamburger-line {
+    width: 18px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+.hamburger.open .hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+.hamburger.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.open .hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 992px) {
+    .desktop-nav { display: flex; }
+    .hamburger { display: none; }
+}
+@media (max-width: 991px) {
+    .header-inner { height: 64px; }
+    .logo-icon { width: 40px; height: 40px; font-size: 18px; }
+    .logo-text .brand-name { font-size: 17px; }
+    .logo-text .brand-sub { font-size: 9px; letter-spacing: 2.5px; }
+    .header-icon-btn { width: 36px; height: 36px; font-size: 14px; }
+    .hamburger { width: 36px; height: 36px; }
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+    display: none;
+    background: #fff;
+    padding: 16px 20px 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    border-top: 1px solid var(--rm-border);
+    animation: slideDown 0.3s ease;
+}
+.mobile-menu.open {
+    display: block;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.mobile-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 10px;
+    color: var(--rm-ink);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+.mobile-menu a:hover,
+.mobile-menu a.active {
+    background: #eff6ff;
+    color: var(--rm-blue);
+    padding-left: 14px;
+}
+.mobile-menu a i {
+    width: 18px;
+    color: var(--rm-blue);
+    font-size: 14px;
+}
+.mobile-menu-divider {
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--rm-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 14px 10px 6px;
+    margin-top: 6px;
+    border-top: 1px solid var(--rm-border);
+}
+.mobile-menu .btn-sky {
+    background: linear-gradient(135deg, var(--rm-blue), var(--rm-navy));
+    color: #fff !important;
+    text-align: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 6px;
+    font-weight: 800;
+    border: none;
+}
+.mobile-menu .btn-sky i { color: #fff; }
+.mobile-menu .admin-menu-link {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e !important;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 8px;
+    font-weight: 800;
+}
+.mobile-menu .admin-menu-link i { color: #92400e; }
+.mobile-menu .admin-menu-link:hover {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff !important;
+    padding-left: 12px;
+}
+.mobile-menu .admin-menu-link:hover i { color: #fff; }
+</style>
+
+<!-- ============================================================
+     HEADER SCRIPT
+============================================================ -->
+<script>
+(function() {
+    'use strict';
+
+    // ===== HAMBURGER TOGGLE =====
+    function initHamburger() {
+        var btn = document.getElementById('hamburgerBtn');
+        var menu = document.getElementById('mobileMenu');
+        if (!btn || !menu) return;
+        btn.addEventListener('click', function() {
+            var isOpen = menu.classList.toggle('open');
+            btn.classList.toggle('open', isOpen);
+            btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        // Close on link click
+        menu.querySelectorAll('a').forEach(function(a) {
+            a.addEventListener('click', function() {
+                menu.classList.remove('open');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            });
+        });
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+            if (!menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.classList.remove('open');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // ===== ACTIVE NAV HIGHLIGHT =====
+    function initActiveNav() {
+        var path = window.location.pathname.split('/').pop() || 'index.html';
+        var dataNav = {
+            'index.html': 'home',
+            'products.html': 'products',
+            'solutions.html': 'solutions',
+            'how-it-works.html': 'how-it-works',
+            'about.html': 'about',
+            'contact.html': 'contact'
+        };
+        var key = dataNav[path];
+        if (key) {
+            document.querySelectorAll('[data-nav="' + key + '"]').forEach(function(el) {
+                el.classList.add('active');
+            });
+        }
+    }
+
+    // ===== STICKY HEADER SHADOW =====
+    function initStickyShadow() {
+        var header = document.getElementById('siteHeader');
+        var mainHeader = document.querySelector('.header-main');
+        if (!header || !mainHeader) return;
+        window.addEventListener('scroll', function() {
+            mainHeader.classList.toggle('scrolled', window.scrollY > 10);
+        }, { passive: true });
+    }
+
+    // ===== ANNOUNCEMENT BAR CLOSE =====
+    function initAnnouncement() {
+        var bar = document.getElementById('topAnnouncement');
+        var btn = document.getElementById('announceClose');
+        if (!bar || !btn) return;
+        // Hide if previously closed
+        if (localStorage.getItem('rm_announce_closed') === '1') {
+            bar.classList.add('hidden');
+        }
+        btn.addEventListener('click', function() {
+            bar.classList.add('hidden');
+            localStorage.setItem('rm_announce_closed', '1');
+        });
+    }
+
+    // ===== CART COUNT SYNC =====
+    function initCartCount() {
+        function updateCartCount() {
+            try {
+                var cart = JSON.parse(localStorage.getItem('rm_cart') || '[]');
+                var el = document.getElementById('cartCount');
+                if (el) {
+                    if (cart.length > 0) {
+                        el.textContent = cart.length;
+                        el.style.display = 'flex';
+              
