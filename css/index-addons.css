@@ -1,0 +1,168 @@
+/* ============================================================
+   INDEX-ADDONS.CSS
+   Page-specific styles for index.html ONLY.
+   Do NOT duplicate what's already in style.css.
+   Only add NEW components that don't exist there.
+============================================================ */
+
+/* ============================================================
+   1. FEATURED PRODUCTS (new section, not in style.css)
+============================================================ */
+.featured-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 4px 4px 14px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.featured-scroll::-webkit-scrollbar { display: none; }
+
+.featured-card {
+    flex: 0 0 180px;
+    scroll-snap-align: start;
+    background: var(--white, #fff);
+    border-radius: var(--radius, 14px);
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    color: var(--highlight-grey, #1f2937);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: all 0.25s ease;
+    position: relative;
+}
+.featured-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-color: var(--royal-blue, #1a56db);
+}
+.featured-card .img-wrap {
+    aspect-ratio: 1/1;
+    background: var(--light-grey, #f3f4f6);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+}
+.featured-card .img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.featured-card:hover .img-wrap img { transform: scale(1.06); }
+.featured-card .badge-tag {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: var(--orange, #f59e0b);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 3px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.featured-card .name {
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 32px;
+}
+.featured-card .variant {
+    font-size: 10px;
+    color: var(--muted-text, #6b7280);
+    margin-bottom: 6px;
+}
+.featured-card .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+.featured-card .price {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--royal-blue, #1a56db);
+}
+.featured-card .unit {
+    font-size: 10px;
+    color: var(--muted-text, #6b7280);
+}
+.featured-card .cta-btn {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 900;
+    background: var(--royal-blue, #1a56db);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: background 0.2s ease;
+}
+.featured-card:hover .cta-btn { background: var(--orange, #f59e0b); }
+
+/* ============================================================
+   2. FLOATING WHATSAPP BUTTON (new — was missing in style.css)
+   Note: style.css has .whatsapp-float, this is a simpler version
+   OPTIONAL: use .whatsapp-float from style.css instead — then
+   delete this block and use class="whatsapp-float" in HTML.
+============================================================ */
+.wa-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    background: #25d366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+    z-index: 999;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.wa-float:hover {
+    background: #128c7e;
+    transform: scale(1.08);
+}
+@media (max-width: 480px) {
+    .wa-float {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+        bottom: 80px;
+        right: 12px;
+    }
+}
+
+/* ============================================================
+   3. FEATURED PRODUCTS SECTION TITLE OVERRIDE (small)
+   Not needed if .section-title in style.css is sufficient.
+   Keep for the "🔥" emoji spacing only.
+============================================================ */
+.section-title h2 .emoji {
+    font-size: 18px;
+    margin-right: 2px;
+}
+
+/* ============================================================
+   4. ANY MISSING UTILITY CLASSES YOU NOTICED
+============================================================ */
+.text-center { text-align: center; }
+.mt-16 { margin-top: 16px; }
+.mb-16 { margin-bottom: 16px; }
