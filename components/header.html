@@ -660,4 +660,36 @@
                     if (cart.length > 0) {
                         el.textContent = cart.length;
                         el.style.display = 'flex';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        }
+        updateCartCount();
+        // Listen for storage changes (cross-tab sync)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'rm_cart') updateCartCount();
+        });
+        // Also poll every 2s for same-tab updates
+        setInterval(updateCartCount, 2000);
+    }
+
+    // ===== INIT =====
+    function init() {
+        initHamburger();
+        initActiveNav();
+        initStickyShadow();
+        initAnnouncement();
+        initCartCount();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
+```
               
