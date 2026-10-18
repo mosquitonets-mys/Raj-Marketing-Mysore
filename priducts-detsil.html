@@ -860,4 +860,253 @@ body { background:#f0f4f8; color:#0f172a; line-height:1.5; padding:0 0 40px; }
 
         qs('galleryPrev').onclick = function () { goTo(currentSlide - 1); };
         qs('galleryNext').onclick = function () { goTo(currentSlide + 1); };
-        dots.querySelec
+                dots.querySelectorAll('.dot').forEach(function (d) { d.onclick = function () { goTo(+d.dataset.i); }; });
+        thumbs.querySelectorAll('.thumb').forEach(function (t) { t.onclick = function () { goTo(+t.dataset.i); }; });
+
+        var startX = 0;
+        track.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', function (e) {
+            var dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 40) goTo(currentSlide + (dx < 0 ? 1 : -1));
+        });
+    }
+
+    // ============================================================
+    // COLOURS (Honey Gold, Brown, Ivory, Black, White, Teakwood)
+    // ============================================================
+    function buildColours(colours) {
+        selectedColour = colours[0];
+        setText('selectedColour', selectedColour);
+        var co = qs('colourOptions');
+        co.innerHTML = colours.map(function (c, i) {
+            var cls = 'colour-' + c.toLowerCase().replace(/\s+/g, '-');
+            return '<span class="colour ' + cls + (i === 0 ? ' active' : '') + '" data-colour="' + c + '" title="' + c + '"></span>';
+        }).join('');
+        co.querySelectorAll('.colour').forEach(function (el) {
+            el.addEventListener('click', function () {
+                co.querySelectorAll('.colour').forEach(function (x) { x.classList.remove('active'); });
+                el.classList.add('active');
+                selectedColour = el.dataset.colour;
+                setText('selectedColour', selectedColour);
+            });
+        });
+    }
+
+    // ============================================================
+    // TYPES
+    // ============================================================
+    function buildTypes(types) {
+        selectedType = types[0];
+        setText('selectedType', selectedType);
+        var to = qs('typeOptions');
+        to.innerHTML = types.map(function (t, i) {
+            return '<span class="type' + (i === 0 ? ' active' : '') + '" data-type="' + t + '">' + t + '</span>';
+        }).join('');
+        to.querySelectorAll('.type').forEach(function (el) {
+            el.addEventListener('click', function () {
+                to.querySelectorAll('.type').forEach(function (x) { x.classList.remove('active'); });
+                el.classList.add('active');
+                selectedType = el.dataset.type;
+                setText('selectedType', selectedType);
+            });
+        });
+    }
+
+    // ============================================================
+    // DIMENSIONS
+    // ============================================================
+    function populateDimensionSelects() {
+        var wSel = qs('widthSelect'), hSel = qs('heightSelect');
+        var wOpts = WIDTH_OPTIONS_IN.map(function (v) {
+            if (currentUnit === 'in') return '<option value="' + v + '">' + v + '"</option>';
+            return '<option value="' + toCm(v) + '">' + toCm(v) + ' cm</option>';
+        }).join('');
+        var hOpts = HEIGHT_OPTIONS_IN.map(function (v) {
+            if (currentUnit === 'in') return '<option value="' + v + '">' + v + '"</option>';
+            return '<option value="' + toCm(v) + '">' + toCm(v) + ' cm</option>';
+        }).join('');
+        wSel.innerHTML = wOpts;
+        hSel.innerHTML = hOpts;
+        wSel.value = currentUnit === 'in' ? 36 : toCm(36);
+        hSel.value = currentUnit === 'in' ? 48 : toCm(48);
+        setText('widthUnitBadge', currentUnit);
+        setText('heightUnitBadge', currentUnit);
+    }
+
+    window.setUnit = function (unit) {
+        currentUnit = unit;
+        document.querySelectorAll('.unit-toggle button').forEach(function (b) {
+            b.classList.toggle('active', b.dataset.unit === unit);
+        });
+        populateDimensionSelects();
+        calculatePrice();
+    };
+
+    // ============================================================
+    // CALCULATOR (new sizing logic)
+    // ============================================================
+    window.changeQty = function (delta) {
+        var input = qs('qtyInput');
+        var v = parseInt(input.value, 10) || 1;
+        v = Math.max(1, Math.min(999, v + delta));
+        input.value = v;
+        calculatePrice();
+    };
+
+    window.calculatePrice = function () {
+        if (!currentProduct) return;
+        var wRaw = parseFloat(qs('widthSelect').value) || 0;
+        var hRaw = parseFloat(qs('heightSelect').value) || 0;
+        var qty = Math.max(1, parseInt(qs('qtyInput').value, 10) || 1);
+
+        // Convert to inches (internal calc always in inches)
+        var wIn = currentUnit === 'cm' ? fromCm(wRaw) : wRaw;
+        var hIn = currentUnit === 'cm' ? fromCm(hRaw) : hRaw;
+
+        // Apply new sizing rules
+        var perUnitSqFt = calcSqFt(wIn, hIn);
+        var totalSqFt = perUnitSqFt * qty;
+        var total = totalSqFt * unitRate;
+
+        // Display only Sq.Ft (no width/height breakdown shown)
+        setText('sqftValue', perUnitSqFt.toFixed(2));
+        setText('breakdownTotalSqft', totalSqFt.toFixed(2) + ' sq.ft');
+        setText('breakdownRate', formatINR(unitRate));
+        setText('breakdownTotal', formatINR(Math.round(total)));
+        setText('totalBarValue', formatINR(Math.round(total)));
+    };
+
+    // ============================================================
+    // BUY ACTIONS — ALWAYS show Add to Cart + Buy Now
+    // (No "Book Appointment" button anywhere)
+    // ============================================================
+    function buildBuyActions() {
+        var c = qs('buyActions');
+        c.innerHTML =
+            '<button class="btn btn-add-cart" onclick="window.__addToCart()"><i class="fas fa-cart-plus"></i> Add to Cart</button>' +
+            '<button class="btn btn-buy-now" onclick="window.__buyNow()"><i class="fas fa-bolt"></i> Buy Now</button>';
+    }
+
+    window.__addToCart = function () {
+        if (!currentProduct) return;
+        var total = parseFloat((qs('breakdownTotal').textContent || '0').replace(/[^0-9.]/g, '')) || 0;
+        var totalSqFt = parseFloat((qs('breakdownTotalSqft').textContent || '0').replace(/[^0-9.]/g, '')) || 0;
+        var cart = [];
+        try { cart = JSON.parse(localStorage.getItem('rm_cart') || '[]'); } catch (e) {}
+        cart.push({
+            id: currentProduct.id,
+            name: currentProduct.name,
+            colour: selectedColour,
+            type: selectedType,
+            width: qs('widthSelect').value,
+            height: qs('heightSelect').value,
+            unit: currentUnit,
+            qty: parseInt(qs('qtyInput').value, 10),
+            sqft: totalSqFt,
+            total: total
+        });
+        localStorage.setItem('rm_cart', JSON.stringify(cart));
+        showToast('✅ Added to cart!');
+    };
+
+    window.__buyNow = function () {
+        window.__addToCart();
+        window.location.href = 'checkout.html';
+    };
+
+    function showToast(msg) {
+        var toast = document.querySelector('.cart-toast');
+        if (!toast) { toast = document.createElement('div'); toast.className = 'cart-toast'; document.body.appendChild(toast); }
+        toast.innerHTML = '<i class="fas fa-check-circle"></i> ' + msg;
+        toast.classList.add('show');
+        setTimeout(function () { toast.classList.remove('show'); }, 2500);
+    }
+
+    // ============================================================
+    // TABS
+    // ============================================================
+    function buildTabs(p) {
+        qs('descriptionContent').innerHTML = '<p>' + (p.longDescription || p.description || '') + '</p>';
+        var apps = p.applications || ['Windows', 'Doors', 'Balcony'];
+        qs('appTags').innerHTML = apps.map(function (a) { return '<span class="app-tag">' + a + '</span>'; }).join('');
+
+        var specs = p.specs || { 'Product Type': p.category || 'Mosquito Net', 'Mesh': 'Premium Quality', 'Custom Size': 'Yes', 'Warranty': 'As applicable' };
+        qs('specTable').innerHTML = Object.keys(specs).map(function (k) {
+            return '<tr><td class="spec-label">' + k + '</td><td class="spec-value">' + specs[k] + '</td></tr>';
+        }).join('');
+
+        var benefits = p.benefits || ['Mosquito Protection', 'Custom Measurements', 'Durable Materials', 'Easy Maintenance'];
+        qs('benefitsGrid').innerHTML = benefits.map(function (b) {
+            return '<div class="benefit-card"><i class="fas fa-check-circle"></i><span>' + b + '</span></div>';
+        }).join('');
+
+        var steps = ['Book Appointment', 'Site Measurement', 'Confirm Order', 'Manufacturing', 'Installation'];
+        qs('processSteps').innerHTML = steps.map(function (s, i) {
+            return '<div class="process-step"><span class="step-num">' + (i + 1) + '</span><span>' + s + '</span></div>';
+        }).join('');
+
+        var faqs = p.faqs || [
+            { q: 'Can this be customized?', a: 'Yes, custom sizes are available.' },
+            { q: 'Is installation included?', a: 'Yes, professional installation in Mysore.' },
+            { q: 'What is the warranty?', a: 'Warranty as per manufacturer terms.' }
+        ];
+        var fl = qs('faqList');
+        fl.innerHTML = faqs.map(function (f, i) {
+            return '<div class="faq-item' + (i === 0 ? ' open' : '') + '">' +
+                '<div class="faq-q"><span>' + f.q + '</span><i class="fas fa-chevron-down"></i></div>' +
+                '<div class="faq-a">' + f.a + '</div></div>';
+        }).join('');
+        fl.querySelectorAll('.faq-q').forEach(function (q) {
+            q.addEventListener('click', function () { q.parentElement.classList.toggle('open'); });
+        });
+    }
+
+    function bindTabs() {
+        document.querySelectorAll('.tab-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+                document.querySelectorAll('.tab-pane').forEach(function (p) { p.classList.remove('active'); });
+                btn.classList.add('active');
+                var pane = qs('tab-' + btn.dataset.tab);
+                if (pane) pane.classList.add('active');
+            });
+        });
+    }
+
+    // ============================================================
+    // RELATED
+    // ============================================================
+    function buildRelated(p) {
+        var grid = qs('relatedGrid');
+        var related = Object.keys(PRODUCTS).filter(function (id) {
+            return id !== p.id && PRODUCTS[id].category === p.category;
+        }).slice(0, 4);
+
+        if (!related.length) {
+            grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:20px;font-size:13px;">No related products.</div>';
+            return;
+        }
+
+        grid.innerHTML = related.map(function (id) {
+            var r = PRODUCTS[id];
+            var img = (r.images && r.images[0]) || 'images/placeholder.jpg';
+            return '<a href="product-detail.html?id=' + id + '" class="related-card">' +
+                '<div class="related-img"><img src="' + img + '" alt="' + r.name + '" onerror="this.src=\'images/placeholder.jpg\'"></div>' +
+                '<div class="related-name">' + r.name + '</div>' +
+                '<div class="related-price">' + formatINR(r.price) + '</div></a>';
+        }).join('');
+    }
+
+    // ============================================================
+    // START
+    // ============================================================
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+    } else {
+        boot();
+    }
+
+})();
+</script>
+</body>
+</html>
