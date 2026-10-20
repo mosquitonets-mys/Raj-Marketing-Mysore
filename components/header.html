@@ -1,11 +1,10 @@
 <!-- ============================================================
-     HEADER COMPONENT — SKY BLUE REVISION
+     HEADER COMPONENT — DARK BLUE + GOLD ANIMATION
      Raj Marketing Mysore
-     - No top announcement bar
-     - Sky blue background
+     - Dark blue gradient background
+     - Gold shining brand name with text movement
      - Logo image + fallback icon
-     - New brand animation (glow sweep)
-     - 3-line menu visible
+     - 2-row nav (Primary + Secondary)
 ============================================================ -->
 <header class="site-header" id="siteHeader">
     <div class="header-main">
@@ -18,12 +17,12 @@
                          onerror="this.style.display='none';this.parentElement.classList.add('logo-fallback');this.parentElement.innerHTML='<i class=\'fas fa-shield-alt\'></i>'">
                 </div>
                 <div class="logo-text">
-                    <span class="brand-name">Raj Marketing</span>
+                    <span class="brand-name" data-text="Raj Marketing">Raj Marketing</span>
                     <span class="brand-sub">Mysore</span>
                 </div>
             </a>
 
-            <!-- 3-LINE NAVIGATION -->
+            <!-- 2-ROW NAVIGATION -->
             <nav class="desktop-nav" aria-label="Main navigation">
 
                 <!-- ROW 1: PRIMARY -->
@@ -73,7 +72,7 @@
         </div>
     </div>
 
-    <!-- ===== MOBILE MENU (single instance) ===== -->
+    <!-- ===== MOBILE MENU ===== -->
     <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
         <a href="index.html" data-nav="home"><i class="fas fa-home"></i> Home</a>
         <a href="products.html" data-nav="products"><i class="fas fa-th-large"></i> Products</a>
@@ -108,32 +107,29 @@
      HEADER-SPECIFIC CSS
 ============================================================ -->
 <style id="headerStyles">
-/* ===== CSS VARIABLES ===== */
 :root {
     --rm-blue: #1a56db;
-    --rm-sky: #e0f2fe;
-    --rm-sky-dark: #bae6fd;
-    --rm-sky-deep: #7dd3fc;
     --rm-navy: #0f1b33;
-    --rm-green: #16a34a;
-    --rm-yellow: #f59e0b;
+    --rm-gold: #fbbf24;
+    --rm-gold-dark: #d97706;
+    --rm-gold-light: #fcd34d;
     --rm-ink: #0f172a;
     --rm-muted: #64748b;
     --rm-border: #e2e8f0;
 }
 
-/* ===== MAIN HEADER — SKY BLUE BACKGROUND ===== */
+/* ===== MAIN HEADER — DARK BLUE BACKGROUND ===== */
 .header-main {
-    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+    background: linear-gradient(135deg, #0f1b33 0%, #1e3a8a 55%, #2563eb 100%);
     position: sticky;
     top: 0;
     z-index: 999;
-    box-shadow: 0 2px 16px rgba(26, 86, 219, 0.12);
+    box-shadow: 0 2px 20px rgba(15, 27, 51, 0.25);
     transition: box-shadow 0.3s ease;
-    border-bottom: 1px solid rgba(26, 86, 219, 0.08);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.12);
 }
 .header-main.scrolled {
-    box-shadow: 0 4px 24px rgba(26, 86, 219, 0.22);
+    box-shadow: 0 4px 32px rgba(15, 27, 51, 0.4);
 }
 
 .header-inner {
@@ -165,13 +161,13 @@
     height: 46px;
     border-radius: 12px;
     background: #fff;
-    border: 1.5px solid rgba(26, 86, 219, 0.15);
+    border: 1.5px solid rgba(251, 191, 36, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(26, 86, 219, 0.15);
-    animation: logoPulse 3s ease-in-out infinite;
+    box-shadow: 0 4px 14px rgba(251, 191, 36, 0.25);
+    animation: logoGlow 3s ease-in-out infinite;
     flex-shrink: 0;
 }
 .logo-icon img {
@@ -181,15 +177,15 @@
     padding: 4px;
 }
 .logo-icon.logo-fallback {
-    background: linear-gradient(135deg, var(--rm-blue), var(--rm-navy));
+    background: linear-gradient(135deg, #fbbf24, #d97706);
     color: #fff;
     font-size: 22px;
 }
 .logo-icon.logo-fallback i { color: #fff; }
 
-@keyframes logoPulse {
-    0%, 100% { box-shadow: 0 4px 12px rgba(26,86,219,0.15); }
-    50% { box-shadow: 0 4px 20px rgba(26,86,219,0.35); }
+@keyframes logoGlow {
+    0%, 100% { box-shadow: 0 4px 14px rgba(251, 191, 36, 0.25); }
+    50% { box-shadow: 0 4px 24px rgba(251, 191, 36, 0.6); }
 }
 
 .logo-text {
@@ -198,18 +194,40 @@
     line-height: 1.1;
 }
 
-/* ===== NEW BRAND ANIMATION — GLOW SWEEP ===== */
+/* ============================================================
+   GOLD SHINING + TEXT MOVEMENT ANIMATION
+   - Base gold color (#fbbf24 → #fcd34d → #f59e0b)
+   - Shine overlay sweeps across
+   - Letter-spacing pulses (text "moves"/breathes)
+   - Subtle scale pulse
+============================================================ */
 .logo-text .brand-name {
     font-size: 20px;
     font-weight: 900;
-    color: var(--rm-blue);
     letter-spacing: -0.5px;
+    color: #fbbf24;
     position: relative;
     display: inline-block;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    white-space: nowrap;
+
+    /* Combine three animations: color shift, spacing pulse, scale pulse */
+    animation:
+        brandColorShift 3s ease-in-out infinite,
+        brandMove 3s ease-in-out infinite,
+        brandScale 3s ease-in-out infinite;
+
+    /* Gold text gradient base */
+    background: linear-gradient(90deg, #fbbf24, #fcd34d, #f59e0b, #fcd34d, #fbbf24);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Drop shadow for shine effect */
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
-/* Glow sweep animation */
+/* Shine overlay — white sweep */
 .logo-text .brand-name::before {
     content: attr(data-text);
     position: absolute;
@@ -217,49 +235,55 @@
     background: linear-gradient(
         90deg,
         transparent 0%,
-        transparent 40%,
-        rgba(255,255,255,0.9) 50%,
-        transparent 60%,
+        transparent 35%,
+        rgba(255, 255, 255, 0.85) 50%,
+        transparent 65%,
         transparent 100%
     );
     background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: glowSweep 4s ease-in-out infinite;
+    animation: brandShine 2.5s ease-in-out infinite;
     pointer-events: none;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
 }
-@keyframes glowSweep {
+
+/* Gold color shift */
+@keyframes brandColorShift {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+}
+
+/* Text "movement" — letter-spacing breathes in/out */
+@keyframes brandMove {
+    0%, 100% { letter-spacing: -0.5px; }
+    50% { letter-spacing: 1.5px; }
+}
+
+/* Scale pulse — very subtle */
+@keyframes brandScale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+/* White shine sweep */
+@keyframes brandShine {
     0% { background-position: 200% center; }
     100% { background-position: -100% center; }
 }
 
-/* Alternate glow (color shift) — subtle blue-yellow pulse */
-.logo-text .brand-name {
-    animation: brandGlow 5s ease-in-out infinite;
-}
-@keyframes brandGlow {
-    0%, 100% {
-        color: var(--rm-blue);
-        text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    }
-    50% {
-        color: #0d47a1;
-        text-shadow: 0 1px 8px rgba(245, 158, 11, 0.4);
-    }
-}
-
+/* Subtitle — muted gold on dark blue */
 .logo-text .brand-sub {
     font-size: 10.5px;
     font-weight: 700;
-    color: var(--rm-blue);
+    color: rgba(251, 191, 36, 0.75);
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-top: 1px;
-    opacity: 0.75;
 }
 
-/* ===== 3-LINE NAV ===== */
+/* ===== NAV ROWS ===== */
 .desktop-nav {
     display: none;
     flex: 1;
@@ -276,16 +300,8 @@
     gap: 2px;
 }
 
-.nav-row-primary {
-    /* Main links */
-}
-
-.nav-row-secondary {
-    /* Sub links - smaller */
-}
-
 .desktop-nav a {
-    color: var(--rm-navy);
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 600;
     font-size: 13px;
     padding: 5px 12px;
@@ -303,55 +319,56 @@
     transform: translateX(-50%) scaleX(0);
     width: 16px;
     height: 2px;
-    background: var(--rm-blue);
+    background: #fbbf24;
     border-radius: 2px;
     transition: transform 0.25s ease;
 }
 .desktop-nav a:hover {
-    color: var(--rm-blue);
-    background: rgba(255,255,255,0.5);
+    color: #fbbf24;
+    background: rgba(255, 255, 255, 0.1);
 }
 .desktop-nav a:hover::after,
 .desktop-nav a.active::after {
     transform: translateX(-50%) scaleX(1);
 }
 .desktop-nav a.active {
-    color: var(--rm-blue);
-    background: rgba(255,255,255,0.7);
+    color: #fbbf24;
+    background: rgba(255, 255, 255, 0.14);
     font-weight: 700;
 }
 
-/* Secondary row — smaller, lighter */
+/* Secondary row */
 .nav-row-secondary a {
-    color: var(--rm-navy);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 500;
     font-size: 11.5px;
     padding: 3px 10px;
-    opacity: 0.85;
 }
 .nav-row-secondary a:hover {
+    color: #fbbf24;
     opacity: 1;
 }
 
 /* Admin link */
 .desktop-nav .admin-link {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #fff !important;
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+    color: #0f1b33 !important;
     padding: 4px 12px;
     margin-left: 4px;
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 900;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    box-shadow: 0 3px 8px rgba(245,158,11,0.35);
+    box-shadow: 0 3px 12px rgba(251, 191, 36, 0.45);
     transition: 0.25s;
 }
 .desktop-nav .admin-link::after { display: none; }
 .desktop-nav .admin-link:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(245,158,11,0.5);
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    transform: translateY(-1px) scale(1.04);
+    box-shadow: 0 5px 18px rgba(251, 191, 36, 0.7);
+    background: linear-gradient(135deg, #fcd34d, #f59e0b);
+    color: #0f1b33 !important;
 }
 
 /* ===== HEADER RIGHT ICONS ===== */
@@ -366,39 +383,40 @@
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: rgba(255,255,255,0.7);
-    border: 1.5px solid rgba(26, 86, 219, 0.12);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--rm-blue);
+    color: #fff;
     font-size: 14px;
     text-decoration: none;
     transition: all 0.25s ease;
     cursor: pointer;
+    backdrop-filter: blur(6px);
 }
 .header-icon-btn:hover {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.22);
     transform: translateY(-2px);
-    color: var(--rm-blue);
-    box-shadow: 0 4px 12px rgba(26,86,219,0.15);
+    color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.5);
 }
 .header-icon-btn.wa-link {
-    color: #16a34a;
+    color: #4ade80;
 }
 .header-icon-btn.wa-link:hover {
     color: #25D366;
-    background: rgba(37,211,102,0.15);
-    border-color: rgba(37,211,102,0.3);
+    background: rgba(37, 211, 102, 0.18);
+    border-color: rgba(37, 211, 102, 0.5);
 }
 .header-icon-btn.cart-link {
-    background: rgba(245,158,11,0.15);
-    border-color: rgba(245,158,11,0.3);
-    color: #d97706;
+    background: rgba(251, 191, 36, 0.15);
+    border-color: rgba(251, 191, 36, 0.4);
+    color: #fbbf24;
 }
 .header-icon-btn.cart-link:hover {
-    background: rgba(245,158,11,0.28);
-    color: #b45309;
+    background: rgba(251, 191, 36, 0.3);
+    color: #fcd34d;
 }
 
 /* Cart badge */
@@ -417,8 +435,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 6px rgba(239,68,68,0.4);
+    border: 2px solid #0f1b33;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.5);
     animation: badgePulse 2s ease-in-out infinite;
 }
 @keyframes badgePulse {
@@ -428,8 +446,8 @@
 
 /* ===== HAMBURGER ===== */
 .hamburger {
-    background: rgba(255,255,255,0.7);
-    border: 1.5px solid rgba(26, 86, 219, 0.12);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
     width: 36px;
     height: 36px;
     border-radius: 10px;
@@ -443,12 +461,12 @@
     padding: 0;
 }
 .hamburger:hover {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.2);
 }
 .hamburger-line {
     width: 16px;
     height: 2px;
-    background: var(--rm-blue);
+    background: #fff;
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -473,7 +491,11 @@
         height: 72px;
     }
     .logo-icon { width: 40px; height: 40px; }
-    .logo-text .brand-name { font-size: 17px; }
+    .logo-text .brand-name {
+        font-size: 17px;
+        animation: brandColorShift 3s ease-in-out infinite;
+    }
+    .logo-text .brand-name::before { display: none; }
     .logo-text .brand-sub { font-size: 9px; letter-spacing: 2.5px; }
     .header-icon-btn { width: 34px; height: 34px; font-size: 13px; }
     .hamburger { width: 34px; height: 34px; }
@@ -484,7 +506,7 @@
     display: none;
     background: #fff;
     padding: 16px 20px 24px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     position: fixed;
     top: 72px;
     left: 0;
@@ -492,12 +514,10 @@
     z-index: 998;
     max-height: calc(100vh - 72px);
     overflow-y: auto;
-    border-top: 1px solid var(--rm-border);
+    border-top: 2px solid #fbbf24;
     animation: slideDown 0.3s ease;
 }
-.mobile-menu.open {
-    display: block;
-}
+.mobile-menu.open { display: block; }
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -516,7 +536,7 @@
 }
 .mobile-menu a:hover,
 .mobile-menu a.active {
-    background: var(--rm-sky);
+    background: #eff6ff;
     color: var(--rm-blue);
     padding-left: 14px;
 }
@@ -572,7 +592,6 @@
 (function() {
     'use strict';
 
-    // ===== HAMBURGER TOGGLE =====
     function initHamburger() {
         var btn = document.getElementById('hamburgerBtn');
         var menu = document.getElementById('mobileMenu');
@@ -598,7 +617,6 @@
         });
     }
 
-    // ===== ACTIVE NAV HIGHLIGHT =====
     function initActiveNav() {
         var path = window.location.pathname.split('/').pop() || 'index.html';
         var dataNav = {
@@ -617,7 +635,6 @@
         }
     }
 
-    // ===== STICKY HEADER SHADOW =====
     function initStickyShadow() {
         var mainHeader = document.querySelector('.header-main');
         if (!mainHeader) return;
@@ -626,7 +643,6 @@
         }, { passive: true });
     }
 
-    // ===== CART COUNT SYNC =====
     function initCartCount() {
         function updateCartCount() {
             try {
@@ -643,13 +659,12 @@
             } catch (e) {}
         }
         updateCartCount();
-        window.addEventListener('storage', function(e) {
+                window.addEventListener('storage', function(e) {
             if (e.key === 'rm_cart') updateCartCount();
         });
         setInterval(updateCartCount, 2000);
     }
 
-    // ===== ADD data-text FOR GLOW SWEEP =====
     function initBrandText() {
         var brandEl = document.querySelector('.logo-text .brand-name');
         if (brandEl) {
@@ -657,7 +672,6 @@
         }
     }
 
-    // ===== INIT =====
     function init() {
         initHamburger();
         initActiveNav();
