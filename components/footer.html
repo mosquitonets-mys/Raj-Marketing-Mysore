@@ -1,9 +1,8 @@
 <!-- ============================================================
-     FOOTER COMPONENT — PROFESSIONAL UPGRADE
+     FOOTER COMPONENT — SKY BLUE REVISION
      Raj Marketing Mysore
+     - Logo image + new brand animation
      - Clean 3-line layout
-     - WhatsApp float + Mobile bottom nav included
-     - Fixed GST + broken HTML
 ============================================================ -->
 <footer class="site-footer">
     <div class="container">
@@ -12,9 +11,10 @@
         <div class="footer-line footer-line-1">
             <div class="footer-brand">
                 <div class="footer-logo-icon">
-                    <i class="fas fa-shield-alt"></i>
+                    <img src="images/logo.png" alt="Raj Marketing"
+                         onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-shield-alt\'></i>'">
                 </div>
-                <div>
+                <div class="footer-brand-text">
                     <span class="footer-brand-name">Raj Marketing</span>
                     <span class="footer-brand-sub">Mysore</span>
                 </div>
@@ -137,7 +137,6 @@
      FOOTER-SPECIFIC CSS
 ============================================================ -->
 <style id="footerStyles">
-/* ===== FOOTER BASE ===== */
 .site-footer {
     background: linear-gradient(135deg, #0f1b33, #1e3a8a);
     color: rgba(255,255,255,0.88);
@@ -165,7 +164,6 @@
     z-index: 1;
 }
 
-/* ===== FOOTER LINES ===== */
 .footer-line {
     display: flex;
     align-items: center;
@@ -198,35 +196,79 @@
     gap: 10px;
 }
 .footer-logo-icon {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
-    border: 1.5px solid rgba(255,255,255,0.25);
+    background: #fff;
+    border: 1.5px solid rgba(255,255,255,0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    color: #fbbf24;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    flex-shrink: 0;
 }
+.footer-logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+}
+.footer-logo-icon i {
+    color: #fbbf24;
+    font-size: 18px;
+}
+
+.footer-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+/* ===== NEW BRAND ANIMATION — GLOW SWEEP (matches header) ===== */
 .footer-brand-name {
     font-size: 18px;
     font-weight: 900;
     color: #fff;
     letter-spacing: -0.4px;
-    display: block;
-    line-height: 1.1;
-    background: linear-gradient(90deg, #ffffff, #fbbf24, #ffffff, #fbbf24, #ffffff);
-    background-size: 200% auto;
+    position: relative;
+    display: inline-block;
+    animation: footerBrandGlow 5s ease-in-out infinite;
+}
+.footer-brand-name::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(251, 191, 36, 0.9) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: footerBrandShimmer 4s linear infinite;
+    animation: footerGlowSweep 4s ease-in-out infinite;
+    pointer-events: none;
 }
-@keyframes footerBrandShimmer {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+@keyframes footerGlowSweep {
+    0% { background-position: 200% center; }
+    100% { background-position: -100% center; }
 }
+@keyframes footerBrandGlow {
+    0%, 100% {
+        color: #fff;
+        text-shadow: none;
+    }
+    50% {
+        color: #fbbf24;
+        text-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
+    }
+}
+
 .footer-brand-sub {
     display: block;
     font-size: 9.5px;
@@ -469,4 +511,14 @@
         right: 12px;
     }
 }
-     </style>
+</style>
+
+<!-- ============================================================
+     FOOTER SCRIPT — add data-text for glow sweep
+============================================================ -->
+<script>
+(function() {
+    var el = document.querySelector('.footer-brand-name');
+    if (el) el.setAttribute('data-text', el.textContent.trim());
+})();
+ </script>
