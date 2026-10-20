@@ -1,44 +1,21 @@
 <!-- ============================================================
-     HEADER COMPONENT — PROFESSIONAL UPGRADE
+     HEADER COMPONENT — SKY BLUE REVISION
      Raj Marketing Mysore
-     - Animated brand name (shimmer)
-     - Sticky header with scroll effect
-     - Cart badge with pulse
-     - Fixed duplicate mobile menu
+     - No top announcement bar
+     - Sky blue background
+     - Logo image + fallback icon
+     - New brand animation (glow sweep)
+     - 3-line menu visible
 ============================================================ -->
 <header class="site-header" id="siteHeader">
-
-    <!-- ===== ANNOUNCEMENT BAR ===== -->
-    <div class="top-announcement" id="topAnnouncement">
-        <div class="container">
-            <div class="announcement-content">
-                <span class="announce-item">
-                    <i class="fas fa-truck"></i> Free Measurement in Mysore
-                </span>
-                <span class="announce-sep">·</span>
-                <span class="announce-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <a href="tel:9483037385">94830 37385</a>
-                </span>
-                <span class="announce-sep">·</span>
-                <span class="announce-item">
-                    <i class="fas fa-tag"></i> Established Since 2016
-                </span>
-            </div>
-            <button class="announce-close" id="announceClose" aria-label="Close announcement">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- ===== MAIN HEADER ===== -->
     <div class="header-main">
         <div class="header-inner">
 
             <!-- LOGO + ANIMATED BRAND -->
             <a href="index.html" class="logo-area" aria-label="Raj Marketing Mysore Home">
                 <div class="logo-icon">
-                    <i class="fas fa-shield-alt"></i>
+                    <img src="images/logo.png" alt="Raj Marketing"
+                         onerror="this.style.display='none';this.parentElement.classList.add('logo-fallback');this.parentElement.innerHTML='<i class=\'fas fa-shield-alt\'></i>'">
                 </div>
                 <div class="logo-text">
                     <span class="brand-name">Raj Marketing</span>
@@ -46,17 +23,31 @@
                 </div>
             </a>
 
-            <!-- DESKTOP NAV -->
+            <!-- 3-LINE NAVIGATION -->
             <nav class="desktop-nav" aria-label="Main navigation">
-                <a href="index.html" data-nav="home">Home</a>
-                <a href="products.html" data-nav="products">Products</a>
-                <a href="solutions.html" data-nav="solutions">Solutions</a>
-                <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
-                <a href="about.html" data-nav="about">About</a>
-                <a href="contact.html" data-nav="contact">Contact</a>
-                <a href="admin-login.html" class="admin-link" aria-label="Admin login">
-                    <i class="fas fa-lock"></i> Admin
-                </a>
+
+                <!-- ROW 1: PRIMARY -->
+                <div class="nav-row nav-row-primary">
+                    <a href="index.html" data-nav="home">Home</a>
+                    <a href="products.html" data-nav="products">Products</a>
+                    <a href="solutions.html" data-nav="solutions">Solutions</a>
+                    <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
+                    <a href="about.html" data-nav="about">About</a>
+                    <a href="contact.html" data-nav="contact">Contact</a>
+                </div>
+
+                <!-- ROW 2: SERVICES -->
+                <div class="nav-row nav-row-secondary">
+                    <a href="estimate.html">Estimate</a>
+                    <a href="appointment.html">Book Measurement</a>
+                    <a href="price-checker.html">AI Price</a>
+                    <a href="track-order.html">Track Order</a>
+                    <a href="cart.html">Cart</a>
+                    <a href="admin-login.html" class="admin-link">
+                        <i class="fas fa-lock"></i> Admin
+                    </a>
+                </div>
+
             </nav>
 
             <!-- RIGHT ICONS -->
@@ -115,116 +106,36 @@
 
 <!-- ============================================================
      HEADER-SPECIFIC CSS
-     (Auto-injected as <style> — safe fallback if style.css missing)
 ============================================================ -->
 <style id="headerStyles">
-/* ===== CSS VARIABLES (fallback if style.css missing) ===== */
+/* ===== CSS VARIABLES ===== */
 :root {
     --rm-blue: #1a56db;
+    --rm-sky: #e0f2fe;
+    --rm-sky-dark: #bae6fd;
+    --rm-sky-deep: #7dd3fc;
     --rm-navy: #0f1b33;
     --rm-green: #16a34a;
     --rm-yellow: #f59e0b;
-    --rm-white: #ffffff;
-    --rm-border: #e2e8f0;
     --rm-ink: #0f172a;
     --rm-muted: #64748b;
+    --rm-border: #e2e8f0;
 }
 
-/* ===== ANNOUNCEMENT BAR ===== */
-.top-announcement {
-    background: linear-gradient(90deg, var(--rm-navy), var(--rm-blue), var(--rm-navy));
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 6px 0;
-    position: relative;
-    overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-}
-.top-announcement.hidden {
-    max-height: 0;
-    opacity: 0;
-    padding: 0;
-    overflow: hidden;
-}
-.top-announcement .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    position: relative;
-}
-.announcement-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-right: 24px;
-}
-.announce-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    white-space: nowrap;
-}
-.announce-item i {
-    color: var(--rm-yellow);
-    font-size: 11px;
-}
-.announce-item a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-}
-.announce-item a:hover {
-    color: var(--rm-yellow);
-}
-.announce-sep {
-    color: rgba(255,255,255,0.35);
-}
-.announce-close {
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.12);
-    border: none;
-    color: #fff;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    transition: 0.2s;
-}
-.announce-close:hover {
-    background: rgba(255,255,255,0.25);
-}
-@media (max-width: 600px) {
-    .announce-item { font-size: 10px; }
-    .announce-sep:nth-child(4),
-    .announce-item:nth-child(5) { display: none; }
-}
-
-/* ===== MAIN HEADER ===== */
+/* ===== MAIN HEADER — SKY BLUE BACKGROUND ===== */
 .header-main {
-    background: linear-gradient(135deg, #0f1b33 0%, #1e3a8a 50%, #2563eb 100%);
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
     position: sticky;
     top: 0;
     z-index: 999;
-    box-shadow: 0 2px 20px rgba(15, 27, 51, 0.18);
+    box-shadow: 0 2px 16px rgba(26, 86, 219, 0.12);
     transition: box-shadow 0.3s ease;
+    border-bottom: 1px solid rgba(26, 86, 219, 0.08);
 }
 .header-main.scrolled {
-    box-shadow: 0 4px 30px rgba(15, 27, 51, 0.28);
+    box-shadow: 0 4px 24px rgba(26, 86, 219, 0.22);
 }
+
 .header-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -232,7 +143,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
+    min-height: 96px;
     gap: 16px;
 }
 
@@ -253,20 +164,32 @@
     width: 46px;
     height: 46px;
     border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.08));
-    backdrop-filter: blur(10px);
-    border: 1.5px solid rgba(255,255,255,0.25);
+    background: #fff;
+    border: 1.5px solid rgba(26, 86, 219, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(26, 86, 219, 0.15);
     animation: logoPulse 3s ease-in-out infinite;
+    flex-shrink: 0;
 }
+.logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+}
+.logo-icon.logo-fallback {
+    background: linear-gradient(135deg, var(--rm-blue), var(--rm-navy));
+    color: #fff;
+    font-size: 22px;
+}
+.logo-icon.logo-fallback i { color: #fff; }
+
 @keyframes logoPulse {
-    0%, 100% { box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-    50% { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35); }
+    0%, 100% { box-shadow: 0 4px 12px rgba(26,86,219,0.15); }
+    50% { box-shadow: 0 4px 20px rgba(26,86,219,0.35); }
 }
 
 .logo-text {
@@ -274,45 +197,99 @@
     flex-direction: column;
     line-height: 1.1;
 }
+
+/* ===== NEW BRAND ANIMATION — GLOW SWEEP ===== */
 .logo-text .brand-name {
     font-size: 20px;
     font-weight: 900;
-    color: #fff;
+    color: var(--rm-blue);
     letter-spacing: -0.5px;
-    background: linear-gradient(90deg, #ffffff, #fbbf24, #ffffff, #fbbf24, #ffffff);
-    background-size: 200% auto;
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+
+/* Glow sweep animation */
+.logo-text .brand-name::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255,255,255,0.9) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: brandShimmer 4s linear infinite;
+    animation: glowSweep 4s ease-in-out infinite;
+    pointer-events: none;
 }
-@keyframes brandShimmer {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+@keyframes glowSweep {
+    0% { background-position: 200% center; }
+    100% { background-position: -100% center; }
 }
+
+/* Alternate glow (color shift) — subtle blue-yellow pulse */
+.logo-text .brand-name {
+    animation: brandGlow 5s ease-in-out infinite;
+}
+@keyframes brandGlow {
+    0%, 100% {
+        color: var(--rm-blue);
+        text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    }
+    50% {
+        color: #0d47a1;
+        text-shadow: 0 1px 8px rgba(245, 158, 11, 0.4);
+    }
+}
+
 .logo-text .brand-sub {
     font-size: 10.5px;
     font-weight: 700;
-    color: rgba(255,255,255,0.7);
+    color: var(--rm-blue);
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-top: 1px;
+    opacity: 0.75;
 }
 
-/* ===== DESKTOP NAV ===== */
+/* ===== 3-LINE NAV ===== */
 .desktop-nav {
     display: none;
-    align-items: center;
-    gap: 2px;
     flex: 1;
     justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 700px;
 }
+
+.nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.nav-row-primary {
+    /* Main links */
+}
+
+.nav-row-secondary {
+    /* Sub links - smaller */
+}
+
 .desktop-nav a {
-    color: rgba(255,255,255,0.88);
+    color: var(--rm-navy);
     font-weight: 600;
-    font-size: 13.5px;
-    padding: 8px 14px;
-    border-radius: 30px;
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 20px;
     text-decoration: none;
     transition: all 0.25s ease;
     white-space: nowrap;
@@ -321,46 +298,59 @@
 .desktop-nav a:not(.admin-link)::after {
     content: '';
     position: absolute;
-    bottom: 4px;
+    bottom: 1px;
     left: 50%;
     transform: translateX(-50%) scaleX(0);
-    width: 18px;
+    width: 16px;
     height: 2px;
-    background: var(--rm-yellow);
+    background: var(--rm-blue);
     border-radius: 2px;
     transition: transform 0.25s ease;
 }
 .desktop-nav a:hover {
-    color: #fff;
-    background: rgba(255,255,255,0.1);
+    color: var(--rm-blue);
+    background: rgba(255,255,255,0.5);
 }
 .desktop-nav a:hover::after,
 .desktop-nav a.active::after {
     transform: translateX(-50%) scaleX(1);
 }
 .desktop-nav a.active {
-    color: #fff;
-    background: rgba(255,255,255,0.15);
+    color: var(--rm-blue);
+    background: rgba(255,255,255,0.7);
     font-weight: 700;
 }
 
+/* Secondary row — smaller, lighter */
+.nav-row-secondary a {
+    color: var(--rm-navy);
+    font-weight: 500;
+    font-size: 11.5px;
+    padding: 3px 10px;
+    opacity: 0.85;
+}
+.nav-row-secondary a:hover {
+    opacity: 1;
+}
+
+/* Admin link */
 .desktop-nav .admin-link {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: #fff !important;
-    padding: 7px 16px;
-    margin-left: 6px;
-    font-size: 12px;
+    padding: 4px 12px;
+    margin-left: 4px;
+    font-size: 11px;
     font-weight: 800;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    box-shadow: 0 4px 12px rgba(245,158,11,0.4);
+    gap: 4px;
+    box-shadow: 0 3px 8px rgba(245,158,11,0.35);
     transition: 0.25s;
 }
 .desktop-nav .admin-link::after { display: none; }
 .desktop-nav .admin-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(245,158,11,0.55);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(245,158,11,0.5);
     background: linear-gradient(135deg, #fbbf24, #f59e0b);
 }
 
@@ -368,46 +358,47 @@
 .header-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     flex-shrink: 0;
 }
 .header-icon-btn {
     position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 11px;
-    background: rgba(255,255,255,0.1);
-    border: 1.5px solid rgba(255,255,255,0.15);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.7);
+    border: 1.5px solid rgba(26, 86, 219, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    font-size: 15px;
+    color: var(--rm-blue);
+    font-size: 14px;
     text-decoration: none;
     transition: all 0.25s ease;
-    backdrop-filter: blur(6px);
     cursor: pointer;
 }
 .header-icon-btn:hover {
-    background: rgba(255,255,255,0.22);
+    background: #fff;
     transform: translateY(-2px);
-    color: #fff;
+    color: var(--rm-blue);
+    box-shadow: 0 4px 12px rgba(26,86,219,0.15);
 }
 .header-icon-btn.wa-link {
-    color: #4ade80;
+    color: #16a34a;
 }
 .header-icon-btn.wa-link:hover {
     color: #25D366;
-    background: rgba(37,211,102,0.18);
-    border-color: rgba(37,211,102,0.4);
+    background: rgba(37,211,102,0.15);
+    border-color: rgba(37,211,102,0.3);
 }
 .header-icon-btn.cart-link {
     background: rgba(245,158,11,0.15);
-    border-color: rgba(245,158,11,0.35);
+    border-color: rgba(245,158,11,0.3);
+    color: #d97706;
 }
 .header-icon-btn.cart-link:hover {
-    background: rgba(245,158,11,0.3);
-    color: #fbbf24;
+    background: rgba(245,158,11,0.28);
+    color: #b45309;
 }
 
 /* Cart badge */
@@ -415,19 +406,19 @@
     position: absolute;
     top: -5px;
     right: -5px;
-    min-width: 19px;
-    height: 19px;
-    padding: 0 5px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
     background: #ef4444;
     color: #fff;
-    border-radius: 10px;
-    font-size: 9.5px;
+    border-radius: 9px;
+    font-size: 9px;
     font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #0f1b33;
-    box-shadow: 0 2px 6px rgba(239,68,68,0.5);
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(239,68,68,0.4);
     animation: badgePulse 2s ease-in-out infinite;
 }
 @keyframes badgePulse {
@@ -437,11 +428,11 @@
 
 /* ===== HAMBURGER ===== */
 .hamburger {
-    background: rgba(255,255,255,0.1);
-    border: 1.5px solid rgba(255,255,255,0.15);
-    width: 40px;
-    height: 40px;
-    border-radius: 11px;
+    background: rgba(255,255,255,0.7);
+    border: 1.5px solid rgba(26, 86, 219, 0.12);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -452,12 +443,12 @@
     padding: 0;
 }
 .hamburger:hover {
-    background: rgba(255,255,255,0.2);
+    background: #fff;
 }
 .hamburger-line {
-    width: 18px;
+    width: 16px;
     height: 2px;
-    background: #fff;
+    background: var(--rm-blue);
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -477,12 +468,15 @@
     .hamburger { display: none; }
 }
 @media (max-width: 991px) {
-    .header-inner { height: 64px; }
-    .logo-icon { width: 40px; height: 40px; font-size: 18px; }
+    .header-inner {
+        min-height: 72px;
+        height: 72px;
+    }
+    .logo-icon { width: 40px; height: 40px; }
     .logo-text .brand-name { font-size: 17px; }
     .logo-text .brand-sub { font-size: 9px; letter-spacing: 2.5px; }
-    .header-icon-btn { width: 36px; height: 36px; font-size: 14px; }
-    .hamburger { width: 36px; height: 36px; }
+    .header-icon-btn { width: 34px; height: 34px; font-size: 13px; }
+    .hamburger { width: 34px; height: 34px; }
 }
 
 /* ===== MOBILE MENU ===== */
@@ -492,11 +486,11 @@
     padding: 16px 20px 24px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     position: fixed;
-    top: 64px;
+    top: 72px;
     left: 0;
     right: 0;
     z-index: 998;
-    max-height: calc(100vh - 64px);
+    max-height: calc(100vh - 72px);
     overflow-y: auto;
     border-top: 1px solid var(--rm-border);
     animation: slideDown 0.3s ease;
@@ -522,7 +516,7 @@
 }
 .mobile-menu a:hover,
 .mobile-menu a.active {
-    background: #eff6ff;
+    background: var(--rm-sky);
     color: var(--rm-blue);
     padding-left: 14px;
 }
@@ -588,7 +582,6 @@
             btn.classList.toggle('open', isOpen);
             btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
-        // Close on link click
         menu.querySelectorAll('a').forEach(function(a) {
             a.addEventListener('click', function() {
                 menu.classList.remove('open');
@@ -596,7 +589,6 @@
                 btn.setAttribute('aria-expanded', 'false');
             });
         });
-        // Close on outside click
         document.addEventListener('click', function(e) {
             if (!menu.contains(e.target) && !btn.contains(e.target)) {
                 menu.classList.remove('open');
@@ -627,27 +619,11 @@
 
     // ===== STICKY HEADER SHADOW =====
     function initStickyShadow() {
-        var header = document.getElementById('siteHeader');
         var mainHeader = document.querySelector('.header-main');
-        if (!header || !mainHeader) return;
+        if (!mainHeader) return;
         window.addEventListener('scroll', function() {
             mainHeader.classList.toggle('scrolled', window.scrollY > 10);
         }, { passive: true });
-    }
-
-    // ===== ANNOUNCEMENT BAR CLOSE =====
-    function initAnnouncement() {
-        var bar = document.getElementById('topAnnouncement');
-        var btn = document.getElementById('announceClose');
-        if (!bar || !btn) return;
-        // Hide if previously closed
-        if (localStorage.getItem('rm_announce_closed') === '1') {
-            bar.classList.add('hidden');
-        }
-        btn.addEventListener('click', function() {
-            bar.classList.add('hidden');
-            localStorage.setItem('rm_announce_closed', '1');
-        });
     }
 
     // ===== CART COUNT SYNC =====
@@ -667,12 +643,18 @@
             } catch (e) {}
         }
         updateCartCount();
-        // Listen for storage changes (cross-tab sync)
         window.addEventListener('storage', function(e) {
             if (e.key === 'rm_cart') updateCartCount();
         });
-        // Also poll every 2s for same-tab updates
         setInterval(updateCartCount, 2000);
+    }
+
+    // ===== ADD data-text FOR GLOW SWEEP =====
+    function initBrandText() {
+        var brandEl = document.querySelector('.logo-text .brand-name');
+        if (brandEl) {
+            brandEl.setAttribute('data-text', brandEl.textContent.trim());
+        }
     }
 
     // ===== INIT =====
@@ -680,8 +662,8 @@
         initHamburger();
         initActiveNav();
         initStickyShadow();
-        initAnnouncement();
         initCartCount();
+        initBrandText();
     }
 
     if (document.readyState === 'loading') {
@@ -691,5 +673,3 @@
     }
 })();
 </script>
-```
-              
