@@ -659,7 +659,7 @@
             } catch (e) {}
         }
         updateCartCount();
-                window.addEventListener('storage', function(e) {
+        window.addEventListener('storage', function(e) {
             if (e.key === 'rm_cart') updateCartCount();
         });
         setInterval(updateCartCount, 2000);
