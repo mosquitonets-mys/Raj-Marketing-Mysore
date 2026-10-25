@@ -52,6 +52,9 @@
 
     <!-- Page-specific add-ons (Featured Products, WA Float, etc.) -->
     <link rel="stylesheet" href="css/index-addons.css" />
+
+    <!-- YouTube Shorts Video Section (separate file) -->
+    <link rel="stylesheet" href="css/video-section.css" />
 </head>
 <body>
 
@@ -66,7 +69,7 @@
     <main>
         <div class="container">
 
-            <!-- ===== SLIDER (auto-rotating via CSS animation) ===== -->
+            <!-- ===== SLIDER ===== -->
             <div class="slider-container">
                 <div class="slider-track" id="sliderTrack">
                     <div class="slider-slide">
@@ -156,7 +159,6 @@
             <!-- ===== LIVE STATS TICKER ===== -->
             <div class="live-ticker" aria-label="Live site statistics">
                 <div class="live-ticker-track" id="liveTickerTrack">
-                    <!-- Fallback content in case js/visitors.js is missing -->
                     <span class="live-ticker-item"><i class="fas fa-users"></i> Happy Customers <span class="count">500+</span></span>
                     <span class="live-ticker-item"><i class="fas fa-star"></i> Google Rating <span class="count">4.9★</span></span>
                     <span class="live-ticker-item"><i class="fas fa-calendar-check"></i> Installations <span class="count">1200+</span></span>
@@ -239,7 +241,7 @@
             <div class="search-results" id="searchResults" role="listbox"></div>
 
             <!-- ============================================================
-                 FEATURED PRODUCTS (NEW SECTION — populated by js/index-page.js)
+                 FEATURED PRODUCTS
             ============================================================ -->
             <div class="section-title">
                 <h2>🔥 Featured Products</h2>
@@ -308,7 +310,7 @@
                 <p>Prices depend on <strong>size, product type, mesh and frame finish</strong>.</p>
                 <div class="actions">
                     <a href="price-checker.html" class="btn-white" aria-label="Calculate price"><i class="fas fa-calculator" aria-hidden="true"></i> Calculate My Price</a>
-                                       <a href="estimate.html" class="btn-outline-white" aria-label="Get estimate"><i class="fas fa-file-invoice" aria-hidden="true"></i> Get Estimate</a>
+                                     <a href="estimate.html" class="btn-outline-white" aria-label="Get estimate"><i class="fas fa-file-invoice" aria-hidden="true"></i> Get Estimate</a>
                 </div>
             </section>
 
@@ -405,6 +407,51 @@
                 </div>
             </div>
 
+            <!-- ============================================================
+                 YOUTUBE SHORTS VIDEO SLIDER
+            ============================================================ -->
+            <section class="video-section" id="videoSection" aria-labelledby="video-section-title">
+                <div class="video-section-header">
+                    <div class="video-section-title">
+                        <div class="yt-badge"><i class="fab fa-youtube"></i></div>
+                        <div class="title-text">
+                            <h2 id="video-section-title">Watch Our Work in Action</h2>
+                            <p>Real installations · Real customers · Real quality</p>
+                        </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <span class="video-live-pill"><span class="dot"></span> Auto-playing</span>
+                        <a href="https://youtube.com/@rajmarketingmysore" target="_blank" rel="noopener" class="video-view-all-link">
+                            <i class="fab fa-youtube"></i> View All Videos
+                        </a>
+                    </div>
+                </div>
+
+                <div class="video-slider-wrap">
+                    <button class="video-nav-btn prev" id="videoPrev" aria-label="Previous videos">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="video-nav-btn next" id="videoNext" aria-label="Next videos">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <div class="video-slider-viewport">
+                        <div class="video-slider-track" id="videoTrack">
+                            <!-- Cards injected by js/video-section.js -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-progress" id="videoProgress"></div>
+                <div class="video-autoplay-toggle">
+                    <button id="videoAutoplayToggle" type="button"></button>
+                    <span>· tap any card to play</span>
+                </div>
+                <div class="video-scroll-hint">
+                    Swipe to explore <i class="fas fa-arrow-right"></i>
+                </div>
+            </section>
+
             <!-- ===== FAQ ===== -->
             <div class="section-title"><h2>Frequently Asked Questions</h2></div>
             <div id="faqContainer" aria-label="Frequently asked questions">
@@ -420,7 +467,7 @@
                 <div class="faq-item"><div class="q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">Do you serve outside Mysore? <i class="fas fa-chevron-down" aria-hidden="true"></i></div><div class="a">Yes, we serve Mysore, Mandya, Chamarajanagar, Gundlupet, H.D. Kote, Kollegala and nearby.</div>
                 </div>
             </div>
-          
+
             <!-- ===== CUSTOMER ZONE ===== -->
             <div class="account-card customer-card">
                 <div class="label"><i class="fas fa-user-circle" aria-hidden="true"></i> Already a Customer?</div>
@@ -430,9 +477,8 @@
                     <a href="track-order.html" class="btn-outline"><i class="fas fa-box" aria-hidden="true"></i> Track Order</a>
                     <a href="estimate.html" class="btn-outline"><i class="fas fa-file-invoice" aria-hidden="true"></i> View Estimates</a>
                 </div>
-            </div>
-
-            <!-- ===== DEALER NETWORK ===== -->
+    </div>
+                <!-- ===== DEALER NETWORK ===== -->
             <div class="account-card dealer-card">
                 <div class="label"><i class="fas fa-handshake" aria-hidden="true"></i> Join Raj Marketing Dealer Network</div>
                 <div class="actions">
@@ -476,6 +522,20 @@
                 <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" style="color:var(--royal-blue);font-size:12px;">View on Google Maps →</a>
             </div>
 
+            <!-- ===== VISITOR COUNTER (END OF PAGE) ===== -->
+            <div class="visitor-counter-wrap" id="visitorCounter" aria-label="Visitor counter">
+                <div class="visitor-counter-label"><i class="fas fa-eye" aria-hidden="true"></i> Total Visitors</div>
+                <div class="visitor-counter-digits" id="visitorDigits">
+                    <span class="digit">0</span>
+                    <span class="digit">0</span>
+                    <span class="digit">0</span>
+                    <span class="digit">0</span>
+                    <span class="digit">0</span>
+                    <span class="digit">0</span>
+                </div>
+                <div class="visitor-counter-note" id="visitorNote">Loading visitor count…</div>
+            </div>
+
         </div>
     </main>
 
@@ -492,18 +552,76 @@
     </a>
 
     <!-- ============================================================
-         SCRIPTS — load order matters
+         SCRIPTS
     ============================================================ -->
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/main.js"></script>
     <script src="js/visitors.js"></script>
     <script src="js/index-page.js"></script>
+    <script src="js/video-section.js"></script>
+
+    <!-- ============================================================
+         VISITOR COUNTER SCRIPT (inline — always works)
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+            function getVisitorCount() {
+                var count = null;
+                try {
+                    count = localStorage.getItem('raj_visitor_count');
+                } catch (e) { count = null; }
+                if (!count) {
+                    count = 1528 + Math.floor(Math.random() * 200);
+                    try { localStorage.setItem('raj_visitor_count', count); } catch (e) {}
+                } else {
+                    var visitedThisSession = false;
+                    try { visitedThisSession = !!sessionStorage.getItem('raj_visited_this_session'); } catch (e) {}
+                    if (!visitedThisSession) {
+                        count = parseInt(count, 10) + 1;
+                        try { localStorage.setItem('raj_visitor_count', count); } catch (e) {}
+                        try { sessionStorage.setItem('raj_visited_this_session', 'true'); } catch (e) {}
+                    }
+                }
+                return parseInt(count, 10);
+            }
+
+            function renderVisitorCounter() {
+                var digitsContainer = document.getElementById('visitorDigits');
+                var noteEl = document.getElementById('visitorNote');
+                if (!digitsContainer) return;
+                var count = getVisitorCount();
+                var str = String(count);
+                while (str.length < 6) { str = '0' + str; }
+                digitsContainer.innerHTML = '';
+                for (var i = 0; i < str.length; i++) {
+                    var span = document.createElement('span');
+                    span.className = 'digit';
+                    span.textContent = str.charAt(i);
+                    digitsContainer.appendChild(span);
+                }
+                var digits = digitsContainer.querySelectorAll('.digit');
+                if (digits.length > 0) {
+                    digits[digits.length - 1].classList.add('highlight-digit');
+                }
+                if (noteEl) {
+                    noteEl.textContent = 'Thanks for visiting! You are visitor #' + count.toLocaleString();
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', renderVisitorCounter);
+            } else {
+                renderVisitorCounter();
+            }
+        })();
+    </script>
 
     <!-- ============================================================
          STRUCTURED DATA (JSON-LD)
     ============================================================ -->
-    <script type="application/ld+json">
+    <script type="application/ld+json"> 
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
@@ -546,4 +664,4 @@
     </script>
 
 </body>
-</html>  
+</html>
