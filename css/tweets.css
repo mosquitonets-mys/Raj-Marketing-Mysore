@@ -1,0 +1,287 @@
+/* ============================================================
+   TWITTER / X PINNED POSTS SECTION
+============================================================ */
+
+.tweets-section {
+    margin: 32px 0 28px;
+    position: relative;
+}
+
+.tweets-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.tweets-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tweets-title .x-badge {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.tweets-title h2 {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--highlight-grey, #1f2937);
+    margin: 0;
+    letter-spacing: -0.3px;
+    line-height: 1.1;
+}
+
+.tweets-title p {
+    font-size: 12px;
+    color: var(--muted-text, #6b7280);
+    margin: 2px 0 0;
+    font-weight: 500;
+}
+
+.tweets-follow-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #000;
+    color: #fff;
+    padding: 9px 20px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.tweets-follow-btn:hover {
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+.tweets-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .tweets-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.tweet-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tweet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    border-color: #000;
+}
+
+.tweet-card .tweet-embed-wrap {
+    padding: 16px;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fallback card (shown if Twitter widget fails) */
+.tweet-fallback {
+    padding: 22px;
+    text-align: left;
+}
+
+.tweet-fallback .tf-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.tweet-fallback .tf-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a8a, #0f1b33);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.tweet-fallback .tf-author {
+    flex: 1;
+    min-width: 0;
+}
+
+.tweet-fallback .tf-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 1.2;
+}
+
+.tweet-fallback .tf-name i {
+    color: #1d9bf0;
+    font-size: 13px;
+}
+
+.tweet-fallback .tf-handle {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.tweet-fallback .tf-x-logo {
+    color: #000;
+    font-size: 20px;
+}
+
+.tweet-fallback .tf-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1f2937;
+    margin-bottom: 14px;
+    word-wrap: break-word;
+}
+
+.tweet-fallback .tf-body a {
+    color: #1d9bf0;
+    text-decoration: none;
+}
+
+.tweet-fallback .tf-body a:hover {
+    text-decoration: underline;
+}
+
+.tweet-fallback .tf-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.tweet-fallback .tf-tags span {
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.tweet-fallback .tf-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.tweet-fallback .tf-footer .tf-stats {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.tweet-fallback .tf-footer .tf-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tweet-fallback .tf-footer .tf-stat i {
+    font-size: 11px;
+}
+
+.tweet-fallback .tf-view-link {
+    color: #1d9bf0;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tweet-fallback .tf-view-link:hover {
+    text-decoration: underline;
+}
+
+.tweet-fallback .tf-pinned {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.tweet-fallback .tf-pinned i {
+    font-size: 9px;
+}
+
+.tweets-loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.tweets-loading i {
+    font-size: 24px;
+    color: #1d9bf0;
+    display: block;
+    margin-bottom: 8px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+    .tweets-title .x-badge { width: 40px; height: 40px; font-size: 18px; }
+    .tweets-title h2 { font-size: 17px; }
+    .tweets-title p { font-size: 10px; }
+    .tweets-follow-btn { padding: 7px 14px; font-size: 10px; }
+    .tweet-fallback { padding: 16px; }
+  }
