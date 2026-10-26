@@ -1,6 +1,6 @@
 /* ============================================================
-   YOUTUBE SHORTS VIDEO SECTION — ATTRACTIVE AUTO-PLAY SLIDER
-   Add-on stylesheet — does NOT override existing styles
+   YOUTUBE SHORTS VIDEO SECTION — FULL-PLAY AUTO-ADVANCE
+   Version 3.0 — Plays full video, then auto-slides to next
 ============================================================ */
 
 /* ---------- WRAPPER ---------- */
@@ -14,8 +14,6 @@
     box-shadow: 0 20px 60px rgba(15, 27, 51, 0.35);
     isolation: isolate;
 }
-
-/* Decorative floating orbs */
 .video-section::before,
 .video-section::after {
     content: '';
@@ -58,13 +56,11 @@
     position: relative;
     z-index: 2;
 }
-
 .video-section-title {
     display: flex;
     align-items: center;
     gap: 14px;
 }
-
 .video-section-title .yt-badge {
     width: 52px;
     height: 52px;
@@ -96,7 +92,6 @@
     0%   { transform: scale(1);   opacity: 1; }
     100% { transform: scale(1.5); opacity: 0; }
 }
-
 .video-section-title .title-text h2 {
     color: #fff;
     font-size: 22px;
@@ -112,7 +107,7 @@
     margin: 0;
 }
 
-/* Live indicator */
+/* Live pill */
 .video-live-pill {
     display: inline-flex;
     align-items: center;
@@ -140,6 +135,43 @@
     50%      { opacity: 0.4; transform: scale(0.8); }
 }
 
+/* Subscribe button */
+.video-subscribe-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(239, 68, 68, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+.video-subscribe-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmerBtn 3s infinite;
+}
+@keyframes shimmerBtn {
+    0%   { left: -100%; }
+    50%  { left: 100%; }
+    100% { left: 100%; }
+}
+.video-subscribe-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(239, 68, 68, 0.6);
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+/* View All link */
 .video-view-all-link {
     display: inline-flex;
     align-items: center;
@@ -156,36 +188,32 @@
     backdrop-filter: blur(8px);
 }
 .video-view-all-link:hover {
-    background: #ef4444;
-    border-color: #ef4444;
+    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
 }
 
-/* ---------- SLIDER WRAP ---------- */
+/* ---------- SLIDER ---------- */
 .video-slider-wrap {
     position: relative;
     z-index: 2;
 }
-
 .video-slider-viewport {
     overflow: hidden;
     border-radius: 18px;
     padding: 6px;
     margin: -6px;
 }
-
 .video-slider-track {
     display: flex;
     gap: 18px;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
 }
 
-/* ---------- SHORT CARD ---------- */
+/* ---------- CARD ---------- */
 .video-short-card {
     flex: 0 0 auto;
-    width: 200px;
+    width: 220px;
     aspect-ratio: 9 / 16;
     border-radius: 18px;
     overflow: hidden;
@@ -196,7 +224,6 @@
     cursor: pointer;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 box-shadow 0.4s ease;
-    scroll-snap-align: start;
 }
 .video-short-card:hover {
     transform: translateY(-8px) scale(1.02);
@@ -204,8 +231,6 @@
                 0 0 0 2px rgba(239, 68, 68, 0.5),
                 0 0 30px rgba(239, 68, 68, 0.3);
 }
-
-/* Iframe / placeholder fills card */
 .video-short-card iframe,
 .video-short-card .video-thumb {
     position: absolute;
@@ -215,8 +240,6 @@
     border: 0;
     object-fit: cover;
 }
-
-/* Placeholder (before playing) */
 .video-short-card .video-thumb {
     background: #1a1a2e;
     z-index: 1;
@@ -228,19 +251,15 @@
     object-fit: cover;
     display: block;
 }
-
-/* Gradient overlay on thumbs */
 .video-short-card .video-thumb::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        to bottom,
+    background: linear-gradient(to bottom,
         rgba(0, 0, 0, 0.05) 0%,
         transparent 30%,
         transparent 55%,
-        rgba(0, 0, 0, 0.85) 100%
-    );
+        rgba(0, 0, 0, 0.85) 100%);
     pointer-events: none;
 }
 
@@ -270,7 +289,7 @@
     color: #fff;
 }
 
-/* Caption at bottom */
+/* Caption */
 .video-short-card .video-caption {
     position: absolute;
     left: 12px;
@@ -304,17 +323,6 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.video-short-card .video-caption .cap-meta {
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.75);
-    margin-top: 3px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.video-short-card .video-caption .cap-meta i {
-    font-size: 9px;
-}
 
 /* Playing state */
 .video-short-card.playing .video-thumb,
@@ -332,7 +340,20 @@
     z-index: 4;
 }
 
-/* ---------- ARROWS ---------- */
+/* ---------- PROGRESS BAR (video time) ---------- */
+.video-time-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ef4444, #f59e0b);
+    width: 0%;
+    z-index: 5;
+    transition: width 0.3s linear;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+}
+
+/* ---------- NAV ARROWS ---------- */
 .video-nav-btn {
     position: absolute;
     top: 50%;
@@ -367,7 +388,7 @@
     pointer-events: auto;
 }
 
-/* ---------- PROGRESS DOTS ---------- */
+/* ---------- DOTS ---------- */
 .video-progress {
     display: flex;
     justify-content: center;
@@ -394,7 +415,7 @@
     box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
 }
 
-/* ---------- AUTO-PLAY TOGGLE ---------- */
+/* ---------- AUTOPLAY TOGGLE ---------- */
 .video-autoplay-toggle {
     display: flex;
     align-items: center;
@@ -406,7 +427,6 @@
     color: rgba(255, 255, 255, 0.6);
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.3px;
 }
 .video-autoplay-toggle button {
     background: rgba(255, 255, 255, 0.1);
@@ -431,60 +451,23 @@
     color: #fff;
     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
 }
-.video-autoplay-toggle button:hover {
-    transform: translateY(-1px);
-}
-
-/* ---------- SCROLL HINT (mobile) ---------- */
-.video-scroll-hint {
-    display: none;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    margin-top: 12px;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 2;
-}
-.video-scroll-hint i {
-    animation: scrollHint 1.6s ease-in-out infinite;
-    display: inline-block;
-    margin-left: 4px;
-}
-@keyframes scrollHint {
-    0%, 100% { transform: translateX(0); }
-    50%      { transform: translateX(6px); }
-}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
-    .video-short-card { width: 170px; }
+    .video-short-card { width: 180px; }
 }
 @media (max-width: 640px) {
-    .video-section {
-        padding: 24px 12px 28px;
-        border-radius: 18px;
-        margin: 24px 0;
-    }
-    .video-section-title .yt-badge {
-        width: 42px;
-        height: 42px;
-        font-size: 19px;
-        border-radius: 11px;
-    }
+    .video-section { padding: 24px 12px 28px; border-radius: 18px; margin: 24px 0; }
+    .video-section-title .yt-badge { width: 42px; height: 42px; font-size: 19px; border-radius: 11px; }
     .video-section-title .title-text h2 { font-size: 17px; }
     .video-section-title .title-text p  { font-size: 10px; }
-    .video-view-all-link { padding: 7px 14px; font-size: 10px; }
-    .video-short-card { width: 145px; gap: 12px; }
+    .video-short-card { width: 155px; }
     .video-slider-track { gap: 12px; }
     .video-nav-btn { display: none; }
-    .video-scroll-hint { display: block; }
     .video-short-card .play-btn { width: 46px; height: 46px; font-size: 18px; }
     .video-short-card .video-caption .cap-title { font-size: 11px; }
-    .video-short-card .video-caption .cap-meta  { font-size: 9px; }
+    .video-subscribe-btn { padding: 8px 14px; font-size: 10px; }
 }
 @media (max-width: 380px) {
-    .video-short-card { width: 130px; }
-}
+    .video-short-card { width: 140px; }
+   }
