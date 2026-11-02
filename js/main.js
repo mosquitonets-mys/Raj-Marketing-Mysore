@@ -177,25 +177,21 @@
     // FAQ TOGGLE — Only if not already handled inline
     // (index.html has inline onclick="toggleFaq(this)" — this is the handler)
     // ============================================================
-    if (!window.toggleFaq) {
-        window.toggleFaq = function (el) {
-            const answer = el.nextElementSibling;
-            if (!answer) return;
-            const isOpen = answer.classList.contains('open');
-
-            document.querySelectorAll('.faq-item .a').forEach(a => a.classList.remove('open'));
-            document.querySelectorAll('.faq-item .q').forEach(q => {
-                q.classList.remove('open');
-                q.setAttribute('aria-expanded', 'false');
-            });
-
-            if (!isOpen) {
-                answer.classList.add('open');
-                el.classList.add('open');
-                el.setAttribute('aria-expanded', 'true');
-            }
-        };
+    function toggleFaq(el) {
+    var item = el.parentElement;
+    var isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('#faqContainer .faq-item').forEach(function (i) {
+        i.classList.remove('open');
+        var q = i.querySelector('.q');
+        if (q) q.setAttribute('aria-expanded', 'false');
+    });
+    // Open clicked
+    if (!isOpen) {
+        item.classList.add('open');
+        el.setAttribute('aria-expanded', 'true');
     }
+}
 
     // ============================================================
     // IMAGE FALLBACKS
