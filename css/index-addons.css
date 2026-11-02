@@ -166,3 +166,159 @@
 .text-center { text-align: center; }
 .mt-16 { margin-top: 16px; }
 .mb-16 { margin-bottom: 16px; }
+
+/* ===== Slider controls (accessibility) ===== */
+.slider-controls {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+}
+.slider-nav {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: #1e3a8a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+.slider-nav:hover { background: #fff; }
+.slider-nav:focus-visible {
+    outline: 3px solid #1e40af;
+    outline-offset: 2px;
+}
+
+/* ===== Search mic button ===== */
+.search-mic {
+    background: none;
+    border: none;
+    color: var(--muted-text, #6b7280);
+    cursor: pointer;
+    padding: 4px 8px;
+    opacity: 0.6;
+}
+.search-mic:disabled { cursor: not-allowed; }
+
+/* ===== Measurement card ===== */
+.measurement-card {
+    background: var(--light-blue, #eff6ff);
+    border-radius: var(--radius, 10px);
+    padding: 18px;
+    margin: 16px 0;
+    border: 1px solid #bfdbfe;
+}
+.measurement-card h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--highlight-grey, #374151);
+    margin-bottom: 4px;
+}
+.measurement-card p {
+    font-size: 13px;
+    color: var(--muted-text, #6b7280);
+}
+.measurement-card .note {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--highlight-grey, #374151);
+}
+.measurement-card .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+.btn-sm { font-size: 12px; padding: 8px 18px; }
+
+/* ===== Warranty grid ===== */
+.warranty-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+@media (max-width: 640px) {
+    .warranty-grid { grid-template-columns: 1fr; }
+}
+.warranty-card {
+    background: var(--white, #fff);
+    border-radius: var(--radius, 10px);
+    padding: 14px;
+    border: 1px solid #e5e7eb;
+}
+.warranty-card h4 {
+    font-weight: 800;
+    color: var(--highlight-grey, #374151);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+.warranty-card p {
+    font-size: 12px;
+    color: var(--muted-text, #6b7280);
+}
+.warranty-card .note { font-size: 11px; }
+.warranty-card a {
+    color: var(--royal-blue, #1d4ed8);
+    font-size: 12px;
+}
+
+/* ===== Testimonials grid ===== */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+    .testimonials-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== Contact address block ===== */
+.contact-address {
+    background: var(--light-grey, #f3f4f6);
+    border-radius: var(--radius, 10px);
+    padding: 14px;
+    margin: 14px 0;
+    border: 1px solid #e5e7eb;
+}
+.contact-address p {
+    font-size: 12px;
+    color: var(--muted-text, #6b7280);
+}
+.contact-address strong { color: var(--highlight-grey, #374151); }
+.contact-address i { color: var(--royal-blue, #1d4ed8); }
+.contact-address a {
+    color: var(--royal-blue, #1d4ed8);
+    font-size: 12px;
+}
+
+/* ===== Area tag muted variant ===== */
+.tag--muted {
+    background: var(--light-grey, #f3f4f6);
+    color: var(--muted-text, #6b7280);
+    cursor: default;
+}
+
+/* ===== CTA banner blue variant ===== */
+.cta-banner--blue {
+    background: var(--royal-blue, #1d4ed8);
+}
+.cta-banner--blue .btn-white {
+    color: var(--royal-blue, #1d4ed8);
+}
+
+/* ===== Video actions wrapper ===== */
+.video-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+   }
