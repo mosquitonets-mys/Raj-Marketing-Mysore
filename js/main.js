@@ -260,3 +260,13 @@
         init();
     }
 })();
+// Expose slider controls
+window.sliderTrack = {
+    prev: function () { /* go to previous slide */ },
+    next: function () { /* go to next slide */ }
+};
+
+// Pause button should halt the autoplay interval
+document.getElementById('sliderPause')?.addEventListener('click', function () {
+    clearInterval(autoplayInterval);
+});
