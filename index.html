@@ -822,48 +822,37 @@ window.addEventListener('load', function () {
 
     /* ---- Initialize Counter using Firestore Transactions ---- */
     function initCounter() {
-        let hasVisited = false;
-        try { hasVisited = localStorage.getItem(SESSION_KEY) === TODAY_STAMP; } catch(e) {}
+    function initCounter() {
+    let hasVisited = false;
+    try { hasVisited = localStorage.getItem(SESSION_KEY) === TODAY_STAMP; } catch(e) {}
 
-        if (!hasVisited) {
-            // Use a Firestore Transaction to safely increment
-            db.runTransaction((transaction) => {
-                return transaction.get(visitorDocRef).then((doc) => {
-                    let newTotal = 5000;
-                    let newToday = 0;
+    // Always start the listener first to catch existing data
+    listenToCounter();
 
-                    if (!doc.exists) {
-                        // First time initialization
-                        transaction.set(visitorDocRef, {
-                            total: newTotal + 1,
-                            today: newToday + 1,
-                            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-                        });
-                    } else {
-                        // Increment existing counts
-                        const data = doc.data();
-                        newTotal = (data.total || 5000) + 1;
-                        newToday = (data.today || 0) + 1;
-                        
-                        transaction.update(visitorDocRef, {
-                            total: newTotal,
-                            today: newToday,
-                            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-                        });
-                    }
-                });
-            }).then(() => {
-                try { localStorage.setItem(SESSION_KEY, TODAY_STAMP); } catch(e) {}
-                listenToCounter();
-            }).catch((error) => {
-                console.error("Transaction failed: ", error);
-                listenToCounter(); // Fallback to just reading
-            });
-        } else {
-            // Already visited today, just listen for live updates
-            listenToCounter();
-        }
+    if (!hasVisited) {
+        // Use set with merge:true to avoid transaction failures on first load
+        const increment = firebase.firestore.FieldValue.increment(1);
+        
+        visitorDocRef.set({
+            total: increment,
+            today: increment,
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true })
+        .then(() => {
+            try { localStorage.setItem(SESSION_KEY, TODAY_STAMP); } catch(e) {}
+            console.log("✅ Visitor count incremented successfully.");
+        })
+        .catch((error) => {
+            console.error("❌ Firestore write failed:", error);
+            // Update the UI note to show the error to you (or hide it from users)
+            const noteEl = document.getElementById('visitorNote');
+            if (noteEl) {
+                noteEl.textContent = '⚠️ Counter offline (Rules issue)';
+                noteEl.classList.add('sync-off');
+            }
+        });
     }
+}
 
     /* ---- Listen for Real-time Updates ---- */
     function listenToCounter() {
