@@ -731,6 +731,82 @@ window.addEventListener('load', function () {
     /* ---- Update UI ---- */
     function updateUI(total, today, statusNote) {
         renderDigits(total);
+<script>
+/* ---------- FAQ keyboard ---------- */
+function faqKeydown(event, el) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault();
+        toggleFaq(el);
+    }
+}
+
+/* ================================================================
+   FIREBASE INITIALIZATION & FIRESTORE VISITOR COUNTER
+   ================================================================ */
+window.addEventListener('load', function () {
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyB_a91sI0xpFRX5_ti2ukM8Ybn2lMXS6Zw",
+        authDomain: "raj-marketing-mysore-f91f7.firebaseapp.com",
+        projectId: "raj-marketing-mysore-f91f7",
+        storageBucket: "raj-marketing-mysore-f91f7.firebasestorage.app",
+        messagingSenderId: "534782698781",
+        appId: "1:534782698781:web:fca881b5bbfa8cf5e7edf4",
+        measurementId: "G-YKTTYT9S7Y"
+    };
+
+    // Check if Firebase scripts loaded successfully
+    if (typeof firebase === 'undefined') {
+        console.error('Firebase SDK failed to load.');
+        document.getElementById('visitorNote').textContent = '⚠️ Firebase SDK not loaded.';
+        document.getElementById('visitorNote').classList.add('sync-off');
+        return;
+    }
+
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+        
+        try {
+            if (firebase.analytics) firebase.analytics();
+        } catch (e) {
+            console.warn('Analytics blocked or not supported:', e);
+        }
+    }
+
+    const db = firebase.firestore();
+    const visitorDocRef = db.collection('visitor_stats').doc('main_counter');
+    
+    const SESSION_KEY = 'raj_visited_this_session';
+    const TODAY_STAMP = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+    /* ---- Render Digits Animation ---- */
+    function renderDigits(total) {
+        const el = document.getElementById('visitorDigits');
+        if (!el) return;
+        let str = String(total);
+        while (str.length < 6) str = '0' + str;
+        
+        el.innerHTML = '';
+        for (let i = 0; i < str.length; i++) {
+            const span = document.createElement('span');
+            span.className = 'digit';
+            span.textContent = str.charAt(i);
+            el.appendChild(span);
+        }
+        
+        const digits = el.querySelectorAll('.digit');
+        if (digits.length) {
+            const last = digits[digits.length - 1];
+            last.classList.remove('highlight-digit');
+            void last.offsetWidth; // trigger reflow
+            last.classList.add('highlight-digit');
+        }
+    }
+
+    /* ---- Update UI ---- */
+    function updateUI(total, today, statusNote) {
+        renderDigits(total);
         const todayEl = document.getElementById('todayCount');
         const allTimeEl = document.getElementById('allTimeCount');
         const noteEl = document.getElementById('visitorNote');
@@ -744,45 +820,76 @@ window.addEventListener('load', function () {
         }
     }
 
-    /* ---- Initialize Counter ---- */
+    /* ---- Initialize Counter using Firestore Transactions ---- */
     function initCounter() {
         let hasVisited = false;
         try { hasVisited = localStorage.getItem(SESSION_KEY) === TODAY_STAMP; } catch(e) {}
 
-        const totalRef = db.ref('visitors/total');
-        const todayRef = db.ref('visitors/daily/' + TODAY_STAMP);
-
-        // 1. Increment counters (only if they haven't visited today)
         if (!hasVisited) {
-            totalRef.transaction((currentTotal) => (currentTotal || 5000) + 1);
-            todayRef.transaction((currentToday) => (currentToday || 0) + 1);
-            try { localStorage.setItem(SESSION_KEY, TODAY_STAMP); } catch(e) {}
-        }
+            // Use a Firestore Transaction to safely increment
+            db.runTransaction((transaction) => {
+                return transaction.get(visitorDocRef).then((doc) => {
+                    let newTotal = 5000;
+                    let newToday = 0;
 
-        // 2. Listen for real-time updates
-        totalRef.on('value', (snapshot) => {
-            const total = snapshot.val() || 5000;
-            
-            todayRef.once('value').then((todaySnap) => {
-                const today = todaySnap.val() || 0;
-                updateUI(total, today, '✅ Live count synced via Firebase');
+                    if (!doc.exists) {
+                        // First time initialization
+                        transaction.set(visitorDocRef, {
+                            total: newTotal + 1,
+                            today: newToday + 1,
+                            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    } else {
+                        // Increment existing counts
+                        const data = doc.data();
+                        newTotal = (data.total || 5000) + 1;
+                        newToday = (data.today || 0) + 1;
+                        
+                        transaction.update(visitorDocRef, {
+                            total: newTotal,
+                            today: newToday,
+                            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    }
+                });
+            }).then(() => {
+                try { localStorage.setItem(SESSION_KEY, TODAY_STAMP); } catch(e) {}
+                listenToCounter();
+            }).catch((error) => {
+                console.error("Transaction failed: ", error);
+                listenToCounter(); // Fallback to just reading
             });
+        } else {
+            // Already visited today, just listen for live updates
+            listenToCounter();
+        }
+    }
+
+    /* ---- Listen for Real-time Updates ---- */
+    function listenToCounter() {
+        visitorDocRef.onSnapshot((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                updateUI(data.total || 5000, data.today || 0, '✅ Live count synced via Firestore');
+            } else {
+                updateUI(5000, 0, '✅ Ready for first visit');
+            }
         }, (error) => {
             console.error("Firebase read failed: ", error);
             const noteEl = document.getElementById('visitorNote');
             if (noteEl) {
-                noteEl.textContent = '⚠️ Unable to load live count. Check database rules.';
+                noteEl.textContent = '⚠️ Unable to load live count. Check rules.';
                 noteEl.classList.remove('sync-ok');
                 noteEl.classList.add('sync-off');
             }
         });
     }
 
-    // Start the counter
+    // Start the process
     initCounter();
 });
 </script>
-
+  
 <!-- ============================================================
      STRUCTURED DATA
 ================================================================ -->
