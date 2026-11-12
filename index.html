@@ -602,4 +602,302 @@
                 <span>#65/C3, Hebbal Industries Area, Hebbal, Hutagalli, Mysuru - 571130</span><br>
                 <span>info@rajmarketingmysore.info</span><br>
                 <span>Mon–Sat: 9:30 AM – 6:30 PM | Sun: Closed</span><br>
-                GST:
+                       GST: 29GKYPM6953C1ZA
+            </p>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Raj+Marketing+Mysore+Hebbal+Industries+Area+Mysuru+571130" target="_blank" rel="noopener noreferrer">View on Google Maps →</a>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         UPGRADED VISITOR COUNTER CARD
+         - Real global count via CountAPI (free, no key needed)
+         - Falls back to localStorage if offline
+         - Shows today's visitors + all-time count
+         - Live pulse dot + animated digits
+    ================================================================= -->
+    <div class="visitor-card" id="visitorCard" aria-label="Visitor statistics">
+        <div class="visitor-card__label">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            Live Visitor Counter
+        </div>
+        <div class="visitor-card__digits" id="visitorDigits" aria-live="polite" aria-atomic="true">
+            <span class="digit">0</span>
+            <span class="digit">0</span>
+            <span class="digit">0</span>
+            <span class="digit">0</span>
+            <span class="digit">0</span>
+            <span class="digit">0</span>
+        </div>
+        <div class="visitor-card__stats" id="visitorStats">
+            <span><i class="fas fa-user" aria-hidden="true"></i> Today: <strong id="todayCount">—</strong></span>
+            <span><i class="fas fa-globe" aria-hidden="true"></i> All-time: <strong id="allTimeCount">—</strong></span>
+        </div>
+        <p class="visitor-card__note" id="visitorNote">Connecting to live counter…</p>
+    </div>
+
+</div>
+</main>
+
+<!-- FOOTER -->
+<div id="footer-placeholder"></div>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/919483037385" target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+</a>
+
+<!-- ============================================================
+     SCRIPTS
+================================================================ -->
+<script defer src="js/header.js"></script>
+<script defer src="js/footer.js"></script>
+<script defer src="js/main.js"></script>
+<script defer src="js/index-page.js"></script>
+<script defer src="js/video-section.js"></script>
+<script defer src="js/tweets.js"></script>
+
+<!-- ============================================================
+     INLINE HELPERS + UPGRADED VISITOR COUNTER
+================================================================ -->
+<script>
+/* ---------- FAQ keyboard ---------- */
+function faqKeydown(event, el) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault();
+        toggleFaq(el);
+    }
+}
+
+/* ================================================================
+   VISITOR COUNTER — real global count with graceful fallback
+   Uses CountAPI (free, no key, CORS-enabled) → falls back to
+   localStorage for offline / blocked environments.
+================================================================ */
+(function () {
+    'use strict';
+
+    var NAMESPACE   = 'rajmarketingmysore.info';
+    var BASE_KEY    = 'visitors_total';
+    var TODAY_KEY   = 'visitors_today';
+    var LOCAL_KEY   = 'raj_visitor_fallback_total';
+    var LOCAL_TODAY = 'raj_visitor_fallback_today';
+    var SESSION_KEY = 'raj_visited_this_session';
+    var TODAY_STAMP = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+    function readLS(key, def) {
+        try { var v = localStorage.getItem(key); return v === null ? def : v; } catch (e) { return def; }
+    }
+    function writeLS(key, val) {
+        try { localStorage.setItem(key, val); } catch (e) {}
+    }
+
+    /* ---- Animated digit rendering ---- */
+    function renderDigits(total) {
+        var el = document.getElementById('visitorDigits');
+        if (!el) return;
+        var str = String(total);
+        while (str.length < 6) str = '0' + str;
+        el.innerHTML = '';
+        for (var i = 0; i < str.length; i++) {
+            var span = document.createElement('span');
+            span.className = 'digit';
+            span.textContent = str.charAt(i);
+            el.appendChild(span);
+        }
+        var digits = el.querySelectorAll('.digit');
+        if (digits.length) {
+            // re-trigger pop animation on last digit
+            var last = digits[digits.length - 1];
+            last.classList.remove('highlight-digit');
+            void last.offsetWidth; // reflow to restart animation
+            last.classList.add('highlight-digit');
+        }
+    }
+
+    /* ---- API call helper (CountAPI) ---- */
+    function countApiHit(key) {
+        return fetch('https://api.countapi.xyz/hit/' + encodeURIComponent(NAMESPACE) + '/' + encodeURIComponent(key), { cache: 'no-store' })
+            .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+            .then(function (data) { return data.value; });
+    }
+
+    /* ---- Update UI ---- */
+    function updateUI(total, today, statusNote) {
+        renderDigits(total);
+        var todayEl   = document.getElementById('todayCount');
+        var allTimeEl = document.getElementById('allTimeCount');
+        var noteEl    = document.getElementById('visitorNote');
+        if (todayEl)   todayEl.textContent = today.toLocaleString('en-IN');
+        if (allTimeEl) allTimeEl.textContent = total.toLocaleString('en-IN');
+        if (noteEl) {
+            noteEl.textContent = statusNote;
+            noteEl.classList.remove('sync-ok', 'sync-off');
+            noteEl.classList.add(statusNote.indexOf('offline') === -1 && statusNote.indexOf('fallback') === -1 ? 'sync-ok' : 'sync-off');
+        }
+    }
+
+    /* ---- Local fallback counter ---- */
+    function localFallback() {
+        var alreadyVisited = readLS(SESSION_KEY, null) === TODAY_STAMP;
+        var total = parseInt(readLS(LOCAL_KEY, '5000'), 10);
+        var today = parseInt(readLS(LOCAL_TODAY, '0'), 10);
+
+        if (!alreadyVisited) {
+            total += 1;
+            today += 1;
+            writeLS(LOCAL_KEY, total);
+            writeLS(LOCAL_TODAY, today);
+            writeLS(SESSION_KEY, TODAY_STAMP);
+        }
+
+        // If today is a new day, reset today's counter
+        var storedDay = readLS(LOCAL_TODAY + '_day', '');
+        if (storedDay !== TODAY_STAMP) {
+            today = 1;
+            writeLS(LOCAL_TODAY, today);
+            writeLS(LOCAL_TODAY + '_day', TODAY_STAMP);
+        }
+
+        updateUI(total, today, '⚠️ Live sync offline — showing local estimate.');
+    }
+
+    /* ---- Main flow ---- */
+    function init() {
+        var alreadyVisited = readLS(SESSION_KEY, null) === TODAY_STAMP;
+
+        // 1) Try global all-time counter
+        var allTimePromise = alreadyVisited
+            ? fetch('https://api.countapi.xyz/get/' + encodeURIComponent(NAMESPACE) + '/' + encodeURIComponent(BASE_KEY))
+                .then(function (r) { return r.json(); })
+                .then(function (d) { return d.value; })
+            : countApiHit(BASE_KEY);
+
+        // 2) Try today's counter
+        var todayPromise = alreadyVisited
+            ? fetch('https://api.countapi.xyz/get/' + encodeURIComponent(NAMESPACE) + '/' + encodeURIComponent(TODAY_KEY + '_' + TODAY_STAMP))
+                .then(function (r) { return r.json(); })
+                .then(function (d) { return d.value; })
+            : countApiHit(TODAY_KEY + '_' + TODAY_STAMP);
+
+        Promise.all([allTimePromise, todayPromise])
+            .then(function (vals) {
+                var total = vals[0] || 0;
+                var today = vals[1] || 0;
+                writeLS(SESSION_KEY, TODAY_STAMP);
+                writeLS(LOCAL_KEY, total);
+                writeLS(LOCAL_TODAY, today);
+                writeLS(LOCAL_TODAY + '_day', TODAY_STAMP);
+                updateUI(total, today, '✅ Live count synced across all visitors');
+            })
+            .catch(function (err) {
+                console.warn('[visitor-counter] Live API failed, using fallback:', err.message);
+                localFallback();
+            });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+/* ---------- Slider fallback (defensive — only if main JS not loaded) ---------- */
+document.addEventListener('DOMContentLoaded', function () {
+    var pause = document.getElementById('sliderPause');
+    if (pause && !pause.dataset.bound) {
+        pause.dataset.bound = '1';
+        pause.addEventListener('click', function () {
+            var pressed = pause.getAttribute('aria-pressed') === 'true';
+            pause.setAttribute('aria-pressed', String(!pressed));
+            pause.innerHTML = pressed
+                ? '<i class="fas fa-pause" aria-hidden="true"></i>'
+                : '<i class="fas fa-play" aria-hidden="true"></i>';
+            pause.setAttribute('aria-label', pressed ? 'Pause slideshow' : 'Play slideshow');
+        });
+    }
+});
+</script>
+
+<!-- ============================================================
+     STRUCTURED DATA
+================================================================ -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://rajmarketingmysore.info/#business",
+    "name": "Raj Marketing Mysore",
+    "image": "https://rajmarketingmysore.info/images/og-image.jpg",
+    "url": "https://rajmarketingmysore.info",
+    "telephone": "+919483037385",
+    "email": "info@rajmarketingmysore.info",
+    "vatID": "29GKYPM6953C1ZA",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "#65/C3, Hebbal Industries Area, Hebbal, Hutagalli",
+        "addressLocality": "Mysuru",
+        "addressRegion": "Karnataka",
+        "postalCode": "571130",
+        "addressCountry": "IN"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 12.34, "longitude": 76.61 },
+    "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "09:30",
+        "closes": "18:30"
+    }],
+    "priceRange": "₹500-₹5000",
+    "description": "Premium mosquito nets for windows and doors in Mysore, Mandya, Chamarajanagar and nearby areas.",
+    "sameAs": [
+        "https://wa.me/919483037385",
+        "https://youtube.com/@rajmarketingmysore",
+        "https://x.com/Mosquito_Nets_",
+        "https://g.page/r/Cd4VqO0Z0WjtEAI/review"
+    ],
+    "areaServed": [
+        { "@type": "City", "name": "Mysore" },
+        { "@type": "City", "name": "Mandya" },
+        { "@type": "City", "name": "Chamarajanagar" },
+        { "@type": "City", "name": "Gundlupet" },
+        { "@type": "City", "name": "H.D. Kote" },
+        { "@type": "City", "name": "Kollegala" }
+    ],
+    "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Mosquito Net Products",
+        "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Velcro Mosquito Nets" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Aluminium Frame Mosquito Nets" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Sliding Mosquito Nets" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Pleated Mosquito Nets" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Security Screens" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Stainless Steel Mesh" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mesh Doors" } }
+        ]
+    }
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        { "@type": "Question", "name": "Best net for sliding doors?", "acceptedAnswer": { "@type": "Answer", "text": "Sliding mosquito nets or aluminium frame nets are ideal for sliding doors." } },
+        { "@type": "Question", "name": "Best net for windows?", "acceptedAnswer": { "@type": "Answer", "text": "Velcro, aluminium frame, and pleated nets all work well for windows." } },
+        { "@type": "Question", "name": "Velcro vs Aluminium Frame?", "acceptedAnswer": { "@type": "Answer", "text": "Velcro is adhesive-based and flexible. Aluminium frames are permanent and durable." } },
+        { "@type": "Question", "name": "Are Pleated Nets good for large doors?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, pleated nets are designed for large openings and fold away neatly." } },
+        { "@type": "Question", "name": "Do you provide measurement?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, professional on-site measurement. Free within Mysore." } },
+        { "@type": "Question", "name": "Do you provide installation?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, professional installation for all our mosquito net systems." } },
+        { "@type": "Question", "name": "How long does installation take?", "acceptedAnswer": { "@type": "Answer", "text": "Typically 1-3 hours depending on the number of windows/doors." } },
+        { "@type": "Question", "name": "What mesh options are available?", "acceptedAnswer": { "@type": "Answer", "text": "Stainless steel (SS) and fibre (Tufflex) mesh in various grades." } },
+        { "@type": "Question", "name": "What is the warranty?", "acceptedAnswer": { "@type": "Answer", "text": "SS Mesh & Pleated: 1-year. Aluminium Frame: 5-year against defects." } },
+        { "@type": "Question", "name": "Do you serve outside Mysore?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, we serve Mysore, Mandya, Chamarajanagar, Gundlupet, H.D. Kote, Kollegala and nearby." } }
+    ]
+}
+</script>
+
+</body>
+</html>
