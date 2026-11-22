@@ -1,689 +1,333 @@
 <!-- ============================================================
-     HEADER COMPONENT — DARK BLUE + GOLD ANIMATION
-     Raj Marketing Mysore
-     - Dark blue gradient background
-     - Gold shining brand name with text movement
-     - Logo image + fallback icon
-     - 2-row nav (Primary + Secondary)
+     HEADER COMPONENT — Raj Marketing Mysore (v2)
+     - Dark navy → blue gradient
+     - Gold shining animated brand
+     - 2-row desktop nav + services
+     - Mobile drawer menu
+     - Cart badge, WA, Call icons
+     - Sticky shadow on scroll
 ============================================================ -->
-<header class="site-header" id="siteHeader">
-    <div class="header-main">
-        <div class="header-inner">
+<header class="site-header" id="siteHeader" role="banner">
+  <div class="header-main">
+    <div class="header-inner">
 
-            <!-- LOGO + ANIMATED BRAND -->
-            <a href="index.html" class="logo-area" aria-label="Raj Marketing Mysore Home">
-                <div class="logo-icon">
-                    <img src="images/logo.png" alt="Raj Marketing"
-                         onerror="this.style.display='none';this.parentElement.classList.add('logo-fallback');this.parentElement.innerHTML='<i class=\'fas fa-shield-alt\'></i>'">
-                </div>
-                <div class="logo-text">
-                    <span class="brand-name" data-text="Raj Marketing">Raj Marketing</span>
-                    <span class="brand-sub">Mysore</span>
-                </div>
-            </a>
-
-            <!-- 2-ROW NAVIGATION -->
-            <nav class="desktop-nav" aria-label="Main navigation">
-
-                <!-- ROW 1: PRIMARY -->
-                <div class="nav-row nav-row-primary">
-                    <a href="index.html" data-nav="home">Home</a>
-                    <a href="products.html" data-nav="products">Products</a>
-                    <a href="solutions.html" data-nav="solutions">Solutions</a>
-                    <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
-                    <a href="about.html" data-nav="about">About</a>
-                    <a href="contact.html" data-nav="contact">Contact</a>
-                </div>
-
-                <!-- ROW 2: SERVICES -->
-                <div class="nav-row nav-row-secondary">
-                    <a href="estimate.html">Estimate</a>
-                    <a href="appointment.html">Book Measurement</a>
-                    <a href="price-checker.html">AI Price</a>
-                    <a href="track-order.html">Track Order</a>
-                    <a href="cart.html">Cart</a>
-                    <a href="admin-login.html" class="admin-link">
-                        <i class="fas fa-lock"></i> Admin
-                    </a>
-                </div>
-
-            </nav>
-
-            <!-- RIGHT ICONS -->
-            <div class="header-right">
-                <a href="tel:9483037385" class="header-icon-btn" aria-label="Call us" title="Call">
-                    <i class="fas fa-phone-alt"></i>
-                </a>
-                <a href="https://wa.me/919483037385" target="_blank" rel="noopener"
-                   class="header-icon-btn wa-link" aria-label="WhatsApp" title="WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="cart.html" class="header-icon-btn cart-link" aria-label="Cart" title="Cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cartCount" style="display:none;">0</span>
-                </a>
-                <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-            </div>
-
+      <!-- LOGO -->
+      <a href="index.html" class="logo-area" aria-label="Raj Marketing Mysore Home">
+        <div class="logo-icon">
+          <img src="images/logo.png" alt="Raj Marketing logo"
+               onerror="this.style.display='none';this.parentElement.classList.add('logo-fallback');this.parentElement.innerHTML='<i class=\'fas fa-shield-alt\'></i>'">
         </div>
-    </div>
+        <div class="logo-text">
+          <span class="brand-name" data-text="Raj Marketing">Raj Marketing</span>
+          <span class="brand-sub">Mysore</span>
+        </div>
+      </a>
 
-    <!-- ===== MOBILE MENU ===== -->
-    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-        <a href="index.html" data-nav="home"><i class="fas fa-home"></i> Home</a>
-        <a href="products.html" data-nav="products"><i class="fas fa-th-large"></i> Products</a>
-        <a href="solutions.html" data-nav="solutions"><i class="fas fa-lightbulb"></i> Solutions</a>
-        <a href="how-it-works.html" data-nav="how-it-works"><i class="fas fa-cogs"></i> How It Works</a>
+      <!-- DESKTOP NAV -->
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <div class="nav-row nav-row-primary">
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="products.html" data-nav="products">Products</a>
+          <a href="solutions.html" data-nav="solutions">Solutions</a>
+          <a href="how-it-works.html" data-nav="how-it-works">How It Works</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="contact.html" data-nav="contact">Contact</a>
+        </div>
+        <div class="nav-row nav-row-secondary">
+          <a href="estimate.html">Estimate</a>
+          <a href="appointment.html">Book Measurement</a>
+          <a href="price-checker.html">AI Price</a>
+          <a href="track-order.html">Track Order</a>
+          <a href="cart.html">Cart</a>
+          <a href="admin-login.html" class="admin-link"><i class="fas fa-lock"></i> Admin</a>
+        </div>
+      </nav>
 
-        <div class="mobile-menu-divider">Services</div>
-        <a href="estimate.html"><i class="fas fa-file-invoice"></i> Get Estimate</a>
-        <a href="appointment.html"><i class="fas fa-calendar-check"></i> Book Measurement</a>
-        <a href="price-checker.html"><i class="fas fa-calculator"></i> AI Price Checker</a>
-        <a href="cart.html"><i class="fas fa-shopping-cart"></i> My Cart</a>
-        <a href="track-order.html"><i class="fas fa-truck"></i> Track Order</a>
-
-        <div class="mobile-menu-divider">Account</div>
-        <a href="customer/customer-login.html"><i class="fas fa-sign-in-alt"></i> Customer Login</a>
-        <a href="customer/customer-registration.html"><i class="fas fa-user-plus"></i> Customer Register</a>
-        <a href="dealer/dealer-login.html"><i class="fas fa-handshake"></i> Dealer Login</a>
-        <a href="dealer/dealer-registration.html" class="btn-sky"><i class="fas fa-handshake"></i> Become a Dealer</a>
-
-        <div class="mobile-menu-divider">Info</div>
-        <a href="about.html" data-nav="about"><i class="fas fa-info-circle"></i> About</a>
-        <a href="contact.html" data-nav="contact"><i class="fas fa-envelope"></i> Contact</a>
-
-        <a href="admin-login.html" class="admin-menu-link">
-            <i class="fas fa-crown"></i> Admin Login
+      <!-- RIGHT ICONS -->
+      <div class="header-right">
+        <a href="tel:9483037385" class="header-icon-btn" aria-label="Call us" title="Call">
+          <i class="fas fa-phone-alt"></i>
         </a>
-    </nav>
+        <a href="https://wa.me/919483037385" target="_blank" rel="noopener"
+           class="header-icon-btn wa-link" aria-label="WhatsApp" title="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="cart.html" class="header-icon-btn cart-link" aria-label="Cart" title="Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cartCount" style="display:none;">0</span>
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </div>
 
+  <!-- MOBILE MENU -->
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="index.html" data-nav="home"><i class="fas fa-home"></i> Home</a>
+    <a href="products.html" data-nav="products"><i class="fas fa-th-large"></i> Products</a>
+    <a href="solutions.html" data-nav="solutions"><i class="fas fa-lightbulb"></i> Solutions</a>
+    <a href="how-it-works.html" data-nav="how-it-works"><i class="fas fa-cogs"></i> How It Works</a>
+
+    <div class="mobile-menu-divider">Services</div>
+    <a href="estimate.html"><i class="fas fa-file-invoice"></i> Get Estimate</a>
+    <a href="appointment.html"><i class="fas fa-calendar-check"></i> Book Measurement</a>
+    <a href="price-checker.html"><i class="fas fa-calculator"></i> AI Price Checker</a>
+    <a href="cart.html"><i class="fas fa-shopping-cart"></i> My Cart</a>
+    <a href="track-order.html"><i class="fas fa-truck"></i> Track Order</a>
+
+    <div class="mobile-menu-divider">Account</div>
+    <a href="customer/customer-login.html"><i class="fas fa-sign-in-alt"></i> Customer Login</a>
+    <a href="customer/customer-registration.html"><i class="fas fa-user-plus"></i> Customer Register</a>
+    <a href="dealer/dealer-login.html"><i class="fas fa-handshake"></i> Dealer Login</a>
+    <a href="dealer/dealer-registration.html" class="btn-sky"><i class="fas fa-handshake"></i> Become a Dealer</a>
+
+    <div class="mobile-menu-divider">Info</div>
+    <a href="about.html" data-nav="about"><i class="fas fa-info-circle"></i> About</a>
+    <a href="contact.html" data-nav="contact"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="admin-login.html" class="admin-menu-link"><i class="fas fa-crown"></i> Admin Login</a>
+  </nav>
 </header>
 
-<!-- ============================================================
-     HEADER-SPECIFIC CSS
-============================================================ -->
 <style id="headerStyles">
-:root {
-    --rm-blue: #1a56db;
-    --rm-navy: #0f1b33;
-    --rm-gold: #fbbf24;
-    --rm-gold-dark: #d97706;
-    --rm-gold-light: #fcd34d;
-    --rm-ink: #0f172a;
-    --rm-muted: #64748b;
-    --rm-border: #e2e8f0;
+:root{
+  --rm-blue:#1a56db; --rm-navy:#0f1b33; --rm-gold:#fbbf24;
+  --rm-gold-dark:#d97706; --rm-gold-light:#fcd34d;
+  --rm-ink:#0f172a; --rm-muted:#64748b; --rm-border:#e2e8f0;
 }
-
-/* ===== MAIN HEADER — DARK BLUE BACKGROUND ===== */
-.header-main {
-    background: linear-gradient(135deg, #0f1b33 0%, #1e3a8a 55%, #2563eb 100%);
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    box-shadow: 0 2px 20px rgba(15, 27, 51, 0.25);
-    transition: box-shadow 0.3s ease;
-    border-bottom: 1px solid rgba(251, 191, 36, 0.12);
+.header-main{
+  background:linear-gradient(135deg,#0f1b33 0%,#1e3a8a 55%,#2563eb 100%);
+  position:sticky;top:0;z-index:999;
+  box-shadow:0 2px 20px rgba(15,27,51,.25);
+  transition:box-shadow .3s ease;
+  border-bottom:1px solid rgba(251,191,36,.12);
 }
-.header-main.scrolled {
-    box-shadow: 0 4px 32px rgba(15, 27, 51, 0.4);
+.header-main.scrolled{box-shadow:0 4px 32px rgba(15,27,51,.4);}
+.header-inner{
+  max-width:1200px;margin:0 auto;padding:0 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  min-height:96px;gap:16px;
 }
-
-.header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 96px;
-    gap: 16px;
+.logo-area{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;transition:transform .25s ease;}
+.logo-area:hover{transform:translateY(-1px);}
+.logo-icon{
+  width:46px;height:46px;border-radius:12px;background:#fff;
+  border:1.5px solid rgba(251,191,36,.35);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  box-shadow:0 4px 14px rgba(251,191,36,.25);
+  animation:logoGlow 3s ease-in-out infinite;flex-shrink:0;
 }
-
-/* ===== LOGO AREA ===== */
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    flex-shrink: 0;
-    transition: transform 0.25s ease;
+.logo-icon img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.logo-icon.logo-fallback{background:linear-gradient(135deg,#fbbf24,#d97706);color:#fff;font-size:22px;}
+.logo-icon.logo-fallback i{color:#fff;}
+@keyframes logoGlow{
+  0%,100%{box-shadow:0 4px 14px rgba(251,191,36,.25);}
+  50%{box-shadow:0 4px 24px rgba(251,191,36,.6);}
 }
-.logo-area:hover {
-    transform: translateY(-1px);
+.logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.logo-text .brand-name{
+  font-size:20px;font-weight:900;letter-spacing:-.5px;
+  color:#fbbf24;position:relative;display:inline-block;white-space:nowrap;
+  background:linear-gradient(90deg,#fbbf24,#fcd34d,#f59e0b,#fcd34d,#fbbf24);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.3));
+  animation:brandColorShift 3s ease-in-out infinite, brandMove 3s ease-in-out infinite;
 }
-
-.logo-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    background: #fff;
-    border: 1.5px solid rgba(251, 191, 36, 0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    box-shadow: 0 4px 14px rgba(251, 191, 36, 0.25);
-    animation: logoGlow 3s ease-in-out infinite;
-    flex-shrink: 0;
+.logo-text .brand-name::before{
+  content:attr(data-text);position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,transparent 35%,rgba(255,255,255,.85) 50%,transparent 65%,transparent 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:brandShine 2.5s ease-in-out infinite;
+  pointer-events:none;filter:drop-shadow(0 0 8px rgba(255,255,255,.4));
 }
-.logo-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 4px;
+@keyframes brandColorShift{0%,100%{background-position:0% center;}50%{background-position:100% center;}}
+@keyframes brandMove{0%,100%{letter-spacing:-.5px;}50%{letter-spacing:1.5px;}}
+@keyframes brandShine{0%{background-position:200% center;}100%{background-position:-100% center;}}
+.logo-text .brand-sub{
+  font-size:10.5px;font-weight:700;color:rgba(251,191,36,.75);
+  letter-spacing:3px;text-transform:uppercase;margin-top:1px;
 }
-.logo-icon.logo-fallback {
-    background: linear-gradient(135deg, #fbbf24, #d97706);
-    color: #fff;
-    font-size: 22px;
+.desktop-nav{display:none;flex:1;justify-content:center;flex-direction:column;gap:4px;max-width:700px;}
+.nav-row{display:flex;align-items:center;justify-content:center;gap:2px;}
+.desktop-nav a{
+  color:rgba(255,255,255,.9);font-weight:600;font-size:13px;
+  padding:5px 12px;border-radius:20px;text-decoration:none;
+  transition:all .25s ease;white-space:nowrap;position:relative;
 }
-.logo-icon.logo-fallback i { color: #fff; }
-
-@keyframes logoGlow {
-    0%, 100% { box-shadow: 0 4px 14px rgba(251, 191, 36, 0.25); }
-    50% { box-shadow: 0 4px 24px rgba(251, 191, 36, 0.6); }
+.desktop-nav a:not(.admin-link)::after{
+  content:'';position:absolute;bottom:1px;left:50%;
+  transform:translateX(-50%) scaleX(0);width:16px;height:2px;
+  background:#fbbf24;border-radius:2px;transition:transform .25s ease;
 }
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
+.desktop-nav a:hover{color:#fbbf24;background:rgba(255,255,255,.1);}
+.desktop-nav a:hover::after,.desktop-nav a.active::after{transform:translateX(-50%) scaleX(1);}
+.desktop-nav a.active{color:#fbbf24;background:rgba(255,255,255,.14);font-weight:700;}
+.nav-row-secondary a{color:rgba(255,255,255,.7);font-weight:500;font-size:11.5px;padding:3px 10px;}
+.nav-row-secondary a:hover{color:#fbbf24;opacity:1;}
+.desktop-nav .admin-link{
+  background:linear-gradient(135deg,#fbbf24,#d97706);
+  color:#0f1b33 !important;padding:4px 12px;margin-left:4px;
+  font-size:11px;font-weight:900;display:inline-flex;align-items:center;gap:4px;
+  box-shadow:0 3px 12px rgba(251,191,36,.45);transition:.25s;
 }
-
-/* ============================================================
-   GOLD SHINING + TEXT MOVEMENT ANIMATION
-   - Base gold color (#fbbf24 → #fcd34d → #f59e0b)
-   - Shine overlay sweeps across
-   - Letter-spacing pulses (text "moves"/breathes)
-   - Subtle scale pulse
-============================================================ */
-.logo-text .brand-name {
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: -0.5px;
-    color: #fbbf24;
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-
-    /* Combine three animations: color shift, spacing pulse, scale pulse */
-    animation:
-        brandColorShift 3s ease-in-out infinite,
-        brandMove 3s ease-in-out infinite,
-        brandScale 3s ease-in-out infinite;
-
-    /* Gold text gradient base */
-    background: linear-gradient(90deg, #fbbf24, #fcd34d, #f59e0b, #fcd34d, #fbbf24);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    /* Drop shadow for shine effect */
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+.desktop-nav .admin-link::after{display:none;}
+.desktop-nav .admin-link:hover{
+  transform:translateY(-1px) scale(1.04);
+  box-shadow:0 5px 18px rgba(251,191,36,.7);
+  background:linear-gradient(135deg,#fcd34d,#f59e0b);color:#0f1b33 !important;
 }
-
-/* Shine overlay — white sweep */
-.logo-text .brand-name::before {
-    content: attr(data-text);
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        transparent 35%,
-        rgba(255, 255, 255, 0.85) 50%,
-        transparent 65%,
-        transparent 100%
-    );
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: brandShine 2.5s ease-in-out infinite;
-    pointer-events: none;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+.header-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.header-icon-btn{
+  position:relative;width:36px;height:36px;border-radius:10px;
+  background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:14px;text-decoration:none;
+  transition:all .25s ease;cursor:pointer;backdrop-filter:blur(6px);
 }
-
-/* Gold color shift */
-@keyframes brandColorShift {
-    0%, 100% { background-position: 0% center; }
-    50% { background-position: 100% center; }
+.header-icon-btn:hover{
+  background:rgba(255,255,255,.22);transform:translateY(-2px);
+  color:#fbbf24;border-color:rgba(251,191,36,.5);
 }
-
-/* Text "movement" — letter-spacing breathes in/out */
-@keyframes brandMove {
-    0%, 100% { letter-spacing: -0.5px; }
-    50% { letter-spacing: 1.5px; }
+.header-icon-btn.wa-link{color:#4ade80;}
+.header-icon-btn.wa-link:hover{color:#25D366;background:rgba(37,211,102,.18);border-color:rgba(37,211,102,.5);}
+.header-icon-btn.cart-link{background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.4);color:#fbbf24;}
+.header-icon-btn.cart-link:hover{background:rgba(251,191,36,.3);color:#fcd34d;}
+.cart-count{
+  position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;
+  padding:0 4px;background:#ef4444;color:#fff;border-radius:9px;
+  font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;
+  border:2px solid #0f1b33;box-shadow:0 2px 6px rgba(239,68,68,.5);
+  animation:badgePulse 2s ease-in-out infinite;
 }
-
-/* Scale pulse — very subtle */
-@keyframes brandScale {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.03); }
+@keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+.hamburger{
+  background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);
+  width:36px;height:36px;border-radius:10px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;transition:all .25s ease;padding:0;
 }
-
-/* White shine sweep */
-@keyframes brandShine {
-    0% { background-position: 200% center; }
-    100% { background-position: -100% center; }
+.hamburger:hover{background:rgba(255,255,255,.2);}
+.hamburger-line{width:16px;height:2px;background:#fff;border-radius:2px;transition:all .3s ease;}
+.hamburger.open .hamburger-line:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open .hamburger-line:nth-child(2){opacity:0;}
+.hamburger.open .hamburger-line:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+@media (min-width:992px){.desktop-nav{display:flex;}.hamburger{display:none;}}
+@media (max-width:991px){
+  .header-inner{min-height:72px;height:72px;}
+  .logo-icon{width:40px;height:40px;}
+  .logo-text .brand-name{font-size:17px;animation:brandColorShift 3s ease-in-out infinite;}
+  .logo-text .brand-name::before{display:none;}
+  .logo-text .brand-sub{font-size:9px;letter-spacing:2.5px;}
+  .header-icon-btn{width:34px;height:34px;font-size:13px;}
+  .hamburger{width:34px;height:34px;}
 }
-
-/* Subtitle — muted gold on dark blue */
-.logo-text .brand-sub {
-    font-size: 10.5px;
-    font-weight: 700;
-    color: rgba(251, 191, 36, 0.75);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 1px;
+.mobile-menu{
+  display:none;background:#fff;padding:16px 20px 24px;
+  box-shadow:0 8px 24px rgba(0,0,0,.15);
+  position:fixed;top:72px;left:0;right:0;z-index:998;
+  max-height:calc(100vh - 72px);overflow-y:auto;
+  border-top:2px solid #fbbf24;animation:slideDown .3s ease;
 }
-
-/* ===== NAV ROWS ===== */
-.desktop-nav {
-    display: none;
-    flex: 1;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
-    max-width: 700px;
+.mobile-menu.open{display:block;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.mobile-menu a{
+  display:flex;align-items:center;gap:10px;padding:12px 10px;
+  color:var(--rm-ink);font-weight:600;font-size:14px;
+  text-decoration:none;border-radius:8px;transition:.2s;
 }
-
-.nav-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
+.mobile-menu a:hover,.mobile-menu a.active{background:#eff6ff;color:var(--rm-blue);padding-left:14px;}
+.mobile-menu a i{width:18px;color:var(--rm-blue);font-size:14px;}
+.mobile-menu-divider{
+  font-size:10px;font-weight:900;color:var(--rm-muted);
+  text-transform:uppercase;letter-spacing:1.2px;
+  padding:14px 10px 6px;margin-top:6px;border-top:1px solid var(--rm-border);
 }
-
-.desktop-nav a {
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 600;
-    font-size: 13px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    text-decoration: none;
-    transition: all 0.25s ease;
-    white-space: nowrap;
-    position: relative;
+.mobile-menu .btn-sky{
+  background:linear-gradient(135deg,var(--rm-blue),var(--rm-navy));
+  color:#fff !important;text-align:center;justify-content:center;
+  border-radius:10px;padding:12px;margin-top:6px;font-weight:800;
 }
-.desktop-nav a:not(.admin-link)::after {
-    content: '';
-    position: absolute;
-    bottom: 1px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 16px;
-    height: 2px;
-    background: #fbbf24;
-    border-radius: 2px;
-    transition: transform 0.25s ease;
+.mobile-menu .btn-sky i{color:#fff;}
+.mobile-menu .admin-menu-link{
+  background:linear-gradient(135deg,#fef3c7,#fde68a);
+  color:#92400e !important;justify-content:center;
+  border-radius:10px;padding:12px;margin-top:8px;font-weight:800;
 }
-.desktop-nav a:hover {
-    color: #fbbf24;
-    background: rgba(255, 255, 255, 0.1);
-}
-.desktop-nav a:hover::after,
-.desktop-nav a.active::after {
-    transform: translateX(-50%) scaleX(1);
-}
-.desktop-nav a.active {
-    color: #fbbf24;
-    background: rgba(255, 255, 255, 0.14);
-    font-weight: 700;
-}
-
-/* Secondary row */
-.nav-row-secondary a {
-    color: rgba(255, 255, 255, 0.7);
-    font-weight: 500;
-    font-size: 11.5px;
-    padding: 3px 10px;
-}
-.nav-row-secondary a:hover {
-    color: #fbbf24;
-    opacity: 1;
-}
-
-/* Admin link */
-.desktop-nav .admin-link {
-    background: linear-gradient(135deg, #fbbf24, #d97706);
-    color: #0f1b33 !important;
-    padding: 4px 12px;
-    margin-left: 4px;
-    font-size: 11px;
-    font-weight: 900;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    box-shadow: 0 3px 12px rgba(251, 191, 36, 0.45);
-    transition: 0.25s;
-}
-.desktop-nav .admin-link::after { display: none; }
-.desktop-nav .admin-link:hover {
-    transform: translateY(-1px) scale(1.04);
-    box-shadow: 0 5px 18px rgba(251, 191, 36, 0.7);
-    background: linear-gradient(135deg, #fcd34d, #f59e0b);
-    color: #0f1b33 !important;
-}
-
-/* ===== HEADER RIGHT ICONS ===== */
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-}
-.header-icon-btn {
-    position: relative;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1.5px solid rgba(255, 255, 255, 0.18);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all 0.25s ease;
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-}
-.header-icon-btn:hover {
-    background: rgba(255, 255, 255, 0.22);
-    transform: translateY(-2px);
-    color: #fbbf24;
-    border-color: rgba(251, 191, 36, 0.5);
-}
-.header-icon-btn.wa-link {
-    color: #4ade80;
-}
-.header-icon-btn.wa-link:hover {
-    color: #25D366;
-    background: rgba(37, 211, 102, 0.18);
-    border-color: rgba(37, 211, 102, 0.5);
-}
-.header-icon-btn.cart-link {
-    background: rgba(251, 191, 36, 0.15);
-    border-color: rgba(251, 191, 36, 0.4);
-    color: #fbbf24;
-}
-.header-icon-btn.cart-link:hover {
-    background: rgba(251, 191, 36, 0.3);
-    color: #fcd34d;
-}
-
-/* Cart badge */
-.cart-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 4px;
-    background: #ef4444;
-    color: #fff;
-    border-radius: 9px;
-    font-size: 9px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #0f1b33;
-    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.5);
-    animation: badgePulse 2s ease-in-out infinite;
-}
-@keyframes badgePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-}
-
-/* ===== HAMBURGER ===== */
-.hamburger {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1.5px solid rgba(255, 255, 255, 0.18);
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    transition: all 0.25s ease;
-    padding: 0;
-}
-.hamburger:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-.hamburger-line {
-    width: 16px;
-    height: 2px;
-    background: #fff;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-.hamburger.open .hamburger-line:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-}
-.hamburger.open .hamburger-line:nth-child(2) {
-    opacity: 0;
-}
-.hamburger.open .hamburger-line:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (min-width: 992px) {
-    .desktop-nav { display: flex; }
-    .hamburger { display: none; }
-}
-@media (max-width: 991px) {
-    .header-inner {
-        min-height: 72px;
-        height: 72px;
-    }
-    .logo-icon { width: 40px; height: 40px; }
-    .logo-text .brand-name {
-        font-size: 17px;
-        animation: brandColorShift 3s ease-in-out infinite;
-    }
-    .logo-text .brand-name::before { display: none; }
-    .logo-text .brand-sub { font-size: 9px; letter-spacing: 2.5px; }
-    .header-icon-btn { width: 34px; height: 34px; font-size: 13px; }
-    .hamburger { width: 34px; height: 34px; }
-}
-
-/* ===== MOBILE MENU ===== */
-.mobile-menu {
-    display: none;
-    background: #fff;
-    padding: 16px 20px 24px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    position: fixed;
-    top: 72px;
-    left: 0;
-    right: 0;
-    z-index: 998;
-    max-height: calc(100vh - 72px);
-    overflow-y: auto;
-    border-top: 2px solid #fbbf24;
-    animation: slideDown 0.3s ease;
-}
-.mobile-menu.open { display: block; }
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.mobile-menu a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 10px;
-    color: var(--rm-ink);
-    font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: 0.2s;
-}
-.mobile-menu a:hover,
-.mobile-menu a.active {
-    background: #eff6ff;
-    color: var(--rm-blue);
-    padding-left: 14px;
-}
-.mobile-menu a i {
-    width: 18px;
-    color: var(--rm-blue);
-    font-size: 14px;
-}
-.mobile-menu-divider {
-    font-size: 10px;
-    font-weight: 900;
-    color: var(--rm-muted);
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    padding: 14px 10px 6px;
-    margin-top: 6px;
-    border-top: 1px solid var(--rm-border);
-}
-.mobile-menu .btn-sky {
-    background: linear-gradient(135deg, var(--rm-blue), var(--rm-navy));
-    color: #fff !important;
-    text-align: center;
-    justify-content: center;
-    border-radius: 10px;
-    padding: 12px;
-    margin-top: 6px;
-    font-weight: 800;
-    border: none;
-}
-.mobile-menu .btn-sky i { color: #fff; }
-.mobile-menu .admin-menu-link {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    color: #92400e !important;
-    justify-content: center;
-    border-radius: 10px;
-    padding: 12px;
-    margin-top: 8px;
-    font-weight: 800;
-}
-.mobile-menu .admin-menu-link i { color: #92400e; }
-.mobile-menu .admin-menu-link:hover {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #fff !important;
-    padding-left: 12px;
-}
-.mobile-menu .admin-menu-link:hover i { color: #fff; }
+.mobile-menu .admin-menu-link i{color:#92400e;}
+.mobile-menu .admin-menu-link:hover{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff !important;padding-left:12px;}
+.mobile-menu .admin-menu-link:hover i{color:#fff;}
 </style>
 
-<!-- ============================================================
-     HEADER SCRIPT
-============================================================ -->
 <script>
-(function() {
-    'use strict';
-
-    function initHamburger() {
-        var btn = document.getElementById('hamburgerBtn');
-        var menu = document.getElementById('mobileMenu');
-        if (!btn || !menu) return;
-        btn.addEventListener('click', function() {
-            var isOpen = menu.classList.toggle('open');
-            btn.classList.toggle('open', isOpen);
-            btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
-        menu.querySelectorAll('a').forEach(function(a) {
-            a.addEventListener('click', function() {
-                menu.classList.remove('open');
-                btn.classList.remove('open');
-                btn.setAttribute('aria-expanded', 'false');
-            });
-        });
-        document.addEventListener('click', function(e) {
-            if (!menu.contains(e.target) && !btn.contains(e.target)) {
-                menu.classList.remove('open');
-                btn.classList.remove('open');
-                btn.setAttribute('aria-expanded', 'false');
-            }
-        });
+(function(){
+  'use strict';
+  function initHamburger(){
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    if(!btn || !menu) return;
+    btn.addEventListener('click', function(){
+      var open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      });
+    });
+    document.addEventListener('click', function(e){
+      if(!menu.contains(e.target) && !btn.contains(e.target)){
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  function initActiveNav(){
+    var path = window.location.pathname.split('/').pop() || 'index.html';
+    var map = {
+      'index.html':'home','products.html':'products','solutions.html':'solutions',
+      'how-it-works.html':'how-it-works','about.html':'about','contact.html':'contact'
+    };
+    var key = map[path];
+    if(key){
+      document.querySelectorAll('[data-nav="'+key+'"]').forEach(function(el){ el.classList.add('active'); });
     }
-
-    function initActiveNav() {
-        var path = window.location.pathname.split('/').pop() || 'index.html';
-        var dataNav = {
-            'index.html': 'home',
-            'products.html': 'products',
-            'solutions.html': 'solutions',
-            'how-it-works.html': 'how-it-works',
-            'about.html': 'about',
-            'contact.html': 'contact'
-        };
-        var key = dataNav[path];
-        if (key) {
-            document.querySelectorAll('[data-nav="' + key + '"]').forEach(function(el) {
-                el.classList.add('active');
-            });
-        }
+  }
+  function initStickyShadow(){
+    var m = document.querySelector('.header-main');
+    if(!m) return;
+    window.addEventListener('scroll', function(){
+      m.classList.toggle('scrolled', window.scrollY > 10);
+    }, {passive:true});
+  }
+  function initCartCount(){
+    function update(){
+      try{
+        var cart = JSON.parse(localStorage.getItem('rm_cart') || '[]');
+        var el = document.getElementById('cartCount');
+        if(!el) return;
+        if(cart.length > 0){ el.textContent = cart.length; el.style.display = 'flex'; }
+        else { el.style.display = 'none'; }
+      }catch(e){}
     }
-
-    function initStickyShadow() {
-        var mainHeader = document.querySelector('.header-main');
-        if (!mainHeader) return;
-        window.addEventListener('scroll', function() {
-            mainHeader.classList.toggle('scrolled', window.scrollY > 10);
-        }, { passive: true });
-    }
-
-    function initCartCount() {
-        function updateCartCount() {
-            try {
-                var cart = JSON.parse(localStorage.getItem('rm_cart') || '[]');
-                var el = document.getElementById('cartCount');
-                if (el) {
-                    if (cart.length > 0) {
-                        el.textContent = cart.length;
-                        el.style.display = 'flex';
-                    } else {
-                        el.style.display = 'none';
-                    }
-                }
-            } catch (e) {}
-        }
-        updateCartCount();
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'rm_cart') updateCartCount();
-        });
-        setInterval(updateCartCount, 2000);
-    }
-
-    function initBrandText() {
-        var brandEl = document.querySelector('.logo-text .brand-name');
-        if (brandEl) {
-            brandEl.setAttribute('data-text', brandEl.textContent.trim());
-        }
-    }
-
-    function init() {
-        initHamburger();
-        initActiveNav();
-        initStickyShadow();
-        initCartCount();
-        initBrandText();
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
+    update();
+    window.addEventListener('storage', update);
+    window.addEventListener('rm:cart-updated', update);
+  }
+  function boot(){
+    initHamburger(); initActiveNav(); initStickyShadow(); initCartCount();
+  }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
 })();
-</script>
+                                            </script>
