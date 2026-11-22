@@ -370,4 +370,415 @@
     </div>
 
     <!-- AI MODE -->
-    <div id="aiMode" role="tabpanel" ari
+    <div id="aiMode" role="tabpanel" aria-labelledby="aiModeBtn">
+      <div class="card" style="border-color:#b3d9ff;background:#f8fcff;">
+        <div class="card-title">
+          <i class="fas fa-robot" style="font-size:20px;" aria-hidden="true"></i>
+          Raj Marketing AI Assistant
+          <span class="online-pill"><span class="online-dot" aria-hidden="true"></span> Online</span>
+        </div>
+        <div class="chat-container" id="chatContainer" role="log" aria-live="polite" aria-atomic="false"></div>
+        <div class="typing-indicator" id="typingIndicator" aria-hidden="true">
+          <div class="ai-avatar"><i class="fas fa-robot" aria-hidden="true"></i></div>
+          <div class="dots"><span></span><span></span><span></span></div>
+        </div>
+        <div id="questionArea">
+          <div id="questionText" aria-live="polite">👋 Welcome! May I know your name?</div>
+          <div class="chat-options" id="optionsContainer" role="group" aria-label="Answer options"></div>
+          <div id="inputContainer" class="hidden">
+            <div class="chat-input">
+              <label for="textInput" class="sr-only">Your answer</label>
+              <input type="text" id="textInput" placeholder="Type your answer..." autocomplete="off" />
+              <button type="button" onclick="submitTextAnswer()" aria-label="Send answer"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Summary -->
+      <div class="card hidden" id="aiSummary" style="border-color:#b3d9ff;background:#f8fcff;">
+        <div class="card-title"><i class="fas fa-clipboard-check" style="color:var(--rm-green);" aria-hidden="true"></i> Your Appointment Request</div>
+        <div id="summaryContent"></div>
+        <div style="margin-top:14px;border-top:1px solid var(--rm-border);padding-top:14px;">
+          <div class="flex">
+            <button class="btn-secondary" onclick="editSummary()" type="button"><i class="fas fa-edit" aria-hidden="true"></i> Edit</button>
+            <button class="btn-primary" onclick="confirmAppointment()" type="button" style="font-size:14px;padding:12px;"><i class="fas fa-check" aria-hidden="true"></i> Confirm</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location Notice -->
+      <div class="card location-card">
+        <div class="loc-row">
+          <i class="fas fa-map-marker-alt loc-icon" aria-hidden="true"></i>
+          <div class="loc-text">
+            <strong>📍 Location Policy</strong><br />
+            Free Demo &amp; Measurement in <strong>Mysore</strong>.<br />
+            Outside Mysore: <strong>₹15/km</strong> travel charge (actual road distance).
+          </div>
+        </div>
+      </div>
+
+      <!-- WhatsApp Card -->
+      <div class="card wa-card">
+        <div class="wa-row">
+          <i class="fab fa-whatsapp wa-icon" aria-hidden="true"></i>
+          <div style="flex:1;min-width:120px;">
+            <div style="font-weight:800;font-size:14px;color:var(--rm-ink);">Continue on WhatsApp</div>
+            <div style="font-size:12px;color:var(--rm-muted);">Our AI assistant is available 24/7</div>
+          </div>
+          <a href="https://wa.me/919483037385?text=Hi%20Raj%20Marketing%2C%20I%20need%20a%20mosquito%20net%20for%20my%20home.%20Please%20help%20me." target="_blank" rel="noopener" class="btn-wa" style="padding:10px 20px;font-size:13px;">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i> Chat Now
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANUAL MODE -->
+    <div id="manualMode" class="hidden" role="tabpanel" aria-labelledby="manualModeBtn">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-user" aria-hidden="true"></i> Customer Details</div>
+        <div class="form-group">
+          <label for="manualName">Full Name <span class="required">*</span></label>
+          <input type="text" id="manualName" placeholder="Enter your full name" autocomplete="name" required />
+        </div>
+        <div class="form-group">
+          <label for="manualMobile">WhatsApp / Mobile <span class="required">*</span></label>
+          <input type="tel" id="manualMobile" placeholder="10-digit mobile" autocomplete="tel" inputmode="numeric" maxlength="10" required />
+          <div class="field-error" id="mobileError">Please enter a valid 10-digit mobile number starting with 6-9.</div>
+        </div>
+        <div class="form-group">
+          <label for="manualEmail">Email</label>
+          <input type="email" id="manualEmail" placeholder="your@email.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="manualAddress">Address <span class="required">*</span></label>
+          <input type="text" id="manualAddress" placeholder="Street, area, city" autocomplete="street-address" required />
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-th-large" aria-hidden="true"></i> Requirement</div>
+        <div class="form-group">
+          <label for="manualProduct">Net Type <span class="required">*</span></label>
+          <select id="manualProduct">
+            <option value="Velcro System">Velcro System</option>
+            <option value="Aluminium Frame System">Aluminium Frame System</option>
+            <option value="Pleated Net">Pleated Net</option>
+            <option value="Mesh Door">Mesh Door</option>
+            <option value="Not Sure">Not Sure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="manualQty">Quantity (approx.)</label>
+          <input type="number" id="manualQty" placeholder="5" min="1" inputmode="numeric" />
+        </div>
+        <div class="form-group">
+          <label for="manualLocation">Location</label>
+          <select id="manualLocation">
+            <option value="Windows">Windows</option>
+            <option value="Main Door">Main Door</option>
+            <option value="Balcony">Balcony</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Bedroom">Bedroom</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Appointment</div>
+        <div class="form-group">
+          <label for="manualDate">Preferred Date</label>
+          <input type="date" id="manualDate" />
+        </div>
+        <div class="form-group">
+          <label for="manualTime">Preferred Time</label>
+          <select id="manualTime">
+            <option value="Morning">Morning (9AM-12PM)</option>
+            <option value="Afternoon">Afternoon (12PM-4PM)</option>
+            <option value="Evening">Evening (4PM-7PM)</option>
+            <option value="Specific Time">Specific Time</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="manualNotes">Additional Requirement</label>
+          <textarea id="manualNotes" placeholder="Any special requests..."></textarea>
+        </div>
+      </div>
+      <div class="card location-card">
+        <div class="loc-row">
+          <i class="fas fa-map-marker-alt loc-icon" aria-hidden="true"></i>
+          <div class="loc-text"><strong>📍 Location Policy</strong><br />Free Demo in <strong>Mysore</strong>. Outside: <strong>₹15/km</strong>.</div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="submitManual()" type="button"><i class="fas fa-paper-plane" aria-hidden="true"></i> Submit Appointment</button>
+      <div style="margin-top:14px;text-align:center;">
+        <a href="https://wa.me/919483037385?text=Hi%20Raj%20Marketing%2C%20I%20need%20a%20mosquito%20net%20for%20my%20home." target="_blank" rel="noopener" class="btn-wa">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i> Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="successState" class="hidden" role="status" aria-live="polite">
+      <div class="card success-card">
+        <div class="icon-circle"><i class="fas fa-check" aria-hidden="true"></i></div>
+        <h2>🎉 Appointment Confirmed!</h2>
+        <p id="successMessage">Thank you! Your enquiry has been registered.</p>
+        <div class="success-details">
+          <div class="summary-item"><span class="label">Enquiry ID</span><span class="value" id="successEnquiryId">RM-ENQ-2026-0001</span></div>
+          <div class="summary-item"><span class="label">Lead ID</span><span class="value" id="successLeadId">RM-LEAD-2026-0001</span></div>
+          <div class="summary-item"><span class="label">Appointment</span><span class="value" id="successAppointment">15-Aug-2026, Morning</span></div>
+          <div class="summary-item"><span class="label">Status</span><span class="value" style="color:var(--rm-green);">✓ New Enquiry</span></div>
+        </div>
+        <div class="success-actions">
+          <button class="btn-secondary" type="button" onclick="viewEnquiry()"><i class="fas fa-file-alt" aria-hidden="true"></i> View</button>
+          <button class="btn-secondary" type="button" onclick="viewAppointment()"><i class="fas fa-calendar" aria-hidden="true"></i> Appointment</button>
+          <a href="https://wa.me/919483037385" target="_blank" rel="noopener" class="btn-wa" style="padding:12px 16px;font-size:13px;"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+          <a href="index.html" class="btn-secondary"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:9px;color:#94a3b8;text-align:center;margin-top:14px;font-weight:400;">Raj Marketing Mysore · Est. 2016 · AI Powered WhatsApp Integration</div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="fixed-footer" role="navigation" aria-label="Bottom navigation">
+    <a href="index.html" class="nav-item"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+    <a href="products.html" class="nav-item"><i class="fas fa-th-large" aria-hidden="true"></i> Products</a>
+    <a href="appointment.html" class="nav-item active" aria-current="page"><i class="fas fa-calendar-check" aria-hidden="true"></i> Appointment</a>
+    <a href="price-checker.html" class="nav-item"><i class="fas fa-robot" aria-hidden="true"></i> AI Price</a>
+    <a href="dealer-dashboard.html" class="nav-item"><i class="fas fa-handshake" aria-hidden="true"></i> Dealer</a>
+  </footer>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+  (function(){
+    'use strict';
+
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    const RAJ_CONFIG = {
+      businessName: "Raj Marketing Mysore",
+      whatsapp: "919483037385",
+      currency: "₹",
+      freeServiceCity: "Mysore",
+      travelChargePerKm: 15,
+      gstRate: 18,
+      businessLat: 12.34,
+      businessLng: 76.61,
+      storageKey: 'rm_appointment_draft_v2',
+      maxChatHistory: 60
+    };
+
+    const DISTANCES = {
+      'mandya':43,'srirangapatna':16,'nanjangud':24,'hunsur':38,
+      't narsipur':32,'krishnarajanagara':45,'chamarajanagar':60,
+      'gundlupet':72,'h.d. kote':50,'kollegala':55
+    };
+
+    // ============================================================
+    // STATE
+    // ============================================================
+    let S = createEmptyState();
+    let answers = {};
+    let isProcessing = false;
+    let pendingQuestion = null;
+
+    function createEmptyState(){
+      return {
+        customerName:"", mobile:"", email:"", city:"", address:"",
+        distanceKm:null, travelCharge:0, isFreeVisit:null,
+        netType:"", quantity:null, measurements:[],
+        appointmentDate:"", appointmentTime:"", notes:"",
+        leadStatus:"NEW", currentStep:"name",
+        completedFields:[], conversationHistory:[]
+      };
+    }
+
+    // ============================================================
+    // PERSISTENCE
+    // ============================================================
+    function saveDraft(){
+      try{
+        const draft = {
+          state:S, answers,
+          chat: document.getElementById('chatContainer').innerHTML,
+          savedAt:Date.now()
+        };
+        localStorage.setItem(RAJ_CONFIG.storageKey, JSON.stringify(draft));
+      }catch(e){/* quota or private mode */}
+    }
+    function loadDraft(){
+      try{
+        const raw = localStorage.getItem(RAJ_CONFIG.storageKey);
+        if(!raw) return null;
+        const d = JSON.parse(raw);
+        if(!d.savedAt || Date.now() - d.savedAt > 24*60*60*1000) return null;
+        return d;
+      }catch(e){ return null; }
+    }
+    function clearDraft(){
+      try{ localStorage.removeItem(RAJ_CONFIG.storageKey); }catch(e){}
+    }
+
+    // ============================================================
+    // UI HELPERS
+    // ============================================================
+    function addChatMessage(type, text, isHTML=false){
+      const container = document.getElementById('chatContainer');
+      const div = document.createElement('div');
+      div.className = 'chat-bubble ' + type;
+      const timeStr = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+      const timeSpan = `<span class="time">${timeStr}</span>`;
+      if(isHTML){
+        div.innerHTML = text + timeSpan;
+      }else{
+        const tn = document.createTextNode(text);
+        div.appendChild(tn);
+        const span = document.createElement('span');
+        span.className = 'time';
+        span.textContent = timeStr;
+        div.appendChild(span);
+      }
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+      S.conversationHistory.push({type,text,time:new Date().toISOString()});
+      if(S.conversationHistory.length > RAJ_CONFIG.maxChatHistory){
+        S.conversationHistory = S.conversationHistory.slice(-RAJ_CONFIG.maxChatHistory);
+      }
+      saveDraft();
+    }
+
+    function showTyping(){ document.getElementById('typingIndicator').classList.add('show'); }
+    function hideTyping(){ document.getElementById('typingIndicator').classList.remove('show'); }
+
+    // Queued AI response — prevents duplicate questions
+    function addAIResponse(text, isHTML=false, then){
+      if(isProcessing) return;
+      isProcessing = true;
+      showTyping();
+      const delay = 500 + Math.random()*400;
+      setTimeout(()=>{
+        hideTyping();
+        addChatMessage('ai', text, isHTML);
+        isProcessing = false;
+        if(typeof then === 'function'){ then(); }
+        else { setTimeout(showQuestion, 300); }
+      }, delay);
+    }
+
+    function getCustomerName(){ return S.customerName || "there"; }
+
+    // ============================================================
+    // EXTRACTION — ONLY when field is empty
+    // ============================================================
+    function extractDetails(text, targetField){
+      const lower = text.toLowerCase();
+      const result = {};
+
+      // Name — only if target is customerName and no name yet
+      if(targetField === 'customerName' && !S.customerName){
+        const nameMatch = text.match(/my name is ([a-zA-Z]+(?:\s+[a-zA-Z]+)?)/i);
+        if(nameMatch){ result.customerName = nameMatch[1].trim(); }
+        else {
+          const cleaned = text.replace(/[^a-zA-Z\s]/g,'').trim();
+          const words = cleaned.split(/\s+/).filter(w=>w.length>1);
+          const stop = ['hi','hello','hey','i','need','want','my','name','is','the','a','an'];
+          const candidate = words.find(w=>!stop.includes(w.toLowerCase()));
+          if(candidate) result.customerName = candidate.charAt(0).toUpperCase()+candidate.slice(1).toLowerCase();
+        }
+      }
+
+      // City — only if target is city
+      if(targetField === 'city'){
+        const cityMatch = text.match(/\b(Mysore|Mysuru|Mandya|Srirangapatna|Nanjangud|Hunsur|T Narsipur|Krishnarajanagara|Chamarajanagar|Gundlupet|H\.?D\.? Kote|Kollegala)\b/i);
+        if(cityMatch){
+          let c = cityMatch[0].charAt(0).toUpperCase()+cityMatch[0].slice(1).toLowerCase();
+          if(c.toLowerCase()==='mysuru') c='Mysore';
+          result.city = c;
+        }
+      }
+
+      // Mobile — only if target is mobile
+      if(targetField === 'mobile'){
+        const m = text.replace(/\D/g,'').match(/(?:91)?([6-9]\d{9})/);
+        if(m) result.mobile = m[1];
+      }
+
+      // Product — only if target is netType
+      if(targetField === 'netType'){
+        if(lower.includes('velcro')) result.netType='Velcro System';
+        else if(lower.includes('aluminium')||lower.includes('aluminum')||lower.includes('frame')) result.netType='Aluminium Frame System';
+        else if(lower.includes('pleated')) result.netType='Pleated Net';
+        else if(lower.includes('mesh door')) result.netType='Mesh Door';
+      }
+
+      // Quantity — only if target is quantity
+      if(targetField === 'quantity'){
+        const q = text.match(/(\d+)/);
+        if(q && parseInt(q[1])>0 && parseInt(q[1])<100) result.quantity = parseInt(q[1]);
+      }
+
+      return result;
+    }
+
+    // ============================================================
+    // DISTANCE & CHARGE
+    // ============================================================
+    function calculateTravelCharge(city){
+      if(!city) return {distanceKm:null,travelCharge:0,isFree:true,unknown:true};
+      const c = city.toLowerCase();
+      if(c.includes('mysore')||c.includes('mysuru')){
+        return {distanceKm:0,travelCharge:0,isFree:true};
+      }
+      let dist = DISTANCES[c];
+      if(!dist){
+        // fuzzy match
+        const key = Object.keys(DISTANCES).find(k=>c.includes(k)||k.includes(c));
+        if(key) dist = DISTANCES[key];
+      }
+      if(!dist) return {distanceKm:null,travelCharge:0,isFree:false,unknown:true};
+      const billableKm = Math.ceil(dist);
+      return {distanceKm:dist,travelCharge:billableKm*RAJ_CONFIG.travelChargePerKm,isFree:false,billableKm};
+    }
+
+    // ============================================================
+    // QUESTION ENGINE
+    // ============================================================
+    function getNextQuestion(){
+      const n = S.customerName;
+      if(!S.customerName) return {
+        text:"👋 Welcome to Raj Marketing Mysore! I'm your AI assistant for mosquito net solutions. May I know your name?",
+        type:'text', field:'customerName'
+      };
+      if(!S.netType) return {
+        text:`Nice to meet you, ${n}! 😊 What type of mosquito net are you looking for?`,
+        type:'choice', field:'netType',
+        options:['🪟 Velcro System','🖼️ Aluminium Frame','🌀 Pleated Net','🚪 Mesh Door']
+      };
+      if(!S.quantity) return {
+        text:`${n}, how many windows or doors do you need to cover?`,
+        type:'number', field:'quantity'
+      };
+      if(!S.city) return {
+        text:`${n}, which city are you located in?`,
+        type:'text', field:'city'
+      };
+      if(S.city && S.isFreeVisit === null){
+        const r = calculateTravelCharge(S.city);
+        S.distanceKm = r.distanceKm;
+        S.travelCharge = r.travelCharge;
+        S.isFreeVisit = r.isFree;
+        if(r.isFree) return {
+          text:`Great, ${n}! 😊 Since you're in ${S.city}, the site measurement visit is FREE. Now, please share your installation address.`,
+          type:'text', field:'address'
+        };
+        if(r.unknown) return {
+          text:`📍 I couldn't verify the exact road distance for ${S.city} right now. Our team will confirm before the visit. Please share your address.`,
+          type:'text', field:'address'
+        };
+        const km = r.billableKm || Math.ceil(r.distanceKm);
+        return {
+          text:`Thanks, ${n}! 📍 ${S.city} is outside Mysore. 🚗 Approx. distance: ${km} km. 💰 Site-visit travel charge: ₹${r.travelCharge} (₹15/km). Now, share your installation address.`,
+          type:'text', field:'addr
