@@ -781,4 +781,373 @@
         const km = r.billableKm || Math.ceil(r.distanceKm);
         return {
           text:`Thanks, ${n}! 📍 ${S.city} is outside Mysore. 🚗 Approx. distance: ${km} km. 💰 Site-visit travel charge: ₹${r.travelCharge} (₹15/km). Now, share your installation address.`,
-          type:'text', field:'addr
+          type:'text', field:'address'
+        };
+      }
+      if(!S.address) return {
+        text:`${n}, please share your area/locality and house/building address.`,
+        type:'text', field:'address'
+      };
+      if(S.measurements.length===0) return {
+        text:`${n}, do you have the measurements for your windows/doors?`,
+        type:'choice', field:'measurements',
+        options:['✅ Yes, I have exact measurements','❌ No, I need help measuring','📏 I have partial measurements']
+      };
+      if(!S.mobile) return {
+        text:`${n}, please enter your WhatsApp number for confirmation.`,
+        type:'text', field:'mobile'
+      };
+      if(!S.appointmentDate) return {
+        text:`${n}, which date would be convenient for our team to visit?`,
+        type:'date', field:'date'
+      };
+      if(!S.appointmentTime) return {
+        text:`${n}, what time slot works best for you?`,
+        type:'choice', field:'time',
+        options:['🌅 Morning (9AM-12PM)','☀️ Afternoon (12PM-4PM)','🌆 Evening (4PM-7PM)']
+      };
+      if(!S.notes) return {
+        text:`${n}, anything else you'd like us to know? (Optional — type "skip" to skip)`,
+        type:'text', field:'notes', required:false
+      };
+      return null;
+    }
+
+    function showQuestion(){
+      const q = getNextQuestion();
+      if(!q){ showSummary(); return; }
+      pendingQuestion = q;
+      const qt = document.getElementById('questionText');
+      const optC = document.getElementById('optionsContainer');
+      const inpC = document.getElementById('inputContainer');
+      optC.innerHTML = '';
+      inpC.classList.add('hidden');
+      qt.textContent = q.text;
+
+      if(q.type === 'choice'){
+        optC.classList.remove('hidden');
+        q.options.forEach(opt=>{
+          const b = document.createElement('button');
+          b.type='button';
+          b.textContent = opt;
+          b.onclick = ()=>handleChoice(opt, q.field);
+          optC.appendChild(b);
+        });
+      } else {
+        optC.classList.add('hidden');
+        inpC.classList.remove('hidden');
+        const input = document.getElementById('textInput');
+        input.value = '';
+        input.type = q.type==='number'?'tel':q.type==='date'?'date':'text';
+        input.placeholder = q.type==='number'?'Enter a number...':q.type==='date'?'Select date':'Type your answer...';
+        input.inputMode = q.type==='number'?'numeric':'text';
+        input.dataset.field = q.field;
+        input.dataset.required = q.required !== false ? 'true' : 'false';
+        if(q.type === 'date'){
+          const t = new Date();
+          const iso = new Date(t.getTime() - t.getTimezoneOffset()*60000).toISOString().split('T')[0];
+          input.min = iso;
+          if(!input.value) input.value = iso;
+        }
+        setTimeout(()=>{ try{ input.focus(); }catch(e){} }, 200);
+      }
+      saveDraft();
+    }
+
+    function handleChoice(value, field){
+      if(isProcessing) return;
+      const clean = value.replace(/[🪟🖼️🌀🚪✅❌📏🌅☀️🌆]/g,'').trim();
+      answers[field] = clean || value;
+      addChatMessage('user', value);
+      const ok = updateState(field, clean || value);
+      if(!ok) return;
+      setTimeout(showQuestion, 300);
+    }
+
+    function submitTextAnswer(){
+      if(isProcessing) return;
+      const input = document.getElementById('textInput');
+      let value = (input.value || '').trim();
+      const field = input.dataset.field || 'text';
+      const required = input.dataset.required !== 'false';
+
+      // Field-specific validation
+      if(field === 'mobile'){
+        const digits = value.replace(/\D/g,'');
+        const m = digits.match(/(?:91)?([6-9]\d{9})$/);
+        if(!m){ alert('⚠️ Please enter a valid 10-digit Indian mobile number starting with 6-9.'); input.focus(); return; }
+        value = m[1];
+      }
+      if(field === 'notes' && value.toLowerCase()==='skip'){ value=''; }
+      if(required && !value){ alert('Please provide an answer.'); input.focus(); return; }
+      if(field === 'quantity' && value){
+        const n = parseInt(value,10);
+        if(isNaN(n) || n<=0 || n>100){ alert('Please enter a valid quantity (1-100).'); input.focus(); return; }
+      }
+
+      addChatMessage('user', value || '(skipped)');
+      const ok = updateState(field, value);
+      if(!ok) return;
+      setTimeout(showQuestion, 300);
+    }
+
+    function updateState(field, value){
+      switch(field){
+        case 'customerName':
+          if(!value || value.length<2){ alert('Please enter your name.'); return false; }
+          S.customerName = value.charAt(0).toUpperCase()+value.slice(1);
+          break;
+        case 'netType': S.netType = value; break;
+        case 'quantity': S.quantity = parseInt(value,10) || null; break;
+        case 'city':
+          S.city = value;
+          const r = calculateTravelCharge(value);
+          S.distanceKm = r.distanceKm;
+          S.travelCharge = r.travelCharge;
+          S.isFreeVisit = r.isFree;
+          break;
+        case 'address':
+          if(!value || value.length<5){ alert('Please enter a complete address.'); return false; }
+          S.address = value;
+          break;
+        case 'mobile': S.mobile = value.replace(/\D/g,''); break;
+        case 'date':
+          if(!value){ alert('Please select a date.'); return false; }
+          S.appointmentDate = value;
+          break;
+        case 'time': S.appointmentTime = value; break;
+        case 'notes': S.notes = value || ''; break;
+        case 'measurements':
+          if(value.includes('Yes')){ S.measurements = [{pending:true}]; }
+          else if(value.includes('No')){ S.measurements = [{siteMeasurement:true}]; }
+          else { S.measurements = [{partial:true}]; }
+          break;
+        default:
+          // Fallback: use extractDetails ONLY for this field
+          const ex = extractDetails(value, field);
+          if(ex.customerName && !S.customerName) S.customerName = ex.customerName;
+          if(ex.city && !S.city) S.city = ex.city;
+          if(ex.netType && !S.netType) S.netType = ex.netType;
+          if(ex.quantity && !S.quantity) S.quantity = ex.quantity;
+          if(ex.mobile && !S.mobile) S.mobile = ex.mobile;
+      }
+      if(!S.completedFields.includes(field)) S.completedFields.push(field);
+      saveDraft();
+      return true;
+    }
+
+    // ============================================================
+    // SUMMARY
+    // ============================================================
+    function showSummary(){
+      document.getElementById('questionArea').style.display = 'none';
+      document.getElementById('aiSummary').classList.remove('hidden');
+      const c = document.getElementById('summaryContent');
+      const fields = [
+        {label:'👤 Customer',value:S.customerName||'—'},
+        {label:'📱 WhatsApp',value:S.mobile||'—'},
+        {label:'🪟 Product',value:S.netType||'—'},
+        {label:'🔢 Quantity',value:S.quantity||'—'},
+        {label:'📍 City',value:S.city||'—'},
+        {label:'🏠 Address',value:S.address||'—'},
+        {label:'📅 Date',value:S.appointmentDate||'—'},
+        {label:'⏰ Time',value:S.appointmentTime||'—'},
+        {label:'📝 Notes',value:S.notes||'—'}
+      ];
+      if(S.distanceKm !== null){
+        fields.push({label:'🚗 Distance',value:S.distanceKm+' km'});
+        fields.push({label:'💰 Travel Charge',value:RAJ_CONFIG.currency+(S.travelCharge||0)+(S.travelCharge===0?' (Free)':'')});
+      }
+      c.innerHTML = fields.map(f=>`<div class="summary-item"><span class="label">${f.label}</span><span class="value">${escapeHtml(String(f.value))}</span></div>`).join('');
+      addChatMessage('ai', `✅ Please review the details, ${escapeHtml(S.customerName)}. Would you like to confirm this appointment?`, false);
+    }
+
+    function editSummary(){
+      document.getElementById('aiSummary').classList.add('hidden');
+      document.getElementById('questionArea').style.display = 'block';
+      addAIResponse("No problem! Let's update your details. What would you like to change?", false);
+      // Re-ask the last incomplete/first missing question
+      setTimeout(showQuestion, 800);
+    }
+
+    function confirmAppointment(){
+      if(!S.customerName || !S.mobile){
+        alert('⚠️ Please provide name and mobile number.');
+        return;
+      }
+      const year = new Date().getFullYear();
+      const enqId = 'RM-ENQ-'+year+'-'+String(Math.floor(Math.random()*10000)).padStart(4,'0');
+      const leadId = 'RM-LEAD-'+year+'-'+String(Math.floor(Math.random()*10000)).padStart(4,'0');
+      document.getElementById('aiMode').classList.add('hidden');
+      document.getElementById('successState').classList.remove('hidden');
+      document.getElementById('successEnquiryId').textContent = enqId;
+      document.getElementById('successLeadId').textContent = leadId;
+      document.getElementById('successAppointment').textContent = `${S.appointmentDate||'N/A'}, ${S.appointmentTime||'N/A'}`;
+      document.getElementById('successMessage').textContent = `Thank you, ${S.customerName}. Your enquiry has been registered.`;
+
+      let msg = `🔔 NEW AI APPOINTMENT\nEnquiry ID: ${enqId}\nLead ID: ${leadId}\n👤 Customer: ${S.customerName}\n📱 WhatsApp: ${S.mobile}\n🪟 Product: ${S.netType}\n🔢 Quantity: ${S.quantity}\n📍 City: ${S.city}\n🏠 Address: ${S.address}`;
+      if(S.distanceKm !== null) msg += `\n🚗 Distance: ${S.distanceKm} km\n💰 Travel Charge: ₹${S.travelCharge}`;
+      msg += `\n📅 Appointment: ${S.appointmentDate}\n⏰ Time: ${S.appointmentTime}\n📝 Notes: ${S.notes||'None'}\nStatus: NEW\nSource: AI Appointment`;
+      console.log('📤 WhatsApp Notification:\n'+msg);
+
+      // Persist appointment
+      try{
+        const all = JSON.parse(localStorage.getItem('rm_appointments')||'[]');
+        all.push({
+          enqId, leadId, ...S, createdAt:new Date().toISOString(), source:'AI'
+        });
+        localStorage.setItem('rm_appointments', JSON.stringify(all));
+      }catch(e){}
+
+      // Open WhatsApp with pre-filled confirmation
+      const waText = encodeURIComponent(
+        `Hi Raj Marketing, I've booked an appointment.\n\nEnquiry: ${enqId}\nName: ${S.customerName}\nProduct: ${S.netType}\nQty: ${S.quantity}\nCity: ${S.city}\nDate: ${S.appointmentDate} ${S.appointmentTime}`
+      );
+      setTimeout(()=>{
+        if(confirm('✅ Appointment Confirmed!\n\nEnquiry ID: '+enqId+'\nLead ID: '+leadId+'\n\nWould you like to send this to WhatsApp now?')){
+          window.open('https://wa.me/'+RAJ_CONFIG.whatsapp+'?text='+waText,'_blank');
+        }
+      }, 400);
+
+      clearDraft();
+    }
+
+    function viewEnquiry(){ alert('📄 Enquiry details saved.\nEnquiry ID: '+document.getElementById('successEnquiryId').textContent); }
+    function viewAppointment(){ alert('📅 Appointment: '+document.getElementById('successAppointment').textContent); }
+
+    // ============================================================
+    // MODE SWITCH
+    // ============================================================
+    function setMode(mode){
+      const ai = mode === 'ai';
+      document.getElementById('aiModeBtn').classList.toggle('active', ai);
+      document.getElementById('manualModeBtn').classList.toggle('active', !ai);
+      document.getElementById('aiModeBtn').setAttribute('aria-selected', ai?'true':'false');
+      document.getElementById('manualModeBtn').setAttribute('aria-selected', ai?'false':'true');
+      document.getElementById('aiMode').classList.toggle('hidden', !ai);
+      document.getElementById('manualMode').classList.toggle('hidden', ai);
+      document.getElementById('successState').classList.add('hidden');
+      if(ai){ startAI(); }
+      else {
+        const d = new Date();
+        document.getElementById('manualDate').value = new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().split('T')[0];
+        document.getElementById('manualDate').min = document.getElementById('manualDate').value;
+      }
+    }
+
+    function startAI(){
+      const draft = loadDraft();
+      if(draft && draft.chat){
+        // Resume
+        S = Object.assign(createEmptyState(), draft.state || {});
+        answers = draft.answers || {};
+        document.getElementById('chatContainer').innerHTML = draft.chat;
+        document.getElementById('aiSummary').classList.add('hidden');
+        document.getElementById('successState').classList.add('hidden');
+        document.getElementById('aiMode').classList.remove('hidden');
+        document.getElementById('manualMode').classList.add('hidden');
+        document.getElementById('questionArea').style.display = 'block';
+        setTimeout(()=>{
+          addAIResponse("Welcome back! 👋 Let's continue where you left off.", false, showQuestion);
+        }, 300);
+        return;
+      }
+      // Fresh
+      S = createEmptyState();
+      answers = {};
+      document.getElementById('chatContainer').innerHTML = '';
+      document.getElementById('aiSummary').classList.add('hidden');
+      document.getElementById('successState').classList.add('hidden');
+      document.getElementById('aiMode').classList.remove('hidden');
+      document.getElementById('manualMode').classList.add('hidden');
+      document.getElementById('questionArea').style.display = 'block';
+      setTimeout(()=>{
+        addAIResponse("👋 Welcome to Raj Marketing Mysore! I'm your AI assistant for mosquito net solutions. May I know your name?", false, showQuestion);
+      }, 400);
+    }
+
+    // ============================================================
+    // MANUAL SUBMIT
+    // ============================================================
+    function submitManual(){
+      const name = document.getElementById('manualName').value.trim();
+      const mobileRaw = document.getElementById('manualMobile').value.trim();
+      const address = document.getElementById('manualAddress').value.trim();
+      const errEl = document.getElementById('mobileError');
+
+      errEl.classList.remove('show');
+
+      if(!name){ alert('⚠️ Please enter your full name.'); return; }
+      const m = mobileRaw.replace(/\D/g,'').match(/(?:91)?([6-9]\d{9})$/);
+      if(!m){
+        errEl.classList.add('show');
+        document.getElementById('manualMobile').focus();
+        return;
+      }
+      if(!address){ alert('⚠️ Please enter your address.'); return; }
+
+      const mobile = m[1];
+      const year = new Date().getFullYear();
+      const enqId = 'RM-ENQ-'+year+'-'+String(Math.floor(Math.random()*10000)).padStart(4,'0');
+      const leadId = 'RM-LEAD-'+year+'-'+String(Math.floor(Math.random()*10000)).padStart(4,'0');
+      document.getElementById('successState').classList.remove('hidden');
+      document.getElementById('manualMode').classList.add('hidden');
+      document.getElementById('successEnquiryId').textContent = enqId;
+      document.getElementById('successLeadId').textContent = leadId;
+      document.getElementById('successAppointment').textContent = `${document.getElementById('manualDate').value||'N/A'}, ${document.getElementById('manualTime').value||'N/A'}`;
+      document.getElementById('successMessage').textContent = `Thank you, ${name}. Your enquiry has been registered.`;
+
+      try{
+        const all = JSON.parse(localStorage.getItem('rm_appointments')||'[]');
+        all.push({
+          enqId, leadId, customerName:name, mobile, email:document.getElementById('manualEmail').value.trim(),
+          address, netType:document.getElementById('manualProduct').value,
+          quantity:document.getElementById('manualQty').value||null,
+          location:document.getElementById('manualLocation').value,
+          appointmentDate:document.getElementById('manualDate').value,
+          appointmentTime:document.getElementById('manualTime').value,
+          notes:document.getElementById('manualNotes').value.trim(),
+          createdAt:new Date().toISOString(), source:'MANUAL'
+        });
+        localStorage.setItem('rm_appointments', JSON.stringify(all));
+      }catch(e){}
+
+      alert('✅ Appointment submitted!\nEnquiry ID: '+enqId+'\nLead ID: '+leadId);
+    }
+
+    // ============================================================
+    // UTIL
+    // ============================================================
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s=>({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      })[s]);
+    }
+
+    // ============================================================
+    // EXPOSE
+    // ============================================================
+    window.setMode = setMode;
+    window.submitTextAnswer = submitTextAnswer;
+    window.confirmAppointment = confirmAppointment;
+    window.editSummary = editSummary;
+    window.submitManual = submitManual;
+    window.viewEnquiry = viewEnquiry;
+    window.viewAppointment = viewAppointment;
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    document.getElementById('textInput').addEventListener('keypress', e=>{
+      if(e.key === 'Enter'){ e.preventDefault(); submitTextAnswer(); }
+    });
+    document.getElementById('manualMobile').addEventListener('input', function(){
+      this.value = this.value.replace(/\D/g,'').slice(0,10);
+    });
+
+    startAI();
+    console.log('✅ Raj Marketing AI Appointment V3 loaded');
+  })();
+  </script>
+</body>
+</html>
