@@ -1,524 +1,293 @@
 <!-- ============================================================
-     FOOTER COMPONENT — SKY BLUE REVISION
-     Raj Marketing Mysore
-     - Logo image + new brand animation
-     - Clean 3-line layout
+     FOOTER — Raj Marketing Mysore (v2)
+     - 4-column desktop layout
+     - Quick links, services, contact, social
+     - WhatsApp CTA band
+     - Trust badges
+     - Legal + GST row
 ============================================================ -->
-<footer class="site-footer">
-    <div class="container">
-
-        <!-- ===== LINE 1: BRAND + CONTACT ===== -->
-        <div class="footer-line footer-line-1">
-            <div class="footer-brand">
-                <div class="footer-logo-icon">
-                    <img src="images/logo.png" alt="Raj Marketing"
-                         onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-shield-alt\'></i>'">
-                </div>
-                <div class="footer-brand-text">
-                    <span class="footer-brand-name">Raj Marketing</span>
-                    <span class="footer-brand-sub">Mysore</span>
-                </div>
-            </div>
-            <div class="footer-contacts">
-                <a href="tel:9483037385" class="footer-contact-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <span>94830 37385</span>
-                </a>
-                <a href="https://wa.me/919483037385" target="_blank" rel="noopener" class="footer-contact-item wa">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </a>
-                <a href="mailto:info@rajmarketingmysore.info" class="footer-contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>info@rajmarketingmysore.info</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- ===== LINE 2: NAV LINKS ===== -->
-        <div class="footer-line footer-line-2">
-            <a href="index.html">Home</a>
-            <span class="footer-sep">·</span>
-            <a href="products.html">Products</a>
-            <span class="footer-sep">·</span>
-            <a href="solutions.html">Solutions</a>
-            <span class="footer-sep">·</span>
-            <a href="how-it-works.html">How It Works</a>
-            <span class="footer-sep">·</span>
-            <a href="about.html">About</a>
-            <span class="footer-sep">·</span>
-            <a href="contact.html">Contact</a>
-            <span class="footer-sep">·</span>
-            <a href="estimate.html">Free Estimate</a>
-            <span class="footer-sep">·</span>
-            <a href="track-order.html">Track Order</a>
-            <span class="footer-sep">·</span>
-            <a href="dealer/dealer-registration.html">Become a Dealer</a>
-        </div>
-
-        <!-- ===== LINE 3: LEGAL + COPYRIGHT ===== -->
-        <div class="footer-line footer-line-3">
-            <div class="footer-legal-links">
-                <a href="terms.html">Terms</a>
-                <span class="footer-sep">·</span>
-                <a href="privacy.html">Privacy</a>
-                <span class="footer-sep">·</span>
-                <a href="refund.html">Refund</a>
-                <span class="footer-sep">·</span>
-                <a href="warranty.html">Warranty</a>
-                <span class="footer-sep">·</span>
-                <a href="customer/customer-login.html">Customer</a>
-                <span class="footer-sep">·</span>
-                <a href="dealer/dealer-login.html">Dealer</a>
-            </div>
-            <div class="footer-copyright">
-                © 2026 <strong>Raj Marketing Mysore</strong> · GST: 29GKYPM6953C1ZA
-            </div>
-        </div>
-
-        <!-- ===== LINE 4: SOCIAL ===== -->
-        <div class="footer-social">
-            <span class="social-label">Follow Us:</span>
-            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="social-btn fb">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" class="social-btn ig">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank" rel="noopener" aria-label="Google Reviews" class="social-btn gg">
-                <i class="fab fa-google"></i>
-            </a>
-            <a href="https://wa.me/919483037385" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-btn wa">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        </div>
-
+<footer class="site-footer" role="contentinfo">
+  <!-- CTA band -->
+  <div class="footer-cta">
+    <div class="footer-cta-inner">
+      <div>
+        <h3>Need a mosquito net? Let's talk.</h3>
+        <p>Free measurement in Mysore · ₹15/km outside · Professional installation</p>
+      </div>
+      <div class="footer-cta-actions">
+        <a href="https://wa.me/919483037385?text=Hi%20Raj%20Marketing%2C%20I%20need%20a%20quote." target="_blank" rel="noopener" class="btn-wa">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
+        </a>
+        <a href="appointment.html" class="btn-gold"><i class="fas fa-calendar-check" aria-hidden="true"></i> Book Measurement</a>
+      </div>
     </div>
+  </div>
+
+  <!-- Main grid -->
+  <div class="footer-main">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="footer-brand" aria-label="Raj Marketing Mysore Home">
+          <div class="footer-logo">
+            <img src="images/logo.png" alt="Raj Marketing logo"
+                 onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-shield-alt\'></i>'">
+          </div>
+          <div>
+            <div class="footer-brand-name">Raj Marketing</div>
+            <div class="footer-brand-sub">MYSORE · EST. 2016</div>
+          </div>
+        </a>
+        <p class="footer-about">
+          Premium mosquito nets for windows and doors.
+          Custom measurement, professional installation,
+          trusted by 5000+ families across Mysore & nearby.
+        </p>
+        <div class="footer-social">
+          <a href="https://wa.me/919483037385" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+          <a href="https://youtube.com/@rajmarketingmysore" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+          <a href="https://x.com/Mosquito_Nets_" target="_blank" rel="noopener" aria-label="X (Twitter)" title="X"><i class="fab fa-x-twitter" aria-hidden="true"></i></a>
+          <a href="https://g.page/r/Cd4VqO0Z0WjtEAI/review" target="_blank" rel="noopener" aria-label="Google Reviews" title="Google Reviews"><i class="fab fa-google" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="solutions.html">Solutions</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="estimate.html">Get Estimate</a></li>
+          <li><a href="appointment.html">Book Measurement</a></li>
+          <li><a href="price-checker.html">AI Price Checker</a></li>
+          <li><a href="track-order.html">Track Order</a></li>
+          <li><a href="customer/customer-login.html">Customer Login</a></li>
+          <li><a href="dealer/dealer-registration.html">Become a Dealer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="footer-contact">
+          <li>
+            <i class="fas fa-phone-alt" aria-hidden="true"></i>
+            <a href="tel:+919483037385">+91 94830 37385</a>
+          </li>
+          <li>
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            <a href="https://wa.me/919483037385" target="_blank" rel="noopener">WhatsApp</a>
+          </li>
+          <li>
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <a href="mailto:info@rajmarketingmysore.info">info@rajmarketingmysore.info</a>
+          </li>
+          <li>
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            <span>#65/C3, Hebbal Industries Area,<br>Hebbal, Hutagalli,<br>Mysuru – 571130</span>
+          </li>
+          <li>
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span>Mon–Sat: 9:30 AM – 6:30 PM<br>Sun: Closed</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="footer-badges">
+      <span class="badge"><i class="fas fa-check-circle" aria-hidden="true"></i> Est. 2016</span>
+      <span class="badge"><i class="fas fa-users" aria-hidden="true"></i> 5000+ Customers</span>
+      <span class="badge"><i class="fas fa-star" aria-hidden="true"></i> 4.9★ Google</span>
+      <span class="badge"><i class="fas fa-shield-alt" aria-hidden="true"></i> 5-Year Warranty</span>
+      <span class="badge"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Serving 6 Cities</span>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <div class="footer-copy">
+        © <span id="footerYear">2026</span> Raj Marketing Mysore. All rights reserved.
+      </div>
+      <div class="footer-legal">
+        <a href="terms.html">Terms</a>
+        <span aria-hidden="true">·</span>
+        <a href="privacy.html">Privacy</a>
+        <span aria-hidden="true">·</span>
+        <a href="refund.html">Refund</a>
+        <span aria-hidden="true">·</span>
+        <span class="gst">GST: 29GKYPM6953C1ZA</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile sticky WA -->
+  <a href="https://wa.me/919483037385" target="_blank" rel="noopener" class="wa-float-mobile" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+  </a>
 </footer>
 
-<!-- ============================================================
-     FLOATING WHATSAPP BUTTON
-============================================================ -->
-<a href="https://wa.me/919483037385"
-   class="whatsapp-float"
-   target="_blank"
-   rel="noopener noreferrer"
-   aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
-<!-- ============================================================
-     BOTTOM NAVIGATION (MOBILE ONLY)
-============================================================ -->
-<nav class="bottom-nav" aria-label="Bottom navigation">
-    <a href="index.html" data-nav="home">
-        <i class="fas fa-home" aria-hidden="true"></i>
-        <span>Home</span>
-    </a>
-    <a href="products.html" data-nav="products">
-        <i class="fas fa-th-large" aria-hidden="true"></i>
-        <span>Products</span>
-    </a>
-    <a href="cart.html" data-nav="cart">
-        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-        <span>Cart</span>
-    </a>
-    <a href="track-order.html" data-nav="orders">
-        <i class="fas fa-box" aria-hidden="true"></i>
-        <span>Orders</span>
-    </a>
-    <a href="customer/customer-login.html" data-nav="account">
-        <i class="fas fa-user" aria-hidden="true"></i>
-        <span>Account</span>
-    </a>
-</nav>
-
-<!-- ============================================================
-     FOOTER-SPECIFIC CSS
-============================================================ -->
 <style id="footerStyles">
-.site-footer {
-    background: linear-gradient(135deg, #0f1b33, #1e3a8a);
-    color: rgba(255,255,255,0.88);
-    padding: 24px 0 18px;
-    margin-top: 40px;
-    position: relative;
-    overflow: hidden;
+.site-footer{
+  background:linear-gradient(180deg,#0f1b33 0%,#0b1428 100%);
+  color:#cbd5e1;margin-top:40px;
+  border-top:1px solid rgba(251,191,36,.15);
 }
-.site-footer::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
+.footer-cta{
+  background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 100%);
+  padding:32px 20px;border-bottom:1px solid rgba(251,191,36,.15);
 }
-.site-footer .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-    position: relative;
-    z-index: 1;
+.footer-cta-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:20px;
 }
-
-.footer-line {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px 14px;
-    padding: 12px 0;
-    text-align: center;
+.footer-cta h3{color:#fff;font-size:22px;font-weight:900;margin-bottom:4px;}
+.footer-cta p{color:rgba(255,255,255,.8);font-size:13px;}
+.footer-cta-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.footer-cta .btn-wa,.footer-cta .btn-gold{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 22px;border-radius:50px;font-weight:700;font-size:14px;
+  text-decoration:none;transition:.25s;
 }
-.footer-line-1 {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    justify-content: space-between;
-    padding-bottom: 16px;
-    gap: 14px;
+.footer-cta .btn-wa{
+  background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;
+  box-shadow:0 4px 16px rgba(37,211,102,.35);
 }
-.footer-line-2 {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 14px 0;
+.footer-cta .btn-wa:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,211,102,.5);}
+.footer-cta .btn-gold{
+  background:linear-gradient(135deg,#fbbf24,#d97706);color:#0f1b33;
+  box-shadow:0 4px 16px rgba(251,191,36,.35);
 }
-.footer-line-3 {
-    justify-content: space-between;
-    padding-top: 14px;
-    padding-bottom: 8px;
+.footer-cta .btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(251,191,36,.55);}
+.footer-main{max-width:1200px;margin:0 auto;padding:48px 20px 20px;}
+.footer-grid{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1.4fr;
+  gap:32px;margin-bottom:36px;
 }
-
-/* ===== BRAND ===== */
-.footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.footer-col h4{
+  color:#fbbf24;font-size:12px;font-weight:900;
+  text-transform:uppercase;letter-spacing:1.5px;
+  margin-bottom:14px;
 }
-.footer-logo-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: #fff;
-    border: 1.5px solid rgba(255,255,255,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    flex-shrink: 0;
+.footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul a{
+  color:#cbd5e1;text-decoration:none;font-size:13px;
+  transition:.2s;display:inline-block;
 }
-.footer-logo-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 4px;
+.footer-col ul a:hover{color:#fbbf24;transform:translateX(2px);}
+.footer-brand{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  margin-bottom:12px;
 }
-.footer-logo-icon i {
-    color: #fbbf24;
-    font-size: 18px;
+.footer-logo{
+  width:44px;height:44px;border-radius:11px;
+  background:linear-gradient(135deg,#fbbf24,#d97706);
+  display:flex;align-items:center;justify-content:center;
+  color:#0f1b33;font-size:20px;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(251,191,36,.3);
+  overflow:hidden;
 }
-
-.footer-brand-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
+.footer-logo img{width:100%;height:100%;object-fit:contain;padding:4px;background:#fff;}
+.footer-brand-name{
+  color:#fbbf24;font-size:18px;font-weight:900;letter-spacing:-.3px;
+  line-height:1.1;
 }
-
-/* ===== NEW BRAND ANIMATION — GLOW SWEEP (matches header) ===== */
-.footer-brand-name {
-    font-size: 18px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: -0.4px;
-    position: relative;
-    display: inline-block;
-    animation: footerBrandGlow 5s ease-in-out infinite;
+.footer-brand-sub{
+  color:rgba(251,191,36,.65);font-size:9.5px;
+  font-weight:700;letter-spacing:2px;margin-top:2px;
 }
-.footer-brand-name::before {
-    content: attr(data-text);
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        transparent 40%,
-        rgba(251, 191, 36, 0.9) 50%,
-        transparent 60%,
-        transparent 100%
-    );
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: footerGlowSweep 4s ease-in-out infinite;
-    pointer-events: none;
+.footer-about{
+  font-size:13px;line-height:1.7;color:#94a3b8;margin-top:8px;
 }
-@keyframes footerGlowSweep {
-    0% { background-position: 200% center; }
-    100% { background-position: -100% center; }
+.footer-social{display:flex;gap:8px;margin-top:14px;}
+.footer-social a{
+  width:36px;height:36px;border-radius:10px;
+  background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  color:#cbd5e1;font-size:15px;text-decoration:none;
+  transition:.25s;
 }
-@keyframes footerBrandGlow {
-    0%, 100% {
-        color: #fff;
-        text-shadow: none;
-    }
-    50% {
-        color: #fbbf24;
-        text-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
-    }
+.footer-social a:hover{
+  background:rgba(251,191,36,.2);color:#fbbf24;
+  border-color:rgba(251,191,36,.5);transform:translateY(-2px);
 }
-
-.footer-brand-sub {
-    display: block;
-    font-size: 9.5px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.6);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 1px;
+.footer-contact li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;color:#cbd5e1;line-height:1.6;
 }
-
-/* ===== CONTACTS ===== */
-.footer-contacts {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
+.footer-contact li i{
+  color:#fbbf24;font-size:13px;margin-top:3px;flex-shrink:0;width:16px;
 }
-.footer-contact-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: rgba(255,255,255,0.85);
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: 0.2s;
+.footer-contact li a{color:#cbd5e1;text-decoration:none;}
+.footer-contact li a:hover{color:#fbbf24;}
+.footer-badges{
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding:20px 0;border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  justify-content:center;
 }
-.footer-contact-item i {
-    color: #fbbf24;
-    font-size: 13px;
+.footer-badges .badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:40px;
+  background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);
+  color:#fbbf24;font-size:11px;font-weight:700;
 }
-.footer-contact-item:hover {
-    color: #fff;
+.footer-badges .badge i{font-size:11px;}
+.footer-bottom{padding:20px;border-top:1px solid rgba(255,255,255,.05);}
+.footer-bottom-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;flex-wrap:wrap;justify-content:space-between;
+  align-items:center;gap:12px;
 }
-.footer-contact-item.wa i {
-    color: #4ade80;
+.footer-copy{font-size:12px;color:#94a3b8;}
+.footer-legal{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px;color:#94a3b8;}
+.footer-legal a{color:#cbd5e1;text-decoration:none;transition:.2s;}
+.footer-legal a:hover{color:#fbbf24;}
+.footer-legal .gst{font-family:'Courier New',monospace;color:#fbbf24;font-weight:700;}
+.wa-float-mobile{
+  display:none;position:fixed;bottom:80px;right:16px;z-index:900;
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;align-items:center;justify-content:center;
+  font-size:24px;text-decoration:none;
+  box-shadow:0 6px 20px rgba(37,211,102,.45);
+  animation:waFloatPulse 2.5s infinite;
 }
-
-/* ===== NAV LINKS ===== */
-.footer-line-2 a {
-    color: rgba(255,255,255,0.8);
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    padding: 2px 4px;
-    transition: 0.2s;
-    white-space: nowrap;
+@keyframes waFloatPulse{
+  0%{box-shadow:0 0 0 0 rgba(37,211,102,.4),0 6px 20px rgba(37,211,102,.45);}
+  70%{box-shadow:0 0 0 14px rgba(37,211,102,0),0 6px 20px rgba(37,211,102,.45);}
+  100%{box-shadow:0 0 0 0 rgba(37,211,102,0),0 6px 20px rgba(37,211,102,.45);}
 }
-.footer-line-2 a:hover {
-    color: #fbbf24;
-    text-decoration: underline;
+@media (max-width:900px){
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .footer-col:first-child{grid-column:1 / -1;}
 }
-.footer-sep {
-    color: rgba(255,255,255,0.25);
-    font-size: 12px;
-    user-select: none;
-}
-
-/* ===== LEGAL ===== */
-.footer-legal-links {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-.footer-legal-links a {
-    color: rgba(255,255,255,0.7);
-    font-size: 11px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: 0.2s;
-}
-.footer-legal-links a:hover {
-    color: #fbbf24;
-    text-decoration: underline;
-}
-.footer-copyright {
-    font-size: 11px;
-    color: rgba(255,255,255,0.6);
-    font-weight: 500;
-    text-align: right;
-}
-.footer-copyright strong {
-    color: #fff;
-    font-weight: 900;
-}
-
-/* ===== SOCIAL ===== */
-.footer-social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding-top: 14px;
-    margin-top: 6px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-.social-label {
-    font-size: 11px;
-    color: rgba(255,255,255,0.55);
-    font-weight: 600;
-    margin-right: 4px;
-}
-.social-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 13px;
-    text-decoration: none;
-    transition: 0.25s;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-}
-.social-btn:hover {
-    transform: translateY(-3px) scale(1.08);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-}
-.social-btn.fb:hover { background: #1877f2; border-color: #1877f2; }
-.social-btn.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: #dc2743; }
-.social-btn.gg:hover { background: #ea4335; border-color: #ea4335; }
-.social-btn.wa:hover { background: #25D366; border-color: #25D366; }
-
-/* ===== WHATSAPP FLOAT ===== */
-.whatsapp-float {
-    position: fixed;
-    bottom: 90px;
-    right: 16px;
-    background: linear-gradient(135deg, #25d366, #128c7e);
-    color: #fff;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    box-shadow: 0 8px 24px rgba(37,211,102,0.45);
-    z-index: 999;
-    text-decoration: none;
-    transition: 0.25s;
-    animation: waPulse 2s infinite;
-}
-.whatsapp-float:hover {
-    transform: scale(1.1) translateY(-2px);
-    box-shadow: 0 10px 32px rgba(37,211,102,0.6);
-}
-@keyframes waPulse {
-    0%, 100% { box-shadow: 0 8px 24px rgba(37,211,102,0.45); }
-    50% { box-shadow: 0 8px 32px rgba(37,211,102,0.75); }
-}
-
-/* ===== BOTTOM NAV (mobile only) ===== */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border-top: 1px solid #e2e8f0;
-    display: flex;
-    justify-content: space-around;
-    padding: 6px 0 8px;
-    z-index: 1001;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
-}
-.bottom-nav a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 10px;
-    color: #64748b;
-    text-decoration: none;
-    transition: 0.2s;
-    padding: 4px 8px;
-    gap: 2px;
-    border-radius: 8px;
-}
-.bottom-nav a i {
-    font-size: 18px;
-}
-.bottom-nav a:hover,
-.bottom-nav a.active {
-    color: #1a56db;
-}
-.bottom-nav a.active i {
-    transform: scale(1.1);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (min-width: 768px) {
-    .whatsapp-float {
-        bottom: 30px;
-        right: 28px;
-        width: 62px;
-        height: 62px;
-        font-size: 30px;
-    }
-    .bottom-nav { display: none; }
-}
-
-@media (max-width: 767px) {
-    body { padding-bottom: 70px; }
-    .footer-line-1 {
-        flex-direction: column;
-        text-align: center;
-    }
-    .footer-contacts {
-        justify-content: center;
-    }
-    .footer-line-2 {
-        gap: 8px 10px;
-    }
-    .footer-line-2 a {
-        font-size: 11px;
-    }
-    .footer-line-3 {
-        flex-direction: column;
-        gap: 8px;
-    }
-    .footer-copyright {
-        text-align: center;
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .footer-brand-name { font-size: 16px; }
-    .footer-contact-item { font-size: 11px; }
-    .footer-line-2 a { font-size: 10px; }
-    .footer-sep { font-size: 10px; }
-    .whatsapp-float {
-        width: 48px;
-        height: 48px;
-        font-size: 22px;
-        bottom: 80px;
-        right: 12px;
-    }
+@media (max-width:560px){
+  .footer-grid{grid-template-columns:1fr;gap:24px;}
+  .footer-main{padding:32px 16px 16px;}
+  .footer-cta{padding:24px 16px;}
+  .footer-cta h3{font-size:18px;}
+  .footer-cta-actions{width:100%;}
+  .footer-cta-actions > *{flex:1;justify-content:center;}
+  .footer-badges{justify-content:flex-start;}
+  .wa-float-mobile{display:flex;}
+  .footer-bottom-inner{flex-direction:column;align-items:flex-start;}
 }
 </style>
 
-<!-- ============================================================
-     FOOTER SCRIPT — add data-text for glow sweep
-============================================================ -->
 <script>
-(function() {
-    var el = document.querySelector('.footer-brand-name');
-    if (el) el.setAttribute('data-text', el.textContent.trim());
+(function(){
+  var y = document.getElementById('footerYear');
+  if(y) y.textContent = new Date().getFullYear();
 })();
- </script>
+</script>
