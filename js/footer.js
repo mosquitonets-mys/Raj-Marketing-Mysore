@@ -1,46 +1,25 @@
-/* ============================================================
-   FOOTER COMPONENT LOADER — FIXED
-============================================================ */
+/* Loads footer.html into #footer-placeholder */
+(function(){
+  'use strict';
+  var placeholder = document.getElementById('footer-placeholder');
+  if(!placeholder) return;
 
-(function() {
-    'use strict';
-
-    function getBasePath() {
-        const parts = window.location.pathname.split('/').filter(Boolean);
-        const depth = parts.length;
-        return depth <= 1 ? '' : '../'.repeat(depth - 1);
-    }
-
-    function loadFooter() {
-        const placeholder = document.getElementById('footer-placeholder');
-        if (!placeholder) return;
-
-        const base = getBasePath();
-        fetch(base + 'components/footer.html')
-            .then(r => { if (!r.ok) throw new Error('Footer missing'); return r.text(); })
-            .then(html => {
-                if (base) {
-                    html = html.replace(/(href|src)="(?!https?:|data:|mailto:|tel:|#|javascript:)/g, `$1="${base}`);
-                }
-                placeholder.innerHTML = html;
-            })
-            .catch(err => {
-                console.warn('Footer load failed:', err);
-                placeholder.innerHTML = `
-                    <footer class="site-footer">
-                        <div class="container">
-                            <div class="footer-copyright" style="text-align:center;padding:20px 0;">
-                                © 2026 <strong>Raj Marketing Mysore</strong> · GST: 29GKYPM6953C1ZA
-                            </div>
-                        </div>
-                    </footer>
-                `;
-            });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadFooter);
-    } else {
-        loadFooter();
-    }
+  fetch('footer.html', {cache:'no-cache'})
+    .then(function(r){ if(!r.ok) throw new Error('Footer fetch failed'); return r.text(); })
+    .then(function(html){
+      placeholder.innerHTML = html;
+      var styles = placeholder.querySelectorAll('style');
+      styles.forEach(function(s){ document.head.appendChild(s.cloneNode(true)); s.remove(); });
+      var scripts = placeholder.querySelectorAll('script');
+      scripts.forEach(function(old){
+        var s = document.createElement('script');
+        s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    })
+    .catch(function(err){
+      console.warn('[footer.js]', err.message);
+      placeholder.innerHTML = '<div style="background:#0f1b33;color:#94a3b8;padding:20px;text-align:center;font-family:Poppins,sans-serif;font-size:12px;">© Raj Marketing Mysore · <a href="contact.html" style="color:#fbbf24;">Contact</a></div>';
+    });
 })();
