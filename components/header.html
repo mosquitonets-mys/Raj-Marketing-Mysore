@@ -672,4 +672,40 @@ body[data-account="admin"]    .mobile-menu [data-account="admin"]{
   function initStickyShadow(){
     var m = document.querySelector('.header-main');
     if(!m) return;
-    window.addEventListener('scroll'
+    window.addEventListener('scroll', function(){
+      m.classList.toggle('scrolled', window.scrollY > 10);
+    }, {passive:true});
+  }
+
+  function initCartCount(){
+    function update(){
+      try{
+        var cart = JSON.parse(localStorage.getItem('rm_cart') || '[]');
+        var el = document.getElementById('cartCount');
+        if(!el) return;
+        if(cart.length > 0){
+          el.textContent = cart.length;
+          el.style.display = 'flex';
+        } else {
+          el.style.display = 'none';
+        }
+      }catch(e){}
+    }
+    update();
+    window.addEventListener('storage', update);
+    window.addEventListener('rm:cart-updated', update);
+  }
+
+  function boot(){
+    initHamburger();
+    initActiveNav();
+    initStickyShadow();
+    initCartCount();
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
